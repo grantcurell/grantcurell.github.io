@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Adding Intel I219-LM (8086.0d4c) Driver to ESXi - Grant Curell's Dell Projects</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Adding Intel I219-LM (8086.0d4c) Driver to ESXi";
+    var mkdocs_page_input_path = "Adding Intel I219-LM (8086.0d4c) Driver to ESXi/README.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Grant Curell's Dell Projects</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Grant Curell's Dell Projects</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Adding%20Hashing%20to%20OpenSwitch/">Adding Hashing to OpenSwitch</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Adding Intel I219-LM (8086.0d4c) Driver to ESXi</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#resources">Resources</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Automating%20OME%20Hardware%20Reports/">Automating OME Hardware Reports</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../CloudLink/">CloudLink</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Configure%20FN410%20as%20a%20Switch/">Configure FN410 as a Switch</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Configure%20Gigamon%20Tap/">Configure Gigamon Tap</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Configuring%20VLT%20on%20OS10/">Configuring VLT on OS10</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Create%20Kickstart%20Server%20on%20Fedora/">Create Kickstart Server on Fedora</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Create%20OpenSwitch%20VM/">Create OpenSwitch VM</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Dell%20Ansible%20Testing/">Dell Ansible Testing</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../DHCP%20Relay%20on%20SONiC/">DHCP Relay on SONiC</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Elasticsearch%20Display%20Map%20Data/">Elasticsearch Display Map Data</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Elasticsearch%20Load%20Testing/">Elasticsearch Load Testing</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../esrally%20%28INCOMPLETE%29/">esrally (INCOMPLETE)</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../High%20Speed%20Packet%20Capture/">High Speed Packet Capture</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../How%20OS10%20Installer%20Works/">How OS10 Installer Works</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../idrac%20with%20LDAP/">idrac with LDAP</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Importing%20Elasticsearch%20Data/">Importing Elasticsearch Data</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Installing%20DPDK%20with%20NapaTech%20Card/">Installing DPDK with NapaTech Card</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../IO%20Identities%20with%20LifeCycle%20Controller/">IO Identities with LifeCycle Controller</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../LDAP%20with%20OpenManage/">LDAP with OpenManage</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="" href="../Load Balancing with LAG/README.md">None</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Load%20Balancing%20with%20OpenVSwitch/">Load Balancing with OpenVSwitch</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="" href="../Multiple Span on 4112F-ON/README.md">None</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Nvidia%20GPUDirect/">Nvidia GPUDirect</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../NVMe%20Performance%20Testing/">NVMe Performance Testing</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Offline%20Updates%20with%20OpenManage%20Enterprise/">Offline Updates with OpenManage Enterprise</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../OME%20Bug/">OME Bug</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../OME%20Integration%20for%20VMWare/">OME Integration for VMWare</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../OpenFlow%20on%204112F-ON/">Create OpenFlow Load Balancer</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../OS10%20Password%20Recovery%20Bug/">OS10 Password Recovery Bug</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../PCIev3%20vs%20v4/">PCIev3 vs v4</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Playing%20with%20virsh/">Playing with virsh</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Reset%20OS10%20Admin%20Password/">Reset OS10 Admin Password</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Run%20VPN%20on%20OS10/">Run VPN on OS10</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Running%20DNS%20from%20OS10/">Running DNS from OS10</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Set%20Up%20RSPAN%20on%20OS10/">Set Up RSPAN on OS10</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Setting%20Up%20Breakout%20Cables/">Setting Up Breakout Cables</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Setting%20Up%20SmartFabric%20Director/">Setting Up SmartFabric Director</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Setup%20IDPA/">Setup IDPA</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Site%20to%20Site%20VPN%20with%20PFSense%20and%20CentOS%208/">Site to Site VPN with PFSense and CentOS 8</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../SONiC%20-%20Fully%20Automated%20Build/">SONiC - Fully Automated Build</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Switch%20Directly%20to%20Client%20Test/">Switch Directly to Client Test</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Testing%20Intel%20x520%20on%20RHEL%206/">Testing Intel x520 on RHEL 6</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Understanding%20Memory/">Understanding Memory</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Use%20OS10%20as%20Aggregator/">Use OS10 as Aggregator</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../VEP%20Testing/">VEP Testing</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="" href="../VMWare/README.md">None</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../VXRail%20Troubleshooting/">VXRail Troubleshooting</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Web%20Traffic%20Generator/">Web Traffic Generator</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Grant Curell's Dell Projects</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Adding Intel I219-LM (8086.0d4c) Driver to ESXi</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="adding-intel-i219-lm-80860d4c-driver-to-esxi">Adding Intel I219-LM (8086.0d4c) Driver to ESXi</h1>
+<ol>
+<li>Download the following:</li>
+<li><a href="https://download3.vmware.com/software/vmw-tools/Intel-NUC-ne1000_0.8.4-3vmw.670.0.0.8169922-offline_bundle-16654787.zip">ne1000 VIB (offline bundle)</a></li>
+<li><a href="https://my.vmware.com/group/vmware/downloads/details?downloadGroup=ESXI700&amp;productId=974&amp;rPId=47905">ESXi 7.0 GA Offline Bundle (VMware-ESXi-7.0.0-15843807-depot.zip</a></li>
+<li><a href="https://my.vmware.com/group/vmware/patch">ESXi 7.0b patch Offline Bundle</a></li>
+<li>Open vCenter and go to Menu-&gt;Auto Deploy-&gt;Image Builder</li>
+<li>Import all three offline bundles with the following names which will be referenced: ESXi 7.0 GA, ESXi 7.0b and Intel Driver</li>
+<li>I originally received <code>"Your software depot "Intel Driver" failed to import. Try importing it again or choose another software depot to import."</code>. Fix action: Leave the page, come back, delete the name of the failed import, and then reimport with the same name. I had to do it three times total and the third it worked.</li>
+<li>Select the ESXi 7.0b Software Depot and make a note of the build number for the specific Image Profile you wish to use. In this case, we will be using 16324942 which is the "full" image which includes both bug fix + security fix along with VMware Tools. If you only want the security fix, use 16321839.</li>
+</ol>
+<p><img alt="ESXi 7b in Software Depot" src="images/2020-10-30-08-56-53.png" /></p>
+<ol>
+<li>In the right hand corner, click New to create a new Custom Depot called I219-8086.0d4c and then create new Image Profile and provide a name, vendor and description of your choosing.</li>
+<li>On the Depot column, filter by ESXi 7.0b initially and select the following 13 packages as shown in the screenshot below. I used the version <code>7.0.0-1.25.16324942</code>. I just sorted by version as well and then grabbed nvme-pcie and vmkusb separately.</li>
+<li>cpu-microcode</li>
+<li>crx</li>
+<li>esx-base</li>
+<li>esx-dvfilter-generic-fastpath</li>
+<li>esx-update</li>
+<li>esx-xserver</li>
+<li>loadesx</li>
+<li>native-misc-drvers</li>
+<li>nvme-pcie</li>
+<li>vdfs</li>
+<li>vmkusb</li>
+<li>vsan</li>
+<li>vsanhealth</li>
+<li>On the Depot column, filter by Intel Driver and select the ne1000-intelnuc package</li>
+<li>On the Depot column, filter by ESXi 7.0 GA and select everything, EXCEPT for the 13 packages we had already selected from Step 6.</li>
+<li>At the end I had 73 packages.</li>
+<li>You can now export and either download the Image Profile either as a bootable ISO which can then be used for fresh installation and/or upgrade as well as using vSphere Update Manager. You can also download the Image Profile which can be used to update via ESXCLI on the ESXi Shell.</li>
+</ol>
+<h2 id="resources">Resources</h2>
+<p><a href="https://www.v-front.de/2014/12/how-to-make-your-unsupported-nic-work.html?fbclid=IwAR3VaW1OyibYhe8GX13SJhNIn0_UJmGoW1wR1x-bXBH8vtjdBVZrpnBgkwo">How to make your unsupported NIC work with ESXi 5.x or 6.0</a></p>
+<p><a href="https://www.virtuallyghetto.com/2020/01/esxi-on-10th-gen-intel-nuc-frost-canyon.html">https://www.virtuallyghetto.com/2020/01/esxi-on-10th-gen-intel-nuc-frost-canyon.html</a></p>
+<p><a href="https://www.virtuallyghetto.com/2020/08/enhancements-to-the-community-ne1000-vib-for-intel-nuc-10.html">Enhancements to the community ne1000 VIB for Intel NUC 10</a></p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../Automating%20OME%20Hardware%20Reports/" class="btn btn-neutral float-right" title="Automating OME Hardware Reports">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../Adding%20Hashing%20to%20OpenSwitch/" class="btn btn-neutral" title="Adding Hashing to OpenSwitch"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../Adding%20Hashing%20to%20OpenSwitch/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../Automating%20OME%20Hardware%20Reports/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

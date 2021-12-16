@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Elasticsearch Display Map Data - Grant Curell's Dell Projects</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Elasticsearch Display Map Data";
+    var mkdocs_page_input_path = "Elasticsearch Display Map Data/README.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Grant Curell's Dell Projects</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Grant Curell's Dell Projects</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Adding%20Hashing%20to%20OpenSwitch/">Adding Hashing to OpenSwitch</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Adding%20Intel%20I219-LM%20%288086.0d4c%29%20Driver%20to%20ESXi/">Adding Intel I219-LM (8086.0d4c) Driver to ESXi</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Automating%20OME%20Hardware%20Reports/">Automating OME Hardware Reports</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../CloudLink/">CloudLink</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Configure%20FN410%20as%20a%20Switch/">Configure FN410 as a Switch</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Configure%20Gigamon%20Tap/">Configure Gigamon Tap</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Configuring%20VLT%20on%20OS10/">Configuring VLT on OS10</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Create%20Kickstart%20Server%20on%20Fedora/">Create Kickstart Server on Fedora</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Create%20OpenSwitch%20VM/">Create OpenSwitch VM</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Dell%20Ansible%20Testing/">Dell Ansible Testing</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../DHCP%20Relay%20on%20SONiC/">DHCP Relay on SONiC</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Elasticsearch Display Map Data</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#environment">Environment</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#running-elasticsearch-with-docker">Running Elasticsearch with Docker</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#set-vm-max-map">Set VM Max Map</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#turn-off-swap">Turn off swap</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#setup-data-directories">Setup Data Directories</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#running-elasticsearch">Running Elasticsearch</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#importing-the-data-into-elasticsearch">Importing the Data into Elasticsearch</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#configuring-metricbeat-in-a-container">Configuring Metricbeat in a container</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#importing-map-from-somewhere-else">Importing Map from Somewhere Else</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#helpful-commands">Helpful Commands</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#check-heap-size">Check Heap Size</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#remove-exited-containers">Remove Exited Containers</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#running-a-single-elasticsearch-instance">Running A Single Elasticsearch Instance</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Elasticsearch%20Load%20Testing/">Elasticsearch Load Testing</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../esrally%20%28INCOMPLETE%29/">esrally (INCOMPLETE)</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../High%20Speed%20Packet%20Capture/">High Speed Packet Capture</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../How%20OS10%20Installer%20Works/">How OS10 Installer Works</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../idrac%20with%20LDAP/">idrac with LDAP</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Importing%20Elasticsearch%20Data/">Importing Elasticsearch Data</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Installing%20DPDK%20with%20NapaTech%20Card/">Installing DPDK with NapaTech Card</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../IO%20Identities%20with%20LifeCycle%20Controller/">IO Identities with LifeCycle Controller</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../LDAP%20with%20OpenManage/">LDAP with OpenManage</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="" href="../Load Balancing with LAG/README.md">None</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Load%20Balancing%20with%20OpenVSwitch/">Load Balancing with OpenVSwitch</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="" href="../Multiple Span on 4112F-ON/README.md">None</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Nvidia%20GPUDirect/">Nvidia GPUDirect</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../NVMe%20Performance%20Testing/">NVMe Performance Testing</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Offline%20Updates%20with%20OpenManage%20Enterprise/">Offline Updates with OpenManage Enterprise</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../OME%20Bug/">OME Bug</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../OME%20Integration%20for%20VMWare/">OME Integration for VMWare</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../OpenFlow%20on%204112F-ON/">Create OpenFlow Load Balancer</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../OS10%20Password%20Recovery%20Bug/">OS10 Password Recovery Bug</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../PCIev3%20vs%20v4/">PCIev3 vs v4</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Playing%20with%20virsh/">Playing with virsh</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Reset%20OS10%20Admin%20Password/">Reset OS10 Admin Password</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Run%20VPN%20on%20OS10/">Run VPN on OS10</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Running%20DNS%20from%20OS10/">Running DNS from OS10</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Set%20Up%20RSPAN%20on%20OS10/">Set Up RSPAN on OS10</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Setting%20Up%20Breakout%20Cables/">Setting Up Breakout Cables</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Setting%20Up%20SmartFabric%20Director/">Setting Up SmartFabric Director</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Setup%20IDPA/">Setup IDPA</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Site%20to%20Site%20VPN%20with%20PFSense%20and%20CentOS%208/">Site to Site VPN with PFSense and CentOS 8</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../SONiC%20-%20Fully%20Automated%20Build/">SONiC - Fully Automated Build</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Switch%20Directly%20to%20Client%20Test/">Switch Directly to Client Test</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Testing%20Intel%20x520%20on%20RHEL%206/">Testing Intel x520 on RHEL 6</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Understanding%20Memory/">Understanding Memory</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Use%20OS10%20as%20Aggregator/">Use OS10 as Aggregator</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../VEP%20Testing/">VEP Testing</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="" href="../VMWare/README.md">None</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../VXRail%20Troubleshooting/">VXRail Troubleshooting</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Web%20Traffic%20Generator/">Web Traffic Generator</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Grant Curell's Dell Projects</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Elasticsearch Display Map Data</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="elasticsearch-display-map-data">Elasticsearch Display Map Data</h1>
+<h2 id="environment">Environment</h2>
+<p>CentOS7</p>
+<p>I tried this first with RHEL8 and the backend docker networking didn't work</p>
+<h2 id="installation">Installation</h2>
+<p>Install docker with the following:</p>
+<pre><code>  yum install -y https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.2.6-3.3.el7.x86_64.rpm epel-release
+  yum config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
+  yum install -y docker python-pip python36
+  curl -L "https://github.com/docker/compose/releases/download/1.25.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+  chmod +x /usr/local/bin/docker-compose
+  systemctl enable docker
+  systemctl start docker
+  pip3.6 install geojson elasticsearch
+</code></pre>
+<h2 id="running-elasticsearch-with-docker">Running Elasticsearch with Docker</h2>
+<h3 id="set-vm-max-map">Set VM Max Map</h3>
+<p>In <code>/etc/sysctl.conf</code> add <code>vm.max_map_count=262144</code></p>
+<h3 id="turn-off-swap">Turn off swap</h3>
+<p><code>sudo swapoff -a</code></p>
+<h3 id="setup-data-directories">Setup Data Directories</h3>
+<p>If you are bind-mounting a local directory or file, it must be readable by the elasticsearch user. In addition, this user must have write access to the data and log dirs. A good strategy is to grant group access to gid 0 for the local directory.</p>
+<p>For example, to prepare a local directory for storing data through a bind-mount:</p>
+<pre><code>  mkdir /opt/
+  mkdir /opt/data01
+  mkdir /opt/data02
+  mkdir /opt/data03
+  mkdir /opt/data04
+
+  chmod g+rwx /opt/data*
+  chgrp 0 /opt/data*
+  chmod 777 -R /opt/data*
+</code></pre>
+<p>^ I got lazy. Not sure what the permissions issue is, but I couldn't get the
+volumes to mount so I gave up and set it to 777. My best guess is that the
+real problem is it isn't running as user 0 because that's root. It's probably
+something else.</p>
+<h3 id="running-elasticsearch">Running Elasticsearch</h3>
+<ol>
+<li>Copy over the docker compose file</li>
+<li>Now, you must run docker-compose <em>in the folder in which you have the directories</em>. Otherwies you get a permissions error. cd <code>/var/elasticsearch-data/</code> then run <code>docker-compose up</code></li>
+</ol>
+<h2 id="importing-the-data-into-elasticsearch">Importing the Data into Elasticsearch</h2>
+<ol>
+<li>I wrote the code in <a href="code/csv2geojson.py">csv2geojson.py</a> to take a CSV I got from <a href="https://acleddata.com/">ACLED</a> into geoJSON formatted data. The program <a href="code/format.py">format.py</a> just formatted the 30 fields into the Python program for ease of use.</li>
+<li>Modify the code as necessary and then run to get geoJSON formatted data.</li>
+<li>Next you'll need to upload the mapping file.</li>
+<li>
+<p>First you have to create the index with</p>
+<pre><code>    curl -X PUT "localhost:9200/conflict-data?pretty" -H 'Content-Type: application/json' -d'
+    {
+       "settings" : {
+          "index" : {
+                "number_of_shards" : 4, 
+                "number_of_replicas" : 3
+          }
+       }
+    }
+    '
+</code></pre>
+</li>
+<li>
+<p>Then you can upload the mapping with: <code>curl -X PUT localhost:9200/conflict-data/_mapping?pretty -H "Content-Type: application/json" -d @mapping.json</code></p>
+</li>
+<li>Now you can import the data with <a href="code/index_data.py">index_data.py</a>. <strong>NOTE</strong> Make sure you use <code>python3.6</code></li>
+<li>You may have to modify the code a bit to get it to ingest properly.</li>
+</ol>
+<h3 id="configuring-metricbeat-in-a-container">Configuring Metricbeat in a container</h3>
+<p>First double check the name of your elastic network with <code>docker network ls</code>
+It's probably opt_elastic. Docker compose prefixes everything with the directory
+from which you're running unless you specify the <code>-p</code> option.</p>
+<ol>
+<li>
+<p>Pull the container and then run the setup</p>
+<pre><code> cd /opt
+ docker pull docker.elastic.co/beats/metricbeat:7.7.0
+ docker run --network opt_elastic docker.elastic.co/beats/metricbeat:7.7.0 setup -E setup.kibana.host=kib01:5601 -E output.elasticsearch.hosts=["es01:9200"]
+</code></pre>
+</li>
+<li>
+<p>Copy the metricbeat.yml to /opt</p>
+</li>
+</ol>
+<h2 id="importing-map-from-somewhere-else">Importing Map from Somewhere Else</h2>
+<p>Online it will tell you that you need code to import and export objects. This is
+no longer the case. When I tested in 7.7.0 you could export saved objects from
+the saved objects menu in Kibana and then import them on the other side. I included
+the CPU load gauges, my custom queries, and the maps. Import the three ndjson
+files included in the repo.</p>
+<h2 id="helpful-commands">Helpful Commands</h2>
+<h3 id="check-heap-size">Check Heap Size</h3>
+<p><code>curl -sS -XGET "localhost:9200/_cat/nodes?h=heap*&amp;v"</code></p>
+<h4 id="remove-exited-containers">Remove Exited Containers</h4>
+<p><code>sudo docker rm $(docker ps -a -f status=exited -q)</code></p>
+<h2 id="running-a-single-elasticsearch-instance">Running A Single Elasticsearch Instance</h2>
+<p><code>docker run -v /opt/elasticsearch:/usr/share/elasticsearch/data --privileged  -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" -e ES_JAVA_OPTS="-Xms28g -Xmx28g" docker.elastic.co/elasticsearch/elasticsearch:7.7.0</code></p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../Elasticsearch%20Load%20Testing/" class="btn btn-neutral float-right" title="Elasticsearch Load Testing">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../DHCP%20Relay%20on%20SONiC/" class="btn btn-neutral" title="DHCP Relay on SONiC"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../DHCP%20Relay%20on%20SONiC/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../Elasticsearch%20Load%20Testing/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>DHCP Relay on SONiC - Grant Curell's Dell Projects</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "DHCP Relay on SONiC";
+    var mkdocs_page_input_path = "DHCP Relay on SONiC/README.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Grant Curell's Dell Projects</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Grant Curell's Dell Projects</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Adding%20Hashing%20to%20OpenSwitch/">Adding Hashing to OpenSwitch</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Adding%20Intel%20I219-LM%20%288086.0d4c%29%20Driver%20to%20ESXi/">Adding Intel I219-LM (8086.0d4c) Driver to ESXi</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Automating%20OME%20Hardware%20Reports/">Automating OME Hardware Reports</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../CloudLink/">CloudLink</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Configure%20FN410%20as%20a%20Switch/">Configure FN410 as a Switch</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Configure%20Gigamon%20Tap/">Configure Gigamon Tap</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Configuring%20VLT%20on%20OS10/">Configuring VLT on OS10</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Create%20Kickstart%20Server%20on%20Fedora/">Create Kickstart Server on Fedora</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Create%20OpenSwitch%20VM/">Create OpenSwitch VM</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Dell%20Ansible%20Testing/">Dell Ansible Testing</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">DHCP Relay on SONiC</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#my-configuration">My Configuration</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#ip-addresses">IP Addresses</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#test-concept">Test Concept</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#4112f-on-os-10-version">4112F-ON OS 10 Version</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#z9264-sonic-version">Z9264 SONiC Version</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#rhel-version">RHEL Version</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#configuration-of-devices">Configuration of Devices</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#configuration-of-rhel-dhcp-server">Configuration of RHEL DHCP Server</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#os10-on-4112f-on">OS10 on 4112F-ON</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#sonic-os-on-z9264">SONiC OS on Z9264</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#helpful-commands">Helpful Commands</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#configuration-on-esxi">Configuration on ESXi</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#running-the-test">Running the Test</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#lease-record-on-rhel">Lease Record on RHEL</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#tcpdump-from-sonic">tcpdump from SONiC</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#address-info-from-os10">Address Info From OS10</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Elasticsearch%20Display%20Map%20Data/">Elasticsearch Display Map Data</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Elasticsearch%20Load%20Testing/">Elasticsearch Load Testing</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../esrally%20%28INCOMPLETE%29/">esrally (INCOMPLETE)</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../High%20Speed%20Packet%20Capture/">High Speed Packet Capture</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../How%20OS10%20Installer%20Works/">How OS10 Installer Works</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../idrac%20with%20LDAP/">idrac with LDAP</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Importing%20Elasticsearch%20Data/">Importing Elasticsearch Data</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Installing%20DPDK%20with%20NapaTech%20Card/">Installing DPDK with NapaTech Card</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../IO%20Identities%20with%20LifeCycle%20Controller/">IO Identities with LifeCycle Controller</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../LDAP%20with%20OpenManage/">LDAP with OpenManage</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="" href="../Load Balancing with LAG/README.md">None</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Load%20Balancing%20with%20OpenVSwitch/">Load Balancing with OpenVSwitch</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="" href="../Multiple Span on 4112F-ON/README.md">None</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Nvidia%20GPUDirect/">Nvidia GPUDirect</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../NVMe%20Performance%20Testing/">NVMe Performance Testing</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Offline%20Updates%20with%20OpenManage%20Enterprise/">Offline Updates with OpenManage Enterprise</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../OME%20Bug/">OME Bug</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../OME%20Integration%20for%20VMWare/">OME Integration for VMWare</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../OpenFlow%20on%204112F-ON/">Create OpenFlow Load Balancer</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../OS10%20Password%20Recovery%20Bug/">OS10 Password Recovery Bug</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../PCIev3%20vs%20v4/">PCIev3 vs v4</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Playing%20with%20virsh/">Playing with virsh</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Reset%20OS10%20Admin%20Password/">Reset OS10 Admin Password</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Run%20VPN%20on%20OS10/">Run VPN on OS10</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Running%20DNS%20from%20OS10/">Running DNS from OS10</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Set%20Up%20RSPAN%20on%20OS10/">Set Up RSPAN on OS10</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Setting%20Up%20Breakout%20Cables/">Setting Up Breakout Cables</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Setting%20Up%20SmartFabric%20Director/">Setting Up SmartFabric Director</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Setup%20IDPA/">Setup IDPA</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Site%20to%20Site%20VPN%20with%20PFSense%20and%20CentOS%208/">Site to Site VPN with PFSense and CentOS 8</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../SONiC%20-%20Fully%20Automated%20Build/">SONiC - Fully Automated Build</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Switch%20Directly%20to%20Client%20Test/">Switch Directly to Client Test</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Testing%20Intel%20x520%20on%20RHEL%206/">Testing Intel x520 on RHEL 6</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Understanding%20Memory/">Understanding Memory</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Use%20OS10%20as%20Aggregator/">Use OS10 as Aggregator</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../VEP%20Testing/">VEP Testing</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="" href="../VMWare/README.md">None</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../VXRail%20Troubleshooting/">VXRail Troubleshooting</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Web%20Traffic%20Generator/">Web Traffic Generator</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Grant Curell's Dell Projects</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>DHCP Relay on SONiC</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="dhcp-relay-on-sonic">DHCP Relay on SONiC</h1>
+<ul>
+<li><a href="#configuring-a-cross-vlan-dhcp-relay-on-sonic-os">Configuring a Cross VLAN DHCP Relay on SONiC OS</a></li>
+<li><a href="#my-configuration">My Configuration</a><ul>
+<li><a href="#ip-addresses">IP Addresses</a></li>
+<li><a href="#test-concept">Test Concept</a></li>
+<li><a href="#4112f-on-os-10-version">4112F-ON OS 10 Version</a></li>
+<li><a href="#z9264-sonic-version">Z9264 SONiC Version</a></li>
+<li><a href="#rhel-version">RHEL Version</a></li>
+</ul>
+</li>
+<li><a href="#configuration-of-devices">Configuration of Devices</a><ul>
+<li><a href="#configuration-of-rhel-dhcp-server">Configuration of RHEL DHCP Server</a></li>
+<li><a href="#os10-on-4112f-on">OS10 on 4112F-ON</a></li>
+<li><a href="#sonic-os-on-z9264">SONiC OS on Z9264</a></li>
+<li><a href="#helpful-commands">Helpful Commands</a></li>
+<li><a href="#configuration-on-esxi">Configuration on ESXi</a></li>
+</ul>
+</li>
+<li><a href="#running-the-test">Running the Test</a><ul>
+<li><a href="#lease-record-on-rhel">Lease Record on RHEL</a></li>
+<li><a href="#tcpdump-from-sonic">tcpdump from SONiC</a></li>
+<li><a href="#address-info-from-os10">Address Info From OS10</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="my-configuration">My Configuration</h2>
+<pre><code>Dell 4112F-ON running OS 10 (interface eth1/1/13 to interface ethernet 0 [all VLAN 99])
+            |
+Dell Z9264 running SONiC OS (interface ethernet 257 to interface vmnic7 [all vlan 100])
+            |
+Dell R840 running ESXi (virtual switch with portgroup on vlan 100 going to VM's virtual NIC)
+            |
+RHEL Virtual Machine with DHCP server
+</code></pre>
+<h3 id="ip-addresses">IP Addresses</h3>
+<ul>
+<li>RHEL VM: 192.168.100.5/24</li>
+<li>Z9264 SVI interface on VLAN 99: 192.168.99.1/24</li>
+<li>Z9264 SVI interface on VLAN 100: 192.168.100.1/24</li>
+<li>4112F-ON SVI interface on VLAN 99 - DHCP</li>
+</ul>
+<h3 id="test-concept">Test Concept</h3>
+<p>DHCP request will go from SVI interface on 4112F-ON residing on VLAN 99 through the Z9264, to ESXi, and onto the DHCP server running on the RHEL virtual machine on VLAN 100 running dhcpd.</p>
+<h3 id="4112f-on-os-10-version">4112F-ON OS 10 Version</h3>
+<pre><code>Dell EMC Networking OS10 Enterprise
+Copyright (c) 1999-2020 by Dell Inc. All Rights Reserved.
+OS Version: 10.5.1.3
+Build Version: 10.5.1.3.190
+Build Time: 2020-06-19T21:48:07+0000
+System Type: S4112F-ON
+Architecture: x86_64
+Up Time: 1 day 01:29:03
+</code></pre>
+<h3 id="z9264-sonic-version">Z9264 SONiC Version</h3>
+<pre><code>Software Version  : '3.4.0-Enterprise_Base'
+Product           : Enterprise SONiC Distribution by Dell Technologies
+Distribution      : '9.13'
+Kernel            : '4.9.0-11-2-amd64'
+Config DB Version : version_3_3_1
+Build Commit      : 'e2f258af7'
+Build Date        : Wed Jul 28 23:54:33 UTC 2021
+Built By          : sonicbld@sonic-lvn-csg-005
+Platform          : x86_64-dellemc_z9264f_c3538-r0
+HwSKU             : DellEMC-Z9264f-C64
+ASIC              : broadcom
+Hardware Version  : A00
+Serial Number     : TW0XXP63DNT008970001
+Uptime            : 04:53:36 up 2:05, 1 user, load average: 1.04, 0.94, 0.95
+Mfg               : Dell EMC
+</code></pre>
+<h3 id="rhel-version">RHEL Version</h3>
+<pre><code>[root@freeipa ~]# cat /etc/*-release
+NAME=&quot;Red Hat Enterprise Linux&quot;
+VERSION=&quot;8.2 (Ootpa)&quot;
+ID=&quot;rhel&quot;
+ID_LIKE=&quot;fedora&quot;
+VERSION_ID=&quot;8.2&quot;
+PLATFORM_ID=&quot;platform:el8&quot;
+PRETTY_NAME=&quot;Red Hat Enterprise Linux 8.2 (Ootpa)&quot;
+ANSI_COLOR=&quot;0;31&quot;
+CPE_NAME=&quot;cpe:/o:redhat:enterprise_linux:8.2:GA&quot;
+HOME_URL=&quot;https://www.redhat.com/&quot;
+BUG_REPORT_URL=&quot;https://bugzilla.redhat.com/&quot;
+
+REDHAT_BUGZILLA_PRODUCT=&quot;Red Hat Enterprise Linux 8&quot;
+REDHAT_BUGZILLA_PRODUCT_VERSION=8.2
+REDHAT_SUPPORT_PRODUCT=&quot;Red Hat Enterprise Linux&quot;
+REDHAT_SUPPORT_PRODUCT_VERSION=&quot;8.2&quot;
+Red Hat Enterprise Linux release 8.2 (Ootpa)
+Red Hat Enterprise Linux release 8.2 (Ootpa)
+</code></pre>
+<h2 id="configuration-of-devices">Configuration of Devices</h2>
+<h3 id="configuration-of-rhel-dhcp-server">Configuration of RHEL DHCP Server</h3>
+<p>See: <a href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_and_managing_networking/providing-dhcp-services_configuring-and-managing-networking#setting-up-the-dhcp-service-for-subnets-that-are-not-directly-connected-to-the-dhcp-server_providing-dhcp-services_ipv4">Configuring RHEL DHCP Server</a></p>
+<pre><code class="language-bash">sudo dnf install -y dhcp-server
+ip route add 192.168.99.0/24 via 192.168.100.1 dev ens224
+vim /etc/dhcp/dhcpd.conf
+</code></pre>
+<p>I used configuration:</p>
+<pre><code>#
+# DHCP Server Configuration file.
+#   see /usr/share/doc/dhcp-server/dhcpd.conf.example
+#   see dhcpd.conf(5) man page
+#
+
+option domain-name &quot;lan&quot;;
+default-lease-time 86400;
+authoritative;
+
+shared-network lan {
+
+  subnet 192.168.99.0 netmask 255.255.255.0 {
+    range 192.168.99.100 192.168.99.200;
+    option routers 192.168.99.1;
+  }
+}
+
+subnet 192.168.100.0 netmask 255.255.255.0 {}
+</code></pre>
+<h3 id="os10-on-4112f-on">OS10 on 4112F-ON</h3>
+<p><a href="os10.conf">Full Configuration</a></p>
+<pre><code>configure terminal
+interface ethernet 1/1/13
+switchport mode trunk
+switchport trunk allowed vlan 99
+exit
+interface vlan 99
+ip address dhcp
+</code></pre>
+<h3 id="sonic-os-on-z9264">SONiC OS on Z9264</h3>
+<p><a href="sonic.conf">Full Configuration</a></p>
+<pre><code>sonic-cli
+configure terminal
+interface ethernet 0
+no shutdown
+fec rs
+speed 100000
+switchport trunk allowed Vlan 99
+exit
+interface ethernet 257
+no shutdown
+switchport trunk allowed Vlan 100
+exit
+interface Vlan 99
+ip address 192.168.99.1/24
+ip dhcp-relay 192.168.100.5
+exit
+interface Vlan 100
+ip address 192.168.100.1/24
+exit
+</code></pre>
+<p><strong>NOTE</strong>: I had to manually configure FEC on the 100Gb/s interface to bring it up.</p>
+<h4 id="helpful-commands">Helpful Commands</h4>
+<p><code>show interface transceiver</code></p>
+<p><strong>NOTE</strong>: Unlike OS10 all interfaces start in shutdown mode so you will need to bring them up.</p>
+<h3 id="configuration-on-esxi">Configuration on ESXi</h3>
+<p><img alt="" src="images/2021-12-04-15-27-48.png" />
+<img alt="" src="images/2021-12-04-15-29-58.png" />
+<img alt="" src="images/2021-12-06-17-15-23.png" /></p>
+<h2 id="running-the-test">Running the Test</h2>
+<h3 id="lease-record-on-rhel">Lease Record on RHEL</h3>
+<pre><code>[root@freeipa ~]# cat /var/lib/dhcpd/dhcpd.leases
+# The format of this file is documented in the dhcpd.leases(5) manual page.
+# This lease file was written by isc-dhcp-4.3.6
+
+# authoring-byte-order entry is generated, DO NOT DELETE
+authoring-byte-order little-endian;
+
+server-duid &quot;\000\001\000\001)A@\255\000PV\276\261\016&quot;;
+
+lease 192.168.99.100 {
+  starts 1 2021/12/06 21:50:25;
+  ends 2 2021/12/07 21:50:25;
+  cltt 1 2021/12/06 21:50:25;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 88:6f:d4:98:b7:b1;
+  option agent.circuit-id &quot;Vlan99&quot;;
+  option agent.remote-id &quot;20:04:0f:06:44:b4&quot;;
+  client-hostname &quot;OS10&quot;;
+}
+</code></pre>
+<h3 id="tcpdump-from-sonic">tcpdump from SONiC</h3>
+<p>Shows DHCP transiting the relay.</p>
+<p><img alt="" src="images/2021-12-06-17-18-10.png" /></p>
+<h3 id="address-info-from-os10">Address Info From OS10</h3>
+<pre><code>OS10(conf-if-vl-99)# do show ip interface brief
+Interface Name            IP-Address          OK       Method       Status     Protocol
+=========================================================================================
+Ethernet 1/1/1             unassigned          NO       unset        up          down
+Ethernet 1/1/2             unassigned          NO       unset        up          down
+Ethernet 1/1/3             unassigned          NO       unset        up          down
+Ethernet 1/1/4             unassigned          NO       unset        up          down
+Ethernet 1/1/5             unassigned          NO       unset        up          down
+Ethernet 1/1/6             unassigned          NO       unset        up          down
+Ethernet 1/1/7             unassigned          NO       unset        up          down
+Ethernet 1/1/8             unassigned          NO       unset        up          down
+Ethernet 1/1/9             unassigned          NO       unset        up          down
+Ethernet 1/1/10            unassigned          NO       unset        up          down
+Ethernet 1/1/11            unassigned          NO       unset        up          down
+Ethernet 1/1/12            unassigned          NO       unset        up          down
+Ethernet 1/1/13            unassigned          YES      unset        up          up
+Ethernet 1/1/14            unassigned          NO       unset        up          down
+Ethernet 1/1/15            unassigned          NO       unset        up          down
+Management 1/1/1           192.168.1.24/24     YES      manual       up          up
+Vlan 1                     unassigned          NO       unset        up          down
+Vlan 99                    192.168.99.100/24   YES      DHCP         up          up
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../Elasticsearch%20Display%20Map%20Data/" class="btn btn-neutral float-right" title="Elasticsearch Display Map Data">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../Dell%20Ansible%20Testing/" class="btn btn-neutral" title="Dell Ansible Testing"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../Dell%20Ansible%20Testing/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../Elasticsearch%20Display%20Map%20Data/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

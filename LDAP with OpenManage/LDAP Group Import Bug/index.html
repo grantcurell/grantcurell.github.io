@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Setting Up FreeIPA with OpenManage - Grant Curell's Dell Projects</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Setting Up FreeIPA with OpenManage";
+    var mkdocs_page_input_path = "LDAP with OpenManage/LDAP Group Import Bug/README.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Grant Curell's Dell Projects</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../..">Grant Curell's Dell Projects</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../Adding%20Hashing%20to%20OpenSwitch/">Adding Hashing to OpenSwitch</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../Adding%20Intel%20I219-LM%20%288086.0d4c%29%20Driver%20to%20ESXi/">Adding Intel I219-LM (8086.0d4c) Driver to ESXi</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../Automating%20OME%20Hardware%20Reports/">Automating OME Hardware Reports</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../CloudLink/">CloudLink</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../Configure%20FN410%20as%20a%20Switch/">Configure FN410 as a Switch</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../Configure%20Gigamon%20Tap/">Configure Gigamon Tap</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../Configuring%20VLT%20on%20OS10/">Configuring VLT on OS10</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../Create%20Kickstart%20Server%20on%20Fedora/">Create Kickstart Server on Fedora</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../Create%20OpenSwitch%20VM/">Create OpenSwitch VM</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../Dell%20Ansible%20Testing/">Dell Ansible Testing</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../DHCP%20Relay%20on%20SONiC/">DHCP Relay on SONiC</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../Elasticsearch%20Display%20Map%20Data/">Elasticsearch Display Map Data</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../Elasticsearch%20Load%20Testing/">Elasticsearch Load Testing</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../esrally%20%28INCOMPLETE%29/">esrally (INCOMPLETE)</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../High%20Speed%20Packet%20Capture/">High Speed Packet Capture</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../How%20OS10%20Installer%20Works/">How OS10 Installer Works</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../idrac%20with%20LDAP/">idrac with LDAP</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../Importing%20Elasticsearch%20Data/">Importing Elasticsearch Data</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../Installing%20DPDK%20with%20NapaTech%20Card/">Installing DPDK with NapaTech Card</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../IO%20Identities%20with%20LifeCycle%20Controller/">IO Identities with LifeCycle Controller</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../">LDAP with OpenManage</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="" href="../../Load Balancing with LAG/README.md">None</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../Load%20Balancing%20with%20OpenVSwitch/">Load Balancing with OpenVSwitch</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="" href="../../Multiple Span on 4112F-ON/README.md">None</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../Nvidia%20GPUDirect/">Nvidia GPUDirect</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../NVMe%20Performance%20Testing/">NVMe Performance Testing</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../Offline%20Updates%20with%20OpenManage%20Enterprise/">Offline Updates with OpenManage Enterprise</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../OME%20Bug/">OME Bug</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../OME%20Integration%20for%20VMWare/">OME Integration for VMWare</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../OpenFlow%20on%204112F-ON/">Create OpenFlow Load Balancer</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../OS10%20Password%20Recovery%20Bug/">OS10 Password Recovery Bug</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../PCIev3%20vs%20v4/">PCIev3 vs v4</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../Playing%20with%20virsh/">Playing with virsh</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../Reset%20OS10%20Admin%20Password/">Reset OS10 Admin Password</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../Run%20VPN%20on%20OS10/">Run VPN on OS10</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../Running%20DNS%20from%20OS10/">Running DNS from OS10</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../Set%20Up%20RSPAN%20on%20OS10/">Set Up RSPAN on OS10</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../Setting%20Up%20Breakout%20Cables/">Setting Up Breakout Cables</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../Setting%20Up%20SmartFabric%20Director/">Setting Up SmartFabric Director</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../Setup%20IDPA/">Setup IDPA</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../Site%20to%20Site%20VPN%20with%20PFSense%20and%20CentOS%208/">Site to Site VPN with PFSense and CentOS 8</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../SONiC%20-%20Fully%20Automated%20Build/">SONiC - Fully Automated Build</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../Switch%20Directly%20to%20Client%20Test/">Switch Directly to Client Test</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../Testing%20Intel%20x520%20on%20RHEL%206/">Testing Intel x520 on RHEL 6</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../Understanding%20Memory/">Understanding Memory</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../Use%20OS10%20as%20Aggregator/">Use OS10 as Aggregator</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../VEP%20Testing/">VEP Testing</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="" href="../../VMWare/README.md">None</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../VXRail%20Troubleshooting/">VXRail Troubleshooting</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../Web%20Traffic%20Generator/">Web Traffic Generator</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Grant Curell's Dell Projects</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Setting Up FreeIPA with OpenManage</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="setting-up-freeipa-with-openmanage">Setting Up FreeIPA with OpenManage</h1>
+<h2 id="my-environment">My Environment</h2>
+<h3 id="rhel-version">RHEL Version</h3>
+<pre><code>  NAME="Red Hat Enterprise Linux"
+  VERSION="8.2 (Ootpa)"
+  ID="rhel"
+  ID_LIKE="fedora"
+  VERSION_ID="8.2"
+  PLATFORM_ID="platform:el8"
+  PRETTY_NAME="Red Hat Enterprise Linux 8.2 (Ootpa)"
+  ANSI_COLOR="0;31"
+  CPE_NAME="cpe:/o:redhat:enterprise_linux:8.2:GA"
+  HOME_URL="https://www.redhat.com/"
+  BUG_REPORT_URL="https://bugzilla.redhat.com/"
+
+  REDHAT_BUGZILLA_PRODUCT="Red Hat Enterprise Linux 8"
+  REDHAT_BUGZILLA_PRODUCT_VERSION=8.2
+  REDHAT_SUPPORT_PRODUCT="Red Hat Enterprise Linux"
+  REDHAT_SUPPORT_PRODUCT_VERSION="8.2"
+  Red Hat Enterprise Linux release 8.2 (Ootpa)
+  Red Hat Enterprise Linux release 8.2 (Ootpa)
+</code></pre>
+<h3 id="freeipa-version">FreeIPA Version</h3>
+<pre><code>  [root@centos ~]# ipa --version
+  VERSION: 4.8.4, API_VERSION: 2.235
+</code></pre>
+<h3 id="openmanage-version">OpenManage Version</h3>
+<pre><code>  Version 3.4.1 (Build 24)
+</code></pre>
+<h2 id="helpful-resources">Helpful Resources</h2>
+<p><a href="https://www.youtube.com/watch?v=pOojNfNbQ80&amp;ab_channel=DellEMCSupport">Dell Tutorial</a></p>
+<p><a href="https://access.redhat.com/documentation/en-us/red_hat_directory_server/10/html/configuration_command_and_file_reference/logs-reference">Logs Explained</a></p>
+<p><a href="https://access.redhat.com/documentation/en-us/red_hat_directory_server/10/html/configuration_command_and_file_reference/LDAP_Result_Codes">LDAP Result Codes</a></p>
+<p><a href="https://serverfault.com/questions/616698/in-ldap-what-exactly-is-a-bind-dn">Helpful Post on Bind DN</a></p>
+<h2 id="install-instructions">Install Instructions</h2>
+<ol>
+<li>Install RHEL</li>
+<li>Change hostname</li>
+<li><code>hostname freeipa.grant.lan &amp;&amp; hostnamectl set-hostname freeipa.grant.lan</code></li>
+<li>Change in /etc/hostname</li>
+<li>Configure DNS to return for this hostname. Double check with <code>dig +short freeipa.grant.lan A &amp;&amp; dig +short -x 192.168.1.95</code></li>
+<li>Follow <a href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html-single/installing_identity_management/index">RHEL's instructions</a></li>
+<li>I used Chapter 5 for primary installation</li>
+<li>
+<ol>
+<li>Run <code>kinit admin</code> - this allows you to use the command line tools otherwise they'll complain about kerberos.</li>
+</ol>
+</li>
+<li>Log into FreeIPA server at <code>https://&lt;your_hostname&gt;</code>. In my case, Windows popped up a username and password prompt. That prompt didn't work - I had to exit it and then log into the webGUI.</li>
+<li>Go to Users and then directory services in OpenManage. I used the following:<ol>
+<li>Note: You can get the Bind DN by running <code>ldapsearch</code> from the command line.</li>
+</ol>
+</li>
+<li>Create a new user and new group in the UI and assign the new user to the new group.</li>
+<li>Install OpenManage</li>
+<li>Go to Application Settings -&gt; Directory Services</li>
+</ol>
+<p><img alt="" src="../images/2020-10-21-11-24-14.png" /></p>
+<ol>
+<li>Substitute with your values and then click test. I wasn't able to get this to work with the generic admin user. In the test screen I used that new user to connect to directory services</li>
+</ol>
+<h3 id="helpful-commands">Helpful Commands</h3>
+<p>To start the IPA service use <code>ipactl start|stop|restart</code>. You can check the status with <code>ipactl status</code>.</p>
+<h2 id="bug">Bug</h2>
+<ol>
+<li>I used the settings defined here:</li>
+</ol>
+<p><img alt="" src="../images/2020-10-21-11-24-14.png" /></p>
+<ol>
+<li>When I went to import the users from a group I received the following:</li>
+</ol>
+<p><img alt="" src="../images/2020-10-21-13-22-09.png" /></p>
+<p>The code in question:</p>
+<p><img alt="" src="../images/2020-10-21-13-23-00.png" /></p>
+<p>Below was the value of <code>u</code> at runtime:</p>
+<pre><code>  [
+  {
+        "userTypeId":2,
+        "objectGuid":null,
+        "objectSid":null,
+        "directoryServiceId":13483,
+        "name":"grantgroup",
+        "password":"",
+        "userName":"grantgroup",
+        "roleId":"10",
+        "locked":false,
+        "isBuiltin":false,
+        "enabled":true
+  }
+  ]
+</code></pre>
+<p>Error in logs</p>
+<pre><code>  [ERROR] 2020-10-22 07:33:08.392 [ajp-bio-8009-exec-2] BaseController - com.dell.enterprise.exception.ui.ConsoleException: error.general_known_error_occurred
+  com.dell.enterprise.exception.ui.ConsoleException: error.general_known_error_occurred
+        at com.dell.enterprise.controller.console.ADController.importGroups(ADController.java:400) ~[UI.ADPlugin-0.0.1-SNAPSHOT.jar:?]
+        at sun.reflect.GeneratedMethodAccessor824.invoke(Unknown Source) ~[?:?]
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_262]
+        at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_262]
+        at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205) ~[spring-web-4.3.28.RELEASE.jar:4.3.28.RELEASE]
+        at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:133) ~[spring-web-4.3.28.RELEASE.jar:4.3.28.RELEASE]
+        at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:97) ~[spring-webmvc-4.3.28.RELEASE.jar:4.3.28.RELEASE]
+        at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:854) ~[spring-webmvc-4.3.28.RELEASE.jar:4.3.28.RELEASE]
+        at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:765) ~[spring-webmvc-4.3.28.RELEASE.jar:4.3.28.RELEASE]
+        at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:85) ~[spring-webmvc-4.3.28.RELEASE.jar:4.3.28.RELEASE]
+        at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:967) [spring-webmvc-4.3.28.RELEASE.jar:4.3.28.RELEASE]
+        at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:901) [spring-webmvc-4.3.28.RELEASE.jar:4.3.28.RELEASE]
+        at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:970) [spring-webmvc-4.3.28.RELEASE.jar:4.3.28.RELEASE]
+        at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:872) [spring-webmvc-4.3.28.RELEASE.jar:4.3.28.RELEASE]
+        at javax.servlet.http.HttpServlet.service(HttpServlet.java:650) [tomcat-servlet-3.0-api.jar:?]
+        at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:846) [spring-webmvc-4.3.28.RELEASE.jar:4.3.28.RELEASE]
+        at javax.servlet.http.HttpServlet.service(HttpServlet.java:731) [tomcat-servlet-3.0-api.jar:?]
+        at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:303) [catalina.jar:7.0.76]
+        at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:208) [catalina.jar:7.0.76]
+        at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52) [tomcat7-websocket.jar:7.0.76]
+        at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:241) [catalina.jar:7.0.76]
+        at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:208) [catalina.jar:7.0.76]
+        at com.dell.enterprise.filter.ui.CacheControlFilter.doFilterInternal(CacheControlFilter.java:23) [classes/:?]
+        at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) [spring-web-4.3.28.RELEASE.jar:4.3.28.RELEASE]
+        at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:347) [spring-web-4.3.28.RELEASE.jar:4.3.28.RELEASE]
+        at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:263) [spring-web-4.3.28.RELEASE.jar:4.3.28.RELEASE]
+        at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:241) [catalina.jar:7.0.76]
+        at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:208) [catalina.jar:7.0.76]
+        at org.apache.catalina.filters.SetCharacterEncodingFilter.doFilter(SetCharacterEncodingFilter.java:108) [catalina.jar:7.0.76]
+        at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:241) [catalina.jar:7.0.76]
+        at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:208) [catalina.jar:7.0.76]
+        at org.apache.shiro.web.servlet.ProxiedFilterChain.doFilter(ProxiedFilterChain.java:61) [shiro-web-1.6.0.jar:1.6.0]
+        at org.apache.shiro.web.servlet.AdviceFilter.executeChain(AdviceFilter.java:108) [shiro-web-1.6.0.jar:1.6.0]
+        at org.apache.shiro.web.servlet.AdviceFilter.doFilterInternal(AdviceFilter.java:137) [shiro-web-1.6.0.jar:1.6.0]
+        at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125) [shiro-web-1.6.0.jar:1.6.0]
+        at org.apache.shiro.web.servlet.ProxiedFilterChain.doFilter(ProxiedFilterChain.java:66) [shiro-web-1.6.0.jar:1.6.0]
+        at org.apache.shiro.web.servlet.AdviceFilter.executeChain(AdviceFilter.java:108) [shiro-web-1.6.0.jar:1.6.0]
+        at org.apache.shiro.web.servlet.AdviceFilter.doFilterInternal(AdviceFilter.java:137) [shiro-web-1.6.0.jar:1.6.0]
+        at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125) [shiro-web-1.6.0.jar:1.6.0]
+        at org.apache.shiro.web.servlet.ProxiedFilterChain.doFilter(ProxiedFilterChain.java:66) [shiro-web-1.6.0.jar:1.6.0]
+        at org.apache.shiro.web.servlet.AbstractShiroFilter.executeChain(AbstractShiroFilter.java:450) [shiro-web-1.6.0.jar:1.6.0]
+        at org.apache.shiro.web.servlet.AbstractShiroFilter$1.call(AbstractShiroFilter.java:365) [shiro-web-1.6.0.jar:1.6.0]
+        at org.apache.shiro.subject.support.SubjectCallable.doCall(SubjectCallable.java:90) [shiro-core-1.6.0.jar:1.6.0]
+        at org.apache.shiro.subject.support.SubjectCallable.call(SubjectCallable.java:83) [shiro-core-1.6.0.jar:1.6.0]
+        at org.apache.shiro.subject.support.DelegatingSubject.execute(DelegatingSubject.java:387) [shiro-core-1.6.0.jar:1.6.0]
+        at org.apache.shiro.web.servlet.AbstractShiroFilter.doFilterInternal(AbstractShiroFilter.java:362) [shiro-web-1.6.0.jar:1.6.0]
+        at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125) [shiro-web-1.6.0.jar:1.6.0]
+        at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:347) [spring-web-4.3.28.RELEASE.jar:4.3.28.RELEASE]
+        at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:263) [spring-web-4.3.28.RELEASE.jar:4.3.28.RELEASE]
+        at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:241) [catalina.jar:7.0.76]
+        at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:208) [catalina.jar:7.0.76]
+        at com.dell.enterprise.core.integration.lib.common.filter.RequestFilter.doFilter(RequestFilter.java:103) [common-0.0.1-SNAPSHOT.jar:?]
+        at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:241) [catalina.jar:7.0.76]
+        at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:208) [catalina.jar:7.0.76]
+        at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:218) [catalina.jar:7.0.76]
+        at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:110) [catalina.jar:7.0.76]
+        at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:498) [catalina.jar:7.0.76]
+        at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:169) [catalina.jar:7.0.76]
+        at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:103) [catalina.jar:7.0.76]
+        at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:962) [catalina.jar:7.0.76]
+        at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:116) [catalina.jar:7.0.76]
+        at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:445) [catalina.jar:7.0.76]
+        at org.apache.coyote.ajp.AjpProcessor.process(AjpProcessor.java:190) [tomcat-coyote.jar:7.0.76]
+        at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:637) [tomcat-coyote.jar:7.0.76]
+        at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:316) [tomcat-coyote.jar:7.0.76]
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [?:1.8.0_262]
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [?:1.8.0_262]
+        at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) [tomcat-coyote.jar:7.0.76]
+        at java.lang.Thread.run(Thread.java:748) [?:1.8.0_262]
+</code></pre>
+<h3 id="further-explanation">Further Explanation</h3>
+<p>The URI endpoint is: https://192.168.1.93/core/api/Console/import-groups</p>
+<p>This is the JSON returned from the call.</p>
+<pre><code>  {severity: "IGNORE", message: "error.general_known_error_occurred",…}
+  debug: false
+  details: {error: {code: "Base.1.0.GeneralError",…}}
+  error: {code: "Base.1.0.GeneralError",…}
+  @Message.ExtendedInfo: [{MessageId: "CGEN1004", RelatedProperties: [],…}]
+  code: "Base.1.0.GeneralError"
+  message: "A general error has occurred. See ExtendedInfo for more information."
+  message: "error.general_known_error_occurred"
+  severity: "IGNORE"
+  timestamp: "2020-10-21T14:43:44.385-0500"
+</code></pre>
+<p>The errors occurs at: <code>M.send(y(u) ? null : u)</code></p>
+<p>See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator#:~:text=The%20conditional%20(ternary)%20operator%20is,if%20the%20condition%20is%20falsy.">here</a> for a description of Javascript's ternary operator.</p>
+<p>In this case it is saying if <code>y(u)</code> is true then the value is set to null, otherwise it is set to <code>u</code>. The <code>y</code> function is:</p>
+<pre><code>function y(e) {
+    return "undefined" == typeof e
+}
+</code></pre>
+<p>It is just a basic check to see if <code>u</code> is defined or not. M is an instance of <a href="https://www.w3schools.com/xml/xml_http.asp">XMLHttpRequest</a>. We can see <code>M</code> being called with open <code>M.open(i, s, !0)</code> where i is "POST" and <code>s</code> is "/core/api/Console/import-groups".</p>
+<p>The problem occurs because <code>objectGuid</code> and <code>objectSid</code> are set to null. </p>
+<h3 id="resolution">Resolution</h3>
+<p>See <a href="duplicate_bug.py">duplicate_bug.py</a> for a replication of the problem. Replace the payload:</p>
+<pre><code>  {
+        "userTypeId":2,
+        "objectGuid":null,
+        "objectSid":null,
+        "directoryServiceId":13483,
+        "name":"grantgroup",
+        "password":"",
+        "userName":"grantgroup",
+        "roleId":"10",
+        "locked":false,
+        "isBuiltin":false,
+        "enabled":true
+  }
+</code></pre>
+<p>with the data from your instance. I grabbed this out of the javascript debugger. To fix the problem, you have to lookup the uid/gid (which correspond to objectSid and objectGuid respectively) on your LDAP server and replace the null values. I used <code>ldapsearch</code> to find mine:</p>
+<pre><code>  # grant, users, compat, grant.lan
+  dn: uid=grant,cn=users,cn=compat,dc=grant,dc=lan
+  objectClass: posixAccount
+  objectClass: ipaOverrideTarget
+  objectClass: top
+  gecos: Grant Curell
+  cn: Grant Curell
+  uidNumber: 1314600001
+  gidNumber: 1314600001
+  loginShell: /bin/sh
+  homeDirectory: /home/grant
+  ipaAnchorUUID:: OklQQTpncmFudC5sYW46OWIzOTYwNDQtMTNhZS0xMWViLTllNzctMDA1MDU2Ym
+  U4NGIw
+  uid: grant
+</code></pre>
+<p>You can see the <code>uidNumber</code> and <code>gidNumber</code> fields. Change the payload out in <a href="duplicate_bug.py">duplicate_bug.py</a> and it will correctly import the group.</p>
+<pre><code>  test_payload = [
+    {
+          "userTypeId": 2,
+          "objectGuid": 1314600001,
+          "objectSid": 1314600001,
+          "directoryServiceId": 13483,
+          "name": "grantgroup",
+          "password": "",
+          "userName": "grant",
+          "roleId": "10",
+          "locked": False,
+          "isBuiltin": False,
+          "enabled": True
+    }
+  ]
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
