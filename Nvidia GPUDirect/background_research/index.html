@@ -9,7 +9,7 @@
   
   
   <link rel="shortcut icon" href="../../img/favicon.ico">
-  <title>Testing GPUDirect RDMA - Grant Curell's Dell Projects</title>
+  <title>Background research - Grant Curell's Dell Projects</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
   <link rel="stylesheet" href="../../css/theme.css" />
@@ -18,8 +18,8 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Testing GPUDirect RDMA";
-    var mkdocs_page_input_path = "Nvidia GPUDirect/testing.md";
+    var mkdocs_page_name = "Background research";
+    var mkdocs_page_input_path = "Nvidia GPUDirect/background_research.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -183,7 +183,7 @@
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../../OpenFlow%20on%204112F-ON/">Create OpenFlow Load Balancer</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../../OpenFlow%20on%204112F-ON/">OpenFlow on 4112F-ON</a>
                     </li>
                 </ul>
                 <ul>
@@ -311,7 +311,7 @@
     
       
     
-    <li>Testing GPUDirect RDMA</li>
+    <li>Background research</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -323,49 +323,121 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="testing-gpudirect-rdma">Testing GPUDirect RDMA</h1>
-<h2 id="test-scenario">Test Scenario</h2>
-<p>TODO</p>
-<h2 id="lab-configuration">Lab Configuration</h2>
-<h3 id="hardware-configuration">Hardware Configuration</h3>
-<p>TODO</p>
-<h3 id="rhel-version">RHEL Version</h3>
-<pre><code>NAME=&quot;Red Hat Enterprise Linux&quot;
-VERSION=&quot;8.4 (Ootpa)&quot;
-ID=&quot;rhel&quot;
-ID_LIKE=&quot;fedora&quot;
-VERSION_ID=&quot;8.4&quot;
-PLATFORM_ID=&quot;platform:el8&quot;
-PRETTY_NAME=&quot;Red Hat Enterprise Linux 8.4 (Ootpa)&quot;
-ANSI_COLOR=&quot;0;31&quot;
-CPE_NAME=&quot;cpe:/o:redhat:enterprise_linux:8.4:GA&quot;
-HOME_URL=&quot;https://www.redhat.com/&quot;
-DOCUMENTATION_URL=&quot;https://access.redhat.com/documentation/red_hat_enterprise_linux/8/&quot;
-BUG_REPORT_URL=&quot;https://bugzilla.redhat.com/&quot;
+                <h2 id="helpful-links">Helpful Links</h2>
+<p><a href="https://developer.nvidia.com/gpudirect">Nvidia GPUDirect Overview</a></p>
+<p><a href="https://developer.nvidia.com/nvidia-system-management-interface">Nvidia System Management Interface</a></p>
+<p><a href="https://github.com/karakozov/gpudma">GPUDirect RDMA Access Example Code</a></p>
+<p><a href="https://github.com/Mellanox/gpu_direct_rdma_access">Mellanox GPUDirect RDMA Example</a></p>
+<p><a href="../images/sc11-cuda-c-basics.pdf">NVIDIA CUDA Basics</a></p>
+<p><a href="https://www.mellanox.com/related-docs/prod_software/Mellanox_GPUDirect_User_Manual_v1.5.pdf">GPUDirect Benchmark Tests</a></p>
+<p><a href="../images/RDMA_Aware_Programming_user_manual.pdf">RDMA Aware Programming User Manual (has a great RDMA architecture overview)</a>
+<strong>NOTE</strong> This also includes how Infiniband works.</p>
+<p><a href="../images/s9730-packet-processing-on-gpu-at-100gbe-line-rate.pdf">Packet Capture with GPUDirect</a></p>
+<p><a href="https://blog.zhaw.ch/icclab/infiniband-an-introduction-simple-ib-verbs-program-with-rdma-write/">How Infiniband Works</a></p>
+<p>https://stackoverflow.com/questions/52125610/visual-studio-remote-linux-headers</p>
+<h2 id="using-nvidia-smi">Using Nvidia SMI</h2>
+<p>Run from Windows: <code>c:\Windows\System32\DriverStore\FileRepository\nvdm.inf_amd64_3349a8117b680632&gt;nvidia-smi.exe</code></p>
+<p><strong>OUTPUT</strong></p>
+<pre><code>c:\Windows\System32\DriverStore\FileRepository\nvdm.inf_amd64_3349a8117b680632&gt;nvidia-smi.exe
+Wed Nov 10 15:47:38 2021
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 471.35       Driver Version: 471.35       CUDA Version: 11.4     |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name            TCC/WDDM | Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|                               |                      |               MIG M. |
+|===============================+======================+======================|
+|   0  Quadro T1000       WDDM  | 00000000:01:00.0 Off |                  N/A |
+| N/A   52C    P8     2W /  N/A |    287MiB /  4096MiB |      0%      Default |
+|                               |                      |                  N/A |
++-------------------------------+----------------------+----------------------+
 
-REDHAT_BUGZILLA_PRODUCT=&quot;Red Hat Enterprise Linux 8&quot;
-REDHAT_BUGZILLA_PRODUCT_VERSION=8.4
-REDHAT_SUPPORT_PRODUCT=&quot;Red Hat Enterprise Linux&quot;
-REDHAT_SUPPORT_PRODUCT_VERSION=&quot;8.4&quot;
-Red Hat Enterprise Linux release 8.4 (Ootpa)
-Red Hat Enterprise Linux release 8.4 (Ootpa)
++-----------------------------------------------------------------------------+
+| Processes:                                                                  |
+|  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
+|        ID   ID                                                   Usage      |
+|=============================================================================|
+|    0   N/A  N/A      3360    C+G   ...ser\Application\brave.exe    N/A      |
++-----------------------------------------------------------------------------+
 </code></pre>
-<h2 id="installation">Installation</h2>
-<ol>
-<li>Download MLNX_OFED drivers from https://www.mellanox.com/products/infiniband-drivers/linux/mlnx_ofed</li>
-<li>MLNX_OFED is version dependent. I suggest you use  <code>subscription-manager release --set=8.4</code> to ensure your version of RHEL stays at the version for which MLNX_OFED was compiled</li>
-<li>Upload the ISO to the target box</li>
-<li>Run:</li>
-</ol>
-<pre><code class="language-bash">dnf group install &quot;Development Tools&quot; -y
-dnf install -y tk tcsh tcl gcc-gfortran kernel-modules-extra gcc-g++ gdb rsync ninja-build make zip
-mount MLNX* /mnt
-cd /mnt
-./mlnxofedinstall
+<p>Processes is a list of processes having compute or graphics context on the device. Compute processes are reported on all the fully supported products. Reporting for Graphics processes is limited to the supported products starting with Kepler architecture. Each Entry is of format <code>&lt;GPU Index&gt; &lt;PID&gt; &lt;Type&gt; &lt;Process Name&gt; &lt;GPUMemory Usage&gt;"</code></p>
+<ul>
+<li>GPU Index - Represents NVML index of the device?</li>
+<li>PID Represents process ID corresponding to the active compute or graphics context?</li>
+<li>Type - Displayed as "C" for compute process, "G" for graphics process, and "C+G" for the procses having both compute and graphics contexts</li>
+<li>Process Name - Represents process name for the compute or graphics process</li>
+<li>GPU Memory Usage - Amount of memory used on the device by the context. Not available on Windows when running in WDDM mode because Windows KMD manages all memory not Nvidia driver</li>
+</ul>
+<h2 id="notes-on-cuda-programming">Notes on CUDA Programming</h2>
+<p>See <a href="../images/CUDA_C_Programming_Guide.pdf">CUDA C Programming Guide</a></p>
+<h3 id="overview">Overview</h3>
+<p><img alt="" src="../images/2021-11-10-16-07-35.png" /></p>
+<p><img alt="" src="../images/2021-11-10-16-08-58.png" /></p>
+<p>At its core CUDA has three key abstractions:
+- a hierarchy of thread groups
+- shared memories
+- <a href="https://docs.microsoft.com/en-us/windows/win32/sync/synchronization-barriers">barrier synchronization</a> </p>
+<p>This decomposition preserves language expressivity by allowing threads to cooperate when solving each sub-problem, and at the same time enables automatic scalability. Indeed, each block of threads can be scheduled on any of the available multiprocessors within a GPU, in any order, concurrently or sequentially, so that a compiled CUDA program can execute on any number of multiprocessors as illustrated by Figure 3, and only the runtime system needs to know the physical multiprocessor count.</p>
+<p><img alt="" src="../images/2021-11-10-16-13-13.png" /></p>
+<p><strong>Note</strong>: A GPU is built around an array of Streaming Multiprocessors (SMs) (see <a href="https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#hardware-implementation">Hardware Implementation</a> for more details). A multithreaded program is partitioned into blocks of threads that execute independently from each other, so that a GPU with more multiprocessors will automatically execute the program in less time than a GPU with fewer multiprocessors.</p>
+<h3 id="kernels">Kernels</h3>
+<p>CUDA C++ extends C++ by allowing the programmer to define C++ functions, called kernels, that, when called, are executed N times in parallel by N different CUDA threads, as opposed to only once like regular C++ functions.</p>
+<p>The following sample code, using the built-in variable threadIdx, adds two vectors A and B of size N and stores the result into vector C.</p>
+<pre><code class="language-c">// Kernel definition
+__global__ void VecAdd(float* A, float* B, float* C)
+{
+    int i = threadIdx.x;
+    C[i] = A[i] + B[i];
+}
+
+int main()
+{
+    ...
+    // Kernel invocation with N threads
+    VecAdd&lt;&lt;&lt;1, N&gt;&gt;&gt;(A, B, C);
+    ...
+}
 </code></pre>
-<ol>
-<li></li>
-</ol>
+<h3 id="global-keyword">Global Keyword</h3>
+<p>The <strong>global</strong> keyword indicates a function that runs on the device and is called from host code</p>
+<h3 id="how-nvcc-separates-code">How nvcc separates code</h3>
+<p>nvcc separates source code into host and device components. Device functions (e.g. mykernel()) are proccesed by the Nvidia compiler while host functions (e.g. main()) are processed by standard host compiler (gcc, cl, etc)</p>
+<h3 id="thread-hierarchy">Thread Hierarchy</h3>
+<p>For convenience, threadIdx is a 3-component vector, so that threads can be identified using a one-dimensional, two-dimensional, or three-dimensional thread index, forming a one-dimensional, two-dimensional, or three-dimensional block of threads, called a thread block. This provides a natural way to invoke computation across the elements in a domain such as a vector, matrix, or volume.</p>
+<h2 id="cuda-runtime">CUDA Runtime</h2>
+<p>The runtime is introduced in CUDA Runtime. It provides C and C++ functions that execute on the host to allocate and deallocate device memory, transfer data between host memory and device memory, manage systems with multiple devices, etc. A complete description of the runtime can be found in the CUDA reference manual.</p>
+<p>The runtime is built on top of a lower-level C API, the CUDA driver API, which is also accessible by the application. The driver API provides an additional level of control by exposing lower-level concepts such as CUDA contexts - the analogue of host processes for the device - and CUDA modules - the analogue of dynamically loaded libraries for the device. Most applications do not use the driver API as they do not need this additional level of control and when using the runtime, context and module management are implicit, resulting in more concise code. As the runtime is interoperable with the driver API, most applications that need some driver API features can default to use the runtime API and only use the driver API where needed. The driver API is introduced in Driver API and fully described in the reference manual.</p>
+<p>The runtime is implemented in the cudart library, which is linked to the application, either statically via cudart.lib or libcudart.a, or dynamically via cudart.dll or libcudart.so. Applications that require cudart.dll and/or cudart.so for dynamic linking typically include them as part of the application installation package. It is only safe to pass the address of CUDA runtime symbols between components that link to the same instance of the CUDA runtime.</p>
+<h2 id="questions">Questions</h2>
+<ul>
+<li>What is NVML Index?</li>
+<li>What is WDDM mode?</li>
+<li>What is Windows KMD?</li>
+</ul>
+<h2 id="what-is-a-graphics-context">What is a Graphics Context?</h2>
+<p>See https://stackoverflow.com/a/23087951/4427375</p>
+<p>A GPU context is described <a href="http://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#context">here</a>. It represents all the state (data, variables, conditions, etc.) that are collectively required and instantiated to perform certain tasks (e.g. CUDA compute, graphics, H.264 encode, etc). A CUDA context is instantiated to perform CUDA compute activities on the GPU, either implicitly by the CUDA runtime API, or explicitly by the CUDA device API.</p>
+<h2 id="what-is-a-pcie-root-complex">What is a PCIe Root Complex?</h2>
+<p>https://www.quora.com/What-is-a-PCIe-root-complex?share=1</p>
+<h2 id="how-does-pcie-enumeration-work">How does PCIe Enumeration Work?</h2>
+<p>https://www.quora.com/What-is-PCIE-enumeration/answer/Satish-Kumar-525?ch=15&amp;oid=31389493&amp;share=44585235&amp;target_type=answer</p>
+<h2 id="nvme-over-pcie-vs-other-protocols">NVMe over PCIe vs Other Protocols</h2>
+<p>https://www.quora.com/Is-NVMe-faster-than-PCIe/answer/Mike-Jones-169?ch=15&amp;oid=193548046&amp;share=a587ff45&amp;target_type=answer</p>
+<h2 id="what-is-a-pcie-function">What is a PCIe Function?</h2>
+<p>https://www.quora.com/What-is-a-PCIe-function/answer/Udit-Khanna-2?ch=15&amp;oid=58319695&amp;share=c7f066e5&amp;target_type=answer</p>
+<h2 id="pcie-bus-and-numa-node-correlation">PCIe-Bus and NUMA Node Correlation</h2>
+<p>https://social.msdn.microsoft.com/Forums/en-US/fabb05b7-eb3f-4a7c-91c5-1ced90af3d0c/pciebus-and-numanode-correlation</p>
+<h2 id="how-does-the-root-complex-work">How does the root complex work?</h2>
+<p>https://codywu2010.wordpress.com/2015/11/29/how-modern-multi-processor-multi-root-complex-system-assigns-pci-bus-number/</p>
+<h2 id="what-is-pcie-p2p">What is PCIe P2P?</h2>
+<p>https://xilinx.github.io/XRT/master/html/p2p.html</p>
+<h2 id="what-is-the-difference-between-a-thread-and-a-block">What is the difference between a thread and a block?</h2>
+<p>https://stackoverflow.com/questions/16635587/whats-the-difference-between-a-thread-in-a-block-and-a-warp32-threads</p>
+<p>A block is used to run things in parallel and for each block there is one thread. Each parallel invocation of a kernel is a block and a set of blocks is a grid.</p>
+<p>You can also run multiple threads per block.
+<img alt="" src="../images/2021-11-11-16-09-59.png" />
+<img alt="" src="../images/2021-11-11-16-10-17.png" />
+<img alt="" src="../images/2021-11-11-16-11-28.png" /></p>
               
             </div>
           </div>

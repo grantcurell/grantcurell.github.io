@@ -9,7 +9,7 @@
   
   
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>Create OpenFlow Load Balancer - Grant Curell's Dell Projects</title>
+  <title>OpenFlow on 4112F-ON - Grant Curell's Dell Projects</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
   <link rel="stylesheet" href="../css/theme.css" />
@@ -18,7 +18,7 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Create OpenFlow Load Balancer";
+    var mkdocs_page_name = "OpenFlow on 4112F-ON";
     var mkdocs_page_input_path = "OpenFlow on 4112F-ON/README.md";
     var mkdocs_page_url = null;
   </script>
@@ -183,8 +183,10 @@
                     </li>
                 </ul>
                 <ul class="current">
-                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Create OpenFlow Load Balancer</a>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">OpenFlow on 4112F-ON</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#files">Files</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#reading-material">Reading Material</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a>
@@ -235,9 +237,7 @@
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#random-programming-thoughts">Random Programming Thoughts</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_1">問題</a>
+    <li class="toctree-l2"><a class="reference internal" href="#problems">Problems</a>
     </li>
     </ul>
                     </li>
@@ -367,7 +367,7 @@
     
       
     
-    <li>Create OpenFlow Load Balancer</li>
+    <li>OpenFlow on 4112F-ON</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -379,7 +379,41 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="create-openflow-load-balancer">Create OpenFlow Load Balancer</h1>
+                <h1 id="openflow-on-4112f-on">OpenFlow on 4112F-ON</h1>
+<ul>
+<li><a href="#create-openflow-load-balancer">Create OpenFlow Load Balancer</a></li>
+<li><a href="#files">Files</a></li>
+<li><a href="#reading-material">Reading Material</a></li>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#my-configuration">My Configuration</a><ul>
+<li><a href="#switch-version-info">Switch Version Info</a></li>
+</ul>
+</li>
+<li><a href="#setup">Setup</a><ul>
+<li><a href="#setup-controller">Setup Controller</a></li>
+<li><a href="#on-host-workstation">On Host Workstation</a></li>
+<li><a href="#setup-openflow-on-the-switch">Setup OpenFlow on the Switch</a></li>
+<li><a href="#enable-openflow">Enable OpenFlow</a></li>
+<li><a href="#configure-management">Configure Management</a></li>
+<li><a href="#configure-openflow-controller">Configure OpenFlow Controller</a></li>
+</ul>
+</li>
+<li><a href="#running-the-code">Running the Code</a></li>
+<li><a href="#supported-protocols">Supported Protocols</a></li>
+<li><a href="#helpful-commands">Helpful Commands</a></li>
+<li><a href="#personal-notes">Personal Notes</a><ul>
+<li><a href="#things-we-want">Things We Want</a></li>
+<li><a href="#protocols">Protocols</a></li>
+</ul>
+</li>
+<li><a href="#things-to-mention">Things to mention</a><ul>
+<li><a href="#use-cases">Use Cases</a></li>
+</ul>
+</li>
+<li><a href="#problems">Problems</a></li>
+</ul>
+<h2 id="files">Files</h2>
+<p>See <a href="https://github.com/grantcurell/grantcurell.github.io/tree/master/docs/OpenFlow%20on%204112F-ON">here</a> for a listing of files and source code.</p>
 <h2 id="reading-material">Reading Material</h2>
 <p><a href="Reading_Material/openflow-spec-v1.3.1.pdf">Open Flow Switch Specification v1.3.1</a></p>
 <p><a href="https://topics-cdn.dell.com/pdf/force10-sw-defined-ntw_deployment-guide3_en-us.pdf">Dell OpenFlow Deployment and User Guide 3.0</a></p>
@@ -484,19 +518,8 @@ SSH</p>
 </ul>
 <p>A couple of dropdown boxes in a statement and an execute button.
 One of those things could be an IP address, or a port, or a protocol, physical port</p>
-<p>問題答案
-我需要用：<code>terminal monitor</code> 
-<code>logging console severity log-debug</code></p>
-<h2 id="random-programming-thoughts">Random Programming Thoughts</h2>
-<ul>
-<li>它只會詢問流中的第一個封包。</li>
-<li>我可以使用混合模式。</li>
-</ul>
-<h2 id="_1">問題</h2>
-<p>看起來交換器不發送Expire messages
-我的層2的問題 - 我忘了這是什麽！
-我需要處理我們失去了聯係的情況。
-need to make sure we don't receive a reject message
+<h2 id="problems">Problems</h2>
+<p>need to make sure we don't receive a reject message
 need to make it so outports and inports persist
 if something is an input port do we want to stop them from using redirect port
 I need to go back and make sure that when compressed tiles move to the next line
