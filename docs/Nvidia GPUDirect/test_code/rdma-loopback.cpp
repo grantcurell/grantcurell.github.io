@@ -7,7 +7,7 @@
 //
 // This program can be built using the following command line (tested on CentOS 8.5 with gcc 8.5.0):
 //
-//     g++ rdma-loopback.cc -o rdma-loopback -libverbs -I/usr/local/cuda/include -L/usr/local/cuda/lib64 -lcudart
+//     g++ rdma-loopback.cpp -o rdma-loopback -libverbs -I/usr/local/cuda/include -L/usr/local/cuda/lib64 -lcudart
 //
 // Usage:
 //
@@ -39,6 +39,8 @@
 #include <string>
 #include <time.h>
 #include <vector>
+#include <iostream>
+using namespace std;
 
 ibv_device *find_device_by_ibv_name(const char *dev_name)
 {
@@ -47,7 +49,10 @@ ibv_device *find_device_by_ibv_name(const char *dev_name)
     auto dev_list = ibv_get_device_list(&num_devices);
     ibv_device *device = nullptr;
     for (int i = 0; i < num_devices; ++i)
-    {
+    { 
+        cout << "HERE\n";
+        cout << ibv_get_device_name(dev_list[i]);
+        cout << "\n";
         if (!strcmp(dev_name, ibv_get_device_name(dev_list[i])))
         {
             device = dev_list[i];
@@ -72,11 +77,10 @@ uint32_t ipv4_from_string(const char *s)
 size_t cq_len = 1;
 size_t cq_vec = 0;
 
-
 // TODO - need to update
 const char *rx_ibv_name = "mlx5_0";
 size_t rx_port_num = 1;
-uint8_t dest_mac_addr[] = { 0xb8, 0xce, 0xf6, 0x16, 0xa9, 0x4e };
+uint8_t dest_mac_addr[] = { 0xb8, 0xce, 0xf6, 0xcc, 0x9e, 0xdf };
 const char *dest_ipv4_addr_str = "10.1.100.1";
 uint32_t dest_ipv4_addr = ipv4_from_string(dest_ipv4_addr_str);
 uint16_t dest_udp_port = 12345;

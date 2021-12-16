@@ -1,4 +1,31 @@
-# Create OpenFlow Load Balancer
+# OpenFlow on 4112F-ON
+
+- [Create OpenFlow Load Balancer](#create-openflow-load-balancer)
+  - [Files](#files)
+  - [Reading Material](#reading-material)
+  - [Overview](#overview)
+  - [My Configuration](#my-configuration)
+    - [Switch Version Info](#switch-version-info)
+  - [Setup](#setup)
+    - [Setup Controller](#setup-controller)
+    - [On Host Workstation](#on-host-workstation)
+    - [Setup OpenFlow on the Switch](#setup-openflow-on-the-switch)
+      - [Enable OpenFlow](#enable-openflow)
+      - [Configure Management](#configure-management)
+      - [Configure OpenFlow Controller](#configure-openflow-controller)
+  - [Running the Code](#running-the-code)
+  - [Supported Protocols](#supported-protocols)
+  - [Helpful Commands](#helpful-commands)
+  - [Personal Notes](#personal-notes)
+    - [Things We Want](#things-we-want)
+      - [Protocols](#protocols)
+  - [Things to mention](#things-to-mention)
+      - [Use Cases](#use-cases)
+  - [Problems](#problems)
+
+## Files
+
+See [here](https://github.com/grantcurell/grantcurell.github.io/tree/master/docs/OpenFlow%20on%204112F-ON) for a listing of files and source code.
 
 ## Reading Material
 
@@ -131,20 +158,8 @@ SSH
 A couple of dropdown boxes in a statement and an execute button.
 One of those things could be an IP address, or a port, or a protocol, physical port
 
-問題答案
-我需要用：`terminal monitor` 
-`logging console severity log-debug`
+## Problems
 
-## Random Programming Thoughts
-
-- 它只會詢問流中的第一個封包。
-- 我可以使用混合模式。
-
-## 問題
-
-看起來交換器不發送Expire messages
-我的層2的問題 - 我忘了這是什麽！
-我需要處理我們失去了聯係的情況。
 need to make sure we don't receive a reject message
 need to make it so outports and inports persist
 if something is an input port do we want to stop them from using redirect port
