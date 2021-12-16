@@ -1,4 +1,4 @@
-# Load Balancing with OpenVSwitch
+# Load Balance Testing with OpenVSwitch
 
 From tutorial [ovs-conntrack](http://docs.openvswitch.org/en/latest/tutorials/ovs-conntrack/)
 

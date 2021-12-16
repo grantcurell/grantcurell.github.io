@@ -21,9 +21,13 @@ nav:
 - Installing DPDK with NapaTech Card/README.md
 - IO Identities with LifeCycle Controller/README.md
 - LDAP with OpenManage/README.md
-- Load Balancing with LAG/README.md
-- Load Balancing with OpenVSwitch/README.md
-- Multiple Span on 4112F-ON/README.md
+- Load Balance Testing on 4112F-ON/OpenSwitch (OPX)/README.md
+- Load Balance Testing on 4112F-ON/OS10/README.md
+- Load Balance Testing with OpenVSwitch/README.md
+- Load Balancing on Mellanox Switches/README.md
+- Load Balancing with LAG on 5112F-ON/README.md
+- Mulitple Span on 4112F-ON with OpenSwitch/README.md
+- Multiple Span on 4112F-ON with OS10/README.md
 - Nvidia GPUDirect/README.md
 - NVMe Performance Testing/README.md
 - Offline Updates with OpenManage Enterprise/README.md
@@ -47,7 +51,6 @@ nav:
 - Understanding Memory/README.md
 - Use OS10 as Aggregator/README.md
 - VEP Testing/README.md
-- VMWare/README.md
 - VXRail Troubleshooting/README.md
 - Web Traffic Generator/README.md
 site_name: Grant Curell's Dell Projects

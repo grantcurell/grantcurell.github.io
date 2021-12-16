@@ -1,4 +1,4 @@
-# Mellanox SN2010 Load Balancing with LAG
+# Load Balancing on Mellanox Switches
 
 In this test case the goal is to create a simple load balancer using a reverse
 LAG port. The idea is to have one input port which is then mirrored to a logical

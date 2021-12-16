@@ -1,4 +1,4 @@
-# Multiple Mirror Port Test
+# Multiple Span on 4112F-ON with OS10
 
 In this test case I am testing to see if we can configure a Dell 4112F-ON with
 OS10 to create a one to many port configuration using SPAN.

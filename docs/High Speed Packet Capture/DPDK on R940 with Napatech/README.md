@@ -218,7 +218,7 @@ Standalone DPDK processes are primary processes, while secondary processes can o
 
 ## TestPMD 
 
-The test pmd manual is available [here](./dpdk-testpmd-application-user-guide.pdf)
+The test pmd manual is available [here](../DPDK%20on%20FC640%20with%20RHEL%208/dpdk-testpmd-application-user-guide.pdf)
 
 ### Interactive Commands
 

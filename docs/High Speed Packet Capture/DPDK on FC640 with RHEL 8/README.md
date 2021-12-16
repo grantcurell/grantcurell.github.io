@@ -11,6 +11,8 @@ a server.
 
 [Description of the TestPMD Program](https://software.intel.com/en-us/articles/testing-dpdk-performance-and-features-with-testpmd)
 
+[DPDK Testpmd Application User Guide](dpdk-testpmd-application-user-guide.pdf)
+
 # My Environment
 
 I am running a Dell FC640 on a TFX2HE chassis.

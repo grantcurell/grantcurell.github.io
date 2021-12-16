@@ -3,6 +3,7 @@ import shutil
 import yaml
 import os
 import logging
+import marko
 from shutil import move
 
 with open('mkdocs.yml', 'r') as mkdocs:
@@ -14,10 +15,15 @@ with open('mkdocs.yml', 'r') as mkdocs:
 
     for directory in os.listdir(os.path.join(current_directory, 'docs')):
         if os.path.isdir(os.path.join(current_directory, 'docs', directory)):
-            configuration['nav'].append(directory + '/README.md')
             if not os.path.exists(os.path.join(current_directory, 'docs', directory, 'README.md')):
-                logging.warning(directory + " does not have a readme file!")
+                if 'Load Balance Testing on 4112F-ON' == directory:
+                    configuration['nav'].append(directory + '/OpenSwitch (OPX)/README.md')
+                    configuration['nav'].append(directory + '/OS10/README.md')
+                else:
+                    logging.warning(directory + " does not have a readme file!")
             else:
+
+                configuration['nav'].append(directory + '/README.md')
 
                 # This block just makes sure the first line of every file has a title that is the same as the directory
                 # name so that it appears correctly in the menu

@@ -1,5 +1,11 @@
 # Create Kickstart Server on Fedora
 
+## Files
+
+All files housed [here](https://github.com/grantcurell/grantcurell.github.io/tree/master/docs/Create%20Kickstart%20Server%20on%20Fedora)
+
+## Intro
+
 This Ansible playbook runs on CentOS. It will create a server which
 allows you to install Fedora automatically via PXE boot and Kickstart.
 

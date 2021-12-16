@@ -1,16 +1,16 @@
-# Configuring Load Balancing with LAG on Dell 5212F-ON
+# Load Balancing with LAG on 5112F-ON
 
 - [Configuring Load Balancing with LAG on Dell 5212F-ON](#configuring-load-balancing-with-lag-on-dell-5212f-on)
-  - [Version Information](#version-information)
+  - [Version/Hardware Information](#versionhardware-information)
   - [The Test Environment](#the-test-environment)
   - [Configure Devices](#configure-devices)
     - [Configure 5212F-ON](#configure-5212f-on)
     - [Configure RHEL 8](#configure-rhel-8)
   - [Test Results](#test-results)
 
-## Version Information
+## Version/Hardware Information
 
-**Note** This requires at least 10.5.3.0
+**Note** This requires at least 10.5.3.0 and is only supported on switches with the Trident proc
 
 ```
 OS10(config)# do show version
