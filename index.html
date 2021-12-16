@@ -19,7 +19,7 @@
   <script>
     // Current page data
     var mkdocs_page_name = "Grant Curell's Dell Projects";
-    var mkdocs_page_input_path = "index.md";
+    var mkdocs_page_input_path = "README.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -51,7 +51,15 @@
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#questions">Questions</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#site-bugs">Site Bugs</a>
+    <li class="toctree-l2"><a class="reference internal" href="#additional-files">Additional Files</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#disclaimer">Disclaimer</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#how-to-configure-onie">How to Configure ONIE</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#onie-boot-the-switch">ONIE Boot the Switch</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#configure-managment-interface-on-dell-os10">Configure Managment Interface on Dell OS10</a>
     </li>
     </ul>
                     </li>
@@ -141,15 +149,31 @@
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="" href="Load Balancing with LAG/README.md">None</a>
+                    <li class="toctree-l1"><a class="reference internal" href="Load%20Balance%20Testing%20on%204112F-ON/OpenSwitch%20%28OPX%29/">Load Balancing with LAG OPX</a>
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="Load%20Balancing%20with%20OpenVSwitch/">Load Balancing with OpenVSwitch</a>
+                    <li class="toctree-l1"><a class="reference internal" href="Load%20Balance%20Testing%20on%204112F-ON/OS10/">Load Balance Testing on 4112F-ON w/OS10</a>
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="" href="Multiple Span on 4112F-ON/README.md">None</a>
+                    <li class="toctree-l1"><a class="reference internal" href="Load%20Balance%20Testing%20with%20OpenVSwitch/">Load Balance Testing with OpenVSwitch</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="Load%20Balancing%20on%20Mellanox%20Switches/">Load Balancing on Mellanox Switches</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="Load%20Balancing%20with%20LAG%20on%205112F-ON/">Load Balancing with LAG on 5112F-ON</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="Mulitple%20Span%20on%204112F-ON%20with%20OpenSwitch/">Mulitple Span on 4112F-ON with OpenSwitch</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="Multiple%20Span%20on%204112F-ON%20with%20OS10/">Multiple Span on 4112F-ON with OS10</a>
                     </li>
                 </ul>
                 <ul>
@@ -245,11 +269,35 @@
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="" href="VMWare/README.md">None</a>
+                    <li class="toctree-l1"><a class="reference internal" href="VMWare/Automate%20ESXi%20Installation/">Automating ESXi Installation</a>
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="VXRail%20Troubleshooting/">VXRail Troubleshooting</a>
+                    <li class="toctree-l1"><a class="reference internal" href="VMWare/ESXi%20Architecture/">VMWare Architecture Notes</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="VMWare/ESXi%20Downloads%20Missing/">ESXi Downloads Missing</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="VMWare/Notes%20on%20vSAN/">Notes on vSAN</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="VMWare/Setup%20VXRail/">VxRail Setup</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="VMWare/Troubleshooting%20vSAN/">Troubleshooting vSAN</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="VMWare/VMWare%20APIs/">VMWare APIs</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="VMWare/VxRail%20Architecture%20and%20Troubleshooting/">VxRail Architecture and Troubleshooting</a>
                     </li>
                 </ul>
                 <ul>
@@ -292,9 +340,56 @@
                 <h1 id="grant-curells-dell-projects">Grant Curell's Dell Projects</h1>
 <p>Every time Dell asks me to figure something out, I write it down. Mostly because more often than not someone asks me about it a year later and I have to remember what I did.</p>
 <h2 id="questions">Questions</h2>
-<p>If you have any questions about something I did, open an issue on the repo at https://github.com/grantcurell/grantcurell.github.io and I'll respond.</p>
-<h2 id="site-bugs">Site Bugs</h2>
-<p>I built this 15 December and there's a few folders that are broken. I'll fix them.</p>
+<p>If you have any questions about something I did, open an issue on the repo at <a href="https://github.com/grantcurell/grantcurell.github.io">grantcurell.github.io</a> and I'll respond.</p>
+<h2 id="additional-files">Additional Files</h2>
+<p>Most of the files I use in the projects are linked from the markdown documentation but often there might be additional files not visible for this site. It may be easier to browse to the <a href="https://github.com/grantcurell/grantcurell.github.io/tree/master/docs">actual docs folder</a> and look at the appropriate folder.</p>
+<h2 id="disclaimer">Disclaimer</h2>
+<p>These are just my personal notes for the random things I test. I'm generally thorough,
+but there is no guarentee on completeness :-D</p>
+<h2 id="how-to-configure-onie">How to Configure ONIE</h2>
+<p>I ran the network version of the ONIE installation using a web server. Below
+is what I did to get things installed. We will host the OS installer on our
+web server and then we will use ONIE to grab it. We will use a DNS record to 
+control the ONIE server location.</p>
+<ol>
+<li>Install Apache on RHEL or your favorite Linux distro.</li>
+<li>Make sure you allow HTTP traffic through the firewall</li>
+<li>Download your operating system of choice and untar it.</li>
+<li>Upload <code>&lt;YOUR INSTALLER&gt;.bin</code> to the root of your web server.</li>
+<li>Create a symlink to the installer with <code>ln -s &lt;YOUR INSTALLER&gt;.bin onie-installer</code>. The file must have this name for the installation to work.</li>
+<li>The switch will use DHCP to acquire an IP address. On the DNS server pointed to by your DHCP configuration, add a record for onie-server and point it at the host running Apache.</li>
+</ol>
+<p>On a test box, run a DHCP request, ensure you pull the correct DNS server and that the host can resolve <code>onie-server</code>. After you confirm DNS is working, browse to the onie-installer file
+on your Apache server and make sure you can download it without issue.</p>
+<p><strong>Warning:</strong> It must be able to resolve the hostname onie-server with the FQDN.
+If <code>onie-server</code> is not immediately resolvable, the install process will not work.</p>
+<h2 id="onie-boot-the-switch">ONIE Boot the Switch</h2>
+<ol>
+<li>
+<p>Connect to the switch over the console port. My configuration was:</p>
+<pre><code>Baud Rate: 115200
+Data Bits: 8
+Stop Bits: 1
+Parity: None
+Flow Control: None
+</code></pre>
+</li>
+<li>
+<p>Connect the ethernet management port of the switch to the same network containing your web server. ONIE will use the management port to establish a connection to the ONIE server.</p>
+</li>
+<li>Once the grub menu appears, select ONIE Installer. In my case this was the top option.</li>
+<li>At this point the ONIE discovery process will commence. It will print each location it attempts to search. It should find the onie-server DNS record and the installation should begin automatically. If this doesn't happen it means there is an issue with the preconfiguration above. Try swapping out the ethernet management cable with a host. Make sure that host pulls DNS/DHCP correctly and is able to download the onie-installer file.</li>
+<li>Wait for the installation to finish and the switch to reboot. Login with admin/admin.</li>
+<li>If after logging in you are told you can't enter configuration mode because "% Error: ZTD is in progress(configuration is locked)." run <code>ztd cancel</code></li>
+</ol>
+<h2 id="configure-managment-interface-on-dell-os10">Configure Managment Interface on Dell OS10</h2>
+<p>Do the following to configure a management interface on Dell OS10</p>
+<pre><code>OS10# configure terminal
+OS10(config)# interface mgmt 1/1/1
+OS10(conf-if-ma-1/1/1)# ip address 192.168.1.20/24
+OS10(conf-if-ma-1/1/1)# &lt;165&gt;1 2019-10-28T19:04:39.385196+00:00 OS10 dn_alm 669 - - Node.1-Unit.1:PRI [event], Dell EMC (OS10) %IP_ADDRESS_ADD: IP Address add is successful. IP 192.168.1.20/24 in VRF:default added successfully
+OS10(conf-if-ma-1/1/1)# do write memory
+</code></pre>
               
             </div>
           </div>
@@ -349,5 +444,5 @@
 
 <!--
 MkDocs version : 1.2.3
-Build Date UTC : 2021-12-16 03:41:46.192166+00:00
+Build Date UTC : 2021-12-16 17:28:21.416961+00:00
 -->

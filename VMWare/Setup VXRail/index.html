@@ -135,15 +135,31 @@
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="" href="../../Load Balancing with LAG/README.md">None</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../../Load%20Balance%20Testing%20on%204112F-ON/OpenSwitch%20%28OPX%29/">Load Balancing with LAG OPX</a>
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../../Load%20Balancing%20with%20OpenVSwitch/">Load Balancing with OpenVSwitch</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../../Load%20Balance%20Testing%20on%204112F-ON/OS10/">Load Balance Testing on 4112F-ON w/OS10</a>
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="" href="../../Multiple Span on 4112F-ON/README.md">None</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../../Load%20Balance%20Testing%20with%20OpenVSwitch/">Load Balance Testing with OpenVSwitch</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../Load%20Balancing%20on%20Mellanox%20Switches/">Load Balancing on Mellanox Switches</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../Load%20Balancing%20with%20LAG%20on%205112F-ON/">Load Balancing with LAG on 5112F-ON</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../Mulitple%20Span%20on%204112F-ON%20with%20OpenSwitch/">Mulitple Span on 4112F-ON with OpenSwitch</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../Multiple%20Span%20on%204112F-ON%20with%20OS10/">Multiple Span on 4112F-ON with OS10</a>
                     </li>
                 </ul>
                 <ul>
@@ -239,11 +255,87 @@
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="" href="../README.md">None</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../Automate%20ESXi%20Installation/">Automating ESXi Installation</a>
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../../VXRail%20Troubleshooting/">VXRail Troubleshooting</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../ESXi%20Architecture/">VMWare Architecture Notes</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../ESXi%20Downloads%20Missing/">ESXi Downloads Missing</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20vSAN/">Notes on vSAN</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">VxRail Setup</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#license-keys">License Keys</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#networking">Networking</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#what-does-mld-querying-do-and-why-can-it-break-vxrail-discovery">What does MLD Querying Do and Why Can it Break VxRail Discovery</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#rasr-process">RASR Process</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#deploy-witness">Deploy Witness</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#after-deploying-the-witness">After deploying the Witness:</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#set-up-vcenter">Set Up vCenter</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#set-up-the-manager-for-discovery">Set up the Manager for Discovery</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#install">Install</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#advanced-troubleshooting">Advanced Troubleshooting</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#check-for-esxi-logs">Check for ESXi Logs</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#marvin-logs">Marvin Logs</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#digging-through-vxrails-guts">Digging Through VxRail's Guts</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#helpful-commands">Helpful Commands</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#check-if-vxrail-is-running">Check if VxRail is Running</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#get-a-list-of-vms">Get a List of VMs</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#check-if-vm-is-on">Check if VM is On</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#check-networking">Check Networking</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#set-the-vlan-for-a-switch">Set the VLAN for a Switch</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#get-interface-ips">Get Interface IPs</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#get-interface-list">Get Interface List</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Troubleshooting%20vSAN/">Troubleshooting vSAN</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../VMWare%20APIs/">VMWare APIs</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../VxRail%20Architecture%20and%20Troubleshooting/">VxRail Architecture and Troubleshooting</a>
                     </li>
                 </ul>
                 <ul>
@@ -477,6 +569,15 @@ bdd88fadc236        infra/prom/alertmanager:1.1.4              &quot;/bin/alertm
           </div>
           <footer>
   
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../Troubleshooting%20vSAN/" class="btn btn-neutral float-right" title="Troubleshooting vSAN">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../Notes%20on%20vSAN/" class="btn btn-neutral" title="Notes on vSAN"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
 
   <hr/>
 
@@ -499,6 +600,10 @@ bdd88fadc236        infra/prom/alertmanager:1.1.4              &quot;/bin/alertm
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
+      <span><a href="../Notes%20on%20vSAN/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../Troubleshooting%20vSAN/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

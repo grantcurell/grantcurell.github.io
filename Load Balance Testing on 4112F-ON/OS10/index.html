@@ -9,7 +9,7 @@
   
   
   <link rel="shortcut icon" href="../../img/favicon.ico">
-  <title>Configuring Load Balancing with LAG on Dell 5212F-ON - Grant Curell's Dell Projects</title>
+  <title>Load Balance Testing on 4112F-ON w/OS10 - Grant Curell's Dell Projects</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
   <link rel="stylesheet" href="../../css/theme.css" />
@@ -18,8 +18,8 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Configuring Load Balancing with LAG on Dell 5212F-ON";
-    var mkdocs_page_input_path = "Load Balancing with LAG/5212F-ON/README.md";
+    var mkdocs_page_name = "Load Balance Testing on 4112F-ON w/OS10";
+    var mkdocs_page_input_path = "Load Balance Testing on 4112F-ON/OS10/README.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -135,15 +135,33 @@
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="" href="../../Load Balancing with LAG/README.md">None</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../OpenSwitch%20%28OPX%29/">Load Balancing with LAG OPX</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Load Balance Testing on 4112F-ON w/OS10</a>
+    <ul class="current">
+    </ul>
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../../Load%20Balancing%20with%20OpenVSwitch/">Load Balancing with OpenVSwitch</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../../Load%20Balance%20Testing%20with%20OpenVSwitch/">Load Balance Testing with OpenVSwitch</a>
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="" href="../../Multiple Span on 4112F-ON/README.md">None</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../../Load%20Balancing%20on%20Mellanox%20Switches/">Load Balancing on Mellanox Switches</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../Load%20Balancing%20with%20LAG%20on%205112F-ON/">Load Balancing with LAG on 5112F-ON</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../Mulitple%20Span%20on%204112F-ON%20with%20OpenSwitch/">Mulitple Span on 4112F-ON with OpenSwitch</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../Multiple%20Span%20on%204112F-ON%20with%20OS10/">Multiple Span on 4112F-ON with OS10</a>
                     </li>
                 </ul>
                 <ul>
@@ -239,11 +257,35 @@
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="" href="../../VMWare/README.md">None</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../../VMWare/Automate%20ESXi%20Installation/">Automating ESXi Installation</a>
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../../VXRail%20Troubleshooting/">VXRail Troubleshooting</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../../VMWare/ESXi%20Architecture/">VMWare Architecture Notes</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../VMWare/ESXi%20Downloads%20Missing/">ESXi Downloads Missing</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../VMWare/Notes%20on%20vSAN/">Notes on vSAN</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../VMWare/Setup%20VXRail/">VxRail Setup</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../VMWare/Troubleshooting%20vSAN/">Troubleshooting vSAN</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../VMWare/VMWare%20APIs/">VMWare APIs</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../VMWare/VxRail%20Architecture%20and%20Troubleshooting/">VxRail Architecture and Troubleshooting</a>
                     </li>
                 </ul>
                 <ul>
@@ -271,7 +313,7 @@
     
       
     
-    <li>Configuring Load Balancing with LAG on Dell 5212F-ON</li>
+    <li>Load Balance Testing on 4112F-ON w/OS10</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -283,75 +325,27 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="configuring-load-balancing-with-lag-on-dell-5212f-on">Configuring Load Balancing with LAG on Dell 5212F-ON</h1>
+                <h1 id="load-balance-testing-on-4112f-on-wos10">Load Balance Testing on 4112F-ON w/OS10</h1>
+<p>See:</p>
 <ul>
-<li><a href="#configuring-load-balancing-with-lag-on-dell-5212f-on">Configuring Load Balancing with LAG on Dell 5212F-ON</a></li>
-<li><a href="#version-information">Version Information</a></li>
-<li><a href="#the-test-environment">The Test Environment</a></li>
-<li><a href="#configure-devices">Configure Devices</a><ul>
-<li><a href="#configure-5212f-on">Configure 5212F-ON</a></li>
-<li><a href="#configure-rhel-8">Configure RHEL 8</a></li>
+<li><a href="Test%20Case%201/">Test Case 1</a></li>
+<li><a href="Test%20Case%202/">Test Case 2</a></li>
+<li><a href="Test%20Case%203/">Test Case 3</a></li>
+<li><a href="Test%20Case%204/">Test Case 4</a></li>
 </ul>
-</li>
-<li><a href="#test-results">Test Results</a></li>
-</ul>
-<h2 id="version-information">Version Information</h2>
-<p><strong>Note</strong> This requires at least 10.5.3.0</p>
-<pre><code>OS10(config)# do show version
-Dell EMC Networking OS10 Enterprise
-Copyright (c) 1999-2021 by Dell Inc. All Rights Reserved.
-OS Version: 10.5.3.0
-Build Version: 10.5.3.0.44
-Build Time: 2021-10-06T23:03:55+0000
-System Type: S5212F-ON
-Architecture: x86_64
-Up Time: 00:03:27
-</code></pre>
-<h2 id="the-test-environment">The Test Environment</h2>
-<p>I used a RHEL box to generate traffic inbound to the switch on port ethernet 1/1/5:1 which I then expected to load balance across ports ethernet 1/1/1:1 and 1/1/4:1. I used source and dest IP and source and dest port as the criteria for load balancing. Traffic was captured with a single laptop which was directly connected to the two independent receiving interfaces. A single Wireshark monitor session was established for each of the individual interfaces to ensure that they received independent, mutually-exclusive, session load balancing.</p>
-<p>The traffic was a session I generated by using a laptop that was serving as a virtual web gateway along with being used as an end user device.</p>
-<h2 id="configure-devices">Configure Devices</h2>
-<h3 id="configure-5212f-on">Configure 5212F-ON</h3>
-<pre><code>configure terminal
-load-balancing ip-selection source-ip destination-ip l4-destination-port l4-source-port
-port-group  1/1/1
-mode eth 10g-4x
-interface port-channel 1
-no shutdown
-no switchport
-exit
-interface ethernet 1/1/1:1
-no shut
-channel-group 1
-speed 1000
-exit
-interface ethernet 1/1/4:1
-no shut
-channel-group 1
-speed 1000
-exit
-monitor session 1
-destination interface port-channel 1
-source interface ethernet 1/1/5:1
-no shut
-exit
-</code></pre>
-<h3 id="configure-rhel-8">Configure RHEL 8</h3>
-<pre><code>sudo dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
-sudo subscription-manager repos --enable codeready-builder-for-rhel-8-x86_64-rpms
-dnf group install &quot;Development Tools&quot;
-dnf install -y libpcap-devel
-make
-make install
-/usr/local/bin/tcpreplay -i ens32 test.pcap
-</code></pre>
-<h2 id="test-results">Test Results</h2>
-<p>The test succeeded. This was verified by checking that the sessions seen by two separate streams were mutually exclusive. At no point did we see effects as described in <a href="../4112F-ON/OS10/Test%20Case%204/">4112F-ON Test Case 4</a> where a single session was sent down two separate lanes. Moreover, by checking the individual sessions you can see the bidirectional flow:</p>
-<p><img alt="" src="images/2021-12-08-15-31-19.png" /></p>
               
             </div>
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../../Load%20Balance%20Testing%20with%20OpenVSwitch/" class="btn btn-neutral float-right" title="Load Balance Testing with OpenVSwitch">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../OpenSwitch%20%28OPX%29/" class="btn btn-neutral" title="Load Balancing with LAG OPX"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
@@ -375,6 +369,10 @@ make install
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
+      <span><a href="../OpenSwitch%20%28OPX%29/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../../Load%20Balance%20Testing%20with%20OpenVSwitch/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

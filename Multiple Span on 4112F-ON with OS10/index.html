@@ -9,7 +9,7 @@
   
   
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>idrac with LDAP - Grant Curell's Dell Projects</title>
+  <title>Multiple Span on 4112F-ON with OS10 - Grant Curell's Dell Projects</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
   <link rel="stylesheet" href="../css/theme.css" />
@@ -18,8 +18,8 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "idrac with LDAP";
-    var mkdocs_page_input_path = "idrac with LDAP/README.md";
+    var mkdocs_page_name = "Multiple Span on 4112F-ON with OS10";
+    var mkdocs_page_input_path = "Multiple Span on 4112F-ON with OS10/README.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -114,22 +114,8 @@
                     <li class="toctree-l1"><a class="reference internal" href="../How%20OS10%20Installer%20Works/">How OS10 Installer Works</a>
                     </li>
                 </ul>
-                <ul class="current">
-                    <li class="toctree-l1 current"><a class="reference internal current" href="./">idrac with LDAP</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#version-info">Version Info</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#setup-freeipa">Setup FreeIPA</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#helpful-commands">Helpful Commands</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#setup-idrac">Setup idrac</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#youtube-video-of-login">YouTube Video of Login</a>
-    </li>
-    </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../idrac%20with%20LDAP/">idrac with LDAP</a>
                     </li>
                 </ul>
                 <ul>
@@ -172,8 +158,10 @@
                     <li class="toctree-l1"><a class="reference internal" href="../Mulitple%20Span%20on%204112F-ON%20with%20OpenSwitch/">Mulitple Span on 4112F-ON with OpenSwitch</a>
                     </li>
                 </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../Multiple%20Span%20on%204112F-ON%20with%20OS10/">Multiple Span on 4112F-ON with OS10</a>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Multiple Span on 4112F-ON with OS10</a>
+    <ul class="current">
+    </ul>
                     </li>
                 </ul>
                 <ul>
@@ -325,7 +313,7 @@
     
       
     
-    <li>idrac with LDAP</li>
+    <li>Multiple Span on 4112F-ON with OS10</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -337,172 +325,76 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="idrac-with-ldap">idrac with LDAP</h1>
+                <h1 id="multiple-span-on-4112f-on-with-os10">Multiple Span on 4112F-ON with OS10</h1>
+<p>In this test case I am testing to see if we can configure a Dell 4112F-ON with
+OS10 to create a one to many port configuration using SPAN.</p>
+<h1 id="helpful-links">Helpful Links</h1>
+<p><a href="https://opencomputeproject.github.io/onie/user-guide/index.html#installing-over-the-network">ONIE Network Install Process Overview</a></p>
+<h1 id="my-configuration">My Configuration</h1>
+<h2 id="general-configuration">General Configuration</h2>
 <ul>
-<li><a href="#setting-up-idrac-with-freeipa">Setting Up idrac with FreeIPA</a></li>
-<li><a href="#version-info">Version Info</a></li>
-<li><a href="#setup-freeipa">Setup FreeIPA</a><ul>
-<li><a href="#helpful-commands">Helpful Commands</a></li>
+<li>ONIE host is running RHEL 8</li>
+<li>I am using a Dell S4112F-ON for testing</li>
+<li>OS10 version 10.5.0.2</li>
+<li>PFSense running DNS and DHCP as services</li>
 </ul>
-</li>
-<li><a href="#setup-idrac">Setup idrac</a></li>
-<li><a href="#youtube-video-of-login">YouTube Video of Login</a></li>
-</ul>
-<h2 id="version-info">Version Info</h2>
-<pre><code>Fedora release 33 (Thirty Three)
-NAME=Fedora
-VERSION=&quot;33 (Workstation Edition)&quot;
-ID=fedora
-VERSION_ID=33
-VERSION_CODENAME=&quot;&quot;
-PLATFORM_ID=&quot;platform:f33&quot;
-PRETTY_NAME=&quot;Fedora 33 (Workstation Edition)&quot;
-ANSI_COLOR=&quot;0;38;2;60;110;180&quot;
-LOGO=fedora-logo-icon
-CPE_NAME=&quot;cpe:/o:fedoraproject:fedora:33&quot;
-HOME_URL=&quot;https://fedoraproject.org/&quot;
-DOCUMENTATION_URL=&quot;https://docs.fedoraproject.org/en-US/fedora/f33/system-administrators-guide/&quot;
-SUPPORT_URL=&quot;https://fedoraproject.org/wiki/Communicating_and_getting_help&quot;
-BUG_REPORT_URL=&quot;https://bugzilla.redhat.com/&quot;
-REDHAT_BUGZILLA_PRODUCT=&quot;Fedora&quot;
-REDHAT_BUGZILLA_PRODUCT_VERSION=33
-REDHAT_SUPPORT_PRODUCT=&quot;Fedora&quot;
-REDHAT_SUPPORT_PRODUCT_VERSION=33
-PRIVACY_POLICY_URL=&quot;https://fedoraproject.org/wiki/Legal:PrivacyPolicy&quot;
-VARIANT=&quot;Workstation Edition&quot;
-VARIANT_ID=workstation
-Fedora release 33 (Thirty Three)
-Fedora release 33 (Thirty Three)
-</code></pre>
-<h2 id="setup-freeipa">Setup FreeIPA</h2>
-<ol>
-<li>Install Fedora</li>
-<li>Change hostname</li>
-<li><code>hostname freeipa.grant.lan &amp;&amp; hostnamectl set-hostname freeipa.grant.lan</code></li>
-<li>Change in /etc/hostname</li>
-<li>Configure DNS to return for this hostname. Double check with <code>dig +short freeipa.grant.lan A &amp;&amp; dig +short -x 192.168.1.95</code></li>
-<li>Follow <a href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html-single/installing_identity_management/index">RHEL's instructions</a></li>
-<li>I used Chapter 5 for primary installation</li>
-<li>Make sure you add the requested DNS entries at the end</li>
-<li>Run <code>firewall-cmd --permanent --add-port={80/tcp,443/tcp,389/tcp,636/tcp,88/tcp,464/tcp,88/udp,464/udp,123/udp} &amp;&amp; firewall-cmd --reload</code> to allow the appropriate ports</li>
-<li>Run <code>kinit admin</code> - this allows you to use the command line tools otherwise they'll complain about kerberos.</li>
-<li>Log into FreeIPA server at <code>https://&lt;your_hostname&gt;</code>. In my case, Windows popped up a username and password prompt. That prompt didn't work - I had to exit it and then log into the webGUI.<ol>
-<li>Add a user other than administrator.</li>
-</ol>
-</li>
-<li>Create a new user and new group in the UI and assign the new user to the new group.<ol>
-<li><strong>WARNING</strong> I had to actually add the user to a new group. The group <strong>could not</strong> be admins or it wouldn't work. When I dumped <code>ldapsearch -x -H ldap://localhost -b "cn=admins,cn=groups,cn=accounts,dc=grant,dc=lan" -D "uid=grant,cn=users,cn=accounts,dc=grant,dc=lan" -w PASSWORD | less</code> my user actually didn't show in the admins group. When I created my own group and checked it worked fine.</li>
-</ol>
-</li>
-</ol>
-<h3 id="helpful-commands">Helpful Commands</h3>
-<p>To start the IPA service use <code>ipactl start|stop|restart</code>. You can check the status with <code>ipactl status</code>.</p>
-<p>Test LDAP credentials: <code>ldapwhoami -vvv -h 192.168.1.95 -p 389 -D 'uid=grant,cn=users,cn=accounts,dc=grant,dc=lan' -x -w &lt;PASSWORD&gt;</code></p>
-<p>Dump the structure of FreeIPA: <code>ldapsearch -x -H ldap://localhost -b "cn=accounts,dc=grant,dc=lan" -D "uid=grant,cn=users,cn=accounts,dc=grant,dc=lan" -w &lt;YOUR_USERS_PASSWORD&gt; | less</code>
-You can also use this to check to see if a user is a member of a group by changing the base path to search (-b). Change it to what you think the FQDN of the group is. The user in question should show up.</p>
-<h2 id="setup-idrac">Setup idrac</h2>
-<p>Go into the idrac and click the directories prompt.</p>
-<ol>
-<li>I ran without certs</li>
-</ol>
-<p><img alt="" src="images/2021-04-02-17-44-54.png" /></p>
-<ol>
-<li>
-<p>I used the following values:</p>
-<pre><code>Generic LDAP: Enabled
-Use Distinguished Name to Search Group Membership: Enabled
-LDAP Server Address: freeipa.grant.lan
-LDAP Server Port: 636
-Bind DN: uid=grant,cn=users,cn=accounts,dc=grant,dc=lan
-Bind Password: Your password
-Base DN to Search: cn=accounts,dc=grant,dc=lan
-Attribute of User Login: uid
-Attribute of Group Membership: member
-</code></pre>
-</li>
-<li>
-<p>Click next and for Group DN I used <code>cn=grantgroup,cn=groups,cn=accounts,dc=grant,dc=lan</code> where <code>grantgroup</code> was the name of the user group I added</p>
-</li>
-<li>I ran the test with the following results:</li>
-</ol>
-<p><img alt="" src="images/2021-04-02-17-49-41.png" /></p>
-<pre><code>    # Test Results
-    Ping Directory Server   Not Run
-    Directory Server DNS Name   Passed
-    LDAP connection to the Directory Server Passed
-    User DN existence   Passed
-    Certificate Validation  Disabled
-    User Authentication Passed
-    User Authorization  Passed
+<h2 id="rhel-release-info">RHEL Release Info</h2>
+<pre><code>NAME="Red Hat Enterprise Linux"
+VERSION="8.0 (Ootpa)"
+ID="rhel"
+ID_LIKE="fedora"
+VERSION_ID="8.0"
+PLATFORM_ID="platform:el8"
+PRETTY_NAME="Red Hat Enterprise Linux 8.0 (Ootpa)"
+ANSI_COLOR="0;31"
+CPE_NAME="cpe:/o:redhat:enterprise_linux:8.0:GA"
+HOME_URL="https://www.redhat.com/"
+BUG_REPORT_URL="https://bugzilla.redhat.com/"
 
-    # Test Log
-    16:49:14  Initiating Directory Services Settings Diagnostics:
-    16:49:14  trying LDAP server freeipa.grant.lan:636
-    16:49:14  Server Address freeipa.grant.lan resolved to 192.168.1.95
-    16:49:14  connect to 192.168.1.95:636 passed
-    16:49:14  Connecting to ldaps://[freeipa.grant.lan]:636...
-    16:49:14  Test user authenticated user=uid=grant,cn=users,cn=accounts,dc=grant,dc=lan host=freeipa.grant.lan
-    16:49:14  Search command:
-      Bind DN: uid=grant,cn=users,cn=accounts,dc=grant,dc=lan
-      Scope: subtree
-      Base DN: cn=accounts,dc=grant,dc=lan
-      Search filter: (uid=grant)
-      Attribute list:
-      objectClass
-      memberOf
-      dn
-      uid
-      objectCategory
-      defaultNamingContext
-      namingContexts
-      ldapServiceName
-      supportedControl
-      supportedExtension
-    16:49:14  Connecting to ldaps://[freeipa.grant.lan]:636...
-    16:49:14  Test user authenticated user=uid=grant,cn=users,cn=accounts,dc=grant,dc=lan host=freeipa.grant.lan
-    16:49:15  Connecting to ldaps://[freeipa.grant.lan]:636...
-    16:49:15  Test user authenticated user=uid=grant,cn=users,cn=accounts,dc=grant,dc=lan host=freeipa.grant.lan
-    16:49:15  Search command:
-      Bind DN: uid=grant,cn=users,cn=accounts,dc=grant,dc=lan
-      Scope: base
-      Base DN: cn=grantgroup,cn=groups,cn=accounts,dc=grant,dc=lan
-      Search filter: (member=uid=grant,cn=users,cn=accounts,dc=grant,dc=lan)
-      Attribute list:
-      objectClass
-      memberOf
-      dn
-      uid
-      objectCategory
-      defaultNamingContext
-      namingContexts
-      ldapServiceName
-      supportedControl
-      supportedExtension
-    16:49:15  Privileges gained from role group 'cn=grantgroup,cn=groups,cn=accounts,dc=grant,dc=lan':
-      Login
-      Config iDRAC
-      Config User
-      Clear Logs
-      Server Control
-      Virtual Console
-      Virtual Media
-      Test Alerts
-      Diagnostic Command
-    16:49:15  Test user grant authorized
-
-    16:49:15  Cumulative privileges gained:
-      Login
-      Config iDRAC
-      Config User
-      Clear Logs
-      Server Control
-      Virtual Console
-      Virtual Media
-      Test Alerts
-      Diagnostic Command
+REDHAT_BUGZILLA_PRODUCT="Red Hat Enterprise Linux 8"
+REDHAT_BUGZILLA_PRODUCT_VERSION=8.0
+REDHAT_SUPPORT_PRODUCT="Red Hat Enterprise Linux"
+REDHAT_SUPPORT_PRODUCT_VERSION="8.0"
+Red Hat Enterprise Linux release 8.0 (Ootpa)
+Red Hat Enterprise Linux release 8.0 (Ootpa)
 </code></pre>
-<h2 id="youtube-video-of-login">YouTube Video of Login</h2>
-<p>See: https://youtu.be/-fHlHhF9vH4</p>
+<h2 id="os10-version">OS10 Version</h2>
+<pre><code>Dell EMC Networking OS10 Enterprise
+Copyright (c) 1999-2019 by Dell Inc. All Rights Reserved.
+OS Version: 10.5.0.2
+Build Version: 10.5.0.2.468
+Build Time: 2019-10-19T00:29:00+0000
+System Type: S4112F-ON
+Architecture: x86_64
+Up Time: 00:13:11
+</code></pre>
+<h1 id="setup-onie-prerequisites">Setup ONIE Prerequisites</h1>
+<p>See <a href="/README.md#how-to-configure-onie">ONIE Install Setup</a> for instructions.</p>
+<h1 id="configure-device-as-tap">Configure Device as TAP</h1>
+<h2 id="physical-configuration">Physical Configuration</h2>
+<p>For this configuration to work, we will use the management interface as the input
+interface for the tap. See image below. You will need to move your network cable
+over from your usual network to your traffic generator.</p>
+<p><img alt="" src="images/switch_2.JPG" /></p>
+<h1 id="problem">Problem</h1>
+<p>The way this worked on OPX was to use the Linux kernel module called TC. The net_sched
+module which supports ingress packet manipulation is not available on OS10. It could
+be reinstalled, but I didn't explore this option. Currently I don't have a working
+config on OS10.</p>
+<h1 id="test-with-mirror-ports">Test with Mirror Ports</h1>
+<p>It looks like OS10 only supports one destination port on a port mirror. See
+the below.</p>
+<pre><code>OS10(conf-mon-local-1)# do show monitor session 1
+S.Id  Source              Destination         Dir   Mode  Source IP        Dest IP          DSCP  TTL  Gre-Protocol   State     Reason
+---------------------------------------------------------------------------------------------------------------------------------------
+1     ethernet1/1/3                           both  port  N/A              N/A              N/A   N/A  N/A            false     Destination is not configured
+OS10(conf-mon-local-1)# destination interface ethernet 1/1/7
+OS10(conf-mon-local-1)# destination interface ethernet 1/1/8
+% Error: Configuration mismatch.
+OS10(conf-mon-local-1)# no destination interface ethernet 1/1/7
+OS10(conf-mon-local-1)# destination interface ethernet 1/1/8
+OS10(conf-mon-local-1)#
+</code></pre>
               
             </div>
           </div>
@@ -510,10 +402,10 @@ Attribute of Group Membership: member
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../Importing%20Elasticsearch%20Data/" class="btn btn-neutral float-right" title="Importing Elasticsearch Data">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../Nvidia%20GPUDirect/" class="btn btn-neutral float-right" title="Nvidia GPUDirect">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../How%20OS10%20Installer%20Works/" class="btn btn-neutral" title="How OS10 Installer Works"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../Mulitple%20Span%20on%204112F-ON%20with%20OpenSwitch/" class="btn btn-neutral" title="Mulitple Span on 4112F-ON with OpenSwitch"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -539,10 +431,10 @@ Attribute of Group Membership: member
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../How%20OS10%20Installer%20Works/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../Mulitple%20Span%20on%204112F-ON%20with%20OpenSwitch/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../Importing%20Elasticsearch%20Data/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../Nvidia%20GPUDirect/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

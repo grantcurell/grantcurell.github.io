@@ -135,15 +135,31 @@
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="" href="../../Load Balancing with LAG/README.md">None</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../../Load%20Balance%20Testing%20on%204112F-ON/OpenSwitch%20%28OPX%29/">Load Balancing with LAG OPX</a>
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../../Load%20Balancing%20with%20OpenVSwitch/">Load Balancing with OpenVSwitch</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../../Load%20Balance%20Testing%20on%204112F-ON/OS10/">Load Balance Testing on 4112F-ON w/OS10</a>
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="" href="../../Multiple Span on 4112F-ON/README.md">None</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../../Load%20Balance%20Testing%20with%20OpenVSwitch/">Load Balance Testing with OpenVSwitch</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../Load%20Balancing%20on%20Mellanox%20Switches/">Load Balancing on Mellanox Switches</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../Load%20Balancing%20with%20LAG%20on%205112F-ON/">Load Balancing with LAG on 5112F-ON</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../Mulitple%20Span%20on%204112F-ON%20with%20OpenSwitch/">Mulitple Span on 4112F-ON with OpenSwitch</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../Multiple%20Span%20on%204112F-ON%20with%20OS10/">Multiple Span on 4112F-ON with OS10</a>
                     </li>
                 </ul>
                 <ul>
@@ -239,11 +255,123 @@
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="" href="../README.md">None</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../Automate%20ESXi%20Installation/">Automating ESXi Installation</a>
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../../VXRail%20Troubleshooting/">VXRail Troubleshooting</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../ESXi%20Architecture/">VMWare Architecture Notes</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../ESXi%20Downloads%20Missing/">ESXi Downloads Missing</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20vSAN/">Notes on vSAN</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Setup%20VXRail/">VxRail Setup</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Troubleshooting%20vSAN/">Troubleshooting vSAN</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../VMWare%20APIs/">VMWare APIs</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">VxRail Architecture and Troubleshooting</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#vxrail-architecture">VxRail Architecture</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#vxrail-mystic-lcm-70202rpm">vxrail-mystic-lcm-7.0.202.rpm</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#vxrail-systemzip">vxrail-system.zip</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#vxrail_70200-17911444zip">VXRAIL_7.0.200-17911444.zip</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#inspecting-vib-files">Inspecting VIB files</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#inspecting-java-class-files">Inspecting Java Class Files</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#upgrades">Upgrades</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#how-upgrades-work">How Upgrades Work</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#failed-upgrade">Failed Upgrade</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#observed-errors">Observed Errors</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#fix-action">Fix Action</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#understanding-upgrades-in-esxi">Understanding Upgrades in ESXi</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#understanding-the-vxrail-update-bundle">Understanding the VxRail Update Bundle</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#manifest-file-and-update-order">Manifest File and Update Order</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#adding-nodes">Adding Nodes</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#troubleshooting">Troubleshooting</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#how-adding-nodes-works-during-cluster-construction">How Adding Nodes Works During Cluster Construction</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#disappearing-browse-button">Disappearing Browse Button</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#log-info">Log Info</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#fixing-half-upgrade">Fixing Half Upgrade</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#vcenter-logs">vCenter Logs</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#altbootbank">Altbootbank</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#add-nodes-nic-config-page">Add nodes NIC config page</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#add-node-error">Add Node Error</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#error-node">Error Node</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#general-error">General Error</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#redeploying-vxrail-manager">Redeploying VxRail Manager</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#logs">Logs</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#generating-logs">Generating Logs</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#vxrail-microservice-container-logs">VxRail Microservice (container) Logs</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#rasr-process">RASR Process</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#tomcat-logs">Tomcat Logs</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#upgrade-logs">Upgrade Logs</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#api-logs">API Logs</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#helpful-commands">Helpful Commands</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#helpful-kb-articles">Helpful KB Articles</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#vxrail-api-info">VxRail API Info</a>
+    </li>
+    </ul>
                     </li>
                 </ul>
                 <ul>
@@ -309,6 +437,16 @@
 <li><a href="#how-adding-nodes-works-during-cluster-construction">How Adding Nodes Works During Cluster Construction</a></li>
 </ul>
 </li>
+<li><a href="#disappearing-browse-button">Disappearing Browse Button</a></li>
+<li><a href="#log-info">Log Info</a></li>
+<li><a href="#fixing-half-upgrade">Fixing Half Upgrade</a></li>
+<li><a href="#vcenter-logs">vCenter Logs</a></li>
+<li><a href="#altbootbank">Altbootbank</a></li>
+<li><a href="#add-nodes-nic-config-page">Add nodes NIC config page</a></li>
+<li><a href="#add-node-error">Add Node Error</a></li>
+<li><a href="#error-node">Error Node</a></li>
+<li><a href="#general-error">General Error</a></li>
+<li><a href="#redeploying-vxrail-manager">Redeploying VxRail Manager</a></li>
 <li><a href="#logs">Logs</a><ul>
 <li><a href="#generating-logs">Generating Logs</a></li>
 <li><a href="#vxrail-microservice-container-logs">VxRail Microservice (container) Logs</a></li>
@@ -519,6 +657,43 @@ def _parse_update_firmware(self, element):
 <p>In one instance we were able to clear all problems by restarting all nodes in the cluster, the VxRail manager, and vCenter. After a full reboot of everything, a series of general errors we had been receiving during validation cleared.</p>
 <h3 id="how-adding-nodes-works-during-cluster-construction">How Adding Nodes Works During Cluster Construction</h3>
 <p>All nodes after being RASR have a fully built vSAN disk group. During the initial cluster construction VxRail will select a primary node and then add it to the cluster. On every subsequent node it will delete that node's vSAN disk group and then add it to the cluster's existing disk group.</p>
+<h2 id="disappearing-browse-button">Disappearing Browse Button</h2>
+<ol>
+<li>Take a snapshot of VxM</li>
+<li>psql -U postgres vxrail -c "DELETE FROM system.operation_status WHERE state='IN_PROGRESS';"</li>
+<li>enable advanced mode by change it in /var/lib/vmware-marvin/lcm_advanced_mode.properties</li>
+<li>Change the contents of /var/lib/vmware-mariv to {"state":"NONE","vc_plugin_updated":false,"deployed_for_public_api":false}</li>
+<li>Result <code>system restart vmware-marvin</code></li>
+</ol>
+<h2 id="log-info">Log Info</h2>
+<p>lcm-web.log - Shows upgrade related info
+web.log - combined web output</p>
+<h2 id="fixing-half-upgrade">Fixing Half Upgrade</h2>
+<p>Roll back to previous VxRail manager, then use it to complete the upgrade.</p>
+<p>Uses ESXi management account for updates
+Uses PSC log</p>
+<h2 id="vcenter-logs">vCenter Logs</h2>
+<h2 id="altbootbank">Altbootbank</h2>
+<p>You can load the old version with shift+r</p>
+<h2 id="add-nodes-nic-config-page">Add nodes NIC config page</h2>
+<p>When you hit https://<host>/ui/vxrail/rest/vxm/private/system/cluster-hosts?$$objectID=urn:vmomi:ClusterComputeResource:domain<ID>&amp;lang=en-us you should get back the existing hosts in the cluster with their hostname, model, serial_number, and vmnics</p>
+<p>https://<HOST>/ui/vxrail/rest/vxm/private/system/available-hosts?$filter=serial_number%20in%20(SERIAL,SERIAL)&amp;$$objectId=urn:vmomi:ClusterComputeResource:domain-<ID>&amp;lang=en-us should get you the two hosts you are going to add</p>
+<h2 id="add-node-error">Add Node Error</h2>
+<p>"Could not find NSX-T network information"
+Http failure response for https://<address>/ui/vxrail/rest/vxm/private/cluster/network/nsxt???objectId=urn:vmomi:ClusterComputeResource:domain-ID=en-US: 404 OK</p>
+<h2 id="error-node">Error Node</h2>
+<p>Validation Errors</p>
+<p>Disk Grouping Error (JKSLH63)
+Error occurs when validating disk group on host JKSLH63</p>
+<p>web.log: ERROR [tomcat-http--48] com.emc.mystic.manager.commons.emc.webutil.LocaleUtil LocaleUtil.getBundleMessage:198 - No en_US resource bundle for ExpansionValidation with key JKSLH63</p>
+<h2 id="general-error">General Error</h2>
+<p>web.log: [WARN] com.vce.commons.config.ConfigServiceImpl$NotFoundHandler ConfigServiceImpl$NotFoundHandler.handleNotFound:114 - provided key is not present: [404, {"message":"404 Not Found: bandwidth_throttling_level does not exist"}]</p>
+<h2 id="redeploying-vxrail-manager">Redeploying VxRail Manager</h2>
+<p>If VxRail Manager was previously deployed but something happened to it you can rebuild it. If you have the old VxRail manager, but the cluster has changed on ESXi, you will have to do:</p>
+<ul>
+<li>Update <code>/var/lib/vmware-marvin/runtime.properties</code> with the new cluster UUID</li>
+<li>Connect to the postgresql database on the manager, go to the settings table and update it with the new settings.</li>
+</ul>
 <h2 id="logs">Logs</h2>
 <h3 id="generating-logs">Generating Logs</h3>
 <p>If you want to get a full dump of all the logs associated with VxRail you can generate a dump by going to the VxRail plugin on vCenter, navigating to the support tab, and then clicking the generate log button.</p>
@@ -554,6 +729,15 @@ def _parse_update_firmware(self, element):
           </div>
           <footer>
   
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../../Web%20Traffic%20Generator/" class="btn btn-neutral float-right" title="Web Traffic Generator">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../VMWare%20APIs/" class="btn btn-neutral" title="VMWare APIs"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
 
   <hr/>
 
@@ -576,6 +760,10 @@ def _parse_update_firmware(self, element):
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
+      <span><a href="../VMWare%20APIs/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../../Web%20Traffic%20Generator/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

@@ -9,7 +9,7 @@
   
   
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>VXRail Troubleshooting - Grant Curell's Dell Projects</title>
+  <title>Load Balancing with LAG on 5112F-ON - Grant Curell's Dell Projects</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
   <link rel="stylesheet" href="../css/theme.css" />
@@ -18,8 +18,8 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "VXRail Troubleshooting";
-    var mkdocs_page_input_path = "VXRail Troubleshooting/README.md";
+    var mkdocs_page_name = "Load Balancing with LAG on 5112F-ON";
+    var mkdocs_page_input_path = "Load Balancing with LAG on 5112F-ON/README.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -135,15 +135,47 @@
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="" href="../Load Balancing with LAG/README.md">None</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../Load%20Balance%20Testing%20on%204112F-ON/OpenSwitch%20%28OPX%29/">Load Balancing with LAG OPX</a>
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../Load%20Balancing%20with%20OpenVSwitch/">Load Balancing with OpenVSwitch</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../Load%20Balance%20Testing%20on%204112F-ON/OS10/">Load Balance Testing on 4112F-ON w/OS10</a>
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="" href="../Multiple Span on 4112F-ON/README.md">None</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../Load%20Balance%20Testing%20with%20OpenVSwitch/">Load Balance Testing with OpenVSwitch</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Load%20Balancing%20on%20Mellanox%20Switches/">Load Balancing on Mellanox Switches</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Load Balancing with LAG on 5112F-ON</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#versionhardware-information">Version/Hardware Information</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#the-test-environment">The Test Environment</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#configure-devices">Configure Devices</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#configure-5212f-on">Configure 5212F-ON</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#configure-rhel-8">Configure RHEL 8</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#test-results">Test Results</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Mulitple%20Span%20on%204112F-ON%20with%20OpenSwitch/">Mulitple Span on 4112F-ON with OpenSwitch</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Multiple%20Span%20on%204112F-ON%20with%20OS10/">Multiple Span on 4112F-ON with OS10</a>
                     </li>
                 </ul>
                 <ul>
@@ -239,25 +271,35 @@
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="" href="../VMWare/README.md">None</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../VMWare/Automate%20ESXi%20Installation/">Automating ESXi Installation</a>
                     </li>
                 </ul>
-                <ul class="current">
-                    <li class="toctree-l1 current"><a class="reference internal current" href="./">VXRail Troubleshooting</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#disappearing-browse-button">Disappearing Browse Button</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#log-info">Log Info</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#fixing-half-upgrade">Fixing Half Upgrade</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#vcenter-logs">vCenter Logs</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#altbootbank">Altbootbank</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#add-nodes-nic-config-page">Add nodes NIC config page</a>
-    </li>
-    </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../VMWare/ESXi%20Architecture/">VMWare Architecture Notes</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../VMWare/ESXi%20Downloads%20Missing/">ESXi Downloads Missing</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../VMWare/Notes%20on%20vSAN/">Notes on vSAN</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../VMWare/Setup%20VXRail/">VxRail Setup</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../VMWare/Troubleshooting%20vSAN/">Troubleshooting vSAN</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../VMWare/VMWare%20APIs/">VMWare APIs</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../VMWare/VxRail%20Architecture%20and%20Troubleshooting/">VxRail Architecture and Troubleshooting</a>
                     </li>
                 </ul>
                 <ul>
@@ -285,7 +327,7 @@
     
       
     
-    <li>VXRail Troubleshooting</li>
+    <li>Load Balancing with LAG on 5112F-ON</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -297,49 +339,71 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="vxrail-troubleshooting">VXRail Troubleshooting</h1>
-<p>grep -rin <UID> ./*
-apigw.log
-dataservice.loglocalhost log</p>
-<p>/var/lib/vmware-marvin - set to</p>
-<h2 id="disappearing-browse-button">Disappearing Browse Button</h2>
-<ol>
-<li>Take a snapshot of VxM</li>
-<li>psql -U postgres vxrail -c "DELETE FROM system.operation_status WHERE state='IN_PROGRESS';"</li>
-<li>enable advanced mode by change it in /var/lib/vmware-marvin/lcm_advanced_mode.properties</li>
-<li>Change the contents of /var/lib/vmware-mariv to {"state":"NONE","vc_plugin_updated":false,"deployed_for_public_api":false}</li>
-<li>Result <code>system restart vmware-marvin</code></li>
-</ol>
-<h2 id="log-info">Log Info</h2>
-<p>lcm-web.log - Shows upgrade related info
-web.log - combined web output</p>
-<h2 id="fixing-half-upgrade">Fixing Half Upgrade</h2>
-<p>Roll back to previous VxRail manager, then use it to complete the upgrade.</p>
-<p>Uses ESXi management account for updates
-Uses PSC log</p>
-<h2 id="vcenter-logs">vCenter Logs</h2>
-<h2 id="altbootbank">Altbootbank</h2>
-<p>You can load the old version with shift+r</p>
-<h2 id="add-nodes-nic-config-page">Add nodes NIC config page</h2>
-<p>When you hit https://<host>/ui/vxrail/rest/vxm/private/system/cluster-hosts?$$objectID=urn:vmomi:ClusterComputeResource:domain<ID>&amp;lang=en-us you should get back the existing hosts in the cluster with their hostname, model, serial_number, and vmnics</p>
-<p>https://<HOST>/ui/vxrail/rest/vxm/private/system/available-hosts?$filter=serial_number%20in%20(SERIAL,SERIAL)&amp;$$objectId=urn:vmomi:ClusterComputeResource:domain-<ID>&amp;lang=en-us should get you the two hosts you are going to add</p>
-<h1 id="add-node-error">Add Node Error</h1>
-<p>"Could not find NSX-T network information"
-Http failure response for https://<address>/ui/vxrail/rest/vxm/private/cluster/network/nsxt???objectId=urn:vmomi:ClusterComputeResource:domain-ID=en-US: 404 OK</p>
-<h2 id="error-node">Error Node</h2>
-<p>Validation Errors</p>
-<p>Disk Grouping Error (JKSLH63)
-Error occurs when validating disk group on host JKSLH63</p>
-<p>web.log: ERROR [tomcat-http--48] com.emc.mystic.manager.commons.emc.webutil.LocaleUtil LocaleUtil.getBundleMessage:198 - No en_US resource bundle for ExpansionValidation with key JKSLH63</p>
-<h2 id="general-error">General Error</h2>
-<p>web.log: [WARN] com.vce.commons.config.ConfigServiceImpl$NotFoundHandler ConfigServiceImpl$NotFoundHandler.handleNotFound:114 - provided key is not present: [404, {"message":"404 Not Found: bandwidth_throttling_level does not exist"}]</p>
-<h2 id="redeploying-vxrail-manager">Redeploying VxRail Manager</h2>
-<p>If VxRail Manager was previously deployed but something happened to it you can rebuild it. If you have the old VxRail manager, but the cluster has changed on ESXi, you will have to do:</p>
+                <h1 id="load-balancing-with-lag-on-5112f-on">Load Balancing with LAG on 5112F-ON</h1>
 <ul>
-<li>Update <code>/var/lib/vmware-marvin/runtime.properties</code> with the new cluster UUID</li>
-<li>Connect to the postgresql database on the manager, go to the settings table and update it with the new settings.</li>
+<li><a href="#load-balancing-with-lag-on-5112f-on">Load Balancing with LAG on 5112F-ON</a></li>
+<li><a href="#versionhardware-information">Version/Hardware Information</a></li>
+<li><a href="#the-test-environment">The Test Environment</a></li>
+<li><a href="#configure-devices">Configure Devices</a><ul>
+<li><a href="#configure-5212f-on">Configure 5212F-ON</a></li>
+<li><a href="#configure-rhel-8">Configure RHEL 8</a></li>
 </ul>
-<p>If you are redeploying VxRail manager in its totality then you can follow this procedure: <a href="reloading-vxrail-plugin.docx">reloading-vxrail-plugin.docx</a></p>
+</li>
+<li><a href="#test-results">Test Results</a></li>
+</ul>
+<h2 id="versionhardware-information">Version/Hardware Information</h2>
+<p><strong>Note</strong> This requires at least 10.5.3.0 and is only supported on switches with the Trident proc</p>
+<pre><code>OS10(config)# do show version
+Dell EMC Networking OS10 Enterprise
+Copyright (c) 1999-2021 by Dell Inc. All Rights Reserved.
+OS Version: 10.5.3.0
+Build Version: 10.5.3.0.44
+Build Time: 2021-10-06T23:03:55+0000
+System Type: S5212F-ON
+Architecture: x86_64
+Up Time: 00:03:27
+</code></pre>
+<h2 id="the-test-environment">The Test Environment</h2>
+<p>I used a RHEL box to generate traffic inbound to the switch on port ethernet 1/1/5:1 which I then expected to load balance across ports ethernet 1/1/1:1 and 1/1/4:1. I used source and dest IP and source and dest port as the criteria for load balancing. Traffic was captured with a single laptop which was directly connected to the two independent receiving interfaces. A single Wireshark monitor session was established for each of the individual interfaces to ensure that they received independent, mutually-exclusive, session load balancing.</p>
+<p>The traffic was a session I generated by using a laptop that was serving as a virtual web gateway along with being used as an end user device.</p>
+<h2 id="configure-devices">Configure Devices</h2>
+<h3 id="configure-5212f-on">Configure 5212F-ON</h3>
+<pre><code>configure terminal
+load-balancing ip-selection source-ip destination-ip l4-destination-port l4-source-port
+port-group  1/1/1
+mode eth 10g-4x
+interface port-channel 1
+no shutdown
+no switchport
+exit
+interface ethernet 1/1/1:1
+no shut
+channel-group 1
+speed 1000
+exit
+interface ethernet 1/1/4:1
+no shut
+channel-group 1
+speed 1000
+exit
+monitor session 1
+destination interface port-channel 1
+source interface ethernet 1/1/5:1
+no shut
+exit
+</code></pre>
+<h3 id="configure-rhel-8">Configure RHEL 8</h3>
+<pre><code>sudo dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+sudo subscription-manager repos --enable codeready-builder-for-rhel-8-x86_64-rpms
+dnf group install &quot;Development Tools&quot;
+dnf install -y libpcap-devel
+make
+make install
+/usr/local/bin/tcpreplay -i ens32 test.pcap
+</code></pre>
+<h2 id="test-results">Test Results</h2>
+<p>The test succeeded. This was verified by checking that the sessions seen by two separate streams were mutually exclusive. At no point did we see effects as described in <a href="../Load%20Balance%20Testing%20on%204112F-ON/OS10/Test%20Case%204/">4112F-ON Test Case 4</a> where a single session was sent down two separate lanes. Moreover, by checking the individual sessions you can see the bidirectional flow:</p>
+<p><img alt="" src="images/2021-12-08-15-31-19.png" /></p>
               
             </div>
           </div>
@@ -347,10 +411,10 @@ Error occurs when validating disk group on host JKSLH63</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../Web%20Traffic%20Generator/" class="btn btn-neutral float-right" title="Web Traffic Generator">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../Mulitple%20Span%20on%204112F-ON%20with%20OpenSwitch/" class="btn btn-neutral float-right" title="Mulitple Span on 4112F-ON with OpenSwitch">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../VEP%20Testing/" class="btn btn-neutral" title="VEP Testing"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../Load%20Balancing%20on%20Mellanox%20Switches/" class="btn btn-neutral" title="Load Balancing on Mellanox Switches"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -376,10 +440,10 @@ Error occurs when validating disk group on host JKSLH63</p>
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../VEP%20Testing/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../Load%20Balancing%20on%20Mellanox%20Switches/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../Web%20Traffic%20Generator/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../Mulitple%20Span%20on%204112F-ON%20with%20OpenSwitch/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

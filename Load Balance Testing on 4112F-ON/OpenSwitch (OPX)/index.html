@@ -9,7 +9,7 @@
   
   
   <link rel="shortcut icon" href="../../img/favicon.ico">
-  <title>Multiple Mirror Port Test - Grant Curell's Dell Projects</title>
+  <title>Load Balancing with LAG OPX - Grant Curell's Dell Projects</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
   <link rel="stylesheet" href="../../css/theme.css" />
@@ -18,8 +18,8 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Multiple Mirror Port Test";
-    var mkdocs_page_input_path = "Multiple Span on 4112F-ON/OpenSwitch/README.md";
+    var mkdocs_page_name = "Load Balancing with LAG OPX";
+    var mkdocs_page_input_path = "Load Balance Testing on 4112F-ON/OpenSwitch (OPX)/README.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -134,16 +134,34 @@
                     <li class="toctree-l1"><a class="reference internal" href="../../LDAP%20with%20OpenManage/">LDAP with OpenManage</a>
                     </li>
                 </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="" href="../../Load Balancing with LAG/README.md">None</a>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Load Balancing with LAG OPX</a>
+    <ul class="current">
+    </ul>
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../../Load%20Balancing%20with%20OpenVSwitch/">Load Balancing with OpenVSwitch</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../OS10/">Load Balance Testing on 4112F-ON w/OS10</a>
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="" href="../../Multiple Span on 4112F-ON/README.md">None</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../../Load%20Balance%20Testing%20with%20OpenVSwitch/">Load Balance Testing with OpenVSwitch</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../Load%20Balancing%20on%20Mellanox%20Switches/">Load Balancing on Mellanox Switches</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../Load%20Balancing%20with%20LAG%20on%205112F-ON/">Load Balancing with LAG on 5112F-ON</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../Mulitple%20Span%20on%204112F-ON%20with%20OpenSwitch/">Mulitple Span on 4112F-ON with OpenSwitch</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../Multiple%20Span%20on%204112F-ON%20with%20OS10/">Multiple Span on 4112F-ON with OS10</a>
                     </li>
                 </ul>
                 <ul>
@@ -239,11 +257,35 @@
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="" href="../../VMWare/README.md">None</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../../VMWare/Automate%20ESXi%20Installation/">Automating ESXi Installation</a>
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../../VXRail%20Troubleshooting/">VXRail Troubleshooting</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../../VMWare/ESXi%20Architecture/">VMWare Architecture Notes</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../VMWare/ESXi%20Downloads%20Missing/">ESXi Downloads Missing</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../VMWare/Notes%20on%20vSAN/">Notes on vSAN</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../VMWare/Setup%20VXRail/">VxRail Setup</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../VMWare/Troubleshooting%20vSAN/">Troubleshooting vSAN</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../VMWare/VMWare%20APIs/">VMWare APIs</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../VMWare/VxRail%20Architecture%20and%20Troubleshooting/">VxRail Architecture and Troubleshooting</a>
                     </li>
                 </ul>
                 <ul>
@@ -271,7 +313,7 @@
     
       
     
-    <li>Multiple Mirror Port Test</li>
+    <li>Load Balancing with LAG OPX</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -283,16 +325,22 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="multiple-mirror-port-test">Multiple Mirror Port Test</h1>
-<p>In this test case I am testing to see if we can configure a Dell 4112F-ON with
-OpenSwitch to create a one to many port configuration using SPAN.</p>
+                <h1 id="load-balancing-with-lag-opx">Load Balancing with LAG OPX</h1>
+<p>In this test case the goal is to create a simple packet broker using a reverse
+LAG port.</p>
 <h1 id="helpful-links">Helpful Links</h1>
 <p><a href="https://opencomputeproject.github.io/onie/user-guide/index.html#installing-over-the-network">ONIE Network Install Process Overview</a></p>
 <p><a href="https://github.com/open-switch/opx-docs/wiki/Install-OPX-on-Dell-EMC-ON-series-platforms">OPX Install Instructions for Dell EMC Equipment</a></p>
 <p><a href="https://github.com/open-switch/opx-tools">OPX Tools Source Code</a></p>
 <p><a href="https://github.com/open-switch/opx-docs/wiki/OPX-commands">OPX Command Reference</a></p>
+<p><a href="https://github.com/open-switch/opx-docs/wiki/opx-config-lag">OPX LAG Command Documenattion</a></p>
 <p><a href="https://github.com/open-switch/opx-docs/wiki">OPX Docs Home</a></p>
 <p><a href="https://github.com/open-switch/opx-docs/wiki/hardware-support">List of Supported Hardware</a></p>
+<h2 id="helpful-debug-commands">Helpful Debug Commands</h2>
+<pre><code>cps_get_oid.py -qua target base-switch/switching-entities/switching-entity
+cps_model_info base-switch/switching-entities/switching-entity
+cps_set_oid.py -qua target base-switch/switching-entities/switching-entity name=lag-hash-fields attr=src-ip,dest-ip,l4-dest-port,l4-src-port,ip-protocol
+</code></pre>
 <h1 id="my-configuration">My Configuration</h1>
 <h2 id="general-configuration">General Configuration</h2>
 <ul>
@@ -339,182 +387,125 @@ ALTERED_PACKAGES=yes
 problems for testing so I just left it as is.</p>
 <h1 id="setup-onie-prerequisites">Setup ONIE Prerequisites</h1>
 <p>See <a href="/README.md#how-to-configure-onie">ONIE Install Setup</a> for instructions.</p>
-<h1 id="configure-device-as-tap">Configure Device as TAP</h1>
+<h1 id="configure-device-for-reverse-lag">Configure Device for Reverse LAG</h1>
 <h2 id="physical-configuration">Physical Configuration</h2>
-<p>For this configuration to work, we will use the management interface as the input
-interface for the tap. See image below. You will need to move your network cable
-over from your usual network to your traffic generator.</p>
-<p><img alt="" src="images/switch_2.JPG" /></p>
-<h2 id="configure-management-interface-optional">Configure Management Interface (Optional)</h2>
-<p><strong>Update:</strong> After I got it working I ended up using this as an ingress interface
-so this step is more or less optional. You won't be able to SSH into this interface
-in the end config (at least not easily).</p>
-<ol>
-<li>Start by running <code>sudo -i</code> to move to privileged mode. <strong>Warning:</strong>  I noticed the OPX command line tools won't behave correctly unless you are privileged. Ex: <code>opx-show-interface</code> won't list any interfaces.</li>
-<li>I added vim to my box before continuing with <code>sudo apt-get install -y vim</code></li>
-<li>The management interface is configured like a typicaly Debian interface with <code>vim /etc/network/interface.d/eth0</code></li>
-<li>
-<p>Use the following configuration modified to your needs:</p>
-<pre><code>auto eth0
-allow-hotplug eth0
-iface eth0 inet static
-    address 192.168.1.20
-    netmask 255.255.255.0
-    gateway 192.168.1.1
-</code></pre>
-</li>
-<li>
-<p>When you are finished with your configuration run <code>systemctl restart networking</code> to apply the changes.</p>
-</li>
-<li>Confirm the changes were applied with <code>ip address show dev eth0</code>. If you see two IP addresses because you picked one up from DHCP you can delete the other with <code>ip address del [IP ADDRESS] dev eth0</code> and then run <code>systemctl restart networking</code></li>
-</ol>
-<p>At this juncture your management interface should be up and running and you should
-be able to SSH to it. I went ahead and swapped to SSH so as not to deal with the
-oddities that come with running in the console port.</p>
-<h2 id="bridgetc-configuration">Bridge/tc Configuration</h2>
-<p>After attempt 3 I started thinking about other ways to connect things. Realized
-I could just pump everything to a bridge and let that do the replication. That worked!</p>
-<p>Do the following to get it up and running:</p>
-<p><code>tc</code> is a feature of modern Linux kernels designed for mirroring traffic. I found
-<a href="https://davidwaiting.com/using-linux-tc-for-traffic-mirroring/">this</a> article
-helpful. <a href="https://github.com/Mellanox/mlxsw/wiki/Port-Mirroring">This Mellanox article</a> was also
-useful.</p>
-<p><strong>WARNING:</strong> You must use your management interface for the ingress port or this
-solution will not work! I noticed the other ports do not behave like normal Linux
-ports. More investigation required to figure out the difference.</p>
-<ol>
-<li>Create a bridge interface with <code>brctl addbr br0</code></li>
-<li>Attach all interfaces you want as part of the port mirroring to the bridge with <code>brctl addif br0 &lt; INTERFACE &gt;</code></li>
-<li>Make sure all interfaces in use are enabled with <code>ip link set &lt; INTERFACE &gt; up</code></li>
-<li>Disable MAC address learning on the bridge with <code>brctl setageing br0 0</code></li>
-<li>Set the device's management interface to promiscuous mode with <code>ip link set &lt; MGMT_INTERFACE &gt; promisc on</code></li>
-<li>The first thing I did was create an ingress queue on my input interface with <code>tc qdisc add dev &lt; MGMT_INTERFACE &gt; handle ffff: ingress</code></li>
-<li>If you need to delete a qdisc you can do it with <code>tc qdisc del dev &lt; MGMT_INTERFACE &gt; [ root | ingress ]</code></li>
-<li>Double check your queue with handle ffff was created with <code>tc -s qdisc ls dev &lt; MGMT_INTERFACE &gt;</code></li>
-<li>Next we want to mirror all traffic from the ingress port to an output port with <code>tc filter add dev &lt; MGMT_INTERFACE &gt; parent ffff: protocol all u32 match u32 0 0 action mirred egress mirror dev br0</code></li>
-<li>Check that your port mirror appeared in the config with <code>tc -s -p filter ls dev &lt; MGMT_INTERFACE &gt; parent ffff:</code></li>
-<li>If you need to delete the filters you can do so with <code>tc filter del dev &lt; MGMT_INTERFACE &gt; parent ffff:</code></li>
-<li>Set queue to not shape traffic with <code>tc qdisc add dev &lt; MGMT_INTERFACE &gt; handle 1: root prio</code></li>
-</ol>
-<h2 id="things-i-tried">Things I Tried</h2>
+<p>I used the following SFPs</p>
 <ul>
-<li>I added 7 interfaces to my bridge to make sure there weren't any strange limitations</li>
-<li>I moved the SFPs around to multiple different ports to make sure the traffic was mirroing on all of them</li>
-<li>I double checked the traffic I was capturing belonged to the PCAP in question. Easy enough to see because it has IP addresses the hosts in question wouldn't ever otherwise see. Screenshots for confirmation below.</li>
+<li>1, 1Gb/s copper SFP (e101-001-0) for input</li>
+<li>2, 1Gb/s copper SFPs (e101-005-0/e101-009-0) and 1, 10Gb/s, fiber SFP (e101-012-0) for output</li>
 </ul>
-<h3 id="host-1">Host 1</h3>
-<p><img alt="" src="images/host1_2.PNG" /></p>
-<h3 id="host-2">Host 2</h3>
-<p><img alt="" src="images/host2_2.PNG" />
-- I checked that pure L3 traffic was passed correctly using ICMP.</p>
-<p><img alt="" src="images/icmp_check.PNG" /></p>
-<h3 id="noted-problem">Noted Problem</h3>
-<p>The only major issue I noticed is that pure layer 2 traffic didn't get passed. Haven't
-figured out how to fix that yet.</p>
-<h1 id="failed-ideas">Failed Ideas</h1>
-<h2 id="attempt-1-mirror-ports">Attempt 1 - Mirror Ports</h2>
-<p>My first go is to try using OpenSwitch's built in mirroring capability.</p>
-<h3 id="physical-configuration_1">Physical Configuration</h3>
-<p><img alt="" src="images/switch.JPG" /></p>
-<p>I didn't have enough target hosts to try outputting from one port to all ports so
-I simulated it. The purple cable in the image is the input port from the traffic
-generator (tcpreplay) and the white and yellow cables go out to the hosts listed
-as host 1 and host 2 in the test results section. The ports with the white and yellow
-cables were configured as the mirror's target ports.</p>
-<h3 id="mirror-configuration">Mirror Configuration</h3>
-<p>For each port you want to mirror to run <code>opx-config-mirror create --src_intf e101-001-0 --dest_intf e101-005-0 --direction ingress --type span</code>. Substitute your source and destination ports appropriately.</p>
-<h3 id="results">Results</h3>
-<h4 id="mirror-port-failure-after-4">Mirror Port Failure After 4</h4>
-<p>I was only able to get this to work on up to 4 ports. After that I received errors.
-See output below:</p>
-<pre><code>root@OPX:~# opx-config-mirror create --src_intf e101-001-0 --dest_intf e101-005-0 --direction ingress --type span
+<h3 id="input-port">Input Port</h3>
+<p><img alt="" src="images/input_port.JPG" /></p>
+<h3 id="output-ports">Output Ports</h3>
+<p><img alt="" src="images/output_ports.JPG" /></p>
+<h2 id="lag-configuration">LAG Configuration</h2>
+<h3 id="enable-lag-ports-and-input-port">Enable LAG Ports and Input Port</h3>
+<pre><code>root@OPX:~# ip link set e101-001-0 up
+root@OPX:~# ip link set e101-005-0 up
 root@OPX:~# ip link set e101-009-0 up
-root@OPX:~# opx-config-mirror create --src_intf e101-001-0 --dest_intf e101-009-0 --direction ingress --type span
-root@OPX:~# opx-config-mirror create --src_intf e101-001-0 --dest_intf e101-002-0 --direction ingress --type span
-root@OPX:~# opx-config-mirror create --src_intf e101-001-0 --dest_intf e101-003-0 --direction ingress --type span
-root@OPX:~# opx-config-mirror create --src_intf e101-001-0 --dest_intf e101-004-0 --direction ingress --type span
-{'data': {'base-mirror/entry/dst-intf': bytearray(b'\x0f\x00\x00\x00'), 'base-mirror/entry/type': bytearray(b'\x01\x00\x00\x00'), 'base-mirror/entry/intf': {'0': {'base-mirror/entry/intf/src': bytearray(b'\x0c\x00\x00\x00'), 'base-mirror/entry/intf/direction': bytearray(b'\x01\x00\x00\x00')}}}, 'key': '1.27.1769488.1769473.'}
-opx-config-mirror: Commit failed
-root@OPX:~# opx-config-mirror create --src_intf e101-001-0 --dest_intf e101-006-0 --direction ingress --type span
-{'data': {'base-mirror/entry/dst-intf': bytearray(b'\x11\x00\x00\x00'), 'base-mirror/entry/type': bytearray(b'\x01\x00\x00\x00'), 'base-mirror/entry/intf': {'0': {'base-mirror/entry/intf/src': bytearray(b'\x0c\x00\x00\x00'), 'base-mirror/entry/intf/direction': bytearray(b'\x01\x00\x00\x00')}}}, 'key': '1.27.1769488.1769473.'}
-opx-config-mirror: Commit failed
-root@OPX:~# opx-config-mirror create --src_intf e101-001-0 --dest_intf e101-007-0 --direction ingress --type span
-{'data': {'base-mirror/entry/dst-intf': bytearray(b'\x12\x00\x00\x00'), 'base-mirror/entry/type': bytearray(b'\x01\x00\x00\x00'), 'base-mirror/entry/intf': {'0': {'base-mirror/entry/intf/src': bytearray(b'\x0c\x00\x00\x00'), 'base-mirror/entry/intf/direction': bytearray(b'\x01\x00\x00\x00')}}}, 'key': '1.27.1769488.1769473.'}
-opx-config-mirror: Commit failed
+root@OPX:~# ip link set e101-012-0 up
+root@OPX:~# opx-show-interface --summary
+Port       | Enabled | Operational status | Supported speed
+-----------------------------------------------------------
+e101-001-0 | yes     | up                 | 1G 10G
+e101-002-0 | no      | down               | 1G 10G
+e101-003-0 | no      | down               | 1G 10G
+e101-004-0 | no      | down               | 1G 10G
+e101-005-0 | yes     | up                 | 1G 10G
+e101-006-0 | no      | down               | 1G 10G
+e101-007-0 | no      | down               | 1G 10G
+e101-008-0 | no      | down               | 1G 10G
+e101-009-0 | yes     | up                 | 1G 10G
+e101-010-0 | no      | down               | 1G 10G
+e101-011-0 | no      | down               | 1G 10G
+e101-012-0 | yes     | up                 | 1G 10G
+e101-013-0 | no      | down               | 100G
+e101-014-0 | no      | down               | 100G
+e101-015-0 | no      | down               | 100G
+eth0       | yes     | UNKNOWN            | UNKNOWN
 </code></pre>
-<p>Pretty printed version for ease of reading:</p>
-<pre><code>{
-'data': {
-    'base-mirror/entry/dst-intf': bytearray(b '\x12\x00\x00\x00'),
-    'base-mirror/entry/type': bytearray(b '\x01\x00\x00\x00'),
-    'base-mirror/entry/intf': {
-    '0': {
-        'base-mirror/entry/intf/src': bytearray(b '\x0c\x00\x00\x00'),
-        'base-mirror/entry/intf/direction': bytearray(b '\x01\x00\x00\x00')
-    }
-    }
-},
-'key': '1.27.1769488.1769473.'
-}
+<h3 id="configure-lag">Configure LAG</h3>
+<h4 id="configure-lag-algorithm">Configure LAG Algorithm</h4>
+<p>You can see the switch's global paramters with the <code>opx-show-global-switch</code> command:</p>
+<pre><code>root@OPX:~# opx-show-global-switch
+Switch id 0
+    ACL entry max priority:                     2147483647
+    ACL entry min priority:                     0
+    ACL table max priority:                     11
+    ACL table min priority:                     0
+    Bridge table size:                          147456
+    BST enable:                                 off
+    BST tracking mode:                          current
+    Counter refresh interval:                   5 s
+    Default mac address:                        88:6f:d4:98:b7:80
+    ECMP group size:                            256
+    ECMP hash algorithm:                        crc
+    ECMP hash seed value:                       0
+    Egress buffer pool num:                     4
+    Ingress buffer pool num:                    4
+    IPv6 extended prefix routes:                0
+    IPv6 extended prefix routes lpm block size: 1024
+    L3 nexthop table size:                      32768
+    LAG hash algorithm:                         crc
+    LAG hash seed value:                        0
+    MAC address aging timer:                    1800 s
+    Max ECMP entries per group:                 0
+    Max IPv6 extended prefix routes:            3072
+    Max MTU:                                    9216
+    Max VXLAN overlay nexthops:                 4096
+    Max VXLAN overlay rifs:                     2048
+    Number of multicast queues per port:        10
+    Number of queues cpu port:                  43
+    Number of queues per port:                  20
+    Number of unicast queues per port:          10
+    QoS rate adjust:                            0
+    RIF table size:                             12288
+    Switch mode:                                store and forward
+    Temperature:                                49 deg. C
+    Total buffer size:                          12188
+    UFT mode:                                   default
+    UFT host table size:                        135168
+    UFT L2 mac table size:                      147456
+    UFT L3 route table size:                    16384
+    VXLAN riot enable:                          on
 </code></pre>
-<h4 id="functioning-mirror-ports">Functioning Mirror Ports</h4>
-<p>Before I caught the error, I did test the first two mirror ports I made and they
-worked as expected. See the below.</p>
-<p>I used tcpreplay with some traffic I captured on my desktop to test the idea. I
-just uploaded the PCAP and replayed it with <code>tcpreplay -i ens224 ./test_pcap.pcap --loop 500</code></p>
-<p>I then confirmed that all target ports received traffic. See screenshots below:</p>
-<h3 id="host-1_1">Host 1</h3>
-<p><img alt="" src="images/host1.PNG" /></p>
-<h3 id="host-2_1">Host 2</h3>
-<p><img alt="" src="images/host2.png" /></p>
-<p>The host I collected the traffic on was 192.168.1.6 and as you can see from the 
-images both hosts were able to see traffic from the tcpreplay session.</p>
-<h2 id="attempt-2-tc">Attempt 2 - tc</h2>
-<h3 id="configuration">Configuration</h3>
-<p><code>tc</code> is a feature of modern Linux kernels designed for mirroring traffic. I found
-<a href="https://davidwaiting.com/using-linux-tc-for-traffic-mirroring/">this</a> article
-helpful. <a href="https://github.com/Mellanox/mlxsw/wiki/Port-Mirroring">This Mellanox article</a> was also
-useful.</p>
-<ol>
-<li>The first thing I did was create an ingress queue on my input interface with <code>tc qdisc add dev e101-001-0 handle ffff: ingress</code></li>
-<li>If you need to delete a qdisc you can do it with <code>tc qdisc del dev e101-001-0 [ root | ingress ]</code></li>
-<li>Double check your queue with handle ffff was created with <code>tc -s qdisc ls dev e101-001-0</code></li>
-<li>Next we want to mirror all traffic from the ingress port to an output port with <code>tc filter add dev e101-001-0 parent ffff: protocol all u32 match u32 0 0 action mirred egress mirror dev e101-005-0</code></li>
-<li>Check that your port mirror appeared in the config with <code>tc -s -p filter ls dev e101-001-0 parent ffff:</code></li>
-<li>If you need to delete the filters you can do so with <code>tc filter del dev e101-001-0 parent ffff:</code></li>
-<li>Set queue to not shape traffic with <code>tc qdisc add dev e101-001-0 handle 1: root prio</code></li>
-</ol>
-<h4 id="alternate-configuration">Alternate Configuration</h4>
-<p>I tried instead running:</p>
-<ol>
-<li><code>tc qdisc add dev e101-001-0 clsact</code></li>
-<li><code>tc filter add dev e101-001-0 ingress matchall skip_sw action mirred egress mirror dev e101-005-0</code></li>
-</ol>
-<h4 id="other-things-tried">Other Things Tried</h4>
-<p>Haven't been able to figure out why just yet, but only Layer 2 traffic is making
-it through the port mirror. Everything above gets dropped. </p>
-<p>I thought maybe it was MAC address learning, but the problem persisted when I ran <code>opx-config-global-switch --mac-age-time 0</code></p>
-<p>I also thought that it was the port not being set to promiscuous mode so I gave it <code>ifconfig e101-001-0 promisc</code>.
-That didn't work either.</p>
-<h3 id="conclusions">Conclusions</h3>
-<p>I'm pretty confident that because this is a network OS for switching something
-funky is going on. Ex: When you run a port mirror, all the traffic passes correctly,
-but you won't see any of that traffic on a tcpdump session. Need to study up on the
-architecture. I'm pretty sure there's a way to make this particular tactic work,
-but for time's sake I'm going to try something else.</p>
-<h2 id="attempt-3-tc-on-management-interface">Attempt 3  - tc on Management Interface</h2>
-<p>I realized something is going on with the forwarding tables on the switch at a low
-level that was intercepting our traffic in attempt 2. That said, I noticed that
-the management interface for the switch effectively works like a standard Linux 
-interface. I did the same thing I did in attempt 2 except I used the managament
-interface instead of one of the other interfaces.</p>
-<h3 id="results_1">Results</h3>
-<p>The switch accepts the config. However, the traffic only goes out to one port
-at a time.</p>
+<p>If you want to change the hash algorithm you can do so with <code>opx-config-global-switch --lag-hash-alg &lt;crc | random | xor&gt;</code>
+I went ahead and left mine are CRC. <a href="http://topics-cdn.dell.com/s4820t_9.7.0.0_config_pub-v1-temp/en-us/GUID-DD047C60-DBF3-46E5-A0DD-783255573134.html">This article from Dell</a> can be helpful in deciding.</p>
+<h4 id="configure-lag-fields">Configure LAG Fields</h4>
+<p>More imporantly you will probably want to configure what fields are used to determine
+the hash. The options are:</p>
+<ul>
+<li>src-mac: The source MAC address of the frame</li>
+<li>dest-mac: The destination MAC of the frame</li>
+<li>vlan-id: The VLAN ID listed in the frame</li>
+<li>ethertype: The ethertype of the frame</li>
+<li>ip-protocol: The IP protocol field in the IPv4 header</li>
+<li>src-ip: The packet source IP</li>
+<li>dest-ip: The destination IP of the packet</li>
+<li>l4-dest-port: The destination port of the segment</li>
+<li>l4-src-port: The source port of the segment</li>
+<li>in-port: The port from which the packet entered. It is unlikely you would want to use this for a reverse LAG</li>
+</ul>
+<p>I will use a standard 5-tuple configuration (src/dst IP, src/dest port, protocol #)</p>
+<h4 id="create-lag">Create LAG</h4>
+<p><code>opx-config-lag create --name reverse_lag --unblockedports e101-005-0,e101-009-0,e101-012-0 --enable</code></p>
+<h1 id="results">Results</h1>
+<p>I wasn't able to complete the config. There is a bug in OPX preventing you from
+being able to set the fields on which the LAG will hash. I spent about a day
+working my way through the problem. See current status <a href="https://github.com/open-switch/opx-tools/issues/27">on this bug ticket</a></p>
               
             </div>
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../OS10/" class="btn btn-neutral float-right" title="Load Balance Testing on 4112F-ON w/OS10">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../../LDAP%20with%20OpenManage/" class="btn btn-neutral" title="LDAP with OpenManage"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
@@ -538,6 +529,10 @@ at a time.</p>
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
+      <span><a href="../../LDAP%20with%20OpenManage/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../OS10/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
