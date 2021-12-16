@@ -1,6 +1,6 @@
 # Load Balancing with LAG on 5112F-ON
 
-- [Configuring Load Balancing with LAG on Dell 5212F-ON](#configuring-load-balancing-with-lag-on-dell-5212f-on)
+- [Load Balancing with LAG on 5112F-ON](#load-balancing-with-lag-on-5112f-on)
   - [Version/Hardware Information](#versionhardware-information)
   - [The Test Environment](#the-test-environment)
   - [Configure Devices](#configure-devices)
@@ -74,6 +74,6 @@ make install
 
 ## Test Results
 
-The test succeeded. This was verified by checking that the sessions seen by two separate streams were mutually exclusive. At no point did we see effects as described in [4112F-ON Test Case 4](../4112F-ON/OS10/Test%20Case%204/README.md) where a single session was sent down two separate lanes. Moreover, by checking the individual sessions you can see the bidirectional flow:
+The test succeeded. This was verified by checking that the sessions seen by two separate streams were mutually exclusive. At no point did we see effects as described in [4112F-ON Test Case 4](../Load%20Balance%20Testing%20on%204112F-ON/OS10/Test%20Case%204/README.md) where a single session was sent down two separate lanes. Moreover, by checking the individual sessions you can see the bidirectional flow:
 
 ![](images/2021-12-08-15-31-19.png)

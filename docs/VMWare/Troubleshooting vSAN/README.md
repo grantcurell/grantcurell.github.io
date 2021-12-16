@@ -45,7 +45,7 @@
 
 [Monitoring with vSAN Observer](Monitoring-with-VSAN-Observer-v1.2.pdf) - Covers interpreting and understanding all the functionality of vSAN observer.
 
-[My Notes on vSAN](../Notes%20on%20VSAN/README.md) - I documented how a number of vSAN features function and the variosu highlights.
+[My Notes on vSAN](../Notes%20on%20vSAN/README.md) - I documented how a number of vSAN features function and the variosu highlights.
 ## vSAN Support Insight
 
 
@@ -129,7 +129,7 @@ Potential Bottlenecks: https://core.vmware.com/blog/understanding-performance-bo
    10. The vmkernel log will commonly display this error in the event of a memory shortage:![](images/2021-08-30-08-19-24.png)
    11. Or this error when trying to add a disk group: ![](images/2021-08-30-08-20-45.png)
    12. An error will also be displayed in the GUI: ![](images/2021-08-30-08-21-56.png)
-  11. Check distribution of [components](../Notes%20on%20VSAN/README.md#components). The line should be uniform indicating roughly equal distribution of components
+  11. Check distribution of [components](../Notes%20on%20vSAN/README.md#components). The line should be uniform indicating roughly equal distribution of components
 12. Check that the storage controller is supported and running normaly with `esxcli storage core device list`. Compare to VCG. You can cross reference this with `esxcli core storage adapter list` and `esxcfg-scsidevs -a`
   12. You may see the word *degraded* - this occurs when there is only a single path to teh device. If there are multiple paths this will not show. This is not an issue for local disk configurations.
   13. If you see *Logical Volume* in the model field it implies there is a RAID volume configuration on the disk - probably RAID0. Certain storage controllers can pass disk devices directly to the ESXi host; this is called pass-through mode. You may also see it called JBOD or HBA mode. Other storage controllers require each disk device be configured as a RAID0 volume before ESXi can recognize it. You can check the VCG to determine whether something supports pass through or not: ![](images/2021-08-30-08-31-36.png)

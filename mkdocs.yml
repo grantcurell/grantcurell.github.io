@@ -1,5 +1,5 @@
 nav:
-- index.md
+- README.md
 - Adding Hashing to OpenSwitch/README.md
 - Adding Intel I219-LM (8086.0d4c) Driver to ESXi/README.md
 - Automating OME Hardware Reports/README.md
@@ -51,7 +51,14 @@ nav:
 - Understanding Memory/README.md
 - Use OS10 as Aggregator/README.md
 - VEP Testing/README.md
-- VXRail Troubleshooting/README.md
+- VMWare/Automate ESXi Installation/README.md
+- VMWare/ESXi Architecture/README.md
+- VMWare/ESXi Downloads Missing/README.md
+- VMWare/Notes on vSAN/README.md
+- VMWare/Setup VXRail/README.md
+- VMWare/Troubleshooting vSAN/README.md
+- VMWare/VMWare APIs/README.md
+- VMWare/VxRail Architecture and Troubleshooting/README.md
 - Web Traffic Generator/README.md
 site_name: Grant Curell's Dell Projects
 theme: readthedocs

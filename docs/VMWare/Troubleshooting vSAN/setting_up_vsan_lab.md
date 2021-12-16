@@ -1,6 +1,6 @@
 # Testing vSAN
 
-See [notes on vSAN](../Notes%20on%20VSAN/README.md) for how vSAN works.
+See [notes on vSAN](../Notes%20on%20vSAN/README.md) for how vSAN works.
 
 ## VM Setup
 

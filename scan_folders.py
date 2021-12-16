@@ -9,7 +9,7 @@ from shutil import move
 with open('mkdocs.yml', 'r') as mkdocs:
     configuration = yaml.load(mkdocs, Loader=yaml.SafeLoader)
 
-    configuration['nav'] = ['index.md']
+    configuration['nav'] = ['README.md']
 
     current_directory = os.getcwd()
 
@@ -19,6 +19,15 @@ with open('mkdocs.yml', 'r') as mkdocs:
                 if 'Load Balance Testing on 4112F-ON' == directory:
                     configuration['nav'].append(directory + '/OpenSwitch (OPX)/README.md')
                     configuration['nav'].append(directory + '/OS10/README.md')
+                elif 'VMWare' == directory:
+                    configuration['nav'].append(directory + '/Automate ESXi Installation/README.md')
+                    configuration['nav'].append(directory + '/ESXi Architecture/README.md')
+                    configuration['nav'].append(directory + '/ESXi Downloads Missing/README.md')
+                    configuration['nav'].append(directory + '/Notes on vSAN/README.md')
+                    configuration['nav'].append(directory + '/Setup VXRail/README.md')
+                    configuration['nav'].append(directory + '/Troubleshooting vSAN/README.md')
+                    configuration['nav'].append(directory + '/VMWare APIs/README.md')
+                    configuration['nav'].append(directory + '/VxRail Architecture and Troubleshooting/README.md')
                 else:
                     logging.warning(directory + " does not have a readme file!")
             else:

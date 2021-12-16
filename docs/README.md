@@ -60,18 +60,3 @@ Do the following to configure a management interface on Dell OS10
     OS10(conf-if-ma-1/1/1)# ip address 192.168.1.20/24
     OS10(conf-if-ma-1/1/1)# <165>1 2019-10-28T19:04:39.385196+00:00 OS10 dn_alm 669 - - Node.1-Unit.1:PRI [event], Dell EMC (OS10) %IP_ADDRESS_ADD: IP Address add is successful. IP 192.168.1.20/24 in VRF:default added successfully
     OS10(conf-if-ma-1/1/1)# do write memory
-
-## Useful Things
-
-### Install Latest GCC on CentOS
-
-        GCC_VERSION=9.3.0
-        wget https://ftp.gnu.org/gnu/gcc/gcc-${GCC_VERSION}/gcc-${GCC_VERSION}.tar.gz
-        tar xzvf gcc-${GCC_VERSION}.tar.gz
-        mkdir obj.gcc-${GCC_VERSION}
-        cd gcc-${GCC_VERSION}
-        ./contrib/download_prerequisites
-        cd ../obj.gcc-${GCC_VERSION}
-        ../gcc-${GCC_VERSION}/configure --disable-multilib --enable-languages=c,c++
-        make -j $(nproc)
-        make install
