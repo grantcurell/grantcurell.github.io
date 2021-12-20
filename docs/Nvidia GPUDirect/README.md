@@ -94,6 +94,79 @@ echo 'export PATH=/usr/local/cuda-11.5/bin${PATH:+:${PATH}}' >> /root/.bashrc
 
 First we need to make some manual adjustments to some parameters in the code. For this you need the MAC addresses
 
+My first challenge was that the system was entirely remote so I had to figure out how to determine exactly which interfaces belonged to which card. To find the MAC addresses remotely you can use `lspci -v | grep -i ethernet` and compare that with the output of `ethtool -i <interface_name>`. This will allow you to corelate the model name of the NIC to the interface/MAC using the PCIe bus number. Ex:
+
+```
+[root@gputest ~]# ip a s
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host
+       valid_lft forever preferred_lft forever
+2: eno8303: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP group default qlen 1000
+    link/ether b0:7b:25:f8:44:d2 brd ff:ff:ff:ff:ff:ff
+    inet 172.28.1.40/24 brd 172.28.1.255 scope global dynamic noprefixroute eno8303
+       valid_lft 71017sec preferred_lft 71017sec
+    inet6 fe80::b27b:25ff:fef8:44d2/64 scope link noprefixroute
+       valid_lft forever preferred_lft forever
+3: eno8403: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc mq state DOWN group default qlen 1000
+    link/ether b0:7b:25:f8:44:d3 brd ff:ff:ff:ff:ff:ff
+4: eno12399: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN group default qlen 1000
+    link/ether b4:96:91:cd:e8:ac brd ff:ff:ff:ff:ff:ff
+5: eno12409: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN group default qlen 1000
+    link/ether b4:96:91:cd:e8:ad brd ff:ff:ff:ff:ff:ff
+6: ens6f0: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc mq state DOWN group default qlen 1000
+    link/ether b8:ce:f6:cc:9e:dc brd ff:ff:ff:ff:ff:ff
+7: ens6f1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP group default qlen 1000
+    link/ether b8:ce:f6:cc:9e:dd brd ff:ff:ff:ff:ff:ff
+8: ens5f0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP group default qlen 1000
+    link/ether 0c:42:a1:73:8d:e6 brd ff:ff:ff:ff:ff:ff
+9: ens5f1: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc mq state DOWN group default qlen 1000
+    link/ether 0c:42:a1:73:8d:e7 brd ff:ff:ff:ff:ff:ff
+10: virbr0: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc noqueue state DOWN group default qlen 1000
+    link/ether 52:54:00:b7:e9:a7 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.122.1/24 brd 192.168.122.255 scope global virbr0
+       valid_lft forever preferred_lft forever
+11: virbr0-nic: <BROADCAST,MULTICAST> mtu 1500 qdisc fq_codel master virbr0 state DOWN group default qlen 1000
+    link/ether 52:54:00:b7:e9:a7 brd ff:ff:ff:ff:ff:ff
+[root@gputest test_code]# lspci -v | grep -i ethernet
+04:00.0 Ethernet controller: Broadcom Inc. and subsidiaries NetXtreme BCM5720 Gigabit Ethernet PCIe
+04:00.1 Ethernet controller: Broadcom Inc. and subsidiaries NetXtreme BCM5720 Gigabit Ethernet PCIe
+31:00.0 Ethernet controller: Intel Corporation Ethernet Controller E810-XXV for SFP (rev 02)
+        Subsystem: Intel Corporation Ethernet 25G 2P E810-XXV OCP
+31:00.1 Ethernet controller: Intel Corporation Ethernet Controller E810-XXV for SFP (rev 02)
+        Subsystem: Intel Corporation Ethernet 25G 2P E810-XXV OCP
+98:00.0 Ethernet controller: Mellanox Technologies MT2892 Family [ConnectX-6 Dx]
+98:00.1 Ethernet controller: Mellanox Technologies MT2892 Family [ConnectX-6 Dx]
+b1:00.0 Ethernet controller: Mellanox Technologies MT28800 Family [ConnectX-5 Ex]
+b1:00.1 Ethernet controller: Mellanox Technologies MT28800 Family [ConnectX-5 Ex]
+[root@gputest test_code]# ethtool -i ens6f1
+driver: mlx5_core
+version: 5.5-1.0.3
+firmware-version: 22.31.1014 (DEL0000000027)
+expansion-rom-version:
+bus-info: 0000:98:00.1
+supports-statistics: yes
+supports-test: yes
+supports-eeprom-access: no
+supports-register-dump: no
+supports-priv-flags: yes
+[root@gputest ~]# ethtool -i ens5f0
+driver: mlx5_core
+version: 5.5-1.0.3
+firmware-version: 16.27.6106 (DEL0000000004)
+expansion-rom-version:
+bus-info: 0000:b1:00.0
+supports-statistics: yes
+supports-test: yes
+supports-eeprom-access: no
+supports-register-dump: no
+supports-priv-flags: yes
+```
+
+So here we can see from the bus numbers that in my case MLX6 device is ens6f0/ens6f1 and the MLX5 is ens5f0/ensf1. My transmit interface will be b8:ce:f6:cc:9e:dd and my receive is 0c:42:a1:73:8d:e6.
+
 ### Compiling and Running the App
 
 ```bash
