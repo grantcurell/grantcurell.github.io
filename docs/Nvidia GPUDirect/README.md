@@ -88,7 +88,13 @@ sudo dnf module install -y nvidia-driver:latest-dkms
 sudo dnf install -y cuda
 export PATH=/usr/local/cuda-11.5/bin${PATH:+:${PATH}}
 echo 'export PATH=/usr/local/cuda-11.5/bin${PATH:+:${PATH}}' >> /root/.bashrc
+modprobe nvidia-peermem # YOU MUST RUN THIS MANUALLY
+# Below is just for debugging. You don't have to install them.
+# Make sure, even though it is RHEL 8, you use the word yum here.
+yum debuginfo-install libgcc-8.5.0-4.el8_5.x86_64 libibverbs-55mlnx37-1.55103.x86_64 libnl3-3.5.0-1.el8.x86_64 libstdc++-8.5.0-4.el8_5.x86_64 nvidia-driver-cuda-libs-495.29.05-1.el8.x86_64
 ```
+
+**WARNING** Whenever you want to run this code you must manually load the `nvidia-peermem` module. See [Nvidia peermem](https://docs.nvidia.com/cuda/gpudirect-rdma/index.html#nvidia-peermem). Load with `modprobe nvidia-peermem`
 
 ### Prepare the Code
 
@@ -165,10 +171,14 @@ supports-register-dump: no
 supports-priv-flags: yes
 ```
 
-So here we can see from the bus numbers that in my case MLX6 device is ens6f0/ens6f1 and the MLX5 is ens5f0/ensf1. My transmit interface will be b8:ce:f6:cc:9e:dd and my receive is 0c:42:a1:73:8d:e6.
+So here we can see from the bus numbers that in my case MLX6 device is ens6f0/ens6f1 and the MLX5 is ens5f0/ensf1. My transmit interface will be b8:ce:f6:cc:9e:dd/ens6f1 and my receive is 0c:42:a1:73:8d:e6/ens5f0.
 
 ### Compiling and Running the App
 
 ```bash
 g++ rdma-loopback.cc -o rdma-loopback -libverbs -I/usr/local/cuda/include -L/usr/local/cuda/lib64 -lcudart
 ```
+
+## Debugging
+
+`gdb --args rdma-loopback 0`
