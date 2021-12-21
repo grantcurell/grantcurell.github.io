@@ -1,5 +1,22 @@
 # Nvidia GPUDirect
 
+- [Nvidia GPUDirect](#nvidia-gpudirect)
+  - [Background Research](#background-research)
+  - [Helpful Links](#helpful-links)
+  - [Source Code](#source-code)
+  - [Test Scenario](#test-scenario)
+  - [Lab Configuration](#lab-configuration)
+    - [Hardware Configuration](#hardware-configuration)
+    - [RHEL Version](#rhel-version)
+    - [GCC Version](#gcc-version)
+    - [MLX Config](#mlx-config)
+  - [Installation](#installation)
+    - [MLNX_OFED](#mlnx_ofed)
+    - [CUDA Development Packages](#cuda-development-packages)
+    - [Prepare the Code](#prepare-the-code)
+    - [Compiling and Running the App](#compiling-and-running-the-app)
+  - [Debugging](#debugging)
+
 ## Background Research
 
 See [Background Research](./background_research.md) for background information I studied before doing this.
