@@ -50,9 +50,11 @@ ibv_device *find_device_by_ibv_name(const char *dev_name)
     ibv_device *device = nullptr;
     for (int i = 0; i < num_devices; ++i)
     { 
+        /*
         cout << "HERE\n";
-        cout << ibv_get_device_name(dev_list[i]);
+        cout << ibv_get_device_name(dev_list[i]); 
         cout << "\n";
+        */
         if (!strcmp(dev_name, ibv_get_device_name(dev_list[i])))
         {
             device = dev_list[i];
@@ -77,21 +79,24 @@ uint32_t ipv4_from_string(const char *s)
 size_t cq_len = 1;
 size_t cq_vec = 0;
 
-// TODO - need to update
-const char *rx_ibv_name = "mlx5_0";
+// UPDATE CODE HERE
+// On my box mlx5_2 is the MLX6 device
+const char *rx_ibv_name = "mlx5_2";
 size_t rx_port_num = 1;
-uint8_t dest_mac_addr[] = { 0xb8, 0xce, 0xf6, 0xcc, 0x9e, 0xdf };
-const char *dest_ipv4_addr_str = "10.1.100.1";
-uint32_t dest_ipv4_addr = ipv4_from_string(dest_ipv4_addr_str);
-uint16_t dest_udp_port = 12345;
-
-const char *tx_ibv_name = "mlx5_1";
-size_t tx_port_num = 1;
-uint8_t src_mac_addr[] = { 0xb8, 0xce, 0xf6, 0x16, 0xa9, 0x4f };
-const char *src_ipv4_addr_str = "10.1.101.1";
+// Transmit MAC: b8:ce:f6:cc:9e:dd
+uint8_t src_mac_addr[] = { 0xb8, 0xce, 0xf6, 0xcc, 0x9e, 0xdd };
+const char *src_ipv4_addr_str = "10.1.100.2";
 uint32_t src_ipv4_addr = ipv4_from_string(src_ipv4_addr_str);
 uint16_t src_udp_port = 12345;
 
+// This is the MLX5 device
+const char *tx_ibv_name = "mlx5_0";
+size_t tx_port_num = 1;
+// Receive MAC 0c:42:a1:73:8d:e6
+uint8_t dest_mac_addr[] = { 0x0c, 0x42, 0xa1, 0x73, 0x8d, 0xe6 };
+const char *dest_ipv4_addr_str = "10.1.100.1";
+uint32_t dest_ipv4_addr = ipv4_from_string(dest_ipv4_addr_str);
+uint16_t dest_udp_port = 12345;
 size_t eth_hdr_len = 14;
 size_t ip_hdr_len = 20;
 size_t udp_hdr_len = 8;
@@ -125,6 +130,9 @@ int main(int argc, const char *argv[])
     auto rx_cq = ibv_create_cq(rx_context, cq_len, nullptr, nullptr, cq_vec);
     if (!rx_cq) throw std::runtime_error("error creating RX completion queue");
 
+    // This creates a queue pair (QP) associated with a protection domain pd. The argument qp_init_attr_ex is an
+    // ibv_qp_init_attr_eq struct, as defined in <infiniband/verbs.h>. A queue pair is roughly the same as a
+    // socket.
     ibv_qp_init_attr_ex rx_qp_init_attr;
     memset(&rx_qp_init_attr, 0, sizeof(rx_qp_init_attr));
     rx_qp_init_attr.cap.max_recv_wr = cq_len;
@@ -207,6 +215,9 @@ int main(int argc, const char *argv[])
 
     // Register the memory region.
     void *actual_rx_buf = cuda_rx_buf ? cuda_rx_buf : &rx_buf[0];
+    // ibv_reg_mr() registers a memory region (MR) associated with the protection domain pd. The MR's starting address is
+    // addr and its size is length. The argument access describes the desired memory protection attributes;
+    // it is either 0 or the bitwise OR of one or more flags (detailed online).
     auto rx_mr = ibv_reg_mr(rx_pd, actual_rx_buf, rx_buf.size(), IBV_ACCESS_LOCAL_WRITE);
     if (!rx_mr) throw std::runtime_error("couldn't register RX memory region");
 
@@ -232,7 +243,7 @@ int main(int argc, const char *argv[])
         tx_ibv_name, src_mac_addr[0], src_mac_addr[1], src_mac_addr[2], src_mac_addr[3], src_mac_addr[4], src_mac_addr[5],
         src_ipv4_addr_str, src_udp_port);
 
-    // Now, set up thr transmit interface.
+    // Now, set up the transmit interface.
     auto tx_device = find_device_by_ibv_name(tx_ibv_name);
     if (!tx_device) throw std::runtime_error("error finding TX device");
 
@@ -319,6 +330,8 @@ int main(int argc, const char *argv[])
     tx_sge.length = tx_buf.size();
     tx_sge.lkey = tx_mr->lkey;
 
+    // This creates a send request (SR). An SR defines how much data will be sent, from where, how and, with RDMA, to where. struct
+    // ibv_send_wr is used to implement SRs.
     ibv_send_wr tx_wr;
     memset(&tx_wr, 0, sizeof(tx_wr));
     tx_wr.wr_id = 0;
@@ -329,7 +342,12 @@ int main(int argc, const char *argv[])
     tx_wr.send_flags = IBV_SEND_IP_CSUM;
 
     ibv_send_wr *bad_tx_wr;
-    if (ibv_post_send(tx_qp, &tx_wr, &bad_tx_wr)) throw std::runtime_error("error posting to TX queue: error: " + std::string(strerror(errno)));
+    // ibv_post_send posts a linked list of Work Requests (WRs) to the send queue of a queue pair. ibv_post_send goes over all the entries
+    // in the linked list one by one and checks if they are valid, generates an HW-specific send request from it and then adds that to the
+    // tail of the QP's send queue without performing any contexting switching. If there is a failure in any of the work requests it will
+    // stop immediately and return a pointer to that WR. 0 indicates success.
+    auto result = ibv_post_send(tx_qp, &tx_wr, &bad_tx_wr); // This returns 0
+    if (result) throw std::runtime_error("error posting to TX queue: error: " + std::string(strerror(errno)));
 
     // -------------------------------------------------------------------------------------------------------------------------
 
@@ -337,10 +355,11 @@ int main(int argc, const char *argv[])
 
     // Poll the receive queue (for up to 1 second) to make sure we got the packet.
     int max_polls = 1000;
-    int sleep_nsec = 1e6;
+    int sleep_nsec = 1e3;
     while (max_polls--)
     {
         ibv_wc rx_wc;
+        // Here, CQ refers to completion queue
         auto num_rx = ibv_poll_cq(rx_cq, 1, &rx_wc);
         if (num_rx > 0)
         {
