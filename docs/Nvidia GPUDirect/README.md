@@ -16,7 +16,7 @@ We would like to use GPDirect RDMA to write packets coming directly off of a Mel
 
 ### Hardware Configuration
 
-Dell R750 with a Mellanox MLX6 as the transmitting device and a MLX5 as the receiving device.
+Dell R750 with a Mellanox MLX6 as the transmitting device and a MLX5 as the receiving device. Worth noting is that at the time of writing there is no special MLX6 driver. All device names will appear is MLX5.
 
 ### RHEL Version
 
@@ -52,6 +52,10 @@ Copyright (C) 2018 Free Software Foundation, Inc.
 This is free software; see the source for copying conditions.  There is NO
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 ```
+
+### MLX Config
+
+See [MLX5_0](images/mlx5_0.log) and [MLX5_2](images/mlx5_2.log)
 
 ## Installation
 
@@ -182,3 +186,5 @@ g++ rdma-loopback.cc -o rdma-loopback -libverbs -I/usr/local/cuda/include -L/usr
 ## Debugging
 
 `gdb --args rdma-loopback 0`
+
+To get the config of the Mellanox devices run `mlxconfig -d mlx5_0 q > mlx5_0.log`. Replace mlx5 with your device name.

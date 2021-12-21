@@ -80,22 +80,23 @@ size_t cq_len = 1;
 size_t cq_vec = 0;
 
 // UPDATE CODE HERE
-const char *rx_ibv_name = "mlx5_0";
+// On my box mlx5_2 is the MLX6 device
+const char *rx_ibv_name = "mlx5_2";
 size_t rx_port_num = 1;
-// Receive MAC 0c:42:a1:73:8d:e6
-uint8_t dest_mac_addr[] = { 0x0c, 0x42, 0xa1, 0x73, 0x8d, 0xe6 };
-const char *dest_ipv4_addr_str = "10.1.100.1";
-uint32_t dest_ipv4_addr = ipv4_from_string(dest_ipv4_addr_str);
-uint16_t dest_udp_port = 12345;
-
-const char *tx_ibv_name = "mlx5_2";
-size_t tx_port_num = 1;
 // Transmit MAC: b8:ce:f6:cc:9e:dd
 uint8_t src_mac_addr[] = { 0xb8, 0xce, 0xf6, 0xcc, 0x9e, 0xdd };
 const char *src_ipv4_addr_str = "10.1.100.2";
 uint32_t src_ipv4_addr = ipv4_from_string(src_ipv4_addr_str);
 uint16_t src_udp_port = 12345;
 
+// This is the MLX5 device
+const char *tx_ibv_name = "mlx5_0";
+size_t tx_port_num = 1;
+// Receive MAC 0c:42:a1:73:8d:e6
+uint8_t dest_mac_addr[] = { 0x0c, 0x42, 0xa1, 0x73, 0x8d, 0xe6 };
+const char *dest_ipv4_addr_str = "10.1.100.1";
+uint32_t dest_ipv4_addr = ipv4_from_string(dest_ipv4_addr_str);
+uint16_t dest_udp_port = 12345;
 size_t eth_hdr_len = 14;
 size_t ip_hdr_len = 20;
 size_t udp_hdr_len = 8;
