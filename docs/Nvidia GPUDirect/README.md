@@ -4,6 +4,11 @@
 
 See [Background Research](./background_research.md) for background information I studied before doing this.
 
+## Helpful Links
+
+[RDMA Aware Programming](https://docs.mellanox.com/display/RDMAAwareProgrammingv17/Key+Concepts)
+[Typical Application Flow](https://docs.mellanox.com/display/RDMAAwareProgrammingv17/Typical+Application)
+
 ## Source Code
 
 See [the test file](test_code/rdma-loopback.cpp)
