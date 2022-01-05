@@ -19,7 +19,7 @@
   <script>
     // Current page data
     var mkdocs_page_name = "Notes on vSAN";
-    var mkdocs_page_input_path = "VMWare/Notes on vSAN/README.md";
+    var mkdocs_page_input_path = "VMWare/Notes on VSAN/README.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -155,6 +155,10 @@
                     </li>
                 </ul>
                 <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../Migrating%20Storage%20Volumes%20to%20PowerStore/">Migrating Storage Volumes to PowerStore</a>
+                    </li>
+                </ul>
+                <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../../Mulitple%20Span%20on%204112F-ON%20with%20OpenSwitch/">Mulitple Span on 4112F-ON with OpenSwitch</a>
                     </li>
                 </ul>
@@ -262,84 +266,8 @@
                     <li class="toctree-l1"><a class="reference internal" href="../ESXi%20Architecture/">VMWare Architecture Notes</a>
                     </li>
                 </ul>
-                <ul class="current">
-                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Notes on vSAN</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#disk-groups">Disk Groups</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#deduplication-and-replication">Deduplication and Replication</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#what-is-a-replica-other-source">What is a Replica (other source)</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#distributed-datastore">Distributed Datastore</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#objects-and-components">Objects and Components</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#raid-architecture">RAID Architecture</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#required-networks">Required Networks</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#quarum-logic">Quarum Logic</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#fault-domains">Fault Domains</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#sample-architecture">Sample Architecture</a>
-    </li>
-        </ul>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#witness">Witness</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#alternate-explanation-includes-stripes">Alternate Explanation (includes stripes)</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#design-notes">Design Notes</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#networking">Networking</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#erasure-coding">Erasure Coding</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#raid-5">RAID 5</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#raid-6">RAID 6</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#internal-components">Internal Components</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#vsan-layers">vSAN Layers</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#objects-and-components_1">Objects and Components</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#another-explanation">Another explanation</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#vsan-networking-roles">vSAN Networking Roles</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#vsan-raid-tree">vSAN RAID Tree</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#other-notes">Other Notes</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#minimum-drive-requirements">Minimum Drive Requirements</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#minimum-hosts-for-vsan">Minimum Hosts for vSAN</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#minimum-hosts-for-erasure-coding-raid56">Minimum Hosts for Erasure Coding (RAID5/6)</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#maximum-size">Maximum Size</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#deduplication-and-compression">Deduplication and Compression</a>
-    </li>
-        </ul>
-    </li>
-    </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="" href="../Notes on vSAN/README.md">None</a>
                     </li>
                 </ul>
                 <ul>
@@ -561,15 +489,6 @@ Multicast addresses used are as follows:
           </div>
           <footer>
   
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="../Setup%20VXRail/" class="btn btn-neutral float-right" title="VxRail Setup">Next <span class="icon icon-circle-arrow-right"></span></a>
-      
-      
-        <a href="../ESXi%20Architecture/" class="btn btn-neutral" title="VMWare Architecture Notes"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-      
-    </div>
-  
 
   <hr/>
 
@@ -592,10 +511,6 @@ Multicast addresses used are as follows:
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../ESXi%20Architecture/" style="color: #fcfcfc">&laquo; Previous</a></span>
-    
-    
-      <span><a href="../Setup%20VXRail/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

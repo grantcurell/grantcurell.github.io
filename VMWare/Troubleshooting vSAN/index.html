@@ -155,6 +155,10 @@
                     </li>
                 </ul>
                 <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../Migrating%20Storage%20Volumes%20to%20PowerStore/">Migrating Storage Volumes to PowerStore</a>
+                    </li>
+                </ul>
+                <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../../Mulitple%20Span%20on%204112F-ON%20with%20OpenSwitch/">Mulitple Span on 4112F-ON with OpenSwitch</a>
                     </li>
                 </ul>
@@ -263,7 +267,7 @@
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20vSAN/">Notes on vSAN</a>
+                    <li class="toctree-l1"><a class="" href="../Notes on vSAN/README.md">None</a>
                     </li>
                 </ul>
                 <ul>
@@ -445,7 +449,7 @@
 <p><a href="vmware-ruby-vsphere-console-command-reference-for-virtual-san.pdf">VMware Ruby vSphere Console Command Reference for Virtual SAN</a></p>
 <p><a href="https://core.vmware.com/resource/troubleshooting-vsan-performance">Troubleshooting vSAN Performance</a></p>
 <p><a href="Monitoring-with-VSAN-Observer-v1.2.pdf">Monitoring with vSAN Observer</a> - Covers interpreting and understanding all the functionality of vSAN observer.</p>
-<p><a href="../Notes%20on%20vSAN/">My Notes on vSAN</a> - I documented how a number of vSAN features function and the variosu highlights.</p>
+<p><a href="../Notes%20on%20vSAN/README.md">My Notes on vSAN</a> - I documented how a number of vSAN features function and the variosu highlights.</p>
 <h2 id="vsan-support-insight">vSAN Support Insight</h2>
 <h2 id="overall-approach">Overall Approach</h2>
 <p>vSAN observer
@@ -531,7 +535,7 @@ I'll also do a general network survey to make sure I understand the physical and
 <li>The vmkernel log will commonly display this error in the event of a memory shortage:<img alt="" src="images/2021-08-30-08-19-24.png" /></li>
 <li>Or this error when trying to add a disk group: <img alt="" src="images/2021-08-30-08-20-45.png" /></li>
 <li>An error will also be displayed in the GUI: <img alt="" src="images/2021-08-30-08-21-56.png" /></li>
-<li>Check distribution of <a href="../Notes%20on%20vSAN/#components">components</a>. The line should be uniform indicating roughly equal distribution of components</li>
+<li>Check distribution of <a href="../Notes%20on%20vSAN/README.md#components">components</a>. The line should be uniform indicating roughly equal distribution of components</li>
 <li>Check that the storage controller is supported and running normaly with <code>esxcli storage core device list</code>. Compare to VCG. You can cross reference this with <code>esxcli core storage adapter list</code> and <code>esxcfg-scsidevs -a</code></li>
 <li>You may see the word <em>degraded</em> - this occurs when there is only a single path to teh device. If there are multiple paths this will not show. This is not an issue for local disk configurations.</li>
 <li>If you see <em>Logical Volume</em> in the model field it implies there is a RAID volume configuration on the disk - probably RAID0. Certain storage controllers can pass disk devices directly to the ESXi host; this is called pass-through mode. You may also see it called JBOD or HBA mode. Other storage controllers require each disk device be configured as a RAID0 volume before ESXi can recognize it. You can check the VCG to determine whether something supports pass through or not: <img alt="" src="images/2021-08-30-08-31-36.png" /><ol>
