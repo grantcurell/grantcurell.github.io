@@ -16,6 +16,7 @@
     - [Prepare the Code](#prepare-the-code)
     - [Compiling and Running the App](#compiling-and-running-the-app)
   - [Debugging](#debugging)
+  - [Brief Code Overview](#brief-code-overview)
 
 ## Background Research
 
@@ -210,3 +211,18 @@ g++ rdma-loopback.cc -o rdma-loopback -libverbs -I/usr/local/cuda/include -L/usr
 `gdb --args rdma-loopback 0`
 
 To get the config of the Mellanox devices run `mlxconfig -d mlx5_0 q > mlx5_0.log`. Replace mlx5 with your device name.
+
+## Brief Code Overview
+
+1. A queue pair and its associated resources are established exactly as described in the generic application flow
+   1. Lines 0-192 of the attached code
+2. Register a region of host memory and fill it with a known pattern
+   1. lines 192-195
+3. ​Register a region of GPU memory 
+   1. Lines 197-223
+4. Send a packet containing a known pattern from one Mellanox device to another
+   1. Lines 223-375
+5. Copy the data from the GPU device's memory region into the host system memory which we expect to overwrite the host system memory's bit pattern with the one we just sent
+   1. Line 375-380
+6. Confirm that the memory patterns match. The idea being that we just sent a *new* pattern from one Mellanox device to the other and then told it to overwrite the pattern that was already in system memory with what the GPU received. The logic being that we expect the pattern which was in system memory to be overwritten by what was just sent.
+   1. This happens in lines 391-396
