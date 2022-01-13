@@ -9,7 +9,7 @@
   
   
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>Nvidia GPUDirect - Grant Curell's Dell Projects</title>
+  <title>Using the idrac API to Gather Stats - Grant Curell's Dell Projects</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
   <link rel="stylesheet" href="../css/theme.css" />
@@ -18,8 +18,8 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Nvidia GPUDirect";
-    var mkdocs_page_input_path = "Nvidia GPUDirect/README.md";
+    var mkdocs_page_name = "Using the idrac API to Gather Stats";
+    var mkdocs_page_input_path = "Setting Up iDRAC Telemetry with Splunk/README.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -166,46 +166,8 @@
                     <li class="toctree-l1"><a class="reference internal" href="../Multiple%20Span%20on%204112F-ON%20with%20OS10/">Multiple Span on 4112F-ON with OS10</a>
                     </li>
                 </ul>
-                <ul class="current">
-                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Nvidia GPUDirect</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#background-research">Background Research</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#helpful-links">Helpful Links</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#source-code">Source Code</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#test-scenario">Test Scenario</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#lab-configuration">Lab Configuration</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#hardware-configuration">Hardware Configuration</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#rhel-version">RHEL Version</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#gcc-version">GCC Version</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#mlx-config">MLX Config</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#mlnx_ofed">MLNX_OFED</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#cuda-development-packages">CUDA Development Packages</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#prepare-the-code">Prepare the Code</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#compiling-and-running-the-app">Compiling and Running the App</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#debugging">Debugging</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#brief-code-overview">Brief Code Overview</a>
-    </li>
-    </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Nvidia%20GPUDirect/">Nvidia GPUDirect</a>
                     </li>
                 </ul>
                 <ul>
@@ -349,7 +311,7 @@
     
       
     
-    <li>Nvidia GPUDirect</li>
+    <li>Using the idrac API to Gather Stats</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -361,43 +323,15 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="nvidia-gpudirect">Nvidia GPUDirect</h1>
-<ul>
-<li><a href="#nvidia-gpudirect">Nvidia GPUDirect</a></li>
-<li><a href="#background-research">Background Research</a></li>
-<li><a href="#helpful-links">Helpful Links</a></li>
-<li><a href="#source-code">Source Code</a></li>
-<li><a href="#test-scenario">Test Scenario</a></li>
-<li><a href="#lab-configuration">Lab Configuration</a><ul>
-<li><a href="#hardware-configuration">Hardware Configuration</a></li>
-<li><a href="#rhel-version">RHEL Version</a></li>
-<li><a href="#gcc-version">GCC Version</a></li>
-<li><a href="#mlx-config">MLX Config</a></li>
-</ul>
-</li>
-<li><a href="#installation">Installation</a><ul>
-<li><a href="#mlnx_ofed">MLNX_OFED</a></li>
-<li><a href="#cuda-development-packages">CUDA Development Packages</a></li>
-<li><a href="#prepare-the-code">Prepare the Code</a></li>
-<li><a href="#compiling-and-running-the-app">Compiling and Running the App</a></li>
-</ul>
-</li>
-<li><a href="#debugging">Debugging</a></li>
-<li><a href="#brief-code-overview">Brief Code Overview</a></li>
-</ul>
-<h2 id="background-research">Background Research</h2>
-<p>See <a href="background_research/">Background Research</a> for background information I studied before doing this.</p>
+                <h1 id="using-the-idrac-api-to-gather-stats">Using the idrac API to Gather Stats</h1>
 <h2 id="helpful-links">Helpful Links</h2>
-<p><a href="https://docs.mellanox.com/display/RDMAAwareProgrammingv17/Key+Concepts">RDMA Aware Programming</a>
-<a href="https://docs.mellanox.com/display/RDMAAwareProgrammingv17/Typical+Application">Typical Application Flow</a></p>
-<h2 id="source-code">Source Code</h2>
-<p>See <a href="test_code/rdma-loopback.cpp">the test file</a></p>
-<h2 id="test-scenario">Test Scenario</h2>
-<p>We would like to use GPDirect RDMA to write packets coming directly off of a Mellanox card into GPU memory.</p>
-<h2 id="lab-configuration">Lab Configuration</h2>
-<h3 id="hardware-configuration">Hardware Configuration</h3>
-<p>Dell R750 with a Mellanox MLX6 as the transmitting device and a MLX5 as the receiving device. Worth noting is that at the time of writing there is no special MLX6 driver. All device names will appear is MLX5.</p>
-<h3 id="rhel-version">RHEL Version</h3>
+<p>Dell API Docs: https://developer.dell.com/apis/2978/versions/5.xx/docs/0WhatsNew.md</p>
+<p>Redfish Telemetry Whitepaper: https://www.dmtf.org/sites/default/files/standards/documents/DSP2051_1.0.0.pdf</p>
+<p>Description of the AMQP Messaging Protocol: https://www.ionos.com/digitalguide/websites/web-development/advanced-message-queuing-protocol-amqp/</p>
+<p>Setting Up Splunk for the First Time: https://docs.splunk.com/Documentation/Splunk/8.2.4/Installation/StartSplunkforthefirsttime</p>
+<p>Integrate iDRAC Telemetry Data Into Splunk: <a href="integrate-idrac9-telemetry-data-into-splunk-platform.pdf">Link to PDF</a></p>
+<h2 id="my-test-environment">My Test Environment</h2>
+<h3 id="rhel">RHEL</h3>
 <pre><code>NAME=&quot;Red Hat Enterprise Linux&quot;
 VERSION=&quot;8.5 (Ootpa)&quot;
 ID=&quot;rhel&quot;
@@ -417,159 +351,51 @@ REDHAT_SUPPORT_PRODUCT=&quot;Red Hat Enterprise Linux&quot;
 REDHAT_SUPPORT_PRODUCT_VERSION=&quot;8.5&quot;
 Red Hat Enterprise Linux release 8.5 (Ootpa)
 Red Hat Enterprise Linux release 8.5 (Ootpa)
-
 </code></pre>
-<h3 id="gcc-version">GCC Version</h3>
-<pre><code>[root@gputest ~]# gcc --version
-gcc (GCC) 8.5.0 20210514 (Red Hat 8.5.0-4)
-Copyright (C) 2018 Free Software Foundation, Inc.
-This is free software; see the source for copying conditions.  There is NO
-warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-</code></pre>
-<h3 id="mlx-config">MLX Config</h3>
-<p>See <a href="images/mlx5_0.log">MLX5_0</a> and <a href="images/mlx5_2.log">MLX5_2</a></p>
 <h2 id="installation">Installation</h2>
-<h3 id="mlnx_ofed">MLNX_OFED</h3>
+<h3 id="setup-splunk">Setup Splunk</h3>
 <ol>
-<li>Download MLNX_OFED drivers from https://www.mellanox.com/products/infiniband-drivers/linux/mlnx_ofed</li>
-<li>MLNX_OFED is version dependent. I suggest you use  <code>subscription-manager release --set=8.4</code> to ensure your version of RHEL stays at the version for which MLNX_OFED was compiled</li>
-<li>Upload the ISO to the target box</li>
-<li>Run:</li>
+<li>Download <a href="https://www.splunk.com/en_us/download/splunk-enterprise.html?skip_request_page=1">trial of Splunk</a></li>
+<li>Follow <a href="https://docs.splunk.com/Documentation/Splunk/8.2.4/Installation/InstallonLinux">Splunk installation instructions</a></li>
+<li>By default it will install to /opt/splunk. Run <code>/opt/splunk/bin/splunk start</code> (I suggest you do this in tmux or another terminal emulator)</li>
+<li>Run <code>firewall-cmd --permanent --zone public --add-port=8000/tcp &amp;&amp; firewall-cmd --reload</code></li>
+<li>Make splunk start on boot with <code>/opt/splunk/bin/splunk enable boot-start</code></li>
 </ol>
-<pre><code class="language-bash">dnf group install &quot;Development Tools&quot; -y
-dnf install -y tk tcsh tcl gcc-gfortran kernel-modules-extra gcc-g++ gdb rsync ninja-build make zip
-mount MLNX* /mnt
-cd /mnt
-./mlnxofedinstall
-</code></pre>
-<h3 id="cuda-development-packages">CUDA Development Packages</h3>
+<h4 id="using-syslog">Using Syslog</h4>
 <ol>
-<li>Make sure you have an Nvidia GPU that shows on the device with <code>lspci | grep -i nvidia</code></li>
-<li>Make sure you have the kernel dev headers for your kernel. with <code>rpm -qa | grep devel | grep kernel &amp;&amp; uname -r</code></li>
-<li>Run the following (See <a href="https://developer.nvidia.com/cuda-downloads?target_os=Linux&amp;target_arch=x86_64&amp;Distribution=RHEL&amp;target_version=8&amp;target_type=rpm_local">Nvidia's instructions</a> for details):</li>
+<li>Following the instructions <a href="https://splunk.github.io/splunk-connect-for-syslog/main/gettingstarted/">here</a></li>
+<li>Install podman with <code>dnf install -y podman</code></li>
+<li>Follow the instructions <a href="https://splunk.github.io/splunk-connect-for-syslog/main/gettingstarted/podman-systemd-general/">here</a></li>
+<li>NOTE: When adding the HTTP input in Splunk it failed out because the token weren't enabled. I had to manually edit <code>/opt/splunk/etc/apps/splunk_httpinput/default/inputs.conf</code> and set disabled to 0 then do a <code>systemctl restart splunk</code></li>
+<li>Run <code>systemctl stop rsyslog &amp;&amp; systemctl disable rsyslog</code></li>
 </ol>
-<pre><code class="language-bash">dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
-subscription-manager repos --enable=rhel-8-for-x86_64-appstream-rpms
-subscription-manager repos --enable=rhel-8-for-x86_64-baseos-rpms
-subscription-manager repos --enable=codeready-builder-for-rhel-8-x86_64-rpms
-sudo rpm -i cuda-repo-rhel8-11-5-local-11.5.1_495.29.05-1.x86_64.rpm
-sudo dnf config-manager --add-repo https://developer.download.nvidia.com/compute/cuda/repos/rhel8/x86_64/cuda-rhel8.repo
-sudo dnf clean expire-cache
-sudo dnf module install -y nvidia-driver:latest-dkms
-sudo dnf install -y cuda
-export PATH=/usr/local/cuda-11.5/bin${PATH:+:${PATH}}
-echo 'export PATH=/usr/local/cuda-11.5/bin${PATH:+:${PATH}}' &gt;&gt; /root/.bashrc
-modprobe nvidia-peermem # YOU MUST RUN THIS MANUALLY
-# Below is just for debugging. You don't have to install them.
-# Make sure, even though it is RHEL 8, you use the word yum here.
-yum debuginfo-install libgcc-8.5.0-4.el8_5.x86_64 libibverbs-55mlnx37-1.55103.x86_64 libnl3-3.5.0-1.el8.x86_64 libstdc++-8.5.0-4.el8_5.x86_64 nvidia-driver-cuda-libs-495.29.05-1.el8.x86_64
-</code></pre>
-<p><strong>WARNING</strong> Whenever you want to run this code you must manually load the <code>nvidia-peermem</code> module. See <a href="https://docs.nvidia.com/cuda/gpudirect-rdma/index.html#nvidia-peermem">Nvidia peermem</a>. Load with <code>modprobe nvidia-peermem</code></p>
-<h3 id="prepare-the-code">Prepare the Code</h3>
-<p>First we need to make some manual adjustments to some parameters in the code. For this you need the MAC addresses</p>
-<p>My first challenge was that the system was entirely remote so I had to figure out how to determine exactly which interfaces belonged to which card. To find the MAC addresses remotely you can use <code>lspci -v | grep -i ethernet</code> and compare that with the output of <code>ethtool -i &lt;interface_name&gt;</code>. This will allow you to corelate the model name of the NIC to the interface/MAC using the PCIe bus number. Ex:</p>
-<pre><code>[root@gputest ~]# ip a s
-1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
-    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
-    inet 127.0.0.1/8 scope host lo
-       valid_lft forever preferred_lft forever
-    inet6 ::1/128 scope host
-       valid_lft forever preferred_lft forever
-2: eno8303: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc mq state UP group default qlen 1000
-    link/ether b0:7b:25:f8:44:d2 brd ff:ff:ff:ff:ff:ff
-    inet 172.28.1.40/24 brd 172.28.1.255 scope global dynamic noprefixroute eno8303
-       valid_lft 71017sec preferred_lft 71017sec
-    inet6 fe80::b27b:25ff:fef8:44d2/64 scope link noprefixroute
-       valid_lft forever preferred_lft forever
-3: eno8403: &lt;NO-CARRIER,BROADCAST,MULTICAST,UP&gt; mtu 1500 qdisc mq state DOWN group default qlen 1000
-    link/ether b0:7b:25:f8:44:d3 brd ff:ff:ff:ff:ff:ff
-4: eno12399: &lt;BROADCAST,MULTICAST&gt; mtu 1500 qdisc noop state DOWN group default qlen 1000
-    link/ether b4:96:91:cd:e8:ac brd ff:ff:ff:ff:ff:ff
-5: eno12409: &lt;BROADCAST,MULTICAST&gt; mtu 1500 qdisc noop state DOWN group default qlen 1000
-    link/ether b4:96:91:cd:e8:ad brd ff:ff:ff:ff:ff:ff
-6: ens6f0: &lt;NO-CARRIER,BROADCAST,MULTICAST,UP&gt; mtu 1500 qdisc mq state DOWN group default qlen 1000
-    link/ether b8:ce:f6:cc:9e:dc brd ff:ff:ff:ff:ff:ff
-7: ens6f1: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc mq state UP group default qlen 1000
-    link/ether b8:ce:f6:cc:9e:dd brd ff:ff:ff:ff:ff:ff
-8: ens5f0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc mq state UP group default qlen 1000
-    link/ether 0c:42:a1:73:8d:e6 brd ff:ff:ff:ff:ff:ff
-9: ens5f1: &lt;NO-CARRIER,BROADCAST,MULTICAST,UP&gt; mtu 1500 qdisc mq state DOWN group default qlen 1000
-    link/ether 0c:42:a1:73:8d:e7 brd ff:ff:ff:ff:ff:ff
-10: virbr0: &lt;NO-CARRIER,BROADCAST,MULTICAST,UP&gt; mtu 1500 qdisc noqueue state DOWN group default qlen 1000
-    link/ether 52:54:00:b7:e9:a7 brd ff:ff:ff:ff:ff:ff
-    inet 192.168.122.1/24 brd 192.168.122.255 scope global virbr0
-       valid_lft forever preferred_lft forever
-11: virbr0-nic: &lt;BROADCAST,MULTICAST&gt; mtu 1500 qdisc fq_codel master virbr0 state DOWN group default qlen 1000
-    link/ether 52:54:00:b7:e9:a7 brd ff:ff:ff:ff:ff:ff
-[root@gputest test_code]# lspci -v | grep -i ethernet
-04:00.0 Ethernet controller: Broadcom Inc. and subsidiaries NetXtreme BCM5720 Gigabit Ethernet PCIe
-04:00.1 Ethernet controller: Broadcom Inc. and subsidiaries NetXtreme BCM5720 Gigabit Ethernet PCIe
-31:00.0 Ethernet controller: Intel Corporation Ethernet Controller E810-XXV for SFP (rev 02)
-        Subsystem: Intel Corporation Ethernet 25G 2P E810-XXV OCP
-31:00.1 Ethernet controller: Intel Corporation Ethernet Controller E810-XXV for SFP (rev 02)
-        Subsystem: Intel Corporation Ethernet 25G 2P E810-XXV OCP
-98:00.0 Ethernet controller: Mellanox Technologies MT2892 Family [ConnectX-6 Dx]
-98:00.1 Ethernet controller: Mellanox Technologies MT2892 Family [ConnectX-6 Dx]
-b1:00.0 Ethernet controller: Mellanox Technologies MT28800 Family [ConnectX-5 Ex]
-b1:00.1 Ethernet controller: Mellanox Technologies MT28800 Family [ConnectX-5 Ex]
-[root@gputest test_code]# ethtool -i ens6f1
-driver: mlx5_core
-version: 5.5-1.0.3
-firmware-version: 22.31.1014 (DEL0000000027)
-expansion-rom-version:
-bus-info: 0000:98:00.1
-supports-statistics: yes
-supports-test: yes
-supports-eeprom-access: no
-supports-register-dump: no
-supports-priv-flags: yes
-[root@gputest ~]# ethtool -i ens5f0
-driver: mlx5_core
-version: 5.5-1.0.3
-firmware-version: 16.27.6106 (DEL0000000004)
-expansion-rom-version:
-bus-info: 0000:b1:00.0
-supports-statistics: yes
-supports-test: yes
-supports-eeprom-access: no
-supports-register-dump: no
-supports-priv-flags: yes
-</code></pre>
-<p>So here we can see from the bus numbers that in my case MLX6 device is ens6f0/ens6f1 and the MLX5 is ens5f0/ensf1. My transmit interface will be b8:ce:f6:cc:9e:dd/ens6f1 and my receive is 0c:42:a1:73:8d:e6/ens5f0.</p>
-<h3 id="compiling-and-running-the-app">Compiling and Running the App</h3>
-<pre><code class="language-bash">g++ rdma-loopback.cc -o rdma-loopback -libverbs -I/usr/local/cuda/include -L/usr/local/cuda/lib64 -lcudart
-</code></pre>
-<h2 id="debugging">Debugging</h2>
-<p><code>gdb --args rdma-loopback 0</code></p>
-<p>To get the config of the Mellanox devices run <code>mlxconfig -d mlx5_0 q &gt; mlx5_0.log</code>. Replace mlx5 with your device name.</p>
-<h2 id="brief-code-overview">Brief Code Overview</h2>
+<h3 id="configure-the-idrac">Configure the iDRAC</h3>
 <ol>
-<li>A queue pair and its associated resources are established exactly as described in the generic application flow</li>
-<li>Lines 0-192 of the attached code</li>
-<li>Register a region of host memory and fill it with a known pattern</li>
-<li>lines 192-195</li>
-<li>​Register a region of GPU memory </li>
-<li>Lines 197-223</li>
-<li>Send a packet containing a known pattern from one Mellanox device to another</li>
-<li>Lines 223-375</li>
-<li>Copy the data from the GPU device's memory region into the host system memory which we expect to overwrite the host system memory's bit pattern with the one we just sent</li>
-<li>Line 375-380</li>
-<li>Confirm that the memory patterns match. The idea being that we just sent a <em>new</em> pattern from one Mellanox device to the other and then told it to overwrite the pattern that was already in system memory with what the GPU received. The logic being that we expect the pattern which was in system memory to be overwritten by what was just sent.</li>
-<li>This happens in lines 391-396</li>
+<li>Download <a href="https://github.com/dell/iDRAC-Telemetry-Scripting/blob/master/ConfigurationScripts/EnableOrDisableAllTelemetryReports.py">this script</a> which will enable telemetry reports.</li>
+<li>Run <code>EnableOrDisableAllTelemetryReports.py -ip $target -u $user -p $password</code></li>
+<li>This enables telemetry on the target server</li>
+<li>Next you will need to enable Redfish alerting which will publish the events to Splunk. Download <a href="https://github.com/dell/iDRAC-Telemetry-Scripting/blob/master/ConfigurationScripts/SubscriptionManagementREDFISH.py">this script</a></li>
+<li>Run the following command <code>SubscriptionManagementREDFISH.py -ip $target -u $user -p $password -c y -D https://$splunkserver/services/collector/raw -E Alert -V Event</code></li>
+<li><code>$target</code> is the ip address or DNS name of the iDRAC</li>
+<li><code>$user/$password</code> are the username and password for iDRAC</li>
+<li><code>$splunkserver</code> is the IP address or DNS name of your Splunk HTTP event collector instance</li>
+</ol>
+<h4 id="using-syslog_1">Using Syslog</h4>
+<ol>
+<li>On the command line (racadm)</li>
+<li>SSH to the iDRAC</li>
+<li>Run <pre><code>```
+racadm set idrac.telemetry.RsyslogServer1 "&lt;splunk_ip/fqdn&gt;"
+racadm set idrac.telemetry.RsyslogServer1port "514"
+racadm testrsyslogconnection
+```
+</code></pre>
+</li>
 </ol>
               
             </div>
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="../NVMe%20Performance%20Testing/" class="btn btn-neutral float-right" title="NVMe Performance Testing">Next <span class="icon icon-circle-arrow-right"></span></a>
-      
-      
-        <a href="../Multiple%20Span%20on%204112F-ON%20with%20OS10/" class="btn btn-neutral" title="Multiple Span on 4112F-ON with OS10"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>
@@ -593,10 +419,6 @@ supports-priv-flags: yes
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../Multiple%20Span%20on%204112F-ON%20with%20OS10/" style="color: #fcfcfc">&laquo; Previous</a></span>
-    
-    
-      <span><a href="../NVMe%20Performance%20Testing/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
