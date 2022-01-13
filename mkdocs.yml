@@ -29,6 +29,7 @@ nav:
 - Migrating Storage Volumes to PowerStore/README.md
 - Mulitple Span on 4112F-ON with OpenSwitch/README.md
 - Multiple Span on 4112F-ON with OS10/README.md
+- Notes on ID-Based Ordering/README.md
 - Nvidia GPUDirect/README.md
 - NVMe Performance Testing/README.md
 - Offline Updates with OpenManage Enterprise/README.md
@@ -43,6 +44,7 @@ nav:
 - Running DNS from OS10/README.md
 - Set Up RSPAN on OS10/README.md
 - Setting Up Breakout Cables/README.md
+- Setting Up iDRAC Telemetry with Splunk/README.md
 - Setting Up SmartFabric Director/README.md
 - Setup IDPA/README.md
 - Site to Site VPN with PFSense and CentOS 8/README.md

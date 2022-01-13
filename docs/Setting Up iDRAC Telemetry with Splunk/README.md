@@ -1,4 +1,4 @@
-# Using the idrac API to Gather Stats
+# Setting Up iDRAC Telemetry with Splunk
 
 ## Helpful Links
 
@@ -47,13 +47,14 @@ Red Hat Enterprise Linux release 8.5 (Ootpa)
 3. By default it will install to /opt/splunk. Run `/opt/splunk/bin/splunk start` (I suggest you do this in tmux or another terminal emulator)
 4. Run `firewall-cmd --permanent --zone public --add-port=8000/tcp && firewall-cmd --reload`
 5. Make splunk start on boot with `/opt/splunk/bin/splunk enable boot-start`
-6. Enter the web UI and install the following two apps:
-   1. https://splunkbase.splunk.com/app/5245/#/details
-   2. https://splunkbase.splunk.com/app/5228/#/details
-7. First we will configure Redfish add-on for Splunk. Begin by opening the app.
-8. Go to Configuration->Account->Add. Enter the credentials for the account on iDRAC with access to the telemetry reports.
-9. Next, go to Inputs. Click "Create New Input" and enter the following information:
-   1.  TODO: ADD THIS. NEED TO GO BACK AND FIGURE OUT METRIC REPORTS
+
+#### Using Syslog
+
+1. Following the instructions [here](https://splunk.github.io/splunk-connect-for-syslog/main/gettingstarted/)
+2. Install podman with `dnf install -y podman`
+3. Follow the instructions [here](https://splunk.github.io/splunk-connect-for-syslog/main/gettingstarted/podman-systemd-general/)
+   1. NOTE: When adding the HTTP input in Splunk it failed out because the token weren't enabled. I had to manually edit `/opt/splunk/etc/apps/splunk_httpinput/default/inputs.conf` and set disabled to 0 then do a `systemctl restart splunk`
+4.  Run `systemctl stop rsyslog && systemctl disable rsyslog`
 
 ### Configure the iDRAC
 
@@ -66,3 +67,14 @@ Red Hat Enterprise Linux release 8.5 (Ootpa)
    2. `$user/$password` are the username and password for iDRAC
    3. `$splunkserver` is the IP address or DNS name of your Splunk HTTP event collector instance
 
+#### Using Syslog
+
+1. On the command line (racadm)
+   1. SSH to the iDRAC
+   2. Run 
+
+        ```
+        racadm set idrac.telemetry.RsyslogServer1 "<splunk_ip/fqdn>"
+        racadm set idrac.telemetry.RsyslogServer1port "514"
+        racadm testrsyslogconnection
+        ```
