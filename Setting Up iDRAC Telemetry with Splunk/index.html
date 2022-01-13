@@ -9,7 +9,7 @@
   
   
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>Using the idrac API to Gather Stats - Grant Curell's Dell Projects</title>
+  <title>Setting Up iDRAC Telemetry with Splunk - Grant Curell's Dell Projects</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
   <link rel="stylesheet" href="../css/theme.css" />
@@ -18,7 +18,7 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Using the idrac API to Gather Stats";
+    var mkdocs_page_name = "Setting Up iDRAC Telemetry with Splunk";
     var mkdocs_page_input_path = "Setting Up iDRAC Telemetry with Splunk/README.md";
     var mkdocs_page_url = null;
   </script>
@@ -167,6 +167,10 @@
                     </li>
                 </ul>
                 <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20ID-Based%20Ordering/">Notes on ID-Based Ordering</a>
+                    </li>
+                </ul>
+                <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../Nvidia%20GPUDirect/">Nvidia GPUDirect</a>
                     </li>
                 </ul>
@@ -220,6 +224,36 @@
                 </ul>
                 <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../Setting%20Up%20Breakout%20Cables/">Setting Up Breakout Cables</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Setting Up iDRAC Telemetry with Splunk</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#helpful-links">Helpful Links</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#my-test-environment">My Test Environment</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#rhel">RHEL</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#setup-splunk">Setup Splunk</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#using-syslog">Using Syslog</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#configure-the-idrac">Configure the iDRAC</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#using-syslog_1">Using Syslog</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    </ul>
                     </li>
                 </ul>
                 <ul>
@@ -311,7 +345,7 @@
     
       
     
-    <li>Using the idrac API to Gather Stats</li>
+    <li>Setting Up iDRAC Telemetry with Splunk</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -323,7 +357,7 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="using-the-idrac-api-to-gather-stats">Using the idrac API to Gather Stats</h1>
+                <h1 id="setting-up-idrac-telemetry-with-splunk">Setting Up iDRAC Telemetry with Splunk</h1>
 <h2 id="helpful-links">Helpful Links</h2>
 <p>Dell API Docs: https://developer.dell.com/apis/2978/versions/5.xx/docs/0WhatsNew.md</p>
 <p>Redfish Telemetry Whitepaper: https://www.dmtf.org/sites/default/files/standards/documents/DSP2051_1.0.0.pdf</p>
@@ -397,6 +431,15 @@ racadm testrsyslogconnection
           </div>
           <footer>
   
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../Setting%20Up%20SmartFabric%20Director/" class="btn btn-neutral float-right" title="Setting Up SmartFabric Director">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../Setting%20Up%20Breakout%20Cables/" class="btn btn-neutral" title="Setting Up Breakout Cables"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
 
   <hr/>
 
@@ -419,6 +462,10 @@ racadm testrsyslogconnection
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
+      <span><a href="../Setting%20Up%20Breakout%20Cables/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../Setting%20Up%20SmartFabric%20Director/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
