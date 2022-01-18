@@ -4,19 +4,18 @@
   - [Background Research](#background-research)
   - [Helpful Links](#helpful-links)
   - [Source Code](#source-code)
-  - [Test Scenario](#test-scenario)
+  - [Description of the Problem](#description-of-the-problem)
   - [Lab Configuration](#lab-configuration)
     - [Hardware Configuration](#hardware-configuration)
     - [RHEL Version](#rhel-version)
     - [GCC Version](#gcc-version)
-    - [MLX Config](#mlx-config)
-  - [Installation](#installation)
-    - [MLNX_OFED](#mlnx_ofed)
+    - [Nvidia SMI](#nvidia-smi)
+    - [CUDA Version](#cuda-version)
+  - [Setting Up the Code Environment](#setting-up-the-code-environment)
     - [CUDA Development Packages](#cuda-development-packages)
     - [Prepare the Code](#prepare-the-code)
     - [Compiling and Running the App](#compiling-and-running-the-app)
   - [Debugging](#debugging)
-  - [Brief Code Overview](#brief-code-overview)
 
 ## Background Research
 
@@ -31,9 +30,26 @@ See [Background Research](./background_research.md) for background information I
 
 See [the test file](test_code/rdma-loopback.cpp)
 
-## Test Scenario
+## Description of the Problem
 
-We would like to use GPDirect RDMA to write packets coming directly off of a Mellanox card into GPU memory.
+What we are doing in the below steps is playing a packet from one Mellanox card directly into another. Before playing the packet, we write to a region in GPU memory with a specific pattern and in the packet we send we have a different pattern. As a proof of concept we expect that the packet's data overwrites this memory buffer.
+
+See [this post](https://forums.developer.nvidia.com/t/clarification-on-requirements-for-gpudirect-rdma/188114) for the original description of the problem.
+
+1. A queue pair and its associated resources are established exactly as described in the (generic application flow)[https://docs.nvidia.com/networking/display/RDMAAwareProgrammingv17/Typical+Application]
+  1. Lines 0-192 of the attached code
+2. Register a region of host memory and fill it with a known pattern
+   1. lines 192-195
+3. ​Register a region of GPU memory 
+   1. Lines 197-223
+4. Send a packet containing a known pattern from one Mellanox device to another
+   1. Lines 223-375
+5. Copy the data from the GPU device's memory region into the host system memory which we expect to overwrite the host system memory's bit pattern with the one we just sent
+   1. Line 375-380
+6. Confirm that the memory patterns match. The idea being that we just sent a *new* pattern from one Mellanox device to the other and then told it to overwrite the pattern that was already in system memory with what the GPU received. The logic being that we expect the pattern which was in system memory to be overwritten by what was just sent.
+   1. This happens in lines 391-396​
+
+ At no point does the CUDA toolkit issue any errors. Everything returns as a success however, the pattern in system memory *is not* overwritten. Need to determine why this simple POC does not work in order to move forward with customer.
 
 ## Lab Configuration
 
@@ -76,6 +92,43 @@ This is free software; see the source for copying conditions.  There is NO
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 ```
 
+### Nvidia SMI
+
+```
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 495.29.05    Driver Version: 495.29.05    CUDA Version: 11.5     |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|                               |                      |               MIG M. |
+|===============================+======================+======================|
+|   0  NVIDIA A100-PCI...  Off  | 00000000:CA:00.0 Off |                    0 |
+| N/A   26C    P0    35W / 250W |    541MiB / 40536MiB |      0%      Default |
+|                               |                      |             Disabled |
++-------------------------------+----------------------+----------------------+
+
++-----------------------------------------------------------------------------+
+| Processes:                                                                  |
+|  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
+|        ID   ID                                                   Usage      |
+|=============================================================================|
+|    0   N/A  N/A      4969      G   /usr/libexec/Xorg                  26MiB |
+|    0   N/A  N/A      5345      G   /usr/bin/gnome-shell               98MiB |
+|    0   N/A  N/A    606994      C   /tmp/test/rdma-loopback           413MiB |
++-----------------------------------------------------------------------------+
+```
+
+### CUDA Version
+
+```
+[root@gputest ~]# nvcc --version
+nvcc: NVIDIA (R) Cuda compiler driver
+Copyright (c) 2005-2021 NVIDIA Corporation
+Built on Thu_Nov_18_09:45:30_PST_2021
+Cuda compilation tools, release 11.5, V11.5.119
+Build cuda_11.5.r11.5/compiler.30672275_0
+`
+
 ### MLX Config
 
 See [MLX5_0](images/mlx5_0.log) and [MLX5_2](images/mlx5_2.log)
@@ -96,6 +149,8 @@ mount MLNX* /mnt
 cd /mnt
 ./mlnxofedinstall
 ```
+
+## Setting Up the Code Environment
 
 ### CUDA Development Packages
 
@@ -200,6 +255,30 @@ supports-priv-flags: yes
 
 So here we can see from the bus numbers that in my case MLX6 device is ens6f0/ens6f1 and the MLX5 is ens5f0/ensf1. My transmit interface will be b8:ce:f6:cc:9e:dd/ens6f1 and my receive is 0c:42:a1:73:8d:e6/ens5f0.
 
+Next you have to figure out the Mellanox device numbers. You can do this using mlxconfig. To get this listing run `mlxconfig -d mlx5_0 q`. In the header of each block you should see something like this:
+
+```
+Device #1:
+----------
+
+Device type:    ConnectX6DX
+Name:           0F6FXM_08P2T2_Ax
+Description:    Mellanox ConnectX-6 Dx Dual Port 100 GbE QSFP56 Network Adapter
+Device:         mlx5_0
+```
+
+From my experimentation they are in order. So mlx5_0 is the first interface on the MLX6 device which lines up with ens6f0. This means mlx5_1 is the second interface and then mlx5_3 would be the first interface of the MLX5 device which we can confirm with `mlxconfig -d mlx5_3 q`
+
+```
+Device #1:
+----------
+
+Device type:    ConnectX5
+Name:           09FTMY_071C1T_Ax
+Description:    Mellanox ConnectX-5 Ex Dual Port 100 GbE QSFP Network Adapter
+Device:         mlx5_3
+```
+
 ### Compiling and Running the App
 
 ```bash
@@ -211,18 +290,3 @@ g++ rdma-loopback.cc -o rdma-loopback -libverbs -I/usr/local/cuda/include -L/usr
 `gdb --args rdma-loopback 0`
 
 To get the config of the Mellanox devices run `mlxconfig -d mlx5_0 q > mlx5_0.log`. Replace mlx5 with your device name.
-
-## Brief Code Overview
-
-1. A queue pair and its associated resources are established exactly as described in the generic application flow
-   1. Lines 0-192 of the attached code
-2. Register a region of host memory and fill it with a known pattern
-   1. lines 192-195
-3. ​Register a region of GPU memory 
-   1. Lines 197-223
-4. Send a packet containing a known pattern from one Mellanox device to another
-   1. Lines 223-375
-5. Copy the data from the GPU device's memory region into the host system memory which we expect to overwrite the host system memory's bit pattern with the one we just sent
-   1. Line 375-380
-6. Confirm that the memory patterns match. The idea being that we just sent a *new* pattern from one Mellanox device to the other and then told it to overwrite the pattern that was already in system memory with what the GPU received. The logic being that we expect the pattern which was in system memory to be overwritten by what was just sent.
-   1. This happens in lines 391-396
