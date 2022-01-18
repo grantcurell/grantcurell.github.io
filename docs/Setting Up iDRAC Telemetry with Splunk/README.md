@@ -56,20 +56,39 @@ Red Hat Enterprise Linux release 8.5 (Ootpa)
    1. NOTE: When adding the HTTP input in Splunk it failed out because the token weren't enabled. I had to manually edit `/opt/splunk/etc/apps/splunk_httpinput/default/inputs.conf` and set disabled to 0 then do a `systemctl restart splunk`
 4.  Run `systemctl stop rsyslog && systemctl disable rsyslog`
 
+#### Using ActiveMQ and splunkpump
+
+1. `dnf install -y podman`
+2. `mkdir -p  mkdir -p /opt/activemq/data && /opt/activemq/conf`
+3. Run the following to generate default configs:
+
+    ```bash
+    podman run --user root --rm -ti -p 61616:61616 -p 8161:8161 -v /opt/activemq/conf:/mnt/conf:z -v /opt/activemq/data:/mnt/data:z rmohr/activemq /bin/sh
+    chown activemq:activemq /mnt/conf
+    chown activemq:activemq /mnt/data
+    cp -a /opt/activemq/conf/* /mnt/conf/
+    cp -a /opt/activemq/data/* /mnt/data/
+    exit
+    ```
+
+4. `podman run -p 61616:61616 -p 8161:8161 -v /opt/activemq/conf:/opt/activemq/conf -v /opt/activemq/data:/opt/activemq/data rmohr/activemq`
+5. 
 ### Configure the iDRAC
 
 1. Download [this script](https://github.com/dell/iDRAC-Telemetry-Scripting/blob/master/ConfigurationScripts/EnableOrDisableAllTelemetryReports.py) which will enable telemetry reports.
 2. Run `EnableOrDisableAllTelemetryReports.py -ip $target -u $user -p $password`
    1. This enables telemetry on the target server
-3. Next you will need to enable Redfish alerting which will publish the events to Splunk. Download [this script](https://github.com/dell/iDRAC-Telemetry-Scripting/blob/master/ConfigurationScripts/SubscriptionManagementREDFISH.py)
-4. Run the following command `SubscriptionManagementREDFISH.py -ip $target -u $user -p $password -c y -D https://$splunkserver/services/collector/raw -E Alert -V Event`
-   1. `$target` is the ip address or DNS name of the iDRAC
-   2. `$user/$password` are the username and password for iDRAC
-   3. `$splunkserver` is the IP address or DNS name of your Splunk HTTP event collector instance
+
+#### Using ActiveMQ and splunkpump
 
 #### Using Syslog
 
-1. On the command line (racadm)
+1. Next you will need to enable Redfish alerting which will publish the events to Splunk. Download [this script](https://github.com/dell/iDRAC-Telemetry-Scripting/blob/master/ConfigurationScripts/SubscriptionManagementREDFISH.py)
+2. Run the following command `SubscriptionManagementREDFISH.py -ip $target -u $user -p $password -c y -D https://$splunkserver/services/collector/raw -E Alert -V Event`
+   1. `$target` is the ip address or DNS name of the iDRAC
+   2. `$user/$password` are the username and password for iDRAC
+   3. `$splunkserver` is the IP address or DNS name of your Splunk HTTP event collector instance
+3. On the command line (racadm)
    1. SSH to the iDRAC
    2. Run 
 
