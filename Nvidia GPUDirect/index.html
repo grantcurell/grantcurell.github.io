@@ -179,7 +179,7 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#source-code">Source Code</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#test-scenario">Test Scenario</a>
+    <li class="toctree-l2"><a class="reference internal" href="#description-of-the-problem">Description of the Problem</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#lab-configuration">Lab Configuration</a>
         <ul>
@@ -189,14 +189,14 @@
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#gcc-version">GCC Version</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#mlx-config">MLX Config</a>
+    <li class="toctree-l3"><a class="reference internal" href="#nvidia-smi">Nvidia SMI</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#cuda-version">CUDA Version</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a>
+    <li class="toctree-l2"><a class="reference internal" href="#setting-up-the-code-environment">Setting Up the Code Environment</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#mlnx_ofed">MLNX_OFED</a>
-    </li>
     <li class="toctree-l3"><a class="reference internal" href="#cuda-development-packages">CUDA Development Packages</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#prepare-the-code">Prepare the Code</a>
@@ -206,8 +206,6 @@
         </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#debugging">Debugging</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#brief-code-overview">Brief Code Overview</a>
     </li>
     </ul>
                     </li>
@@ -375,23 +373,22 @@
 <li><a href="#background-research">Background Research</a></li>
 <li><a href="#helpful-links">Helpful Links</a></li>
 <li><a href="#source-code">Source Code</a></li>
-<li><a href="#test-scenario">Test Scenario</a></li>
+<li><a href="#description-of-the-problem">Description of the Problem</a></li>
 <li><a href="#lab-configuration">Lab Configuration</a><ul>
 <li><a href="#hardware-configuration">Hardware Configuration</a></li>
 <li><a href="#rhel-version">RHEL Version</a></li>
 <li><a href="#gcc-version">GCC Version</a></li>
-<li><a href="#mlx-config">MLX Config</a></li>
+<li><a href="#nvidia-smi">Nvidia SMI</a></li>
+<li><a href="#cuda-version">CUDA Version</a></li>
 </ul>
 </li>
-<li><a href="#installation">Installation</a><ul>
-<li><a href="#mlnx_ofed">MLNX_OFED</a></li>
+<li><a href="#setting-up-the-code-environment">Setting Up the Code Environment</a><ul>
 <li><a href="#cuda-development-packages">CUDA Development Packages</a></li>
 <li><a href="#prepare-the-code">Prepare the Code</a></li>
 <li><a href="#compiling-and-running-the-app">Compiling and Running the App</a></li>
 </ul>
 </li>
 <li><a href="#debugging">Debugging</a></li>
-<li><a href="#brief-code-overview">Brief Code Overview</a></li>
 </ul>
 <h2 id="background-research">Background Research</h2>
 <p>See <a href="background_research/">Background Research</a> for background information I studied before doing this.</p>
@@ -400,8 +397,24 @@
 <a href="https://docs.mellanox.com/display/RDMAAwareProgrammingv17/Typical+Application">Typical Application Flow</a></p>
 <h2 id="source-code">Source Code</h2>
 <p>See <a href="test_code/rdma-loopback.cpp">the test file</a></p>
-<h2 id="test-scenario">Test Scenario</h2>
-<p>We would like to use GPDirect RDMA to write packets coming directly off of a Mellanox card into GPU memory.</p>
+<h2 id="description-of-the-problem">Description of the Problem</h2>
+<p>What we are doing in the below steps is playing a packet from one Mellanox card directly into another. Before playing the packet, we write to a region in GPU memory with a specific pattern and in the packet we send we have a different pattern. As a proof of concept we expect that the packet's data overwrites this memory buffer.</p>
+<p>See <a href="https://forums.developer.nvidia.com/t/clarification-on-requirements-for-gpudirect-rdma/188114">this post</a> for the original description of the problem.</p>
+<ol>
+<li>A queue pair and its associated resources are established exactly as described in the (generic application flow)[https://docs.nvidia.com/networking/display/RDMAAwareProgrammingv17/Typical+Application]</li>
+<li>Lines 0-192 of the attached code</li>
+<li>Register a region of host memory and fill it with a known pattern</li>
+<li>lines 192-195</li>
+<li>​Register a region of GPU memory </li>
+<li>Lines 197-223</li>
+<li>Send a packet containing a known pattern from one Mellanox device to another</li>
+<li>Lines 223-375</li>
+<li>Copy the data from the GPU device's memory region into the host system memory which we expect to overwrite the host system memory's bit pattern with the one we just sent</li>
+<li>Line 375-380</li>
+<li>Confirm that the memory patterns match. The idea being that we just sent a <em>new</em> pattern from one Mellanox device to the other and then told it to overwrite the pattern that was already in system memory with what the GPU received. The logic being that we expect the pattern which was in system memory to be overwritten by what was just sent.</li>
+<li>This happens in lines 391-396​</li>
+</ol>
+<p>At no point does the CUDA toolkit issue any errors. Everything returns as a success however, the pattern in system memory <em>is not</em> overwritten. Need to determine why this simple POC does not work in order to move forward with customer.</p>
 <h2 id="lab-configuration">Lab Configuration</h2>
 <h3 id="hardware-configuration">Hardware Configuration</h3>
 <p>Dell R750 with a Mellanox MLX6 as the transmitting device and a MLX5 as the receiving device. Worth noting is that at the time of writing there is no special MLX6 driver. All device names will appear is MLX5.</p>
@@ -434,22 +447,59 @@ Copyright (C) 2018 Free Software Foundation, Inc.
 This is free software; see the source for copying conditions.  There is NO
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 </code></pre>
-<h3 id="mlx-config">MLX Config</h3>
-<p>See <a href="images/mlx5_0.log">MLX5_0</a> and <a href="images/mlx5_2.log">MLX5_2</a></p>
-<h2 id="installation">Installation</h2>
-<h3 id="mlnx_ofed">MLNX_OFED</h3>
-<ol>
-<li>Download MLNX_OFED drivers from https://www.mellanox.com/products/infiniband-drivers/linux/mlnx_ofed</li>
-<li>MLNX_OFED is version dependent. I suggest you use  <code>subscription-manager release --set=8.4</code> to ensure your version of RHEL stays at the version for which MLNX_OFED was compiled</li>
-<li>Upload the ISO to the target box</li>
-<li>Run:</li>
-</ol>
-<pre><code class="language-bash">dnf group install &quot;Development Tools&quot; -y
+<h3 id="nvidia-smi">Nvidia SMI</h3>
+<pre><code>+-----------------------------------------------------------------------------+
+| NVIDIA-SMI 495.29.05    Driver Version: 495.29.05    CUDA Version: 11.5     |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|                               |                      |               MIG M. |
+|===============================+======================+======================|
+|   0  NVIDIA A100-PCI...  Off  | 00000000:CA:00.0 Off |                    0 |
+| N/A   26C    P0    35W / 250W |    541MiB / 40536MiB |      0%      Default |
+|                               |                      |             Disabled |
++-------------------------------+----------------------+----------------------+
+
++-----------------------------------------------------------------------------+
+| Processes:                                                                  |
+|  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
+|        ID   ID                                                   Usage      |
+|=============================================================================|
+|    0   N/A  N/A      4969      G   /usr/libexec/Xorg                  26MiB |
+|    0   N/A  N/A      5345      G   /usr/bin/gnome-shell               98MiB |
+|    0   N/A  N/A    606994      C   /tmp/test/rdma-loopback           413MiB |
++-----------------------------------------------------------------------------+
+</code></pre>
+<h3 id="cuda-version">CUDA Version</h3>
+<pre><code>[root@gputest ~]# nvcc --version
+nvcc: NVIDIA (R) Cuda compiler driver
+Copyright (c) 2005-2021 NVIDIA Corporation
+Built on Thu_Nov_18_09:45:30_PST_2021
+Cuda compilation tools, release 11.5, V11.5.119
+Build cuda_11.5.r11.5/compiler.30672275_0
+`
+
+### MLX Config
+
+See [MLX5_0](images/mlx5_0.log) and [MLX5_2](images/mlx5_2.log)
+
+## Installation
+
+### MLNX_OFED
+
+1. Download MLNX_OFED drivers from https://www.mellanox.com/products/infiniband-drivers/linux/mlnx_ofed
+   1. MLNX_OFED is version dependent. I suggest you use  `subscription-manager release --set=8.4` to ensure your version of RHEL stays at the version for which MLNX_OFED was compiled
+2. Upload the ISO to the target box
+3. Run:
+
+```bash
+dnf group install &quot;Development Tools&quot; -y
 dnf install -y tk tcsh tcl gcc-gfortran kernel-modules-extra gcc-g++ gdb rsync ninja-build make zip
 mount MLNX* /mnt
 cd /mnt
 ./mlnxofedinstall
 </code></pre>
+<h2 id="setting-up-the-code-environment">Setting Up the Code Environment</h2>
 <h3 id="cuda-development-packages">CUDA Development Packages</h3>
 <ol>
 <li>Make sure you have an Nvidia GPU that shows on the device with <code>lspci | grep -i nvidia</code></li>
@@ -544,27 +594,30 @@ supports-register-dump: no
 supports-priv-flags: yes
 </code></pre>
 <p>So here we can see from the bus numbers that in my case MLX6 device is ens6f0/ens6f1 and the MLX5 is ens5f0/ensf1. My transmit interface will be b8:ce:f6:cc:9e:dd/ens6f1 and my receive is 0c:42:a1:73:8d:e6/ens5f0.</p>
+<p>Next you have to figure out the Mellanox device numbers. You can do this using mlxconfig. To get this listing run <code>mlxconfig -d mlx5_0 q</code>. In the header of each block you should see something like this:</p>
+<pre><code>Device #1:
+----------
+
+Device type:    ConnectX6DX
+Name:           0F6FXM_08P2T2_Ax
+Description:    Mellanox ConnectX-6 Dx Dual Port 100 GbE QSFP56 Network Adapter
+Device:         mlx5_0
+</code></pre>
+<p>From my experimentation they are in order. So mlx5_0 is the first interface on the MLX6 device which lines up with ens6f0. This means mlx5_1 is the second interface and then mlx5_3 would be the first interface of the MLX5 device which we can confirm with <code>mlxconfig -d mlx5_3 q</code></p>
+<pre><code>Device #1:
+----------
+
+Device type:    ConnectX5
+Name:           09FTMY_071C1T_Ax
+Description:    Mellanox ConnectX-5 Ex Dual Port 100 GbE QSFP Network Adapter
+Device:         mlx5_3
+</code></pre>
 <h3 id="compiling-and-running-the-app">Compiling and Running the App</h3>
 <pre><code class="language-bash">g++ rdma-loopback.cc -o rdma-loopback -libverbs -I/usr/local/cuda/include -L/usr/local/cuda/lib64 -lcudart
 </code></pre>
 <h2 id="debugging">Debugging</h2>
 <p><code>gdb --args rdma-loopback 0</code></p>
 <p>To get the config of the Mellanox devices run <code>mlxconfig -d mlx5_0 q &gt; mlx5_0.log</code>. Replace mlx5 with your device name.</p>
-<h2 id="brief-code-overview">Brief Code Overview</h2>
-<ol>
-<li>A queue pair and its associated resources are established exactly as described in the generic application flow</li>
-<li>Lines 0-192 of the attached code</li>
-<li>Register a region of host memory and fill it with a known pattern</li>
-<li>lines 192-195</li>
-<li>​Register a region of GPU memory </li>
-<li>Lines 197-223</li>
-<li>Send a packet containing a known pattern from one Mellanox device to another</li>
-<li>Lines 223-375</li>
-<li>Copy the data from the GPU device's memory region into the host system memory which we expect to overwrite the host system memory's bit pattern with the one we just sent</li>
-<li>Line 375-380</li>
-<li>Confirm that the memory patterns match. The idea being that we just sent a <em>new</em> pattern from one Mellanox device to the other and then told it to overwrite the pattern that was already in system memory with what the GPU received. The logic being that we expect the pattern which was in system memory to be overwritten by what was just sent.</li>
-<li>This happens in lines 391-396</li>
-</ol>
               
             </div>
           </div>

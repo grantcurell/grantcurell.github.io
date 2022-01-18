@@ -243,10 +243,14 @@
         <ul>
     <li class="toctree-l4"><a class="reference internal" href="#using-syslog">Using Syslog</a>
     </li>
+    <li class="toctree-l4"><a class="reference internal" href="#using-activemq-and-splunkpump">Using ActiveMQ and splunkpump</a>
+    </li>
         </ul>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#configure-the-idrac">Configure the iDRAC</a>
         <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#using-activemq-and-splunkpump_1">Using ActiveMQ and splunkpump</a>
+    </li>
     <li class="toctree-l4"><a class="reference internal" href="#using-syslog_1">Using Syslog</a>
     </li>
         </ul>
@@ -403,19 +407,39 @@ Red Hat Enterprise Linux release 8.5 (Ootpa)
 <li>NOTE: When adding the HTTP input in Splunk it failed out because the token weren't enabled. I had to manually edit <code>/opt/splunk/etc/apps/splunk_httpinput/default/inputs.conf</code> and set disabled to 0 then do a <code>systemctl restart splunk</code></li>
 <li>Run <code>systemctl stop rsyslog &amp;&amp; systemctl disable rsyslog</code></li>
 </ol>
+<h4 id="using-activemq-and-splunkpump">Using ActiveMQ and splunkpump</h4>
+<ol>
+<li><code>dnf install -y podman</code></li>
+<li><code>mkdir -p  mkdir -p /opt/activemq/data &amp;&amp; /opt/activemq/conf</code></li>
+<li>
+<p>Run the following to generate default configs:</p>
+<p><code>bash
+podman run --user root --rm -ti -p 61616:61616 -p 8161:8161 -v /opt/activemq/conf:/mnt/conf:z -v /opt/activemq/data:/mnt/data:z rmohr/activemq /bin/sh
+chown activemq:activemq /mnt/conf
+chown activemq:activemq /mnt/data
+cp -a /opt/activemq/conf/* /mnt/conf/
+cp -a /opt/activemq/data/* /mnt/data/
+exit</code></p>
+</li>
+<li>
+<p><code>podman run -p 61616:61616 -p 8161:8161 -v /opt/activemq/conf:/opt/activemq/conf -v /opt/activemq/data:/opt/activemq/data rmohr/activemq</code></p>
+</li>
+<li></li>
+</ol>
 <h3 id="configure-the-idrac">Configure the iDRAC</h3>
 <ol>
 <li>Download <a href="https://github.com/dell/iDRAC-Telemetry-Scripting/blob/master/ConfigurationScripts/EnableOrDisableAllTelemetryReports.py">this script</a> which will enable telemetry reports.</li>
 <li>Run <code>EnableOrDisableAllTelemetryReports.py -ip $target -u $user -p $password</code></li>
 <li>This enables telemetry on the target server</li>
+</ol>
+<h4 id="using-activemq-and-splunkpump_1">Using ActiveMQ and splunkpump</h4>
+<h4 id="using-syslog_1">Using Syslog</h4>
+<ol>
 <li>Next you will need to enable Redfish alerting which will publish the events to Splunk. Download <a href="https://github.com/dell/iDRAC-Telemetry-Scripting/blob/master/ConfigurationScripts/SubscriptionManagementREDFISH.py">this script</a></li>
 <li>Run the following command <code>SubscriptionManagementREDFISH.py -ip $target -u $user -p $password -c y -D https://$splunkserver/services/collector/raw -E Alert -V Event</code></li>
 <li><code>$target</code> is the ip address or DNS name of the iDRAC</li>
 <li><code>$user/$password</code> are the username and password for iDRAC</li>
 <li><code>$splunkserver</code> is the IP address or DNS name of your Splunk HTTP event collector instance</li>
-</ol>
-<h4 id="using-syslog_1">Using Syslog</h4>
-<ol>
 <li>On the command line (racadm)</li>
 <li>SSH to the iDRAC</li>
 <li>Run <pre><code>```
