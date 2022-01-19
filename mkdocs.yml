@@ -53,6 +53,7 @@ nav:
 - Testing Intel x520 on RHEL 6/README.md
 - Understanding Memory/README.md
 - Use OS10 as Aggregator/README.md
+- Using the iDRAC Service Module/README.md
 - VEP Testing/README.md
 - VMWare/Automate ESXi Installation/README.md
 - VMWare/ESXi Architecture/README.md
