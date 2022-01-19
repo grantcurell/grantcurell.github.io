@@ -9,7 +9,7 @@
   
   
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>Set Up RSPAN on OS10 - Grant Curell's Dell Projects</title>
+  <title>Using the iDRAC Service Module - Grant Curell's Dell Projects</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
   <link rel="stylesheet" href="../css/theme.css" />
@@ -18,8 +18,8 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Set Up RSPAN on OS10";
-    var mkdocs_page_input_path = "Set Up RSPAN on OS10/README.md";
+    var mkdocs_page_name = "Using the iDRAC Service Module";
+    var mkdocs_page_input_path = "Using the iDRAC Service Module/README.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -218,40 +218,8 @@
                     <li class="toctree-l1"><a class="reference internal" href="../Running%20DNS%20from%20OS10/">Running DNS from OS10</a>
                     </li>
                 </ul>
-                <ul class="current">
-                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Set Up RSPAN on OS10</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#setup">Setup</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#explanation">Explanation</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#switch-1">Switch 1</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#version">Version</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#setup_1">Setup</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#switch-2">Switch 2</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#version_1">Version</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#setup_2">Setup</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#switch-3">Switch 3</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#version_2">Version</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#setup_3">Setup</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#how-rspan-works-under-the-hood">How RSPAN Works Under the Hood</a>
-    </li>
-    </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Set%20Up%20RSPAN%20on%20OS10/">Set Up RSPAN on OS10</a>
                     </li>
                 </ul>
                 <ul>
@@ -294,8 +262,24 @@
                     <li class="toctree-l1"><a class="reference internal" href="../Use%20OS10%20as%20Aggregator/">Use OS10 as Aggregator</a>
                     </li>
                 </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../Using%20the%20iDRAC%20Service%20Module/">Using the iDRAC Service Module</a>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Using the iDRAC Service Module</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#objective">Objective</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#my-setup">My Setup</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#hardware">Hardware</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#operating-system">Operating System</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#establishing-direct-communication">Establishing Direct Communication</a>
+    </li>
+    </ul>
                     </li>
                 </ul>
                 <ul>
@@ -355,7 +339,7 @@
     
       
     
-    <li>Set Up RSPAN on OS10</li>
+    <li>Using the iDRAC Service Module</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -367,257 +351,75 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="set-up-rspan-on-os10">Set Up RSPAN on OS10</h1>
-<h2 id="setup">Setup</h2>
-<p><img alt="" src="images/2021-04-11-18-25-48.png" /></p>
-<p>Source port for span is Switch 1, 1/1/9</p>
-<p>We will use VLAN 99 to transport our RSPAN traffic</p>
-<h2 id="explanation">Explanation</h2>
-<p>One of the things that's different about the Dell configuration is the use of ACLs in the configuration. The way OS10 sees RSPAN is on the source side you grab whatever source you want and then you push that to a special "remote" VLAN. This is indicated only on the source switch itself. Then, each other intermediate and destination switch uses an ACL to indicate what traffic should be captured from that VLAN and subsequently forwarded. Finally, on the destination a regular local monitor session is used to pull the traffic from the RSPAN VLAN and push it t o network sensors.</p>
-<h2 id="switch-1">Switch 1</h2>
-<h3 id="version">Version</h3>
-<pre><code>OS10# show version
-Dell EMC Networking OS10 Enterprise
-Copyright (c) 1999-2020 by Dell Inc. All Rights Reserved.
-OS Version: 10.5.1.3
-Build Version: 10.5.1.3.190
-Build Time: 2020-06-19T21:48:07+0000
-System Type: S4112F-ON
-Architecture: x86_64
-Up Time: 18 weeks 3 days 11:10:52
+                <h1 id="using-the-idrac-service-module">Using the iDRAC Service Module</h1>
+<h2 id="objective">Objective</h2>
+<p>Establish direct, inter-chassis, communication between a host operating system and the iDRAC.</p>
+<h2 id="my-setup">My Setup</h2>
+<h3 id="hardware">Hardware</h3>
+<p>Dell R840
+<strong>Note</strong>: This will work with any Dell server with iDRAC support.</p>
+<h3 id="operating-system">Operating System</h3>
+<pre><code>NAME=&quot;Red Hat Enterprise Linux&quot;
+VERSION=&quot;8.4 (Ootpa)&quot;
+ID=&quot;rhel&quot;
+ID_LIKE=&quot;fedora&quot;
+VERSION_ID=&quot;8.4&quot;
+PLATFORM_ID=&quot;platform:el8&quot;
+PRETTY_NAME=&quot;Red Hat Enterprise Linux 8.4 (Ootpa)&quot;
+ANSI_COLOR=&quot;0;31&quot;
+CPE_NAME=&quot;cpe:/o:redhat:enterprise_linux:8.4:GA&quot;
+HOME_URL=&quot;https://www.redhat.com/&quot;
+DOCUMENTATION_URL=&quot;https://access.redhat.com/documentation/red_hat_enterprise_linux/8/&quot;
+BUG_REPORT_URL=&quot;https://bugzilla.redhat.com/&quot;
+
+REDHAT_BUGZILLA_PRODUCT=&quot;Red Hat Enterprise Linux 8&quot;
+REDHAT_BUGZILLA_PRODUCT_VERSION=8.4
+REDHAT_SUPPORT_PRODUCT=&quot;Red Hat Enterprise Linux&quot;
+REDHAT_SUPPORT_PRODUCT_VERSION=&quot;8.4&quot;
+Red Hat Enterprise Linux release 8.4 (Ootpa)
+Red Hat Enterprise Linux release 8.4 (Ootpa)
 </code></pre>
-<h3 id="setup_1">Setup</h3>
-<pre><code>configure terminal
-interface vlan 99
-description remote_span
-remote-span
-exit
-interface ethernet 1/1/13:1
-no shutdown
-switchport mode trunk
-switchport trunk allowed vlan 99
-exit
-monitor session 18 type rpm-source
-source interface ethernet 1/1/9 both
-destination remote-vlan 99
-no shut
-</code></pre>
-<h2 id="switch-2">Switch 2</h2>
-<h3 id="version_1">Version</h3>
-<pre><code>Dell EMC Networking OS10 Enterprise
-Copyright (c) 1999-2020 by Dell Inc. All Rights Reserved.
-OS Version: 10.5.1.3
-Build Version: 10.5.1.3.190
-Build Time: 2020-06-19T21:48:07+0000
-System Type: S4112F-ON
-Architecture: x86_64
-Up Time: 00:48:32
-</code></pre>
-<h3 id="setup_2">Setup</h3>
-<pre><code>configure terminal
-interface vlan 99
-exit
-interface range ethernet 1/1/11
-switchport mode trunk
-switchport trunk allowed vlan 99
-exit
-interface ethernet 1/1/12
-mac access-group rspan in
-switchport mode trunk
-switchport trunk allowed vlan 99
-exit
-monitor session 1
-destination interface ethernet1/1/11
-flow-based enable
-source interface ethernet1/1/12
-no shut
-mac access-list rspan
-seq 10 permit any any capture session 1 vlan 99
-</code></pre>
-<h2 id="switch-3">Switch 3</h2>
-<h3 id="version_2">Version</h3>
-<pre><code>OS10# show version
-Dell EMC Networking OS10 Enterprise
-Copyright (c) 1999-2020 by Dell Inc. All Rights Reserved.
-OS Version: 10.5.1.3
-Build Version: 10.5.1.3.190
-Build Time: 2020-06-19T21:48:07+0000
-System Type: S4112F-ON
-Architecture: x86_64
-Up Time: 03:00:15
-</code></pre>
-<h3 id="setup_3">Setup</h3>
-<pre><code>configure terminal
-interface vlan 99
-no shut
-exit
-mac access-list rpan
-seq 10 permit any any capture session 1 vlan 99
-interface ethernet 1/1/11
-switchport mode trunk
-switchport trunk allowed vlan 99
-mac access-group rpan in
-exit
-interface ethernet 1/1/12
-no shut
-exit
-monitor session 1
-destination interface ethernet1/1/12
-flow-based enable
-source interface ethernet1/1/11
-no shut
-</code></pre>
-<h2 id="how-rspan-works-under-the-hood">How RSPAN Works Under the Hood</h2>
+<h2 id="installation">Installation</h2>
 <ol>
-<li>When you run commands in OS10 what you're really doing is calling into wrapper functions which ultimately do two things: configure the NPU and configure Debian. The commands you run are actually governed by a series of YANG files which exhaustively define what commands are acceptable and in what contexts. For example, the <code>rpm-source</code> command is defined in an enum here in <code>/alt/opt/dell/os10/share/yang-models/dell-span.yang</code>:</li>
+<li>Go to your server's support page. In my case this is for the <a href="https://www.dell.com/support/home/en-us/product-support/product/poweredge-r840/drivers">R840</a> and select the appropriate operating system.</li>
+<li>Click "Show All" on the driver list to see all the different drivers</li>
+<li>Look for the entry which says "iDRAC Service Module" and download it. The Linux entry <a href="https://dl.dell.com/FOLDER07508129M/1/OM-iSM-Dell-Web-LX-4100-2410_A00.tar.gz">is here</a></li>
+<li>Move the file to your server, extract, and run <code>setup.sh</code></li>
 </ol>
-<pre><code class="language-yang">typedef monitoring-types {
-  type enumeration {
-    enum &quot;local&quot; {
-      value 1;
-      description
-        &quot;PM local session.&quot;;
-    }
-    enum &quot;rpm-source&quot; {
-      value 2;
-      description
-        &quot;RPM source session.&quot;;
-    }
-    enum &quot;erpm-source&quot; {
-      value 3;
-      description
-        &quot;ERPM source session.&quot;;
-    }
-  }
-  description
-    &quot;Monitor session types.&quot;;
-}
+<h2 id="establishing-direct-communication">Establishing Direct Communication</h2>
+<p>The way the iDRAC service module works is that it adds a driver which then adds a virtual NIC called iDRAC:</p>
+<pre><code class="language-bash">[root@r8402 OM-SrvAdmin-Dell-Web-LX-10.1.0.0-4561.RHEL8.x86_64_A00]# ip a s
+1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host
+       valid_lft forever preferred_lft forever
+2: eno145: &lt;NO-CARRIER,BROADCAST,MULTICAST,UP&gt; mtu 1500 qdisc mq state DOWN group default qlen 1000
+    link/ether e4:43:4b:9f:44:00 brd ff:ff:ff:ff:ff:ff
+3: eno99: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc mq state UP group default qlen 1000
+    link/ether e4:43:4b:9f:44:20 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.1.89/24 brd 192.168.1.255 scope global noprefixroute eno99
+       valid_lft forever preferred_lft forever
+    inet6 fe80::e643:4bff:fe9f:4420/64 scope link noprefixroute
+       valid_lft forever preferred_lft forever
+4: eno146: &lt;NO-CARRIER,BROADCAST,MULTICAST,UP&gt; mtu 1500 qdisc mq state DOWN group default qlen 1000
+    link/ether e4:43:4b:9f:44:02 brd ff:ff:ff:ff:ff:ff
+5: eno100: &lt;NO-CARRIER,BROADCAST,MULTICAST,UP&gt; mtu 1500 qdisc mq state DOWN group default qlen 1000
+    link/ether e4:43:4b:9f:44:21 brd ff:ff:ff:ff:ff:ff
+6: idrac: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc fq_codel state UNKNOWN group default qlen 1000
+    link/ether 70:b5:e8:e2:a0:d3 brd ff:ff:ff:ff:ff:ff
+    inet 169.254.0.2/16 brd 169.254.255.255 scope global idrac
+       valid_lft forever preferred_lft forever
+7: virbr0: &lt;NO-CARRIER,BROADCAST,MULTICAST,UP&gt; mtu 1500 qdisc noqueue state DOWN group default qlen 1000
+    link/ether 52:54:00:b5:c5:1b brd ff:ff:ff:ff:ff:ff
+    inet 192.168.122.1/24 brd 192.168.122.255 scope global virbr0
+       valid_lft forever preferred_lft forever
+8: virbr0-nic: &lt;BROADCAST,MULTICAST&gt; mtu 1500 qdisc fq_codel master virbr0 state DOWN group default qlen 1000
+    link/ether 52:54:00:b5:c5:1b brd ff:ff:ff:ff:ff:ff
 </code></pre>
-<ol>
-<li>These definitions are combined with XML files which ultimately define the exact syntax of each command. For example, <code>/alt/opt/dell/os10/clisystem/command-tree/span.xml</code> defines the syntax for SPAN commands (note how the yang_name key references ):</li>
-</ol>
-<pre><code class="language-xml">&lt;!-- monitor session &lt;id&gt; type [local|rpm-source|rpm-destination|erpm-source]--&gt;
-&lt;PARAM name=&quot;type&quot; help=&quot;Monitor session type&quot; optional=&quot;true&quot; ptype=&quot;SUBCOMMAND&quot; mode=&quot;subcommand&quot;&gt;
-&lt;PARAM name=&quot;spantype&quot; help=&quot;PM/RPM/ERPM sessions&quot; default=&quot;local&quot; ptype=&quot;SPANMODE&quot; yang_name=&quot;/sessions/session/monitortype=${spantype}&quot;&gt; &lt;/PARAM&gt;
-&lt;/PARAM&gt;
-</code></pre>
-<ol>
-<li>I didn't exhaustively reverse engineer this part but at some point those commands and their arguments are interpreted and pushed to a series of Python modules. You'll see below how VLANs are set up using <code>brctl</code>. That setup seems to be handled by <code>/alt/opt/dell/os10/lib/python/dn_base_br_tool.py</code>. Ex:</li>
-</ol>
-<pre><code class="language-python">def create_br(bname):
-
-    &quot;&quot;&quot;Method to create a bridge.
-    Args:
-        bname (str): Name of the Bridge
-    Returns:
-        bool: The return value. True for success, False otherwise
-    &quot;&quot;&quot;
-    res = []
-    if run_command([BRCTL_CMD, 'addbr', bname], res) == 0:
-        return True
-    return False
-
-</code></pre>
-<ol>
-<li>Remote SPAN VLAN gets setup as a bridge and a new dummy interface is created which is a member of that bridge:</li>
-</ol>
-<pre><code class="language-bash">admin@OS10:/home/admin$ ip a s
-.....
-38: br99: &lt;BROADCAST,MULTICAST,PROMISC,UP,LOWER_UP&gt; mtu 1500 qdisc noqueue state UP group default qlen 1000
-    link/ether 50:9a:4c:d6:0a:a1 brd ff:ff:ff:ff:ff:ff
-    inet6 fe80::529a:4cff:fed6:aa1/64 scope link
-      valid_lft forever preferred_lft forever
-39: e101-013-1.99@e101-013-1: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc noqueue master br99 state UP group default qlen 1000
-    link/ether 50:9a:4c:d6:0a:7d brd ff:ff:ff:ff:ff:ff
-
-root@OS10:~# brctl show br99
-bridge name     bridge id               STP enabled     interfaces
-br99            8000.509a4cd60aa1       no              e101-013-1.99
-</code></pre>
-<ol>
-<li>Under the hood the NPU is instructed to push traffic coming in on port 1/1/9 to this bridge which will then forward it. If you really want to dig under the covers this is how that works. CPS (the userland tool which interacts with a database for configuring the switch) will receive the command. You can drop to command line with <code>system bash</code> and then go take a look at <code>/alt/opt/dell/os10/bin/cps_config_mirror.py</code> and actually see where the call to NAS is made. Note: The NAS (Network Abstraction Service) is responsible for abstracting the chipset (broadcom) API from the rest of the OS above.</li>
-</ol>
-<p><img alt="" src="images/2021-04-11-18-55-38.png" /></p>
-<ol>
-<li>This is the definition for nas_mirror_add_source and nas_mirror_op:</li>
-</ol>
-<pre><code class="language-python">def nas_mirror_op(op, data_dict,commit=True):
-    obj = cps_utils.CPSObject(
-        module=&quot;base-mirror/entry&quot;,
-        data=data_dict)
-    if commit:
-        nas_common.get_cb_method(op)(obj)
-    else:
-        return obj
-
-def nas_mirror_add_source(obj,intf,direction):
-    l = [&quot;intf&quot;,&quot;0&quot;,&quot;src&quot;]
-    obj.add_embed_attr(l,nas_os_utils.if_nametoindex(intf))
-    l[2]=&quot;direction&quot;
-    obj.add_embed_attr(l,direction_type[direction])
-</code></pre>
-<ol>
-<li><code>if commit</code> is referring to a commit to the CPS database. The definition for <code>get_cb_method</code> is in <code>/alt/opt/dell/os10/lib/python/nas_common_utils.py</code></li>
-</ol>
-<pre><code class="language-python">str_to_cps_cb = {
-    &quot;create&quot;: create,
-    &quot;set&quot;: set,
-    &quot;delete&quot;: delete,
-    &quot;get&quot;: get,
-    &quot;rpc&quot;: rpc,
-}
-
-
-def get_cb_method(op):
-    return str_to_cps_cb[op]
-</code></pre>
-<ol>
-<li>What's happening here is it's taking the CPS object which has our instructions which basically say "make me an RSPAN" and the argument (op) will be either create or set. What this is going to do is update the CPS database with our new configuration.</li>
-<li>This is the NAS' Northbound CPS APi being called here. on the southbound end it will call into the SAI which is the actual manufacturer's (Broadcom in our case) API. This process is described in detail <a href="https://github.com/open-switch/opx-docs/wiki/NAS-L2">here</a>.</li>
-<li>The NDI represents this call to the SAI API. For remote mirrors that is defined <a href="https://github.com/open-switch/opx-nas-ndi/blob/1ba4c72309ef33d8600b18dedabc8aed2a8665ac/src/nas_ndi_mirror.cpp">here</a>. You can explore it function by function but the TLDR version is it's going to create a struct with the info relevant to creating the monitor session and it's going to feed that info the SAI. That magic happens in this function:</li>
-</ol>
-<pre><code class="language-cpp">t_std_error ndi_mirror_create_session(ndi_mirror_entry_t * entry){
-
-    if(entry == NULL ){
-        NDI_MIRROR_LOG(ERR,0,&quot;NDI Mirror entry passed to create Mirror session is NULL&quot;);
-        return STD_ERR(MIRROR,PARAM,0);
-    }
-
-    sai_status_t sai_ret;
-    sai_attribute_t sai_mirror_attr_list[MAX_MIRROR_SAI_ATTR];
-    unsigned int ndi_mirror_attr_count = 0;
-
-    if(!ndi_mirror_fill_common_attr(entry,sai_mirror_attr_list,ndi_mirror_attr_count)){
-        return STD_ERR(MIRROR,PARAM,0);
-    }
-
-    if(entry-&gt;mode == BASE_MIRROR_MODE_RSPAN || entry-&gt;mode == BASE_MIRROR_MODE_ERSPAN){
-        ndi_mirror_fill_rspan_attr(entry,sai_mirror_attr_list,ndi_mirror_attr_count);
-    }
-
-    if(entry-&gt;mode == BASE_MIRROR_MODE_ERSPAN){
-        ndi_mirror_fill_erspan_attr(entry,sai_mirror_attr_list,ndi_mirror_attr_count);
-    }
-
-
-    nas_ndi_db_t *ndi_db_ptr = ndi_db_ptr_get(entry-&gt;dst_port.npu_id);
-
-    if ((sai_ret = ndi_mirror_api_get(ndi_db_ptr)-&gt;create_mirror_session((sai_object_id_t *)
-                &amp;entry-&gt;ndi_mirror_id,ndi_switch_id_get(),ndi_mirror_attr_count,sai_mirror_attr_list))
-                != SAI_STATUS_SUCCESS) {
-        NDI_MIRROR_LOG(ERR,0,&quot;Failed to create a new Mirroring Session&quot;);
-        return STD_ERR(MIRROR, FAIL, sai_ret);
-    }
-
-    NDI_MIRROR_LOG(INFO,3,&quot;Created new mirroring session with Id %&quot; PRIu64 &quot; &quot;,entry-&gt;ndi_mirror_id);
-
-    return STD_ERR_OK;
-}
-</code></pre>
-<ol>
-<li>What's going on here is the function <code>ndi_mirror_create_session</code> is going to receive a pointer to a struct of type <a href="https://github.com/open-switch/opx-nas-ndi-api/blob/d5ae56c08907243a4cefafbf7d377577158c9b3a/inc/nas_ndi_mirror.h#L56">ndi_mirror_entry_t</a>. That struct contains all the relevant info for creating the mirror, port ID, mode (RSPAN), VLAN, etc. That struct is going to be filled out by two functions - <code>ndi_mirror_fill_common_attr</code> and <code>ndi_mirror_fill_rspan_attr</code>. Finally it will be fed into the code at line <a href="https://github.com/open-switch/opx-nas-ndi/blob/1ba4c72309ef33d8600b18dedabc8aed2a8665ac/src/nas_ndi_mirror.cpp#L199">199</a> and this is where we lose track of it.</li>
-<li>This is where we drop off because below this is Broadcom's API and they don't publicly publish that stuff. At this point though you're calling into Broadcom's SDK which is going to program the NPU to behave a certain way.</li>
-</ol>
+<p>The inter-chassis network uses the IPv4 link local subnet 169.254.0.0/16. In general, the server should be 169.254.0.2 and the iDRAC itself is 169.254.0.1. You can connect to 169.254.0.1 as you would any iDRAC address:</p>
+<p><img alt="" src="images/2022-01-19-14-42-17.png" /></p>
               
             </div>
           </div>
@@ -625,10 +427,10 @@ def get_cb_method(op):
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../Setting%20Up%20Breakout%20Cables/" class="btn btn-neutral float-right" title="Setting Up Breakout Cables">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../VEP%20Testing/" class="btn btn-neutral float-right" title="VEP Testing">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../Running%20DNS%20from%20OS10/" class="btn btn-neutral" title="Running DNS from OS10"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../Use%20OS10%20as%20Aggregator/" class="btn btn-neutral" title="Use OS10 as Aggregator"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -654,10 +456,10 @@ def get_cb_method(op):
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../Running%20DNS%20from%20OS10/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../Use%20OS10%20as%20Aggregator/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../Setting%20Up%20Breakout%20Cables/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../VEP%20Testing/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
