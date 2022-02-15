@@ -289,4 +289,6 @@ g++ rdma-loopback.cc -o rdma-loopback -libverbs -I/usr/local/cuda/include -L/usr
 
 `gdb --args rdma-loopback 0`
 
+`set print pretty on` is helpful
+
 To get the config of the Mellanox devices run `mlxconfig -d mlx5_0 q > mlx5_0.log`. Replace mlx5 with your device name.

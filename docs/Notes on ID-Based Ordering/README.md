@@ -49,3 +49,19 @@ https://qr.ae/pG6SWe
 ### What is a traffic class (TC)?
 
 https://www.oreilly.com/library/view/pci-express-system/0321156307/0321156307_ch06lev1sec6.html
+
+### PCIe BAR Register
+
+https://github.com/cirosantilli/linux-kernel-module-cheat/blob/366b1c1af269f56d6a7e6464f2862ba2bc368062/kernel_module/pci.c
+
+## How NVMe Drive Opcodes Work
+
+https://stackoverflow.com/questions/30190050/what-is-the-base-address-register-bar-in-pcie
+https://stackoverflow.com/questions/19006632/how-is-a-pci-pcie-bar-size-determined
+
+BIOS/OS discovers whether PCIe device exists
+Places the addresses for mmio or I/O port addresses in NVMe drive​'s BAR registers (which it figures out from the configuration registers)
+It seems from the documentation I found NVMe does this through 64bit mmio
+Driver establishes the admin queue via BAR0. The admin queue's base addresses are in ASQ and ACQ respectively
+I submit commands to the admin submission queue to establish I/O queues.
+Send/receive data via I/O queues. Ex:

@@ -1,5 +1,7 @@
 # SONiC - Fully Automated Build
 
+See [Install Workflow](./overview.pptx) for an overview of how this process flows.
+
 ## Install the Operating System
 
 1. Download SONiC OS for whatever manufacturer. In my case I pulled Dell's stable image.

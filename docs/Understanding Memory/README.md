@@ -1,5 +1,27 @@
 # Understanding Memory
 
+NOTE: Probably best to just read the Reddit post at the bottom.
+
+- [Understanding Memory](#understanding-memory)
+  - [What is a RAM channel?](#what-is-a-ram-channel)
+    - [Analogy](#analogy)
+  - [What is a DIMM (beyond the obvious)?](#what-is-a-dimm-beyond-the-obvious)
+  - [What is a memory rank?](#what-is-a-memory-rank)
+    - [What is DRAM?](#what-is-dram)
+    - [What is a chip select?](#what-is-a-chip-select)
+    - [Back to Memory Ranks](#back-to-memory-ranks)
+    - [Performance of multiple rank modules](#performance-of-multiple-rank-modules)
+  - [What is ECC Memory?](#what-is-ecc-memory)
+  - [What is Registered Memory?](#what-is-registered-memory)
+    - [Why does the buffer allow for more total addressable memory?](#why-does-the-buffer-allow-for-more-total-addressable-memory)
+      - [R-DIMMs](#r-dimms)
+      - [LR-DIMMs](#lr-dimms)
+        - [What is a data line?](#what-is-a-data-line)
+        - [Why does the data buffer matter?](#why-does-the-data-buffer-matter)
+  - [RAM and it's relation to CPU Speed](#ram-and-its-relation-to-cpu-speed)
+  - [More on Channels](#more-on-channels)
+  - [Best Memory for Different Circumstances](#best-memory-for-different-circumstances)
+
 ## What is a RAM channel?
 
 From [RAM Channels Guide: The What, and The How](http://blog.logicalincrements.com/2019/09/ram-channels-explanation-guide/)
@@ -158,3 +180,43 @@ One of the primary advantages of the LRDIMM is the ability to dramatically incre
 From [Understanding CPU Limitations with Memory](https://www.crucial.com/support/articles-faq-memory/understanding-cpu-limitations-with-memory)
 
 There are more in the weeds details, but it really is as simple as the clock speed of the CPU's memory controller has to be as good as or better than the target RAM or the RAM will downclock to meet the CPU's speed.
+
+## More on Channels
+
+See [this Reddit thread](https://www.reddit.com/r/hardware/comments/1q8d9v/can_someone_please_explain_ram_channels_to_me/)
+
+Ever since SDRAM first hit the shelves, main memory inside PC's has been a 64 bit wide interface. That means that 64 bits are sent in each transaction. DDR just meant that two lots of 64 bit transactions are sent in one clock.
+
+Obviously you see that DDR would increase the available memory bandwidth (speed), because twice as much data is being sent per clock.
+
+Well there is another way to send more data per clock, that is to send more than 64 bits in one go. You could either, widen the memory bus, to say 128 bits (GPU's use 384/512bit interfaces, but it's more complicated than that in truth) or you could add another interface.
+
+So when we go from single 'channel' to dual channel, what we are doing is adding another 64 bit wide interface (and another 2 when going from dual to quad).
+
+Now, usually you have 4 slots on your mobo for RAM. So you either have 4 independent slots connected to their own memory channel, or you have 2 pairs of slots, each pair connected to it's own memory channel.
+
+Lets take one pair.
+
+This pair has 240 pins (in desktop DDR3) coming off the CPU, connecting to one slot, then the next. This memory bus has the signalling to talk to either slot, a read request is sent out and each chip on that bus determines if it is indeed the chip that contains the requested data (to put it simply) and once it has found it, sends the data back. It can take a little while to do all this so many read and write requests can end up queued and/or in the pipeline.
+
+You add your second channel and you interleave your data across it, so bit one is the first bit on channel 1, bit 2 is the first bit on channel 2, bit 3 the second on channel 1 etc (likely to be done in chunks larger than single bits though) In the exact same way that RAID can give you much faster hard disk access (but certain access patterns not so much) adding extra memory channels allows you to read extra data. Double your memory channels, double the data you can read per second. Of course in reality nothing ever scales perfectly but you get the idea.
+
+The flip side of having these extra memory channels is that you need to populate them all, or you're wasting them. So a quad channel system will need 4 memory modules, if it has any less than that it is only using a number of memory channels equal to the number of modules you're using.
+
+This was a pretty good explanation, until you got to the part about bit interleaving. That is definitely not how it works. I know you corrected yourself and said that it probably works at a chunkier granularity, but I only noticed that after I'd already written all of this, so sorry. I'm going to get a little technical, so ignore this unless you want lots of details.
+
+DRAM systems are logically organized into (going from largest to smallest sub-division): channels, ranks, banks, rows, and columns. A channel is the physical connection between the memory controller (which is on the CPU die these days), and the DIMMs (the boards with DRAM chips on them). It's the wires, the aforementioned 64-bit data interface, plus all the control signals. A channel may have one or more DIMMs on it (for DDR3 at least, but DDR4 will require only a single DIMM per channel), and when there is a memory request (be it read or write) all of the data for that request comes from a single channel. There is no bit-interleaving across channels. All of the CPUs you and I deal with on a daily basis use 64 byte cache lines, so DRAM is accessed at the granularity of 64 byte blocks. So when there is a DRAM read, all 64 bytes come from a single channel.
+
+Furthermore, all 64 bytes come from a single rank within that channel. A rank is a collection of DRAM chips on a DIMM that work together to service a DRAM transaction. In the desktop systems we interact with every day, a rank is typically comprised of 8 DRAM chips. A DIMM may have more than 1 rank on it (the DIMMs you are familiar with probably have 8 DRAM chips on each side, so 2 ranks). This means that when your CPU sends a DRAM read request along a channel, 8 DRAM chips on the DIMM work together to fulfill that request. Remember that the data bus width is 64 bits, so each of these 8 DRAM chips is only responsible for transmitting 8 bits each per transfer. They transmit at the exact same time, in lock step with each other, and so from the CPU's perspective it seems like a single 64-bit data bus. After one DRAM transaction is completed on that channel, the next transaction might come from a different rank on the same channel (perhaps the other set of 8 DRAM chips on the same DIMM, or a rank on another DIMM on the same channel), or it could be the same rank again.
+
+Here is the important part: separate channels can work 100% independently, because they have absolutely 0 resources they have to manage and share between them, but separate ranks on the same channel must serialize their actions, because they all share the same data and control buses, and they must take turns using these resources. Depending on the access pattern you expect to be most common, you can layout data across your DRAM channels/ranks/banks/rows in various ways. One high performance strategy is to layout consecutive cache lines across channels (so address A is in channel 1, and address A+64 is in channel 2). This lets you fetch A+64 while you're still working on A. There are other data layout strategies for other expected access patterns. What I'm saying is that it is common for cache lines to be striped (interleaved) across channels, but not individual bits.
+
+If anyone wants, I can go into more detail about how banks, rows, and columns work, but I think channels and ranks are all that is needed to answer the OP's question.
+
+One last thing, about GPU memory buses. In graphics card specs, they always say that the GPU has a "384-bit bus", but this is misleading. It does have 384 total bits of GDDR5 data bus, but it is not logically organized as a single bus (like the 8 DRAM chips of a rank work together to logically form a 64-bit bus in DDR3). Instead, a GPU with a "384-bit bus" will actually have 12 independent 32-bit GDDR5 data buses that all act independently from one another.
+
+Source: Ph.D. computer architecture student who's studied DRAM organization for the last 4 years.
+
+## Best Memory for Different Circumstances
+
+https://www.microway.com/hpc-tech-tips/ddr4-rdimm-lrdimm-performance-comparison/
