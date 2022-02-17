@@ -16,6 +16,7 @@ nav:
 - esrally (INCOMPLETE)/README.md
 - High Speed Packet Capture/README.md
 - How OS10 Installer Works/README.md
+- HPC Memory/README.md
 - idrac with LDAP/README.md
 - Importing Elasticsearch Data/README.md
 - Installing DPDK with NapaTech Card/README.md
@@ -42,6 +43,7 @@ nav:
 - Reset OS10 Admin Password/README.md
 - Run VPN on OS10/README.md
 - Running DNS from OS10/README.md
+- Sample Datacenter Automation Architecture/README.md
 - Set Up RSPAN on OS10/README.md
 - Setting Up Breakout Cables/README.md
 - Setting Up iDRAC Telemetry with Splunk/README.md
