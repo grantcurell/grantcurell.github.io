@@ -22,7 +22,7 @@ with open('mkdocs.yml', 'r') as mkdocs:
                 elif 'VMWare' == directory:
                     configuration['nav'].append(directory + '/Automate ESXi Installation/README.md')
                     configuration['nav'].append(directory + '/ESXi Architecture/README.md')
-                    configuration['nav'].append(directory + '/Notes on vSAN/README.md')
+                    #configuration['nav'].append(directory + '/Notes on vSAN/README.md')
                     configuration['nav'].append(directory + '/Setup VXRail/README.md')
                     configuration['nav'].append(directory + '/Troubleshooting vSAN/README.md')
                     configuration['nav'].append(directory + '/VMWare APIs/README.md')
