@@ -9,7 +9,7 @@
   
   
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>Elasticsearch Load Testing - Grant Curell's Dell Projects</title>
+  <title>Get NVMe Drives from iDRAC Redfish - Grant Curell's Dell Projects</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
   <link rel="stylesheet" href="../css/theme.css" />
@@ -18,8 +18,8 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Elasticsearch Load Testing";
-    var mkdocs_page_input_path = "Elasticsearch Load Testing/README.md";
+    var mkdocs_page_name = "Get NVMe Drives from iDRAC Redfish";
+    var mkdocs_page_input_path = "Get NVMe Drives from iDRAC Redfish/README.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -98,24 +98,18 @@
                     <li class="toctree-l1"><a class="reference internal" href="../Elasticsearch%20Display%20Map%20Data/">Elasticsearch Display Map Data</a>
                     </li>
                 </ul>
-                <ul class="current">
-                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Elasticsearch Load Testing</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#setup">Setup</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#version">Version</a>
-    </li>
-    </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Elasticsearch%20Load%20Testing/">Elasticsearch Load Testing</a>
                     </li>
                 </ul>
                 <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../esrally%20%28INCOMPLETE%29/">esrally (INCOMPLETE)</a>
                     </li>
                 </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../Get%20NVMe%20Drives%20from%20iDRAC%20Redfish/">Get NVMe Drives from iDRAC Redfish</a>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Get NVMe Drives from iDRAC Redfish</a>
+    <ul class="current">
+    </ul>
                     </li>
                 </ul>
                 <ul>
@@ -339,7 +333,7 @@
     
       
     
-    <li>Elasticsearch Load Testing</li>
+    <li>Get NVMe Drives from iDRAC Redfish</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -351,19 +345,210 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="elasticsearch-load-testing">Elasticsearch Load Testing</h1>
-<h2 id="setup">Setup</h2>
-<ol>
-<li>Download the chromedriver for Selenium <a href="https://chromedriver.chromium.org/downloads">from here</a>. Place it in the same directory as <code>run.py</code>.</li>
-<li>Run <code>yum update -y</code> to make sure everything is up to date. Reboot if you have any kernel updates.</li>
-<li>Install python 3 with <code>yum install -y python3</code></li>
-<li>Run <code>pip3 install selenium</code> to install selenium</li>
-</ol>
-<h2 id="usage">Usage</h2>
-<p>Run <code>python3 run.py</code> for usage information on CentOS.
-Run <code>python run.py</code> for usage information on Windows.</p>
-<h2 id="version">Version</h2>
-<p>I built and tested using Python v3.8.0 on Windows 10.</p>
+                <h1 id="get-nvme-drives-from-idrac-redfish">Get NVMe Drives from iDRAC Redfish</h1>
+<p>I used the <a href="https://developer.dell.com/apis/2978/versions/5.xx/openapi.yaml/paths/~1redfish~1v1~1Systems~1%7BComputerSystemId%7D~1Storage~1%7BStorageId%7D/get">Storage API endpoint</a> to accomplish this.</p>
+<p>From my host I received:</p>
+<pre><code class="language-json">{&quot;@odata.context&quot;:&quot;/redfish/v1/$metadata#StorageCollection.StorageCollection&quot;,&quot;@odata.id&quot;:&quot;/redfish/v1/Systems/System.Embedded.1/Storage/&quot;,&quot;@odata.type&quot;:&quot;#StorageCollection.StorageCollection&quot;,&quot;Description&quot;:&quot;Collection Of Storage entities&quot;,&quot;Members&quot;:[{&quot;@odata.id&quot;:&quot;/redfish/v1/Systems/System.Embedded.1/Storage/RAID.Slot.4-1&quot;},{&quot;@odata.id&quot;:&quot;/redfish/v1/Systems/System.Embedded.1/Storage/RAID.Embedded.1-1&quot;},{&quot;@odata.id&quot;:&quot;/redfish/v1/Systems/System.Embedded.1/Storage/CPU.1&quot;},{&quot;@odata.id&quot;:&quot;/redfish/v1/Systems/System.Embedded.1/Storage/AHCI.Slot.2-1&quot;}],&quot;Members@odata.count&quot;:4,&quot;Name&quot;:&quot;Storage Collection&quot;}
+</code></pre>
+<p>I'm running an R840 which is Dell 14G which I know does not have NVMe RAID controllers as an option so I know my NVMe drives must be hanging off the CPU. IE: <code>/redfish/v1/Systems/System.Embedded.1/Storage/CPU.1</code>. I can expect that the BOSS card is hanging off of AHCI and that any SAS/SATA drives are likely on the RAID controller. The results above also imply that the host above runs a mixed backplane given the presence of RAID and CPU.1. Checking CPU.1 gets me:</p>
+<pre><code class="language-json">{
+    &quot;@odata.context&quot;: &quot;/redfish/v1/$metadata#Storage.Storage&quot;,
+    &quot;@odata.id&quot;: &quot;/redfish/v1/Systems/System.Embedded.1/Storage/CPU.1&quot;,
+    &quot;@odata.type&quot;: &quot;#Storage.v1_8_0.Storage&quot;,
+    &quot;Description&quot;: &quot;CPU.1&quot;,
+    &quot;Drives&quot;: [
+        {
+            &quot;@odata.id&quot;: &quot;/redfish/v1/Systems/System.Embedded.1/Storage/CPU.1/Drives/Disk.Bay.21:Enclosure.Internal.0-1&quot;
+        },
+        {
+            &quot;@odata.id&quot;: &quot;/redfish/v1/Systems/System.Embedded.1/Storage/CPU.1/Drives/Disk.Bay.19:Enclosure.Internal.0-1&quot;
+        },
+        {
+            &quot;@odata.id&quot;: &quot;/redfish/v1/Systems/System.Embedded.1/Storage/CPU.1/Drives/Disk.Bay.20:Enclosure.Internal.0-1&quot;
+        },
+        {
+            &quot;@odata.id&quot;: &quot;/redfish/v1/Systems/System.Embedded.1/Storage/CPU.1/Drives/Disk.Bay.23:Enclosure.Internal.0-1&quot;
+        },
+        {
+            &quot;@odata.id&quot;: &quot;/redfish/v1/Systems/System.Embedded.1/Storage/CPU.1/Drives/Disk.Bay.18:Enclosure.Internal.0-1&quot;
+        },
+        {
+            &quot;@odata.id&quot;: &quot;/redfish/v1/Systems/System.Embedded.1/Storage/CPU.1/Drives/Disk.Bay.22:Enclosure.Internal.0-1&quot;
+        }
+    ],
+    &quot;Drives@odata.count&quot;: 6,
+    &quot;Id&quot;: &quot;CPU.1&quot;,
+    &quot;Links&quot;: {
+        &quot;Enclosures&quot;: [
+            {
+                &quot;@odata.id&quot;: &quot;/redfish/v1/Chassis/Enclosure.Internal.0-1&quot;
+            },
+            {
+                &quot;@odata.id&quot;: &quot;/redfish/v1/Chassis/System.Embedded.1&quot;
+            }
+        ],
+        &quot;Enclosures@odata.count&quot;: 2
+    },
+    &quot;Name&quot;: &quot;CPU.1&quot;,
+    &quot;Status&quot;: {
+        &quot;Health&quot;: &quot;OK&quot;,
+        &quot;HealthRollup&quot;: &quot;OK&quot;,
+        &quot;State&quot;: &quot;Enabled&quot;
+    },
+    &quot;Volumes&quot;: {
+        &quot;@odata.id&quot;: &quot;/redfish/v1/Systems/System.Embedded.1/Storage/CPU.1/Volumes&quot;
+    }
+}
+</code></pre>
+<p>From the above I can deduce that CPU 1 has six drives attached to it. We can select one of them with <code>/redfish/v1/Systems/System.Embedded.1/Storage/CPU.1/Drives/Disk.Bay.21:Enclosure.Internal.0-1</code>.</p>
+<p>This achieves the desired result and gets a dump of that drive's data. The size is available under the field CapacityBytes.</p>
+<pre><code class="language-json">{
+    &quot;@odata.context&quot;: &quot;/redfish/v1/$metadata#Drive.Drive&quot;,
+    &quot;@odata.id&quot;: &quot;/redfish/v1/Systems/System.Embedded.1/Storage/CPU.1/Drives/Disk.Bay.21:Enclosure.Internal.0-1&quot;,
+    &quot;@odata.type&quot;: &quot;#Drive.v1_9_0.Drive&quot;,
+    &quot;Actions&quot;: {
+        &quot;#Drive.SecureErase&quot;: {
+            &quot;@Redfish.OperationApplyTimeSupport&quot;: {
+                &quot;@odata.type&quot;: &quot;#Settings.v1_3_0.OperationApplyTimeSupport&quot;,
+                &quot;SupportedValues&quot;: [
+                    &quot;Immediate&quot;,
+                    &quot;OnReset&quot;
+                ]
+            },
+            &quot;target&quot;: &quot;/redfish/v1/Systems/System.Embedded.1/Storage/CPU.1/Drives/Disk.Bay.21:Enclosure.Internal.0-1/Actions/Drive.SecureErase&quot;
+        }
+    },
+    &quot;Assembly&quot;: {
+        &quot;@odata.id&quot;: &quot;/redfish/v1/Chassis/System.Embedded.1/Assembly&quot;
+    },
+    &quot;BlockSizeBytes&quot;: 0,
+    &quot;CapableSpeedGbs&quot;: 7.876923076923077,
+    &quot;CapacityBytes&quot;: 3200631791616,
+    &quot;Description&quot;: &quot;PCIe SSD in Slot 21 in Bay 1&quot;,
+    &quot;EncryptionAbility&quot;: &quot;None&quot;,
+    &quot;EncryptionStatus&quot;: &quot;Unencrypted&quot;,
+    &quot;FailurePredicted&quot;: false,
+    &quot;HotspareType&quot;: &quot;None&quot;,
+    &quot;Id&quot;: &quot;Disk.Bay.21:Enclosure.Internal.0-1&quot;,
+    &quot;Identifiers&quot;: [
+        {
+            &quot;DurableName&quot;: null,
+            &quot;DurableNameFormat&quot;: null
+        }
+    ],
+    &quot;Identifiers@odata.count&quot;: 1,
+    &quot;Links&quot;: {
+        &quot;Chassis&quot;: {
+            &quot;@odata.id&quot;: &quot;/redfish/v1/Chassis/Enclosure.Internal.0-1&quot;
+        },
+        &quot;PCIeFunctions&quot;: [],
+        &quot;PCIeFunctions@odata.count&quot;: 0,
+        &quot;Volumes&quot;: [
+            {
+                &quot;@odata.id&quot;: &quot;/redfish/v1/Systems/System.Embedded.1/Storage/CPU.1/Volumes/Disk.Bay.21:Enclosure.Internal.0-1&quot;
+            }
+        ],
+        &quot;Volumes@odata.count&quot;: 1
+    },
+    &quot;Location&quot;: [],
+    &quot;Manufacturer&quot;: &quot;Intel Corporation &quot;,
+    &quot;MediaType&quot;: &quot;SSD&quot;,
+    &quot;Model&quot;: &quot;Dell Express Flash NVMe P4610 3.2TB SFF&quot;,
+    &quot;Name&quot;: &quot;PCIe SSD in Slot 21 in Bay 1&quot;,
+    &quot;NegotiatedSpeedGbs&quot;: 7.876923076923077,
+    &quot;Oem&quot;: {
+        &quot;Dell&quot;: {
+            &quot;@odata.type&quot;: &quot;#DellOem.v1_1_0.DellOemResources&quot;,
+            &quot;DellDriveSMARTAttributes&quot;: null,
+            &quot;DellNVMeSMARTAttributes&quot;: {
+                &quot;@odata.id&quot;: &quot;/redfish/v1/Systems/System.Embedded.1/Storage/CPU.1/Drives/Disk.Bay.21:Enclosure.Internal.0-1/Oem/Dell/DellNVMeSMARTAttributes&quot;
+            },
+            &quot;DellPCIeSSD&quot;: {
+                &quot;@odata.context&quot;: &quot;/redfish/v1/$metadata#DellPCIeSSD.DellPCIeSSD&quot;,
+                &quot;@odata.id&quot;: &quot;/redfish/v1/Systems/System.Embedded.1/Storage/CPU.1/Drives/Disk.Bay.21:Enclosure.Internal.0-1/Oem/Dell/DellPCIeSSDs/Disk.Bay.21:Enclosure.Internal.0-1&quot;,
+                &quot;@odata.type&quot;: &quot;#DellPCIeSSD.v1_4_0.DellPCIeSSD&quot;,
+                &quot;Bus&quot;: &quot;CA&quot;,
+                &quot;BusProtocol&quot;: &quot;PCIE&quot;,
+                &quot;Description&quot;: &quot;An instance of DellPCIeSSD will have PCIe Solid State Drive specific data.&quot;,
+                &quot;Device&quot;: &quot;0&quot;,
+                &quot;DeviceProtocol&quot;: &quot;NVMe-MI1.0&quot;,
+                &quot;DriveFormFactor&quot;: &quot;2.5Inch&quot;,
+                &quot;FreeSizeInBytes&quot;: null,
+                &quot;Function&quot;: &quot;0&quot;,
+                &quot;HotSpareStatus&quot;: null,
+                &quot;Id&quot;: &quot;Disk.Bay.21:Enclosure.Internal.0-1&quot;,
+                &quot;MediaType&quot;: &quot;SolidStateDrive&quot;,
+                &quot;Name&quot;: &quot;DellPCIeSSD&quot;,
+                &quot;PCIeCapableLinkWidth&quot;: &quot;x4&quot;,
+                &quot;PCIeNegotiatedLinkWidth&quot;: &quot;x4&quot;,
+                &quot;ProductID&quot;: &quot;a54&quot;,
+                &quot;RAIDType&quot;: &quot;Unknown&quot;,
+                &quot;RaidStatus&quot;: null,
+                &quot;Slot&quot;: 21,
+                &quot;SystemEraseCapability&quot;: &quot;CryptographicErasePD&quot;,
+                &quot;UsedSizeInBytes&quot;: 0
+            },
+            &quot;DellPhysicalDisk&quot;: {
+                &quot;@odata.context&quot;: &quot;/redfish/v1/$metadata#DellPhysicalDisk.DellPhysicalDisk&quot;,
+                &quot;@odata.id&quot;: &quot;/redfish/v1/Systems/System.Embedded.1/Storage/CPU.1/Drives/Disk.Bay.21:Enclosure.Internal.0-1/Oem/Dell/DellDrives/Disk.Bay.21:Enclosure.Internal.0-1&quot;,
+                &quot;@odata.type&quot;: &quot;#DellPhysicalDisk.v1_3_0.DellPhysicalDisk&quot;,
+                &quot;Certified&quot;: null,
+                &quot;Connector&quot;: null,
+                &quot;Description&quot;: &quot;An instance of DellPhysicalDisk will have Physical Disk specific data.&quot;,
+                &quot;DeviceProtocol&quot;: &quot;NVMe-MI1.0&quot;,
+                &quot;DriveFormFactor&quot;: &quot;2.5Inch&quot;,
+                &quot;EncryptionProtocol&quot;: null,
+                &quot;ForeignKeyIdentifier&quot;: null,
+                &quot;FreeSizeInBytes&quot;: null,
+                &quot;Id&quot;: &quot;Disk.Bay.21:Enclosure.Internal.0-1&quot;,
+                &quot;LastSystemInventoryTime&quot;: null,
+                &quot;LastUpdateTime&quot;: null,
+                &quot;ManufacturingDay&quot;: null,
+                &quot;ManufacturingWeek&quot;: null,
+                &quot;ManufacturingYear&quot;: null,
+                &quot;Name&quot;: &quot;DellPhysicalDisk&quot;,
+                &quot;NonRAIDDiskCachePolicy&quot;: null,
+                &quot;OperationName&quot;: null,
+                &quot;OperationPercentCompletePercent&quot;: null,
+                &quot;PCIeCapableLinkWidth&quot;: &quot;x4&quot;,
+                &quot;PCIeNegotiatedLinkWidth&quot;: &quot;x4&quot;,
+                &quot;PPID&quot;: null,
+                &quot;PowerStatus&quot;: null,
+                &quot;PredictiveFailureState&quot;: null,
+                &quot;ProductID&quot;: &quot;a54&quot;,
+                &quot;RAIDType&quot;: &quot;Unknown&quot;,
+                &quot;RaidStatus&quot;: null,
+                &quot;SASAddress&quot;: null,
+                &quot;Slot&quot;: 21,
+                &quot;SystemEraseCapability&quot;: &quot;CryptographicErasePD&quot;,
+                &quot;T10PICapability&quot;: null,
+                &quot;UsedSizeInBytes&quot;: 0,
+                &quot;WWN&quot;: null
+            }
+        }
+    },
+    &quot;Operations&quot;: [],
+    &quot;Operations@odata.count&quot;: 0,
+    &quot;PartNumber&quot;: &quot;TW02CN1TPIHIT9A9013TA02&quot;,
+    &quot;PhysicalLocation&quot;: {
+        &quot;PartLocation&quot;: {
+            &quot;LocationOrdinalValue&quot;: 21,
+            &quot;LocationType&quot;: &quot;Slot&quot;
+        }
+    },
+    &quot;PredictedMediaLifeLeftPercent&quot;: 100,
+    &quot;Protocol&quot;: &quot;PCIe&quot;,
+    &quot;Revision&quot;: &quot;VDV1DP23&quot;,
+    &quot;RotationSpeedRPM&quot;: null,
+    &quot;SerialNumber&quot;: &quot;PHLN9396002Q3P2BGN&quot;,
+    &quot;Status&quot;: {
+        &quot;Health&quot;: &quot;OK&quot;,
+        &quot;HealthRollup&quot;: &quot;OK&quot;,
+        &quot;State&quot;: &quot;Enabled&quot;
+    },
+    &quot;WriteCacheEnabled&quot;: false
+}
+</code></pre>
               
             </div>
           </div>
@@ -371,10 +556,10 @@ Run <code>python run.py</code> for usage information on Windows.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../esrally%20%28INCOMPLETE%29/" class="btn btn-neutral float-right" title="esrally (INCOMPLETE)">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../High%20Speed%20Packet%20Capture/" class="btn btn-neutral float-right" title="High Speed Packet Capture">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../Elasticsearch%20Display%20Map%20Data/" class="btn btn-neutral" title="Elasticsearch Display Map Data"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../esrally%20%28INCOMPLETE%29/" class="btn btn-neutral" title="esrally (INCOMPLETE)"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -400,10 +585,10 @@ Run <code>python run.py</code> for usage information on Windows.</p>
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../Elasticsearch%20Display%20Map%20Data/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../esrally%20%28INCOMPLETE%29/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../esrally%20%28INCOMPLETE%29/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../High%20Speed%20Packet%20Capture/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
