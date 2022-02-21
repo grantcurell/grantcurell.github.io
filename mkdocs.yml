@@ -14,6 +14,7 @@ nav:
 - Elasticsearch Display Map Data/README.md
 - Elasticsearch Load Testing/README.md
 - esrally (INCOMPLETE)/README.md
+- Get NVMe Drives from iDRAC Redfish/README.md
 - High Speed Packet Capture/README.md
 - How OS10 Installer Works/README.md
 - HPC Memory/README.md
@@ -59,7 +60,6 @@ nav:
 - VEP Testing/README.md
 - VMWare/Automate ESXi Installation/README.md
 - VMWare/ESXi Architecture/README.md
-- VMWare/Notes on vSAN/README.md
 - VMWare/Setup VXRail/README.md
 - VMWare/Troubleshooting vSAN/README.md
 - VMWare/VMWare APIs/README.md
