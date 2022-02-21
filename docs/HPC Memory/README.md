@@ -1,6 +1,6 @@
 # HPC Memory
 
-**KEY TAKEAWAY** Economics will drive the pooling of main memory, and whether or not customers choose the CXL way or the Gen-Z way. Considering that memory can account for half of the cost of a server at a hyperscaler, anything that allows a machine to have a minimal amount of capacity on the node and then share the rest in the rack — with all of it being transparent to the operating system and all of it looking local — will be adopted. There is just no question about that. Memory area networks, in one fashion or another, are going to be common in datacenters before too long, and this will be driven by economics.
+**KEY TAKEAWAY** Economics will drive the pooling of main memory, and whether or not customers choose the CXL way or the Gen-Z way. Considering that memory can account for half of the cost of a server at a hyperscaler, anything that allows a machine to have a minimal amount of capacity on the node and then share the rest in the rack  with all of it being transparent to the operating system and all of it looking local  will be adopted. There is just no question about that. Memory area networks, in one fashion or another, are going to be common in datacenters before too long, and this will be driven by economics.
 
 ## Load Store Architecture
 
@@ -29,13 +29,13 @@ Deep Dive: https://www.nextplatform.com/2019/09/18/eating-the-interconnect-alpha
 - ![](images/2022-01-24-22-17-29.png)
 
 **Detailed**
-- Type 1 Devices: Accelerators such as smart NICs typically lack local memory. However, they can leverage the CXL.io protocol and CXL.cache to communicate with the host processor’s DDR memory.
-- Type 2 Devices: GPUs, ASICs, and FPGAs are all equipped with DDR or HBM memory and can use the CXL.memory protocol, along with the CXL.io and CXL.cache, to make the host processor’s memory locally available to the accelerator—and the accelerator’s memory locally available to the CPU. They are also co-located in the same cache coherent domain and help boost heterogeneous workloads.
+- Type 1 Devices: Accelerators such as smart NICs typically lack local memory. However, they can leverage the CXL.io protocol and CXL.cache to communicate with the host processors DDR memory.
+- Type 2 Devices: GPUs, ASICs, and FPGAs are all equipped with DDR or HBM memory and can use the CXL.memory protocol, along with the CXL.io and CXL.cache, to make the host processor�s memory locally available to the accelerator�and the accelerator�s memory locally available to the CPU. They are also co-located in the same cache coherent domain and help boost heterogeneous workloads.
 - Type 3 Devices: The CXL.io and CXL.memory protocols can be leveraged for memory expansion and pooling. For example, a buffer attached to the CXL bus could be used to enable DRAM capacity expansion, augmenting memory bandwidth, or adding persistent memory without the loss of DRAM slots. In real world terms, this means the high-speed, low-latency storage devices that would have previously displaced DRAM can instead complement it with CXL-enabled devices. These could include non-volatile technologies in various form factors such as add-in cards, U.2, and EDSFF.
 
 ### Protocols
 
-- CXL.io: This protocol is functionally equivalent to the PCIe 5.0 protocol—and utilizes the broad industry adoption and familiarity of PCIe. As the foundational communication protocol, CXL.io is versatile and addresses a wide range of use cases.
+- CXL.io: This protocol is functionally equivalent to the PCIe 5.0 protocol�and utilizes the broad industry adoption and familiarity of PCIe. As the foundational communication protocol, CXL.io is versatile and addresses a wide range of use cases.
 - CXL.cache: This protocol, which is designed for more specific applications, enables accelerators to efficiently access and cache host memory for optimized performance.
 - CXL.memory: This protocol enables a host, such as a processor, to access device-attached memory using load/store commands.
 
@@ -49,7 +49,7 @@ As an example, a host 1 (H1) can use half the memory in device 1 (D1) and a quar
 
 ### Switching
 
-By moving to a CXL 2.0 direct-connect architecture, data centers can achieve the performance benefits of main memory expansion—and the efficiency and total cost of ownership (TCO) benefits of pooled memory. Assuming all hosts and devices are CXL 2.0-enabled, “switching� is incorporated into the memory devices via a crossbar in the CXL memory pooling chip. This keeps latency low but requires a more powerful chip since it is now responsible for the control plane functionality performed by the switch. With low-latency direct connections, attached memory devices can employ DDR DRAM to provide expansion of host main memory. This can be done on a very flexible basis, as a host is able to access all—or portions of—the capacity of as many devices as needed to tackle a specific workload.
+By moving to a CXL 2.0 direct-connect architecture, data centers can achieve the performance benefits of main memory expansion�and the efficiency and total cost of ownership (TCO) benefits of pooled memory. Assuming all hosts and devices are CXL 2.0-enabled, �switching is incorporated into the memory devices via a crossbar in the CXL memory pooling chip. This keeps latency low but requires a more powerful chip since it is now responsible for the control plane functionality performed by the switch. With low-latency direct connections, attached memory devices can employ DDR DRAM to provide expansion of host main memory. This can be done on a very flexible basis, as a host is able to access all�or portions of�the capacity of as many devices as needed to tackle a specific workload.
 
 ## Radix
 
