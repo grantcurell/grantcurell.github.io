@@ -1,5 +1,7 @@
 # Chiplet-Based Systems
 
+[Return to HPC Notes README.md](./README.md)
+
 ## What is the problem
 
 - Moore's Low is slowing

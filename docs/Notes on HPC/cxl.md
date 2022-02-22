@@ -1,5 +1,7 @@
 # Compute Express Link (CXL)
 
+[Return to HPC Notes README.md](./README.md)
+
 - [Compute Express Link (CXL)](#compute-express-link-cxl)
   - [Useful Resources](#useful-resources)
   - [Examples of Vendor Interconnects](#examples-of-vendor-interconnects)
@@ -7,6 +9,9 @@
   - [What is the Purpose of CXL?](#what-is-the-purpose-of-cxl)
   - [Protocols](#protocols)
   - [Devices](#devices)
+    - [Type 1 Device](#type-1-device)
+    - [Type 2 Device](#type-2-device)
+    - [Type 3 Device](#type-3-device)
   - [Memory Pooling](#memory-pooling)
   - [Switching](#switching)
 
@@ -37,11 +42,13 @@ The primary purpose is to disaggregate I/O and memory and to effectively virtual
 
 CXL is a set of sub-protocols that ride on the PCI-Express bus on a single link
 
+![](images/2022-02-22-14-53-00.png)
+
 ## Protocols
 
-- CXL.io: This protocol is functionally equivalent to the PCIe 5.0 protocol and utilizes the broad industry adoption and familiarity of PCIe. It is effectively the PCIe transaction layer reformatted to allow two sub-protocols to co-exist side by side. CXL.io is used to discover devices in systems, manage interrupts, give access to registers, handle initialization, and deal with signaling errors.
-  - CXL.cache: This sub-protocol, which is designed for more specific applications, enables accelerators to efficiently access and cache host memory for optimized performance. It allows an accelerator to access the CPU's DRAM.
-  - CXL.memory: This protocol enables a host, such as a processor, to access device-attached memory using load/store commands.
+- CXL.io: This sub-protocol is functionally equivalent to the PCIe 5.0 protocol and utilizes the broad industry adoption and familiarity of PCIe. It is effectively the PCIe transaction layer reformatted to allow two sub-protocols to co-exist side by side. CXL.io is used to discover devices in systems, manage interrupts, give access to registers, handle initialization, and deal with signaling errors.
+- CXL.cache: This sub-protocol, which is designed for more specific applications, enables accelerators to efficiently access and cache host memory for optimized performance. It allows an accelerator to access the CPU's DRAM.
+- CXL.memory: This sub-protocol enables a host, such as a processor, to access device-attached memory using load/store commands.
 
 ![](images/2022-02-22-14-41-56.png)
 
@@ -52,18 +59,21 @@ From https://www.servethehome.com/compute-express-link-cxl-2-0-specification-rel
 
 ## Devices
 
-**High Level**
-- Type 1 Device - Coherently access host memory. Ex: PGAS NIC / NIC atomics
-- Type 2 Device - Can coherently access host memory and allow the host to access device memory. Ex: An accelerator with attached memory and optional coherent cache. GPU/dense computation
-- Type 3 Device - Can access and manage attached device memory. Ex: memory expanders or buffers
-- ![](images/2022-01-24-22-17-29.png)
+![](images/2022-01-24-22-17-29.png)
 
-**Detailed**
-- Type 1 Devices: Accelerators such as smart NICs typically lack local memory. However, they can leverage the CXL.io protocol and CXL.cache to communicate with the host processors DDR memory.
-- Type 2 Devices: GPUs, ASICs, and FPGAs are all equipped with DDR or HBM memory and can use the CXL.memory protocol, along with the CXL.io and CXL.cache, to make the host processor�s memory locally available to the accelerator�and the accelerator�s memory locally available to the CPU. They are also co-located in the same cache coherent domain and help boost heterogeneous workloads.
-- Type 3 Devices: The CXL.io and CXL.memory protocols can be leveraged for memory expansion and pooling. For example, a buffer attached to the CXL bus could be used to enable DRAM capacity expansion, augmenting memory bandwidth, or adding persistent memory without the loss of DRAM slots. In real world terms, this means the high-speed, low-latency storage devices that would have previously displaced DRAM can instead complement it with CXL-enabled devices. These could include non-volatile technologies in various form factors such as add-in cards, U.2, and EDSFF.
+### Type 1 Device
 
+Accelerators such as smart NICs typically lack local memory. However, they can leverage the CXL.io protocol and CXL.cache to communicate with the host processors DDR memory.
 
+### Type 2 Device
+
+The idea here is there is memory (like HBM or DDR) on the accelerator (GPUs, ASICs, FPGAs, etc) and you want the accelerator's memory to be locally available to the CPU and the CPU's memory to be locally available to the accelerator. The CXL.io protocol is used to allow the CPU to discover the device and configure it and then you use the CXL.cache to allow the processor to touch the device’s memory and CXL.memory to allow the accelerator to touch the CPU's memory. This memory should be co-located in the same cache coherent domain.
+
+### Type 3 Device
+
+The CXL.io and CXL.memory protocols can be leveraged for memory expansion and pooling. For example, a buffer attached to the CXL bus could be used to enable DRAM capacity expansion, augmenting memory bandwidth, or adding persistent memory without the loss of DRAM slots. In real world terms, this means the high-speed, low-latency storage devices that would have previously displaced DRAM can instead complement it with CXL-enabled devices. These could include non-volatile technologies in various form factors such as add-in cards, U.2, and EDSFF.
+
+For type 3 devices you need the CXL.io sub-protocol to discover and configure the device and the CXL.memory sub-protocol to allow the CPU to reach into the memory attached to your memory buffer.
 
 ## Memory Pooling
 
