@@ -17,6 +17,7 @@ nav:
 - Get NVMe Drives from iDRAC Redfish/README.md
 - High Speed Packet Capture/README.md
 - How OS10 Installer Works/README.md
+- How PCIe Works/README.md
 - HPC Memory/README.md
 - idrac with LDAP/README.md
 - Importing Elasticsearch Data/README.md
@@ -31,8 +32,8 @@ nav:
 - Migrating Storage Volumes to PowerStore/README.md
 - Mulitple Span on 4112F-ON with OpenSwitch/README.md
 - Multiple Span on 4112F-ON with OS10/README.md
-- Notes on ID-Based Ordering/README.md
 - Nvidia GPUDirect/README.md
+- Nvidia GRID Notes/README.md
 - NVMe Performance Testing/README.md
 - Offline Updates with OpenManage Enterprise/README.md
 - OME Bug/README.md
