@@ -1,4 +1,4 @@
-# HPC Memory
+# Notes on HPC
 
 **KEY TAKEAWAY** Economics will drive the pooling of main memory, and whether or not customers choose the CXL way or the Gen-Z way. Considering that memory can account for half of the cost of a server at a hyperscaler, anything that allows a machine to have a minimal amount of capacity on the node and then share the rest in the rack  with all of it being transparent to the operating system and all of it looking local  will be adopted. There is just no question about that. Memory area networks, in one fashion or another, are going to be common in datacenters before too long, and this will be driven by economics.
 

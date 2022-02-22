@@ -18,7 +18,6 @@ nav:
 - High Speed Packet Capture/README.md
 - How OS10 Installer Works/README.md
 - How PCIe Works/README.md
-- HPC Memory/README.md
 - idrac with LDAP/README.md
 - Importing Elasticsearch Data/README.md
 - Installing DPDK with NapaTech Card/README.md
@@ -32,6 +31,7 @@ nav:
 - Migrating Storage Volumes to PowerStore/README.md
 - Mulitple Span on 4112F-ON with OpenSwitch/README.md
 - Multiple Span on 4112F-ON with OS10/README.md
+- Notes on HPC/README.md
 - Nvidia GPUDirect/README.md
 - Nvidia GRID Notes/README.md
 - NVMe Performance Testing/README.md
