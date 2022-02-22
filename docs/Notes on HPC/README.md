@@ -4,21 +4,34 @@
 
 ## Load Store Architecture
 
+A load–store architecture is an instruction set architecture that divides instructions into two categories: memory access (load and store between memory and registers) and ALU operations (which only occur between registers).
+
+For instance, in a load–store approach both operands and destination for an ADD operation must be in registers. This differs from a register-memory architecture (for example, a CISC instruction set architecture such as x86) in which one of the operands for the ADD operation may be in memory, while the other is in a register.
+
 https://www.sciencedirect.com/topics/computer-science/load-store-architecture
 https://en.wikipedia.org/wiki/Load%E2%80%93store_architecture
 
 ## Fabric Attached Memory
 
-Broad overview: https://itigic.com/fabric-attached-memory-is-not-ram-or-cache-in-cpu/
-
-The Machine background information: https://github.com/FabricAttachedMemory/Emulation/wiki
-
-How the emulation for the Machine works: https://github.com/FabricAttachedMemory/Emulation/wiki/Emulation-via-Virtual-Machines
+See [Fabric Attached Memory](./fabric_attached_memory.md)
 
 ## CXL
 
 Interesting article on roadmap: https://www.nextplatform.com/2021/09/07/the-cxl-roadmap-opens-up-the-memory-hierarchy/
 Deep Dive: https://www.nextplatform.com/2019/09/18/eating-the-interconnect-alphabet-soup-with-intels-cxl/
+
+## Examples of Vendor Interconnects
+
+- Intel's Compute Express Link (CXL)
+- IBM's Coherent Accelerator Interface (CAPI)
+- Xilinx's Cache Coherence Interconnect for Accelerators (CCIX)
+- AMD's Infinity Fabric
+
+### More Specific Interconnects
+
+- Nvidia's NVLink
+- IBM's OpenCAPI
+- HPE's Gen-Z: It can be used to hook anything from DRAM to flash to accelerators in meshes with any manner of CPU.
 
 ### Devices
 
