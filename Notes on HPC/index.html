@@ -9,7 +9,7 @@
   
   
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>HPC Memory - Grant Curell's Dell Projects</title>
+  <title>Notes on HPC - Grant Curell's Dell Projects</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
   <link rel="stylesheet" href="../css/theme.css" />
@@ -18,8 +18,8 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "HPC Memory";
-    var mkdocs_page_input_path = "HPC Memory/README.md";
+    var mkdocs_page_name = "Notes on HPC";
+    var mkdocs_page_input_path = "Notes on HPC/README.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -122,32 +122,6 @@
                     <li class="toctree-l1"><a class="reference internal" href="../How%20PCIe%20Works/">How PCIe Works</a>
                     </li>
                 </ul>
-                <ul class="current">
-                    <li class="toctree-l1 current"><a class="reference internal current" href="./">HPC Memory</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#load-store-architecture">Load Store Architecture</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#fabric-attached-memory">Fabric Attached Memory</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#cxl">CXL</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#devices">Devices</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#protocols">Protocols</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#memory-pooling">Memory Pooling</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#switching">Switching</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#radix">Radix</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#smartnics">SmartNICs</a>
-    </li>
-    </ul>
-                    </li>
-                </ul>
                 <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../idrac%20with%20LDAP/">idrac with LDAP</a>
                     </li>
@@ -198,6 +172,36 @@
                 </ul>
                 <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../Multiple%20Span%20on%204112F-ON%20with%20OS10/">Multiple Span on 4112F-ON with OS10</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Notes on HPC</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#load-store-architecture">Load Store Architecture</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#fabric-attached-memory">Fabric Attached Memory</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#cxl">CXL</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#examples-of-vendor-interconnects">Examples of Vendor Interconnects</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#more-specific-interconnects">More Specific Interconnects</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#devices">Devices</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#protocols">Protocols</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#memory-pooling">Memory Pooling</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#switching">Switching</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#radix">Radix</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#smartnics">SmartNICs</a>
+    </li>
+    </ul>
                     </li>
                 </ul>
                 <ul>
@@ -357,7 +361,7 @@
     
       
     
-    <li>HPC Memory</li>
+    <li>Notes on HPC</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -369,18 +373,31 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="hpc-memory">HPC Memory</h1>
+                <h1 id="notes-on-hpc">Notes on HPC</h1>
 <p><strong>KEY TAKEAWAY</strong> Economics will drive the pooling of main memory, and whether or not customers choose the CXL way or the Gen-Z way. Considering that memory can account for half of the cost of a server at a hyperscaler, anything that allows a machine to have a minimal amount of capacity on the node and then share the rest in the rack  with all of it being transparent to the operating system and all of it looking local  will be adopted. There is just no question about that. Memory area networks, in one fashion or another, are going to be common in datacenters before too long, and this will be driven by economics.</p>
 <h2 id="load-store-architecture">Load Store Architecture</h2>
+<p>A load–store architecture is an instruction set architecture that divides instructions into two categories: memory access (load and store between memory and registers) and ALU operations (which only occur between registers).</p>
+<p>For instance, in a load–store approach both operands and destination for an ADD operation must be in registers. This differs from a register-memory architecture (for example, a CISC instruction set architecture such as x86) in which one of the operands for the ADD operation may be in memory, while the other is in a register.</p>
 <p>https://www.sciencedirect.com/topics/computer-science/load-store-architecture
 https://en.wikipedia.org/wiki/Load%E2%80%93store_architecture</p>
 <h2 id="fabric-attached-memory">Fabric Attached Memory</h2>
-<p>Broad overview: https://itigic.com/fabric-attached-memory-is-not-ram-or-cache-in-cpu/</p>
-<p>The Machine background information: https://github.com/FabricAttachedMemory/Emulation/wiki</p>
-<p>How the emulation for the Machine works: https://github.com/FabricAttachedMemory/Emulation/wiki/Emulation-via-Virtual-Machines</p>
+<p>See <a href="fabric_attached_memory/">Fabric Attached Memory</a></p>
 <h2 id="cxl">CXL</h2>
 <p>Interesting article on roadmap: https://www.nextplatform.com/2021/09/07/the-cxl-roadmap-opens-up-the-memory-hierarchy/
 Deep Dive: https://www.nextplatform.com/2019/09/18/eating-the-interconnect-alphabet-soup-with-intels-cxl/</p>
+<h2 id="examples-of-vendor-interconnects">Examples of Vendor Interconnects</h2>
+<ul>
+<li>Intel's Compute Express Link (CXL)</li>
+<li>IBM's Coherent Accelerator Interface (CAPI)</li>
+<li>Xilinx's Cache Coherence Interconnect for Accelerators (CCIX)</li>
+<li>AMD's Infinity Fabric</li>
+</ul>
+<h3 id="more-specific-interconnects">More Specific Interconnects</h3>
+<ul>
+<li>Nvidia's NVLink</li>
+<li>IBM's OpenCAPI</li>
+<li>HPE's Gen-Z: It can be used to hook anything from DRAM to flash to accelerators in meshes with any manner of CPU.</li>
+</ul>
 <h3 id="devices">Devices</h3>
 <p><strong>High Level</strong>
 - Type 1 Device - Coherently access host memory. Ex: PGAS NIC / NIC atomics
@@ -414,10 +431,10 @@ https://ieeexplore.ieee.org/document/6307777</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../idrac%20with%20LDAP/" class="btn btn-neutral float-right" title="idrac with LDAP">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../Nvidia%20GPUDirect/" class="btn btn-neutral float-right" title="Nvidia GPUDirect">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../How%20PCIe%20Works/" class="btn btn-neutral" title="How PCIe Works"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../Multiple%20Span%20on%204112F-ON%20with%20OS10/" class="btn btn-neutral" title="Multiple Span on 4112F-ON with OS10"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -443,10 +460,10 @@ https://ieeexplore.ieee.org/document/6307777</p>
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../How%20PCIe%20Works/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../Multiple%20Span%20on%204112F-ON%20with%20OS10/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../idrac%20with%20LDAP/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../Nvidia%20GPUDirect/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

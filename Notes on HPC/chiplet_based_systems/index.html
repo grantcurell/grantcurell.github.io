@@ -9,7 +9,7 @@
   
   
   <link rel="shortcut icon" href="../../img/favicon.ico">
-  <title>VMWare Architecture Notes - Grant Curell's Dell Projects</title>
+  <title>Chiplet-Based Systems - Grant Curell's Dell Projects</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
   <link rel="stylesheet" href="../../css/theme.css" />
@@ -18,8 +18,8 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "VMWare Architecture Notes";
-    var mkdocs_page_input_path = "VMWare/ESXi Architecture/README.md";
+    var mkdocs_page_name = "Chiplet-Based Systems";
+    var mkdocs_page_input_path = "Notes on HPC/chiplet_based_systems.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -175,7 +175,7 @@
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../../Notes%20on%20HPC/">Notes on HPC</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../">Notes on HPC</a>
                     </li>
                 </ul>
                 <ul>
@@ -287,41 +287,27 @@
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../Automate%20ESXi%20Installation/">Automating ESXi Installation</a>
-                    </li>
-                </ul>
-                <ul class="current">
-                    <li class="toctree-l1 current"><a class="reference internal current" href="./">VMWare Architecture Notes</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#my-image-profile">My Image Profile</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#example-vib-definition">Example VIB Definition</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#what-is-the-altbookbank-partition">What is the altbookbank Partition</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#vmware-architecture-document">VMWare Architecture Document</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#what-is-dcism">What is dcism</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#esxi-log-file-locations">ESXi Log File Locations</a>
-    </li>
-    </ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../VMWare/Automate%20ESXi%20Installation/">Automating ESXi Installation</a>
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../Setup%20VXRail/">VxRail Setup</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../../VMWare/ESXi%20Architecture/">VMWare Architecture Notes</a>
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../Troubleshooting%20vSAN/">Troubleshooting vSAN</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../../VMWare/Setup%20VXRail/">VxRail Setup</a>
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../VMWare%20APIs/">VMWare APIs</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../../VMWare/Troubleshooting%20vSAN/">Troubleshooting vSAN</a>
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../VxRail%20Architecture%20and%20Troubleshooting/">VxRail Architecture and Troubleshooting</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../../VMWare/VMWare%20APIs/">VMWare APIs</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../VMWare/VxRail%20Architecture%20and%20Troubleshooting/">VxRail Architecture and Troubleshooting</a>
                     </li>
                 </ul>
                 <ul>
@@ -349,7 +335,7 @@
     
       
     
-    <li>VMWare Architecture Notes</li>
+    <li>Chiplet-Based Systems</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -361,34 +347,33 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="vmware-architecture-notes">VMWare Architecture Notes</h1>
-<h2 id="my-image-profile">My Image Profile</h2>
-<p><a href="my_image_profile.xml">A copy of my image profile</a></p>
-<h2 id="example-vib-definition">Example VIB Definition</h2>
-<p><a href="example_vib_definition.xml">Example VIB definition</a></p>
-<h2 id="what-is-the-altbookbank-partition">What is the altbookbank Partition</h2>
-<p>https://serverfault.com/questions/278895/how-is-the-altbootbank-partition-used-in-esxi</p>
-<h2 id="vmware-architecture-document">VMWare Architecture Document</h2>
-<p>https://www.vmware.com/content/dam/digitalmarketing/vmware/en/pdf/techpaper/ESXi_architecture.pdf</p>
-<p><img alt="" src="images/2021-07-14-22-47-44.png" /></p>
-<h2 id="what-is-dcism">What is dcism</h2>
-<p>Appears to be the iDRAC service module</p>
-<h2 id="esxi-log-file-locations">ESXi Log File Locations</h2>
-<p>https://docs.vmware.com/en/VMware-vSphere/7.0/com.vmware.vsphere.security.doc/GUID-832A2618-6B11-4A28-9672-93296DA931D0.html</p>
-<p>I suspect anything related to updates should be found in the hostd.log file on the ESXi server itself.</p>
+                <h1 id="chiplet-based-systems">Chiplet-Based Systems</h1>
+<h2 id="what-is-the-problem">What is the problem</h2>
+<ul>
+<li>Moore's Low is slowing</li>
+<li>Manufacturing costs are rising</li>
+<li>You could make larger chips to increase performance but:</li>
+<li>They are more expensive to make</li>
+<li>Verification costs are higher</li>
+<li>Manufacturing defects in densely packed logic reduce wafer yield</li>
+<li>You could create specialized chips but it is difficult to make a financial case for that</li>
+</ul>
+<h2 id="what-are-chiplet-based-systems">What are chiplet-based systems</h2>
+<p>Chiplet-based systems propose the integration of multiple discrete chips within the same package via an integration technology such as a multi-chip module or silicon interposer. Ex:</p>
+<p><img alt="" src="../images/2022-02-22-13-10-42.png" /></p>
+<p>From: https://www.sigarch.org/chiplet-based-systems/</p>
+<h3 id="why-chiplets">Why chiplets</h3>
+<h4 id="cost">Cost</h4>
+<p>Previously, chiplets weren't considered practical because you introduce multiple parts plus having to contend with on-dye communication between them. However, now the smaller chips have sufficiently cheap manufacturing costs (compared to larger) that this is a viable alternative.</p>
+<h4 id="flexibility">Flexibility</h4>
+<p>If you want to move from mobile, to desktop, to server this may be a matter of just increasing the number of chiplets. It is also possible that if we develop the proper standards that we could have a future system where we have general interconnects which would allow multiple different vendor chiplets to work together. Ex: <a href="https://www.darpa.mil/program/common-heterogeneous-integration-and-ip-reuse-strategies">Common Heterogeneous Integration and IP Reuse Strategies (CHIPS)</a></p>
+<h2 id="questions">Questions</h2>
+<h3 id="what-is-process-technology">What is process technology?</h3>
+<p>A process technology is the process of creating a single chip. In this case, you could use older process technologies to create the chiplets and then put them together.</p>
               
             </div>
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="../Setup%20VXRail/" class="btn btn-neutral float-right" title="VxRail Setup">Next <span class="icon icon-circle-arrow-right"></span></a>
-      
-      
-        <a href="../Automate%20ESXi%20Installation/" class="btn btn-neutral" title="Automating ESXi Installation"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>
@@ -412,10 +397,6 @@
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../Automate%20ESXi%20Installation/" style="color: #fcfcfc">&laquo; Previous</a></span>
-    
-    
-      <span><a href="../Setup%20VXRail/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

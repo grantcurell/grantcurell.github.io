@@ -9,7 +9,7 @@
   
   
   <link rel="shortcut icon" href="../../img/favicon.ico">
-  <title>VMWare Architecture Notes - Grant Curell's Dell Projects</title>
+  <title>Compute Express Link (CXL) - Grant Curell's Dell Projects</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
   <link rel="stylesheet" href="../../css/theme.css" />
@@ -18,8 +18,8 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "VMWare Architecture Notes";
-    var mkdocs_page_input_path = "VMWare/ESXi Architecture/README.md";
+    var mkdocs_page_name = "Compute Express Link (CXL)";
+    var mkdocs_page_input_path = "Notes on HPC/cxl.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -175,7 +175,7 @@
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../../Notes%20on%20HPC/">Notes on HPC</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../">Notes on HPC</a>
                     </li>
                 </ul>
                 <ul>
@@ -287,41 +287,27 @@
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../Automate%20ESXi%20Installation/">Automating ESXi Installation</a>
-                    </li>
-                </ul>
-                <ul class="current">
-                    <li class="toctree-l1 current"><a class="reference internal current" href="./">VMWare Architecture Notes</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#my-image-profile">My Image Profile</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#example-vib-definition">Example VIB Definition</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#what-is-the-altbookbank-partition">What is the altbookbank Partition</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#vmware-architecture-document">VMWare Architecture Document</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#what-is-dcism">What is dcism</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#esxi-log-file-locations">ESXi Log File Locations</a>
-    </li>
-    </ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../VMWare/Automate%20ESXi%20Installation/">Automating ESXi Installation</a>
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../Setup%20VXRail/">VxRail Setup</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../../VMWare/ESXi%20Architecture/">VMWare Architecture Notes</a>
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../Troubleshooting%20vSAN/">Troubleshooting vSAN</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../../VMWare/Setup%20VXRail/">VxRail Setup</a>
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../VMWare%20APIs/">VMWare APIs</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../../VMWare/Troubleshooting%20vSAN/">Troubleshooting vSAN</a>
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../VxRail%20Architecture%20and%20Troubleshooting/">VxRail Architecture and Troubleshooting</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../../VMWare/VMWare%20APIs/">VMWare APIs</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../VMWare/VxRail%20Architecture%20and%20Troubleshooting/">VxRail Architecture and Troubleshooting</a>
                     </li>
                 </ul>
                 <ul>
@@ -349,7 +335,7 @@
     
       
     
-    <li>VMWare Architecture Notes</li>
+    <li>Compute Express Link (CXL)</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -361,34 +347,72 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="vmware-architecture-notes">VMWare Architecture Notes</h1>
-<h2 id="my-image-profile">My Image Profile</h2>
-<p><a href="my_image_profile.xml">A copy of my image profile</a></p>
-<h2 id="example-vib-definition">Example VIB Definition</h2>
-<p><a href="example_vib_definition.xml">Example VIB definition</a></p>
-<h2 id="what-is-the-altbookbank-partition">What is the altbookbank Partition</h2>
-<p>https://serverfault.com/questions/278895/how-is-the-altbootbank-partition-used-in-esxi</p>
-<h2 id="vmware-architecture-document">VMWare Architecture Document</h2>
-<p>https://www.vmware.com/content/dam/digitalmarketing/vmware/en/pdf/techpaper/ESXi_architecture.pdf</p>
-<p><img alt="" src="images/2021-07-14-22-47-44.png" /></p>
-<h2 id="what-is-dcism">What is dcism</h2>
-<p>Appears to be the iDRAC service module</p>
-<h2 id="esxi-log-file-locations">ESXi Log File Locations</h2>
-<p>https://docs.vmware.com/en/VMware-vSphere/7.0/com.vmware.vsphere.security.doc/GUID-832A2618-6B11-4A28-9672-93296DA931D0.html</p>
-<p>I suspect anything related to updates should be found in the hostd.log file on the ESXi server itself.</p>
+                <h1 id="compute-express-link-cxl">Compute Express Link (CXL)</h1>
+<ul>
+<li><a href="#compute-express-link-cxl">Compute Express Link (CXL)</a></li>
+<li><a href="#useful-resources">Useful Resources</a></li>
+<li><a href="#examples-of-vendor-interconnects">Examples of Vendor Interconnects</a><ul>
+<li><a href="#more-specific-interconnects">More Specific Interconnects</a></li>
+</ul>
+</li>
+<li><a href="#what-is-the-purpose-of-cxl">What is the Purpose of CXL?</a></li>
+<li><a href="#protocols">Protocols</a></li>
+<li><a href="#devices">Devices</a></li>
+<li><a href="#memory-pooling">Memory Pooling</a></li>
+<li><a href="#switching">Switching</a></li>
+</ul>
+<h2 id="useful-resources">Useful Resources</h2>
+<p>Interesting article on roadmap: https://www.nextplatform.com/2021/09/07/the-cxl-roadmap-opens-up-the-memory-hierarchy/
+Deep Dive: https://www.nextplatform.com/2019/09/18/eating-the-interconnect-alphabet-soup-with-intels-cxl/</p>
+<h2 id="examples-of-vendor-interconnects">Examples of Vendor Interconnects</h2>
+<ul>
+<li>Intel's Compute Express Link (CXL)</li>
+<li>IBM's Coherent Accelerator Interface (CAPI)</li>
+<li>Xilinx's Cache Coherence Interconnect for Accelerators (CCIX)</li>
+<li>AMD's Infinity Fabric</li>
+</ul>
+<h3 id="more-specific-interconnects">More Specific Interconnects</h3>
+<ul>
+<li>Nvidia's NVLink</li>
+<li>IBM's OpenCAPI</li>
+<li>HPE's Gen-Z: It can be used to hook anything from DRAM to flash to accelerators in meshes with any manner of CPU.</li>
+</ul>
+<h2 id="what-is-the-purpose-of-cxl">What is the Purpose of CXL?</h2>
+<p>The primary purpose is to disaggregate I/O and memory and to effectively virtualize the motherboard to make the following malleable across clusters of components:
+- Compute, memory, and I/O
+- Computational offload to devices such as GPU and FPGA accelerators
+- Memory buffers and other kinds of devices such as SmartNICs</p>
+<p>CXL is a set of sub-protocols that ride on the PCI-Express bus on a single link</p>
+<h2 id="protocols">Protocols</h2>
+<ul>
+<li>CXL.io: This protocol is functionally equivalent to the PCIe 5.0 protocol and utilizes the broad industry adoption and familiarity of PCIe. It is effectively the PCIe transaction layer reformatted to allow two sub-protocols to co-exist side by side. CXL.io is used to discover devices in systems, manage interrupts, give access to registers, handle initialization, and deal with signaling errors.</li>
+<li>CXL.cache: This sub-protocol, which is designed for more specific applications, enables accelerators to efficiently access and cache host memory for optimized performance. It allows an accelerator to access the CPU's DRAM.</li>
+<li>CXL.memory: This protocol enables a host, such as a processor, to access device-attached memory using load/store commands.</li>
+</ul>
+<p><img alt="" src="../images/2022-02-22-14-41-56.png" /></p>
+<p>It is not expected that all three protocols are used in all configurations. There are three basic usage templates which represent the three usages expected:</p>
+<p><img alt="" src="../images/2022-02-22-14-46-43.png" />
+From https://www.servethehome.com/compute-express-link-cxl-2-0-specification-released-the-big-one/cxl-1-0-and-1-1-usages/</p>
+<h2 id="devices">Devices</h2>
+<p><strong>High Level</strong>
+- Type 1 Device - Coherently access host memory. Ex: PGAS NIC / NIC atomics
+- Type 2 Device - Can coherently access host memory and allow the host to access device memory. Ex: An accelerator with attached memory and optional coherent cache. GPU/dense computation
+- Type 3 Device - Can access and manage attached device memory. Ex: memory expanders or buffers
+- <img alt="" src="../images/2022-01-24-22-17-29.png" /></p>
+<p><strong>Detailed</strong>
+- Type 1 Devices: Accelerators such as smart NICs typically lack local memory. However, they can leverage the CXL.io protocol and CXL.cache to communicate with the host processors DDR memory.
+- Type 2 Devices: GPUs, ASICs, and FPGAs are all equipped with DDR or HBM memory and can use the CXL.memory protocol, along with the CXL.io and CXL.cache, to make the host processor�s memory locally available to the accelerator�and the accelerator�s memory locally available to the CPU. They are also co-located in the same cache coherent domain and help boost heterogeneous workloads.
+- Type 3 Devices: The CXL.io and CXL.memory protocols can be leveraged for memory expansion and pooling. For example, a buffer attached to the CXL bus could be used to enable DRAM capacity expansion, augmenting memory bandwidth, or adding persistent memory without the loss of DRAM slots. In real world terms, this means the high-speed, low-latency storage devices that would have previously displaced DRAM can instead complement it with CXL-enabled devices. These could include non-volatile technologies in various form factors such as add-in cards, U.2, and EDSFF.</p>
+<h2 id="memory-pooling">Memory Pooling</h2>
+<p><img alt="" src="../images/2022-01-24-21-09-16.png" /></p>
+<p>CXL 2.0 supports switching to enable memory pooling. With a CXL 2.0 switch, a host can access one or more devices from the pool. Although the hosts must be CXL 2.0-enabled to leverage this capability, the memory devices can be a mix of CXL 1.0, 1.1, and 2.0-enabled hardware. At 1.0/1.1, a device is limited to behaving as a single logical device accessible by only one host at a time. However, a 2.0 level device can be partitioned as multiple logical devices, allowing up to 16 hosts to simultaneously access different portions of the memory.</p>
+<p>As an example, a host 1 (H1) can use half the memory in device 1 (D1) and a quarter of the memory in device 2 (D2) to finely match the memory requirements of its workload to the available capacity in the memory pool. The remaining capacity in devices D1 and D2 can be used by one or more of the other hosts up to a maximum of 16. Devices D3 and D4, CXL 1.0 and 1.1-enabled respectively, can be used by only one host at a time.</p>
+<h2 id="switching">Switching</h2>
+<p>By moving to a CXL 2.0 direct-connect architecture, data centers can achieve the performance benefits of main memory expansion�and the efficiency and total cost of ownership (TCO) benefits of pooled memory. Assuming all hosts and devices are CXL 2.0-enabled, �switching is incorporated into the memory devices via a crossbar in the CXL memory pooling chip. This keeps latency low but requires a more powerful chip since it is now responsible for the control plane functionality performed by the switch. With low-latency direct connections, attached memory devices can employ DDR DRAM to provide expansion of host main memory. This can be done on a very flexible basis, as a host is able to access all�or portions of�the capacity of as many devices as needed to tackle a specific workload.</p>
               
             </div>
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="../Setup%20VXRail/" class="btn btn-neutral float-right" title="VxRail Setup">Next <span class="icon icon-circle-arrow-right"></span></a>
-      
-      
-        <a href="../Automate%20ESXi%20Installation/" class="btn btn-neutral" title="Automating ESXi Installation"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>
@@ -412,10 +436,6 @@
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../Automate%20ESXi%20Installation/" style="color: #fcfcfc">&laquo; Previous</a></span>
-    
-    
-      <span><a href="../Setup%20VXRail/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
