@@ -13,6 +13,8 @@
   - [Selecting a GPU](#selecting-a-gpu)
     - [Two General Types of Users](#two-general-types-of-users)
     - [Which Type of GPU?](#which-type-of-gpu)
+      - [Dell GPUs and Upgrade Path](#dell-gpus-and-upgrade-path)
+      - [Nvidia GPUs](#nvidia-gpus)
       - [GPUs for Power Users](#gpus-for-power-users)
   - [Desktop Hosting Models](#desktop-hosting-models)
   - [vGPU License Decision Tree](#vgpu-license-decision-tree)
@@ -85,6 +87,13 @@ Profiles are the means by which we define how much resources and the types of ca
 ![](images/2022-02-21-14-20-42.png)
 
 ### Which Type of GPU?
+
+#### Dell GPUs and Upgrade Path
+
+![](images/2022-02-22-11-32-23.png)
+![](images/2022-02-22-11-33-48.png)
+
+#### Nvidia GPUs
 
 **NOTE**: These are from the aforementioned YouTube lecture which is a bit out of date but I thought it was helpful to see it broken out.
 
