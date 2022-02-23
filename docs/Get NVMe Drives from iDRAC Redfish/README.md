@@ -1,5 +1,12 @@
 # Get NVMe Drives from iDRAC Redfish
 
+- [Get NVMe Drives from iDRAC Redfish](#get-nvme-drives-from-idrac-redfish)
+  - [Exploring iDRAC Detected Storage](#exploring-idrac-detected-storage)
+  - [Understand the Behavior of Unqualified Drives](#understand-the-behavior-of-unqualified-drives)
+  - [Getting a Drive's Stats](#getting-a-drives-stats)
+
+## Exploring iDRAC Detected Storage
+
 I used the [Storage API endpoint](https://developer.dell.com/apis/2978/versions/5.xx/openapi.yaml/paths/~1redfish~1v1~1Systems~1%7BComputerSystemId%7D~1Storage~1%7BStorageId%7D/get) to accomplish this.
 
 From my host I received:
@@ -61,7 +68,29 @@ I'm running an R840 which is Dell 14G which I know does not have NVMe RAID contr
 }
 ```
 
-From the above I can deduce that CPU 1 has six drives attached to it. We can select one of them with `/redfish/v1/Systems/System.Embedded.1/Storage/CPU.1/Drives/Disk.Bay.21:Enclosure.Internal.0-1`.
+From the above I can deduce that CPU 1 has six drives attached to it. Or does it? 
+
+## Understand the Behavior of Unqualified Drives
+
+Here is a picture of the front of my server:
+
+![](images/2022-02-23-10-51-55.png)
+
+Here is the front of my server. You might say, "Wait, there are 7 drives!?" The problem is this 7th drive isn't qualified by Dell. It will still work just fine however, iDRAC won't know how to talk to it so it won't show up:
+
+![](images/2022-02-23-10-52-51.png)
+
+You can confirm this is the case by checking the Storage->Physical Disks tab inside the iDRAC itself:
+
+![](images/2022-02-23-10-55-30.png)
+
+Here you can see that I only have the 6 NVMe drives plus two SATA SSDs. While the iDRAC's personality module won't be able to properly sort the drive into Storage it will detect it as a PCIe device and accurately read the vendor information:
+
+![](images/2022-02-23-10-59-30.png)
+
+## Getting a Drive's Stats
+
+We can select one of them with `/redfish/v1/Systems/System.Embedded.1/Storage/CPU.1/Drives/Disk.Bay.21:Enclosure.Internal.0-1`.
 
 This achieves the desired result and gets a dump of that drive's data. The size is available under the field CapacityBytes.
 
