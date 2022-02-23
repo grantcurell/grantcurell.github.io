@@ -24,4 +24,6 @@ See [Compute Express Link](./cxl.md)
 https://github.com/HewlettPackard/meadowlark
 https://ieeexplore.ieee.org/document/6307777
 
-## SmartNICs
+## Things to investigate
+
+https://www.techpowerup.com/292256/amd-details-its-3d-v-cache-design-at-isscc

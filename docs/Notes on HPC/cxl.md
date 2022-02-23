@@ -75,6 +75,8 @@ The CXL.io and CXL.memory protocols can be leveraged for memory expansion and po
 
 For type 3 devices you need the CXL.io sub-protocol to discover and configure the device and the CXL.memory sub-protocol to allow the CPU to reach into the memory attached to your memory buffer.
 
+**WHERE I LEFT OFF**: Left off studying symmetric cache coherency protocols vs asymmetric on this article: https://www.nextplatform.com/2019/09/18/eating-the-interconnect-alphabet-soup-with-intels-cxl/
+
 ## Memory Pooling
 
 ![](images/2022-01-24-21-09-16.png)

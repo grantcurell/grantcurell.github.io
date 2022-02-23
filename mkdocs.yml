@@ -17,7 +17,6 @@ nav:
 - Get NVMe Drives from iDRAC Redfish/README.md
 - High Speed Packet Capture/README.md
 - How OS10 Installer Works/README.md
-- How PCIe Works/README.md
 - idrac with LDAP/README.md
 - Importing Elasticsearch Data/README.md
 - Installing DPDK with NapaTech Card/README.md
@@ -32,6 +31,7 @@ nav:
 - Mulitple Span on 4112F-ON with OpenSwitch/README.md
 - Multiple Span on 4112F-ON with OS10/README.md
 - Notes on HPC/README.md
+- Notes on PCIe/README.md
 - Nvidia GPUDirect/README.md
 - Nvidia GRID Notes/README.md
 - NVMe Performance Testing/README.md
