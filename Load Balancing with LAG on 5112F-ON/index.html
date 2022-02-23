@@ -416,6 +416,14 @@ source interface ethernet 1/1/5:1
 no shut
 exit
 </code></pre>
+<p><img alt="" src="images/2022-02-23-14-57-32.png" /></p>
+<ol>
+<li>Your listening source captures traffic be that a tap, span, Linux host, etc</li>
+<li>Traffic is pushed into a physical interface (ethernet 1/1/5:1) on the 5212</li>
+<li>Traffic is mirrored from the physical interface (Ethernet 1/1/5:1) to the virtual port group interface</li>
+<li>The port group interface is tied to two physical interfaces and set to perform load balancing</li>
+<li>The virtual port group interface will load balance based on a hash of the aforementioned attributes (ip-selection source-ip destination-ip l4-destination-port l4-source-port)</li>
+</ol>
 <h3 id="configure-rhel-8">Configure RHEL 8</h3>
 <pre><code>sudo dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
 sudo subscription-manager repos --enable codeready-builder-for-rhel-8-x86_64-rpms
