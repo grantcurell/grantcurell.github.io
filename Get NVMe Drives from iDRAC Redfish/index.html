@@ -109,6 +109,12 @@
                 <ul class="current">
                     <li class="toctree-l1 current"><a class="reference internal current" href="./">Get NVMe Drives from iDRAC Redfish</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#exploring-idrac-detected-storage">Exploring iDRAC Detected Storage</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#understand-the-behavior-of-unqualified-drives">Understand the Behavior of Unqualified Drives</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#getting-a-drives-stats">Getting a Drive's Stats</a>
+    </li>
     </ul>
                     </li>
                 </ul>
@@ -118,10 +124,6 @@
                 </ul>
                 <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../How%20OS10%20Installer%20Works/">How OS10 Installer Works</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../How%20PCIe%20Works/">How PCIe Works</a>
                     </li>
                 </ul>
                 <ul>
@@ -178,6 +180,10 @@
                 </ul>
                 <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20HPC/">Notes on HPC</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20PCIe/">Notes on PCIe</a>
                     </li>
                 </ul>
                 <ul>
@@ -350,6 +356,13 @@
             <div class="section">
               
                 <h1 id="get-nvme-drives-from-idrac-redfish">Get NVMe Drives from iDRAC Redfish</h1>
+<ul>
+<li><a href="#get-nvme-drives-from-idrac-redfish">Get NVMe Drives from iDRAC Redfish</a></li>
+<li><a href="#exploring-idrac-detected-storage">Exploring iDRAC Detected Storage</a></li>
+<li><a href="#understand-the-behavior-of-unqualified-drives">Understand the Behavior of Unqualified Drives</a></li>
+<li><a href="#getting-a-drives-stats">Getting a Drive's Stats</a></li>
+</ul>
+<h2 id="exploring-idrac-detected-storage">Exploring iDRAC Detected Storage</h2>
 <p>I used the <a href="https://developer.dell.com/apis/2978/versions/5.xx/openapi.yaml/paths/~1redfish~1v1~1Systems~1%7BComputerSystemId%7D~1Storage~1%7BStorageId%7D/get">Storage API endpoint</a> to accomplish this.</p>
 <p>From my host I received:</p>
 <pre><code class="language-json">{&quot;@odata.context&quot;:&quot;/redfish/v1/$metadata#StorageCollection.StorageCollection&quot;,&quot;@odata.id&quot;:&quot;/redfish/v1/Systems/System.Embedded.1/Storage/&quot;,&quot;@odata.type&quot;:&quot;#StorageCollection.StorageCollection&quot;,&quot;Description&quot;:&quot;Collection Of Storage entities&quot;,&quot;Members&quot;:[{&quot;@odata.id&quot;:&quot;/redfish/v1/Systems/System.Embedded.1/Storage/RAID.Slot.4-1&quot;},{&quot;@odata.id&quot;:&quot;/redfish/v1/Systems/System.Embedded.1/Storage/RAID.Embedded.1-1&quot;},{&quot;@odata.id&quot;:&quot;/redfish/v1/Systems/System.Embedded.1/Storage/CPU.1&quot;},{&quot;@odata.id&quot;:&quot;/redfish/v1/Systems/System.Embedded.1/Storage/AHCI.Slot.2-1&quot;}],&quot;Members@odata.count&quot;:4,&quot;Name&quot;:&quot;Storage Collection&quot;}
@@ -404,7 +417,18 @@
     }
 }
 </code></pre>
-<p>From the above I can deduce that CPU 1 has six drives attached to it. We can select one of them with <code>/redfish/v1/Systems/System.Embedded.1/Storage/CPU.1/Drives/Disk.Bay.21:Enclosure.Internal.0-1</code>.</p>
+<p>From the above I can deduce that CPU 1 has six drives attached to it. Or does it? </p>
+<h2 id="understand-the-behavior-of-unqualified-drives">Understand the Behavior of Unqualified Drives</h2>
+<p>Here is a picture of the front of my server:</p>
+<p><img alt="" src="images/2022-02-23-10-51-55.png" /></p>
+<p>Here is the front of my server. You might say, "Wait, there are 7 drives!?" The problem is this 7th drive isn't qualified by Dell. It will still work just fine however, iDRAC won't know how to talk to it so it won't show up:</p>
+<p><img alt="" src="images/2022-02-23-10-52-51.png" /></p>
+<p>You can confirm this is the case by checking the Storage-&gt;Physical Disks tab inside the iDRAC itself:</p>
+<p><img alt="" src="images/2022-02-23-10-55-30.png" /></p>
+<p>Here you can see that I only have the 6 NVMe drives plus two SATA SSDs. While the iDRAC's personality module won't be able to properly sort the drive into Storage it will detect it as a PCIe device and accurately read the vendor information:</p>
+<p><img alt="" src="images/2022-02-23-10-59-30.png" /></p>
+<h2 id="getting-a-drives-stats">Getting a Drive's Stats</h2>
+<p>We can select one of them with <code>/redfish/v1/Systems/System.Embedded.1/Storage/CPU.1/Drives/Disk.Bay.21:Enclosure.Internal.0-1</code>.</p>
 <p>This achieves the desired result and gets a dump of that drive's data. The size is available under the field CapacityBytes.</p>
 <pre><code class="language-json">{
     &quot;@odata.context&quot;: &quot;/redfish/v1/$metadata#Drive.Drive&quot;,

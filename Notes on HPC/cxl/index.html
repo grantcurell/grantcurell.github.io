@@ -119,10 +119,6 @@
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../../How%20PCIe%20Works/">How PCIe Works</a>
-                    </li>
-                </ul>
-                <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../../idrac%20with%20LDAP/">idrac with LDAP</a>
                     </li>
                 </ul>
@@ -176,6 +172,10 @@
                 </ul>
                 <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../">Notes on HPC</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../Notes%20on%20PCIe/">Notes on PCIe</a>
                     </li>
                 </ul>
                 <ul>
@@ -409,6 +409,7 @@ From https://www.servethehome.com/compute-express-link-cxl-2-0-specification-rel
 <h3 id="type-3-device">Type 3 Device</h3>
 <p>The CXL.io and CXL.memory protocols can be leveraged for memory expansion and pooling. For example, a buffer attached to the CXL bus could be used to enable DRAM capacity expansion, augmenting memory bandwidth, or adding persistent memory without the loss of DRAM slots. In real world terms, this means the high-speed, low-latency storage devices that would have previously displaced DRAM can instead complement it with CXL-enabled devices. These could include non-volatile technologies in various form factors such as add-in cards, U.2, and EDSFF.</p>
 <p>For type 3 devices you need the CXL.io sub-protocol to discover and configure the device and the CXL.memory sub-protocol to allow the CPU to reach into the memory attached to your memory buffer.</p>
+<p><strong>WHERE I LEFT OFF</strong>: Left off studying symmetric cache coherency protocols vs asymmetric on this article: https://www.nextplatform.com/2019/09/18/eating-the-interconnect-alphabet-soup-with-intels-cxl/</p>
 <h2 id="memory-pooling">Memory Pooling</h2>
 <p><img alt="" src="../images/2022-01-24-21-09-16.png" /></p>
 <p>CXL 2.0 supports switching to enable memory pooling. With a CXL 2.0 switch, a host can access one or more devices from the pool. Although the hosts must be CXL 2.0-enabled to leverage this capability, the memory devices can be a mix of CXL 1.0, 1.1, and 2.0-enabled hardware. At 1.0/1.1, a device is limited to behaving as a single logical device accessible by only one host at a time. However, a 2.0 level device can be partitioned as multiple logical devices, allowing up to 16 hosts to simultaneously access different portions of the memory.</p>
