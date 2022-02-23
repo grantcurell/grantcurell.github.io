@@ -60,6 +60,14 @@ no shut
 exit
 ```
 
+![](images/2022-02-23-14-57-32.png)
+
+1. Your listening source captures traffic be that a tap, span, Linux host, etc
+2. Traffic is pushed into a physical interface (ethernet 1/1/5:1) on the 5212
+3. Traffic is mirrored from the physical interface (Ethernet 1/1/5:1) to the virtual port group interface
+4. The port group interface is tied to two physical interfaces and set to perform load balancing
+5. The virtual port group interface will load balance based on a hash of the aforementioned attributes (ip-selection source-ip destination-ip l4-destination-port l4-source-port)
+
 ### Configure RHEL 8
 
 ```
