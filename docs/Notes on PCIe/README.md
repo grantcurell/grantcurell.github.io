@@ -1,6 +1,9 @@
 # Notes on PCIe
 
 - [Notes on PCIe](#notes-on-pcie)
+  - [PCIe Basics and Background](#pcie-basics-and-background)
+  - [How multiple root complexes are handled](#how-multiple-root-complexes-are-handled)
+  - [Interpreting PCIe Device to CPU Locality Information](#interpreting-pcie-device-to-cpu-locality-information)
   - [What is the PCIe PHY](#what-is-the-pcie-phy)
   - [Human readable overview of how PCIe works](#human-readable-overview-of-how-pcie-works)
   - [How does ID-based Ordering (IDO) Work?](#how-does-id-based-ordering-ido-work)
@@ -19,6 +22,20 @@
   - [How does SR-IOV work?](#how-does-sr-iov-work)
   - [PCIe Bridge vs Switch](#pcie-bridge-vs-switch)
   - [PCIe Configuration Space](#pcie-configuration-space)
+  - [PCIe Switches](#pcie-switches)
+
+
+## PCIe Basics and Background
+
+https://pcisig.com/sites/default/files/files/PCI_Express_Basics_Background.pdf#page=26
+
+## How multiple root complexes are handled
+
+https://codywu2010.wordpress.com/2015/11/29/how-modern-multi-processor-multi-root-complex-system-assigns-pci-bus-number/
+
+## Interpreting PCIe Device to CPU Locality Information
+
+https://dshcherb.github.io/2019/02/02/interpreting-pcie-device-to-cpu-locality-information.html
 
 ## What is the PCIe PHY
 
@@ -122,3 +139,9 @@ Clemens
 ## PCIe Configuration Space
 
 https://docs.oracle.com/cd/E19683-01/806-5222/hwovr-22/#:~:text=The%20PCI%20host%20bridge%20provides,of%20other%20PCI%20bus%20masters.
+
+https://bitwiseanne.wordpress.com/2020/05/15/pcie-101-the-root-complex-and-the-endpoint/
+
+## PCIe Switches
+
+https://linuxhint.com/pcie-switch/#:~:text=PCIe%20switches%20are%20devices%20that,the%20CPU%20alone%20can%20handle.
