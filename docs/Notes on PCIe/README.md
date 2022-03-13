@@ -17,6 +17,8 @@
   - [PCIe BAR Register](#pcie-bar-register)
   - [How NVMe Drive Opcodes Work](#how-nvme-drive-opcodes-work)
   - [How does SR-IOV work?](#how-does-sr-iov-work)
+  - [PCIe Bridge vs Switch](#pcie-bridge-vs-switch)
+  - [PCIe Configuration Space](#pcie-configuration-space)
 
 ## What is the PCIe PHY
 
@@ -93,3 +95,30 @@ https://docs.microsoft.com/en-us/windows-hardware/drivers/network/overview-of-si
 
 Architecture: https://docs.microsoft.com/en-us/windows-hardware/drivers/network/sr-iov-architecture
 
+## PCIe Bridge vs Switch
+wke...@gmail.com wrote:
+> I would appreciate of someone can explain the difference between
+> a PCI bridge and a PCI switch.
+
+With good ol' PCI, a single bus can have many devices. A PCI bridge
+is a device that connects multiple buses together, which is something
+that was very seldom needed.
+
+PCI Express looks, for software, very similar to PCI, but is electrically
+a point-to-point connection, i.e., a PCIe bus has exactly two devices.
+
+To connect PCIe with PCI, you need a PCI/PCIe or PCIe/PCI bridge.
+
+If you have a single PCIe connector and multiple PCIe devices, you need
+a PCIe switch. A single PCIe connection still is between exactly two
+devices, so a PCIe switch consists of a (virtual) PCI bridge for the
+upstream PCIe connection, and one (virtual) PCI bridge for each
+downstream PCIe connection.
+
+
+Regards,
+Clemens
+
+## PCIe Configuration Space
+
+https://docs.oracle.com/cd/E19683-01/806-5222/hwovr-22/#:~:text=The%20PCI%20host%20bridge%20provides,of%20other%20PCI%20bus%20masters.
