@@ -85,7 +85,7 @@ In our example, if a process is running on Core L#0, logical processor P#36, the
 
 Fun fact: When looking at things like [the Technical Guide](https://i.dell.com/sites/csdocuments/Product_Docs/en/dell-emc-poweredge-r7525-technical-guide.pdf) for servers you have to account for this when looking at total PCIe lane availability. The AMD EPYC gen 2/3 processors both support up to 128 PCIe lanes per processor BUT this is a bit misleading. When you have servers like the Dell R7525 (or any other vendor's two socket AMD server like HP's DL385) the two procs are connected via XGMI however XGMI consumes 48 PCIe lanes *per processor* so when doing your calculus you actually only end up seeing 80 per processor for a total of 160.
 
-### PCIe
+### PCIe Background
 
 The last part of the diagram we haven't touched on is PCIe. Not to be confused with NUMA, PCIe devices also have locality to processors. Each processor has a certain number of PCIe lanes attached directly to it. Just like memory, if you have a process running on, let's say, package L#3 and it is writing to NVMe drive nvme3n1 that process will write more quickly than a process running on package L#0 which must write across the QPI bus, through package L#3, and then to the drive.
 
@@ -117,6 +117,21 @@ This term is also overused and confusing. In older architectures there's a lot a
 
 **[What is the PCIe bus](https://www.easytechjunkie.com/what-is-a-pcie-bus.htm)**: This term is also super confusing in 2022. Way back in the original PCI spec before PCIe was a thing there was a literal parallel bus. As in, you had a whole bunch of devices sharing a physical bus along with all the problems that brings (of which there are many). In PCIe devices aren't attached to this kind of bus. In fact, I find it a bit obnoxious that we even use the word bus (even though it is technically correct). When I see people use the word "bus" in terms of PCIe what they usually mean is the [serial connection](https://computer.howstuffworks.com/pci-express.htm) consisting of multiple bidirectional PCIe lanes connecting the PCIe device (endpoint) to the root complex or PCIe switch.
 
+### Interpreting PCIe
+
+As you might be able to guess, this is extremely device specific.
+
+The numbers shown next to the wires (3.9, 1.2, etc) are the **unrounded** transfer speeds in [gigabytes per second](https://github.com/open-mpi/hwloc/issues/372). The various NVMe devices are fairly self explanatory. However, when it comes to networking, this is where it gets interesting. The network device shown is actually a Dell network daughter card (NDC) and all four interfaces shown in Package L#0 are actually the same network card. I confirmed this by cross referencing the xml output of lstopo with `ip a s`. See below picture
+
+![](images/2022-03-13-18-30-28.png)
+
+ It would seem that under the hood, for the NDC, Dell actually ran a x4 lane to the two SFP interfaces and a x2 lane for the copper interfaces. This makes sense because those ethernet interfaces are only 1Gb/s. The rest of the devices are as follows:
+ 
+ - Bus 25:00:0 is a BOSS card
+ - Bus 00:11.5 is the platform controller hub (PCH)
+   - If you're curious why you don't see the iDRAC's ethernet interface, this is because all communication with the iDRAC, assuming you aren't using RMI, goes through the PCH.
+ - Bus 03:00.0 is the VGA port
+ - For the eagle eyed you may notice the PERC is absent - I have it disconnected right now.
 
 ## Research
 
