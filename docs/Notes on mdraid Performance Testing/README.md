@@ -5,6 +5,19 @@
     - [What are NUMAs per socket?](#what-are-numas-per-socket)
     - [What is rq_affinity](#what-is-rq_affinity)
   - [Configuration](#configuration)
+  - [My Hardware](#my-hardware)
+  - [My Configuration](#my-configuration)
+    - [FIO](#fio)
+      - [libaio](#libaio)
+      - [I/O Depth](#io-depth)
+      - [Direct](#direct)
+      - [Ramp Time](#ramp-time)
+      - [Time Based](#time-based)
+      - [readwrite (rw)](#readwrite-rw)
+      - [Name](#name)
+      - [numjobs](#numjobs)
+      - [Blocksize](#blocksize)
+    - [Raw I/O Testing](#raw-io-testing)
   - [Research](#research)
     - [I/O Models](#io-models)
       - [Blocking I/O](#blocking-io)
@@ -24,6 +37,7 @@
       - [Sectors](#sectors)
       - [Blocks](#blocks)
       - [Segments](#segments)
+    - [Generic Block layer](#generic-block-layer)
   - [My Questions](#my-questions)
 
 ## My Notes
@@ -50,6 +64,56 @@ mdraid looks like it has two stripes 12 NVMe drives in one and 12 in the other a
 They are all numa aligned by some program called map_numa.sh.
 
 Must check drive
+
+## My Hardware
+
+Dell R840
+12 Intel P4610
+## My Configuration
+
+1. I checked firmware rev with `nvme list` to make sure that all drives were the same
+
+### FIO
+
+#### libaio
+
+Linux native asynchronous I/O. Note that Linux may only support queued behavior with non-buffered I/O (set direct=1 or buffered=0). This engine defines engine specific options.
+
+#### I/O Depth
+
+Number of I/O units to keep in flight against the file. Note that increasing iodepth beyond 1 will not affect synchronous ioengines (except for small degrees when verify_async is in use). Even async engines may impose OS restrictions causing the desired depth not to be achieved. This may happen on Linux when using libaio and not setting direct=1, since buffered I/O is not async on that OS. Keep an eye on the I/O depth distribution in the fio output to verify that the achieved depth is as expected. Default: 1.
+
+#### Direct
+
+If value is true, use non-buffered I/O. This is usually O_DIRECT. Note that OpenBSD and ZFS on Solaris don’t support direct I/O. On Windows the synchronous ioengines don’t support direct I/O. Default: false.
+
+#### Ramp Time
+
+If set, fio will run the specified workload for this amount of time before logging any performance numbers. Useful for letting performance settle before logging results, thus minimizing the runtime required for stable results. Note that the ramp_time is considered lead in time for a job, thus it will increase the total runtime if a special timeout or runtime is specified. When the unit is omitted, the value is given in seconds.
+
+#### Time Based
+
+If set, fio will run for the duration of the runtime specified even if the file(s) are completely read or written. It will simply loop over the same workload as many times as the runtime allows.
+
+#### readwrite (rw)
+
+Type of I/O pattern. Fio defaults to read if the option is not specified. For the mixed I/O types, the default is to split them 50/50. For certain types of I/O the result may still be skewed a bit, since the speed may be different.
+
+It is possible to specify the number of I/Os to do before getting a new offset by appending :<nr> to the end of the string given. For a random read, it would look like rw=randread:8 for passing in an offset modifier with a value of 8. If the suffix is used with a sequential I/O pattern, then the <nr> value specified will be added to the generated offset for each I/O turning sequential I/O into sequential I/O with holes. For instance, using rw=write:4k will skip 4k for every write. Also see the rw_sequencer option.
+
+#### Name
+
+ASCII name of the job. This may be used to override the name printed by fio for this job. Otherwise the job name is used. On the command line this parameter has the special purpose of also signaling the start of a new job.
+
+#### numjobs
+
+Create the specified number of clones of this job. Each clone of job is spawned as an independent thread or process. May be used to setup a larger number of threads/processes doing the same thing. Each thread is reported separately; to see statistics for all clones as a whole, use group_reporting in conjunction with new_group. See --max-jobs. Default: 1.
+
+#### Blocksize
+
+The block size in bytes used for I/O units. Default: 4096. A single value applies to reads, writes, and trims. Comma-separated values may be specified for reads, writes, and trims. A value not terminated in a comma applies to subsequent types.
+
+### Raw I/O Testing
 
 ## Research
 
@@ -171,6 +235,10 @@ We know that each disk I/ O operation consists of transferring the contents of s
 The disk controller takes care of the whole data transfer; for instance, in a read operation the controller fetches the data from the adjacent disk sectors and scatters it into the various memory areas. To make use of scatter-gather DMA operations, block device drivers must handle the data in units called segments . A segment is simply a memory page — or a portion of a memory page — that includes the data of some adjacent disk sectors. Thus, a scatter-gather DMA operation may involve several segments at once. Notice that a block device driver does not need to know about blocks, block sizes, and block buffers. Thus, even if a segment is seen by the higher levels as a page composed of several block buffers, the block device driver does not care about it. As we’ll see, the generic block layer can merge different segments if the corresponding page frames happen to be contiguous in RAM and the corresponding chunks of disk data are adjacent on disk. The larger memory area resulting from this merge operation is called physical segment. Yet another merge operation is allowed on architectures that handle the mapping between bus addresses and physical addresses through a dedicated bus circuitry (the IO-MMU; see the section "Direct Memory Access (DMA)" in Chapter 13). The memory area resulting from this kind of merge operation is called hardware segment . Because we will focus on the 80 × 86 architecture, which has no such dynamic mapping between bus addresses and physical addresses, we will assume in the rest of this chapter that hardware segments always coincide with physical segments .
 
 TODO - need to go read about how DMA works
+
+### Generic Block layer
+
+
 
 ## My Questions
 
