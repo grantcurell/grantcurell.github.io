@@ -1,13 +1,18 @@
 # Notes on mdraid Performance Testing
 
 - [Notes on mdraid Performance Testing](#notes-on-mdraid-performance-testing)
+  - [Helpful Resources](#helpful-resources)
+  - [Helpful Commands](#helpful-commands)
+    - [Check I/O Scheduler](#check-io-scheduler)
+    - [Check Available CPU Governors](#check-available-cpu-governors)
+  - [RAW IO vs Direct IO](#raw-io-vs-direct-io)
   - [My Notes](#my-notes)
     - [What are NUMAs per socket?](#what-are-numas-per-socket)
     - [What is rq_affinity](#what-is-rq_affinity)
   - [Configuration](#configuration)
   - [My Hardware](#my-hardware)
   - [My Configuration](#my-configuration)
-    - [FIO](#fio)
+    - [FIO Command](#fio-command)
       - [libaio](#libaio)
       - [I/O Depth](#io-depth)
       - [Direct](#direct)
@@ -19,6 +24,9 @@
       - [Blocksize](#blocksize)
     - [Raw I/O Testing](#raw-io-testing)
   - [Research](#research)
+  - [P-states and C-States](#p-states-and-c-states)
+    - [Power performance states (ACPI P states)](#power-performance-states-acpi-p-states)
+    - [Processor idle sleep states (ACPI C states)](#processor-idle-sleep-states-acpi-c-states)
     - [I/O Models](#io-models)
       - [Blocking I/O](#blocking-io)
       - [Nonblocking I/O](#nonblocking-io)
@@ -39,6 +47,41 @@
       - [Segments](#segments)
     - [Generic Block layer](#generic-block-layer)
   - [My Questions](#my-questions)
+
+
+## Helpful Resources
+
+https://www.amd.com/system/files/TechDocs/56163-PUB.pdf
+
+https://www.computerworld.com/article/2785965/raw-disk-i-o.html
+
+https://www.cloudbees.com/blog/linux-io-scheduler-tuning
+
+https://wiki.ubuntu.com/Kernel/Reference/IOSchedulers
+
+## Helpful Commands
+
+### Check I/O Scheduler
+
+```bash
+# cat /sys/block/sda/queue/scheduler
+noop [deadline] cfq
+```
+
+### Check Available CPU Governors
+
+```bash
+cpupower frequency-info --governors
+analyzing CPU 0:
+  available cpufreq governors: performance powersave
+```
+
+
+## RAW IO vs Direct IO
+
+Raw I/O is issued directly to disk offsets, bypassing the file system altogether. It has been used by some applications, especially databases, that can manage and cache their own data better than the file system cache. A drawback is more complexity in the software. From Oracle’s official website, input/output (I/O) to a raw partition offers approximately a 5% to 10% performance improvement over I/O to a partition with a file system on it.
+
+Direct I/O allows applications to use a file system but bypass the file system cache, for example, by using the O_DIRECT open(2) flag on Linux. This is similar to synchronous writes (but without the guarantees that O_SYNC offers), and it works for reads as well. It isn’t as direct as raw device I/O, since mapping of file offsets to disk offsets must still be performed by file system code, and I/O may also be resized to match the size used by the file system for on-disk layout (its record size) or it may error (EINVAL).
 
 ## My Notes
 
@@ -69,11 +112,15 @@ Must check drive
 
 Dell R840
 12 Intel P4610
+NVMe drives are only attached to processors three and four in the split backplane configuartion.
 ## My Configuration
 
-1. I checked firmware rev with `nvme list` to make sure that all drives were the same
+1. I checked firmware rev with `nvme list` to make sure that all drives were the same. If not need to update
+   1. TODO still need to do
+2. Set the CPU governor to performance. You can check the governors with `cpupower frequency-info --governors` and then set it with `cpupower frequency-set --governor performance`. You can check the current governor with `cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor` (substitute the CPU number accordingly)
+3. 
 
-### FIO
+### FIO Command
 
 #### libaio
 
@@ -116,6 +163,18 @@ The block size in bytes used for I/O units. Default: 4096. A single value applie
 ### Raw I/O Testing
 
 ## Research
+
+## P-states and C-States
+
+These are defined in the ACPI specification.
+
+### Power performance states (ACPI P states)
+
+P-states provide a way to scale the frequency and voltage at which the processor runs so as to reduce the power consumption of the CPU. The number of available P-states can be different for each model of CPU, even those from the same family.
+
+### Processor idle sleep states (ACPI C states)
+
+C-states are states when the CPU has reduced or turned off selected functions. Different processors support different numbers of C-states in which various parts of the CPU are turned off. To better understand the C-states that are supported and exposed, contact the CPU vendor. Generally, higher C-states turn off more parts of the CPU, which significantly reduce power consumption. Processors may have deeper C-states that are not exposed to the operating system.
 
 ### I/O Models
 
