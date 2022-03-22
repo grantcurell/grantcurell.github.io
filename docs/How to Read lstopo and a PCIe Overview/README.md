@@ -131,7 +131,13 @@ The numbers shown next to the wires (3.9, 1.2, etc) are the **unrounded** transf
  - Bus 00:11.5 is the platform controller hub (PCH)
    - If you're curious why you don't see the iDRAC's ethernet interface, this is because all communication with the iDRAC, assuming you aren't using RMI, goes through the PCH.
  - Bus 03:00.0 is the VGA port
- - For the eagle eyed you may notice the PERC is absent - I have it disconnected right now.
+ - For the eagle eyed you may notice the PERC is absent - I have it disconnected right now. It would normally have shown up on package L#0.
+
+#### Understanding PCIe Switches vs Functions
+
+The last thing I thought was a bit hard to descipher without some cross reference 
+
+
 
 ## Research
 

@@ -22,6 +22,8 @@
       - [Name](#name)
       - [numjobs](#numjobs)
       - [Blocksize](#blocksize)
+      - [NUMA Memory Policy](#numa-memory-policy)
+      - [NUMA CPU Nodes](#numa-cpu-nodes)
     - [Raw I/O Testing](#raw-io-testing)
   - [Research](#research)
   - [P-states and C-States](#p-states-and-c-states)
@@ -58,6 +60,10 @@ https://www.computerworld.com/article/2785965/raw-disk-i-o.html
 https://www.cloudbees.com/blog/linux-io-scheduler-tuning
 
 https://wiki.ubuntu.com/Kernel/Reference/IOSchedulers
+
+http://developer.amd.com/wp-content/resources/56420.pdf
+
+https://infohub.delltechnologies.com/l/cpu-best-practices-3/poweredge-numa-nodes-per-socket-1#:~:text=AMD%20servers%20provide%20the%20ability,bank%20into%20two%20equal%20parts.
 
 ## Helpful Commands
 
@@ -159,6 +165,20 @@ Create the specified number of clones of this job. Each clone of job is spawned 
 #### Blocksize
 
 The block size in bytes used for I/O units. Default: 4096. A single value applies to reads, writes, and trims. Comma-separated values may be specified for reads, writes, and trims. A value not terminated in a comma applies to subsequent types.
+
+#### NUMA Memory Policy
+
+Set this job’s memory policy and corresponding NUMA nodes. Format of the arguments:
+
+```
+<mode>[:<nodelist>]
+```
+
+mode is one of the following memory policies: default, prefer, bind, interleave or local. For default and local memory policies, no node needs to be specified. For prefer, only one node is allowed. For bind and interleave the nodelist may be as follows: a comma delimited list of numbers, A-B ranges, or all.
+
+#### NUMA CPU Nodes
+
+Set this job running on specified NUMA nodes’ CPUs. The arguments allow comma delimited list of cpu numbers, A-B ranges, or all. Note, to enable NUMA options support, fio must be built on a system with libnuma-dev(el) installed.
 
 ### Raw I/O Testing
 

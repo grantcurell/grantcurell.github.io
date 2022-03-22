@@ -5,6 +5,7 @@
 ![](images/2021-04-11-18-25-48.png)
 
 Source port for span is Switch 1, 1/1/9
+Our goal is to move the traffic through switch 2, which is just an intermediary switch, to port 1/1/11 on switch 3 which will finally move it out port 1/1/12 where our laptop is listening.
 
 We will use VLAN 99 to transport our RSPAN traffic
 
@@ -115,7 +116,7 @@ One of the things that's different about the Dell configuration is the use of AC
     source interface ethernet1/1/11
     no shut
 
-
+Notice here that there is an access list which captures the traffic on the inbound trunk interface. This access list is required. Also notice that on our monitor session we have `flow-based enable` which is also a requirement.
 
 ## How RSPAN Works Under the Hood
 
