@@ -382,7 +382,8 @@
                 <h1 id="set-up-rspan-on-os10">Set Up RSPAN on OS10</h1>
 <h2 id="setup">Setup</h2>
 <p><img alt="" src="images/2021-04-11-18-25-48.png" /></p>
-<p>Source port for span is Switch 1, 1/1/9</p>
+<p>Source port for span is Switch 1, 1/1/9
+Our goal is to move the traffic through switch 2, which is just an intermediary switch, to port 1/1/11 on switch 3 which will finally move it out port 1/1/12 where our laptop is listening.</p>
 <p>We will use VLAN 99 to transport our RSPAN traffic</p>
 <h2 id="explanation">Explanation</h2>
 <p>One of the things that's different about the Dell configuration is the use of ACLs in the configuration. The way OS10 sees RSPAN is on the source side you grab whatever source you want and then you push that to a special "remote" VLAN. This is indicated only on the source switch itself. Then, each other intermediate and destination switch uses an ACL to indicate what traffic should be captured from that VLAN and subsequently forwarded. Finally, on the destination a regular local monitor session is used to pull the traffic from the RSPAN VLAN and push it t o network sensors.</p>
@@ -479,6 +480,7 @@ flow-based enable
 source interface ethernet1/1/11
 no shut
 </code></pre>
+<p>Notice here that there is an access list which captures the traffic on the inbound trunk interface. This access list is required. Also notice that on our monitor session we have <code>flow-based enable</code> which is also a requirement.</p>
 <h2 id="how-rspan-works-under-the-hood">How RSPAN Works Under the Hood</h2>
 <ol>
 <li>When you run commands in OS10 what you're really doing is calling into wrapper functions which ultimately do two things: configure the NPU and configure Debian. The commands you run are actually governed by a series of YANG files which exhaustively define what commands are acceptable and in what contexts. For example, the <code>rpm-source</code> command is defined in an enum here in <code>/alt/opt/dell/os10/share/yang-models/dell-span.yang</code>:</li>

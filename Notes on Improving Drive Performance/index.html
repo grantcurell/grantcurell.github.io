@@ -9,7 +9,7 @@
   
   
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>Notes on PCIe - Grant Curell's Dell Projects</title>
+  <title>Index - Grant Curell's Dell Projects</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
   <link rel="stylesheet" href="../css/theme.css" />
@@ -18,8 +18,8 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Notes on PCIe";
-    var mkdocs_page_input_path = "Notes on PCIe/README.md";
+    var mkdocs_page_name = "Index";
+    var mkdocs_page_input_path = "Notes on Improving Drive Performance/README.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -174,54 +174,8 @@
                     <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20HPC/">Notes on HPC</a>
                     </li>
                 </ul>
-                <ul class="current">
-                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Notes on PCIe</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#pcie-basics-and-background">PCIe Basics and Background</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#how-multiple-root-complexes-are-handled">How multiple root complexes are handled</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#interpreting-pcie-device-to-cpu-locality-information">Interpreting PCIe Device to CPU Locality Information</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#what-is-the-pcie-phy">What is the PCIe PHY</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#human-readable-overview-of-how-pcie-works">Human readable overview of how PCIe works</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#how-does-id-based-ordering-ido-work">How does ID-based Ordering (IDO) Work?</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#how-does-transaction-ordering-work">How does transaction ordering work?</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#what-is-a-pcie-root-complex">What is a PCIe Root Complex?</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#how-does-pcie-enumeration-work">How does PCIe Enumeration Work?</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#nvme-over-pcie-vs-other-protocols">NVMe over PCIe vs Other Protocols</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#what-is-a-pcie-function">What is a PCIe Function?</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#pcie-bus-and-numa-node-correlation">PCIe-Bus and NUMA Node Correlation</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#how-does-the-root-complex-work">How does the root complex work?</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#what-is-pcie-p2p">What is PCIe P2P?</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#what-is-relaxed-ordering">What is Relaxed Ordering</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#what-is-a-traffic-class-tc">What is a traffic class (TC)?</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#pcie-bar-register">PCIe BAR Register</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#how-nvme-drive-opcodes-work">How NVMe Drive Opcodes Work</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#how-does-sr-iov-work">How does SR-IOV work?</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#pcie-bridge-vs-switch">PCIe Bridge vs Switch</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#pcie-configuration-space">PCIe Configuration Space</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#pcie-switches">PCIe Switches</a>
-    </li>
-    </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20PCIe/">Notes on PCIe</a>
                     </li>
                 </ul>
                 <ul>
@@ -381,7 +335,7 @@
     
       
     
-    <li>Notes on PCIe</li>
+    <li>Index</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -393,118 +347,13 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="notes-on-pcie">Notes on PCIe</h1>
-<ul>
-<li><a href="#notes-on-pcie">Notes on PCIe</a></li>
-<li><a href="#pcie-basics-and-background">PCIe Basics and Background</a></li>
-<li><a href="#how-multiple-root-complexes-are-handled">How multiple root complexes are handled</a></li>
-<li><a href="#interpreting-pcie-device-to-cpu-locality-information">Interpreting PCIe Device to CPU Locality Information</a></li>
-<li><a href="#what-is-the-pcie-phy">What is the PCIe PHY</a></li>
-<li><a href="#human-readable-overview-of-how-pcie-works">Human readable overview of how PCIe works</a></li>
-<li><a href="#how-does-id-based-ordering-ido-work">How does ID-based Ordering (IDO) Work?</a></li>
-<li><a href="#how-does-transaction-ordering-work">How does transaction ordering work?</a></li>
-<li><a href="#what-is-a-pcie-root-complex">What is a PCIe Root Complex?</a></li>
-<li><a href="#how-does-pcie-enumeration-work">How does PCIe Enumeration Work?</a></li>
-<li><a href="#nvme-over-pcie-vs-other-protocols">NVMe over PCIe vs Other Protocols</a></li>
-<li><a href="#what-is-a-pcie-function">What is a PCIe Function?</a></li>
-<li><a href="#pcie-bus-and-numa-node-correlation">PCIe-Bus and NUMA Node Correlation</a></li>
-<li><a href="#how-does-the-root-complex-work">How does the root complex work?</a></li>
-<li><a href="#what-is-pcie-p2p">What is PCIe P2P?</a></li>
-<li><a href="#what-is-relaxed-ordering">What is Relaxed Ordering</a></li>
-<li><a href="#what-is-a-traffic-class-tc">What is a traffic class (TC)?</a></li>
-<li><a href="#pcie-bar-register">PCIe BAR Register</a></li>
-<li><a href="#how-nvme-drive-opcodes-work">How NVMe Drive Opcodes Work</a></li>
-<li><a href="#how-does-sr-iov-work">How does SR-IOV work?</a></li>
-<li><a href="#pcie-bridge-vs-switch">PCIe Bridge vs Switch</a></li>
-<li><a href="#pcie-configuration-space">PCIe Configuration Space</a></li>
-<li><a href="#pcie-switches">PCIe Switches</a></li>
-</ul>
-<h2 id="pcie-basics-and-background">PCIe Basics and Background</h2>
-<p>https://pcisig.com/sites/default/files/files/PCI_Express_Basics_Background.pdf#page=26</p>
-<h2 id="how-multiple-root-complexes-are-handled">How multiple root complexes are handled</h2>
-<p>https://codywu2010.wordpress.com/2015/11/29/how-modern-multi-processor-multi-root-complex-system-assigns-pci-bus-number/</p>
-<h2 id="interpreting-pcie-device-to-cpu-locality-information">Interpreting PCIe Device to CPU Locality Information</h2>
-<p>https://dshcherb.github.io/2019/02/02/interpreting-pcie-device-to-cpu-locality-information.html</p>
-<h2 id="what-is-the-pcie-phy">What is the PCIe PHY</h2>
-<p>https://www.linkedin.com/pulse/pci-express-depth-physical-layer-luigi-c-filho-/</p>
-<h2 id="human-readable-overview-of-how-pcie-works">Human readable overview of how PCIe works</h2>
-<p>http://xillybus.com/tutorials/pci-express-tlp-pcie-primer-tutorial-guide-1/
-http://xillybus.com/tutorials/pci-express-tlp-pcie-primer-tutorial-guide-2</p>
-<h2 id="how-does-id-based-ordering-ido-work">How does ID-based Ordering (IDO) Work?</h2>
-<p>https://blog.csdn.net/weixin_48180416/article/details/115790068</p>
-<h2 id="how-does-transaction-ordering-work">How does transaction ordering work?</h2>
-<p>https://blog.csdn.net/weixin_40357487/article/details/120162461?spm=1001.2101.3001.6661.1&amp;utm_medium=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7ECTRLIST%7Edefault-1.no_search_link&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7ECTRLIST%7Edefault-1.no_search_link&amp;utm_relevant_index=1</p>
-<h2 id="what-is-a-pcie-root-complex">What is a PCIe Root Complex?</h2>
-<p>https://www.quora.com/What-is-a-PCIe-root-complex?share=1</p>
-<h2 id="how-does-pcie-enumeration-work">How does PCIe Enumeration Work?</h2>
-<p>https://www.quora.com/What-is-PCIE-enumeration/answer/Satish-Kumar-525?ch=15&amp;oid=31389493&amp;share=44585235&amp;target_type=answer</p>
-<h2 id="nvme-over-pcie-vs-other-protocols">NVMe over PCIe vs Other Protocols</h2>
-<p>https://www.quora.com/Is-NVMe-faster-than-PCIe/answer/Mike-Jones-169?ch=15&amp;oid=193548046&amp;share=a587ff45&amp;target_type=answer</p>
-<h2 id="what-is-a-pcie-function">What is a PCIe Function?</h2>
-<p>https://www.quora.com/What-is-a-PCIe-function/answer/Udit-Khanna-2?ch=15&amp;oid=58319695&amp;share=c7f066e5&amp;target_type=answer</p>
-<h2 id="pcie-bus-and-numa-node-correlation">PCIe-Bus and NUMA Node Correlation</h2>
-<p>https://social.msdn.microsoft.com/Forums/en-US/fabb05b7-eb3f-4a7c-91c5-1ced90af3d0c/pciebus-and-numanode-correlation</p>
-<h2 id="how-does-the-root-complex-work">How does the root complex work?</h2>
-<p>https://codywu2010.wordpress.com/2015/11/29/how-modern-multi-processor-multi-root-complex-system-assigns-pci-bus-number/</p>
-<h2 id="what-is-pcie-p2p">What is PCIe P2P?</h2>
-<p>https://xilinx.github.io/XRT/master/html/p2p.html</p>
-<h2 id="what-is-relaxed-ordering">What is Relaxed Ordering</h2>
-<p>https://qr.ae/pG6SWe</p>
-<h2 id="what-is-a-traffic-class-tc">What is a traffic class (TC)?</h2>
-<p>https://www.oreilly.com/library/view/pci-express-system/0321156307/0321156307_ch06lev1sec6.html</p>
-<h2 id="pcie-bar-register">PCIe BAR Register</h2>
-<p>https://github.com/cirosantilli/linux-kernel-module-cheat/blob/366b1c1af269f56d6a7e6464f2862ba2bc368062/kernel_module/pci.c</p>
-<h2 id="how-nvme-drive-opcodes-work">How NVMe Drive Opcodes Work</h2>
-<p>https://stackoverflow.com/questions/30190050/what-is-the-base-address-register-bar-in-pcie
-https://stackoverflow.com/questions/19006632/how-is-a-pci-pcie-bar-size-determined</p>
-<ul>
-<li>BIOS/OS discovers whether PCIe device exists</li>
-<li>Places the addresses for mmio or I/O port addresses in NVMe drive​'s BAR registers (which it figures out from the configuration registers)</li>
-<li>It seems from the documentation I found NVMe does this through 64bit mmio</li>
-<li>Driver establishes the admin queue via BAR0. The admin queue's base addresses are in ASQ and ACQ respectively</li>
-<li>I submit commands to the admin submission queue to establish I/O queues.</li>
-<li>Send/receive data via I/O queues.</li>
-</ul>
-<h2 id="how-does-sr-iov-work">How does SR-IOV work?</h2>
-<p>https://docs.microsoft.com/en-us/windows-hardware/drivers/network/overview-of-single-root-i-o-virtualization--sr-iov-</p>
-<p>Architecture: https://docs.microsoft.com/en-us/windows-hardware/drivers/network/sr-iov-architecture</p>
-<h2 id="pcie-bridge-vs-switch">PCIe Bridge vs Switch</h2>
-<p>wke...@gmail.com wrote:</p>
-<blockquote>
-<p>I would appreciate of someone can explain the difference between
-a PCI bridge and a PCI switch.</p>
-</blockquote>
-<p>With good ol' PCI, a single bus can have many devices. A PCI bridge
-is a device that connects multiple buses together, which is something
-that was very seldom needed.</p>
-<p>PCI Express looks, for software, very similar to PCI, but is electrically
-a point-to-point connection, i.e., a PCIe bus has exactly two devices.</p>
-<p>To connect PCIe with PCI, you need a PCI/PCIe or PCIe/PCI bridge.</p>
-<p>If you have a single PCIe connector and multiple PCIe devices, you need
-a PCIe switch. A single PCIe connection still is between exactly two
-devices, so a PCIe switch consists of a (virtual) PCI bridge for the
-upstream PCIe connection, and one (virtual) PCI bridge for each
-downstream PCIe connection.</p>
-<p>Regards,
-Clemens</p>
-<h2 id="pcie-configuration-space">PCIe Configuration Space</h2>
-<p>https://docs.oracle.com/cd/E19683-01/806-5222/hwovr-22/#:~:text=The%20PCI%20host%20bridge%20provides,of%20other%20PCI%20bus%20masters.</p>
-<p>https://bitwiseanne.wordpress.com/2020/05/15/pcie-101-the-root-complex-and-the-endpoint/</p>
-<h2 id="pcie-switches">PCIe Switches</h2>
-<p>https://linuxhint.com/pcie-switch/#:~:text=PCIe%20switches%20are%20devices%20that,the%20CPU%20alone%20can%20handle.</p>
+                <h2 id="located-numa-nodes">Located NUMA Nodes</h2>
+<p>https://community.mellanox.com/s/article/understanding-numa-node-for-performance-benchmarks</p>
+<h2 id="definition-of-drive-stats">Definition of Drive Stats</h2>
               
             </div>
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="../Nvidia%20GPUDirect/" class="btn btn-neutral float-right" title="Nvidia GPUDirect">Next <span class="icon icon-circle-arrow-right"></span></a>
-      
-      
-        <a href="../Notes%20on%20HPC/" class="btn btn-neutral" title="Notes on HPC"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>
@@ -528,10 +377,6 @@ Clemens</p>
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../Notes%20on%20HPC/" style="color: #fcfcfc">&laquo; Previous</a></span>
-    
-    
-      <span><a href="../Nvidia%20GPUDirect/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
