@@ -1,4 +1,49 @@
-# NVMe Log Pages Explained
+# Notes on NVMe Log Pages
+
+- [Notes on NVMe Log Pages](#notes-on-nvme-log-pages)
+  - [Quick Overview](#quick-overview)
+  - [My Test Drive](#my-test-drive)
+  - [Get Log Page Identifiers](#get-log-page-identifiers)
+  - [Error Information (01h)](#error-information-01h)
+    - [Sample Output](#sample-output)
+  - [SMART / Health Information (02h)](#smart--health-information-02h)
+    - [Sample Output](#sample-output-1)
+  - [Firmware Slot Information (03h)](#firmware-slot-information-03h)
+    - [Sample Output](#sample-output-2)
+  - [Changed Namespace List (04h)](#changed-namespace-list-04h)
+  - [Commands Supported and Effects (05h)](#commands-supported-and-effects-05h)
+    - [Sample Output](#sample-output-3)
+  - [Device Self-test (06h)](#device-self-test-06h)
+  - [Telemetry Host-Initiated (07h)](#telemetry-host-initiated-07h)
+    - [Notes on Telemetry](#notes-on-telemetry)
+    - [Sample Output](#sample-output-4)
+  - [Telemetry Controller-Initiated (08h)](#telemetry-controller-initiated-08h)
+    - [Notes on Telemetry](#notes-on-telemetry-1)
+    - [Sample Output](#sample-output-5)
+  - [Endurance Group Information (09h)](#endurance-group-information-09h)
+  - [Predictable Latency Per NVM Set (0Ah)](#predictable-latency-per-nvm-set-0ah)
+  - [Predictable Latency Event Aggregate Log Page (0Bh)](#predictable-latency-event-aggregate-log-page-0bh)
+  - [Asymmetric Namespace Access (0Ch)](#asymmetric-namespace-access-0ch)
+  - [Persistent Event Log (0Dh)](#persistent-event-log-0dh)
+  - [Endurance Group Event Aggregate (0Fh)](#endurance-group-event-aggregate-0fh)
+  - [Media Unit Status (10h)](#media-unit-status-10h)
+  - [Supported Capacity Configuration List (11h)](#supported-capacity-configuration-list-11h)
+  - [Feature Identifiers Supported and Effects (12h)](#feature-identifiers-supported-and-effects-12h)
+  - [NVMe-MI Commands Supported and Effects (13h)](#nvme-mi-commands-supported-and-effects-13h)
+  - [Command and Feature Lockdown (14h)](#command-and-feature-lockdown-14h)
+  - [Boot Partition (15h)](#boot-partition-15h)
+  - [Rotational Media Information Log (16h)](#rotational-media-information-log-16h)
+  - [Discovery Log Page (70h)](#discovery-log-page-70h)
+    - [Command Syntax](#command-syntax)
+  - [Reservation Notification (80h)](#reservation-notification-80h)
+  - [Sanitize Status (81h)](#sanitize-status-81h)
+    - [Command Syntax](#command-syntax-1)
+  - [Other NVMe CLI Commands](#other-nvme-cli-commands)
+    - [List All NVMe Drives](#list-all-nvme-drives)
+
+## Quick Overview
+
+See [this excel document](nvme_log_pages.xlsx)
 
 ## My Test Drive
 
@@ -391,6 +436,61 @@ See [page 227](images/NVMe-NVM-Express-2.0a-2021.07.26-Ratified.pdf) for details
 This log page is used to indicate which commands and Set Features Feature Identifiers are supported to be prohibited from execution using the Command and Feature Lockdown capability (refer to section 8.4) and which commands are currently prohibited if received on an NVM Express controller Admin Submission Queue or received out-of-band on a Management Endpoint (refer to the NVM Express Management Interface Specification). This log page uses the Log Specific Field field (refer to Figure 259) and may use the UUID Index field in the Get Log Page command to specify the scope and content of the list returned in the Command and Feature Identifier List field of this log page. The UUID Index field may be used if the Scope field is set to 2h, allowing returning of vendor specific Set Features Feature Identifier lockdown information.
 
 See [page 228](images/NVMe-NVM-Express-2.0a-2021.07.26-Ratified.pdf) for details.
+
+## Boot Partition (15h)
+
+**NOTE** This command is not supported and does not have any relevance to drive performance. It allows you to see the boot partition of the drive.
+
+The Boot Partition Log page provides read only access to the Boot Partition (refer to section 8.2) accessible by this controller through the BPRSEL register (refer to section 3.1.3.14). This log consists of a header describing the Boot Partition and Boot Partition data as defined by Figure 262. The Boot Partition Identifier bit in the Log Specific Field field determines the Boot Partition. A host reading this log page has no effects on the BPINFO (refer to section 3.1.3.13), BPRSEL, and BPMBL (refer to section 3.1.3.15) registers.
+
+See [page 230](images/NVMe-NVM-Express-2.0a-2021.07.26-Ratified.pdf) for details.
+
+## Rotational Media Information Log (16h)
+
+**NOTE** This is specific to multiple endurance groups so it is not supported (since there is only one)
+
+This log page provides rotational media information (refer to section 8.20) for Endurance Groups that store data on rotational media. The information provided is retained across power cycles and resets. The Endurance Group Identifier is specified in the Log Specific Identifier field in Command Dword 11 of the Get Log Page command. If the NVM subsystem does not contain any Endurance Groups that store data on rotational media, then the Rotational Media Information Log should not be supported.
+
+See [page 231](images/NVMe-NVM-Express-2.0a-2021.07.26-Ratified.pdf) for details.
+
+## Discovery Log Page (70h)
+
+**NOTE** This log page is not supported. It is specific to NVMe-over-Fabrics (ex: RDMA)
+
+The Discovery Log Page shall only be supported by Discovery controllers. The Discovery Log Page shall not be supported by controllers that expose namespaces for NVMe over PCIe or NVMe over Fabrics. The Discovery Log Page provides an inventory of NVM subsystems with which a host may attempt to form an association. The Discovery Log Page may be specific to the host requesting the log. The Discovery Log Page is persistent across power cycles. The Log Page Offset may be used to retrieve specific records. The number of records is returned in the header of the log page. The format for a Discovery Log Page Entry is defined in Figure 264. The format for the Discovery Log Page is defined in Figure 265. A single Get Log Page command used to read the Discovery Log Page shall be atomic. If the host reads the Discovery Log Page using multiple Get Log Page commands the host should ensure that there has not been a change in the contents of the data. The host should read the Discovery Log Page contents in order (i.e., with increasing Log Page Offset values) and then re-read the Generation Counter after the entire log page is transferred. If the Generation Counter does not match the original value read, the host should discard the log page read as the entries may be inconsistent. If the log page contents change during this command sequence, the controller may return a status code of Discover Restart. Every record indicates via the SUBTYPE field if that record is referring to another Discovery Service or if the record indicates an NVM subsystem composed of controllers that may expose namespaces. A referral to another Discovery Service (i.e., SUBTYPE 01h) is a mechanism to find additional Discovery subsystems. An NVM subsystem entry (i.e., SUBTYPE 02h) is a mechanism to find NVM subsystems that contain controllers that may expose namespaces. Referrals shall not be deeper than eight levels. If an NVM subsystem supports the dynamic controller model, then all entries for that NVM subsystem shall have the Controller ID field set to FFFFh. For a particular NVM subsystem port and NVMe Transport address in an NVM subsystem, there shall be no more than one entry with the Controller ID field set to: 
+- FFFFh if that NVM subsystem supports the dynamic controller model; or 
+- FFFEh if that NVM subsystem supports the static controller model.
+
+See [page 232](images/NVMe-NVM-Express-2.0a-2021.07.26-Ratified.pdf) for details.
+
+### Command Syntax
+
+This log uses the `nvme-discover` command.
+
+## Reservation Notification (80h)
+
+**NOTE** TODO
+
+The Reservation Notification log page reports one log page from a time ordered queue of Reservation Notification log pages, if available. A new Reservation Notification log page is created and added to the end of the queue of reservation notifications whenever an unmasked reservation notification occurs on any namespace that is attached to the controller. The Get Log Page command: 
+
+- returns a data buffer containing a log page corresponding to the oldest log page in the reservation notification queue (i.e., the log page containing the lowest Log Page Count field; accounting for wrapping); and 
+- removes that Reservation Notification log page from the queue.
+
+If there are no available Reservation Notification log page entries when a Get Log Page command is issued, then an empty log page (i.e., all fields in the log page cleared to 0h) shall be returned. If the controller is unable to store a reservation notification in the Reservation Notification log page due to the size of the queue, that reservation notification is lost. If a reservation notification is lost, then the controller shall increment the Log Page Count field of the last reservation notification in the queue (i.e., the Log Page Count field in the last reservation notification in the queue shall contain the value associated with the most recent reservation notification that has been lost).
+
+See [page 234](images/NVMe-NVM-Express-2.0a-2021.07.26-Ratified.pdf) for details.
+
+## Sanitize Status (81h)
+
+**NOTE** This log is not supported but has no bearing on drive performance.
+
+The Sanitize Status log page is used to report sanitize operation time estimates and information about the most recent sanitize operation (refer to section 8.20). The Get Log Page command returns a data buffer containing a log page formatted as defined in Figure 267. This log page shall be retained across power cycles and resets. This log page shall contain valid data whenever CSTS.RDY is set to ‘1’. If the Sanitize Capabilities (SANICAP) field in the Identify Controller data structure is not cleared to 0h (i.e., the Sanitize command is supported), then this log page shall be supported. If the Sanitize Capabilities field in the Identify Controller data structure is cleared to 0h, then this log page is reserved.
+
+See [page 235](images/NVMe-NVM-Express-2.0a-2021.07.26-Ratified.pdf) for details.
+
+### Command Syntax
+
+This log uses the `nvme-resv-notif-log` command.
 
 ## Other NVMe CLI Commands
 
