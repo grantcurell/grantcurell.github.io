@@ -67,4 +67,8 @@ nav:
 - VMWare/VxRail Architecture and Troubleshooting/README.md
 - Web Traffic Generator/README.md
 site_name: Grant Curell's Dell Projects
+site_author: Grant Curell
 theme: readthedocs
+site_url: grantcurell.github.io
+remote_branch: main
+repo_name: https://github.com/grantcurell/grantcurell.github.io/tree/master
