@@ -17,6 +17,7 @@ nav:
 - Get NVMe Drives from iDRAC Redfish/README.md
 - High Speed Packet Capture/README.md
 - How OS10 Installer Works/README.md
+- How to Read lstopo and a PCIe Overview/README.md
 - idrac with LDAP/README.md
 - Importing Elasticsearch Data/README.md
 - Installing DPDK with NapaTech Card/README.md
@@ -27,6 +28,7 @@ nav:
 - Load Balance Testing with OpenVSwitch/README.md
 - Load Balancing on Mellanox Switches/README.md
 - Load Balancing with LAG on 5112F-ON/README.md
+- Make USB Read Only/README.md
 - Migrating Storage Volumes to PowerStore/README.md
 - Mulitple Span on 4112F-ON with OpenSwitch/README.md
 - Multiple Span on 4112F-ON with OS10/README.md

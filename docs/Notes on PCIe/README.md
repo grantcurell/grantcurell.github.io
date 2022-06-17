@@ -23,6 +23,7 @@
   - [PCIe Bridge vs Switch](#pcie-bridge-vs-switch)
   - [PCIe Configuration Space](#pcie-configuration-space)
   - [PCIe Switches](#pcie-switches)
+  - [How to Check CPU Affinity](#how-to-check-cpu-affinity)
 
 
 ## PCIe Basics and Background
@@ -145,3 +146,21 @@ https://bitwiseanne.wordpress.com/2020/05/15/pcie-101-the-root-complex-and-the-e
 ## PCIe Switches
 
 https://linuxhint.com/pcie-switch/#:~:text=PCIe%20switches%20are%20devices%20that,the%20CPU%20alone%20can%20handle.
+
+## How to Check CPU Affinity
+
+```
+[root@r7525 ~]# cat /sys/class/pci_bus/0000\:00/cpulistaffinity
+24-31,88-95
+[root@r7525 ~]# lscpu | grep -i numa
+NUMA node(s):        8
+NUMA node0 CPU(s):   0-7,64-71
+NUMA node1 CPU(s):   8-15,72-79
+NUMA node2 CPU(s):   16-23,80-87
+NUMA node3 CPU(s):   24-31,88-95
+NUMA node4 CPU(s):   32-39,96-103
+NUMA node5 CPU(s):   40-47,104-111
+NUMA node6 CPU(s):   48-55,112-119
+NUMA node7 CPU(s):   56-63,120-127
+```
+You can check the CPU affinity of a PCIe bus and then see what processor it is aligned to by referencing the processor ranges.
