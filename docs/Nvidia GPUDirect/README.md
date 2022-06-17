@@ -39,15 +39,15 @@ See [this post](https://forums.developer.nvidia.com/t/clarification-on-requireme
 1. A queue pair and its associated resources are established exactly as described in the (generic application flow)[https://docs.nvidia.com/networking/display/RDMAAwareProgrammingv17/Typical+Application]
   1. Lines 0-192 of the attached code
 2. Register a region of host memory and fill it with a known pattern
-   1. lines 192-195
+      1.lines 192-195
 3. ​Register a region of GPU memory 
-   1. Lines 197-223
+      1.Lines 197-223
 4. Send a packet containing a known pattern from one Mellanox device to another
-   1. Lines 223-375
+      1.Lines 223-375
 5. Copy the data from the GPU device's memory region into the host system memory which we expect to overwrite the host system memory's bit pattern with the one we just sent
-   1. Line 375-380
+      1.Line 375-380
 6. Confirm that the memory patterns match. The idea being that we just sent a *new* pattern from one Mellanox device to the other and then told it to overwrite the pattern that was already in system memory with what the GPU received. The logic being that we expect the pattern which was in system memory to be overwritten by what was just sent.
-   1. This happens in lines 391-396​
+      1.This happens in lines 391-396​
 
  At no point does the CUDA toolkit issue any errors. Everything returns as a success however, the pattern in system memory *is not* overwritten. Need to determine why this simple POC does not work in order to move forward with customer.
 
@@ -138,7 +138,7 @@ See [MLX5_0](images/mlx5_0.log) and [MLX5_2](images/mlx5_2.log)
 ### MLNX_OFED
 
 1. Download MLNX_OFED drivers from https://www.mellanox.com/products/infiniband-drivers/linux/mlnx_ofed
-   1. MLNX_OFED is version dependent. I suggest you use  `subscription-manager release --set=8.4` to ensure your version of RHEL stays at the version for which MLNX_OFED was compiled
+      1.MLNX_OFED is version dependent. I suggest you use  `subscription-manager release --set=8.4` to ensure your version of RHEL stays at the version for which MLNX_OFED was compiled
 2. Upload the ISO to the target box
 3. Run:
 

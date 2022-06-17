@@ -56,7 +56,7 @@ I am running a Dell R940 with Napatech Card NT200A02
 1. `export NAPATECH3_PATH=/opt/napatech3`
 2. Download with `git clone https://github.com/napatech/dpdk.git`
 3. Edit the security limits with `vim /etc/security/limits.conf`. After making the below edits you will need to log out and log back in for them to take effect.
-   1. Add the following lines at the end of the file. This assumes you are running as root:
+      1.Add the following lines at the end of the file. This assumes you are running as root:
 
                 root    hard   memlock           unlimited
                 root    soft   memlock           unlimited

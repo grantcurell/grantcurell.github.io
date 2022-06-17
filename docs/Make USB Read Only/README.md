@@ -4,7 +4,7 @@
 
 1. Boot up a separate Linux machine and plug in the USB device you would like to make readonly
 2. Run `sudo fdisk -l` to list the available partitions
-   1. Confirm you have not built the device with a swap partition
+      1.Confirm you have not built the device with a swap partition
 
 ```
 grant@telemetrytest:/media$ sudo fdisk -l

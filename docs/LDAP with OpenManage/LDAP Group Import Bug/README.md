@@ -46,11 +46,11 @@
 
 1. Install RHEL
 2. Change hostname
-   1. `hostname freeipa.grant.lan && hostnamectl set-hostname freeipa.grant.lan`
-   2. Change in /etc/hostname
-   3. Configure DNS to return for this hostname. Double check with `dig +short freeipa.grant.lan A && dig +short -x 192.168.1.95`
+      1.`hostname freeipa.grant.lan && hostnamectl set-hostname freeipa.grant.lan`
+      2.Change in /etc/hostname
+      3.Configure DNS to return for this hostname. Double check with `dig +short freeipa.grant.lan A && dig +short -x 192.168.1.95`
 5. Follow [RHEL's instructions](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html-single/installing_identity_management/index)
-   1. I used Chapter 5 for primary installation
+      1.I used Chapter 5 for primary installation
 6. 6. Run `kinit admin` - this allows you to use the command line tools otherwise they'll complain about kerberos.
 7.  Log into FreeIPA server at `https://<your_hostname>`. In my case, Windows popped up a username and password prompt. That prompt didn't work - I had to exit it and then log into the webGUI.
 8.  Go to Users and then directory services in OpenManage. I used the following:

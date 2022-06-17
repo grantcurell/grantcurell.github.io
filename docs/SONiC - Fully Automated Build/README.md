@@ -5,7 +5,7 @@ See [Install Workflow](./overview.pptx) for an overview of how this process flow
 ## Install the Operating System
 
 1. Download SONiC OS for whatever manufacturer. In my case I pulled Dell's stable image.
-   1. Note: My testing is on a Z9264F-ON.
+      1.Note: My testing is on a Z9264F-ON.
 2. Follow the instructions [for setting up and running ONIE](../README.md#how-to-configure-onie)
 
 ## Configure ZTP

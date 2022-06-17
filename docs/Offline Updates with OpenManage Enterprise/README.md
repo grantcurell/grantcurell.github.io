@@ -28,30 +28,30 @@
 ## Instructions
 
 1. Download [Dell Repository Manager](https://www.dell.com/support/driver/us/en/19/DriversDetails?driverid=v8ym0)
-   1. Run it with `/opt/dell/dellemcrepositorymanager/drm.sh`
+      1.Run it with `/opt/dell/dellemcrepositorymanager/drm.sh`
       1. NOTE: Running it with root does not work! You will get an error: GUI interface is not supported by this operating system.
-   2. Click add repository
+      2.Click add repository
 
 ![](images/2021-04-15-10-02-09.png)
 
-   3. Select the systems for which you want to download updates under select systems
+      3.Select the systems for which you want to download updates under select systems
 
 ![](images/2021-04-15-10-03-03.png)
 
-   4. Make sure you select Windows-64 as one of the types which will be available
+      4.Make sure you select Windows-64 as one of the types which will be available
 
 ![](images/2021-04-15-10-03-50.png)
 
 1. `chmod +x <binary name>` then run with `./<binary_name>`.
 2. I chose to distribute the repository using HTTP with Apache
-   1. `dnf install httpd`
-   2. `sudo systemctl start --now httpd`
+      1.`dnf install httpd`
+      2.`sudo systemctl start --now httpd`
 3. Next you have to synchronize the repository by clicking download. I downloaded my files to `/opt/dell/catalogs/fc640`
 
 ![](images/2021-04-15-10-09-17.png)
 
 4. You then have to go open the Dell EMC Repository Manager -> Export -> Export. You will need to select which repositories you want to export and then you will want to select share and a save location.
-   1. **WARNING** You have to download the Windows 64 bit versions of the updates for it to work! Even if you are using Linux the idrac only accepts the Windows EXE files.
+      1.**WARNING** You have to download the Windows 64 bit versions of the updates for it to work! Even if you are using Linux the idrac only accepts the Windows EXE files.
 
 ![](images/2021-04-15-10-10-44.png)
 ![](images/2021-04-15-10-31-28.png)
@@ -66,16 +66,16 @@
 ![](images/2021-04-15-10-28-14.png)
 
 6. Configure your repository
-   1. Share Address: <YOUR_REPO_IP> (nothing else)
-   2. Catalog File Path: /catalog.xml (cannot have anything else)
+      1.Share Address: <YOUR_REPO_IP> (nothing else)
+      2.Catalog File Path: /catalog.xml (cannot have anything else)
       1. NOTE: The catalog my have a different name depending on how you exported it!
 
 ![](images/2021-04-15-10-28-47.png)
 
 7. Go back to Firmware Compliance -> Create Baseline
-   1. Select your local catalog
-   2. Give it a name
-   3. Add the hosts you discovered
+      1.Select your local catalog
+      2.Give it a name
+      3.Add the hosts you discovered
 8. Here is what it looks like in action https://youtu.be/p7pxMX-UAJw
 
 ## Example With Subfolder

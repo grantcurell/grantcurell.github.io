@@ -79,26 +79,26 @@ Follow the instructions [here](https://docs.vmware.com/en/VMware-vSphere/6.7/com
 - The VxRail Manager comes defaulted to 192.168.10.200 however, it does not accept SSH connections
 
 1. Turn on the VxRail manager. `vxrail-primary --setup --vxrail-address 192.168.2.100  --vxrail-netmask 255.255.255.0 --vxrail-gateway 192.168.2.1`. The IP you assign is **not** used for discovery. It is for reaching the VxRail appliance. Give it an IP on whatever network/vlan you plan on using for management. Details below in step 3.
-   1. Make sure vmk0 of all ESXi hosts is on VLAN 3939 or whatever VLAN you're using for discovery.
-   2. On each ESXi host make sure *Private Management Network* and *Private VM Network* are both on VLAN 3939. (Picture from David Ring's guide)
+      1.Make sure vmk0 of all ESXi hosts is on VLAN 3939 or whatever VLAN you're using for discovery.
+      2.On each ESXi host make sure *Private Management Network* and *Private VM Network* are both on VLAN 3939. (Picture from David Ring's guide)
 
     ![](images/2020-12-15-13-42-40.png)
 
-   3. The VxRail manager has two virtual NICs - eth0 and eth1. Eth1 is the NIC used for discovery. Make sure eth1 of the VxRail manager is on VLAN 3939. The first NIC (eth0) should be on whatever VLAN you are using for management. You will get to the VxRail manager webgui through eth0.
+      3.The VxRail manager has two virtual NICs - eth0 and eth1. Eth1 is the NIC used for discovery. Make sure eth1 of the VxRail manager is on VLAN 3939. The first NIC (eth0) should be on whatever VLAN you are using for management. You will get to the VxRail manager webgui through eth0.
 2. At this point you should have full IPv6 connectivity between vmk0 on all ESXi instances and the VxRail appliance. You can test this with the following:
-   1. Go to the ESXi console, press ALT+F1 and Pull the IPv6 address for vmk0 on ESXi with: `esxcfg-vmknic -l | grep vmk0`
-   2. On the ESXi host with the VxRail appliance, give another (not vmk0) VM kernel NIC you have access to an IP address with the `esxcli network ip interface ipv4 set -i vmk0 --type static -I 192.168.5.130 -N 255.255.255.0 -g 192.168.5.1` command. For dhcp use the `--type dhcp` option. See [Helpful Commands](#helpful-commands) for how to list out the different portgroups and VMs
-   3. Once you know all the IPv6 addresses for the various vmk0 nics, get on the VxRail appliance and use `ping6 -l eth1 <ipv6 address>` to test your IPv6 ping. This should work against all devices. If it doesn't you probably have a networking problem.
-   4. You can also test the full server discovery process manually from the command line with:
+      1.Go to the ESXi console, press ALT+F1 and Pull the IPv6 address for vmk0 on ESXi with: `esxcfg-vmknic -l | grep vmk0`
+      2.On the ESXi host with the VxRail appliance, give another (not vmk0) VM kernel NIC you have access to an IP address with the `esxcli network ip interface ipv4 set -i vmk0 --type static -I 192.168.5.130 -N 255.255.255.0 -g 192.168.5.1` command. For dhcp use the `--type dhcp` option. See [Helpful Commands](#helpful-commands) for how to list out the different portgroups and VMs
+      3.Once you know all the IPv6 addresses for the various vmk0 nics, get on the VxRail appliance and use `ping6 -l eth1 <ipv6 address>` to test your IPv6 ping. This should work against all devices. If it doesn't you probably have a networking problem.
+      4.You can also test the full server discovery process manually from the command line with:
 
       ![](images/2020-12-16-09-13-40.png)
 
-   5. On the switch side you can use `show lldp discovery` to see what interfaces it has discovered and it will list the interfaces.
-   6. On idrac it will show you what ports each nic is connected to under network devices. (My example is down - yours should not have a warning)
+      5.On the switch side you can use `show lldp discovery` to see what interfaces it has discovered and it will list the interfaces.
+      6.On idrac it will show you what ports each nic is connected to under network devices. (My example is down - yours should not have a warning)
 
     ![](images/2020-12-17-08-52-14.png)
 
-   7. For further troubleshooting check the Marvin log
+      7.For further troubleshooting check the Marvin log
 3. Assuming you've already checked DNS, the last thing you need to do is make sure NTP is up. I'm using chrony and checked like this on my NTP server:
 
         [root@services ~]# chronyc tracking

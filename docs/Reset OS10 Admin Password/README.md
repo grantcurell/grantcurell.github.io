@@ -13,7 +13,7 @@ Video: https://youtu.be/0VfJCa8s7yo
         +-------------------------------------+
 
 4. Press e to open the OS10 GRUB editor.
-   1. Use the arrow keys to navigate to the end of the line that has set os_debug_args= and then add init=/bin/bash.
+      1.Use the arrow keys to navigate to the end of the line that has set os_debug_args= and then add init=/bin/bash.
 
             +---------------------------------------------------------+
             |setparams 'OS10-A'                                       |

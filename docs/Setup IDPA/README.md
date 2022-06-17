@@ -31,8 +31,8 @@ The IDPA uses Avamar Virtual Edition (AVE) servers fo-r the DP5xxx and DP4xxx mo
 
 1. Set up 12 continuous IP addresses in DNS plus idrac. They must be in the same subnet. idrac can be separate
 2. TODO Register the 13 IP addresses in DNS with forward and reverse lookup entries for each address. Ensure that the router for the 13 IP addresses can be pinged.
-   1. Cannot use _ in the hostname
-   2. Addresses should cover the following:
+      1.Cannot use _ in the hostname
+      2.Addresses should cover the following:
 
 ![](2021-01-15-08-19-22.png)
 
@@ -63,7 +63,7 @@ The IDPA uses Avamar Virtual Edition (AVE) servers fo-r the DP5xxx and DP4xxx mo
 3. Verify you can ping 192.168.100.100
 4. Browse to: https://192.168.100.100:8543/
 5. Log in with default creds:
-   1. User root, password Idpa_1234
+      1.User root, password Idpa_1234
 6. Follow the prompts and set up the networking.
 7. After you finish setting up the networking the UI will wait while the network settings are applied. Afterwards, it usually autoreconnects with updated IP information. Otherwise you can browse to `https://<YOUR_IP>:8543
 8. Provide the information in the following screens:

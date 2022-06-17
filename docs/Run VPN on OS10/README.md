@@ -121,10 +121,10 @@ On the 4112F-ON:
 6. Run `sudo apt-get install -y openvpn vim `. I installed `vim` because I don't hate myself.
 7. I used [this script](./openvpn-install.sh) from [git.io/vpn](https://git.io/vpn) to install OpenVPN. Having done the entire thing manually before, I can tell you this saves a huge amount of time.
 8. To run the script run `wget https://git.io/vpn -O openvpn-install.sh && chmod +x openvpn-install.sh && ./openvpn-install.sh`
-   1. Fill in the options as needed.
+      1.Fill in the options as needed.
 9. I did find some things you have to tweak with their script. Perform the below to clean things up.
-   1. Run `vim /lib/systemd/system/openvpn@.service`. Where it says `--config /etc/openvpn/%i.conf`, change that to `--config /etc/openvpn/%i/%i.conf`. For details on specifies work see [this post](https://www.freedesktop.org/software/systemd/man/systemd.unit.html#Specifiers). When you are done run `systemctl daemon-reload` to reload the systemd daemon.
-   2. If you used my version of the script then you do not need to do this. Otherwise you need to run `vim /etc/openvpn/server/server.conf` and you need to prepend `/etc/openvpn/server/` on several of the paths or the service won't start. See my config below:
+      1.Run `vim /lib/systemd/system/openvpn@.service`. Where it says `--config /etc/openvpn/%i.conf`, change that to `--config /etc/openvpn/%i/%i.conf`. For details on specifies work see [this post](https://www.freedesktop.org/software/systemd/man/systemd.unit.html#Specifiers). When you are done run `systemctl daemon-reload` to reload the systemd daemon.
+      2.If you used my version of the script then you do not need to do this. Otherwise you need to run `vim /etc/openvpn/server/server.conf` and you need to prepend `/etc/openvpn/server/` on several of the paths or the service won't start. See my config below:
 
                 local 192.168.32.1
                 port 1194

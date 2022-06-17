@@ -63,13 +63,13 @@ management related services are connected to it - idrac, CMC, and FN410 manageme
 2. Click on your FN410
 3. Go to setup and configure networking. The address you sit here is tied to the CMC's physical port. That is to say, you do not need to be plugged into the FN410 to reach this address. It should be on the same subnet and VLAN as the CMC.
 4. Click *Launch I/O Module GUI*
-   1. Once in the GUI, in mode settings, select *Full Switch Mode*
-   2. Set your network settings as needed
-   3. Credentials set as needed
-   4. SNMP set as needed
-   5. Disable Uplink Failure Detection
-   6. On time I set my time zone and used *216.239.35.0* (Google's time servers - the zero isn't a type-o)
-   7. At the end you will be asked to reboot. Say yes. A window will appear that says rebooting. Wait for it to go away. At the end the page will refresh and you will  get an error message on the web site saying it isn't available. This is because you put it in switch mode. This process took ~3 minutes for me.
+      1. Once in the GUI, in mode settings, select *Full Switch Mode*
+      2. Set your network settings as needed
+      3. Credentials set as needed
+      4. SNMP set as needed
+      5. Disable Uplink Failure Detection
+      6. On time I set my time zone and used *216.239.35.0* (Google's time servers - the zero isn't a type-o)
+      7. At the end you will be asked to reboot. Say yes. A window will appear that says rebooting. Wait for it to go away. At the end the page will refresh and you will  get an error message on the web site saying it isn't available. This is because you put it in switch mode. This process took ~3 minutes for me.
 
 ### Configure FN410 as a Swich via Command Line
 
@@ -135,12 +135,12 @@ You can download the firmware from the [force10 website](https://www.force10netw
 ### Configure Interfaces
 
 1. Begin by configuring the port-channel interface:
-   1. Note: Hybrid mode allows the interface to pass tagged and untagged traffic.
+      1. Note: Hybrid mode allows the interface to pass tagged and untagged traffic.
 
-            Dell(conf)#interface port-channel 128
-            Dell(conf-if-po-128)#portmode hybrid
-            Dell(conf-if-po-128)#switchport
-            Dell(conf-if-po-128)#no shutdown
+               Dell(conf)#interface port-channel 128
+               Dell(conf-if-po-128)#portmode hybrid
+               Dell(conf-if-po-128)#switchport
+               Dell(conf-if-po-128)#no shutdown
 
 2. Next you need to configure the individual interfaces:
 

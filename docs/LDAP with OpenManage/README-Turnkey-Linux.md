@@ -23,7 +23,7 @@
 ## Instructions
 
 1. Download OpenLDAP appliance from [here](https://www.turnkeylinux.org/download?file=turnkey-openldap-16.0-buster-amd64-vmdk.zip)
-   1. Alternatively, you can build it yourself. [This tutorial](https://medium.com/@benjamin.dronen/installing-openldap-and-phpldapadmin-on-ubuntu-20-04-lts-7ef3ca40dc00 is helpful however you will have to add LDAPS for it to work with OpenManage Enterprise.
+      1.Alternatively, you can build it yourself. [This tutorial](https://medium.com/@benjamin.dronen/installing-openldap-and-phpldapadmin-on-ubuntu-20-04-lts-7ef3ca40dc00 is helpful however you will have to add LDAPS for it to work with OpenManage Enterprise.
 2. 
 
 

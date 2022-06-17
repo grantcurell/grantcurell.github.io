@@ -58,9 +58,9 @@ something else.
 ## Importing the Data into Elasticsearch
 
 1. I wrote the code in [csv2geojson.py](./code/csv2geojson.py) to take a CSV I got from [ACLED](https://acleddata.com/) into geoJSON formatted data. The program [format.py](./code/format.py) just formatted the 30 fields into the Python program for ease of use.
-   1. Modify the code as necessary and then run to get geoJSON formatted data.
+      1.Modify the code as necessary and then run to get geoJSON formatted data.
 2. Next you'll need to upload the mapping file.
-   1. First you have to create the index with
+      1.First you have to create the index with
 
             curl -X PUT "localhost:9200/conflict-data?pretty" -H 'Content-Type: application/json' -d'
             {
@@ -73,9 +73,9 @@ something else.
             }
             '
 
-   2. Then you can upload the mapping with: `curl -X PUT localhost:9200/conflict-data/_mapping?pretty -H "Content-Type: application/json" -d @mapping.json`
+      2.Then you can upload the mapping with: `curl -X PUT localhost:9200/conflict-data/_mapping?pretty -H "Content-Type: application/json" -d @mapping.json`
 3. Now you can import the data with [index_data.py](code/index_data.py). **NOTE** Make sure you use `python3.6`
-   1. You may have to modify the code a bit to get it to ingest properly.
+      1.You may have to modify the code a bit to get it to ingest properly.
 
 ### Configuring Metricbeat in a container
 

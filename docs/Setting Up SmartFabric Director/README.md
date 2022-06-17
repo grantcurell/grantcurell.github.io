@@ -39,24 +39,24 @@ I used the GNS3 VM and tied the switch with a virtual cloud into my actual infra
 1. Download, extract, upload to vCenter (or ESXi)
 2. Fill in network settings.
 3. When it finishes importing, keep in mind that the username and password is:
-   1. Username: admin@sfd.local
-   2. Password: The password you set
+      1.Username: admin@sfd.local
+      2.Password: The password you set
 4. I had problems when I used a DNS name for NTP. See: [BUG](./BUG.md)
 5. Go to the [Fabric Designer](https://fdc.emc.com/#!/network-fabric) online.
-   1. Enter your design in the Fabric Designer. The point of the Fabric Designer is to determine all of those materials you will need in order to build out your stack.
-   2. It will provide you a lot of useful info, for example a bill of materials:
+      1.Enter your design in the Fabric Designer. The point of the Fabric Designer is to determine all of those materials you will need in order to build out your stack.
+      2.It will provide you a lot of useful info, for example a bill of materials:
 
         ![](images/bom.PNG)
 
-   3. It will also give you a logical view of your network
+      3.It will also give you a logical view of your network
 
         ![](images/logical_view.PNG)
 
-   4. A view of your networking
+      4.A view of your networking
 
         ![](images/network_view.PNG)
 
-   5. It will also allow you to download the configurations for each switch - either as a regular config or as a zero touch configuration. You can also save the overall design.
+      5.It will also allow you to download the configurations for each switch - either as a regular config or as a zero touch configuration. You can also save the overall design.
 6. 
 
 ## Problems Encountered

@@ -85,10 +85,10 @@ On the 4112F-ON:
 4. Run `system bash`
 5. If you don't have a default route on your switch, you will need to add one with `sudo ip route add 0.0.0.0/0 via 192.168.1.1`.
 6. Before installing WireGuard you will need the latest kernel headers.
-   1. The kernel headers on the system will work a bit differently than regular systems. I found the relevant kernel headers with `apt search linux-headers | grep $(uname -r)`
-   2. You should see an entry mentioning all - something like `linux-headers-4.9.0-11-all`. You want to install that package with `sudo apt-get install -y <LINUX HEADER NAME> bc`
-   3. At this point you will need to reboot. Do this by exiting the command line and in enable mode running `reload`
-   4. If you do not have a permanent default route set, when you log back in you will need to run `system bash` and then readd the default route with `sudo ip route add 0.0.0.0/0 via 192.168.1.1`
+      1.The kernel headers on the system will work a bit differently than regular systems. I found the relevant kernel headers with `apt search linux-headers | grep $(uname -r)`
+      2.You should see an entry mentioning all - something like `linux-headers-4.9.0-11-all`. You want to install that package with `sudo apt-get install -y <LINUX HEADER NAME> bc`
+      3.At this point you will need to reboot. Do this by exiting the command line and in enable mode running `reload`
+      4.If you do not have a permanent default route set, when you log back in you will need to run `system bash` and then readd the default route with `sudo ip route add 0.0.0.0/0 via 192.168.1.1`
 7. `mkdir /opt/wireguard && cd /opt/wireguard`
 8. Now you will either need to run all of the following as sudo or you will need to add a password to the root account with `sudo passwd` and then `su -` to become root.
 9. After you have done the above run:
@@ -114,12 +114,12 @@ On CentOS 7
 4. Generate key pairs `wg genkey | tee wg-private.key | wg pubkey > wg-public.key`
 5. `ip link add wg0 type wireguard`
 6. Set Wireguard interface IP `ip address add dev wg0 10.0.0.2/24`. This IP address is the tunnel IP address.
-   1. If there are only two peers together you can do something like `ip address add dev wg0 10.0.0.2 peer 10.0.0.1`
+      1.If there are only two peers together you can do something like `ip address add dev wg0 10.0.0.2 peer 10.0.0.1`
 7. wg set wg0 listen-port 51820 private-key /opt/wireguard/wg-private.key peer OQiSLUOd3YWCfEkHazJHuuaJVNc++8QOb2+sOOZl/2c= endpoint 192.168.32.1:8172
-   1. listen-port: the port this host will listen on
-   2. private-key: the private key for this host
-   3. peer: I thought this was a bit misleading - you want the public key of the other host to which you are connecting
-   4. endpoint: the other endpoint of the VPN and the port on which it is listening
+      1.listen-port: the port this host will listen on
+      2.private-key: the private key for this host
+      3.peer: I thought this was a bit misleading - you want the public key of the other host to which you are connecting
+      4.endpoint: the other endpoint of the VPN and the port on which it is listening
 8. 
 
 ## Strange Behavior

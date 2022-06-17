@@ -64,7 +64,7 @@ Then run: `subscription-manager repos --enable=codeready-builder-for-rhel-8-x86_
 
 1. Download from [https://core.dpdk.org/download/](https://core.dpdk.org/download/)
 2. Edit the security limits with `vim /etc/security/limits.conf`
-   1. Add the following lines at the end of the file. This assumes you are running as root:
+      1.Add the following lines at the end of the file. This assumes you are running as root:
 
                 root    hard   memlock           unlimited
                 root    soft   memlock           unlimited

@@ -122,15 +122,15 @@ ports. More investigation required to figure out the difference.
 
 1. Create a bridge interface with `brctl addbr br0`
 2. Attach all interfaces you want as part of the port mirroring to the bridge with `brctl addif br0 < INTERFACE >`
-   1. Make sure all interfaces in use are enabled with `ip link set < INTERFACE > up`
+      1.Make sure all interfaces in use are enabled with `ip link set < INTERFACE > up`
 3. Disable MAC address learning on the bridge with `brctl setageing br0 0`
 4. Set the device's management interface to promiscuous mode with `ip link set < MGMT_INTERFACE > promisc on`
 5. The first thing I did was create an ingress queue on my input interface with `tc qdisc add dev < MGMT_INTERFACE > handle ffff: ingress`
-   1. If you need to delete a qdisc you can do it with `tc qdisc del dev < MGMT_INTERFACE > [ root | ingress ]`
+      1.If you need to delete a qdisc you can do it with `tc qdisc del dev < MGMT_INTERFACE > [ root | ingress ]`
 6. Double check your queue with handle ffff was created with `tc -s qdisc ls dev < MGMT_INTERFACE >`
 7. Next we want to mirror all traffic from the ingress port to an output port with `tc filter add dev < MGMT_INTERFACE > parent ffff: protocol all u32 match u32 0 0 action mirred egress mirror dev br0`
 8. Check that your port mirror appeared in the config with `tc -s -p filter ls dev < MGMT_INTERFACE > parent ffff:`
-   1. If you need to delete the filters you can do so with `tc filter del dev < MGMT_INTERFACE > parent ffff:`
+      1.If you need to delete the filters you can do so with `tc filter del dev < MGMT_INTERFACE > parent ffff:`
 9. Set queue to not shape traffic with `tc qdisc add dev < MGMT_INTERFACE > handle 1: root prio`
 
 ## Things I Tried
@@ -238,11 +238,11 @@ helpful. [This Mellanox article](https://github.com/Mellanox/mlxsw/wiki/Port-Mir
 useful.
 
 1. The first thing I did was create an ingress queue on my input interface with `tc qdisc add dev e101-001-0 handle ffff: ingress`
-   1. If you need to delete a qdisc you can do it with `tc qdisc del dev e101-001-0 [ root | ingress ]`
+      1.If you need to delete a qdisc you can do it with `tc qdisc del dev e101-001-0 [ root | ingress ]`
 2. Double check your queue with handle ffff was created with `tc -s qdisc ls dev e101-001-0`
 3. Next we want to mirror all traffic from the ingress port to an output port with `tc filter add dev e101-001-0 parent ffff: protocol all u32 match u32 0 0 action mirred egress mirror dev e101-005-0`
 4. Check that your port mirror appeared in the config with `tc -s -p filter ls dev e101-001-0 parent ffff:`
-   1. If you need to delete the filters you can do so with `tc filter del dev e101-001-0 parent ffff:`
+      1.If you need to delete the filters you can do so with `tc filter del dev e101-001-0 parent ffff:`
 5. Set queue to not shape traffic with `tc qdisc add dev e101-001-0 handle 1: root prio`
 
 #### Alternate Configuration

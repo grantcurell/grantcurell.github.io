@@ -51,13 +51,13 @@ I'm going to try it with OpenLDAP
 ## Install Instructions
 
 1. Install CentOS8
-   1. I installed CentOS minimal
-   2. Make sure NTP is working correctly
+      1.I installed CentOS minimal
+      2.Make sure NTP is working correctly
 2. Install OpenManage
 3. Install the idm system module with `dnf install -y @idm:DL1 freeipa-server`
 4. Configure your DNS server (`/etc/hosts` did not work for me) with a record for the hostname of your FreeIPA server. I added a record for `centos.grant.lan`.
 5. Run `ipa-server-install`
-   1. If you have any DNS failures edit the file `/tmp/ipa.system.records.tu5qyl09.db` (you may have to change the name) and add the record `centos.grant.lan 86400 IN A 192.168.1.92` (adjust accordingly). Afterwards run `ipa dns-update-system-records`
+      1.If you have any DNS failures edit the file `/tmp/ipa.system.records.tu5qyl09.db` (you may have to change the name) and add the record `centos.grant.lan 86400 IN A 192.168.1.92` (adjust accordingly). Afterwards run `ipa dns-update-system-records`
 6. Run `kinit admin`
 7. Open firewall ports
 

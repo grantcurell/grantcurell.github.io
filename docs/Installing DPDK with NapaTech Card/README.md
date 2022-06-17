@@ -69,9 +69,9 @@ You can check what NUMA node your card is on with: `cat "/sys/bus/pci/devices/00
 
 1. `export NAPATECH3_PATH=/opt/napatech3`
 2. Download with `git clone https://github.com/napatech/dpdk.git`
-   1. I put this in `/opt` and will assume you have done the same in this guide.
+      1.I put this in `/opt` and will assume you have done the same in this guide.
 3. Edit the security limits with `vim /etc/security/limits.conf`. After making the below edits you will need to log out and log back in for them to take effect.
-   1. Add the following lines at the end of the file. This assumes you are running as root:
+      1.Add the following lines at the end of the file. This assumes you are running as root:
 
                 root    hard   memlock           unlimited
                 root    soft   memlock           unlimited

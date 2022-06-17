@@ -49,8 +49,8 @@
 ## Install Instructions
 
 1. Install CentOS8
-   1. I installed CentOS minimal
-   2. Make sure NTP is working correctly
+      1.I installed CentOS minimal
+      2.Make sure NTP is working correctly
 2. Install OpenManage
 3. For the OpenLDAP setup I followed [Install and Setup OpenLDAP on CentOS 8 by koromicha](https://kifarunix.com/install-and-setup-openldap-on-centos-8/#:~:text=To%20compile%20OpenLDAP%20on%20CentOS,you%20can%20proceed%20with%20installation.&text=With%20configure%20script%2C%20you%20can,various%20options%20while%20building%20OpenLDAP.)
 4. I want the current version of OpenLDAP so I'll be building it from source.

@@ -53,7 +53,7 @@ Red Hat Enterprise Linux release 8.5 (Ootpa)
 1. Following the instructions [here](https://splunk.github.io/splunk-connect-for-syslog/main/gettingstarted/)
 2. Install podman with `dnf install -y podman`
 3. Follow the instructions [here](https://splunk.github.io/splunk-connect-for-syslog/main/gettingstarted/podman-systemd-general/)
-   1. NOTE: When adding the HTTP input in Splunk it failed out because the token weren't enabled. I had to manually edit `/opt/splunk/etc/apps/splunk_httpinput/default/inputs.conf` and set disabled to 0 then do a `systemctl restart splunk`
+      1.NOTE: When adding the HTTP input in Splunk it failed out because the token weren't enabled. I had to manually edit `/opt/splunk/etc/apps/splunk_httpinput/default/inputs.conf` and set disabled to 0 then do a `systemctl restart splunk`
 4.  Run `systemctl stop rsyslog && systemctl disable rsyslog`
 
 #### Using ActiveMQ and splunkpump
@@ -77,7 +77,7 @@ Red Hat Enterprise Linux release 8.5 (Ootpa)
 
 1. Download [this script](https://github.com/dell/iDRAC-Telemetry-Scripting/blob/master/ConfigurationScripts/EnableOrDisableAllTelemetryReports.py) which will enable telemetry reports.
 2. Run `EnableOrDisableAllTelemetryReports.py -ip $target -u $user -p $password`
-   1. This enables telemetry on the target server
+      1.This enables telemetry on the target server
 
 #### Using ActiveMQ and splunkpump
 
@@ -85,12 +85,12 @@ Red Hat Enterprise Linux release 8.5 (Ootpa)
 
 1. Next you will need to enable Redfish alerting which will publish the events to Splunk. Download [this script](https://github.com/dell/iDRAC-Telemetry-Scripting/blob/master/ConfigurationScripts/SubscriptionManagementREDFISH.py)
 2. Run the following command `SubscriptionManagementREDFISH.py -ip $target -u $user -p $password -c y -D https://$splunkserver/services/collector/raw -E Alert -V Event`
-   1. `$target` is the ip address or DNS name of the iDRAC
-   2. `$user/$password` are the username and password for iDRAC
-   3. `$splunkserver` is the IP address or DNS name of your Splunk HTTP event collector instance
+      1.`$target` is the ip address or DNS name of the iDRAC
+      2.`$user/$password` are the username and password for iDRAC
+      3.`$splunkserver` is the IP address or DNS name of your Splunk HTTP event collector instance
 3. On the command line (racadm)
-   1. SSH to the iDRAC
-   2. Run 
+      1.SSH to the iDRAC
+      2.Run 
 
         ```
         racadm set idrac.telemetry.RsyslogServer1 "<splunk_ip/fqdn>"

@@ -12,7 +12,7 @@ I used [osixia's openldap container](https://github.com/osixia/docker-openldap) 
 
 1. Add an entry to your DNS server for `ldap.granttest.lan`
 2. `podman run -p 389:389 -p 636:636 --name my-openldap-container --env LDAP_TLS=false --env LDAP_LOG_LEVEL=8 --env LDAP_ORGANISATION="Grant Test" --env LDAP_DOMAIN="granttest.lan" --env LDAP_ADMIN_PASSWORD="admin" --detach osixia/openldap:1.5.0 --loglevel debug && podman run -p 6443:443 --env PHPLDAPADMIN_LDAP_HOSTS=ldap.granttest.lan --detach osixia/phpldapadmin:0.9.0`
-   1. Test the container: `podman exec my-openldap-container ldapsearch -x -H ldap://localhost -b dc=granttest,dc=lan -D "cn=admin,dc=granttest,dc=lan" -w admin`. That should output:
+      1.Test the container: `podman exec my-openldap-container ldapsearch -x -H ldap://localhost -b dc=granttest,dc=lan -D "cn=admin,dc=granttest,dc=lan" -w admin`. That should output:
 
           # extended LDIF
           #
