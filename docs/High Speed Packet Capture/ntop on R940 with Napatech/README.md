@@ -8,7 +8,7 @@
 
 I am running a Dell FC640 on a Dell R940
 
-See ![Server Specs](./server_specs.csv) for hardware details.
+See [Server Specs](./server_specs.csv) for hardware details.
 
 ## Hard Drive Layout:
 
