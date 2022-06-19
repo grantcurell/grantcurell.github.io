@@ -355,7 +355,7 @@
               
                 <h1 id="idrac-with-ldap">idrac with LDAP</h1>
 <ul>
-<li><a href="#setting-up-idrac-with-freeipa">Setting Up idrac with FreeIPA</a></li>
+<li><a href="#idrac-with-ldap">idrac with LDAP</a></li>
 <li><a href="#version-info">Version Info</a></li>
 <li><a href="#setup-freeipa">Setup FreeIPA</a><ul>
 <li><a href="#helpful-commands">Helpful Commands</a></li>
@@ -419,10 +419,8 @@ You can also use this to check to see if a user is a member of a group by changi
 <h2 id="setup-idrac">Setup idrac</h2>
 <p>Go into the idrac and click the directories prompt.</p>
 <ol>
-<li>I ran without certs</li>
-</ol>
-<p><img alt="" src="images/2021-04-02-17-44-54.png" /></p>
-<ol>
+<li>I ran without certs
+<img alt="" src="images/2021-04-02-17-44-54.png" /></li>
 <li>
 <p>I used the following values:</p>
 <pre><code>Generic LDAP: Enabled
@@ -439,84 +437,84 @@ Attribute of Group Membership: member
 <li>
 <p>Click next and for Group DN I used <code>cn=grantgroup,cn=groups,cn=accounts,dc=grant,dc=lan</code> where <code>grantgroup</code> was the name of the user group I added</p>
 </li>
-<li>I ran the test with the following results:</li>
-</ol>
-<p><img alt="" src="images/2021-04-02-17-49-41.png" /></p>
-<pre><code>    # Test Results
-    Ping Directory Server   Not Run
-    Directory Server DNS Name   Passed
-    LDAP connection to the Directory Server Passed
-    User DN existence   Passed
-    Certificate Validation  Disabled
-    User Authentication Passed
-    User Authorization  Passed
+<li>I ran the test with the following results:
+<img alt="" src="images/2021-04-02-17-49-41.png" /><pre><code># Test Results
+Ping Directory Server   Not Run
+Directory Server DNS Name   Passed
+LDAP connection to the Directory Server Passed
+User DN existence   Passed
+Certificate Validation  Disabled
+User Authentication Passed
+User Authorization  Passed
 
-    # Test Log
-    16:49:14  Initiating Directory Services Settings Diagnostics:
-    16:49:14  trying LDAP server freeipa.grant.lan:636
-    16:49:14  Server Address freeipa.grant.lan resolved to 192.168.1.95
-    16:49:14  connect to 192.168.1.95:636 passed
-    16:49:14  Connecting to ldaps://[freeipa.grant.lan]:636...
-    16:49:14  Test user authenticated user=uid=grant,cn=users,cn=accounts,dc=grant,dc=lan host=freeipa.grant.lan
-    16:49:14  Search command:
-      Bind DN: uid=grant,cn=users,cn=accounts,dc=grant,dc=lan
-      Scope: subtree
-      Base DN: cn=accounts,dc=grant,dc=lan
-      Search filter: (uid=grant)
-      Attribute list:
-      objectClass
-      memberOf
-      dn
-      uid
-      objectCategory
-      defaultNamingContext
-      namingContexts
-      ldapServiceName
-      supportedControl
-      supportedExtension
-    16:49:14  Connecting to ldaps://[freeipa.grant.lan]:636...
-    16:49:14  Test user authenticated user=uid=grant,cn=users,cn=accounts,dc=grant,dc=lan host=freeipa.grant.lan
-    16:49:15  Connecting to ldaps://[freeipa.grant.lan]:636...
-    16:49:15  Test user authenticated user=uid=grant,cn=users,cn=accounts,dc=grant,dc=lan host=freeipa.grant.lan
-    16:49:15  Search command:
-      Bind DN: uid=grant,cn=users,cn=accounts,dc=grant,dc=lan
-      Scope: base
-      Base DN: cn=grantgroup,cn=groups,cn=accounts,dc=grant,dc=lan
-      Search filter: (member=uid=grant,cn=users,cn=accounts,dc=grant,dc=lan)
-      Attribute list:
-      objectClass
-      memberOf
-      dn
-      uid
-      objectCategory
-      defaultNamingContext
-      namingContexts
-      ldapServiceName
-      supportedControl
-      supportedExtension
-    16:49:15  Privileges gained from role group 'cn=grantgroup,cn=groups,cn=accounts,dc=grant,dc=lan':
-      Login
-      Config iDRAC
-      Config User
-      Clear Logs
-      Server Control
-      Virtual Console
-      Virtual Media
-      Test Alerts
-      Diagnostic Command
-    16:49:15  Test user grant authorized
+# Test Log
+16:49:14  Initiating Directory Services Settings Diagnostics:
+16:49:14  trying LDAP server freeipa.grant.lan:636
+16:49:14  Server Address freeipa.grant.lan resolved to 192.168.1.95
+16:49:14  connect to 192.168.1.95:636 passed
+16:49:14  Connecting to ldaps://[freeipa.grant.lan]:636...
+16:49:14  Test user authenticated user=uid=grant,cn=users,cn=accounts,dc=grant,dc=lan host=freeipa.grant.lan
+16:49:14  Search command:
+  Bind DN: uid=grant,cn=users,cn=accounts,dc=grant,dc=lan
+  Scope: subtree
+  Base DN: cn=accounts,dc=grant,dc=lan
+  Search filter: (uid=grant)
+  Attribute list:
+  objectClass
+  memberOf
+  dn
+  uid
+  objectCategory
+  defaultNamingContext
+  namingContexts
+  ldapServiceName
+  supportedControl
+  supportedExtension
+16:49:14  Connecting to ldaps://[freeipa.grant.lan]:636...
+16:49:14  Test user authenticated user=uid=grant,cn=users,cn=accounts,dc=grant,dc=lan host=freeipa.grant.lan
+16:49:15  Connecting to ldaps://[freeipa.grant.lan]:636...
+16:49:15  Test user authenticated user=uid=grant,cn=users,cn=accounts,dc=grant,dc=lan host=freeipa.grant.lan
+16:49:15  Search command:
+  Bind DN: uid=grant,cn=users,cn=accounts,dc=grant,dc=lan
+  Scope: base
+  Base DN: cn=grantgroup,cn=groups,cn=accounts,dc=grant,dc=lan
+  Search filter: (member=uid=grant,cn=users,cn=accounts,dc=grant,dc=lan)
+  Attribute list:
+  objectClass
+  memberOf
+  dn
+  uid
+  objectCategory
+  defaultNamingContext
+  namingContexts
+  ldapServiceName
+  supportedControl
+  supportedExtension
+16:49:15  Privileges gained from role group 'cn=grantgroup,cn=groups,cn=accounts,dc=grant,dc=lan':
+  Login
+  Config iDRAC
+  Config User
+  Clear Logs
+  Server Control
+  Virtual Console
+  Virtual Media
+  Test Alerts
+  Diagnostic Command
+16:49:15  Test user grant authorized
 
-    16:49:15  Cumulative privileges gained:
-      Login
-      Config iDRAC
-      Config User
-      Clear Logs
-      Server Control
-      Virtual Console
-      Virtual Media
-      Test Alerts
-      Diagnostic Command
+16:49:15  Cumulative privileges gained:
+  Login
+  Config iDRAC
+  Config User
+  Clear Logs
+  Server Control
+  Virtual Console
+  Virtual Media
+  Test Alerts
+  Diagnostic Command
 </code></pre>
+</li>
+</ol>
 <h2 id="youtube-video-of-login">YouTube Video of Login</h2>
 <p>See: https://youtu.be/-fHlHhF9vH4</p>
               

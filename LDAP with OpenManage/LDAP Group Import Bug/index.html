@@ -394,23 +394,19 @@
 </li>
 <li>Create a new user and new group in the UI and assign the new user to the new group.</li>
 <li>Install OpenManage</li>
-<li>Go to Application Settings -&gt; Directory Services</li>
-</ol>
-<p><img alt="" src="../images/2020-10-21-11-24-14.png" /></p>
-<ol>
+<li>Go to Application Settings -&gt; Directory Services
+<img alt="" src="../images/2020-10-21-11-24-14.png" /></li>
 <li>Substitute with your values and then click test. I wasn't able to get this to work with the generic admin user. In the test screen I used that new user to connect to directory services</li>
 </ol>
 <h3 id="helpful-commands">Helpful Commands</h3>
 <p>To start the IPA service use <code>ipactl start|stop|restart</code>. You can check the status with <code>ipactl status</code>.</p>
 <h2 id="bug">Bug</h2>
 <ol>
-<li>I used the settings defined here:</li>
+<li>I used the settings defined here:
+<img alt="" src="../images/2020-10-21-11-24-14.png" /></li>
+<li>When I went to import the users from a group I received the following:
+<img alt="" src="../images/2020-10-21-13-22-09.png" /></li>
 </ol>
-<p><img alt="" src="../images/2020-10-21-11-24-14.png" /></p>
-<ol>
-<li>When I went to import the users from a group I received the following:</li>
-</ol>
-<p><img alt="" src="../images/2020-10-21-13-22-09.png" /></p>
 <p>The code in question:</p>
 <p><img alt="" src="../images/2020-10-21-13-23-00.png" /></p>
 <p>Below was the value of <code>u</code> at runtime:</p>
