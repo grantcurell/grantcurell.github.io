@@ -64,7 +64,6 @@ https://core.vmware.com/resource/troubleshooting-vsan-performance
 3. Discovery/Review - Workload. This step will help the reader review the applications and workflows. This will help a virtualization administrator better understand what the application is attempting to perform, and why. 
 4. Performance Metrics - Insight. This step will review some of the key performance metrics to view, and how to interpret some of the findings the reader may see when observing their workloads. It clarifies what the performance metrics means, and how they relate to each other..
 5. Mitigation - Options in potential software and hardware changes. This step will help the reader step through the potential actions for mitigation.
-
 ![](images/2021-08-29-20-59-39.png) ![](images/2021-08-29-21-02-43.png)
 
 ## Technical Approach
@@ -76,63 +75,63 @@ Potential Bottlenecks: https://core.vmware.com/blog/understanding-performance-bo
 1. Check VxRail version
 2. Perform a network survey and understand what switches and devices are in between each of the hosts
 3. Verify everything is licensed
-  1. Hosts that are participating in the vSAN cluster but not providing storage still require a license
+      1. Hosts that are participating in the vSAN cluster but not providing storage still require a license
 4. Check that the flash cache to capacity ratio is 1:10
 5. Check cluster health with `esxcli vsan health cluster list`
-      1.Cross reference in RVC with `vsan.cluster_info <target>`. This is good for getting a big picture view of what is going on.
-      2.Check the overall state of the cluster in RVC with `vsan.check_state <target>`. This will check for inaccessible vSAN objects, invalid/inaccessible VMs, VMs for which VC/hostd/vmx are out of sync.
-      1. **Inaccessible vSAN Objects**: Inaccessible Virtual SAN objects are an indication that there is probably a failure  somewhere in the cluster, but that Virtual SAN is still able to track the virtual  machine. An invalid or inaccessible object is when the VM has objects that have lost  the majority of its components or votes, again due to hardware failures.   Note that  for a VM’s object to be accessible, it must have a full, intact mirror and greater than  50% of its components/votes available.
-      2. **Invalid/inaccessible VMs**: The next check is for invalid or inaccessible VMs. These are VMs that, most likely  due to the fact that the failure(s) that have occurred in the cluster, have been  impacted so much that it is no longer accessible by the vCenter server or the ESXi  hosts. This is likely be due to the fact that the VM Home Namespace, where the .vmx  file resides, is no longer online. Common causes are clusters that have had multiple  failures, but the virtual machines have been configured to tolerate only one failure,  or network outages.
-      3. **Check that vCenter and hosts are in sync**: The final check just makes sure vCenter Server (VC) and hosts agree on the state of the cluster.
-      3.Use RVC to check that the cluster is operating within limits with `vsan.check_limits` ![](images/2021-08-30-18-15-53.png)
-      1. From a network perspective the most important things to check are associations (Assocs) and the the socket count. Associations track peer-to-peer network state within the vSAN and you should not run out (max 45k). Sockts are used for various things. The max is 10,000.
-      4.Check that the cluster has enough resources to tolerate a failure with RVC command `vsan.whatif_host_failures`
-      1. RC reservations means Read Cache reservations and is only used in hybrid configurations. You can dedicate a certain amount of read cache to a specific VM.
-      2. HDD capacity only refers to the capacity tier.
+      1. Cross reference in RVC with `vsan.cluster_info <target>`. This is good for getting a big picture view of what is going on.
+      2. Check the overall state of the cluster in RVC with `vsan.check_state <target>`. This will check for inaccessible vSAN objects, invalid/inaccessible VMs, VMs for which VC/hostd/vmx are out of sync.
+            1. **Inaccessible vSAN Objects**: Inaccessible Virtual SAN objects are an indication that there is probably a failure  somewhere in the cluster, but that Virtual SAN is still able to track the virtual  machine. An invalid or inaccessible object is when the VM has objects that have lost  the majority of its components or votes, again due to hardware failures.   Note that  for a VM’s object to be accessible, it must have a full, intact mirror and greater than  50% of its components/votes available.
+            2. **Invalid/inaccessible VMs**: The next check is for invalid or inaccessible VMs. These are VMs that, most likely  due to the fact that the failure(s) that have occurred in the cluster, have been  impacted so much that it is no longer accessible by the vCenter server or the ESXi  hosts. This is likely be due to the fact that the VM Home Namespace, where the .vmx  file resides, is no longer online. Common causes are clusters that have had multiple  failures, but the virtual machines have been configured to tolerate only one failure,  or network outages.
+            3. **Check that vCenter and hosts are in sync**: The final check just makes sure vCenter Server (VC) and hosts agree on the state of the cluster.
+      3. Use RVC to check that the cluster is operating within limits with `vsan.check_limits` ![](images/2021-08-30-18-15-53.png)
+            1. From a network perspective the most important things to check are associations (Assocs) and the the socket count. Associations track peer-to-peer network state within the vSAN and you should not run out (max 45k). Sockts are used for various things. The max is 10,000.
+      4. Check that the cluster has enough resources to tolerate a failure with RVC command `vsan.whatif_host_failures`
+            1. RC reservations means Read Cache reservations and is only used in hybrid configurations. You can dedicate a certain amount of read cache to a specific VM.
+            2. HDD capacity only refers to the capacity tier.
 6. Check host connectivity
-      1.Note it may be helpful if you need to identify where a host is plugged in to use LLDP with the RVC command `vsan.lldpnetmap localhost/datacenter/computers/vSAN\ Cluster/`
-      2.Check cluster ping with `vmkping -I <vmk_interface> <target_ip>`
-      3.Check to make sure all hosts are on the same network segment with `esxcli network ip neighbor list`
-      4.Check round trip time with `esxcli network diag ping`
-      5.Check to make sure multicast is working and a host is receiving heartbeats with `tcpdump-uw –i <your_vmk> udp port 23451 –v -s0`
-      6.Each ESXi node in the vSAN cluster will send out IGMP membership reports (aka joins) every 90-300 seconds. Check for receipt with `tcpdump-uw -i <yourvmk> igmp`
-      7.Make sure the following ports are accessible through any firewalls: ![](images/2021-08-30-20-57-51.png)
-7. Use iperf to get a baseline idea of the network bandwidth available. This will cause degredation of performance! Most useful for initial setup. See [this KB article](https://kb.vmware.com/s/article/2001003#Network)
-8. You can also use RVC's `vsan.vm_perf_stats` command to get a feel for the performance. Ex `vsan.vm_perf_stats ~/vms/W2k12-SQL2k12 --interval 10 --show-objects`. IOPS = (MBps Throughput / KB per IO) * 1024. MBps = (IOPS * KB per IO) / 1024
-9. **NOTE**: [Virtual SAN Diagnostics and Troubleshooting Reference Manual](./virtual-san-diagnostics-troubleshooting-reference-manual.pdf) covers a lot of other scenarios I didn't here.
+      1. Note it may be helpful if you need to identify where a host is plugged in to use LLDP with the RVC command `vsan.lldpnetmap localhost/datacenter/computers/vSAN\ Cluster/`
+      2. Check cluster ping with `vmkping -I <vmk_interface> <target_ip>`
+      3. Check to make sure all hosts are on the same network segment with `esxcli network ip neighbor list`
+      4.  Check round trip time with `esxcli network diag ping`
+      5.  Check to make sure multicast is working and a host is receiving heartbeats with `tcpdump-uw –i <your_vmk> udp port 23451 –v -s0`
+      6.  Each ESXi node in the vSAN cluster will send out IGMP membership reports (aka joins) every 90-300 seconds. Check for receipt with `tcpdump-uw -i <yourvmk> igmp`
+      7.  Make sure the following ports are accessible through any firewalls: ![](images/2021-08-30-20-57-51.png)
+7.  Use iperf to get a baseline idea of the network bandwidth available. This will cause degredation of performance! Most useful for initial setup. See [this KB article](https://kb.vmware.com/s/article/2001003#Network)
+8.  You can also use RVC's `vsan.vm_perf_stats` command to get a feel for the performance. Ex `vsan.vm_perf_stats ~/vms/W2k12-SQL2k12 --interval 10 --show-objects`. IOPS = (MBps Throughput / KB per IO) * 1024. MBps = (IOPS * KB per IO) / 1024
+9.  **NOTE**: [Virtual SAN Diagnostics and Troubleshooting Reference Manual](./virtual-san-diagnostics-troubleshooting-reference-manual.pdf) covers a lot of other scenarios I didn't here.
 10. Consider ![](images/2021-08-30-21-08-07.png)
 11. Kick off vSAN Observer. See [Using vSAN Observer](#using-vsan-observer). Details on using vSAN observer available in [this PDF](./Monitoring-with-VSAN-Observer-v1.2.pdf). It is also covered starting on page 197 in [Virtual SAN Diagnostics and Troubleshooting Reference Manual](./virtual-san-diagnostics-troubleshooting-reference-manual.pdf)
-  2. Check the latency as seen by a guest VM running the application of interest (check on the VMs tab)
-      1.VM Home - This is where the VM's configuration file, log files, and other VM related small files are stored. The RAID tree subsection shows the different component owners for VM Home.
-      2.Virtual Disk - This shows the different virtual disks attached to the VM. Each disk displas stats specific to that disk. You can drill down to individual virtual disks. The VSCSI layer shows the aggregate latency, IOPS and throughput numbers for a particular virtual disk of a VM.
-  3. **NOTE**: On the various full graphs you may see *RecovWrite* - these are the number of writes that are being used for component rebuilds. Note that this metric will be 0 for vSAN clients because they do not have visibility into rebuild I/O - DOM does that. You will also see *Write LE* - this refers to write log entry. For every write there are actually two I/Os: the actual data and a log entry.
-  4. Check for high outstanding IOPs (vSAN client tab and vSAN disks). On the vSAN disks tab make sure that outstanding IO is well balanced across the hosts. A high outstanding IO may be something like 200. ![](images/2021-08-30-22-17-06.png)
-  5. On the vSAN disks tab look for a high number of evictions. These occur when vSAN has to evict data blocks from the write buffer to make room for new data blocks. In an optimized system, the working data for an application should mostly reside in write cache. We should not see too many evictions. Maybe this workload is not suitable?
-  6. Check for high latencies (time it takes to complete on I/O operation from application viewpoint). (vSAN client tab and vSAN disk tab). Consier that if the latency in the vSAN client tab is much higher than the disk tab than it is more likely the network is the problem.
-      3.Make sure that what we see on the vSAN client tab correspondings to what is on the vSAN disk tabs
-      4.Common causes of high latency:
-     1. Large average I/O sizes, which leads to increased latencies
-     2. Large number of writes
-     3. Large number of I/Os
-     4. Slow SSD that isn't keeping up
-     5. Too many random reads causing cache misses in the SSD.
-      5.Latency formula: outstanding IOs / drive max write or I/O = x ms
-      6.If we kick off a lot of read ops on something we generally expect there to a spike in latency followed by a drop as things are cached (assuming the same thing is being read)
-      7.The standard deviation graph is telling you the frequency you are outside a single standard deviation
-  7. Check bandwidth utilization
-      8.Lots of small I/Os could cause you to hit I/O ceiling before bandwidth
-      9.Large I/Os may exhaust bandwidth
-  8. Check buffer utilization. You can see this on the client and disk tabs. On the deep dive tab you can check RC hit rate for the various hosts. If we are seeing a lot of misse on the read cache this may indicate the cache isn't large enough and we expect to see a spike in hits against our capacity drives. ![](images/2021-08-30-22-05-19.png)
-  9.  Check PCPU utilization. It isn't uncommon to see 30-50% utilization when under I/O load. Sustained high CPU utilization could indicate a problem.
-     1. If you have problems but don't expect them, make sure that if the server has a power management setting that it isn't set to a lower performance setting
-  10. Check memory consumption paying specific attention to congestion. 
-   10. The vmkernel log will commonly display this error in the event of a memory shortage:![](images/2021-08-30-08-19-24.png)
-      11.Or this error when trying to add a disk group: ![](images/2021-08-30-08-20-45.png)
-      12.An error will also be displayed in the GUI: ![](images/2021-08-30-08-21-56.png)
-  11. Check distribution of [components](../Notes%20on%20vSAN/README.md#components). The line should be uniform indicating roughly equal distribution of components
+      1. Check the latency as seen by a guest VM running the application of interest (check on the VMs tab)
+         1. VM Home - This is where the VM's configuration file, log files, and other VM related small files are stored. The RAID tree subsection shows the different component owners for VM Home.
+         2. Virtual Disk - This shows the different virtual disks attached to the VM. Each disk displas stats specific to that disk. You can drill down to individual virtual disks. The VSCSI layer shows the aggregate latency, IOPS and throughput numbers for a particular virtual disk of a VM.
+      2. **NOTE**: On the various full graphs you may see *RecovWrite* - these are the number of writes that are being used for component rebuilds. Note that this metric will be 0 for vSAN clients because they do not have visibility into rebuild I/O - DOM does that. You will also see *Write LE* - this refers to write log entry. For every write there are actually two I/Os: the actual data and a log entry.
+      3. Check for high outstanding IOPs (vSAN client tab and vSAN disks). On the vSAN disks tab make sure that outstanding IO is well balanced across the hosts. A high outstanding IO may be something like 200. ![](images/2021-08-30-22-17-06.png)
+      4. On the vSAN disks tab look for a high number of evictions. These occur when vSAN has to evict data blocks from the write buffer to make room for new data blocks. In an optimized system, the working data for an application should mostly reside in write cache. We should not see too many evictions. Maybe this workload is not suitable?
+      5. Check for high latencies (time it takes to complete on I/O operation from application viewpoint). (vSAN client tab and vSAN disk tab). Consier that if the latency in the vSAN client tab is much higher than the disk tab than it is more likely the network is the problem.
+        1.  Make sure that what we see on the vSAN client tab correspondings to what is on the vSAN disk tabs
+        2.  Common causes of high latency:
+             1. Large average I/O sizes, which leads to increased latencies
+             2. Large number of writes
+             3. Large number of I/Os
+             4. Slow SSD that isn't keeping up
+             5.  Too many random reads causing cache misses in the SSD.
+      6.  Latency formula: outstanding IOs / drive max write or I/O = x ms
+      7.  If we kick off a lot of read ops on something we generally expect there to a spike in latency followed by a drop as things are cached (assuming the same thing is being read)
+      8.  The standard deviation graph is telling you the frequency you are outside a single standard deviation
+      9. Check bandwidth utilization
+           1.  Lots of small I/Os could cause you to hit I/O ceiling before bandwidth
+           2.  Large I/Os may exhaust bandwidth
+      10. Check buffer utilization. You can see this on the client and disk tabs. On the deep dive tab you can check RC hit rate for the various hosts. If we are seeing a lot of misse on the read cache this may indicate the cache isn't large enough and we expect to see a spike in hits against our capacity drives. ![](images/2021-08-30-22-05-19.png)
+      11. Check PCPU utilization. It isn't uncommon to see 30-50% utilization when under I/O load. Sustained high CPU utilization could indicate a problem.
+         1. If you have problems but don't expect them, make sure that if the server has a power management setting that it isn't set to a lower performance setting
+      12. Check memory consumption paying specific attention to congestion. 
+           1. The vmkernel log will commonly display this error in the event of a memory shortage:![](images/2021-08-30-08-19-24.png)
+           2. Or this error when trying to add a disk group: ![](images/2021-08-30-08-20-45.png)
+           3. An error will also be displayed in the GUI: ![](images/2021-08-30-08-21-56.png)
+      13. Check distribution of [components](../Notes%20on%20vSAN/README.md#components). The line should be uniform indicating roughly equal distribution of components
 12. Check that the storage controller is supported and running normaly with `esxcli storage core device list`. Compare to VCG. You can cross reference this with `esxcli core storage adapter list` and `esxcfg-scsidevs -a`
-  12. You may see the word *degraded* - this occurs when there is only a single path to teh device. If there are multiple paths this will not show. This is not an issue for local disk configurations.
-  13. If you see *Logical Volume* in the model field it implies there is a RAID volume configuration on the disk - probably RAID0. Certain storage controllers can pass disk devices directly to the ESXi host; this is called pass-through mode. You may also see it called JBOD or HBA mode. Other storage controllers require each disk device be configured as a RAID0 volume before ESXi can recognize it. You can check the VCG to determine whether something supports pass through or not: ![](images/2021-08-30-08-31-36.png)
+    1.  You may see the word *degraded* - this occurs when there is only a single path to teh device. If there are multiple paths this will not show. This is not an issue for local disk configurations.
+    2.  If you see *Logical Volume* in the model field it implies there is a RAID volume configuration on the disk - probably RAID0. Certain storage controllers can pass disk devices directly to the ESXi host; this is called pass-through mode. You may also see it called JBOD or HBA mode. Other storage controllers require each disk device be configured as a RAID0 volume before ESXi can recognize it. You can check the VCG to determine whether something supports pass through or not: ![](images/2021-08-30-08-31-36.png)
      1. Double check the VCG! If a controller is supported in RAID0 mode only, it may still work in pass-through mode but the disks will frequently error. 
 13. Make sure the storage adapter is supported and the driver is up to date. See [Get a list of all PCI devices](#get-a-list-of-all-pci-devices-allows-you-to-check-for-rebranding)
 14. Review [the VCG check summary](#vcg-check-summary) and make sure everything is good to go

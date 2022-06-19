@@ -58,9 +58,7 @@
 9.  Create a new user and new group in the UI and assign the new user to the new group.
 10. Install OpenManage
 11. Go to Application Settings -> Directory Services
-
 ![](../images/2020-10-21-11-24-14.png)
-
 12.  Substitute with your values and then click test. I wasn't able to get this to work with the generic admin user. In the test screen I used that new user to connect to directory services
 
 ### Helpful Commands
@@ -70,11 +68,8 @@ To start the IPA service use `ipactl start|stop|restart`. You can check the stat
 ## Bug
 
 1. I used the settings defined here:
-
 ![](../images/2020-10-21-11-24-14.png)
-
 2. When I went to import the users from a group I received the following:
-
 ![](../images/2020-10-21-13-22-09.png)
 
 The code in question:

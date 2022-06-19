@@ -61,10 +61,8 @@
 10. Create a new user and new group in the UI and assign the new user to the new group.
 11. Install OpenManage
 12. Go to Application Settings -> Directory Services
-
 ![](images/2020-10-21-11-24-14.png)
-
-12.  Substitute with your values and then click test. I wasn't able to get this to work with the generic admin user. In the test screen I used that new user to connect to directory services
+13.  Substitute with your values and then click test. I wasn't able to get this to work with the generic admin user. In the test screen I used that new user to connect to directory services
 
 ### Helpful Commands
 

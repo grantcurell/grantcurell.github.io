@@ -1,6 +1,6 @@
 # CloudLink
 
-- [How Does CloudLink Work](#how-does-cloudlink-work)
+- [CloudLink](#cloudlink)
   - [General Functioning](#general-functioning)
   - [Components](#components)
   - [Licensing](#licensing)
@@ -115,7 +115,6 @@ Encryption is controlled by storage policy so you can set it as you would on any
 1. Right click on a VM
 2. Click Edit Storage Policies
 3. Now you can change it to VM Encryption Policy
-
 ![](images/2021-11-10-11-35-18.png)
 
 #### vSAN

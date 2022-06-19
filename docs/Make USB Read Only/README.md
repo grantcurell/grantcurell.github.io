@@ -57,5 +57,4 @@ UUID=4391d5d0-08cb-4fbe-81a8-0a67fe00758c none            swap    sw            
 7. Next we need to set the primary ext4 partition as read-only. Run `sudo umount <YOUR_MOUNT>`. Ex: `sudo umount /media`
 8. Set the ext4 filesystem as read only with `sudo tune2fs -O read-only /dev/<YOUR_PARTITION>`. Ex: `sudo tune2fs -O read-only /dev/sdb2` 
 9. Disconnect the USB drive, boot from it, and confirm read-only behavior.
-
 ![](images/2022-04-22-13-42-32.png)

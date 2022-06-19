@@ -1,6 +1,6 @@
 # idrac with LDAP
 
-- [Setting Up idrac with FreeIPA](#setting-up-idrac-with-freeipa)
+- [idrac with LDAP](#idrac-with-ldap)
   - [Version Info](#version-info)
   - [Setup FreeIPA](#setup-freeipa)
     - [Helpful Commands](#helpful-commands)
@@ -67,9 +67,7 @@ You can also use this to check to see if a user is a member of a group by changi
 Go into the idrac and click the directories prompt.
 
 1. I ran without certs
-
 ![](images/2021-04-02-17-44-54.png)
-
 2. I used the following values:
 
         Generic LDAP: Enabled
@@ -84,7 +82,6 @@ Go into the idrac and click the directories prompt.
 
 3. Click next and for Group DN I used `cn=grantgroup,cn=groups,cn=accounts,dc=grant,dc=lan` where `grantgroup` was the name of the user group I added
 4. I ran the test with the following results:
-
 ![](images/2021-04-02-17-49-41.png)
 
         # Test Results
