@@ -17,6 +17,7 @@ nav:
 - Get NVMe Drives from iDRAC Redfish/README.md
 - High Speed Packet Capture/README.md
 - How OS10 Installer Works/README.md
+- How to ONIE Install and ZTP Config Dell SONiC/README.md
 - How to Read lstopo and a PCIe Overview/README.md
 - idrac with LDAP/README.md
 - Importing Elasticsearch Data/README.md
@@ -33,6 +34,9 @@ nav:
 - Mulitple Span on 4112F-ON with OpenSwitch/README.md
 - Multiple Span on 4112F-ON with OS10/README.md
 - Notes on HPC/README.md
+- Notes on Improving Drive Performance/README.md
+- Notes on mdraid Performance Testing/README.md
+- Notes on NVMe Log Pages/README.md
 - Notes on PCIe/README.md
 - Nvidia GPUDirect/README.md
 - Nvidia GRID Notes/README.md
@@ -47,14 +51,13 @@ nav:
 - Reset OS10 Admin Password/README.md
 - Run VPN on OS10/README.md
 - Running DNS from OS10/README.md
-- SONiC - Sample Datacenter Automation Architecture/README.md
 - Set Up RSPAN on OS10/README.md
 - Setting Up Breakout Cables/README.md
 - Setting Up iDRAC Telemetry with Splunk/README.md
 - Setting Up SmartFabric Director/README.md
 - Setup IDPA/README.md
 - Site to Site VPN with PFSense and CentOS 8/README.md
-- SONiC - Fully Automated Build/README.md
+- SONiC - Sample Datacenter Automation Architecture/README.md
 - Switch Directly to Client Test/README.md
 - Testing Intel x520 on RHEL 6/README.md
 - Understanding Memory/README.md
@@ -68,9 +71,9 @@ nav:
 - VMWare/VMWare APIs/README.md
 - VMWare/VxRail Architecture and Troubleshooting/README.md
 - Web Traffic Generator/README.md
-site_name: Grant Curell's Dell Projects
-site_author: Grant Curell
-theme: readthedocs
-site_url: https://grantcurell.github.io
 remote_branch: main
 repo_name: https://github.com/grantcurell/grantcurell.github.io/tree/master
+site_author: Grant Curell
+site_name: Grant Curell's Dell Projects
+site_url: https://grantcurell.github.io
+theme: readthedocs
