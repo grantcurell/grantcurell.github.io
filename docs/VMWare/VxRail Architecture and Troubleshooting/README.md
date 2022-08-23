@@ -19,6 +19,12 @@
     - [Troubleshooting](#troubleshooting)
     - [How Adding Nodes Works During Cluster Construction](#how-adding-nodes-works-during-cluster-construction)
   - [Disappearing Browse Button](#disappearing-browse-button)
+  - [Troubleshooting Script 15_setup_node.sh execution error](#troubleshooting-script-15_setup_nodesh-execution-error)
+    - [Node 3 Password Change](#node-3-password-change)
+    - [RASR process fails with "Script 15_setup_node.sh execution error"](#rasr-process-fails-with-script-15_setup_nodesh-execution-error)
+    - [RASR on 192.168.0.172](#rasr-on-1921680172)
+      - [Debugging error is fist.log](#debugging-error-is-fistlog)
+  - [Helpful Sites](#helpful-sites)
   - [Log Info](#log-info)
   - [Fixing Half Upgrade](#fixing-half-upgrade)
   - [vCenter Logs](#vcenter-logs)
@@ -300,6 +306,73 @@ All nodes after being RASR have a fully built vSAN disk group. During the initia
 3. enable advanced mode by change it in /var/lib/vmware-marvin/lcm_advanced_mode.properties
 4. Change the contents of /var/lib/vmware-mariv to {"state":"NONE","vc_plugin_updated":false,"deployed_for_public_api":false}
 5. Result `system restart vmware-marvin`
+
+## Troubleshooting Script 15_setup_node.sh execution error
+
+### Node 3 Password Change
+
+- Somehow 192.168.0.172 changed iDRAC passwords overnight. Last I left it, it was in a reboot loop
+
+### RASR process fails with "Script 15_setup_node.sh execution error"
+
+Both 192.168.0.171 and 192.168.0.172 are failed with "Script 15_setup_node.sh execution error". I confirmed  they both had failed to generate disk mapping.
+
+![](images/2022-08-23-05-19-23.png)
+
+This does not exactly match [the kb](https://www.dell.com/support/kbdoc/en-th/000050335/vxrail-rasr-process-fails-with-script-15-setup-node-sh-execution-error?c=th) but it does appear to be fatal.
+
+### RASR on 192.168.0.172
+
+- I ran with no DUP install
+
+![](images/2022-08-23-06-53-26.png)
+
+- Copying these temp files is taking hours. They're only 12 GB
+
+![](images/2022-08-23-11-19-42.png)
+
+- Same problem
+
+![](images/2022-08-23-12-06-47.png)
+
+#### Debugging error is fist.log
+
+- For starters my fist.log was in /scratch instead of /mnt
+
+![](images/2022-08-23-12-52-32.png)
+
+![](images/2022-08-23-12-53-01.png)
+
+- The observed 15_setup_node.sh is in:
+
+```
+[root@fedora media]# grep -Ro 15_setup* .
+grep: ./release/gmywd_is.tar: binary file matches
+```
+
+See [15_setup_node.sh](images/15_setup_node.sh)
+
+The referenced vmware-marvin seems to be a VIB
+
+![](images/2022-08-23-16-18-09.png)
+
+The failed post is here:
+
+![](images/2022-08-23-16-37-45.png)
+
+I can't tell if this error is related but in another error this function failes:
+
+![](images/2022-08-23-16-40-33.png)
+
+drives is none. Whatever is populating `self.getDrivesInfo(host, port)` isn't working.
+
+![](images/2022-08-23-16-44-07.png)
+
+Whatever this is in vxrail_primary.py (line 530) HostConnection is not returning something valid. If we know what that is we can debug manually on the box.
+
+## Helpful Sites
+
+Can't deploy 7.0.300: https://www.dell.com/support/kbdoc/en-th/000193618?lang=en
 
 ## Log Info
 
