@@ -23,8 +23,7 @@
     - [Node 3 Password Change](#node-3-password-change)
     - [RASR process fails with "Script 15_setup_node.sh execution error"](#rasr-process-fails-with-script-15_setup_nodesh-execution-error)
     - [RASR on 192.168.0.172](#rasr-on-1921680172)
-      - [Debugging error is fist.log](#debugging-error-is-fistlog)
-  - [Helpful Sites](#helpful-sites)
+      - [Debugging error](#debugging-error)
   - [Log Info](#log-info)
   - [Fixing Half Upgrade](#fixing-half-upgrade)
   - [vCenter Logs](#vcenter-logs)
@@ -335,7 +334,9 @@ This does not exactly match [the kb](https://www.dell.com/support/kbdoc/en-th/00
 
 ![](images/2022-08-23-12-06-47.png)
 
-#### Debugging error is fist.log
+#### Debugging error
+
+The error looks like https://www.dell.com/support/kbdoc/en-th/000193618?lang=en
 
 - For starters my fist.log was in /scratch instead of /mnt
 
@@ -368,11 +369,7 @@ drives is none. Whatever is populating `self.getDrivesInfo(host, port)` isn't wo
 
 ![](images/2022-08-23-16-44-07.png)
 
-Whatever this is in vxrail_primary.py (line 530) HostConnection is not returning something valid. If we know what that is we can debug manually on the box.
-
-## Helpful Sites
-
-Can't deploy 7.0.300: https://www.dell.com/support/kbdoc/en-th/000193618?lang=en
+Whatever this is in vxrail_primary.py (line 530) HostConnection is not returning something valid. If we know what that is we can debug manually on the box. Moreover, this function is called is_dell_non_13G_platform but this is a P470F - which IS a 13G platform.
 
 ## Log Info
 
