@@ -57,6 +57,10 @@
                 </li>
               </ul>
               <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Backup%20OS10%20Config%20with%20Ansible/">Backup OS10 Config with Ansible</a>
+                </li>
+              </ul>
+              <ul>
                 <li class="toctree-l1"><a class="reference internal" href="../../CloudLink/">CloudLink</a>
                 </li>
               </ul>
@@ -590,7 +594,7 @@
     }
 </code></pre>
 <p>As before you will have to update the password with:</p>
-<pre><code>curl -X PUT --unix-socket /var/lib/vxrail/nginx/socket/nginx.sock -H "accept: application/json" -H "Content-Type: application/json" -d '{"lockbox_name":"SYSTEM","credentials":[{"credential_name":"management_account_esxi__<host-SN>","username":"ESXi_management_account_user_name","password":"encoded_password"}]}'  'http://localhost/rest/vxm/internal/lockbox/v1/credentials'</pre></code>
+<p>curl -X PUT --unix-socket /var/lib/vxrail/nginx/socket/nginx.sock -H "accept: application/json" -H "Content-Type: application/json" -d '{"lockbox_name":"SYSTEM","credentials":[{"credential_name":"management_account_esxi__<host-SN>","username":"ESXi_management_account_user_name","password":"encoded_password"}]}'  'http://localhost/rest/vxm/internal/lockbox/v1/credentials'</p>
 <p>where <code>&lt;host-sn&gt;</code> is your service tag, <code>ESXi_management_account_user_name</code> is the name of your ESXi management account from above, and <code>encoded password</code> is your password base64 encoded with <code>echo -n "PASSWORD" | base64</code>.</p>
 <p>Ensure that the password on ESXi matches by browsing to Manage-&gt;Security &amp; Users-&gt;Users on the ESXi management interface:</p>
 <p><img alt="" src="images/2022-08-31-14-20-39.png" /></p>
