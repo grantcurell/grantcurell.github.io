@@ -3,6 +3,7 @@ nav:
 - Adding Hashing to OpenSwitch/README.md
 - Adding Intel I219-LM (8086.0d4c) Driver to ESXi/README.md
 - Automating OME Hardware Reports/README.md
+- Backup OS10 Config with Ansible/README.md
 - CloudLink/README.md
 - Configure FN410 as a Switch/README.md
 - Configure Gigamon Tap/README.md

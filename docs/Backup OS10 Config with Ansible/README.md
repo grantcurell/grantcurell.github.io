@@ -1,4 +1,4 @@
-# Backup and Deploy OS10 Config with Ansible
+# Backup OS10 Config with Ansible
 
 ## Overview
 
