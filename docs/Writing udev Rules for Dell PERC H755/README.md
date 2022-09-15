@@ -395,3 +395,104 @@
         USEC_INITIALIZED=76984220
         Unload module index
         Unloaded link configuration context.
+
+## `perccli64 /c0 show`
+
+        [root@r7525 rules.d]# /opt/MegaRAID/perccli/perccli64 /c0 show
+        Generating detailed summary of the adapter, it may take a while to complete.
+
+        CLI Version = 007.1623.0000.0000 May 17, 2021
+        Operating system = Linux 4.18.0-372.9.1.el8.x86_64
+        Controller = 0
+        Status = Success
+        Description = None
+
+        Product Name = PERC H755N Front
+        Serial Number = 07R001E
+        SAS Address =  5f4ee0801601c700
+        PCI Address = 00:01:00:00
+        System Time = 09/15/2022 14:05:38
+        Mfg. Date = 12/10/21
+        Controller Time = 09/15/2022 18:05:38
+        FW Package Build = 52.16.1-4405
+        BIOS Version = 7.16.00.0_0x07100501
+        FW Version = 5.160.02-3552
+        Driver Name = megaraid_sas
+        Driver Version = 07.719.03.00-rh1
+        Current Personality = RAID-Mode
+        Vendor Id = 0x1000
+        Device Id = 0x10E2
+        SubVendor Id = 0x1028
+        SubDevice Id = 0x1AE2
+        Host Interface = PCI-E
+        Bus Number = 1
+        Device Number = 0
+        Function Number = 0
+        Domain ID = 0
+        Security Protocol = None
+        JBOD Drives = 2
+
+        JBOD LIST :
+        =========
+
+        ----------------------------------------------------------------------------------------------------
+        ID EID:Slt DID State Intf Med     Size SeSz Model                                    Vendor   Port
+        ----------------------------------------------------------------------------------------------------
+        8 252:8     1 Onln  NVMe SSD 1.746 TB 512B Dell Ent NVMe v2 AGN RI U.2 1.92TB       NVMe     00 x2
+        9 252:9     0 Onln  NVMe SSD 1.746 TB 512B Dell Ent NVMe v2 AGN RI U.2 1.92TB       NVMe     00 x2
+        ----------------------------------------------------------------------------------------------------
+
+        ID=JBOD Target ID|EID=Enclosure Device ID|Slt=Slot No|DID=Device ID|Onln=Online
+        Offln=Offline|Intf=Interface|Med=Media Type|SeSz=Sector Size
+        SED=Self Encryptive Drive|PI=Protection Info|Sp=Spun|U=Up|D=Down
+
+        Physical Drives = 8
+
+        PD LIST :
+        =======
+
+        -----------------------------------------------------------------------------------------------------
+        EID:Slt DID State DG      Size Intf Med SED PI SeSz Model                                    Sp Type
+        -----------------------------------------------------------------------------------------------------
+        252:8     1 Onln  -   1.746 TB NVMe SSD N   N  512B Dell Ent NVMe v2 AGN RI U.2 1.92TB       U  JBOD
+        252:9     0 Onln  -   1.746 TB NVMe SSD N   N  512B Dell Ent NVMe v2 AGN RI U.2 1.92TB       U  JBOD
+        252:10    6 UGood -   1.454 TB NVMe SSD N   N  512B Dell Express Flash PM1725b 1.6TB SFF     U  -
+        252:11    7 UGood -  13.971 TB NVMe SSD N   N  512B Micron_9300_MTFDHAL15T3TDP               U  -
+        252:12    5 UGood -   1.454 TB NVMe SSD N   N  512B Dell Express Flash PM1725b 1.6TB SFF     U  -
+        252:13    4 UGood -   2.910 TB NVMe SSD N   N  512B Dell Express Flash NVMe P4610 3.2TB SFF  U  -
+        252:14    9 UGood -   2.910 TB NVMe SSD N   N  512B Dell Express Flash NVMe P4610 3.2TB SFF  U  -
+        252:15    8 UGood -   2.910 TB NVMe SSD N   N  512B Dell Express Flash NVMe P4610 3.2TB SFF  U  -
+        -----------------------------------------------------------------------------------------------------
+
+        EID=Enclosure Device ID|Slt=Slot No|DID=Device ID|DG=DriveGroup
+        DHS=Dedicated Hot Spare|UGood=Unconfigured Good|GHS=Global Hotspare
+        UBad=Unconfigured Bad|Sntze=Sanitize|Onln=Online|Offln=Offline|Intf=Interface
+        Med=Media Type|SED=Self Encryptive Drive|PI=Protection Info
+        SeSz=Sector Size|Sp=Spun|U=Up|D=Down|T=Transition|F=Foreign
+        UGUnsp=UGood Unsupported|UGShld=UGood shielded|HSPShld=Hotspare shielded
+        CFShld=Configured shielded|Cpybck=CopyBack|CBShld=Copyback Shielded
+        UBUnsp=UBad Unsupported|Rbld=Rebuild
+
+        Enclosures = 1
+
+        Enclosure LIST :
+        ==============
+
+        --------------------------------------------------------------------
+        EID State Slots PD PS Fans TSs Alms SIM Port# ProdID VendorSpecific
+        --------------------------------------------------------------------
+        252 OK        8  8  0    0   0    0   0 -     BP15G+
+        --------------------------------------------------------------------
+
+        EID=Enclosure Device ID | PD=Physical drive count | PS=Power Supply count
+        TSs=Temperature sensor count | Alms=Alarm count | SIM=SIM Count | ProdID=Product ID
+
+
+        BBU_Info :
+        ========
+
+        ----------------------------------------------
+        Model State   RetentionTime Temp Mode MfgDate
+        ----------------------------------------------
+        BBU   Optimal 0 hour(s)     27C  -    0/00/00
+        ----------------------------------------------
