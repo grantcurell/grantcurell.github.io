@@ -1,5 +1,17 @@
+# Writing udev Rules for Dell PERC H755
 
-## /etc/udev/rules.d/99-abj.nr.rules
+- [Writing udev Rules for Dell PERC H755](#writing-udev-rules-for-dell-perc-h755)
+  - [Test 1](#test-1)
+    - [/etc/udev/rules.d/99-abj.nr.rules](#etcudevrulesd99-abjnrrules)
+    - [`udevadm test --action="add" /sys/block/sdc` with custom rules](#udevadm-test---actionadd-sysblocksdc-with-custom-rules)
+    - [Test Without Custom Rules](#test-without-custom-rules)
+    - [`perccli64 /c0 show`](#perccli64-c0-show)
+    - [`/opt/MegaRAID/perccli/perccli64 /c1 show`](#optmegaraidperccliperccli64-c1-show)
+    - [`lsblk`](#lsblk)
+
+## Test 1
+
+### /etc/udev/rules.d/99-abj.nr.rules
 
         KERNEL=="sd*",ACTION=="add|change",ATTRS{model}=="PERC_H755N_Front",\
                     ATTR{queue/nomerges}="2",\
@@ -34,7 +46,7 @@
                     ATTR{queue/scheduler}="none",\
                     ATTR{queue/add_random}="0", ATTR{queue/max_sectors_kb}="4096"
 
-## `udevadm test --action="add" /sys/block/sdc` with custom rules
+### `udevadm test --action="add" /sys/block/sdc` with custom rules
 
         [root@r7525 rules.d]# udevadm test --action="add" /sys/block/sdc
         calling: test
@@ -154,7 +166,7 @@
         Unload module index
         Unloaded link configuration context.
 
-## Test Without Custom Rules
+### Test Without Custom Rules
 
         [root@r7525 rules.d]# !udev
         udevadm test --action="add" /sys/block/sdc
@@ -396,7 +408,7 @@
         Unload module index
         Unloaded link configuration context.
 
-## `perccli64 /c0 show`
+### `perccli64 /c0 show`
 
         [root@r7525 rules.d]# /opt/MegaRAID/perccli/perccli64 /c0 show
         Generating detailed summary of the adapter, it may take a while to complete.
@@ -497,7 +509,7 @@
         BBU   Optimal 0 hour(s)     27C  -    0/00/00
         ----------------------------------------------
 
-## `/opt/MegaRAID/perccli/perccli64 /c1 show`
+### `/opt/MegaRAID/perccli/perccli64 /c1 show`
 
         [root@r7525 rules.d]# /opt/MegaRAID/perccli/perccli64 /c1 show
         Generating detailed summary of the adapter, it may take a while to complete.
@@ -598,7 +610,7 @@
         BBU   Optimal 0 hour(s)     27C  -    0/00/00
         ----------------------------------------------
 
-## `lsblk`
+### `lsblk`
 
         [root@r7525 rules.d]# lsblk
         NAME                   MAJ:MIN RM   SIZE RO TYPE  MOUNTPOINT
