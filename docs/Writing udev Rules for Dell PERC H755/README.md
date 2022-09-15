@@ -496,3 +496,125 @@
         ----------------------------------------------
         BBU   Optimal 0 hour(s)     27C  -    0/00/00
         ----------------------------------------------
+
+## `/opt/MegaRAID/perccli/perccli64 /c1 show`
+
+        [root@r7525 rules.d]# /opt/MegaRAID/perccli/perccli64 /c1 show
+        Generating detailed summary of the adapter, it may take a while to complete.
+
+        CLI Version = 007.1623.0000.0000 May 17, 2021
+        Operating system = Linux 4.18.0-372.9.1.el8.x86_64
+        Controller = 1
+        Status = Success
+        Description = None
+
+        Product Name = PERC H755N Front
+        Serial Number = 07R00K2
+        SAS Address =  5f4ee080160bd500
+        PCI Address = 00:c1:00:00
+        System Time = 09/15/2022 14:17:35
+        Mfg. Date = 12/10/21
+        Controller Time = 09/15/2022 18:17:35
+        FW Package Build = 52.16.1-4405
+        BIOS Version = 7.16.00.0_0x07100501
+        FW Version = 5.160.02-3552
+        Driver Name = megaraid_sas
+        Driver Version = 07.719.03.00-rh1
+        Current Personality = RAID-Mode
+        Vendor Id = 0x1000
+        Device Id = 0x10E2
+        SubVendor Id = 0x1028
+        SubDevice Id = 0x1AE2
+        Host Interface = PCI-E
+        Bus Number = 193
+        Device Number = 0
+        Function Number = 0
+        Domain ID = 0
+        Security Protocol = None
+        JBOD Drives = 2
+
+        JBOD LIST :
+        =========
+
+        ----------------------------------------------------------------------------------------------------
+        ID EID:Slt DID State Intf Med     Size SeSz Model                                    Vendor   Port
+        ----------------------------------------------------------------------------------------------------
+        0 252:0     1 Onln  NVMe SSD 1.746 TB 512B Dell Ent NVMe v2 AGN RI U.2 1.92TB       NVMe     00 x2
+        1 252:1     0 Onln  NVMe SSD 1.746 TB 512B Dell Ent NVMe v2 AGN RI U.2 1.92TB       NVMe     00 x2
+        ----------------------------------------------------------------------------------------------------
+
+        ID=JBOD Target ID|EID=Enclosure Device ID|Slt=Slot No|DID=Device ID|Onln=Online
+        Offln=Offline|Intf=Interface|Med=Media Type|SeSz=Sector Size
+        SED=Self Encryptive Drive|PI=Protection Info|Sp=Spun|U=Up|D=Down
+
+        Physical Drives = 8
+
+        PD LIST :
+        =======
+
+        ----------------------------------------------------------------------------------------------------
+        EID:Slt DID State DG     Size Intf Med SED PI SeSz Model                                    Sp Type
+        ----------------------------------------------------------------------------------------------------
+        252:0     1 Onln  -  1.746 TB NVMe SSD N   N  512B Dell Ent NVMe v2 AGN RI U.2 1.92TB       U  JBOD
+        252:1     0 Onln  -  1.746 TB NVMe SSD N   N  512B Dell Ent NVMe v2 AGN RI U.2 1.92TB       U  JBOD
+        252:2     5 UGood -  2.910 TB NVMe SSD N   N  512B Dell Express Flash NVMe P4610 3.2TB SFF  U  -
+        252:3     8 UGood -  2.910 TB NVMe SSD N   N  512B Dell Express Flash NVMe P4610 3.2TB SFF  U  -
+        252:4     4 UGood -  2.910 TB NVMe SSD N   N  512B Dell Express Flash NVMe P4610 3.2TB SFF  U  -
+        252:5     7 UGood -  2.910 TB NVMe SSD N   N  512B Dell Express Flash NVMe P4610 3.2TB SFF  U  -
+        252:6     6 UGood -  2.910 TB NVMe SSD N   N  512B Dell Express Flash NVMe P4610 3.2TB SFF  U  -
+        252:7     3 UGood -  2.910 TB NVMe SSD N   N  512B Dell Express Flash NVMe P4610 3.2TB SFF  U  -
+        ----------------------------------------------------------------------------------------------------
+
+        EID=Enclosure Device ID|Slt=Slot No|DID=Device ID|DG=DriveGroup
+        DHS=Dedicated Hot Spare|UGood=Unconfigured Good|GHS=Global Hotspare
+        UBad=Unconfigured Bad|Sntze=Sanitize|Onln=Online|Offln=Offline|Intf=Interface
+        Med=Media Type|SED=Self Encryptive Drive|PI=Protection Info
+        SeSz=Sector Size|Sp=Spun|U=Up|D=Down|T=Transition|F=Foreign
+        UGUnsp=UGood Unsupported|UGShld=UGood shielded|HSPShld=Hotspare shielded
+        CFShld=Configured shielded|Cpybck=CopyBack|CBShld=Copyback Shielded
+        UBUnsp=UBad Unsupported|Rbld=Rebuild
+
+        Enclosures = 1
+
+        Enclosure LIST :
+        ==============
+
+        --------------------------------------------------------------------
+        EID State Slots PD PS Fans TSs Alms SIM Port# ProdID VendorSpecific
+        --------------------------------------------------------------------
+        252 OK        8  8  0    0   0    0   0 -     BP15G+
+        --------------------------------------------------------------------
+
+        EID=Enclosure Device ID | PD=Physical drive count | PS=Power Supply count
+        TSs=Temperature sensor count | Alms=Alarm count | SIM=SIM Count | ProdID=Product ID
+
+
+        BBU_Info :
+        ========
+
+        ----------------------------------------------
+        Model State   RetentionTime Temp Mode MfgDate
+        ----------------------------------------------
+        BBU   Optimal 0 hour(s)     27C  -    0/00/00
+        ----------------------------------------------
+
+## `lsblk`
+
+        [root@r7525 rules.d]# lsblk
+        NAME                   MAJ:MIN RM   SIZE RO TYPE  MOUNTPOINT
+        sda                      8:0    0 223.6G  0 disk
+        ├─sda1                   8:1    0   600M  0 part  /boot/efi
+        ├─sda2                   8:2    0     1G  0 part  /boot
+        └─sda3                   8:3    0   222G  0 part
+        └─md127                9:127  0 221.9G  0 raid1
+            ├─boss_drives-root 253:0    0 217.9G  0 lvm   /
+            └─boss_drives-swap 253:1    0     4G  0 lvm   [SWAP]
+        sdb                      8:16   0 223.6G  0 disk
+        └─sdb1                   8:17   0   222G  0 part
+        └─md127                9:127  0 221.9G  0 raid1
+            ├─boss_drives-root 253:0    0 217.9G  0 lvm   /
+            └─boss_drives-swap 253:1    0     4G  0 lvm   [SWAP]
+        sdc                      8:32   0   1.8T  0 disk
+        sdd                      8:48   0   1.8T  0 disk
+        sde                      8:64   0   1.8T  0 disk
+        sdf                      8:80   0   1.8T  0 disk
