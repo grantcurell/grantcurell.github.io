@@ -1183,7 +1183,7 @@ SUBSYSTEM=="block",ACTION=="add|change",KERNEL=="md*",\
                 [root@r7525 ~]#
                 [root@r7525 ~]# udevadm control --reload-rules && udevadm trigger
                 [root@r7525 ~]# !cat
-                cat /sys/block/sdb/queue/nr_requests
+                cat /sys/block/sda/queue/nr_requests
                 1023
                 [root@r7525 ~]# cat /sys/block/sda/queue/nomerges
                 2
