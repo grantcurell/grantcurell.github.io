@@ -1,6 +1,7 @@
 # Writing udev Rules for Dell PERC H755
 
 - [Writing udev Rules for Dell PERC H755](#writing-udev-rules-for-dell-perc-h755)
+  - [Operating System](#operating-system)
   - [Test 1](#test-1)
     - [/etc/udev/rules.d/99-abj.nr.rules](#etcudevrulesd99-abjnrrules)
     - [`udevadm test --action="add" /sys/block/sdc` with custom rules](#udevadm-test---actionadd-sysblocksdc-with-custom-rules)
@@ -14,6 +15,29 @@
     - [`udevadm test --action="add" /sys/block/sda`](#udevadm-test---actionadd-sysblocksda)
     - [nr_requests value](#nr_requests-value)
       - [Post Reboot](#post-reboot)
+
+## Operating System
+
+                [root@r7525 ~]# cat /etc/*-release
+                NAME="Red Hat Enterprise Linux"
+                VERSION="8.6 (Ootpa)"
+                ID="rhel"
+                ID_LIKE="fedora"
+                VERSION_ID="8.6"
+                PLATFORM_ID="platform:el8"
+                PRETTY_NAME="Red Hat Enterprise Linux 8.6 (Ootpa)"
+                ANSI_COLOR="0;31"
+                CPE_NAME="cpe:/o:redhat:enterprise_linux:8::baseos"
+                HOME_URL="https://www.redhat.com/"
+                DOCUMENTATION_URL="https://access.redhat.com/documentation/red_hat_enterprise_linux/8/"
+                BUG_REPORT_URL="https://bugzilla.redhat.com/"
+
+                REDHAT_BUGZILLA_PRODUCT="Red Hat Enterprise Linux 8"
+                REDHAT_BUGZILLA_PRODUCT_VERSION=8.6
+                REDHAT_SUPPORT_PRODUCT="Red Hat Enterprise Linux"
+                REDHAT_SUPPORT_PRODUCT_VERSION="8.6"
+                Red Hat Enterprise Linux release 8.6 (Ootpa)
+                Red Hat Enterprise Linux release 8.6 (Ootpa)
 
 ## Test 1
 
@@ -1111,17 +1135,78 @@ SUBSYSTEM=="block",ACTION=="add|change",KERNEL=="md*",\
 
 #### Post Reboot
 
-                [root@r7525 rules.d]# reboot
+                [root@r7525 ~]# reboot
                 Using username "root".
                 root@192.168.1.60's password:
                 Activate the web console with: systemctl enable --now cockpit.socket
 
                 Register this system with Red Hat Insights: insights-client --register
                 Create an account or view all your systems at https://red.ht/insights-dashboard
-                Last login: Fri Sep 16 11:54:14 2022 from 10.8.0.6
-                [root@r7525 ~]# !cat
-                cat /sys/block/sda/queue/nr_requests
+                Last login: Fri Sep 16 13:06:28 2022 from 10.8.0.6
+                [root@r7525 ~]# cat /sys/block/sda/queue/nr_requests
                 5089
+                [root@r7525 ~]# cat /sys/block/sda/queue/nomerges
+                2
+                [root@r7525 ~]# cat /sys/block/sda/queue/rotational
+                0
+                [root@r7525 ~]# cat /sys/block/sda/queue/rq_affinity
+                2
+                [root@r7525 ~]# cat /sys/block/sda/queue/scheduler
+                [none] mq-deadline kyber bfq
+                [root@r7525 ~]# cat /sys/block/sda/queue/add_random
+                0
+                [root@r7525 ~]# udevadm control --reload-rules && udevadm trigger
+                [root@r7525 ~]# cat /sys/block/sda/queue/nr_requests
+                1023
+                [root@r7525 ~]# mv /etc/udev/rules.d/99-abj.nr.rules /root
+                [root@r7525 ~]# reboot
+                Using username "root".
+                root@192.168.1.60's password:
+                Activate the web console with: systemctl enable --now cockpit.socket
+
+                Register this system with Red Hat Insights: insights-client --register
+                Create an account or view all your systems at https://red.ht/insights-dashboard
+                Last login: Fri Sep 16 13:41:47 2022 from 10.8.0.6
+                [root@r7525 ~]# cat /sys/block/sda/queue/nr_requests
+                256
+                [root@r7525 ~]# cat /sys/block/sda/queue/nomerges
+                2
+                [root@r7525 ~]# cat /sys/block/sda/queue/rq_affinity
+                1
+                [root@r7525 ~]# cat /sys/block/sda/queue/scheduler
+                [mq-deadline] kyber bfq none
+                [root@r7525 ~]# cat /sys/block/sda/queue/add_random
+                0
+                [root@r7525 ~]# mv /root/99-abj.nr.rules /etc/udev/rules.d/
+                [root@r7525 ~]# udevadm control --reload-rules && udevadm trigger
+                [root@r7525 ~]# cat /sys/block/sda/queue/nr_requests
+                1023
+                [root@r7525 ~]# cat /sys/block/sda/queue/nomerges
+                2
+                [root@r7525 ~]# cat /sys/block/sda/queue/rq_affinity
+                2
+                [root@r7525 ~]# cat /sys/block/sda/queue/scheduler
+                [none] mq-deadline kyber bfq
+                [root@r7525 ~]# cat /sys/block/sda/queue/add_random
+                0
+                [root@r7525 ~]# reboot
+                Using username "root".
+                root@192.168.1.60's password:
+                Activate the web console with: systemctl enable --now cockpit.socket
+
+                Register this system with Red Hat Insights: insights-client --register
+                Create an account or view all your systems at https://red.ht/insights-dashboard
+                Last login: Fri Sep 16 13:47:53 2022 from 10.8.0.6
+                [root@r7525 ~]# cat /sys/block/sda/queue/nr_requests
+                5089
+                [root@r7525 ~]# cat /sys/block/sda/queue/nomerges
+                2
+                [root@r7525 ~]# cat /sys/block/sda/queue/rq_affinity
+                2
+                [root@r7525 ~]# cat /sys/block/sda/queue/scheduler
+                [none] mq-deadline kyber bfq
+                [root@r7525 ~]# cat /sys/block/sda/queue/add_random
+                0
                 [root@r7525 ~]# cat /etc/udev/rules.d/99-abj.nr.rules
                 KERNEL=="sd*",ACTION=="add|change",ATTRS{model}=="PERC_H755N_Front",\
                         ATTR{queue/nomerges}="2",\
@@ -1155,46 +1240,7 @@ SUBSYSTEM=="block",ACTION=="add|change",KERNEL=="md*",\
                         ATTR{queue/rq_affinity}="2",\
                         ATTR{queue/scheduler}="none",\
                         ATTR{queue/add_random}="0", ATTR{queue/max_sectors_kb}="4096"
-                [root@r7525 ~]#
-                [root@r7525 ~]#
-                [root@r7525 ~]#
-                [root@r7525 ~]#
-                [root@r7525 ~]#
-                [root@r7525 ~]# lsblk
-                NAME                   MAJ:MIN RM   SIZE RO TYPE  MOUNTPOINT
-                sda                      8:0    0   1.8T  0 disk
-                sdb                      8:16   0   1.8T  0 disk
-                sdc                      8:32   0   5.8T  0 disk
-                sdd                      8:48   0 223.6G  0 disk
-                ├─sdd1                   8:49   0   600M  0 part  /boot/efi
-                ├─sdd2                   8:50   0     1G  0 part  /boot
-                └─sdd3                   8:51   0   222G  0 part
-                └─md127                9:127  0 221.9G  0 raid1
-                ├─boss_drives-root 253:0    0 217.9G  0 lvm   /
-                └─boss_drives-swap 253:1    0     4G  0 lvm   [SWAP]
-                sde                      8:64   0 223.6G  0 disk
-                └─sde1                   8:65   0   222G  0 part
-                └─md127                9:127  0 221.9G  0 raid1
-                ├─boss_drives-root 253:0    0 217.9G  0 lvm   /
-                └─boss_drives-swap 253:1    0     4G  0 lvm   [SWAP]
-                [root@r7525 ~]# cat /sys/block/sdb/queue/nr_requests
-                5089
-                [root@r7525 ~]#
-                [root@r7525 ~]#
-                [root@r7525 ~]# udevadm control --reload-rules && udevadm trigger
-                [root@r7525 ~]# !cat
-                cat /sys/block/sda/queue/nr_requests
-                1023
-                [root@r7525 ~]# cat /sys/block/sda/queue/nomerges
-                2
-                [root@r7525 ~]# cat /sys/block/sda/queue/rotational
-                0
-                [root@r7525 ~]# cat /sys/block/sda/queue/rq_affinity
-                2
-                [root@r7525 ~]# cat /sys/block/sda/queue/scheduler
-                [none] mq-deadline kyber bfq
-                [root@r7525 ~]# cat /sys/block/sda/queue/add_random
-                0
+
 
 Post reboot the rules did not take affect nor did they appear to work when I created them and then attempted to force them with `udevadm control --reload-rules && udevadm trigger` before rebooting. What I had to do:
 
