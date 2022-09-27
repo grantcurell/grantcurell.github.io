@@ -42,6 +42,8 @@ Khan Academy Video Series: https://www.khanacademy.org/economics-finance-domain/
 
 Follow My Vote (Blockchain used for voting): https://github.com/FollowMyVote
 
+Why Using Bitcoin/Blockchain for Voting is a Bad Idea: https://www.coindesk.com/tech/2020/11/16/new-mit-paper-roundly-rejects-blockchain-voting-as-solution-to-election-woes/
+
 ## Azure Solution with Active Directory
 
 See https://learn.microsoft.com/en-us/shows/azure-friday/issue-and-accept-verifiable-credentials-using-azure-active-directory?culture=en-us&country=US
