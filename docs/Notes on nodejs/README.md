@@ -117,4 +117,142 @@ REPL is an abbreviation for read–eval–print loop. It’s a program that loop
 
 It's just the equivalent of typing `python` except for javascript. Type `node` to get to it.
 
-To see global vars see `Object.keys(global)`. You can add to it with `global.cat = 'thing'`
+To see global vars see `Object.keys(global)`. You can add to it with `global.cat = 'thing'`. Print with `console.log(global.cat)`
+
+If you’re familiar with running JavaScript on the browser, you’ve likely encountered the Window object. Here’s one major way that Node differs: try to access the Window object (this will throw an error). The Window object is the JavaScript object in the browser that holds the DOM, since we don’t have a DOM here, there’s no Window object.
+
+### Running a Program with Node
+
+`node program`
+
+### Core Modules
+
+Include a module:
+
+```javascript
+// Require in the 'events' core module:
+const events = require('events');
+```
+
+Some core modules are actually used inside other core modules. For instance, the util module can be used in the console module to format messages. We’ll cover these two modules in this lesson, as well as two other commonly used core modules: process and os.
+
+See all builtin modules: `require('module').builtinModules`
+
+### Console Module
+
+Since console is a global module, its methods can be accessed from anywhere, and the require() function is not necessary.
+
+- .log() - prints messages to the terminal
+- .assert() - prints a message to the terminal if the value is falsey
+  - `console.assert(petsArray.length > 5);`
+- .table() - prints out a table in the terminal from an object or array
+
+### The Process Module
+
+Node has a global process object with useful methods and information about the current process.
+
+The process.env property is an object which stores and controls information about the environment in which the process is currently running. For example, the process.env object contains a PWD property which holds a string with the directory in which the current process is located. It can be useful to have some if/else logic in a program depending on the current environment— a web application in a development phase might perform different tasks than when it’s live to users. We could store this information on the process.env. One convention is to add a property to process.env with the key NODE_ENV and a value of either production or development.
+
+```javascript
+if (process.env.NODE_ENV === 'development'){
+  console.log('Testing! Testing! Does everything work?');
+}
+```
+
+The process.memoryUsage() returns information on the CPU demands of the current process. It returns a property that looks similar to this:
+
+```javascript
+{ rss: 26247168,
+  heapTotal: 5767168,
+  heapUsed: 3573032,
+  external: 8772 }
+```
+
+`process.argv` holds an array of command line values provided when the current process was initiated.
+
+### The OS Module
+
+`const os = require('os');`
+
+- os.type() — to return the computer’s operating system.
+- os.arch() — to return the operating system CPU architecture.
+- os.networkInterfaces() — to return information about the network interfaces of the computer, such as IP and MAC address.
+- os.homedir() — to return the current user’s home directory.
+- os.hostname() — to return the hostname of the operating system.
+- os.uptime() — to return the system uptime, in seconds.
+
+Create an empty object `const object = {};`
+
+**Instantiate a dictionary:**
+
+```javascript
+const os = require('os');
+const server = {type: os.type(), architecture: os.arch(), uptime: os.uptime()};
+
+console.table(server)
+```
+
+### The Util Module
+
+Developers sometimes classify outlier functions used to maintain code and debug certain aspects of a program’s functionality as utility functions. Utility functions don’t necessarily create new functionality in a program, but you can think of them as internal tools used to maintain and debug your code. The Node.js util core module contains methods specifically designed for these purposes.
+
+`const util = require('util');`
+
+**Get the type of an object**: 
+
+```javascript
+const util = require('util');
+ 
+const today = new Date();
+const earthDay = 'April 22, 2022';
+ 
+console.log(util.types.isDate(today));
+console.log(util.types.isDate(earthDay));
+```
+
+**Turn callback functions into promises**: 
+
+Another important util method is .promisify(), which turns callback functions into promises. As you know, asynchronous programming is essential to Node.js. In the beginning, this asynchrony was achieved using error-first callback functions, which are still very prevalent in the Node ecosystem today. But since promises are often preferred over callbacks and especially nested callbacks, Node offers a way to turn these into promises. Let’s take a look:
+
+```javascript
+function getUser (id, callback) {
+  return setTimeout(() => {
+    if (id === 5) {
+      callback(null, { nickname: 'Teddy' })
+    } else {
+      callback(new Error('User not found'))
+    }
+  }, 1000)
+}
+ 
+function callback (error, user) {
+  if (error) {
+    console.error(error.message)
+    process.exit(1)
+  }
+ 
+  console.log(`User found! Their nickname is: ${user.nickname}`)
+}
+ 
+getUser(1, callback) // -> `User not found`
+getUser(5, callback) // -> `User found! Their nickname is: Teddy`
+```
+
+You can convert the above to:
+
+```javascript
+const getUserPromise = util.promisify(getUser);
+ 
+getUserPromise(id)
+  .then((user) => {
+      console.log(`User found! Their nickname is: ${user.nickname}`);
+  })
+  .catch((error) => {
+      console.log('User not found', error);
+  });
+ 
+getUser(1) // -> `User not found`
+getUser(5) // -> `User found! Their nickname is: Teddy`
+```
+
+We declare a getUserPromise variable that stores the getUser method turned into a promise using the .promisify() method. With that in place, we’re able to use getUserPromise with .then() and .catch() methods (or we could also use the async...await syntax here) to resolve the promise returned or catch any errors.
