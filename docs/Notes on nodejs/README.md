@@ -149,7 +149,7 @@ Since console is a global module, its methods can be accessed from anywhere, and
 
 ### The Process Module
 
-Node has a global process object with useful methods and information about the current process.
+Node has a global process object with useful methods and information about the current process. The console.log() method is a “thin wrapper” on the .stdout.write() method of the process object. 
 
 The process.env property is an object which stores and controls information about the environment in which the process is currently running. For example, the process.env object contains a PWD property which holds a string with the directory in which the current process is located. It can be useful to have some if/else logic in a program depending on the current environment— a web application in a development phase might perform different tasks than when it’s live to users. We could store this information on the process.env. One convention is to add a property to process.env with the key NODE_ENV and a value of either production or development.
 
@@ -404,3 +404,204 @@ console.log(`${celsiusInput} degrees Celsius = ${fahrenheitValue} degrees Fahren
 ```
 
 Notice that the first line used to be `const converters = require('./converters.js');` and now it is specifying the exported function.
+
+### The Events Module
+
+Node provides an EventEmitter class which we can access by requiring in the events core module:
+
+```javascript
+// Require in the 'events' core module
+let events = require('events');
+ 
+// Create an instance of the EventEmitter class
+let myEmitter = new events.EventEmitter();
+```
+
+Each event emitter instance has an .on() method which assigns a listener callback function to a named event. The .on() method takes as its first argument the name of the event as a string and, as its second argument, the listener callback function.
+
+Each event emitter instance also has an .emit() method which announces a named event has occurred. The .emit() method takes as its first argument the name of the event as a string and, as its second argument, the data that should be passed
+
+```javascript
+let newUserListener = (data) => {
+  console.log(`We have a new user: ${data}.`);
+};
+ 
+// Assign the newUserListener function as the listener callback for 'new user' events
+myEmitter.on('new user', newUserListener)
+ 
+// Emit a 'new user' event
+myEmitter.emit('new user', 'Lily Pad') //newUserListener will be invoked with 'Lily Pad'
+```
+
+**Note** There is no link between the variable `data` in the constructer for the event emitter and the `new user` name.
+
+### User Input and Output
+
+Notice that for user input and output for something like stdin what you're really doing is registering a callback and then calling it on user input. Ex:
+
+```javascript
+process.stdin.on('data', (userInput) => {
+  let input = userInput.toString()
+  console.log(input)
+});
+```
+
+Notice the `on` and then here we're just defining an anonymous function.
+
+### The Error Module
+
+The Node environment’s error module has all the standard JavaScript errors such as EvalError, SyntaxError, RangeError, ReferenceError, TypeError, and URIError as well as the JavaScript Error class for creating new error instances. Within our own code, we can generate errors and throw them, and, with synchronous code in Node, we can use error handling techniques such as try...catch statements. Note that the error module is within the global scope—there is no need to import the module with the require() statement.
+
+Many asynchronous Node APIs use error-first callback functions—callback functions which have an error as the first expected argument and the data as the second argument. If the asynchronous task results in an error, it will be passed in as the first argument to the callback function. If no error was thrown, the first argument will be undefined.
+
+```javascript
+const errorFirstCallback = (err, data)  => {
+  if (err) {
+    console.log(`There WAS an error: ${err}`);
+  } else {
+    // err was falsy
+    console.log(`There was NO error. Event data: ${data}`);
+  }
+}
+```
+
+#### Why Error First Callbacks
+
+You need this because if you try something like:
+
+```javascript
+const api = require('./api.js');
+
+// Not an error-first callback
+let callbackFunc = (data) => {
+   console.log(`Something went right. Data: ${data}\n`);
+};
+  
+try {
+  api.naiveErrorProneAsyncFunction('problematic input', callbackFunc);
+} catch(err) {
+  console.log(`Something went wrong. ${err}\n`);
+}
+```
+
+then the try-catch won't work because the error is thrown in the context of the separate thread spawned asynchronously and subsequently never caught because Javascript is a garbage programming language.
+
+### The Buffer Module
+
+In Node.js, the Buffer module is used to handle binary data. The Buffer module is within the global scope, which means that Buffer objects can be accessed anywhere in the environment without importing the module with require().
+
+A Buffer object represents a fixed amount of memory that can’t be resized. Buffer objects are similar to an array of integers where each element in the array represents a byte of data. The buffer object will have a range of integers from 0 to 255 inclusive.
+
+The Buffer module provides a variety of methods to handle the binary data such as .alloc(), .toString(), .from(), and .concat().
+
+The .alloc() method creates a new Buffer object with the size specified as the first parameter. .alloc() accepts three arguments:
+
+Size: Required. The size of the buffer
+Fill: Optional. A value to fill the buffer with. Default is 0.
+Encoding: Optional. Default is UTF-8.
+
+```javascript
+const buffer = Buffer.alloc(5);
+console.log(buffer); // Ouput: [0, 0, 0, 0, 0]
+The .toString() method translates the Buffer object into a human-readable string. It accepts three optional arguments:
+```
+
+Encoding: Default is UTF-8.
+Start: The byte offset to begin translating in the Buffer object. Default is 0.
+End: The byte offset to end translating in the Buffer object. Default is the length of the buffer. The start and end of the buffer are similar to the start and end of an array, where the first element is 0 and increments upwards.
+
+```javascript
+const buffer = Buffer.alloc(5, 'a');
+console.log(buffer.toString()); // Output: aaaaa
+The .from() method is provided to create a new Buffer object from the specified string, array, or buffer. The method accepts two arguments:
+```
+
+Object: Required. An object to fill the buffer with.
+Encoding: Optional. Default is UTF-8.
+
+```javascript
+const buffer = Buffer.from('hello');
+console.log(buffer); // Output: [104, 101, 108, 108, 111]
+```
+
+The .concat() method joins all buffer objects passed in an array into one Buffer object. .concat() comes in handy because a Buffer object can’t be resized. This method accepts two arguments:
+
+Array: Required. An array containing Buffer objects.
+Length: Optional. Specifies the length of the concatenated buffer.
+
+```javascript
+const buffer1 = Buffer.from('hello'); // Output: [104, 101, 108, 108, 111]
+const buffer2 = Buffer.from('world'); // Output:[119, 111, 114, 108, 100]
+const array = [buffer1, buffer2];
+const bufferConcat = Buffer.concat(array);
+ 
+console.log(bufferConcat); // Output: [104, 101, 108, 108, 111, 119, 111, 114, 108, 100]
+```
+
+### Readable Streams
+
+```javascript
+const readline = require('readline');
+const fs = require('fs');
+
+const myInterface = readline.createInterface({
+  input: fs.createReadStream('shoppingList.txt')
+});
+ 
+const printData = (data) => {
+  console.log(`Item: ${data}`);
+};
+
+myInterface.on('line', printData);
+```
+
+#### Further explanation
+
+One of the simplest uses of streams is reading and writing to files line-by-line. To read files line-by-line, we can use the .createInterface() method from the readline core module. .createInterface() returns an EventEmitter set up to emit 'line' events:
+
+```javascript
+const readline = require('readline');
+const fs = require('fs');
+ 
+const myInterface = readline.createInterface({
+  input: fs.createReadStream('text.txt')
+});
+ 
+myInterface.on('line', (fileLine) => {
+  console.log(`The line read: ${fileLine}`);
+});
+```
+ 
+Let’s walk through the above code:
+
+- We require in the readline and fs core modules.
+- We assign to myInterface the returned value from invoking readline.createInterface() with an object containing our designated input.
+- We set our input to fs.createReadStream('text.txt') which will create a stream from the text.txt file.
+- Next we assign a listener callback to execute when line events are emitted. A 'line' event will be emitted after each line from the file is read.
+- Our listener callback will log to the console 'The line read: [fileLine]', where [fileLine] is the line just read.
+
+### Writable Streams
+
+```javascript
+const readline = require('readline');
+const fs = require('fs');
+
+const myInterface = readline.createInterface({
+  input: fs.createReadStream('shoppingList.txt')
+});
+
+const fileStream = fs.createWriteStream('shoppingResults.txt');
+
+let transformData = (line) => {
+  fileStream.write(`They were out of: ${line}\n`);
+};
+
+myInterface.on('line', transformData);
+```
+
+### Timers Modules
+
+You may already be familiar with some timer functions such as, setTimeout() and setInterval(). Timer functions in Node.js behave similarly to how they work in front-end JavaScript programs, but the difference is that they are added to the Node.js event loop. This means that the timer functions are scheduled and put into a queue. This queue is processed at every iteration of the event loop. If a timer function is executed outside of a module, the behavior will be random (non-deterministic).
+
+The setImmediate() function is often compared with the setTimeout() function. When setImmediate() is called, it executes the specified callback function after the current (poll phase) is completed. The method accepts two parameters: the callback function (required) and arguments for the callback function (optional). If you instantiate multiple setImmediate() functions, they will be queued for execution in the order that they were created.
+
