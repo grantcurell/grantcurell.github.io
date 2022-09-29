@@ -256,3 +256,151 @@ getUser(5) // -> `User found! Their nickname is: Teddy`
 ```
 
 We declare a getUserPromise variable that stores the getUser method turned into a promise using the .promisify() method. With that in place, we’re able to use getUserPromise with .then() and .catch() methods (or we could also use the async...await syntax here) to resolve the promise returned or catch any errors.
+
+### NPM
+
+#### Create a new app
+
+`npm init`
+
+Add `-y` to answer yes to everything.
+
+This will generate a package.json file:
+
+```json
+{
+  "name": "my-project",
+  "version": "1.0.0",
+  "description": "a basic project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Super Coder",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+}
+```
+
+#### nodemon
+
+Automatically restart a program when a file changes.
+
+`npm install nodemon`
+
+The `npm i <package name>` command installs a package locally in a folder called node_modules/ which is created in the project directory that you ran the command from. In addition, the newly installed package will be added to the package.json file.
+
+#### Package Scope
+
+While most dependencies play a direct role in the functionality of your application, development dependencies are used for the purpose of making development easier or more efficient.
+
+In fact, the nodemon package is actually better suited as a development dependency since it makes developers’ lives easier but makes no changes to the app itself. To install nodemon as a development dependency, we can add the --save-dev flag, or its alias, -D.
+
+`npm install nodemon --save-dev`
+
+Development dependencies are listed in the "devDependencies" field of the package.json file. This indicates that the package is being used specifically for development and will not be included in a production release of the project.
+
+```json
+{
+  "name": "my-project",
+  "version": "1.0.0",
+  "description": "a basic project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.13"
+  }
+}
+```
+
+##### Global Packages
+
+Typically, packages installed this way will be used in the command-line rather than imported into a project’s code. One such example is the http-server package which allows you to spin up a zero-configuration server from anywhere in the command-line.
+
+To install a package globally, use the -g flag with the installation command:
+
+`npm install http-server -g`
+
+http-server is a good package to install globally since it is a general command-line utility and its purpose is not linked to any specific functionality within an app.
+
+Unlike local package dependencies or development dependencies, packages installed globally will not be listed in a projects package.json file and they will be stored in a separate global node_modules/ folder.
+
+#### Installing a Custom Package
+
+If you want to give someone else your package you can provide the package.json file and then they can install with `npm i`. Add `--production` to leave out the dev dependencies.
+
+### Modules
+
+There are multiple ways of implementing modules depending on the runtime environment in which your code is executed. In JavaScript, there are two runtime environments and each has a preferred module implementation:
+
+- The Node runtime environment and the module.exports and require() syntax.
+- The browser’s runtime environment and the ES6 import/export syntax.
+
+#### Exporting
+
+```javascript
+/* converters.js */
+function celsiusToFahrenheit(celsius) {
+  return celsius * (9/5) + 32;
+}
+ 
+module.exports.celsiusToFahrenheit = celsiusToFahrenheit;
+ 
+module.exports.fahrenheitToCelsius = function(fahrenheit) {
+  return (fahrenheit - 32) * (5/9);
+};
+```
+
+- At the top of the new file, converters.js, the function celsiusToFahrenheit() is declared.
+- On the next line of code, the first approach for exporting a function from a module is shown. In this case, the already-defined function celsiusToFahrenheit() is assigned to module.exports.celsiusToFahrenheit.
+- Below, an alternative approach for exporting a function from a module is shown. In this second case, a new function expression is declared and assigned to module.exports.fahrenheitToCelsius. This new method is designed to convert Fahrenheit values back to Celsius.
+- Both approaches successfully store a function within the module.exports object.
+
+module.exports is an object that is built-in to the Node.js runtime environment. Other files can now import this object, and make use of these two functions, with another feature that is built-in to the Node.js runtime environment: the require() function.
+
+#### Require
+
+The require() function accepts a string as an argument. That string provides the file path to the module you would like to import.
+
+Let’s update water-limits.js such that it uses require() to import the .celsiusToFahrenheit() method from the module.exports object within converters.js:
+
+```javascript
+/* water-limits.js */
+const converters = require('./converters.js');
+ 
+const freezingPointC = 0;
+const boilingPointC = 100;
+ 
+const freezingPointF = converters.celsiusToFahrenheit(freezingPointC);
+const boilingPointF = converters.celsiusToFahrenheit(boilingPointC);
+ 
+console.log(`The freezing point of water in Fahrenheit is ${freezingPointF}`);
+console.log(`The boiling point of water in Fahrenheit is ${boilingPointF}`);
+```
+
+#### Using Object Destructuring to be more Selective With require()
+
+In many cases, modules will export a large number of functions but only one or two of them are needed. You can use object destructuring to extract only the needed functions.
+
+Let’s update celsius-to-fahrenheit.js and only extract the .celsiusToFahrenheit() method, leaving .fahrenheitToCelsius() behind:
+
+```javascript
+/* celsius-to-fahrenheit.js */
+const { celsiusToFahrenheit } = require('./converters.js');
+ 
+const celsiusInput = process.argv[2]; 
+const fahrenheitValue = celsiusToFahrenheit(celsiusInput);
+ 
+console.log(`${celsiusInput} degrees Celsius = ${fahrenheitValue} degrees Fahrenheit`);
+```
+
+Notice that the first line used to be `const converters = require('./converters.js');` and now it is specifying the exported function.
