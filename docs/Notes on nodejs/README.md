@@ -700,6 +700,259 @@ ReactDOM.render() will tell <MyComponentClass /> to call its render method.
 
 <MyComponentClass /> will call its render method, which will return the JSX element <h1>Hello world</h1>. ReactDOM.render() will then take that resulting JSX element, and add it to the virtual DOM. This will make “Hello world” appear on the screen.
 
+#### Use This in a Class
+
+```javascript
+class IceCreamGuy extends React.Component {
+  get food() {
+    return 'ice cream';
+  }
+ 
+  render() {
+    return <h1>I like {this.food}.</h1>;
+  }
+}
+```
+
+#### Render Components with Components
+
+```javascript
+class OMG extends React.Component {
+  render() {
+    return <h1>Whooaa!</h1>;
+  }
+}
+ 
+class Crazy extends React.Component {
+  render() {
+    return <OMG />;
+  }
+}
+```
+
+#### Importing Files and Exporting Functionality
+
+##### Importing
+
+The second important difference involves the contents of the string at the end of the statement: 'react' vs './NavBar.js'.
+
+If you use an import statement, and the string at the end begins with either a dot or a slash, then import will treat that string as a filepath. import will follow that filepath, and import the file that it finds.
+
+If your filepath doesn’t have a file extension, then “.js” is assumed. So the above example could be shortened:
+
+`import { NavBar } from './NavBar';`
+
+One final, important note:
+None of this behavior is specific to React! Module systems of independent, importable files are a very popular way to organize code. [React’s specific module system comes from ES6.](https://hacks.mozilla.org/2015/08/es6-in-depth-modules/)
+
+##### Exporting
+
+This is called a named export.
+
+`export class NavBar extends React.Component {`
+
+#### Component Props
+
+A component’s props is an object. It holds information about that component. You can pass information to a prop via an attribute.
+
+```javascript
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+class Greeting extends React.Component {
+  render() {
+    return <h1>Hi there, {this.props.firstName}!</h1>;
+  }
+}
+
+ReactDOM.render(
+  <Greeting firstName='Grant' />, 
+  document.getElementById('app')
+);
+```
+
+#### Event Handler
+
+```javascript
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Button } from './Button';
+
+class Talker extends React.Component {
+  talk() {
+    let speech = '';
+    for (let i = 0; i < 10000; i++) {
+      speech += 'blah ';
+    }
+    alert(speech);
+  }
+  
+  render() {
+    return <Button talk={this.talk}/>;
+  }
+}
+
+ReactDOM.render(
+  <Talker />,
+  document.getElementById('app')
+);
+
+// ****************************************
+// In Button.js
+
+import React from 'react';
+
+export class Button extends React.Component {
+  render() {
+    return (
+      <button onClick={this.props.talk}>
+        Click me!
+      </button>
+    );
+  }
+}
+```
+
+#### handleEvent, onEvent, and this.props.onEvent
+
+When you pass an event handler as a prop, as you just did, there are two names that you have to choose.
+
+Both naming choices occur in the parent component class - that is, in the component class that defines the event handler and passes it.
+
+The first name that you have to choose is the name of the event handler itself.
+
+Look at Talker.js, lines 6 through 12. This is our event handler. We chose to name it talk.
+
+The second name that you have to choose is the name of the prop that you will use to pass the event handler. This is the same thing as your attribute name.
+
+For our prop name, we also chose talk, as shown on line 15:
+
+`return <Button talk={this.talk} />;`
+
+These two names can be whatever you want. However, there is a naming convention that they often follow. You don’t have to follow this convention, but you should understand it when you see it.
+
+Here’s how the naming convention works: first, think about what type of event you are listening for. In our example, the event type was “click.”
+
+If you are listening for a “click” event, then you name your event handler handleClick. If you are listening for a “keyPress” event, then you name your event handler handleKeyPress:
+
+```javascript
+class MyClass extends React.Component {
+  handleHover() {
+    alert('I am an event handler.');
+    alert('I will be called in response to "hover" events.');
+  }
+}
+```
+
+Your prop name should be the word on, plus your event type. If you are listening for a “click” event, then you name your prop onClick. If you are listening for a “keyPress” event, then you name your prop onKeyPress:
+
+```javascript
+class MyClass extends React.Component {
+  handleHover() {
+    alert('I am an event handler.');
+    alert('I will listen for a "hover" event.');
+  }
+ 
+  render() {
+    return <Child onHover={this.handleHover} />;
+  }
+}
+```
+
+#### this.props.children
+
+Every component’s props object has a property named children.
+
+this.props.children will return everything in between a component’s opening and closing JSX tags. For example:
+
+```javascript
+
+// List.js
+import React from 'react';
+
+export class List extends React.Component {
+  render() {
+    let titleText = `Favorite ${this.props.type}`;
+    if (this.props.children instanceof Array) {
+    	titleText += 's';
+    }
+    return (
+      <div>
+        <h1>{titleText}</h1>
+        <ul>{this.props.children}</ul>
+      </div>
+    );
+  }
+}
+
+// App.js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { List } from './List';
+
+class App extends React.Component {
+  render() {
+    return (
+      <div>
+        <List type='Living Musician'>
+          <li>Sachiko M</li>
+          <li>Harvey Sid Fisher</li>
+        </List>
+        <List type='Living Cat Musician'>
+          <li>Nora the Piano Cat</li>
+        </List>
+      </div>
+    );
+  }
+}
+
+ReactDOM.render(
+  <App />, 
+  document.getElementById('app')
+);
+```
+
+This will print:
+
+```
+Favorite Living Musicians
+Sachiko M
+Harvey Sid Fisher
+Favorite Living Cat Musician
+Nora the Piano Cat
+```
+
+Because in List.js, between the `<ul></ul>` you have `{this.props.children}` which grabs all the elements between `<List></List>` in the App class.
+
+#### Default Properties
+
+Used if nothing is passed into the property.
+
+```javascript
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+class Button extends React.Component {
+  render() {
+    return (
+      <button>
+        {this.props.text}
+      </button>
+    );
+  }
+}
+
+// defaultProps goes here:
+Button.defaultProps = {text:  "I am a button"};
+
+ReactDOM.render(
+  <Button />, 
+  document.getElementById('app')
+);
+```
+
+#### Use an Event Listener in a Component
+
 ### JSX
 
 JSX is a syntax extension for JavaScript. It was written to be used with React. JSX code looks a lot like HTML.
@@ -1075,3 +1328,4 @@ const h1 = React.createElement(
 ```
 
 When a JSX element is compiled, the compiler transforms the JSX element into the method that you see above: React.createElement(). Every JSX element is secretly a call to React.createElement().
+
