@@ -789,8 +789,7 @@ class Talker extends React.Component {
   
   render() {
     return <Button talk={this.talk}/>;
-  }
-}
+
 
 ReactDOM.render(
   <Talker />,
@@ -951,7 +950,233 @@ ReactDOM.render(
 );
 ```
 
-#### Use an Event Listener in a Component
+#### Component State
+
+A React component can access dynamic information in two ways: props and state.
+
+Unlike props, a component’s state is not passed in from the outside. A component decides its own state.
+
+To make a component have state, give the component a state property. This property should be declared inside of a constructor method, like this:
+
+```javascript
+class Example extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { mood: 'decent' };
+  }
+ 
+  render() {
+    return <div></div>;
+  }
+}
+ 
+<Example />
+
+// Access the state outside with this.state.mood
+// You can set the state with this.setState({mood: "the mood"})
+```
+
+What is [super(props)](https://www.geeksforgeeks.org/what-is-the-use-of-superprops/)
+
+##### this.setState from Another Function
+
+You'll use a wrapper function to call this.setState from another function. Like this:
+
+```javascript
+class Example extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { weather: 'sunny' };
+    this.makeSomeFog = this.makeSomeFog.bind(this);
+  }
+ 
+  makeSomeFog() {
+    this.setState({
+      weather: 'foggy'
+    });
+  }
+}
+```
+
+The line `this.makeSomeFog = this.makeSomeFog.bind(this);` is necessary because makeSomeFog()'s body contains the word this. It has to do with the way event handlers are bound in Javascript. If you use this without the line `this.makeSomeFog = this.makeSomeFog.bind(this);` with an event handler the this word will be lost so we have to bind it... because Javascript. If the function isn't used by an event handler  then it won't matter.
+
+Full example
+
+```javascript
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+const green = '#39D1B4';
+const yellow = '#FFD712';
+
+class Toggle extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {color: green};
+      this.changeColor = this.changeColor.bind(this);
+  }
+
+  changeColor() {
+    if(this.state.color === yellow) {
+      this.setState({color: green});
+    } else {
+      this.setState({color: yellow});
+    }
+  }
+
+  render() {
+    return (
+      <div style={{background: this.state.color}}>
+        <h1>
+          <button onClick={this.changeColor}>
+            Change color
+          </button>
+        </h1>
+      </div>
+    );
+  }
+}
+
+ReactDOM.render(<Toggle />, document.getElementById('app'));
+```
+
+**NOTE**: Anytime you call `this.setState` it automatically calls render as soon as the state has changed. This is why you don't have to call render again.
+
+#### Component Lifecycle
+
+We’ve seen that React components can be highly dynamic. They get created, rendered, added to the DOM, updated, and removed. All of these steps are part of a component’s lifecycle.
+
+The component lifecycle has three high-level parts:
+
+1. Mounting, when the component is being initialized and put into the DOM for the first time
+2. Updating, when the component updates as a result of changed state or changed props
+3. Unmounting, when the component is being removed from the DOM
+Every React component you’ve ever interacted with does the first step at a minimum. If a component never mounted, you’d never see it!
+
+Most interesting components are updated at some point. A purely static component—like, for example, a logo—might not ever update. But if a component’s state changes, it updates. Or if different props are passed to a component, it updates.
+
+Finally, a component is unmounted when it’s removed from the DOM. For example, if you have a button that hides a component, chances are that component will be unmounted. If your app has multiple screens, it’s likely that each screen (and all of its child components) will be unmounted. If a component is “alive” for the entire lifetime of your app (say, a top-level <App /> component or a persistent navigation bar), it won’t be unmounted. But most components can get unmounted one way or another!
+
+It’s worth noting that each component instance has its own lifecycle. For example, if you have 3 buttons on a page, then there are 3 component instances, each with its own lifecycle. However, once a component instance is unmounted, that’s it—it will never be re-mounted, or updated again, or unmounted.
+
+React components have several methods, called lifecycle methods, that are called at different parts of a component’s lifecycle. This is how you, the programmer, deal with the lifecycle of a component.
+
+You may not have known it, but you’ve already used two of the most common lifecycle methods: constructor() and render()! constructor() is the first method called during the mounting phase. render() is called later during the mounting phase, to render the component for the first time, and during the updating phase, to re-render the component.
+
+Notice that lifecycle methods don’t necessarily correspond one-to-one with part of the lifecycle. constructor() only executes during the mounting phase, but render() executes during both the mounting and updating phase.
+
+#### componentDidMount
+
+Say you want a component to update itself at a setInterval. You don't want to put it in the constructor because that would violate the single responsibility rule but you also don't want it in render because then it would be called on update AND on mounting. That's what componentDidMount is for.
+
+componentDidMount() is the final method called during the mounting phase. The order is:
+
+- The constructor
+- render()
+- componentDidMount()
+
+In other words, it’s called after the component is rendered. 
+
+(Another method, getDerivedStateFromProps(), is called between the constructor and render(), but it is very rarely used and usually isn’t the best way to achieve your goals. We won’t be talking about it in this lesson.)
+
+```javascript
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+class Clock extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { date: new Date() };
+  }
+  render() {
+    return <div>{this.state.date.toLocaleTimeString()}</div>;
+  }
+  componentDidMount() {
+    const oneSecond = 1000;
+    setInterval(() => {
+      this.setState({ date: new Date() });
+    }, oneSecond);
+  }
+}
+
+ReactDOM.render(<Clock />, document.getElementById('app'));
+```
+
+#### componentWillUnmount
+
+In the case of our interval above, the problem is now that timer will never stop. If we want to remove it. We want to use `clearInterval()` to clean it up. We can call this during `componentWillUnmount`
+
+```javascript
+import React from 'react';
+
+export class Clock extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { date: new Date() };
+  }
+  render() {
+    return <div>{this.state.date.toLocaleTimeString()}</div>;
+  }
+  componentDidMount() {
+    const oneSecond = 1000;
+    this.intervalID = setInterval(() => {
+      this.setState({ date: new Date() });
+    }, oneSecond);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.intervalID);
+  }
+
+}
+```
+
+### componentDidUpdate
+
+When a component updates many things happen but there are two primary methods - render and componentDidUpdate. 
+
+```javascript
+import React from 'react';
+
+export class Clock extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { date: new Date() };
+  }
+  render() {
+    return (
+      <div>
+        {this.props.isPrecise
+          ? this.state.date.toISOString()
+          : this.state.date.toLocaleTimeString()}
+      </div>
+    );
+  }
+  componentDidMount() {
+    const oneSecond = 1000;
+    this.intervalID = setInterval(() => {
+      this.setState({ date: new Date() });
+    }, oneSecond);
+  }
+  componentWillUnmount() {
+    clearInterval(this.intervalID);
+  }
+
+  componentDidUpdate(prevProps) {
+    if  (this.props.isPrecise === prevProps.isPrecise) {
+      return;
+    } else {
+      clearInterval(this.intervalID);
+    }
+    let delay;
+
+    this.intervalID = setInterval(() => {
+      this.setState({ date: new Date() });
+    }, delay);
+  }
+}
+```
+
 
 ### JSX
 
