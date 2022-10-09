@@ -1179,6 +1179,143 @@ export class Clock extends React.Component {
 }
 ```
 
+#### Stateless Functional Components
+
+We used to use classes for components but now we use functions.
+
+```javascript
+
+// Original class-based way of writing components
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+export class Friend extends React.Component {
+  render() {
+    return <img src="https://content.codecademy.com/courses/React/react_photo-octopus.jpg" />;
+  }
+};
+
+ReactDOM.render(
+	<Friend />,
+	document.getElementById('app')
+);
+
+// Function Version
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+export const Friend = () => {
+    return <img src="https://content.codecademy.com/courses/React/react_photo-octopus.jpg" />;
+}
+
+ReactDOM.render(
+	<Friend />,
+	document.getElementById('app')
+);
+```
+
+#### Function Component Props
+
+```javascript
+export function YesNoQuestion (props) {
+  return (
+    <div>
+      <p>{props.prompt}</p>
+      <input value="Yes" />
+      <input value="No" />
+    </div>
+  );
+}
+ 
+ReactDOM.render(
+  <YesNoQuestion prompt="Have you eaten an apple today?" />,
+  document.getElementById('app');
+);
+```
+
+### React Hooks
+
+With Hooks, we can use simple function components to do lots of the fancy things that we could only do with class components in the past.
+
+React Hooks, plainly put, are functions that let us manage the internal state of components and handle post-rendering side effects directly from our function components. Hooks don’t work inside classes — they let us use fancy React features without classes. Keep in mind that function components and React Hooks do not replace class components. They are completely optional; just a new tool that we can take advantage of.
+
+Note: If you’re familiar with lifecycle methods of class components, you could say that Hooks let us “hook into” state and lifecycle features directly from our function components.
+
+React offers a number of built-in Hooks. A few of these include useState(), useEffect(), useContext(), useReducer(), and useRef(). [See the full list in the docs](https://reactjs.org/docs/hooks-reference.html).
+
+##### Update Function Component State
+
+Let’s get started with the State Hook, the most common Hook used for building React components. The State Hook is a named export from the React library, so we import it like this:
+
+`import React, { useState } from 'react';`
+
+useState() is a JavaScript function defined in the React library. When we call this function, it returns an array with two values:
+
+- current state - the current value of this state
+- state setter - a function that we can use to update the value of this state
+
+Because React returns these two values in an array, we can assign them to local variables, naming them whatever we like. For example:
+
+`const [toggle, setToggle] = useState();`
+
+```javascript
+import React, { useState } from "react";
+ 
+function Toggle() {
+  const [toggle, setToggle] = useState();
+ 
+  return (
+    <div>
+      <p>The toggle is {toggle}</p>
+      <button onClick={() => setToggle("On")}>On</button>
+      <button onClick={() => setToggle("Off")}>Off</button>
+    </div>
+  );
+}
+```
+
+Notice how the state setter function, setToggle(), is called by our onClick event listeners. To update the value of toggle and re-render this component with the new value, all we need to do is call the setToggle() function with the next state value as an argument.
+
+No need to worry about binding functions to class instances, working with constructors, or dealing with the this keyword. With the State Hook, updating state is as simple as calling a state setter function.
+
+Calling the state setter signals to React that the component needs to re-render, so the whole function defining the component is called again. The magic of useState() is that it allows React to keep track of the current value of state from one render to the next!
+
+More complex example:
+
+```javascript
+import React, { useState } from 'react';
+
+export default function ColorPicker() {
+  const [color, setColor] = useState();
+
+ const divStyle = {backgroundColor: color};
+
+  return (
+    <div style={divStyle}>
+      <p>The color is {color}</p>
+      <button onClick={() => setColor('Aquamarine')}>
+        Aquamarine
+      </button>
+      <button onClick={() => setColor('BlueViolet')}>
+        BlueViolet
+      </button>
+      <button onClick={() => setColor('Chartreuse')}>
+        Chartreuse
+      </button>
+      <button onClick={() => setColor('CornflowerBlue')}>
+        CornflowerBlue
+      </button>
+    </div>
+  );
+}
+
+```
+
+#### Initialize State
+
+
 
 ### JSX
 
