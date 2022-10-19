@@ -415,6 +415,21 @@ web.log: [WARN] com.vce.commons.config.ConfigServiceImpl$NotFoundHandler ConfigS
 
 ## Redeploying VxRail Manager
 
+1. First download the script https://supportkb.dell.com/attachment/ka06P000000LNnoQAG/7xv6_csp_en_US_1.zip
+2. Go to Edit Settings on your existing VxRail Manager and check its existing networking. There should be two networks. Make note of what they are as you will need these settings later.
+3. SSH to the VxRail manager and note the IPv4 address of eth0.
+4. Delete the previous VxRail Manager from disk
+5. Import the new VxRail Manager. The values for the import are specific to the user *except* the networking. When selecting the networking for the new VxRail Manager there will be two networks. The first network is the network over which VxRail will connect to vCenter. This network must provide connectivitiy to vCenter's management interface. TODO - second network?
+
+![](images/2022-10-19-16-03-58.png)
+
+3. Power on your new VxRail Manager
+   1. In the virtualized lab I used for testing vCenter complained about an unsupported operating system. If this happens, right click, edit settings, vm options, general options, change the operating system to SUSE Linux 12. After you power on this should autocorrect itself.
+4. Login to the VxRail Manager in the web console with root / Passw0rd!
+5. 
+
+
+
 If VxRail Manager was previously deployed but something happened to it you can rebuild it. If you have the old VxRail manager, but the cluster has changed on ESXi, you will have to do:
 
 - Update `/var/lib/vmware-marvin/runtime.properties` with the new cluster UUID
