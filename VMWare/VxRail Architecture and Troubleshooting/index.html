@@ -363,6 +363,16 @@
     </li>
         </ul>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#troubleshooting-docker">Troubleshooting Docker</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#restarting-a-container">Restarting a Container</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#checking-swarm-status">Checking Swarm Status</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#check-for-a-list-of-services">Check for a List of Services</a>
+    </li>
+        </ul>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#adding-nodes">Adding Nodes</a>
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#troubleshooting">Troubleshooting</a>
@@ -480,6 +490,12 @@
 <li><a href="#understanding-upgrades-in-esxi">Understanding Upgrades in ESXi</a></li>
 <li><a href="#understanding-the-vxrail-update-bundle">Understanding the VxRail Update Bundle</a></li>
 <li><a href="#manifest-file-and-update-order">Manifest File and Update Order</a></li>
+</ul>
+</li>
+<li><a href="#troubleshooting-docker">Troubleshooting Docker</a><ul>
+<li><a href="#restarting-a-container">Restarting a Container</a></li>
+<li><a href="#checking-swarm-status">Checking Swarm Status</a></li>
+<li><a href="#check-for-a-list-of-services">Check for a List of Services</a></li>
 </ul>
 </li>
 <li><a href="#adding-nodes">Adding Nodes</a><ul>
@@ -699,6 +715,197 @@ def _parse_update_firmware(self, element):
 <pre><code class="language-python">required_tasks.sort(key=lambda t: t['install_order'])
 </code></pre>
 <p>Subsequently it is safe to assume a linear sort on the integer value. We can use this to diagnose any problems we encounter with install order.</p>
+<h2 id="troubleshooting-docker">Troubleshooting Docker</h2>
+<h3 id="restarting-a-container">Restarting a Container</h3>
+<p>You can add and remove a container with <code>docker service scale func_lockbox=0 &amp;&amp; docker service scale func_lockbox=1</code></p>
+<h3 id="checking-swarm-status">Checking Swarm Status</h3>
+<p>Use <code>docker info</code> to get the swarm info and <code>docker node ls</code> to list the nodes</p>
+<pre><code>vcluster202-vxm:~ # docker info
+Client:
+ Context:    default
+ Debug Mode: false
+
+Server:
+ Containers: 110
+  Running: 53
+  Paused: 0
+  Stopped: 57
+ Images: 43
+ Server Version: 20.10.9-ce
+ Storage Driver: overlay2
+  Backing Filesystem: extfs
+  Supports d_type: true
+  Native Overlay Diff: true
+  userxattr: false
+ Logging Driver: json-file
+ Cgroup Driver: cgroupfs
+ Cgroup Version: 1
+ Plugins:
+  Volume: local
+  Network: bridge host ipvlan macvlan null overlay
+  Log: awslogs fluentd gcplogs gelf journald json-file local logentries splunk syslog
+ Swarm: active
+  NodeID: gvqywccvm7g1qcbhud1kej1y5
+  Is Manager: true
+  ClusterID: 3uj8bybr66y3edkgp4txgmhse
+  Managers: 1
+  Nodes: 1
+  Default Address Pool: 169.254.170.0/24
+  SubnetSize: 24
+  Data Path Port: 4789
+  Orchestration:
+   Task History Retention Limit: 5
+  Raft:
+   Snapshot Interval: 10000
+   Number of Old Snapshots to Retain: 0
+   Heartbeat Tick: 1
+   Election Tick: 10
+  Dispatcher:
+   Heartbeat Period: 10 years
+  CA Configuration:
+   Expiry Duration: 10 years
+   Force Rotate: 1
+  Autolock Managers: false
+  Root Rotation In Progress: false
+  Node Address: 127.0.0.1
+  Manager Addresses:
+   127.0.0.1:2377
+ Runtimes: io.containerd.runc.v2 io.containerd.runtime.v1.linux oci runc
+ Default Runtime: runc
+ Init Binary: docker-init
+ containerd version: 5b46e404f6b9f661a205e28d59c982d3634148f8
+ runc version:
+ init version:
+ Security Options:
+  apparmor
+  seccomp
+   Profile: default
+ Kernel Version: 5.3.18-24.96-default
+ Operating System: SUSE Linux Enterprise Server 15 SP2
+ OSType: linux
+ Architecture: x86_64
+ CPUs: 4
+ Total Memory: 11.69GiB
+ Name: vcluster202-vxm
+ ID: XFEN:HBJA:CCKR:7CGG:QKXR:DDQP:ZEB3:YPOW:NAUC:AASS:3WM7:3A2F
+ Docker Root Dir: /var/lib/docker
+ Debug Mode: false
+ Registry: https://index.docker.io/v1/
+ Labels:
+ Experimental: false
+ Insecure Registries:
+  127.0.0.0/8
+ Live Restore Enabled: false
+
+WARNING: No swap limit support
+vcluster202-vxm:~ # docker node ls
+ID                            HOSTNAME          STATUS    AVAILABILITY   MANAGER STATUS   ENGINE VERSION
+gvqywccvm7g1qcbhud1kej1y5 *   vcluster202-vxm   Ready     Active         Leader           20.10.9-ce
+</code></pre>
+<h3 id="check-for-a-list-of-services">Check for a List of Services</h3>
+<p>Each container on VxRail runs as a separate service. You can check their status with <code>docker service ls</code>.</p>
+<pre><code>vcluster202-vxm:~ # docker service ls
+ID             NAME                         MODE         REPLICAS   IMAGE                                       PORTS
+r4mawp339y88   func_alertmanager            replicated   1/1        infra/prom/alertmanager:1.8.9
+iduap6ujbho1   func_api-gateway             replicated   1/1        infra/nginx_gateway_vxrail:1.8.14
+5e18xm020k0f   func_auth-service            replicated   1/1        microservice/auth-service:1.8.13
+j4pg14v6ajts   func_cacheservice            replicated   1/1        infra/redis:1.8.11
+5e1q0w6v2exg   func_cms-service             replicated   1/1        microservice/cms-service:1.8.31
+i4xpa8ltrla0   func_configservice           replicated   1/1        infra/infra-config-service:1.8.10
+uma1pjrkwjcq   func_do-cluster              replicated   1/1        do-main/do-cluster:1.8.26
+uprraqe4lxo4   func_do-ecosystem            replicated   1/1        do-main/do-ecosystem:1.8.26
+0bpnsjy617yx   func_do-eservices            replicated   1/1        do-main/do-eservices:1.8.26
+uaza36n6v9hl   func_do-host                 replicated   1/1        do-main/do-host:1.8.26
+jby3wca4pgxh   func_do-kgs                  replicated   1/1        do-main/do-kgs:1.8.26
+7nh07m0qnn10   func_do-network              replicated   1/1        do-main/do-network:1.8.26
+ta846rozl38e   func_do-serviceability       replicated   1/1        do-main/do-serviceability:1.8.26
+yczljgv2hfki   func_do-storage              replicated   1/1        do-main/do-storage:1.8.26
+tizxv31eqr6z   func_do-vm                   replicated   1/1        do-main/do-vm:1.8.26
+pnwq69rtx8b9   func_do-vxrail-system        replicated   1/1        do-main/do-vxrail-system:1.8.26
+pescqbk5gdm6   func_event-history-service   replicated   1/1        microservice/event-history-service:1.8.18
+uvj4grv92xjx   func_event-service           replicated   1/1        microservice/event-service:1.8.18
+i1ajjwa20o2h   func_faas-swarm              replicated   1/1        infra/openfaas/faas-swarm:1.8.9
+xdnl8mbbfnhw   func_gateway                 replicated   1/1        infra/openfaas/gateway:1.8.9
+w7yz4wdlurgx   func_hsm                     replicated   1/1        microservice/hsm:1.8.25
+txlipzyfxe5k   func_infra-scale-service     replicated   1/1        infra/infra-scale-service:1.8.8
+hrzxht5zp33u   func_kgs-service             replicated   1/1        microservice/kgs-service:1.8.9
+iweqxas2urpn   func_lockbox                 replicated   1/1        microservice/lockbox:1.8.10
+q75sa2hvxc0z   func_lockservice             replicated   1/1        infra/infra-lock-service:1.8.8
+zd10d8q5vmml   func_logging                 replicated   1/1        infra/logging:1.8.9
+nob97ajl4wjl   func_ms-day1-bringup         replicated   1/1        microservice/ms-day1-bringup:1.8.21
+339zceysq1w7   func_ms-day2                 replicated   1/1        microservice/ms-day2:1.8.40
+vwofhpygnrvz   func_nano-service            replicated   1/1        microservice/nano-service:1.8.21
+ekm0s9o6fse3   func_nats                    replicated   1/1        infra/nats-streaming:1.8.9
+o9ft5wqvkgyq   func_node-service            replicated   1/1        microservice/node-service:1.8.31
+q9ewku1t3xjy   func_prometheus              replicated   1/1        infra/prom/prometheus:1.8.9
+om3gislgsh82   func_property-collector      replicated   1/1        do-main/property-collector:1.8.26
+pkhsz674xtde   func_queue-worker            replicated   1/1        infra/openfaas/queue-worker:1.8.9
+anmzrcv2plzy   func_rcs-service             replicated   1/1        microservice/rcs-service:1.8.11
+t16j0wln8w0s   func_serviceregistry         replicated   1/1        infra/gcr.io/etcd-development/etcd:1.8.9
+rny34tgzu7jq   func_storage-service         replicated   1/1        microservice/storage-service:1.8.16
+sbc1n8rr25n3   func_tracing                 replicated   1/1        infra/tracing:1.8.9
+vdf4hdtl957a   func_vlcm                    replicated   1/1        microservice/vlcm:1.8.23
+dkfjjajjx8tj   func_vxdoctor-service        replicated   1/1        microservice/vxdoctor-service:1.8.18
+rsr9plg95qhw   func_wfservice               replicated   1/1        infra/workflow_engine:1.8.10
+</code></pre>
+<p>You can check the details of a specific service with <code>docker service inspect --pretty &lt;SERVICE&gt;</code></p>
+<pre><code>vcluster202-vxm:~ # docker service inspect --pretty func_do-storage
+
+ID:             yczljgv2hfkiou1zh6liq6tbr
+Name:           func_do-storage
+Labels:
+ com.docker.stack.image=do-main/do-storage:1.8.26
+ com.docker.stack.namespace=func
+Service Mode:   Replicated
+ Replicas:      1
+UpdateStatus:
+ State:         paused
+ Started:       6 months ago
+ Message:       update paused due to failure or early termination of task qgjut6lu088orf8dmi8r3xxt8
+Placement:
+UpdateConfig:
+ Parallelism:   1
+ On failure:    pause
+ Monitoring Period: 5s
+ Max failure ratio: 0
+ Update order:      stop-first
+RollbackConfig:
+ Parallelism:   1
+ On failure:    pause
+ Monitoring Period: 5s
+ Max failure ratio: 0
+ Rollback order:    stop-first
+ContainerSpec:
+ Image:         do-main/do-storage:1.8.26
+ Env:           API_RESOURCES=[&quot;v1/storage:do-storage/v1/storage&quot;] REGISTERED=true SERVICE_LAYER=do SERVICE_NAME=do-storage SERVICE_PORT=5000 SERVICE_TYPE=micro TRACING_HOST=tracing TRACING_SERVICE_NAME=do-storage
+ User: app:475
+Mounts:
+ Target:        /vxm_cert
+  Source:       /etc/vmware-marvin/ssl
+  ReadOnly:     false
+  Type:         bind
+ Target:        /certificate
+  Source:       /var/lib/vmware-marvin/trust
+  ReadOnly:     false
+  Type:         bind
+ Target:        /service_data
+  Source:       /var/lib/vxrail/do_storage/data
+  ReadOnly:     false
+  Type:         bind
+Resources:
+ Limits:
+  Memory:       1GiB
+Networks: func_functions
+Endpoint Mode:  vip
+ Healthcheck:
+  Interval = 30s
+  Retries = 10
+  StartPeriod = 1m0s
+  Timeout =     1m0s
+  Tests:
+         Test = CMD-SHELL
+         Test = curl -f http://localhost:5000/do-storage/v1/storage/health-check || exit 1
+</code></pre>
 <h2 id="adding-nodes">Adding Nodes</h2>
 <p>Version Compatibility Matrix: <a href="https://l.facebook.com/l.php?u=https%3A%2F%2Fdl.dell.com%2Fcontent%2Fdocu92203_VxRail-Appliance-Node-Addition-Matrix.pdf%3Flanguage%3Den_US%26fbclid%3DIwAR3j6urHXGnMESuZB-Ptw82UDigmtZ_eBK0fyrl5EZktQltBad0EOPgnw84&amp;h=AT0viMyq6Pd30CzaVIwDwCY4faDLoX9G6d2_HN7yhG9HTdmTfB2WLwj_1kLJdCvcmSxvl2c260QgfG-bZKLkQ1pZ7oggRHzgFrypM8X5ZeA9NARg6zpIWuqk2cB4mFwXdz4">Link</a></p>
 <p>Make sure before you try to do anything with adding nodes that you verify the versions are mutually compatible.</p>

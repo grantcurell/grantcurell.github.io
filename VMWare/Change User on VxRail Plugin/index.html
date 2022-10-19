@@ -541,7 +541,7 @@
 <h3 id="vcenter-account-for-vxrail-manager">vCenter Account for VxRail Manager</h3>
 <h4 id="checking-what-credentials-are-in-use">Checking What Credentials are in Use</h4>
 <p>The below will pull the credentials from the VxRail Manager keystore. You run this command on the command line in VxRail Manager.</p>
-<p><code>curl --unix-socket /var/lib/vxrail/nginx/socket/nginx.sock -X GET 'http://localhost/rest/vxm/internal/lockbox/v1/credentials?lockbox_name=SYSTEM&amp;credential_names=management_account_vc'|jq</code></p>
+<p><code>curl --unix-socket /var/lib/vxrail/nginx/socket/nginx.sock -X GET 'http://localhost/rest/vxm/internal/lockbox/v1/credentials?lockbox_name=SYSTEM&amp;credential_names=management_account_vc'|j</code></p>
 <pre><code>    vcluster202-vxm:~ # curl --unix-socket /var/lib/vxrail/nginx/socket/nginx.sock -X GET 'http://localhost/rest/vxm/internal/lockbox/v1/credentials?lockbox_name=SYSTEM&amp;credential_names=management_account_vc'|jq
     % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                     Dload  Upload   Total   Spent    Left  Speed
