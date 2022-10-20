@@ -600,14 +600,13 @@ You can load the old version with shift+r
 
 ## Add nodes NIC config page
 
-When you hit https://<host>/ui/vxrail/rest/vxm/private/system/cluster-hosts?$$objectID=urn:vmomi:ClusterComputeResource:domain<ID>&lang=en-us you should get back the existing hosts in the cluster with their hostname, model, serial_number, and vmnics
+When you hit `https://<host>/ui/vxrail/rest/vxm/private/system/cluster-hosts?$$objectID=urn:vmomi:ClusterComputeResource:domain<ID>&lang=en-us` you should get back the existing hosts in the cluster with their hostname, model, serial_number, and vmnics
 
-https://<HOST>/ui/vxrail/rest/vxm/private/system/available-hosts?$filter=serial_number%20in%20(SERIAL,SERIAL)&$$objectId=urn:vmomi:ClusterComputeResource:domain-<ID>&lang=en-us should get you the two hosts you are going to add
+[`https://<HOST>/ui/vxrail/rest/vxm/private/system/available-hosts?$filter=serial_number%20in%20(SERIAL,SERIAL)&$$objectId=urn:vmomi:ClusterComputeResource:domain-<ID>&lang=en-us`](https://<HOST>/ui/vxrail/rest/vxm/private/system/available-hosts?$filter=serial_number%20in%20(SERIAL,SERIAL)&$$objectId=urn:vmomi:ClusterComputeResource:domain-<ID>&lang=en-us) should get you the two hosts you are going to add
 
 ## Add Node Error
 
-"Could not find NSX-T network information"
-Http failure response for https://<address>/ui/vxrail/rest/vxm/private/cluster/network/nsxt???objectId=urn:vmomi:ClusterComputeResource:domain-ID=en-US: 404 OK
+"Could not find NSX-T network information" Http failure response for `https://<address>/ui/vxrail/rest/vxm/private/cluster/network/nsxt???objectId=urn:vmomi:ClusterComputeResource:domain-ID=en-US: 404 OK`
 
 ## Error Node
 
@@ -624,25 +623,95 @@ web.log: [WARN] com.vce.commons.config.ConfigServiceImpl$NotFoundHandler ConfigS
 
 ## Redeploying VxRail Manager
 
-1. First download the script https://supportkb.dell.com/attachment/ka06P000000LNnoQAG/7xv6_csp_en_US_1.zip
-2. Go to Edit Settings on your existing VxRail Manager and check its existing networking. There should be two networks. Make note of what they are as you will need these settings later.
-3. SSH to the VxRail manager and note the IPv4 address of eth0.
-4. Delete the previous VxRail Manager from disk
-5. Import the new VxRail Manager. The values for the import are specific to the user *except* the networking. When selecting the networking for the new VxRail Manager there will be two networks. The first network is the network over which VxRail will connect to vCenter. This network must provide connectivitiy to vCenter's management interface. TODO - second network?
+Note: My testing was done on VxRail 7.0.320
 
-![](images/2022-10-19-16-03-58.png)
+1. Go to Edit Settings on your existing VxRail Manager and check its existing networking. There should be two networks. Make note of what they are as you will need these settings later. They are probably something like `vCenter Server Network-<uuid>` and `VxRail Manager-<uuid>`. 
+2. Make note of the existing VxRail manager's IP address.
+3. Log into the existing VxRail Manager. Run `cat /var/lib/vmware-marvin/config-initial.json | jq | less`. This is the current settings for VxRail Manager. I strongly suggest backing up this file so that you can reference the values recorded here later.
+   1. This step is not necessary. If you know the values you can skip it but this ensures later on that you use the correct values.
+4. Power down the existing VxRail Manager.
+5. Import the new VxRail Manager. The values for the import are specific to the user *except* the networking. When selecting the networking for the new VxRail Manager there will be two networks. Match these to what you saw in the original VxRail Manager. <br>![](images/2022-10-19-16-03-58.png)
+6. Before powering on your VxRail Manager you will need to change the guest operating system. Right click the VM, edit settings, vm options, general options, change the operating system to SUSE Linux 12. After you power on this should autocorrect itself to the correct OS. If you don't do this you will get an error from vCenter saying the operating system is unsupported.
+7. Login to the VxRail Manager in the web console with root / Passw0rd!
+8. Set the ip address of eth0 with `ifconfig eth0 <IP>` and `ifconfig eth0 netmask <NETMASK>`
+9. If you do not already have it, contact Dell Support, ask for the script which comes with the KB [Dell VxRail: Recover VxRail Manager VM from Scratch](https://dell.com/support/kbdoc/en-us/000189568?lang=en). Use credentials mystic / VxRailManager@201602! to upload the script to the IP address you established for VxRail Manager with WinSCP or other utility. Alternatively, you can copy and paste it over SSH with vim or your favorite editor.
+10. SSH to the VxRail Manager.
+11. Next, you will need to enable root login for SSH. Run `vim /etc/ssh/sshd_config` (or your favorite text editor). Change PermitRootLogin from no to yes. Save and restart sshd with `systemctl restart sshd`
+12. Finally, run the uploaded script `vxm_recovery_70x.py`. Use the JSON you downloaded from the old VxRail Manager as a reference if you need it.
+       1.  When asked if the VxRail Manager networking is configured as expected say no and then re-input all networking values.
+       2.  Domain Search Path: This is `top_level_domain` in your JSON.
+       3.  Is the Domain Name server external: check the field `is_internal_dns` in your JSON. **WARNING** it asks you if you domain server is external. If the value of `is_internal_dns` is false then make sure you answer yes to this question.
+       4.  Domain Name Server IP address: Check the array `dns_servers`. If you only have one just import the one DNS server IP. If there is more than one, split each ip with a `,`.
+       5.  VxRail Manager hostname: This can be whatever you want it to be. You **do not** need to add the domain suffix here.
+       6.  NTP server IPs: see the array `ntp_servers` in your JSON
+       7.  Config root and mystic password of VxM: Select `y` if you haven't done this already
+       8.  Retrieve vRealize Log Insight Info - `n` unless you have vRealize Log Insight
+       9.  vCenter IP: See `vxrail_supplied_vc_ip` in your JSON (this should be the IP address of your vCenter server)
+       10. vcenter FQDN: The FQDN of vCenter. Ex: `vcluster202-vcsa.demo.local`
+       11. Admin account name: This is typically `administrator@something.something`
+       12. Management account name: This is the **VxRail manager** account name. NOT root. You can find it here: <br>![](images/2022-10-19-23-28-55.png)
+       13. Is PSC external: n
+       14. Is customized vds created? N
+       15. Can you confirm the management account info of the ESXi host: Answer yes. You can find the ESXi Management account info here: <br>![](images/2022-10-19-23-36-08.png)
+13. On vCenter, browse to VxRail here: <br>![](images/2022-10-19-18-03-38.png)
+14. Confirm that the dashboard populates. It is normal for it to have warnings if it cannot connect to the internet. If it is *not* working, the screen will be completely blank. Make sure if you alread had vCenter open that you refresh the page.
+15. Next, we are going to simulate a shutdown. You do not actually need to shutdown the cluster, but executing the shutdown simulation will confirm everything is working as expected.
+    1.  In my instance I received the following: <br>![](images/2022-10-20-00-36-19.png) 
+    2.  If you see this, it is more than likely a cert problem. You can confirm this by checking the `/var/log/microservice_log/short.term.log` on the VxRail Manager. If this is indeed the problem you should see:
 
-3. Power on your new VxRail Manager
-   1. In the virtualized lab I used for testing vCenter complained about an unsupported operating system. If this happens, right click, edit settings, vm options, general options, change the operating system to SUSE Linux 12. After you power on this should autocorrect itself.
-4. Login to the VxRail Manager in the web console with root / Passw0rd!
-5. 
+            2022-10-20-04:18:26 microservice.do-cluster "[2022-10-20 04:18:26,812: ERROR/MainProcess] Failed to login by session cookie!"
+            2022-10-20-04:18:26 microservice.do-cluster "Traceback (most recent call last):"
+            2022-10-20-04:18:26 microservice.do-cluster "  File ""/home/app/worker/task/vcenter.py"", line 414, in login_by_session_cookie"
+            2022-10-20-04:18:26 microservice.do-cluster "    username = si.content.sessionManager.currentSession.userName"
+            2022-10-20-04:18:26 microservice.do-cluster "  File ""/usr/local/venv/lib64/python3.6/site-packages/pyVmomi/VmomiSupport.py"", line 700, in __call__"
+            2022-10-20-04:18:26 microservice.do-cluster "    return self.f(*args, **kwargs)"
+            2022-10-20-04:18:26 microservice.do-cluster "  File ""/usr/local/venv/lib64/python3.6/site-packages/pyVmomi/VmomiSupport.py"", line 520, in _InvokeAccessor"
+            2022-10-20-04:18:26 microservice.do-cluster "    return self._stub.InvokeAccessor(self, info)"
+            2022-10-20-04:18:26 microservice.do-cluster "  File ""/usr/local/venv/lib64/python3.6/site-packages/pyVmomi/StubAdapterAccessorImpl.py"", line 40, in InvokeAccessor"
+            2022-10-20-04:18:26 microservice.do-cluster "    self._pc = si.RetrieveContent().propertyCollector"
+            2022-10-20-04:18:26 microservice.do-cluster "  File ""/usr/local/venv/lib64/python3.6/site-packages/pyVmomi/VmomiSupport.py"", line 706, in <lambda>"
+            2022-10-20-04:18:26 microservice.do-cluster "    self.f(*(self.args + (obj,) + args), **kwargs)"
+            2022-10-20-04:18:26 microservice.do-cluster "  File ""/usr/local/venv/lib64/python3.6/site-packages/pyVmomi/VmomiSupport.py"", line 512, in _InvokeMethod"
+            2022-10-20-04:18:26 microservice.do-cluster "    return self._stub.InvokeMethod(self, info, args)"
+            2022-10-20-04:18:26 microservice.do-cluster "  File ""/usr/local/venv/lib64/python3.6/site-packages/pyVmomi/SoapAdapter.py"", line 1350, in InvokeMethod"
+            2022-10-20-04:18:26 microservice.do-cluster "    conn.request('POST', self.path, req, headers)"
+            2022-10-20-04:18:26 microservice.do-cluster "  File ""/usr/lib64/python3.6/http/client.py"", line 1291, in request"
+            2022-10-20-04:18:26 microservice.do-cluster "    self._send_request(method, url, body, headers, encode_chunked)"
+            2022-10-20-04:18:26 microservice.do-cluster "  File ""/usr/lib64/python3.6/http/client.py"", line 1337, in _send_request"
+            2022-10-20-04:18:26 microservice.do-cluster "    self.endheaders(body, encode_chunked=encode_chunked)"
+            2022-10-20-04:18:26 microservice.do-cluster "  File ""/usr/lib64/python3.6/http/client.py"", line 1286, in endheaders"
+            2022-10-20-04:18:26 microservice.do-cluster "    self._send_output(message_body, encode_chunked=encode_chunked)"
+            2022-10-20-04:18:26 microservice.do-cluster "  File ""/usr/lib64/python3.6/http/client.py"", line 1046, in _send_output"
+            2022-10-20-04:18:26 microservice.do-cluster "    self.send(msg)"
+            2022-10-20-04:18:26 microservice.do-cluster "  File ""/usr/lib64/python3.6/http/client.py"", line 984, in send"
+            2022-10-20-04:18:26 microservice.do-cluster "    self.connect()"
+            2022-10-20-04:18:26 microservice.do-cluster "  File ""/usr/local/venv/lib64/python3.6/site-packages/pyVmomi/SoapAdapter.py"", line 1039, in connect"
+            2022-10-20-04:18:26 microservice.do-cluster "    http_client.HTTPSConnection.connect(self)"
+            2022-10-20-04:18:26 microservice.do-cluster "  File ""/usr/lib64/python3.6/http/client.py"", line 1452, in connect"
+            2022-10-20-04:18:26 microservice.do-cluster "    server_hostname=server_hostname)"
+            2022-10-20-04:18:26 microservice.do-cluster "  File ""/usr/local/venv/lib64/python3.6/site-packages/gevent/_ssl3.py"", line 120, in wrap_socket"
+            2022-10-20-04:18:26 microservice.do-cluster "    _session=session)"
+            2022-10-20-04:18:26 microservice.do-cluster "  File ""/usr/local/venv/lib64/python3.6/site-packages/gevent/_ssl3.py"", line 308, in __init__"
+            2022-10-20-04:18:26 microservice.do-cluster "    self.do_handshake()"
+            2022-10-20-04:18:26 microservice.do-cluster "  File ""/usr/local/venv/lib64/python3.6/site-packages/gevent/_ssl3.py"", line 667, in do_handshake"
+            2022-10-20-04:18:26 microservice.do-cluster "    self._sslobj.do_handshake()"
+            2022-10-20-04:18:26 microservice.do-cluster "  File ""/usr/lib64/python3.6/ssl.py"", line 694, in do_handshake"
+            2022-10-20-04:18:26 microservice.do-cluster "    match_hostname(self.getpeercert(), self.server_hostname)"
+            2022-10-20-04:18:26 microservice.do-cluster "  File ""/usr/lib64/python3.6/ssl.py"", line 331, in match_hostname"
+            2022-10-20-04:18:26 microservice.do-cluster "    % (hostname, dnsnames[0]))"
+            2022-10-20-04:18:26 microservice.do-cluster "ssl.CertificateError: hostname '192.168.1.20' doesn't match 'vcluster202-vcsa.demo.local'"
+            2022-10-20-04:18:26 microservice.do-cluster "[2022-10-20 04:18:26,816: INFO/MainProcess] Task worker.celery_task.rest_cluster.login_by_session_cookie[90e54bf5-a9d3-4d28-a76e-70fcbbe062cb] succeeded in 0.03339903799860622s: {'result': 'LOGIN_BY_SESSION_C                                                                         OOKIE_FAIL'}"
 
-
-
-If VxRail Manager was previously deployed but something happened to it you can rebuild it. If you have the old VxRail manager, but the cluster has changed on ESXi, you will have to do:
-
-- Update `/var/lib/vmware-marvin/runtime.properties` with the new cluster UUID
-- Connect to the postgresql database on the manager, go to the settings table and update it with the new settings.
+    3.  On vCenter as root run `mkdir -p /var/tmp/vmware && chmod 755 /var/tmp/vmware`
+    4.  Next run `/usr/lib/vmware-vmca/bin/certificate-manager`.
+        1.  Select option 8
+        2.  Do you wish to generate all certs using configuration file: n
+        3.  Enter your credentials
+        4.  You can leave everything to default until you get to Hostname. Here I used the FQDN for VCSA.
+        5.  For VMCA I used the shortname of VCSA
+        6.  When asked if you want to continue select yes. The script will run. This takes a while to run. For me it stopped at 85% for a long time. This appears to be normal.
+    5.  Grab [cert_util.py](cert_util.py) and upload it to VxRail Manager.
+    6.  Run the script. If it fails saying *No host configured* run `curl -k -H "Content-Type: application/json" -X PUT --unix-socket /var/lib/vxrail/nginx/socket/nginx.sock -d '{"value": "false"}' http://127.0.0.1/rest/vxm/internal/configservice/v1/configuration/keys/certificate_verification_enable`. This will disable cert checking for it. After you run that command, rerun the script and it should complete successfully.
 
 ## Logs
 

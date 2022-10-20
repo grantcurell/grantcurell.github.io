@@ -170,7 +170,7 @@ You must make sure that the accounts match.
 
 The below will pull the credentials from the VxRail Manager keystore. You run this command on the command line in VxRail Manager.
 
-`curl --unix-socket /var/lib/vxrail/nginx/socket/nginx.sock -X GET 'http://localhost/rest/vxm/internal/lockbox/v1/credentials?lockbox_name=SYSTEM&credential_names=management_account_vc'|j`
+`curl --unix-socket /var/lib/vxrail/nginx/socket/nginx.sock -X GET 'http://localhost/rest/vxm/internal/lockbox/v1/credentials?lockbox_name=SYSTEM&credential_names=management_account_vc'|jq`
 
         vcluster202-vxm:~ # curl --unix-socket /var/lib/vxrail/nginx/socket/nginx.sock -X GET 'http://localhost/rest/vxm/internal/lockbox/v1/credentials?lockbox_name=SYSTEM&credential_names=management_account_vc'|jq
         % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
@@ -237,7 +237,7 @@ where `host-SN` is the service tag for the server. This will return an output li
 
 As before you will have to update the password with:
 
-curl -X PUT --unix-socket /var/lib/vxrail/nginx/socket/nginx.sock -H "accept: application/json" -H "Content-Type: application/json" -d '{"lockbox_name":"SYSTEM","credentials":[{"credential_name":"management_account_esxi__<host-SN>","username":"ESXi_management_account_user_name","password":"encoded_password"}]}'  'http://localhost/rest/vxm/internal/lockbox/v1/credentials'
+        curl -X PUT --unix-socket /var/lib/vxrail/nginx/socket/nginx.sock -H "accept: application/json" -H "Content-Type: application/json" -d '{"lockbox_name":"SYSTEM","credentials":[{"credential_name":"management_account_esxi__<host-SN>","username":"ESXi_management_account_user_name","password":"encoded_password"}]}'  'http://localhost/rest/vxm/internal/lockbox/v1/credentials'
 
 where `<host-sn>` is your service tag, `ESXi_management_account_user_name` is the name of your ESXi management account from above, and `encoded password` is your password base64 encoded with `echo -n "PASSWORD" | base64`.
 
