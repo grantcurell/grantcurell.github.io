@@ -628,7 +628,7 @@ Note: My testing was done on VxRail 7.0.320
 1. Go to Edit Settings on your existing VxRail Manager and check its existing networking. There should be two networks. Make note of what they are as you will need these settings later. They are probably something like `vCenter Server Network-<uuid>` and `VxRail Manager-<uuid>`. 
 2. Make note of the existing VxRail manager's IP address.
 3. Log into the existing VxRail Manager. Run `cat /var/lib/vmware-marvin/config-initial.json | jq | less`. This is the current settings for VxRail Manager. I strongly suggest backing up this file so that you can reference the values recorded here later.
-   1. This step is not necessary. If you know the values you can skip it but this ensures later on that you use the correct values.
+      1. This step is not necessary. If you know the values you can skip it but this ensures later on that you use the correct values.
 4. Power down the existing VxRail Manager.
 5. Import the new VxRail Manager. The values for the import are specific to the user *except* the networking. When selecting the networking for the new VxRail Manager there will be two networks. Match these to what you saw in the original VxRail Manager. <br>![](images/2022-10-19-16-03-58.png)
 6. Before powering on your VxRail Manager you will need to change the guest operating system. Right click the VM, edit settings, vm options, general options, change the operating system to SUSE Linux 12. After you power on this should autocorrect itself to the correct OS. If you don't do this you will get an error from vCenter saying the operating system is unsupported.
