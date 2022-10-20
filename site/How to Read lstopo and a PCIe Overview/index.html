@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Grant Curell" /><link rel="canonical" href="https://grantcurell.github.io/How%20to%20Read%20lstopo%20and%20a%20PCIe%20Overview/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>How to Read lstopo and a PCIe Overview - Grant Curell's Dell Projects</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "How to Read lstopo and a PCIe Overview";
+        var mkdocs_page_input_path = "How to Read lstopo and a PCIe Overview\\README.md";
+        var mkdocs_page_url = "/How%20to%20Read%20lstopo%20and%20a%20PCIe%20Overview/";
+      </script>
+    
+    <script src="../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Grant Curell's Dell Projects
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Grant Curell's Dell Projects</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Adding%20Hashing%20to%20OpenSwitch/">Adding Hashing to OpenSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Adding%20Intel%20I219-LM%20%288086.0d4c%29%20Driver%20to%20ESXi/">Adding Intel I219-LM (8086.0d4c) Driver to ESXi</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Automating%20OME%20Hardware%20Reports/">Automating OME Hardware Reports</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Backup%20OS10%20Config%20with%20Ansible/">Backup OS10 Config with Ansible</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../CloudLink/">CloudLink</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20FN410%20as%20a%20Switch/">Configure FN410 as a Switch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20Gigamon%20Tap/">Configure Gigamon Tap</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configuring%20VLT%20on%20OS10/">Configuring VLT on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Create%20Kickstart%20Server%20on%20Fedora/">Create Kickstart Server on Fedora</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Create%20OpenSwitch%20VM/">Create OpenSwitch VM</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Dell%20Ansible%20Testing/">Dell Ansible Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../DHCP%20Relay%20on%20SONiC/">DHCP Relay on SONiC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Elasticsearch%20Display%20Map%20Data/">Elasticsearch Display Map Data</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Elasticsearch%20Load%20Testing/">Elasticsearch Load Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../esrally%20%28INCOMPLETE%29/">esrally (INCOMPLETE)</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Get%20NVMe%20Drives%20from%20iDRAC%20Redfish/">Get NVMe Drives from iDRAC Redfish</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../High%20Speed%20Packet%20Capture/">High Speed Packet Capture</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20OS10%20Installer%20Works/">How OS10 Installer Works</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20to%20ONIE%20Install%20and%20ZTP%20Config%20Dell%20SONiC/">How to ONIE Install and ZTP Config Dell SONiC</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">How to Read lstopo and a PCIe Overview</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#subject-platform">Subject Platform</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#package">Package</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#caches-lxi-lxd-and-l3">Caches (LXi, LXd, and L3)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#cores">Cores</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#numa-nodes">NUMA Nodes</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#pcie-background">PCIe Background</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#pcie-root-complex">PCIe Root Complex</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#pcie-switches">PCIe Switches</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#pcie-bridge">PCIe Bridge</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#interpreting-pcie">Interpreting PCIe</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#understanding-pcie-switches-vs-functions">Understanding PCIe Switches vs Functions</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#research">Research</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#translation-lookaside-buffer">Translation Lookaside Buffer</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#tlb-misses">TLB Misses</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#data-and-instruction-caches">Data and Instruction Caches</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#stackexchange-explanaton-of-lstopo">StackExchange Explanaton of lstopo</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../idrac%20with%20LDAP/">idrac with LDAP</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Importing%20Elasticsearch%20Data/">Importing Elasticsearch Data</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Installing%20DPDK%20with%20NapaTech%20Card/">Installing DPDK with NapaTech Card</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../IO%20Identities%20with%20LifeCycle%20Controller/">IO Identities with LifeCycle Controller</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../LDAP%20with%20OpenManage/">LDAP with OpenManage</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balance%20Testing%20on%204112F-ON/OpenSwitch%20%28OPX%29/">Load Balancing with LAG OPX</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balance%20Testing%20on%204112F-ON/OS10/">Load Balance Testing on 4112F-ON w/OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balance%20Testing%20with%20OpenVSwitch/">Load Balance Testing with OpenVSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balancing%20on%20Mellanox%20Switches/">Load Balancing on Mellanox Switches</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balancing%20with%20LAG%20on%205112F-ON/">Load Balancing with LAG on 5112F-ON</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Make%20USB%20Read%20Only/">Make USB Read Only</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Migrating%20Storage%20Volumes%20to%20PowerStore/">Migrating Storage Volumes to PowerStore</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Mulitple%20Span%20on%204112F-ON%20with%20OpenSwitch/">Mulitple Span on 4112F-ON with OpenSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Multiple%20Span%20on%204112F-ON%20with%20OS10/">Multiple Span on 4112F-ON with OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20HPC/">Notes on HPC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20Improving%20Drive%20Performance/">Notes on Improving Drive Performance</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20mdraid%20Performance%20Testing/">Notes on mdraid Performance Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20NVMe%20Log%20Pages/">Notes on NVMe Log Pages</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20PCIe/">Notes on PCIe</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Nvidia%20GPUDirect/">Nvidia GPUDirect</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Nvidia%20GRID%20Notes/">Nvidia GRID Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../NVMe%20Performance%20Testing/">NVMe Performance Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Offline%20Updates%20with%20OpenManage%20Enterprise/">Offline Updates with OpenManage Enterprise</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OME%20Bug/">OME Bug</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OME%20Integration%20for%20VMWare/">OME Integration for VMWare</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OpenFlow%20on%204112F-ON/">OpenFlow on 4112F-ON</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OS10%20Password%20Recovery%20Bug/">OS10 Password Recovery Bug</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PCIev3%20vs%20v4/">PCIev3 vs v4</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Playing%20with%20virsh/">Playing with virsh</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Reset%20OS10%20Admin%20Password/">Reset OS10 Admin Password</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Run%20VPN%20on%20OS10/">Run VPN on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Running%20DNS%20from%20OS10/">Running DNS from OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Set%20Up%20RSPAN%20on%20OS10/">Set Up RSPAN on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setting%20Up%20Breakout%20Cables/">Setting Up Breakout Cables</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setting%20Up%20iDRAC%20Telemetry%20with%20Splunk/">Setting Up iDRAC Telemetry with Splunk</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setting%20Up%20SmartFabric%20Director/">Setting Up SmartFabric Director</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setup%20IDPA/">Setup IDPA</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Site%20to%20Site%20VPN%20with%20PFSense%20and%20CentOS%208/">Site to Site VPN with PFSense and CentOS 8</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../SONiC%20-%20Sample%20Datacenter%20Automation%20Architecture/">SONiC - Sample Datacenter Automation Architecture</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Switch%20Directly%20to%20Client%20Test/">Switch Directly to Client Test</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Testing%20Intel%20x520%20on%20RHEL%206/">Testing Intel x520 on RHEL 6</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Understanding%20Memory/">Understanding Memory</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Use%20OS10%20as%20Aggregator/">Use OS10 as Aggregator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Using%20the%20iDRAC%20Service%20Module/">Using the iDRAC Service Module</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VEP%20Testing/">VEP Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Automate%20ESXi%20Installation/">Automating ESXi Installation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/ESXi%20Architecture/">VMWare Architecture Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Setup%20VXRail/">VxRail Setup</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Troubleshooting%20vSAN/">Troubleshooting vSAN</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/VMWare%20APIs/">VMWare APIs</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/VxRail%20Architecture%20and%20Troubleshooting/">VxRail Architecture and Troubleshooting</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Change%20User%20on%20VxRail%20Plugin/">Change User on VxRail Plugin</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Web%20Traffic%20Generator/">Web Traffic Generator</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Grant Curell's Dell Projects</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li><li>How to Read lstopo and a PCIe Overview</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="how-to-read-lstopo-and-a-pcie-overview">How to Read lstopo and a PCIe Overview</h1>
+<p>The first time I looked at <code>lstopo</code>, I found the output rather overwhelming so I wrote this guide to break down what I was looking at.</p>
+<h2 id="subject-platform">Subject Platform</h2>
+<p>Dell R840</p>
+<p><img alt="" src="images/2022-03-13-11-44-05.png" /></p>
+<h3 id="package">Package</h3>
+<p>The word package is synonymous with the word socket. In the R840's case there are four separate, physical, sockets.</p>
+<h3 id="caches-lxi-lxd-and-l3">Caches (LXi, LXd, and L3)</h3>
+<p>This in particular confused me at first as the nomenclature is specific to your architecture (ex: Intel or AMD). Here you see three caches LXi, LXd, and L3. L<some_number>i refers to an <a href="images/18-notes.pdf">instruction cache</a>, L<some_number>d refers to a <a href="images/18-notes.pdf">data cache</a>, and L3 is a mixed cache including data and instructions. In the Intel architecture the first couple of levels may be dedicated to data or instruction caches but higher levels are mixed.</p>
+<h3 id="cores">Cores</h3>
+<p>It helps here to look at the output of <code>lscpu</code></p>
+<pre><code>[root@r8402 ~]# lscpu
+Architecture:        x86_64
+CPU op-mode(s):      32-bit, 64-bit
+Byte Order:          Little Endian
+CPU(s):              80
+On-line CPU(s) list: 0-79
+Thread(s) per core:  2
+Core(s) per socket:  10
+Socket(s):           4
+NUMA node(s):        4
+Vendor ID:           GenuineIntel
+BIOS Vendor ID:      Intel
+CPU family:          6
+Model:               85
+Model name:          Intel(R) Xeon(R) Gold 5215 CPU @ 2.50GHz
+BIOS Model name:     Intel(R) Xeon(R) Gold 5215 CPU @ 2.50GHz
+Stepping:            7
+CPU MHz:             2643.471
+CPU max MHz:         3400.0000
+CPU min MHz:         1000.0000
+BogoMIPS:            5000.00
+Virtualization:      VT-x
+L1d cache:           32K
+L1i cache:           32K
+L2 cache:            1024K
+L3 cache:            14080K
+NUMA node0 CPU(s):   0,4,8,12,16,20,24,28,32,36,40,44,48,52,56,60,64,68,72,76
+NUMA node1 CPU(s):   1,5,9,13,17,21,25,29,33,37,41,45,49,53,57,61,65,69,73,77
+NUMA node2 CPU(s):   2,6,10,14,18,22,26,30,34,38,42,46,50,54,58,62,66,70,74,78
+NUMA node3 CPU(s):   3,7,11,15,19,23,27,31,35,39,43,47,51,55,59,63,67,71,75,79
+</code></pre>
+<p>First we need to understand a bit about computer architecture. In modern servers, you have the physical processors, cores within those processors, and finally logical cores (due to HyperThreading in Intel architectures ar Simultaneous Multi-Threading [SMT] in AMD architectures). AS you can see from the output of <code>lscpu</code>, in my server, each processor has 10 cores and each of those cores, due to hyperthreading, has 20 logical cores (as indicated by the NUMA node field). What you are seeing in this part:</p>
+<p><img alt="" src="images/2022-03-13-13-08-53.png" /></p>
+<p>are the 10 cores in each proc. Notice that the numbers are in ascending order starting with package L#0 which has cores 0-9, then L#1 has 10-19, on up to 39 in package L#3. Also notice that the output omits some of the procs for space reasons and simply says "10x total" to indicate that there are actually 10 procs total.</p>
+<p>You can see that each individual core:</p>
+<p><img alt="" src="images/2022-03-13-13-16-36.png" /></p>
+<p>Further has PU L#0 and PU L#1. These refer to the two aforementioned logacl cores created from hyperthreading. </p>
+<h4 id="numa-nodes">NUMA Nodes</h4>
+<p>Perhaps more confusing are the smaller numbers. In package L#0 we see P#0, P#4, P#36, P#40, P#44, and P#76 actually drawn. As other posts have mentioned, these correspond to the various <a href="https://en.wikipedia.org/wiki/Non-uniform_memory_access#Cache_coherent_NUMA_(ccNUMA)">NUMA Nodes</a>. As mentioned in Wikipedia, modern architectures use some sort of cache coherent NUMA (ccNUMA). The subject can be quite complicated but a simple explanation is this: we want memory access to be faster. The best way to do this is to literally put the memory closer to the processor. NUMA nodes do this by directly attaching processors to some part of memory. The smaller numbers indicate the logical cores created by HyperThreading. From the output of <code>lscpu</code> you can see that all the logical processes shown in package L#0:</p>
+<p><img alt="" src="images/2022-03-13-13-46-09.png" /></p>
+<p>are included in NUMA node 0. You may also notice at the top it says NUMANode L#0 P#0 (45GB). This refers to the fact that NUMA node 0 has direct access to 1/4 of the total memory or 45GB. We can confirm this by looking at <code>cat /proc/meminfo</code>:</p>
+<pre><code>[root@r8402 ~]# cat /proc/meminfo
+MemTotal:       196207488 kB
+MemFree:        191452708 kB
+MemAvailable:   191700740 kB
+...SNIP...
+</code></pre>
+<p>In our example, if a process is running on Core L#0, logical processor P#36, then it can directly access any of the 45GBs directly attached to package L#0. An important note: modern operating systems are NUMA aware and will do their absolute best when you spawn a process to make sure that the memory allocated for that process will be on the same NUMA node. However, let's say that there is some larger process and that multiple threads are sharing access to memory. In this case you may have a scenario where a process is running on logical processor P#5 on package L#1 in which case that process will have to reach out from physical package of L#1 through what's called the <a href="https://en.wikipedia.org/wiki/Intel_QuickPath_Interconnect">QPI</a> bus, through package L#0, and then gain access to the memory local to package L#0. The <a href="https://en.wikipedia.org/wiki/Intel_QuickPath_Interconnect">QPI bus</a> is part of the Intel architecture and it provides interconnects between all the physical packages for exactly this purpose. AMD uses something called XGMI. This gets us pretty in the weeds on computer architecture because this actually changes over time. For example, on Intel's newer Skylake processors it is no longer the QPI bus but <a href="https://en.wikipedia.org/wiki/Intel_Ultra_Path_Interconnect">ULtra Path Interconnect</a> that serves this function so when you're working at this level you have to pay attention to exactly what processor you are using.</p>
+<p>Fun fact: When looking at things like <a href="https://i.dell.com/sites/csdocuments/Product_Docs/en/dell-emc-poweredge-r7525-technical-guide.pdf">the Technical Guide</a> for servers you have to account for this when looking at total PCIe lane availability. The AMD EPYC gen 2/3 processors both support up to 128 PCIe lanes per processor BUT this is a bit misleading. When you have servers like the Dell R7525 (or any other vendor's two socket AMD server like HP's DL385) the two procs are connected via XGMI however XGMI consumes 48 PCIe lanes <em>per processor</em> so when doing your calculus you actually only end up seeing 80 per processor for a total of 160.</p>
+<h3 id="pcie-background">PCIe Background</h3>
+<p>The last part of the diagram we haven't touched on is PCIe. Not to be confused with NUMA, PCIe devices also have locality to processors. Each processor has a certain number of PCIe lanes attached directly to it. Just like memory, if you have a process running on, let's say, package L#3 and it is writing to NVMe drive nvme3n1 that process will write more quickly than a process running on package L#0 which must write across the QPI bus, through package L#3, and then to the drive.</p>
+<p>To fully understand how to interpret the PCIe results, it helps to understand a few PCIe basics. This is lengthy but all the things mentioned will help you interpret a potential configuration you might see in lstopo.</p>
+<h4 id="pcie-root-complex">PCIe Root Complex</h4>
+<p>All PCIe Express (PCIe) devices connect to the processor and memory through what is called the <a href="https://en.wikipedia.org/wiki/Root_complex">PCIe root complex</a></p>
+<p><img alt="" src="images/2022-03-13-14-39-27.png" /></p>
+<p>It is important to understand that PCIe devices can write directly to memory in modern architectures without ever touching the CPU. This is generically called Direct Memory Access (DMA). Each PCIe device has some region of memory assigned to it. This gets pretty deep - see <a href="https://pcisig.com/sites/default/files/files/PCI_Express_Basics_Background.pdf">here</a> for an overview. </p>
+<p>In modern computer architectures, <a href="https://codywu2010.wordpress.com/2015/11/29/how-modern-multi-processor-multi-root-complex-system-assigns-pci-bus-number/">there is more than one root complex in a system</a> (<strong>NOTE</strong> that link does a good job of explaining things but has references to older architectures with pieces that are no longer in existence [Ex: the platform controller hub (PCH) is no longer a thing]). There is a root complex for every processor on the system.</p>
+<p>Now, where this gets confusing is a mixing of terminology. In an attempt to abstract the very architecture-specific nature of PCIe people use different terms like host bridge, root complex, and system on chip, etc. In modern architectures, from a physical perspective, there is no longer a physically separate thing for the root complex. Modern architectures have what is called system on chip (SoC) where all that stuff is built into the processor die (including the PCIe root complex).</p>
+<h4 id="pcie-switches"><a href="https://linuxhint.com/pcie-switch/#:~:text=PCIe%20switches%20are%20devices%20that,the%20CPU%20alone%20can%20handle.">PCIe Switches</a></h4>
+<p>Another concept that can be confusing is that you generally have two different devices which attach to the root complex. Either a PCIe switch or a PCIe endpoint. PCIe works more or less just like a network does and like a network it has switches. Say for example that a manufacturer wants to cram more PCIe devices onto a server than the server actually has PCIe lanes. A real world example: when the new AMD Rome processors dropped, manufacturers rushed to get servers to market. There wasn't time to actually make new motherboards fully supporting all the features the Rome processor offered so they instead modified existing motherboards which lead to some sub-optimal designs which included oversubscribing PCIe (it was not a single vendor that did this - I've seen this across the board). Let's say you have a server that supports 24 NVMe drives on a single backplane but each side of the backplane only has two x8 cables. NVMe drives run at x4 speeds so if you have 12 drives per side of the backplane, you're looking at a total of 48 PCIe lanes required to not have oversubscription. However, you only have 16 lanes available to play with. What do you do? Put a PCIe switch in front of the drives. It works just like an oversubscribed network. So in this case the NVMe drives are oversubscribed at a rate of 48:16 or simplified, 3:1.</p>
+<p>Another common use is bifurcation. Let's say you have one x16 lane but you want to use two x8 devices. You can bifurcate the lane to do just that - break a single x16 lane into two x8 lanes. This is where you might also hear the terminology "electrically x16". For example, a vendor might make a riser that allows two x8 devices but in reality, the electrical traces will each independently support x16. The BIOS will let you reconfigure the PCIe switch to instead operate at x16 speeds and you can ignore one of the riser slots.</p>
+<p>There are a lot of other fancy uses for PCIe switches but those two are the most common. For example <a href="https://www.nvidia.com/en-us/data-center/nvlink/">NVLink</a> will let graphics cards talk directly to each other.</p>
+<h4 id="pcie-bridge">PCIe Bridge</h4>
+<p>This term is also overused and confusing. In older architectures there's a lot about connecting to legacy PCI which isn't really a concern in 2022. In 2022 all a bridge does is connect a PCIe slot to the microprocessor responsible for controlling it. Generically, it is just a hardware connection between two different buses.</p>
+<p><strong><a href="https://www.easytechjunkie.com/what-is-a-pcie-bus.htm">What is the PCIe bus</a></strong>: This term is also super confusing in 2022. Way back in the original PCI spec before PCIe was a thing there was a literal parallel bus. As in, you had a whole bunch of devices sharing a physical bus along with all the problems that brings (of which there are many). In PCIe devices aren't attached to this kind of bus. In fact, I find it a bit obnoxious that we even use the word bus (even though it is technically correct). When I see people use the word "bus" in terms of PCIe what they usually mean is the <a href="https://computer.howstuffworks.com/pci-express.htm">serial connection</a> consisting of multiple bidirectional PCIe lanes connecting the PCIe device (endpoint) to the root complex or PCIe switch.</p>
+<h3 id="interpreting-pcie">Interpreting PCIe</h3>
+<p>As you might be able to guess, this is extremely device specific.</p>
+<p>The numbers shown next to the wires (3.9, 1.2, etc) are the <strong>unrounded</strong> transfer speeds in <a href="https://github.com/open-mpi/hwloc/issues/372">gigabytes per second</a>. The various NVMe devices are fairly self explanatory. However, when it comes to networking, this is where it gets interesting. The network device shown is actually a Dell network daughter card (NDC) and all four interfaces shown in Package L#0 are actually the same network card. I confirmed this by cross referencing the xml output of lstopo with <code>ip a s</code>. See below picture</p>
+<p><img alt="" src="images/2022-03-13-18-30-28.png" /></p>
+<p>It would seem that under the hood, for the NDC, Dell actually ran a x4 lane to the two SFP interfaces and a x2 lane for the copper interfaces. This makes sense because those ethernet interfaces are only 1Gb/s. The rest of the devices are as follows:</p>
+<ul>
+<li>Bus 25:00:0 is a BOSS card</li>
+<li>Bus 00:11.5 is the platform controller hub (PCH)</li>
+<li>If you're curious why you don't see the iDRAC's ethernet interface, this is because all communication with the iDRAC, assuming you aren't using RMI, goes through the PCH.</li>
+<li>Bus 03:00.0 is the VGA port</li>
+<li>For the eagle eyed you may notice the PERC is absent - I have it disconnected right now. It would normally have shown up on package L#0.</li>
+</ul>
+<h4 id="understanding-pcie-switches-vs-functions">Understanding PCIe Switches vs Functions</h4>
+<p>The last thing I thought was a bit hard to descipher without some cross reference </p>
+<h2 id="research">Research</h2>
+<h3 id="translation-lookaside-buffer">Translation Lookaside Buffer</h3>
+<p>See: https://en.wikipedia.org/wiki/Translation_lookaside_buffer</p>
+<p>A translation lookaside buffer (TLB) is a memory cache that is used to reduce the time taken to  access a user memory location.[1] It is a part of the chip's memory-management unit (MMU). The TLB stores the recent translations of virtual memory to physical memory and can be called an address-translation cache. A TLB may reside between the CPU and the CPU cache, between CPU cache and the main memory or between the different levels of the multi-level cache. The majority of desktop, laptop, and server processors include one or more TLBs in the memory-management hardware, and it is nearly always present in any processor that utilizes paged or segmented virtual memory.</p>
+<h4 id="tlb-misses">TLB Misses</h4>
+<p>See <a href="images/18-notes.pdf">18-notes.pdf</a></p>
+<h3 id="data-and-instruction-caches">Data and Instruction Caches</h3>
+<p>See <a href="images/18-notes.pdf">18-notes.pdf</a></p>
+<h3 id="stackexchange-explanaton-of-lstopo">StackExchange Explanaton of <code>lstopo</code></h3>
+<p>https://unix.stackexchange.com/a/113549/240147</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../How%20to%20ONIE%20Install%20and%20ZTP%20Config%20Dell%20SONiC/" class="btn btn-neutral float-left" title="How to ONIE Install and ZTP Config Dell SONiC"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../idrac%20with%20LDAP/" class="btn btn-neutral float-right" title="idrac with LDAP">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../How%20to%20ONIE%20Install%20and%20ZTP%20Config%20Dell%20SONiC/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../idrac%20with%20LDAP/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

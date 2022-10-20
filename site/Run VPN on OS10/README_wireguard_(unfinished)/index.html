@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Grant Curell" /><link rel="canonical" href="https://grantcurell.github.io/Run%20VPN%20on%20OS10/README_wireguard_%28unfinished%29/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Run VPN on OS10 - Grant Curell's Dell Projects</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Run VPN on OS10";
+        var mkdocs_page_input_path = "Run VPN on OS10\\README_wireguard_(unfinished).md";
+        var mkdocs_page_url = "/Run%20VPN%20on%20OS10/README_wireguard_%28unfinished%29/";
+      </script>
+    
+    <script src="../../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Grant Curell's Dell Projects
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Grant Curell's Dell Projects</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Adding%20Hashing%20to%20OpenSwitch/">Adding Hashing to OpenSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Adding%20Intel%20I219-LM%20%288086.0d4c%29%20Driver%20to%20ESXi/">Adding Intel I219-LM (8086.0d4c) Driver to ESXi</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Automating%20OME%20Hardware%20Reports/">Automating OME Hardware Reports</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Backup%20OS10%20Config%20with%20Ansible/">Backup OS10 Config with Ansible</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../CloudLink/">CloudLink</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Configure%20FN410%20as%20a%20Switch/">Configure FN410 as a Switch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Configure%20Gigamon%20Tap/">Configure Gigamon Tap</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Configuring%20VLT%20on%20OS10/">Configuring VLT on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Create%20Kickstart%20Server%20on%20Fedora/">Create Kickstart Server on Fedora</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Create%20OpenSwitch%20VM/">Create OpenSwitch VM</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Dell%20Ansible%20Testing/">Dell Ansible Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../DHCP%20Relay%20on%20SONiC/">DHCP Relay on SONiC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Elasticsearch%20Display%20Map%20Data/">Elasticsearch Display Map Data</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Elasticsearch%20Load%20Testing/">Elasticsearch Load Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../esrally%20%28INCOMPLETE%29/">esrally (INCOMPLETE)</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Get%20NVMe%20Drives%20from%20iDRAC%20Redfish/">Get NVMe Drives from iDRAC Redfish</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../High%20Speed%20Packet%20Capture/">High Speed Packet Capture</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../How%20OS10%20Installer%20Works/">How OS10 Installer Works</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../How%20to%20ONIE%20Install%20and%20ZTP%20Config%20Dell%20SONiC/">How to ONIE Install and ZTP Config Dell SONiC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../How%20to%20Read%20lstopo%20and%20a%20PCIe%20Overview/">How to Read lstopo and a PCIe Overview</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../idrac%20with%20LDAP/">idrac with LDAP</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Importing%20Elasticsearch%20Data/">Importing Elasticsearch Data</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Installing%20DPDK%20with%20NapaTech%20Card/">Installing DPDK with NapaTech Card</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../IO%20Identities%20with%20LifeCycle%20Controller/">IO Identities with LifeCycle Controller</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../LDAP%20with%20OpenManage/">LDAP with OpenManage</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Load%20Balance%20Testing%20on%204112F-ON/OpenSwitch%20%28OPX%29/">Load Balancing with LAG OPX</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Load%20Balance%20Testing%20on%204112F-ON/OS10/">Load Balance Testing on 4112F-ON w/OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Load%20Balance%20Testing%20with%20OpenVSwitch/">Load Balance Testing with OpenVSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Load%20Balancing%20on%20Mellanox%20Switches/">Load Balancing on Mellanox Switches</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Load%20Balancing%20with%20LAG%20on%205112F-ON/">Load Balancing with LAG on 5112F-ON</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Make%20USB%20Read%20Only/">Make USB Read Only</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Migrating%20Storage%20Volumes%20to%20PowerStore/">Migrating Storage Volumes to PowerStore</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Mulitple%20Span%20on%204112F-ON%20with%20OpenSwitch/">Mulitple Span on 4112F-ON with OpenSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Multiple%20Span%20on%204112F-ON%20with%20OS10/">Multiple Span on 4112F-ON with OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Notes%20on%20HPC/">Notes on HPC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Notes%20on%20Improving%20Drive%20Performance/">Notes on Improving Drive Performance</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Notes%20on%20mdraid%20Performance%20Testing/">Notes on mdraid Performance Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Notes%20on%20NVMe%20Log%20Pages/">Notes on NVMe Log Pages</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Notes%20on%20PCIe/">Notes on PCIe</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Nvidia%20GPUDirect/">Nvidia GPUDirect</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Nvidia%20GRID%20Notes/">Nvidia GRID Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../NVMe%20Performance%20Testing/">NVMe Performance Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Offline%20Updates%20with%20OpenManage%20Enterprise/">Offline Updates with OpenManage Enterprise</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../OME%20Bug/">OME Bug</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../OME%20Integration%20for%20VMWare/">OME Integration for VMWare</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../OpenFlow%20on%204112F-ON/">OpenFlow on 4112F-ON</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../OS10%20Password%20Recovery%20Bug/">OS10 Password Recovery Bug</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../PCIev3%20vs%20v4/">PCIev3 vs v4</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Playing%20with%20virsh/">Playing with virsh</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Reset%20OS10%20Admin%20Password/">Reset OS10 Admin Password</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../">Run VPN on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Running%20DNS%20from%20OS10/">Running DNS from OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Set%20Up%20RSPAN%20on%20OS10/">Set Up RSPAN on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Setting%20Up%20Breakout%20Cables/">Setting Up Breakout Cables</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Setting%20Up%20iDRAC%20Telemetry%20with%20Splunk/">Setting Up iDRAC Telemetry with Splunk</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Setting%20Up%20SmartFabric%20Director/">Setting Up SmartFabric Director</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Setup%20IDPA/">Setup IDPA</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Site%20to%20Site%20VPN%20with%20PFSense%20and%20CentOS%208/">Site to Site VPN with PFSense and CentOS 8</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../SONiC%20-%20Sample%20Datacenter%20Automation%20Architecture/">SONiC - Sample Datacenter Automation Architecture</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Switch%20Directly%20to%20Client%20Test/">Switch Directly to Client Test</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Testing%20Intel%20x520%20on%20RHEL%206/">Testing Intel x520 on RHEL 6</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Understanding%20Memory/">Understanding Memory</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Use%20OS10%20as%20Aggregator/">Use OS10 as Aggregator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Using%20the%20iDRAC%20Service%20Module/">Using the iDRAC Service Module</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../VEP%20Testing/">VEP Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../VMWare/Automate%20ESXi%20Installation/">Automating ESXi Installation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../VMWare/ESXi%20Architecture/">VMWare Architecture Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../VMWare/Setup%20VXRail/">VxRail Setup</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../VMWare/Troubleshooting%20vSAN/">Troubleshooting vSAN</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../VMWare/VMWare%20APIs/">VMWare APIs</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../VMWare/VxRail%20Architecture%20and%20Troubleshooting/">VxRail Architecture and Troubleshooting</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../VMWare/Change%20User%20on%20VxRail%20Plugin/">Change User on VxRail Plugin</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Web%20Traffic%20Generator/">Web Traffic Generator</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Grant Curell's Dell Projects</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li><li>Run VPN on OS10</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="run-vpn-on-os10">Run VPN on OS10</h1>
+<h2 id="my-configuration">My Configuration</h2>
+<h3 id="dell-4112f-on">Dell 4112F-ON</h3>
+<pre><code>    Dell EMC Networking OS10 Enterprise
+    Copyright (c) 1999-2020 by Dell Inc. All Rights Reserved.
+    OS Version: 10.5.0.4
+    Build Version: 10.5.0.4.638
+    Build Time: 2020-01-30T21:08:56+0000
+    System Type: S4112F-ON
+    Architecture: x86_64
+    Up Time: 2 days 03:54:07
+</code></pre>
+<h3 id="centos">CentOS</h3>
+<pre><code>    [root@centos ~]# cat /etc/*-release
+    CentOS Linux release 7.6.1810 (Core)
+    NAME="CentOS Linux"
+    VERSION="7 (Core)"
+    ID="centos"
+    ID_LIKE="rhel fedora"
+    VERSION_ID="7"
+    PRETTY_NAME="CentOS Linux 7 (Core)"
+    ANSI_COLOR="0;31"
+    CPE_NAME="cpe:/o:centos:centos:7"
+    HOME_URL="https://www.centos.org/"
+    BUG_REPORT_URL="https://bugs.centos.org/"
+
+    CENTOS_MANTISBT_PROJECT="CentOS-7"
+    CENTOS_MANTISBT_PROJECT_VERSION="7"
+    REDHAT_SUPPORT_PRODUCT="centos"
+    REDHAT_SUPPORT_PRODUCT_VERSION="7"
+
+    CentOS Linux release 7.6.1810 (Core)
+    CentOS Linux release 7.6.1810 (Core)
+</code></pre>
+<h3 id="physical-configuration">Physical Configuration</h3>
+<p>Interface <code>ethernet 1/1/12</code> on the 4112F-ON plugged directly into a server running ESXi. That interface was assigned as an uplink associated with a vswitch when then was tied to a portgroup running on VLAN 32. <code>ethernet 1/1/12</code> was configured as follows:</p>
+<pre><code>    OS10(conf-if-eth1/1/12)# show configuration
+    !
+    interface ethernet1/1/12
+    no shutdown
+    switchport mode trunk
+    switchport access vlan 1
+    switchport trunk allowed vlan 32
+    flowcontrol receive on
+</code></pre>
+<p><code>interface vlan 32</code> was configured as follows:</p>
+<pre><code>    OS10(conf-if-vl-32)# show configuration
+
+    !
+    interface vlan32
+    no shutdown
+    ip address 192.168.32.1/24
+</code></pre>
+<p>The full switch config <a href="TODO ADD SWITCH CONFIG">is here</a></p>
+<p>Interface <code>ethernet 1/1/1</code> was configured as an access port in VLAN <TODO></p>
+<h2 id="research">Research</h2>
+<h3 id="sources">Sources</h3>
+<p><a href="http://www.cse.bgu.ac.il/npbook/">Helpful Book</a>
+<a href="https://www.embedded.com/the-basics-of-network-processors/">Basics of Network Processor</a>
+<a href="https://en.wikipedia.org/wiki/Packet_processing">Packet Processing</a>
+<a href="https://barrgroup.com/embedded-systems/how-to/network-processors">How Network Processors Work</a></p>
+<h3 id="npu-problem">NPU Problem</h3>
+<p>Explanation</p>
+<h2 id="installing-wireguard">Installing WireGuard</h2>
+<p>On the 4112F-ON:</p>
+<ol>
+<li>Enter configuration mode from user mode by running <code>en</code> and then <code>config &lt;enter&gt;</code></li>
+<li>Run <code>ip name-server 192.168.1.1</code> to add a name server.</li>
+<li>Run <code>write mem</code> in enable mode to save your configuration changes.</li>
+<li>Run <code>system bash</code></li>
+<li>If you don't have a default route on your switch, you will need to add one with <code>sudo ip route add 0.0.0.0/0 via 192.168.1.1</code>.</li>
+<li>Before installing WireGuard you will need the latest kernel headers.
+      1.The kernel headers on the system will work a bit differently than regular systems. I found the relevant kernel headers with <code>apt search linux-headers | grep $(uname -r)</code>
+      2.You should see an entry mentioning all - something like <code>linux-headers-4.9.0-11-all</code>. You want to install that package with <code>sudo apt-get install -y &lt;LINUX HEADER NAME&gt; bc</code>
+      3.At this point you will need to reboot. Do this by exiting the command line and in enable mode running <code>reload</code>
+      4.If you do not have a permanent default route set, when you log back in you will need to run <code>system bash</code> and then readd the default route with <code>sudo ip route add 0.0.0.0/0 via 192.168.1.1</code></li>
+<li><code>mkdir /opt/wireguard &amp;&amp; cd /opt/wireguard</code></li>
+<li>Now you will either need to run all of the following as sudo or you will need to add a password to the root account with <code>sudo passwd</code> and then <code>su -</code> to become root.</li>
+<li>
+<p>After you have done the above run:</p>
+<pre><code>echo "deb http://deb.debian.org/debian/ unstable main" &gt; /etc/apt/sources.list.d/unstable-wireguard.list
+printf 'Package: *\nPin: release a=unstable\nPin-Priority: 90\n' &gt; /etc/apt/preferences.d/limit-unstable
+apt update
+apt install wireguard
+</code></pre>
+</li>
+<li>
+<p>Generate key pairs <code>wg genkey | tee wg-private.key | wg pubkey &gt; wg-public.key</code></p>
+</li>
+<li></li>
+</ol>
+<p>On CentOS 7</p>
+<ol>
+<li>Make sure everything is up to date. <code>yum update -y &amp;&amp; reboot</code>. The reboot is important because if your kernel might update. If this happens you need to reboot to load the new kernel. Wireguard requires kernel 3.10 or higher - I noticed if you haven't updated CentOS for a bit than your kernel might be to old and you'll get <code>RTNETLINK answers: Operation not supported</code>.</li>
+<li>
+<p>Run:</p>
+<pre><code>        sudo yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+        sudo curl -o /etc/yum.repos.d/jdoss-wireguard-epel-7.repo https://copr.fedorainfracloud.org/coprs/jdoss/wireguard/repo/epel-7/jdoss-wireguard-epel-7.repo
+        sudo yum install wireguard-dkms wireguard-tools
+</code></pre>
+</li>
+<li>
+<p><code>mkdir /opt/wireguard &amp;&amp; cd /opt/wireguard</code></p>
+</li>
+<li>Generate key pairs <code>wg genkey | tee wg-private.key | wg pubkey &gt; wg-public.key</code></li>
+<li><code>ip link add wg0 type wireguard</code></li>
+<li>Set Wireguard interface IP <code>ip address add dev wg0 10.0.0.2/24</code>. This IP address is the tunnel IP address.
+      1.If there are only two peers together you can do something like <code>ip address add dev wg0 10.0.0.2 peer 10.0.0.1</code></li>
+<li>wg set wg0 listen-port 51820 private-key /opt/wireguard/wg-private.key peer OQiSLUOd3YWCfEkHazJHuuaJVNc++8QOb2+sOOZl/2c= endpoint 192.168.32.1:8172
+      1.listen-port: the port this host will listen on
+      2.private-key: the private key for this host
+      3.peer: I thought this was a bit misleading - you want the public key of the other host to which you are connecting
+      4.endpoint: the other endpoint of the VPN and the port on which it is listening</li>
+<li></li>
+</ol>
+<h2 id="strange-behavior">Strange Behavior</h2>
+<pre><code>OS10(config)# management route 192.168.1.0/24 192.168.1.1
+% Error: Overlapping route for Management interface
+OS10(config)# ip route 0.0.0.0/0 192.168.1.1 interface ethernet 1/1/1
+% Error: Network unreachable
+OS10(config)# ping 192.168.1.1
+PING 192.168.1.1 (192.168.1.1) 56(84) bytes of data.
+64 bytes from 192.168.1.1: icmp_seq=1 ttl=64 time=0.452 ms
+64 bytes from 192.168.1.1: icmp_seq=2 ttl=64 time=0.388 ms
+^C
+--- 192.168.1.1 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1005ms
+rtt min/avg/max/mdev = 0.388/0.420/0.452/0.032 ms
+OS10(config)# do system bash
+admin@OS10:~$ su -
+Password:
+root@OS10:~# ip route
+192.168.1.0/24 dev eth0 proto kernel scope link src 192.168.1.20
+192.168.4.0/24 dev br32 proto none scope link
+root@OS10:~# ip route add 0.0.0.0/0 via 192.168.1.1
+root@OS10:~# ip route
+default via 192.168.1.1 dev eth0
+192.168.1.0/24 dev eth0 proto kernel scope link src 192.168.1.20
+192.168.4.0/24 dev br32 proto none scope link
+root@OS10:~# ping google.com
+PING google.com (216.58.193.142) 56(84) bytes of data.
+64 bytes from dfw25s34-in-f14.1e100.net (216.58.193.142): icmp_seq=1 ttl=55 time=25.4 ms
+64 bytes from dfw25s34-in-f14.1e100.net (216.58.193.142): icmp_seq=2 ttl=55 time=22.9 ms
+64 bytes from dfw25s34-in-f14.1e100.net (216.58.193.142): icmp_seq=3 ttl=55 time=22.1 ms
+64 bytes from dfw25s34-in-f14.1e100.net (216.58.193.142): icmp_seq=4 ttl=55 time=22.2 ms
+^C
+--- google.com ping statistics ---
+4 packets transmitted, 4 received, 0% packet loss, time 3002ms
+rtt min/avg/max/mdev = 22.149/23.185/25.408/1.329 ms
+</code></pre>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

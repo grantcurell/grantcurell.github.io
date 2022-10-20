@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Grant Curell" /><link rel="canonical" href="https://grantcurell.github.io/Set%20Up%20RSPAN%20on%20OS10/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Set Up RSPAN on OS10 - Grant Curell's Dell Projects</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Set Up RSPAN on OS10";
+        var mkdocs_page_input_path = "Set Up RSPAN on OS10\\README.md";
+        var mkdocs_page_url = "/Set%20Up%20RSPAN%20on%20OS10/";
+      </script>
+    
+    <script src="../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Grant Curell's Dell Projects
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Grant Curell's Dell Projects</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Adding%20Hashing%20to%20OpenSwitch/">Adding Hashing to OpenSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Adding%20Intel%20I219-LM%20%288086.0d4c%29%20Driver%20to%20ESXi/">Adding Intel I219-LM (8086.0d4c) Driver to ESXi</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Automating%20OME%20Hardware%20Reports/">Automating OME Hardware Reports</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Backup%20OS10%20Config%20with%20Ansible/">Backup OS10 Config with Ansible</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../CloudLink/">CloudLink</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20FN410%20as%20a%20Switch/">Configure FN410 as a Switch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20Gigamon%20Tap/">Configure Gigamon Tap</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configuring%20VLT%20on%20OS10/">Configuring VLT on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Create%20Kickstart%20Server%20on%20Fedora/">Create Kickstart Server on Fedora</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Create%20OpenSwitch%20VM/">Create OpenSwitch VM</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Dell%20Ansible%20Testing/">Dell Ansible Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../DHCP%20Relay%20on%20SONiC/">DHCP Relay on SONiC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Elasticsearch%20Display%20Map%20Data/">Elasticsearch Display Map Data</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Elasticsearch%20Load%20Testing/">Elasticsearch Load Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../esrally%20%28INCOMPLETE%29/">esrally (INCOMPLETE)</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Get%20NVMe%20Drives%20from%20iDRAC%20Redfish/">Get NVMe Drives from iDRAC Redfish</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../High%20Speed%20Packet%20Capture/">High Speed Packet Capture</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20OS10%20Installer%20Works/">How OS10 Installer Works</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20to%20ONIE%20Install%20and%20ZTP%20Config%20Dell%20SONiC/">How to ONIE Install and ZTP Config Dell SONiC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20to%20Read%20lstopo%20and%20a%20PCIe%20Overview/">How to Read lstopo and a PCIe Overview</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../idrac%20with%20LDAP/">idrac with LDAP</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Importing%20Elasticsearch%20Data/">Importing Elasticsearch Data</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Installing%20DPDK%20with%20NapaTech%20Card/">Installing DPDK with NapaTech Card</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../IO%20Identities%20with%20LifeCycle%20Controller/">IO Identities with LifeCycle Controller</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../LDAP%20with%20OpenManage/">LDAP with OpenManage</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balance%20Testing%20on%204112F-ON/OpenSwitch%20%28OPX%29/">Load Balancing with LAG OPX</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balance%20Testing%20on%204112F-ON/OS10/">Load Balance Testing on 4112F-ON w/OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balance%20Testing%20with%20OpenVSwitch/">Load Balance Testing with OpenVSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balancing%20on%20Mellanox%20Switches/">Load Balancing on Mellanox Switches</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balancing%20with%20LAG%20on%205112F-ON/">Load Balancing with LAG on 5112F-ON</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Make%20USB%20Read%20Only/">Make USB Read Only</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Migrating%20Storage%20Volumes%20to%20PowerStore/">Migrating Storage Volumes to PowerStore</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Mulitple%20Span%20on%204112F-ON%20with%20OpenSwitch/">Mulitple Span on 4112F-ON with OpenSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Multiple%20Span%20on%204112F-ON%20with%20OS10/">Multiple Span on 4112F-ON with OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20HPC/">Notes on HPC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20Improving%20Drive%20Performance/">Notes on Improving Drive Performance</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20mdraid%20Performance%20Testing/">Notes on mdraid Performance Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20NVMe%20Log%20Pages/">Notes on NVMe Log Pages</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20PCIe/">Notes on PCIe</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Nvidia%20GPUDirect/">Nvidia GPUDirect</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Nvidia%20GRID%20Notes/">Nvidia GRID Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../NVMe%20Performance%20Testing/">NVMe Performance Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Offline%20Updates%20with%20OpenManage%20Enterprise/">Offline Updates with OpenManage Enterprise</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OME%20Bug/">OME Bug</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OME%20Integration%20for%20VMWare/">OME Integration for VMWare</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OpenFlow%20on%204112F-ON/">OpenFlow on 4112F-ON</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OS10%20Password%20Recovery%20Bug/">OS10 Password Recovery Bug</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PCIev3%20vs%20v4/">PCIev3 vs v4</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Playing%20with%20virsh/">Playing with virsh</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Reset%20OS10%20Admin%20Password/">Reset OS10 Admin Password</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Run%20VPN%20on%20OS10/">Run VPN on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Running%20DNS%20from%20OS10/">Running DNS from OS10</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Set Up RSPAN on OS10</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#setup">Setup</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#explanation">Explanation</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#switch-1">Switch 1</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#version">Version</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#setup_1">Setup</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#switch-2">Switch 2</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#version_1">Version</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#setup_2">Setup</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#switch-3">Switch 3</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#version_2">Version</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#setup_3">Setup</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#how-rspan-works-under-the-hood">How RSPAN Works Under the Hood</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setting%20Up%20Breakout%20Cables/">Setting Up Breakout Cables</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setting%20Up%20iDRAC%20Telemetry%20with%20Splunk/">Setting Up iDRAC Telemetry with Splunk</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setting%20Up%20SmartFabric%20Director/">Setting Up SmartFabric Director</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setup%20IDPA/">Setup IDPA</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Site%20to%20Site%20VPN%20with%20PFSense%20and%20CentOS%208/">Site to Site VPN with PFSense and CentOS 8</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../SONiC%20-%20Sample%20Datacenter%20Automation%20Architecture/">SONiC - Sample Datacenter Automation Architecture</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Switch%20Directly%20to%20Client%20Test/">Switch Directly to Client Test</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Testing%20Intel%20x520%20on%20RHEL%206/">Testing Intel x520 on RHEL 6</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Understanding%20Memory/">Understanding Memory</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Use%20OS10%20as%20Aggregator/">Use OS10 as Aggregator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Using%20the%20iDRAC%20Service%20Module/">Using the iDRAC Service Module</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VEP%20Testing/">VEP Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Automate%20ESXi%20Installation/">Automating ESXi Installation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/ESXi%20Architecture/">VMWare Architecture Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Setup%20VXRail/">VxRail Setup</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Troubleshooting%20vSAN/">Troubleshooting vSAN</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/VMWare%20APIs/">VMWare APIs</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/VxRail%20Architecture%20and%20Troubleshooting/">VxRail Architecture and Troubleshooting</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Change%20User%20on%20VxRail%20Plugin/">Change User on VxRail Plugin</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Web%20Traffic%20Generator/">Web Traffic Generator</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Grant Curell's Dell Projects</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li><li>Set Up RSPAN on OS10</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="set-up-rspan-on-os10">Set Up RSPAN on OS10</h1>
+<h2 id="setup">Setup</h2>
+<p><img alt="" src="images/2021-04-11-18-25-48.png" /></p>
+<p>Source port for span is Switch 1, 1/1/9
+Our goal is to move the traffic through switch 2, which is just an intermediary switch, to port 1/1/11 on switch 3 which will finally move it out port 1/1/12 where our laptop is listening.</p>
+<p>We will use VLAN 99 to transport our RSPAN traffic</p>
+<h2 id="explanation">Explanation</h2>
+<p>One of the things that's different about the Dell configuration is the use of ACLs in the configuration. The way OS10 sees RSPAN is on the source side you grab whatever source you want and then you push that to a special "remote" VLAN. This is indicated only on the source switch itself. Then, each other intermediate and destination switch uses an ACL to indicate what traffic should be captured from that VLAN and subsequently forwarded. Finally, on the destination a regular local monitor session is used to pull the traffic from the RSPAN VLAN and push it t o network sensors.</p>
+<h2 id="switch-1">Switch 1</h2>
+<h3 id="version">Version</h3>
+<pre><code>OS10# show version
+Dell EMC Networking OS10 Enterprise
+Copyright (c) 1999-2020 by Dell Inc. All Rights Reserved.
+OS Version: 10.5.1.3
+Build Version: 10.5.1.3.190
+Build Time: 2020-06-19T21:48:07+0000
+System Type: S4112F-ON
+Architecture: x86_64
+Up Time: 18 weeks 3 days 11:10:52
+</code></pre>
+<h3 id="setup_1">Setup</h3>
+<pre><code>configure terminal
+interface vlan 99
+description remote_span
+remote-span
+exit
+interface ethernet 1/1/13:1
+no shutdown
+switchport mode trunk
+switchport trunk allowed vlan 99
+exit
+monitor session 18 type rpm-source
+source interface ethernet 1/1/9 both
+destination remote-vlan 99
+no shut
+</code></pre>
+<h2 id="switch-2">Switch 2</h2>
+<h3 id="version_1">Version</h3>
+<pre><code>Dell EMC Networking OS10 Enterprise
+Copyright (c) 1999-2020 by Dell Inc. All Rights Reserved.
+OS Version: 10.5.1.3
+Build Version: 10.5.1.3.190
+Build Time: 2020-06-19T21:48:07+0000
+System Type: S4112F-ON
+Architecture: x86_64
+Up Time: 00:48:32
+</code></pre>
+<h3 id="setup_2">Setup</h3>
+<pre><code>configure terminal
+interface vlan 99
+exit
+interface range ethernet 1/1/11
+switchport mode trunk
+switchport trunk allowed vlan 99
+exit
+interface ethernet 1/1/12
+mac access-group rspan in
+switchport mode trunk
+switchport trunk allowed vlan 99
+exit
+monitor session 1
+destination interface ethernet1/1/11
+flow-based enable
+source interface ethernet1/1/12
+no shut
+mac access-list rspan
+seq 10 permit any any capture session 1 vlan 99
+</code></pre>
+<h2 id="switch-3">Switch 3</h2>
+<h3 id="version_2">Version</h3>
+<pre><code>OS10# show version
+Dell EMC Networking OS10 Enterprise
+Copyright (c) 1999-2020 by Dell Inc. All Rights Reserved.
+OS Version: 10.5.1.3
+Build Version: 10.5.1.3.190
+Build Time: 2020-06-19T21:48:07+0000
+System Type: S4112F-ON
+Architecture: x86_64
+Up Time: 03:00:15
+</code></pre>
+<h3 id="setup_3">Setup</h3>
+<pre><code>configure terminal
+interface vlan 99
+no shut
+exit
+mac access-list rpan
+seq 10 permit any any capture session 1 vlan 99
+interface ethernet 1/1/11
+switchport mode trunk
+switchport trunk allowed vlan 99
+mac access-group rpan in
+exit
+interface ethernet 1/1/12
+no shut
+exit
+monitor session 1
+destination interface ethernet1/1/12
+flow-based enable
+source interface ethernet1/1/11
+no shut
+</code></pre>
+<p>Notice here that there is an access list which captures the traffic on the inbound trunk interface. This access list is required. Also notice that on our monitor session we have <code>flow-based enable</code> which is also a requirement.</p>
+<h2 id="how-rspan-works-under-the-hood">How RSPAN Works Under the Hood</h2>
+<ol>
+<li>
+<p>When you run commands in OS10 what you're really doing is calling into wrapper functions which ultimately do two things: configure the NPU and configure Debian. The commands you run are actually governed by a series of YANG files which exhaustively define what commands are acceptable and in what contexts. For example, the <code>rpm-source</code> command is defined in an enum here in <code>/alt/opt/dell/os10/share/yang-models/dell-span.yang</code>:</p>
+<pre><code>typedef monitoring-types {
+type enumeration {
+    enum "local" {
+    value 1;
+    description
+        "PM local session.";
+    }
+    enum "rpm-source" {
+    value 2;
+    description
+        "RPM source session.";
+    }
+    enum "erpm-source" {
+    value 3;
+    description
+        "ERPM source session.";
+    }
+}
+description
+    "Monitor session types.";
+}
+</code></pre>
+</li>
+<li>
+<p>These definitions are combined with XML files which ultimately define the exact syntax of each command. For example, <code>/alt/opt/dell/os10/clisystem/command-tree/span.xml</code> defines the syntax for SPAN commands (note how the yang_name key references ):</p>
+<pre><code>&lt;!-- monitor session &lt;id&gt; type [local|rpm-source|rpm-destination|erpm-source]--&gt;
+&lt;PARAM name="type" help="Monitor session type" optional="true" ptype="SUBCOMMAND" mode="subcommand"&gt;
+&lt;PARAM name="spantype" help="PM/RPM/ERPM sessions" default="local" ptype="SPANMODE" yang_name="/sessions/session/monitortype=${spantype}"&gt; &lt;/PARAM&gt;
+&lt;/PARAM&gt;
+</code></pre>
+</li>
+<li>
+<p>I didn't exhaustively reverse engineer this part but at some point those commands and their arguments are interpreted and pushed to a series of Python modules. You'll see below how VLANs are set up using <code>brctl</code>. That setup seems to be handled by <code>/alt/opt/dell/os10/lib/python/dn_base_br_tool.py</code>. Ex:</p>
+<pre><code>def create_br(bname):
+
+    """Method to create a bridge.
+    Args:
+        bname (str): Name of the Bridge
+    Returns:
+        bool: The return value. True for success, False otherwise
+    """
+    res = []
+    if run_command([BRCTL_CMD, 'addbr', bname], res) == 0:
+        return True
+    return False
+</code></pre>
+</li>
+<li>
+<p>Remote SPAN VLAN gets setup as a bridge and a new dummy interface is created which is a member of that bridge:</p>
+<pre><code>admin@OS10:/home/admin$ ip a s
+.....
+38: br99: &lt;BROADCAST,MULTICAST,PROMISC,UP,LOWER_UP&gt; mtu 1500 qdisc noqueue state UP group default qlen 1000
+    link/ether 50:9a:4c:d6:0a:a1 brd ff:ff:ff:ff:ff:ff
+    inet6 fe80::529a:4cff:fed6:aa1/64 scope link
+    valid_lft forever preferred_lft forever
+39: e101-013-1.99@e101-013-1: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc noqueue master br99 state UP group default qlen 1000
+    link/ether 50:9a:4c:d6:0a:7d brd ff:ff:ff:ff:ff:ff
+
+root@OS10:~# brctl show br99
+bridge name     bridge id               STP enabled     interfaces
+br99            8000.509a4cd60aa1       no              e101-013-1.99
+</code></pre>
+</li>
+<li>
+<p>Under the hood the NPU is instructed to push traffic coming in on port 1/1/9 to this bridge which will then forward it. If you really want to dig under the covers this is how that works. CPS (the userland tool which interacts with a database for configuring the switch) will receive the command. You can drop to command line with <code>system bash</code> and then go take a look at <code>/alt/opt/dell/os10/bin/cps_config_mirror.py</code> and actually see where the call to NAS is made. Note: The NAS (Network Abstraction Service) is responsible for abstracting the chipset (broadcom) API from the rest of the OS above.
+<img alt="" src="images/2021-04-11-18-55-38.png" /></p>
+</li>
+<li>
+<p>This is the definition for nas_mirror_add_source and nas_mirror_op:</p>
+<pre><code>def nas_mirror_op(op, data_dict,commit=True):
+    obj = cps_utils.CPSObject(
+        module="base-mirror/entry",
+        data=data_dict)
+    if commit:
+        nas_common.get_cb_method(op)(obj)
+    else:
+        return obj
+
+def nas_mirror_add_source(obj,intf,direction):
+    l = ["intf","0","src"]
+    obj.add_embed_attr(l,nas_os_utils.if_nametoindex(intf))
+    l[2]="direction"
+    obj.add_embed_attr(l,direction_type[direction])
+</code></pre>
+</li>
+<li>
+<p><code>if commit</code> is referring to a commit to the CPS database. The definition for <code>get_cb_method</code> is in <code>/alt/opt/dell/os10/lib/python/nas_common_utils.py</code></p>
+<pre><code>str_to_cps_cb = {
+    "create": create,
+    "set": set,
+    "delete": delete,
+    "get": get,
+    "rpc": rpc,
+}
+
+def get_cb_method(op):
+    return str_to_cps_cb[op]
+</code></pre>
+</li>
+<li>
+<p>What's happening here is it's taking the CPS object which has our instructions which basically say "make me an RSPAN" and the argument (op) will be either create or set. What this is going to do is update the CPS database with our new configuration.</p>
+</li>
+<li>This is the NAS' Northbound CPS APi being called here. on the southbound end it will call into the SAI which is the actual manufacturer's (Broadcom in our case) API. This process is described in detail <a href="https://github.com/open-switch/opx-docs/wiki/NAS-L2">here</a>.</li>
+<li>
+<p>The NDI represents this call to the SAI API. For remote mirrors that is defined <a href="https://github.com/open-switch/opx-nas-ndi/blob/1ba4c72309ef33d8600b18dedabc8aed2a8665ac/src/nas_ndi_mirror.cpp">here</a>. You can explore it function by function but the TLDR version is it's going to create a struct with the info relevant to creating the monitor session and it's going to feed that info the SAI. That magic happens in this function:</p>
+<pre><code>t_std_error ndi_mirror_create_session(ndi_mirror_entry_t * entry){
+
+    if(entry == NULL ){
+        NDI_MIRROR_LOG(ERR,0,"NDI Mirror entry passed to create Mirror session is NULL");
+        return STD_ERR(MIRROR,PARAM,0);
+    }
+
+    sai_status_t sai_ret;
+    sai_attribute_t sai_mirror_attr_list[MAX_MIRROR_SAI_ATTR];
+    unsigned int ndi_mirror_attr_count = 0;
+
+    if(!ndi_mirror_fill_common_attr(entry,sai_mirror_attr_list,ndi_mirror_attr_count)){
+        return STD_ERR(MIRROR,PARAM,0);
+    }
+
+    if(entry-&gt;mode == BASE_MIRROR_MODE_RSPAN || entry-&gt;mode == BASE_MIRROR_MODE_ERSPAN){
+        ndi_mirror_fill_rspan_attr(entry,sai_mirror_attr_list,ndi_mirror_attr_count);
+    }
+
+    if(entry-&gt;mode == BASE_MIRROR_MODE_ERSPAN){
+        ndi_mirror_fill_erspan_attr(entry,sai_mirror_attr_list,ndi_mirror_attr_count);
+    }
+
+    nas_ndi_db_t *ndi_db_ptr = ndi_db_ptr_get(entry-&gt;dst_port.npu_id);
+
+    if ((sai_ret = ndi_mirror_api_get(ndi_db_ptr)-&gt;create_mirror_session((sai_object_id_t *)
+                &amp;entry-&gt;ndi_mirror_id,ndi_switch_id_get(),ndi_mirror_attr_count,sai_mirror_attr_list))
+                != SAI_STATUS_SUCCESS) {
+        NDI_MIRROR_LOG(ERR,0,"Failed to create a new Mirroring Session");
+        return STD_ERR(MIRROR, FAIL, sai_ret);
+    }
+
+    NDI_MIRROR_LOG(INFO,3,"Created new mirroring session with Id %" PRIu64 " ",entry-&gt;ndi_mirror_id);
+
+    return STD_ERR_OK;
+}
+</code></pre>
+</li>
+<li>
+<p>What's going on here is the function <code>ndi_mirror_create_session</code> is going to receive a pointer to a struct of type <a href="https://github.com/open-switch/opx-nas-ndi-api/blob/d5ae56c08907243a4cefafbf7d377577158c9b3a/inc/nas_ndi_mirror.h#L56">ndi_mirror_entry_t</a>. That struct contains all the relevant info for creating the mirror, port ID, mode (RSPAN), VLAN, etc. That struct is going to be filled out by two functions - <code>ndi_mirror_fill_common_attr</code> and <code>ndi_mirror_fill_rspan_attr</code>. Finally it will be fed into the code at line <a href="https://github.com/open-switch/opx-nas-ndi/blob/1ba4c72309ef33d8600b18dedabc8aed2a8665ac/src/nas_ndi_mirror.cpp#L199">199</a> and this is where we lose track of it.</p>
+</li>
+<li>This is where we drop off because below this is Broadcom's API and they don't publicly publish that stuff. At this point though you're calling into Broadcom's SDK which is going to program the NPU to behave a certain way.</li>
+</ol>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../Running%20DNS%20from%20OS10/" class="btn btn-neutral float-left" title="Running DNS from OS10"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../Setting%20Up%20Breakout%20Cables/" class="btn btn-neutral float-right" title="Setting Up Breakout Cables">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../Running%20DNS%20from%20OS10/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../Setting%20Up%20Breakout%20Cables/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

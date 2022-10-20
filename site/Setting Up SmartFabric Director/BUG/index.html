@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Grant Curell" /><link rel="canonical" href="https://grantcurell.github.io/Setting%20Up%20SmartFabric%20Director/BUG/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Bug Write Up - Grant Curell's Dell Projects</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Bug Write Up";
+        var mkdocs_page_input_path = "Setting Up SmartFabric Director\\BUG.md";
+        var mkdocs_page_url = "/Setting%20Up%20SmartFabric%20Director/BUG/";
+      </script>
+    
+    <script src="../../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Grant Curell's Dell Projects
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Grant Curell's Dell Projects</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Adding%20Hashing%20to%20OpenSwitch/">Adding Hashing to OpenSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Adding%20Intel%20I219-LM%20%288086.0d4c%29%20Driver%20to%20ESXi/">Adding Intel I219-LM (8086.0d4c) Driver to ESXi</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Automating%20OME%20Hardware%20Reports/">Automating OME Hardware Reports</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Backup%20OS10%20Config%20with%20Ansible/">Backup OS10 Config with Ansible</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../CloudLink/">CloudLink</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Configure%20FN410%20as%20a%20Switch/">Configure FN410 as a Switch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Configure%20Gigamon%20Tap/">Configure Gigamon Tap</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Configuring%20VLT%20on%20OS10/">Configuring VLT on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Create%20Kickstart%20Server%20on%20Fedora/">Create Kickstart Server on Fedora</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Create%20OpenSwitch%20VM/">Create OpenSwitch VM</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Dell%20Ansible%20Testing/">Dell Ansible Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../DHCP%20Relay%20on%20SONiC/">DHCP Relay on SONiC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Elasticsearch%20Display%20Map%20Data/">Elasticsearch Display Map Data</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Elasticsearch%20Load%20Testing/">Elasticsearch Load Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../esrally%20%28INCOMPLETE%29/">esrally (INCOMPLETE)</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Get%20NVMe%20Drives%20from%20iDRAC%20Redfish/">Get NVMe Drives from iDRAC Redfish</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../High%20Speed%20Packet%20Capture/">High Speed Packet Capture</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../How%20OS10%20Installer%20Works/">How OS10 Installer Works</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../How%20to%20ONIE%20Install%20and%20ZTP%20Config%20Dell%20SONiC/">How to ONIE Install and ZTP Config Dell SONiC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../How%20to%20Read%20lstopo%20and%20a%20PCIe%20Overview/">How to Read lstopo and a PCIe Overview</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../idrac%20with%20LDAP/">idrac with LDAP</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Importing%20Elasticsearch%20Data/">Importing Elasticsearch Data</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Installing%20DPDK%20with%20NapaTech%20Card/">Installing DPDK with NapaTech Card</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../IO%20Identities%20with%20LifeCycle%20Controller/">IO Identities with LifeCycle Controller</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../LDAP%20with%20OpenManage/">LDAP with OpenManage</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Load%20Balance%20Testing%20on%204112F-ON/OpenSwitch%20%28OPX%29/">Load Balancing with LAG OPX</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Load%20Balance%20Testing%20on%204112F-ON/OS10/">Load Balance Testing on 4112F-ON w/OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Load%20Balance%20Testing%20with%20OpenVSwitch/">Load Balance Testing with OpenVSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Load%20Balancing%20on%20Mellanox%20Switches/">Load Balancing on Mellanox Switches</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Load%20Balancing%20with%20LAG%20on%205112F-ON/">Load Balancing with LAG on 5112F-ON</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Make%20USB%20Read%20Only/">Make USB Read Only</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Migrating%20Storage%20Volumes%20to%20PowerStore/">Migrating Storage Volumes to PowerStore</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Mulitple%20Span%20on%204112F-ON%20with%20OpenSwitch/">Mulitple Span on 4112F-ON with OpenSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Multiple%20Span%20on%204112F-ON%20with%20OS10/">Multiple Span on 4112F-ON with OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Notes%20on%20HPC/">Notes on HPC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Notes%20on%20Improving%20Drive%20Performance/">Notes on Improving Drive Performance</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Notes%20on%20mdraid%20Performance%20Testing/">Notes on mdraid Performance Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Notes%20on%20NVMe%20Log%20Pages/">Notes on NVMe Log Pages</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Notes%20on%20PCIe/">Notes on PCIe</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Nvidia%20GPUDirect/">Nvidia GPUDirect</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Nvidia%20GRID%20Notes/">Nvidia GRID Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../NVMe%20Performance%20Testing/">NVMe Performance Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Offline%20Updates%20with%20OpenManage%20Enterprise/">Offline Updates with OpenManage Enterprise</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../OME%20Bug/">OME Bug</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../OME%20Integration%20for%20VMWare/">OME Integration for VMWare</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../OpenFlow%20on%204112F-ON/">OpenFlow on 4112F-ON</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../OS10%20Password%20Recovery%20Bug/">OS10 Password Recovery Bug</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../PCIev3%20vs%20v4/">PCIev3 vs v4</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Playing%20with%20virsh/">Playing with virsh</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Reset%20OS10%20Admin%20Password/">Reset OS10 Admin Password</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Run%20VPN%20on%20OS10/">Run VPN on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Running%20DNS%20from%20OS10/">Running DNS from OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Set%20Up%20RSPAN%20on%20OS10/">Set Up RSPAN on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Setting%20Up%20Breakout%20Cables/">Setting Up Breakout Cables</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Setting%20Up%20iDRAC%20Telemetry%20with%20Splunk/">Setting Up iDRAC Telemetry with Splunk</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../">Setting Up SmartFabric Director</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Setup%20IDPA/">Setup IDPA</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Site%20to%20Site%20VPN%20with%20PFSense%20and%20CentOS%208/">Site to Site VPN with PFSense and CentOS 8</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../SONiC%20-%20Sample%20Datacenter%20Automation%20Architecture/">SONiC - Sample Datacenter Automation Architecture</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Switch%20Directly%20to%20Client%20Test/">Switch Directly to Client Test</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Testing%20Intel%20x520%20on%20RHEL%206/">Testing Intel x520 on RHEL 6</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Understanding%20Memory/">Understanding Memory</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Use%20OS10%20as%20Aggregator/">Use OS10 as Aggregator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Using%20the%20iDRAC%20Service%20Module/">Using the iDRAC Service Module</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../VEP%20Testing/">VEP Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../VMWare/Automate%20ESXi%20Installation/">Automating ESXi Installation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../VMWare/ESXi%20Architecture/">VMWare Architecture Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../VMWare/Setup%20VXRail/">VxRail Setup</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../VMWare/Troubleshooting%20vSAN/">Troubleshooting vSAN</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../VMWare/VMWare%20APIs/">VMWare APIs</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../VMWare/VxRail%20Architecture%20and%20Troubleshooting/">VxRail Architecture and Troubleshooting</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../VMWare/Change%20User%20on%20VxRail%20Plugin/">Change User on VxRail Plugin</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Web%20Traffic%20Generator/">Web Traffic Generator</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Grant Curell's Dell Projects</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li><li>Bug Write Up</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="bug-write-up">Bug Write Up</h1>
+<p>sfd_init.sh fails because it incorrectly checks ntp status. The failure condition can be replicated by using an ntp server
+of <code>time.google.com</code> on template import for the OVA.</p>
+<h2 id="version">Version</h2>
+<h3 id="sfd">SFD</h3>
+<p>SFD version is 1.1.0.</p>
+<h3 id="ubuntu">Ubuntu</h3>
+<pre><code>admin@sfd.local@sfd:~$ cat /etc/*-release
+DISTRIB_ID=Ubuntu
+DISTRIB_RELEASE=16.04
+DISTRIB_CODENAME=xenial
+DISTRIB_DESCRIPTION="Ubuntu 16.04.6 LTS"
+NAME="Ubuntu"
+VERSION="16.04.6 LTS (Xenial Xerus)"
+ID=ubuntu
+ID_LIKE=debian
+PRETTY_NAME="Ubuntu 16.04.6 LTS"
+VERSION_ID="16.04"
+HOME_URL="http://www.ubuntu.com/"
+SUPPORT_URL="http://help.ubuntu.com/"
+BUG_REPORT_URL="http://bugs.launchpad.net/ubuntu/"
+VERSION_CODENAME=xenial
+UBUNTU_CODENAME=xenial
+</code></pre>
+<h2 id="suggested-patch">Suggested Patch</h2>
+<h3 id="patch">Patch</h3>
+<pre><code>admin@sfd.local@sfd:~$ diff -c sfd_init.sh.original sfd_init.sh.patch
+*** sfd_init.sh.original        2020-02-04 21:58:22.327755522 +0000
+--- sfd_init.sh.patch   2020-02-04 21:59:38.651751964 +0000
+***************
+*** 188,194 ****
+    echo "Checking if NTP is configured."
+    until [[ $cnt -ge $max_tries ]]
+    do
+!       ntpq -pn | awk '{print $2}' | xargs | grep -E -o "([0-9]{1,3}[\.]){3}[0-9]{1,3}|PPS|GPS|LOCAL|LOCL"
+        [[ "$?" -eq 0 ]] &amp;&amp; echo "NTP synchronized successfully." &amp;&amp; return 0
+        cnt=$[$cnt+1]
+        echo "Waiting for NTP to get configured. Sleeping for 10 seconds..."
+--- 188,194 ----
+    echo "Checking if NTP is configured."
+    until [[ $cnt -ge $max_tries ]]
+    do
+!       ntpq -pn | awk '{print $1}' | sed -n '/^\*/p'
+        [[ "$?" -eq 0 ]] &amp;&amp; echo "NTP synchronized successfully." &amp;&amp; return 0
+        cnt=$[$cnt+1]
+        echo "Waiting for NTP to get configured. Sleeping for 10 seconds..."
+</code></pre>
+<h3 id="explanation">Explanation</h3>
+<p>See below for a detailed explanation of my troubleshooting and additional information.</p>
+<p>Based on the regex looking for an IP I'm guessing the intent was to verify that the server is synched to a remote NTP server. However there are two problems. The first is that it is looking at the refid (column 2) which is not the server you are synched to, but the server that the server you are pointing at is synched to. Second, there is no guarentee that an IP address will be in this column (or PPS/GPS/LOCAL/LOCL). This was my case. Instead, I would check for the line that has the synchronized server (starts with *). Using <code>ntpq -pn | awk '{print $1}' | sed -n '/^\*/p'</code>. You don't really need to check beyond that because it won't synchronize unless everything is working. Though if you want to take it a step further you could do: <code>ntpq -pn | awk '{print $1}' | sed -n '/^\*/p' | sed 's/\*//g' | grep -E -o "([0-9]{1,3}[\.]){3}[0-9]{1,3}|PPS|GPS|LOCAL|LOCL"</code>.</p>
+<h2 id="detailed-explanation">Detailed Explanation</h2>
+<ul>
+<li>
+<p>Page 17 step 1 of <a href="https://downloads.dell.com/manuals/all-products/esuprt_networking_int/esuprt_networking_mgmt_software/smart-fabric-director_users-guide_en-us.pdf">the manual</a> doesn't work. There is no web server listening. It looks like on the first run the SFD service failed. There is no obvious log information output from the service. Suggest that <code>sfd_init.sh</code> print the log path to stdout on failure so that getting the service status will more obviously provide direction on where the problem is.</p>
+<pre><code># Dumped listening ports
+admin@sfd.local@sfd:~$ ss -ltn
+State       Recv-Q Send-Q                                  Local Address:Port                                                 Peer Address:Port
+LISTEN      0      128                                         127.0.0.1:39125                                                           *:*
+LISTEN      0      128                                                 *:22                                                              *:*
+LISTEN      0      128                                                :::9100                                                           :::*
+LISTEN      0      128                                                :::5555                                                           :::*
+LISTEN      0      128                                                :::22                                                             :::*
+
+# Checked service status after figuring out SFD ran a service
+admin@sfd.local@sfd:~$ systemctl status sfd
+● sfd.service - NFC Bootstrap Service
+Loaded: loaded (/etc/systemd/system/sfd.service; enabled; vendor preset: enabled)
+Active: failed (Result: exit-code) since Tue 2020-02-04 20:38:10 UTC; 18min ago
+Main PID: 1327 (code=exited, status=1/FAILURE)
+</code></pre>
+</li>
+<li>
+<p>Entire system will hard fail if NTP cannot start. I realized this is the cause of the failure above. This should not be the default behavior. Should continue and issue a warning. Most customers working on servers would not know how to troubleshoot this.</p>
+<pre><code>● ntp.service - LSB: Start NTP daemon
+Loaded: loaded (/etc/init.d/ntp; bad; vendor preset: enabled)
+Active: active (running) since Wed 2020-02-05 03:50:34 UTC; 10s ago
+    Docs: man:systemd-sysv-generator(8)
+Process: 2235 ExecStop=/etc/init.d/ntp stop (code=exited, status=0/SUCCESS)
+Process: 2248 ExecStart=/etc/init.d/ntp start (code=exited, status=0/SUCCESS)
+    Tasks: 2
+Memory: 1.5M
+    CPU: 12ms
+CGroup: /system.slice/ntp.service
+        └─2260 /usr/sbin/ntpd -p /var/run/ntpd.pid -g -u 112:117
+
+Feb 05 03:50:34 sfd ntpd[2260]: Listen and drop on 1 v4wildcard 0.0.0.0:123
+Feb 05 03:50:34 sfd ntpd[2260]: Listen normally on 2 lo 127.0.0.1:123
+Feb 05 03:50:34 sfd ntpd[2260]: Listen normally on 3 ens192 192.168.1.31:123
+Feb 05 03:50:34 sfd ntpd[2260]: Listen normally on 4 lo [::1]:123
+Feb 05 03:50:34 sfd ntpd[2260]: Listening on routing socket on fd #21 for interface updates
+Feb 05 03:50:35 sfd ntpd[2260]: Soliciting pool server 216.239.35.12
+Feb 05 03:50:36 sfd ntpd[2260]: Soliciting pool server 216.239.35.4
+Feb 05 03:50:37 sfd ntpd[2260]: Soliciting pool server 216.239.35.0
+Feb 05 03:50:38 sfd ntpd[2260]: Soliciting pool server 216.239.35.8
+Feb 05 03:50:39 sfd ntpd[2260]: Soliciting pool server 2001:4860:4806::
+-----RESTART NTP - END-----
+Checking if NTP service is running.
+NTP service is running.
+Checking if NTP is configured.
+Waiting for NTP to get configured. Sleeping for 10 seconds...
+
+... SNIP ...
+
+Waiting for NTP to get configured. Sleeping for 10 seconds...
+NTP failed to get synced.
+NTP config failed
+
+# This failure seems to be erroneous. Checking the NTP service confirms it is working.
+admin@sfd.local@sfd:~$ systemctl status ntp
+● ntp.service - LSB: Start NTP daemon
+Loaded: loaded (/etc/init.d/ntp; bad; vendor preset: enabled)
+Active: active (running) since Wed 2020-02-05 03:50:34 UTC; 6h left
+    Docs: man:systemd-sysv-generator(8)
+Process: 2235 ExecStop=/etc/init.d/ntp stop (code=exited, status=0/SUCCESS)
+Process: 2248 ExecStart=/etc/init.d/ntp start (code=exited, status=0/SUCCESS)
+    Tasks: 2
+Memory: 1.5M
+    CPU: 81ms
+CGroup: /system.slice/ntp.service
+        └─2260 /usr/sbin/ntpd -p /var/run/ntpd.pid -g -u 112:117
+admin@sfd.local@sfd:~$ ntpstat
+The program 'ntpstat' is currently not installed. You can install it by typing:
+sudo apt install ntpstat
+admin@sfd.local@sfd:~$ ntp -qn
+No command 'ntp' found, but there are 21 similar ones
+ntp: command not found
+admin@sfd.local@sfd:~$ ntpq -pn
+    remote           refid      st t when poll reach   delay   offset  jitter
+==============================================================================
+time.google.com .POOL.          16 p    -   64    0    0.000    0.000   0.000
++216.239.35.12   .GOOG.           1 u   54   64  375   64.340  -91.086   8.997
+*216.239.35.4    .GOOG.           1 u   62   64  377   62.412  -83.944   8.385
++216.239.35.0    .GOOG.           1 u   42   64  377   63.484  -83.978  10.080
+-216.239.35.8    .GOOG.           1 u   21   64  377   72.245  -73.087  15.674
+</code></pre>
+</li>
+<li>
+<p>Problem isolated to:</p>
+<pre><code>max_tries=30 # check counter till 30. (total 300 seconds)
+echo "Checking if NTP is configured."
+until [[ $cnt -ge $max_tries ]]
+do
+ntpq -pn | awk '{print $2}' | xargs | grep -E -o "([0-9]{1,3}[\.]){3}[0-9]{1,3}|PPS|GPS|LOCAL|LOCL"
+[[ "$?" -eq 0 ]] &amp;&amp; echo "NTP synchronized successfully." &amp;&amp; return 0
+cnt=$[$cnt+1]
+echo "Waiting for NTP to get configured. Sleeping for 10 seconds..."
+sleep 10
+done
+</code></pre>
+</li>
+<li>
+<p>The offending line is <code>ntpq -pn | awk '{print $2}' | xargs | grep -E -o "([0-9]{1,3}[\.]){3}[0-9]{1,3}|PPS|GPS|LOCAL|LOCL"</code>. <code>ntpq -pn</code> has output formatted like this:</p>
+<pre><code>admin@sfd.local@sfd:~$ ntpq -pn
+remote           refid      st t when poll reach   delay   offset  jitter
+==============================================================================
+time.google.com .POOL.          16 p    -   64    0    0.000    0.000   0.000
++216.239.35.12   .GOOG.           1 u   54   64  375   64.340  -91.086   8.997
+*216.239.35.4    .GOOG.           1 u   62   64  377   62.412  -83.944   8.385
++216.239.35.0    .GOOG.           1 u   42   64  377   63.484  -83.978  10.080
+-216.239.35.8    .GOOG.           1 u   21   64  377   72.245  -73.087  15.674
+</code></pre>
+</li>
+<li>
+<p>Based on the regex looking for an IP I'm guessing the intent was to verify that the server is synched to a remote NTP server. However there are two problems. The first is that it is looking at the refid which is not the server you are synched to, but the server that the server you are pointing at is synched to. Second, there is no guarentee that an IP address will be in this column (or PPS/GPS/LOCAL/LOCL). This was my case. See below for my <code>ntpq -pn</code> results. Instead, I would check for the line that has the synchronized server (starts with *). Using <code>ntpq -pn | awk '{print $1}' | sed -n '/^\*/p'</code>. You don't really need to check beyond that because it won't synchronize unless everything is working. Though if you want to take it a step further you could do: <code>ntpq -pn | awk '{print $1}' | sed -n '/^\*/p' | sed 's/\*//g' | grep -E -o "([0-9]{1,3}[\.]){3}[0-9]{1,3}|PPS|GPS|LOCAL|LOCL"</code>.</p>
+</li>
+</ul>
+<h3 id="my-ntpq-pn-with-timegooglecom-as-my-server">My ntpq -pn with time.google.com as my server</h3>
+<pre><code>    admin@sfd.local@sfd:~$ ntpq -pn
+        remote           refid      st t when poll reach   delay   offset  jitter
+    ==============================================================================
+    time.google.com .POOL.          16 p    -   64    0    0.000    0.000   0.000
+    *216.239.35.12   .GOOG.           1 u   38   64  377   67.370   -0.549  23.161
+    +216.239.35.4    .GOOG.           1 u   29   64  377   75.466   -1.691  22.089
+    +216.239.35.0    .GOOG.           1 u   36   64  377   67.731   -1.434  24.201
+    +216.239.35.8    .GOOG.           1 u   38   64  377   76.705   -0.042  22.436
+</code></pre>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Grant Curell" /><link rel="canonical" href="https://grantcurell.github.io/How%20to%20ONIE%20Install%20and%20ZTP%20Config%20Dell%20SONiC/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>How to ONIE Install and ZTP Config Dell SONiC - Grant Curell's Dell Projects</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "How to ONIE Install and ZTP Config Dell SONiC";
+        var mkdocs_page_input_path = "How to ONIE Install and ZTP Config Dell SONiC\\README.md";
+        var mkdocs_page_url = "/How%20to%20ONIE%20Install%20and%20ZTP%20Config%20Dell%20SONiC/";
+      </script>
+    
+    <script src="../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Grant Curell's Dell Projects
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Grant Curell's Dell Projects</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Adding%20Hashing%20to%20OpenSwitch/">Adding Hashing to OpenSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Adding%20Intel%20I219-LM%20%288086.0d4c%29%20Driver%20to%20ESXi/">Adding Intel I219-LM (8086.0d4c) Driver to ESXi</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Automating%20OME%20Hardware%20Reports/">Automating OME Hardware Reports</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Backup%20OS10%20Config%20with%20Ansible/">Backup OS10 Config with Ansible</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../CloudLink/">CloudLink</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20FN410%20as%20a%20Switch/">Configure FN410 as a Switch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20Gigamon%20Tap/">Configure Gigamon Tap</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configuring%20VLT%20on%20OS10/">Configuring VLT on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Create%20Kickstart%20Server%20on%20Fedora/">Create Kickstart Server on Fedora</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Create%20OpenSwitch%20VM/">Create OpenSwitch VM</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Dell%20Ansible%20Testing/">Dell Ansible Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../DHCP%20Relay%20on%20SONiC/">DHCP Relay on SONiC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Elasticsearch%20Display%20Map%20Data/">Elasticsearch Display Map Data</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Elasticsearch%20Load%20Testing/">Elasticsearch Load Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../esrally%20%28INCOMPLETE%29/">esrally (INCOMPLETE)</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Get%20NVMe%20Drives%20from%20iDRAC%20Redfish/">Get NVMe Drives from iDRAC Redfish</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../High%20Speed%20Packet%20Capture/">High Speed Packet Capture</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20OS10%20Installer%20Works/">How OS10 Installer Works</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">How to ONIE Install and ZTP Config Dell SONiC</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#my-test-platform">My Test Platform</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#switch">Switch</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#server-os">Server OS</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#prepare-to-install-operating-system">Prepare to Install Operating System</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#manually-install-sonic-via-onie">Manually Install SONiC via ONIE</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#fully-automated-installation-from-os10-to-sonic">Fully Automated Installation from OS10 to SONiC</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#overview">Overview</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#configure-dhcp-server-for-sonic-ztp">Configure DHCP Server for SONiC ZTP</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#configure-dhcp-for-ztp">Configure DHCP for ZTP</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#configure-your-http-server">Configure Your HTTP Server</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#more-configuration-options">More Configuration Options</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#running-ztp">Running ZTP</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#get-command-line">Get Command Line</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20to%20Read%20lstopo%20and%20a%20PCIe%20Overview/">How to Read lstopo and a PCIe Overview</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../idrac%20with%20LDAP/">idrac with LDAP</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Importing%20Elasticsearch%20Data/">Importing Elasticsearch Data</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Installing%20DPDK%20with%20NapaTech%20Card/">Installing DPDK with NapaTech Card</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../IO%20Identities%20with%20LifeCycle%20Controller/">IO Identities with LifeCycle Controller</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../LDAP%20with%20OpenManage/">LDAP with OpenManage</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balance%20Testing%20on%204112F-ON/OpenSwitch%20%28OPX%29/">Load Balancing with LAG OPX</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balance%20Testing%20on%204112F-ON/OS10/">Load Balance Testing on 4112F-ON w/OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balance%20Testing%20with%20OpenVSwitch/">Load Balance Testing with OpenVSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balancing%20on%20Mellanox%20Switches/">Load Balancing on Mellanox Switches</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balancing%20with%20LAG%20on%205112F-ON/">Load Balancing with LAG on 5112F-ON</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Make%20USB%20Read%20Only/">Make USB Read Only</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Migrating%20Storage%20Volumes%20to%20PowerStore/">Migrating Storage Volumes to PowerStore</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Mulitple%20Span%20on%204112F-ON%20with%20OpenSwitch/">Mulitple Span on 4112F-ON with OpenSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Multiple%20Span%20on%204112F-ON%20with%20OS10/">Multiple Span on 4112F-ON with OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20HPC/">Notes on HPC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20Improving%20Drive%20Performance/">Notes on Improving Drive Performance</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20mdraid%20Performance%20Testing/">Notes on mdraid Performance Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20NVMe%20Log%20Pages/">Notes on NVMe Log Pages</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20PCIe/">Notes on PCIe</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Nvidia%20GPUDirect/">Nvidia GPUDirect</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Nvidia%20GRID%20Notes/">Nvidia GRID Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../NVMe%20Performance%20Testing/">NVMe Performance Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Offline%20Updates%20with%20OpenManage%20Enterprise/">Offline Updates with OpenManage Enterprise</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OME%20Bug/">OME Bug</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OME%20Integration%20for%20VMWare/">OME Integration for VMWare</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OpenFlow%20on%204112F-ON/">OpenFlow on 4112F-ON</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OS10%20Password%20Recovery%20Bug/">OS10 Password Recovery Bug</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PCIev3%20vs%20v4/">PCIev3 vs v4</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Playing%20with%20virsh/">Playing with virsh</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Reset%20OS10%20Admin%20Password/">Reset OS10 Admin Password</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Run%20VPN%20on%20OS10/">Run VPN on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Running%20DNS%20from%20OS10/">Running DNS from OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Set%20Up%20RSPAN%20on%20OS10/">Set Up RSPAN on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setting%20Up%20Breakout%20Cables/">Setting Up Breakout Cables</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setting%20Up%20iDRAC%20Telemetry%20with%20Splunk/">Setting Up iDRAC Telemetry with Splunk</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setting%20Up%20SmartFabric%20Director/">Setting Up SmartFabric Director</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setup%20IDPA/">Setup IDPA</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Site%20to%20Site%20VPN%20with%20PFSense%20and%20CentOS%208/">Site to Site VPN with PFSense and CentOS 8</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../SONiC%20-%20Sample%20Datacenter%20Automation%20Architecture/">SONiC - Sample Datacenter Automation Architecture</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Switch%20Directly%20to%20Client%20Test/">Switch Directly to Client Test</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Testing%20Intel%20x520%20on%20RHEL%206/">Testing Intel x520 on RHEL 6</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Understanding%20Memory/">Understanding Memory</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Use%20OS10%20as%20Aggregator/">Use OS10 as Aggregator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Using%20the%20iDRAC%20Service%20Module/">Using the iDRAC Service Module</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VEP%20Testing/">VEP Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Automate%20ESXi%20Installation/">Automating ESXi Installation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/ESXi%20Architecture/">VMWare Architecture Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Setup%20VXRail/">VxRail Setup</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Troubleshooting%20vSAN/">Troubleshooting vSAN</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/VMWare%20APIs/">VMWare APIs</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/VxRail%20Architecture%20and%20Troubleshooting/">VxRail Architecture and Troubleshooting</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Change%20User%20on%20VxRail%20Plugin/">Change User on VxRail Plugin</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Web%20Traffic%20Generator/">Web Traffic Generator</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Grant Curell's Dell Projects</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li><li>How to ONIE Install and ZTP Config Dell SONiC</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="how-to-onie-install-and-ztp-config-dell-sonic">How to ONIE Install and ZTP Config Dell SONiC</h1>
+<ul>
+<li><a href="#how-to-onie-install-and-ztp-config-dell-sonic">How to ONIE Install and ZTP Config Dell SONiC</a></li>
+<li><a href="#my-test-platform">My Test Platform</a><ul>
+<li><a href="#switch">Switch</a></li>
+<li><a href="#server-os">Server OS</a></li>
+</ul>
+</li>
+<li><a href="#prepare-to-install-operating-system">Prepare to Install Operating System</a><ul>
+<li><a href="#manually-install-sonic-via-onie">Manually Install SONiC via ONIE</a></li>
+<li><a href="#fully-automated-installation-from-os10-to-sonic">Fully Automated Installation from OS10 to SONiC</a></li>
+<li><a href="#overview">Overview</a></li>
+</ul>
+</li>
+<li><a href="#configure-dhcp-server-for-sonic-ztp">Configure DHCP Server for SONiC ZTP</a><ul>
+<li><a href="#configure-dhcp-for-ztp">Configure DHCP for ZTP</a></li>
+<li><a href="#configure-your-http-server">Configure Your HTTP Server</a></li>
+<li><a href="#more-configuration-options">More Configuration Options</a></li>
+</ul>
+</li>
+<li><a href="#running-ztp">Running ZTP</a></li>
+<li><a href="#get-command-line">Get Command Line</a></li>
+</ul>
+<p>See <a href="overview.pptx">Install Workflow</a> for an overview of how this process flows.
+Video of the full sequence: https://youtu.be/Xm4stcPvnUc</p>
+<h2 id="my-test-platform">My Test Platform</h2>
+<h3 id="switch">Switch</h3>
+<pre><code>OS10# show version
+Dell EMC Networking OS10 Enterprise
+Copyright (c) 1999-2021 by Dell Inc. All Rights Reserved.
+OS Version: 10.5.3.0
+Build Version: 10.5.3.0.44
+Build Time: 2021-10-06T23:03:55+0000
+System Type: S5212F-ON
+Architecture: x86_64
+Up Time: 00:34:10
+</code></pre>
+<h3 id="server-os">Server OS</h3>
+<pre><code>Fedora release 35 (Thirty Five)
+NAME=&quot;Fedora Linux&quot;
+VERSION=&quot;35 (Workstation Edition)&quot;
+ID=fedora
+VERSION_ID=35
+VERSION_CODENAME=&quot;&quot;
+PLATFORM_ID=&quot;platform:f35&quot;
+PRETTY_NAME=&quot;Fedora Linux 35 (Workstation Edition)&quot;
+ANSI_COLOR=&quot;0;38;2;60;110;180&quot;
+LOGO=fedora-logo-icon
+CPE_NAME=&quot;cpe:/o:fedoraproject:fedora:35&quot;
+HOME_URL=&quot;https://fedoraproject.org/&quot;
+DOCUMENTATION_URL=&quot;https://docs.fedoraproject.org/en-US/fedora/f35/system-administrators-guide/&quot;
+SUPPORT_URL=&quot;https://ask.fedoraproject.org/&quot;
+BUG_REPORT_URL=&quot;https://bugzilla.redhat.com/&quot;
+REDHAT_BUGZILLA_PRODUCT=&quot;Fedora&quot;
+REDHAT_BUGZILLA_PRODUCT_VERSION=35
+REDHAT_SUPPORT_PRODUCT=&quot;Fedora&quot;
+REDHAT_SUPPORT_PRODUCT_VERSION=35
+PRIVACY_POLICY_URL=&quot;https://fedoraproject.org/wiki/Legal:PrivacyPolicy&quot;
+VARIANT=&quot;Workstation Edition&quot;
+VARIANT_ID=workstation
+Fedora release 35 (Thirty Five)
+Fedora release 35 (Thirty Five)
+</code></pre>
+<h2 id="prepare-to-install-operating-system">Prepare to Install Operating System</h2>
+<p>This first section discusses operating system installation. If you manually install the OS, you will start the next section of the instructions with the OS already installed. If you are performing the fully automated setup, you will install the OS later on in the instructions.</p>
+<h3 id="manually-install-sonic-via-onie">Manually Install SONiC via ONIE</h3>
+<ol>
+<li>Download SONiC OS for your manufacturer. In my case I pulled Dell's stable image.</li>
+<li>Follow the instructions <a href="..#how-to-configure-onie">for setting up and running ONIE</a></li>
+<li>Use SONiC binary instead of OS10</li>
+</ol>
+<h3 id="fully-automated-installation-from-os10-to-sonic">Fully Automated Installation from OS10 to SONiC</h3>
+<h4 id="overview">Overview</h4>
+<ol>
+<li>On a separate host, set up an HTTP server to host your operating system files</li>
+<li>You could also use TFTP but for demonstration here I am using HTTP</li>
+<li>On a separate host, set up a DHCP server to feed the ZTD/ZTP options</li>
+<li>Force OS10 to reboot in ONIE uninstall mode and then allow it to boot in ONIE install mode</li>
+<li>Install SONiC</li>
+</ol>
+<p>Dell switches are often shipped with OS10 by default (many times to meet TAA compliance requirements). In this scenario you may have just purchased several switches and you want to fully automate their out-of-the-box installation by replacing OS10 with SONiC. By default, OS10 will boot for the first time in Zero Touch Deployment (ZTD) mode. Entering configuration mode or rebooting the switch disables it. You can re-enable it with <code>reload ztd</code>. <strong>WARNING</strong> This will delete your startup configuration. You can check ztd status with <code>show ztd-status</code>. At time of writing <a href="https://dl.dell.com/content/manual43922122-dell-smartfabric-os10-user-guide-release-10-5-4.pdf?language=en-us&amp;ps=true">this</a> is the current OS10 manual. See page 93 for information on ZTD.</p>
+<ol>
+<li>
+<p>While you can ONIe boot / ZTD with the switch's frontpanel ports, I tested this configuration using the management interface. These instructions are written assuming you have the management interface plugged in. If you need to console into the management interface the settings are:</p>
+<pre><code>Baud Rate: 115200
+Data Bits: 8
+Stop Bits: 1
+Parity: None
+Flow Control: None
+</code></pre>
+</li>
+<li>
+<p>Configure HTTP server</p>
+</li>
+<li>On your Fedora box run <code>dnf install httpd</code></li>
+<li>Start it with <code>systemctl start httpd</code></li>
+<li>Upload the SONiC binary to <code>var/www/html</code></li>
+<li>Run <code>ln -s Enterprise_SONiC_OS_4.0.1_Enterprise_Premium.bin onie-installer</code> to create a symbolic link with the name onie-installer. This is the name ONIE will automatically search for.</li>
+<li>Confirm your web server is working by browsing to onie-installer at <code>http://&lt;your_ip&gt;/onie-installer</code>.</li>
+<li>On your Fedora box run <code>dnf install -y dhcp-server</code></li>
+<li>
+<p>Edit your DHCP server configuration with <code>vim /etc/dhcp/dhcpd.conf</code>. Replace the IP addresses with your IP addresses. Note: You will modify the line <code>option bootfile-name "http://192.168.1.186:80/initial.json";       # For Option 67 (HTTP)</code> further on in the instructions</p>
+<pre><code>#
+# DHCP Server Configuration file.
+#   see /usr/share/doc/dhcp-server/dhcpd.conf.example
+#   see dhcpd.conf(5) man page
+#
+
+ddns-update-style interim;
+
+option ztd-provision-url code 240 = text;
+
+subnet 192.168.1.0 netmask 255.255.255.0 {
+
+        max-lease-time 86400;
+
+        min-lease-time 60;
+
+        default-lease-time 86400;
+
+        option netbios-node-type 8;
+
+        host OS10 {
+                hardware ethernet b0:4f:13:37:b8:c0;
+                fixed-address 192.168.1.90;
+                option default-url "http://192.168.1.186/ztd/onie-installer";     # For Option 114 (Default URL)
+                option bootfile-name "http://192.168.1.186:80/initial.json";       # For Option 67 (HTTP)
+        }
+}
+</code></pre>
+</li>
+<li>
+<p>Run <code>systemctl restart dhcpd</code> to apply the configuration and ensure that dhcpd is running.</p>
+</li>
+<li>You are now ready to move on to the ZTP configuration</li>
+</ol>
+<h2 id="configure-dhcp-server-for-sonic-ztp">Configure DHCP Server for SONiC ZTP</h2>
+<p>The official ZTP documentation for SONiC is <a href="https://github.com/Azure/SONiC/blob/master/doc/ztp/ztp.md">here</a>.</p>
+<h3 id="configure-dhcp-for-ztp">Configure DHCP for ZTP</h3>
+<p>The first thing you will need to do is configure the DHCP server servicing the devices to provide option 67 which will point to initial boot file used by SONiC's ZTP agent. The options for URL are defined <a href="https://github.com/Azure/SONiC/blob/master/doc/ztp/ztp.md#url-object">here</a>. As shown above, I used the following DHCP configuration file (located at <code>/etc/dhcp/dhcpd.conf</code> on Fedora):</p>
+<pre><code>    #
+    # DHCP Server Configuration file.
+    #   see /usr/share/doc/dhcp-server/dhcpd.conf.example
+    #   see dhcpd.conf(5) man page
+    #
+
+
+    ddns-update-style interim;
+
+    option ztd-provision-url code 240 = text;
+
+    subnet 192.168.1.0 netmask 255.255.255.0 {
+
+            max-lease-time 86400;
+
+            min-lease-time 60;
+
+            default-lease-time 86400;
+
+            option netbios-node-type 8;
+
+            host OS10 {
+                    hardware ethernet b0:4f:13:37:b8:c0;
+                    fixed-address 192.168.1.90;
+                    option default-url "http://192.168.1.186/ztd/onie-installer";     # For Option 114 (Default URL)
+                    option bootfile-name "http://192.168.1.186:80/initial.json";       # For Option 67 (HTTP)
+            }
+    }
+</code></pre>
+<p>Notice the line <code>option bootfile-name "http://192.168.1.186:80/initial.json";       # For Option 67 (HTTP)</code>. If you want to use TFTP you can replace the <code>http://</code> with <code>tftp://</code>. This line tells SONiC where to look for a configuration pointer. The name <code>initial.json</code> does not matter - you can name this file whatever you want. This file will contain a web address pointing to <code>config_db.json</code> which is the file SONiC gives ZTP to configure itself.</p>
+<p>Run <code>systemctl restart dhcpd</code> to ensure your changes take effect.</p>
+<h3 id="configure-your-http-server">Configure Your HTTP Server</h3>
+<p>As mentioned above, you have to create a file which points to config_db.json. A copy of mine is below.</p>
+<pre><code class="language-json">{
+  &quot;ztp&quot;: {
+    &quot;configdb-json&quot; : {
+      &quot;url&quot;: {
+        &quot;source&quot;: &quot;http://192.168.1.186:80/config_db.json&quot;
+      }
+    }
+  }
+}
+</code></pre>
+<p>The <em>source</em> field points to the actual configuration file you want to deploy to the networking device. On your web server you will also need to provide this configuration file. In my case I only had it update the device's management IP address but you can have it configure any aspect of the switch:</p>
+<pre><code class="language-json">{
+  &quot;MGMT_INTERFACE&quot;: {
+      &quot;eth0|192.168.1.96/24&quot;: {
+          &quot;gwaddr&quot;: &quot;192.168.1.1&quot;
+      }
+  }
+}
+</code></pre>
+<p>This file's sections are identical to what is in <em>/etc/sonic/config_db.json</em>. If you want to see what something should look like you can look there and then copy/paste.</p>
+<h4 id="more-configuration-options">More Configuration Options</h4>
+<p>The file <code>initial.json</code> has a myriad of options allowing you to do things like set firmware options, set the password, perform connection tests on completion, etc. I only demonstrated one here just to get started. See Dell's SONiC manual for additional options.</p>
+<h2 id="running-ztp">Running ZTP</h2>
+<p>If you have already installed SONiC manually, at this point you can leave things running and SONiC's ZTP should automatically start. If not, you can make sure it is on with <code>ztp enable</code> and then <code>ztp run</code> to force it to run.</p>
+<p>If you are performing a fully automated install, then at this point, if your DHCP server config is correct, you should see OS10 reboot into ONIE uninstall mode. It will uninstall OS10, reboot in ONIE install mode, and install SONiC. <strong>Note:</strong> The way this works is OS10 checks the onie-installer argument provided in the DHCP configuration. If the installer is not OS10, it reboots in ONIE uninstall mode.</p>
+<p>See https://youtu.be/Xm4stcPvnUc for a depiction of what the entire process looks like from start to finish.</p>
+<h2 id="get-command-line">Get Command Line</h2>
+<p>Run <code>sonic-cli</code> to get an OS-10 style command line.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../How%20OS10%20Installer%20Works/" class="btn btn-neutral float-left" title="How OS10 Installer Works"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../How%20to%20Read%20lstopo%20and%20a%20PCIe%20Overview/" class="btn btn-neutral float-right" title="How to Read lstopo and a PCIe Overview">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../How%20OS10%20Installer%20Works/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../How%20to%20Read%20lstopo%20and%20a%20PCIe%20Overview/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

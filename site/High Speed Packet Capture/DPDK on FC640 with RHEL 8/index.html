@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Grant Curell" /><link rel="canonical" href="https://grantcurell.github.io/High%20Speed%20Packet%20Capture/DPDK%20on%20FC640%20with%20RHEL%208/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>How to Get DPDK with pdump Running - Grant Curell's Dell Projects</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "How to Get DPDK with pdump Running";
+        var mkdocs_page_input_path = "High Speed Packet Capture\\DPDK on FC640 with RHEL 8\\README.md";
+        var mkdocs_page_url = "/High%20Speed%20Packet%20Capture/DPDK%20on%20FC640%20with%20RHEL%208/";
+      </script>
+    
+    <script src="../../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Grant Curell's Dell Projects
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Grant Curell's Dell Projects</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Adding%20Hashing%20to%20OpenSwitch/">Adding Hashing to OpenSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Adding%20Intel%20I219-LM%20%288086.0d4c%29%20Driver%20to%20ESXi/">Adding Intel I219-LM (8086.0d4c) Driver to ESXi</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Automating%20OME%20Hardware%20Reports/">Automating OME Hardware Reports</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Backup%20OS10%20Config%20with%20Ansible/">Backup OS10 Config with Ansible</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../CloudLink/">CloudLink</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Configure%20FN410%20as%20a%20Switch/">Configure FN410 as a Switch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Configure%20Gigamon%20Tap/">Configure Gigamon Tap</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Configuring%20VLT%20on%20OS10/">Configuring VLT on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Create%20Kickstart%20Server%20on%20Fedora/">Create Kickstart Server on Fedora</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Create%20OpenSwitch%20VM/">Create OpenSwitch VM</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Dell%20Ansible%20Testing/">Dell Ansible Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../DHCP%20Relay%20on%20SONiC/">DHCP Relay on SONiC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Elasticsearch%20Display%20Map%20Data/">Elasticsearch Display Map Data</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Elasticsearch%20Load%20Testing/">Elasticsearch Load Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../esrally%20%28INCOMPLETE%29/">esrally (INCOMPLETE)</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Get%20NVMe%20Drives%20from%20iDRAC%20Redfish/">Get NVMe Drives from iDRAC Redfish</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../">High Speed Packet Capture</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../How%20OS10%20Installer%20Works/">How OS10 Installer Works</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../How%20to%20ONIE%20Install%20and%20ZTP%20Config%20Dell%20SONiC/">How to ONIE Install and ZTP Config Dell SONiC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../How%20to%20Read%20lstopo%20and%20a%20PCIe%20Overview/">How to Read lstopo and a PCIe Overview</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../idrac%20with%20LDAP/">idrac with LDAP</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Importing%20Elasticsearch%20Data/">Importing Elasticsearch Data</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Installing%20DPDK%20with%20NapaTech%20Card/">Installing DPDK with NapaTech Card</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../IO%20Identities%20with%20LifeCycle%20Controller/">IO Identities with LifeCycle Controller</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../LDAP%20with%20OpenManage/">LDAP with OpenManage</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Load%20Balance%20Testing%20on%204112F-ON/OpenSwitch%20%28OPX%29/">Load Balancing with LAG OPX</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Load%20Balance%20Testing%20on%204112F-ON/OS10/">Load Balance Testing on 4112F-ON w/OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Load%20Balance%20Testing%20with%20OpenVSwitch/">Load Balance Testing with OpenVSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Load%20Balancing%20on%20Mellanox%20Switches/">Load Balancing on Mellanox Switches</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Load%20Balancing%20with%20LAG%20on%205112F-ON/">Load Balancing with LAG on 5112F-ON</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Make%20USB%20Read%20Only/">Make USB Read Only</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Migrating%20Storage%20Volumes%20to%20PowerStore/">Migrating Storage Volumes to PowerStore</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Mulitple%20Span%20on%204112F-ON%20with%20OpenSwitch/">Mulitple Span on 4112F-ON with OpenSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Multiple%20Span%20on%204112F-ON%20with%20OS10/">Multiple Span on 4112F-ON with OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Notes%20on%20HPC/">Notes on HPC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Notes%20on%20Improving%20Drive%20Performance/">Notes on Improving Drive Performance</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Notes%20on%20mdraid%20Performance%20Testing/">Notes on mdraid Performance Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Notes%20on%20NVMe%20Log%20Pages/">Notes on NVMe Log Pages</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Notes%20on%20PCIe/">Notes on PCIe</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Nvidia%20GPUDirect/">Nvidia GPUDirect</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Nvidia%20GRID%20Notes/">Nvidia GRID Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../NVMe%20Performance%20Testing/">NVMe Performance Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Offline%20Updates%20with%20OpenManage%20Enterprise/">Offline Updates with OpenManage Enterprise</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../OME%20Bug/">OME Bug</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../OME%20Integration%20for%20VMWare/">OME Integration for VMWare</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../OpenFlow%20on%204112F-ON/">OpenFlow on 4112F-ON</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../OS10%20Password%20Recovery%20Bug/">OS10 Password Recovery Bug</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../PCIev3%20vs%20v4/">PCIev3 vs v4</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Playing%20with%20virsh/">Playing with virsh</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Reset%20OS10%20Admin%20Password/">Reset OS10 Admin Password</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Run%20VPN%20on%20OS10/">Run VPN on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Running%20DNS%20from%20OS10/">Running DNS from OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Set%20Up%20RSPAN%20on%20OS10/">Set Up RSPAN on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Setting%20Up%20Breakout%20Cables/">Setting Up Breakout Cables</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Setting%20Up%20iDRAC%20Telemetry%20with%20Splunk/">Setting Up iDRAC Telemetry with Splunk</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Setting%20Up%20SmartFabric%20Director/">Setting Up SmartFabric Director</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Setup%20IDPA/">Setup IDPA</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Site%20to%20Site%20VPN%20with%20PFSense%20and%20CentOS%208/">Site to Site VPN with PFSense and CentOS 8</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../SONiC%20-%20Sample%20Datacenter%20Automation%20Architecture/">SONiC - Sample Datacenter Automation Architecture</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Switch%20Directly%20to%20Client%20Test/">Switch Directly to Client Test</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Testing%20Intel%20x520%20on%20RHEL%206/">Testing Intel x520 on RHEL 6</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Understanding%20Memory/">Understanding Memory</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Use%20OS10%20as%20Aggregator/">Use OS10 as Aggregator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Using%20the%20iDRAC%20Service%20Module/">Using the iDRAC Service Module</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../VEP%20Testing/">VEP Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../VMWare/Automate%20ESXi%20Installation/">Automating ESXi Installation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../VMWare/ESXi%20Architecture/">VMWare Architecture Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../VMWare/Setup%20VXRail/">VxRail Setup</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../VMWare/Troubleshooting%20vSAN/">Troubleshooting vSAN</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../VMWare/VMWare%20APIs/">VMWare APIs</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../VMWare/VxRail%20Architecture%20and%20Troubleshooting/">VxRail Architecture and Troubleshooting</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../VMWare/Change%20User%20on%20VxRail%20Plugin/">Change User on VxRail Plugin</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Web%20Traffic%20Generator/">Web Traffic Generator</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Grant Curell's Dell Projects</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li><li>How to Get DPDK with pdump Running</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="how-to-get-dpdk-with-pdump-running">How to Get DPDK with pdump Running</h1>
+<p>The purpose of this experiment is to get Intel's DPDK framework up and running on
+a server.</p>
+<h1 id="useful-materials">Useful Materials</h1>
+<p><a href="https://doc.dpdk.org/guides/linux_gsg/build_dpdk.html#install-the-dpdk-and-browse-sources">How to Compile DPDK</a></p>
+<p><a href="https://doc.dpdk.org/guides/linux_gsg/linux_drivers.html">Info on Linux Drivers for DPDK</a></p>
+<p><a href="https://software.intel.com/en-us/articles/testing-dpdk-performance-and-features-with-testpmd">Description of the TestPMD Program</a></p>
+<p><a href="dpdk-testpmd-application-user-guide.pdf">DPDK Testpmd Application User Guide</a></p>
+<h1 id="my-environment">My Environment</h1>
+<p>I am running a Dell FC640 on a TFX2HE chassis.</p>
+<h2 id="red-hat-release-info">Red Hat Release Info</h2>
+<pre><code>    NAME="Red Hat Enterprise Linux"
+    VERSION="8.1 (Ootpa)"
+    ID="rhel"
+    ID_LIKE="fedora"
+    VERSION_ID="8.1"
+    PLATFORM_ID="platform:el8"
+    PRETTY_NAME="Red Hat Enterprise Linux 8.1 (Ootpa)"
+    ANSI_COLOR="0;31"
+    CPE_NAME="cpe:/o:redhat:enterprise_linux:8.1:GA"
+    HOME_URL="https://www.redhat.com/"
+    BUG_REPORT_URL="https://bugzilla.redhat.com/"
+
+    REDHAT_BUGZILLA_PRODUCT="Red Hat Enterprise Linux 8"
+    REDHAT_BUGZILLA_PRODUCT_VERSION=8.1
+    REDHAT_SUPPORT_PRODUCT="Red Hat Enterprise Linux"
+    REDHAT_SUPPORT_PRODUCT_VERSION="8.1"
+    Red Hat Enterprise Linux release 8.1 (Ootpa)
+    Red Hat Enterprise Linux release 8.1 (Ootpa)
+</code></pre>
+<h2 id="kernel-info">Kernel Info</h2>
+<pre><code>Linux dpdkdemo.lan 4.18.0-147.el8.x86_64 #1 SMP Thu Sep 26 15:52:44 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux
+</code></pre>
+<h2 id="physical-setup">Physical Setup</h2>
+<p><img alt="" src="images/physical_layout.JPG" /></p>
+<p>I ran the traffic generator to port 5 of the passthrough module which maps to port
+1 my internal x710 card.</p>
+<h1 id="installation">Installation</h1>
+<h2 id="enable-red-hat-repos">Enable Red Hat Repos</h2>
+<p>Run <code>subscription-manager list --available | less</code> and find the subscription which
+provides CodeReady for x86. Note the pool number associated with the subscription.</p>
+<p>Run <code>subscription-manager attach --pool=&lt;POOL_NUMBER&gt;</code> to enable the subscription.</p>
+<p>Then run: <code>subscription-manager repos --enable=codeready-builder-for-rhel-8-x86_64-rpms</code> to enable the repo.</p>
+<h2 id="install-dpdk">Install DPDK</h2>
+<ol>
+<li>Download from <a href="https://core.dpdk.org/download/">https://core.dpdk.org/download/</a></li>
+<li>
+<p>Edit the security limits with <code>vim /etc/security/limits.conf</code>
+      1.Add the following lines at the end of the file. This assumes you are running as root:</p>
+<pre><code>        root    hard   memlock           unlimited
+        root    soft   memlock           unlimited
+</code></pre>
+</li>
+<li>
+<p>Make sure your kernel is up to date with <code>dnf update -y &amp;&amp; reboot</code>.</p>
+</li>
+<li>Run <code>dnf install -y gcc numactl-devel kernel-devel pciutils elfutils-libelf-devel make libpcap python3 tar vim wget tmux vim mlocate hwloc</code></li>
+<li>Extract dpdk and cd into its directory</li>
+<li>set the environment variable RTE_SDK. It is the directory in which you extracted all the DPDK files. <code>export RTE_SDK=&lt;YOUR_DIR&gt;</code></li>
+<li>Run <code>make install T=x86_64-native-linux-gcc CONFIG_RTE_LIBRTE_PMD_PCAP=y CONFIG_RTE_LIBRTE_PDUMP=y DESTDIR=&lt;INSTALL_DIR&gt;</code> to build dpdk. Ensure your install directory exists.</li>
+</ol>
+<p><strong>NOTE</strong>: The option CONFIG_RTE_LIBRTE_PMD_PCAP=y enabled libpcap support in DPDK.
+This is required for pdump to work.</p>
+<p>Once an DPDK target environment directory has been created (such as x86_64-native-linux-gcc), 
+it contains all libraries and header files required to build an application. When 
+compiling an application in the Linux* environment on the DPDK, the following variables 
+must be exported:</p>
+<ul>
+<li>RTE_TARGET - Points to the DPDK target environment directory.
+<br><pre><code>export RTE_TARGET=/opt/dpdk-19.08/x86_64-native-linux-gcc
+</code></pre>
+</li>
+</ul>
+<p>You may want to add this variable and RTE_SDK to <em>~/.bash_profile</em></p>
+<h2 id="install-elf-tools">Install ELF Tools</h2>
+<p>Run the following:</p>
+<pre><code>    dnf install -y python36-devel
+    pip3 install numpy
+    pip3 install elftools
+    pip3 install pyelftools
+</code></pre>
+<h1 id="configuration">Configuration</h1>
+<p>TODO: Need to update the instructions with this. Why can't the setup tool find it?</p>
+<p>I had to run <code>modprobe uio &amp;&amp; insmod /opt/dpdk-19.08/install/lib/modules/4.18.0-147.el8.x86_64/extra/dpdk/igb_uio.ko</code>
+to get this to load. The <code>modprobe uio</code> is necessary because the uio module is a
+depency of igb_uio.</p>
+<h2 id="configure-vfio-pci-to-load-on-boot-todo-remove">Configure vfio-pci to Load on Boot (TODO REMOVE)</h2>
+<ol>
+<li>
+<p>Go to /etc/modules-load.d/</p>
+<pre><code>cd /etc/modules-load.d
+</code></pre>
+</li>
+<li>
+<p>Run <code>echo vfio-pci &gt; vfio-pci.conf</code></p>
+</li>
+<li>If you don't reboot you will need to run <code>modprobe vfio-pci</code></li>
+</ol>
+<h2 id="configure-ports">Configure Ports</h2>
+<ol>
+<li>
+<p>Move to your dpdk dir and run <code>./install/share/dpdk/usertools/dpdk-setup.sh</code>. This should give you a menu with all available DPDK options. The menu is setup in such a way that you must perform each step listed in the menu. If things have gone correctly to this point your Step 1 should look like the following:</p>
+<pre><code>----------------------------------------------------------
+Step 1: Select the DPDK environment to build
+----------------------------------------------------------
+[1] *
+</code></pre>
+</li>
+<li>
+<p>My menu looks like this:</p>
+<pre><code>----------------------------------------------------------
+Step 1: Select the DPDK environment to build
+----------------------------------------------------------
+[1] *
+
+----------------------------------------------------------
+Step 2: Setup linux environment
+----------------------------------------------------------
+[2] Insert IGB UIO module
+[3] Insert VFIO module
+[4] Insert KNI module
+[5] Setup hugepage mappings for non-NUMA systems
+[6] Setup hugepage mappings for NUMA systems
+[7] Display current Ethernet/Baseband/Crypto device settings
+[8] Bind Ethernet/Baseband/Crypto device to IGB UIO module
+[9] Bind Ethernet/Baseband/Crypto device to VFIO module
+[10] Setup VFIO permissions
+
+----------------------------------------------------------
+Step 3: Run test application for linux environment
+----------------------------------------------------------
+[11] Run test application ($RTE_TARGET/app/test)
+[12] Run testpmd application in interactive mode ($RTE_TARGET/app/testpmd)
+
+----------------------------------------------------------
+Step 4: Other tools
+----------------------------------------------------------
+[13] List hugepage info from /proc/meminfo
+
+----------------------------------------------------------
+Step 5: Uninstall and system cleanup
+----------------------------------------------------------
+[14] Unbind devices from IGB UIO or VFIO driver
+[15] Remove IGB UIO module
+[16] Remove VFIO module
+[17] Remove KNI module
+[18] Remove hugepage mappings
+
+[19] Exit Script
+</code></pre>
+</li>
+<li>
+<p>Next run option 6 to instert huge pages for NUMA systems. Notice you will be prompted to select an amount of memory on a per processor basis. This is because there are pages associated with each individual processor to increase performance via locality.</p>
+</li>
+<li>Run option 7 and make sure you receive output and that network devices are listed. My output looks like this:<pre><code>Network devices using kernel driver
+===================================
+0000:0b:00.0 'VMXNET3 Ethernet Controller 07b0' if=ens192 drv=vmxnet3 unused=vfio-pci *Active*
+0000:13:00.0 'VMXNET3 Ethernet Controller 07b0' if=ens224 drv=vmxnet3 unused=vfio-pci *Active*
+
+No 'Baseband' devices detected
+==============================
+
+No 'Crypto' devices detected
+============================
+
+No 'Eventdev' devices detected
+==============================
+
+No 'Mempool' devices detected
+=============================
+
+No 'Compress' devices detected
+==============================
+
+No 'Misc (rawdev)' devices detected
+===================================
+</code></pre>
+</li>
+</ol>
+<p><strong>NOTE</strong>: The active keyword means that DPDK thinks the interface is under active use.
+This means that the interface has routes installed in the routing table.</p>
+<ol>
+<li>Run option 8 to bind an interface to DPDK using the IGB UIO driver.</li>
+<li></li>
+</ol>
+<h1 id="performing-packet-capture">Performing Packet Capture</h1>
+<h2 id="initial-setup">Initial Setup</h2>
+<p>Get the core layout with <code>./install/share/dpdk/usertools/cpu_layout.py</code>
+View your port layout with <code>./install/share/dpdk/usertools/dpdk-devbind.py -s</code></p>
+<p>If you haven't already load the right kernel modules with: <code>modprobe uio &amp;&amp; insmod /opt/dpdk-19.08/install/lib/modules/4.18.0-147.el8.x86_64/extra/dpdk/igb_uio.ko</code></p>
+<h2 id="starting-testpmd">Starting testpmd</h2>
+<p><strong>NOTE</strong>: The <code>--</code> separates the argumentsn for the EAL vs TestPMD.</p>
+<pre><code>    ./install/bin/testpmd -l 4,8,10,12 -n 4 -- -i --forward-mode=rxonly
+</code></pre>
+<p>After <code>testpmd</code> has started don't forget to run the <code>start</code> command on the testpmd
+command line.</p>
+<h2 id="pdump">pdump</h2>
+<pre><code>    ./install/bin/dpdk-pdump -- --pdump 'port=0,queue=*,rx-dev=/tmp/capture.pcap'
+</code></pre>
+<h1 id="helpful-tips">Helpful Tips</h1>
+<h2 id="getting-cpu-info">Getting CPU Info</h2>
+<p>DPDK provides a tool for seeing the CPU layout with <code>./install/share/dpdk/usertools/cpu_layout.py</code>
+You can see the logical layout of the cores with <code>cat /proc/cpuinfo</code>
+You can alse run <code>lstopo-no-graphics</code></p>
+<p>Notice that the cores alternate back and forth.</p>
+<h2 id="process-types-in-dpdk">Process Types in DPDK</h2>
+<p>DPDK runs two different types of processes. There are as follows:</p>
+<ul>
+<li>primary processes, which can initialize and which have full permissions on shared memory</li>
+<li>secondary processes, which cannot initialize shared memory, but can attach to pre- initialized shared memory and create objects in it.</li>
+</ul>
+<p>Standalone DPDK processes are primary processes, while secondary processes can only run alongside a primary process or after a primary process has already configured the hugepage shared memory for them.</p>
+<h2 id="testpmd">TestPMD</h2>
+<p>The test pmd manual is available <a href="dpdk-testpmd-application-user-guide.pdf">here</a></p>
+<h3 id="interactive-commands">Interactive Commands</h3>
+<h4 id="starting-transmit">Starting transmit</h4>
+<pre><code>    start
+</code></pre>
+<h4 id="get-port-info">Get Port Info</h4>
+<pre><code>    show port info all
+</code></pre>
+<h3 id="forwarding-modes">Forwarding Modes</h3>
+<p>TestPMD has different forwarding modes that can be used within the application.</p>
+<ul>
+<li>Input/output mode: This mode is generally referred to as IO mode. It is the most common forwarding mode and is the default mode when TestPMD is started. In IO mode a CPU core receives packets from one port (Rx) and transmits them to another port (Tx). The same port can be used for reception and transmission if required.</li>
+<li>Rx-only mode: In this mode the application polls packets from the Rx ports and frees them without transmitting them. In this way it acts as a packet sink.</li>
+<li>Tx-only mode: In this mode the application generates 64-byte IP packets and transmits them from the Tx ports. It doesn’t handle the reception of packets and as such acts as a packet source.
+These latter two modes (Rx-only and Tx-only) are useful for checking packet reception and transmission separately.</li>
+</ul>
+<p>Apart from these three modes there are other forwarding modes that are explained in the <a href="http://doc.dpdk.org/guides/testpmd_app_ug/testpmd_funcs.html#set-fwd">TestPMD documentation</a>.</p>
+<h3 id="port-topology-modes">Port Topology Modes</h3>
+<p>In paired mode, the forwarding is between pairs of ports, for example: (0,1), (2,3), (4,5).</p>
+<p>In chained mode, the forwarding is to the next available port in the port mask, for example:
+(0,1), (1,2), (2,0).
+The ordering of the ports can be changed using the portlist testpmd runtime function.</p>
+<p>In loop mode, ingress traffic is simply transmitted back on the same interface.</p>
+<h3 id="receive-side-scaling">Receive Side Scaling</h3>
+<p>=Receive-Side Scaling (RSS), also known as multi-queue receive, distributes network receive processing across several hardware-based receive queues, allowing inbound network traffic to be processed by multiple CPUs. RSS can be used to relieve bottlenecks in receive interrupt processing caused by overloading a single CPU, and to reduce network latency.</p>
+<p>To determine whether your network interface card supports RSS, check whether multiple interrupt request queues are associated with the interface in /proc/interrupts. For example, if you are interested in the p1p1 interface:</p>
+<pre><code>    # egrep 'CPU|p1p1' /proc/interrupts
+    CPU0    CPU1    CPU2    CPU3    CPU4    CPU5
+    89:   40187       0       0       0       0       0   IR-PCI-MSI-edge   p1p1-0
+    90:       0     790       0       0       0       0   IR-PCI-MSI-edge   p1p1-1
+    91:       0       0     959       0       0       0   IR-PCI-MSI-edge   p1p1-2
+    92:       0       0       0    3310       0       0   IR-PCI-MSI-edge   p1p1-3
+    93:       0       0       0       0     622       0   IR-PCI-MSI-edge   p1p1-4
+    94:       0       0       0       0       0    2475   IR-PCI-MSI-edge   p1p1-5
+</code></pre>
+<hr />
+<p>huge pages https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/performance_tuning_guide/sect-red_hat_enterprise_linux-performance_tuning_guide-memory-configuring-huge-pages</p>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
