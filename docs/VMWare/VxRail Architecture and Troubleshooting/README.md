@@ -702,16 +702,17 @@ Note: My testing was done on VxRail 7.0.320
             2022-10-20-04:18:26 microservice.do-cluster "ssl.CertificateError: hostname '192.168.1.20' doesn't match 'vcluster202-vcsa.demo.local'"
             2022-10-20-04:18:26 microservice.do-cluster "[2022-10-20 04:18:26,816: INFO/MainProcess] Task worker.celery_task.rest_cluster.login_by_session_cookie[90e54bf5-a9d3-4d28-a76e-70fcbbe062cb] succeeded in 0.03339903799860622s: {'result': 'LOGIN_BY_SESSION_C                                                                         OOKIE_FAIL'}"
 
-    3.  On vCenter as root run `mkdir -p /var/tmp/vmware && chmod 755 /var/tmp/vmware`
-    4.  Next run `/usr/lib/vmware-vmca/bin/certificate-manager`.
+    3.  On the Vxrail manager, confirm that in /etc/hosts you have an entry for your vCenter. If not, add it.
+    4.  On vCenter as root run `mkdir -p /var/tmp/vmware && chmod 755 /var/tmp/vmware`
+    5.  Next run `/usr/lib/vmware-vmca/bin/certificate-manager`.
         1.  Select option 8
         2.  Do you wish to generate all certs using configuration file: n
         3.  Enter your credentials
         4.  You can leave everything to default until you get to Hostname. Here I used the FQDN for VCSA.
         5.  For VMCA I used the shortname of VCSA
         6.  When asked if you want to continue select yes. The script will run. This takes a while to run. For me it stopped at 85% for a long time. This appears to be normal.
-    5.  Grab [cert_util.py](cert_util.py) and upload it to VxRail Manager.
-    6.  Run the script. If it fails saying *No host configured* run `curl -k -H "Content-Type: application/json" -X PUT --unix-socket /var/lib/vxrail/nginx/socket/nginx.sock -d '{"value": "false"}' http://127.0.0.1/rest/vxm/internal/configservice/v1/configuration/keys/certificate_verification_enable`. This will disable cert checking for it. After you run that command, rerun the script and it should complete successfully.
+    6.  Grab [cert_util.py](cert_util.py) and upload it to VxRail Manager.
+    7.  Run the script. If it fails saying *No host configured* run `curl -k -H "Content-Type: application/json" -X PUT --unix-socket /var/lib/vxrail/nginx/socket/nginx.sock -d '{"value": "false"}' http://127.0.0.1/rest/vxm/internal/configservice/v1/configuration/keys/certificate_verification_enable`. This will disable cert checking for it. After you run that command, rerun the script and it should complete successfully.
 
 ## Logs
 
