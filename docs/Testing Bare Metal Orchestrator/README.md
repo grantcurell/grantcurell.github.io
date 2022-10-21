@@ -113,7 +113,45 @@ roles:
 3. Download the output file and browse to `https://BMO_ADDRESS`
 4. Use the config file to login
 
+## Deploy a Server
+
+
+
 
 ## Questions
 
 - I see the API proxy - how does billing / licensing work if you are offline?
+
+## Problems
+
+- A lot o the documentation links are broken. Ex:
+  - https://infohub.delltechnologies.com/l/bare-metal-orchestrator-1-2-command-line-interface-user-s-guide-1/managed-device-discovery-overview-1#GUID-C1AEBE7E-0569-4E04-83CB-5CD77FFA6615
+  - The mMetadata link for servers: https://infohub.delltechnologies.com/l/bare-metal-orchestrator-1-2-command-line-interface-user-s-guide-1/create-a-server-or-multiple-servers-and-update-configurations-3#GUID-12309190-709C-4436-8937-D367B5978993
+- Error when adding server. When I was in sites I just used the name.
+  - I had to look under inventory, actions, discover device to realize that the global site name was actually gc
+
+![](images/2022-10-12-14-31-59.png)
+
+```
+dell@bmo-manager-1:/tmp$ bmo create server -f r7525_perc.yaml
+Failed to create server in the 'metalweaver' namespace, server :dell-perc-r7525, reason: site does not exist: global
+
+dell@bmo-manager-1:/tmp$ cat r7525_perc.yaml
+apiVersion: mw.dell.com/v1
+kind: Server
+metadata:
+  name: dell-perc-r7525
+  labels:
+    profile: baseline-profile
+    site: global
+spec:
+  # Add fields here
+  bmcEndPoint: "https://192.168.1.46"
+  userName: "root"
+  password: "password"
+
+
+```
+
+- 
+  - 
