@@ -1,5 +1,92 @@
 # Notes on nodejs
 
+- [Notes on nodejs](#notes-on-nodejs)
+  - [Required Javascript](#required-javascript)
+    - [Arrow expressions](#arrow-expressions)
+    - [Promises](#promises)
+      - [Resolve and Reject](#resolve-and-reject)
+    - [Async/Await](#asyncawait)
+    - [setInterval() and setTimeout()](#setinterval-and-settimeout)
+  - [Node](#node)
+    - [The Node REPL (read-eval-print loop)](#the-node-repl-read-eval-print-loop)
+    - [Running a Program with Node](#running-a-program-with-node)
+    - [Core Modules](#core-modules)
+    - [Console Module](#console-module)
+    - [The Process Module](#the-process-module)
+    - [The OS Module](#the-os-module)
+    - [The Util Module](#the-util-module)
+    - [NPM](#npm)
+      - [Create a new app](#create-a-new-app)
+      - [nodemon](#nodemon)
+      - [Package Scope](#package-scope)
+        - [Global Packages](#global-packages)
+      - [Installing a Custom Package](#installing-a-custom-package)
+    - [Modules](#modules)
+      - [Exporting](#exporting)
+      - [Require](#require)
+      - [Using Object Destructuring to be more Selective With require()](#using-object-destructuring-to-be-more-selective-with-require)
+    - [The Events Module](#the-events-module)
+    - [User Input and Output](#user-input-and-output)
+    - [The Error Module](#the-error-module)
+      - [Why Error First Callbacks](#why-error-first-callbacks)
+    - [The Buffer Module](#the-buffer-module)
+    - [Readable Streams](#readable-streams)
+      - [Further explanation](#further-explanation)
+    - [Writable Streams](#writable-streams)
+    - [Timers Modules](#timers-modules)
+  - [Knex.js](#knexjs)
+    - [How does exports.up and exports.down work](#how-does-exportsup-and-exportsdown-work)
+    - [Seed Files](#seed-files)
+  - [Babel](#babel)
+  - [ReactJS](#reactjs)
+    - [Importing React Required Code](#importing-react-required-code)
+    - [Components](#components)
+      - [Create a Component Class](#create-a-component-class)
+      - [The Render Function](#the-render-function)
+      - [Create a Component Instance](#create-a-component-instance)
+      - [Use This in a Class](#use-this-in-a-class)
+      - [Render Components with Components](#render-components-with-components)
+      - [Importing Files and Exporting Functionality](#importing-files-and-exporting-functionality)
+        - [Importing](#importing)
+        - [Exporting](#exporting-1)
+      - [Component Props](#component-props)
+      - [Event Handler](#event-handler)
+      - [handleEvent, onEvent, and this.props.onEvent](#handleevent-onevent-and-thispropsonevent)
+      - [this.props.children](#thispropschildren)
+      - [Default Properties](#default-properties)
+      - [Component State](#component-state)
+        - [this.setState from Another Function](#thissetstate-from-another-function)
+      - [Component Lifecycle](#component-lifecycle)
+      - [componentDidMount](#componentdidmount)
+      - [componentWillUnmount](#componentwillunmount)
+    - [componentDidUpdate](#componentdidupdate)
+      - [Stateless Functional Components](#stateless-functional-components)
+      - [Function Component Props](#function-component-props)
+    - [React Hooks](#react-hooks)
+        - [Update Function Component State](#update-function-component-state)
+      - [Initialize State](#initialize-state)
+      - [Use State Setter Outside of JSX](#use-state-setter-outside-of-jsx)
+    - [JSX](#jsx)
+      - [JSX Elements](#jsx-elements)
+      - [JSX Elements And Their Surroundings](#jsx-elements-and-their-surroundings)
+      - [Attributes In JSX](#attributes-in-jsx)
+      - [Nested JSX](#nested-jsx)
+      - [JSX Outer Elements](#jsx-outer-elements)
+      - [Rendering JSX](#rendering-jsx)
+      - [ReactDOM.render()](#reactdomrender)
+        - [Passing a Variable to ReactDOM.render()](#passing-a-variable-to-reactdomrender)
+      - [class vs className](#class-vs-classname)
+      - [Self-Closing Tags](#self-closing-tags)
+      - [Javascript in JSX](#javascript-in-jsx)
+      - [Variables in JSX](#variables-in-jsx)
+      - [Event Listeners in JSX](#event-listeners-in-jsx)
+      - [JSX Conditionals](#jsx-conditionals)
+        - [Ternary Operator](#ternary-operator)
+        - [&&](#)
+      - [.map in JSX](#map-in-jsx)
+      - [List Keys](#list-keys)
+      - [React Create Element](#react-create-element)
+
 ## Required Javascript
 
 ### Arrow expressions
@@ -149,7 +236,7 @@ Since console is a global module, its methods can be accessed from anywhere, and
 
 ### The Process Module
 
-Node has a global process object with useful methods and information about the current process. The console.log() method is a “thin wrapper” on the .stdout.write() method of the process object. 
+Node has a global process object with useful methods and information about the current process. The console.log() method is a "thin wrapper" on the .stdout.write() method of the process object. 
 
 The process.env property is an object which stores and controls information about the environment in which the process is currently running. For example, the process.env object contains a PWD property which holds a string with the directory in which the current process is located. It can be useful to have some if/else logic in a program depending on the current environment— a web application in a development phase might perform different tasks than when it’s live to users. We could store this information on the process.env. One convention is to add a property to process.env with the key NODE_ENV and a value of either production or development.
 
@@ -669,7 +756,7 @@ On line 4, you know that you are declaring a new component class, which is like 
 
 #### The Render Function
 
-A render method is a property whose name is render, and whose value is a function. The term “render method” can refer to the entire property, or to just the function part.
+A render method is a property whose name is render, and whose value is a function. The term "render method" can refer to the entire property, or to just the function part.
 
 ```javascript
 class ComponentFactory extends React.Component {
@@ -681,7 +768,7 @@ class ComponentFactory extends React.Component {
 
 #### Create a Component Instance
 
-To make a React component, you write a JSX element. Instead of naming your JSX element something like h1 or div like you’ve done before, give it the same name as a component class. Voilà, there’s your component instance! JSX elements can be either HTML-like, or component instances. JSX uses capitalization to distinguish between the two! That is the React-specific reason why component class names must begin with capital letters. In a JSX element, that capitalized first letter says, “I will be a component instance and not an HTML tag.”
+To make a React component, you write a JSX element. Instead of naming your JSX element something like h1 or div like you’ve done before, give it the same name as a component class. Voilà, there’s your component instance! JSX elements can be either HTML-like, or component instances. JSX uses capitalization to distinguish between the two! That is the React-specific reason why component class names must begin with capital letters. In a JSX element, that capitalized first letter says, "I will be a component instance and not an HTML tag."
 
 Whenever you make a component, that component inherits all of the methods of its component class. MyComponentClass has one method: MyComponentClass.render(). Therefore, <MyComponentClass /> also has a method named render.
 
@@ -698,7 +785,7 @@ ReactDOM.render(
 
 ReactDOM.render() will tell <MyComponentClass /> to call its render method.
 
-<MyComponentClass /> will call its render method, which will return the JSX element <h1>Hello world</h1>. ReactDOM.render() will then take that resulting JSX element, and add it to the virtual DOM. This will make “Hello world” appear on the screen.
+<MyComponentClass /> will call its render method, which will return the JSX element <h1>Hello world</h1>. ReactDOM.render() will then take that resulting JSX element, and add it to the virtual DOM. This will make "Hello world" appear on the screen.
 
 #### Use This in a Class
 
@@ -738,7 +825,7 @@ The second important difference involves the contents of the string at the end o
 
 If you use an import statement, and the string at the end begins with either a dot or a slash, then import will treat that string as a filepath. import will follow that filepath, and import the file that it finds.
 
-If your filepath doesn’t have a file extension, then “.js” is assumed. So the above example could be shortened:
+If your filepath doesn’t have a file extension, then ".js" is assumed. So the above example could be shortened:
 
 `import { NavBar } from './NavBar';`
 
@@ -804,6 +891,7 @@ import React from 'react';
 export class Button extends React.Component {
   render() {
     return (
+      // TODO - why is it `this` here?
       <button onClick={this.props.talk}>
         Click me!
       </button>
@@ -830,9 +918,9 @@ For our prop name, we also chose talk, as shown on line 15:
 
 These two names can be whatever you want. However, there is a naming convention that they often follow. You don’t have to follow this convention, but you should understand it when you see it.
 
-Here’s how the naming convention works: first, think about what type of event you are listening for. In our example, the event type was “click.”
+Here’s how the naming convention works: first, think about what type of event you are listening for. In our example, the event type was "click."
 
-If you are listening for a “click” event, then you name your event handler handleClick. If you are listening for a “keyPress” event, then you name your event handler handleKeyPress:
+If you are listening for a "click" event, then you name your event handler handleClick. If you are listening for a "keyPress" event, then you name your event handler handleKeyPress:
 
 ```javascript
 class MyClass extends React.Component {
@@ -843,7 +931,7 @@ class MyClass extends React.Component {
 }
 ```
 
-Your prop name should be the word on, plus your event type. If you are listening for a “click” event, then you name your prop onClick. If you are listening for a “keyPress” event, then you name your prop onKeyPress:
+Your prop name should be the word on, plus your event type. If you are listening for a "click" event, then you name your prop onClick. If you are listening for a "keyPress" event, then you name your prop onKeyPress:
 
 ```javascript
 class MyClass extends React.Component {
@@ -873,6 +961,7 @@ export class List extends React.Component {
   render() {
     let titleText = `Favorite ${this.props.type}`;
     if (this.props.children instanceof Array) {
+      // Add an s to make it plural if there is more than one
     	titleText += 's';
     }
     return (
@@ -1055,7 +1144,7 @@ Every React component you’ve ever interacted with does the first step at a min
 
 Most interesting components are updated at some point. A purely static component—like, for example, a logo—might not ever update. But if a component’s state changes, it updates. Or if different props are passed to a component, it updates.
 
-Finally, a component is unmounted when it’s removed from the DOM. For example, if you have a button that hides a component, chances are that component will be unmounted. If your app has multiple screens, it’s likely that each screen (and all of its child components) will be unmounted. If a component is “alive” for the entire lifetime of your app (say, a top-level <App /> component or a persistent navigation bar), it won’t be unmounted. But most components can get unmounted one way or another!
+Finally, a component is unmounted when it’s removed from the DOM. For example, if you have a button that hides a component, chances are that component will be unmounted. If your app has multiple screens, it’s likely that each screen (and all of its child components) will be unmounted. If a component is "alive" for the entire lifetime of your app (say, a top-level <App /> component or a persistent navigation bar), it won’t be unmounted. But most components can get unmounted one way or another!
 
 It’s worth noting that each component instance has its own lifecycle. For example, if you have 3 buttons on a page, then there are 3 component instances, each with its own lifecycle. However, once a component instance is unmounted, that’s it—it will never be re-mounted, or updated again, or unmounted.
 
@@ -1241,7 +1330,7 @@ With Hooks, we can use simple function components to do lots of the fancy things
 
 React Hooks, plainly put, are functions that let us manage the internal state of components and handle post-rendering side effects directly from our function components. Hooks don’t work inside classes — they let us use fancy React features without classes. Keep in mind that function components and React Hooks do not replace class components. They are completely optional; just a new tool that we can take advantage of.
 
-Note: If you’re familiar with lifecycle methods of class components, you could say that Hooks let us “hook into” state and lifecycle features directly from our function components.
+Note: If you’re familiar with lifecycle methods of class components, you could say that Hooks let us "hook into" state and lifecycle features directly from our function components.
 
 React offers a number of built-in Hooks. A few of these include useState(), useEffect(), useContext(), useReducer(), and useRef(). [See the full list in the docs](https://reactjs.org/docs/hooks-reference.html).
 
@@ -1315,13 +1404,58 @@ export default function ColorPicker() {
 
 #### Initialize State
 
+You can set a state at the beginning with: `const [color, setColor] = useState("Tomato");`. 
 
+There are three ways in which this code affects our component:
+
+1. During the first render, the initial state argument is used.
+2. When the state setter is called, React ignores the initial state argument and uses the new value.
+3. When the component re-renders for any other reason, React continues to use the same value from the previous render.
+
+#### Use State Setter Outside of JSX
+
+Let’s see how to manage the changing value of a string as a user types into a text input field:
+
+```javascript
+import React, { useState } from 'react';
+ 
+export default function EmailTextInput() {
+  const [email, setEmail] = useState('');
+  const handleChange = (event) => {
+    const updatedEmail = event.target.value;
+    setEmail(updatedEmail);
+  }
+ 
+  return (
+    <input value={email} onChange={handleChange} />
+  );
+}
+```
+
+Let’s break down how this code works!
+
+- The square brackets on the left side of the assignment operator signal array destructuring
+- The local variable named email is assigned the current state value at index 0 from the array returned by useState()
+- The local variable named setEmail() is assigned a reference to the state setter function at index 1 from the array returned by useState()
+- It’s convention to name this variable using the current state variable (email) with "set" prepended
+
+The JSX input tag has an event listener called onChange. This event listener calls an event handler each time the user types something in this element. In the example above, our event handler is defined inside of the definition for our function component, but outside of our JSX. Earlier in this lesson, we wrote our event handlers right in our JSX. Those inline event handlers work perfectly fine, but when we want to do something more interesting than just calling the state setter with a static value, it’s a good idea to separate that logic from everything else going on in our JSX. This separation of concerns makes our code easier to read, test, and modify.
+
+You can change:
+
+```javascript
+const updatedEmail = event.target.value;
+setEmail(updatedEmail);
+
+// to this
+const handleChange = ({target}) => setEmail(target.value);
+```
 
 ### JSX
 
 JSX is a syntax extension for JavaScript. It was written to be used with React. JSX code looks a lot like HTML.
 
-What does “syntax extension” mean?
+What does "syntax extension" mean?
 
 In this case, it means that JSX is not valid JavaScript. Web browsers can’t read it!
 
@@ -1588,7 +1722,7 @@ ReactDOM.render(
 
 ##### Ternary Operator
 
-Recall how it works: you write x ? y : z, where x, y, and z are all JavaScript expressions. When your code is executed, x is evaluated as either “truthy” or “falsy.” If x is truthy, then the entire ternary operator returns y. If x is falsy, then the entire ternary operator returns z. [Here’s](http://stackoverflow.com/questions/6259982/how-to-use-the-ternary-operator-in-javascript) a nice explanation if you need a refresher.
+Recall how it works: you write x ? y : z, where x, y, and z are all JavaScript expressions. When your code is executed, x is evaluated as either "truthy" or "falsy." If x is truthy, then the entire ternary operator returns y. If x is falsy, then the entire ternary operator returns z. [Here’s](http://stackoverflow.com/questions/6259982/how-to-use-the-ternary-operator-in-javascript) a nice explanation if you need a refresher.
 
 ```javascript
 const headline = (
@@ -1652,7 +1786,7 @@ keys don’t do anything that you can see! React uses them internally to keep tr
 
 Not all lists need to have keys. A list needs keys if either of the following are true:
 
-The list-items have memory from one render to the next. For instance, when a to-do list renders, each item must “remember” whether it was checked off. The items shouldn’t get amnesia when they render.
+The list-items have memory from one render to the next. For instance, when a to-do list renders, each item must "remember" whether it was checked off. The items shouldn’t get amnesia when they render.
 
 A list’s order might be shuffled. For instance, a list of search results might be shuffled from one render to the next.
 
