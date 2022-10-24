@@ -66,6 +66,9 @@
         - [Update Function Component State](#update-function-component-state)
       - [Initialize State](#initialize-state)
       - [Use State Setter Outside of JSX](#use-state-setter-outside-of-jsx)
+        - [Longer Example](#longer-example)
+      - [Set From Previous State](#set-from-previous-state)
+      - [Arrays in State](#arrays-in-state)
     - [JSX](#jsx)
       - [JSX Elements](#jsx-elements)
       - [JSX Elements And Their Surroundings](#jsx-elements-and-their-surroundings)
@@ -1414,6 +1417,8 @@ There are three ways in which this code affects our component:
 
 #### Use State Setter Outside of JSX
 
+https://www.codecademy.com/courses/react-101/lessons/the-state-hook/exercises/use-state-setter-outside-of-jsx
+
 Let’s see how to manage the changing value of a string as a user types into a text input field:
 
 ```javascript
@@ -1427,6 +1432,8 @@ export default function EmailTextInput() {
   }
  
   return (
+    // Here value={email} will set the value to the current
+    // value in e-mail in the event hook
     <input value={email} onChange={handleChange} />
   );
 }
@@ -1449,6 +1456,115 @@ setEmail(updatedEmail);
 
 // to this
 const handleChange = ({target}) => setEmail(target.value);
+```
+
+##### Longer Example
+
+```javascript
+import React, { useState } from "react";
+
+// regex to match numbers between 1 and 10 digits long
+const validPhoneNumber = /^\d{1,10}$/;
+
+export default function PhoneNumber() {
+  const [phone, setPhone] = useState('');
+  
+   const handleChange = ({ target })=> {
+     const newPhone = target.value;
+     const isValid = validPhoneNumber.test(newPhone);
+     if (isValid) {
+       setPhone(newPhone);
+     }
+     // just ignore the event, when new value is invalid
+    };
+
+  return (
+    <div className='phone'>
+      <label for='phone-input'>Phone: </label>
+      <input value={phone} onChange={handleChange} id='phone-input' />
+    </div>
+  );
+}
+```
+
+#### Set From Previous State
+
+Often, the next value of our state is calculated using the current state. In this case, it is best practice to update state with a callback function. If we do not, we risk capturing outdated, or “stale”, state values.
+
+```javascript
+import React, { useState } from 'react';
+ 
+export default function Counter() {
+  const [count, setCount] = useState(0);
+ 
+  const increment = () => setCount(prevCount => prevCount + 1);
+ 
+  return (
+    <div>
+      <p>Wow, you've clicked that button: {count} times</p>
+      <button onClick={increment}>Click here!</button>
+    </div>
+  );
+}
+```
+
+When the button is pressed, the increment() event handler is called. Inside of this function, we use our setCount() state setter in a new way! Because the next value of count depends on the previous value of count, we pass a callback function as the argument for setCount() instead of a value (as we’ve done in previous exercises).
+
+`setCount(prevCount => prevCount + 1)`
+
+When our state setter calls the callback function, this state setter callback function takes our previous count as an argument. The value returned by this state setter callback function is used as the next value of count (in this case prevCount + 1). Note: We can just call setCount(count +1) and it would work the same in this example… but for reasons that are out of scope for this lesson, it is safer to use the callback method. 
+
+#### Arrays in State
+
+```javascript
+import React, { useState } from "react";
+import ItemList from "./ItemList";
+import { produce, pantryItems } from "./storeItems";
+
+export default function GroceryCart() {
+  // declare and initialize state 
+  const [cart, setCart] = useState([]);
+
+  // addItem is the event handler and will receive the item that
+  // gets clicked
+  const addItem = (item) => {
+
+    // setCart is the state changer (can't remember the right name)
+    // and this will actually tell the component to update its state.
+    // Via the nonsense magic that is the totality of Javascript, it
+    // will magically receive the previous state to this function
+    // (though there is no way to know that without just looking it
+    // up). We then use spread syntax to expand the previous array
+    // and add it with the item.
+    setCart((prev) => {
+      return [item, ...prev];
+    });
+   };
+
+  // This removes the item at some set index.
+  const removeItem = (targetIndex) => {
+     setCart((prev) => {
+      return prev.filter((item, index) => index !== targetIndex);
+    });
+  };
+
+  return (
+    <div>
+      <h1>Grocery Cart</h1>
+      <ul>
+        {cart.map((item, index) => (
+          <li onClick={() => removeItem(index)} key={index}>
+            {item}
+          </li>
+        ))}
+      </ul>
+      <h2>Produce</h2>
+      <ItemList items={produce} onItemClick={addItem} />
+      <h2>Pantry Items</h2>
+      <ItemList items={pantryItems} onItemClick={addItem} />
+    </div>
+  );
+}
 ```
 
 ### JSX
