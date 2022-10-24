@@ -63,12 +63,20 @@
       - [Stateless Functional Components](#stateless-functional-components)
       - [Function Component Props](#function-component-props)
     - [React Hooks](#react-hooks)
-        - [Update Function Component State](#update-function-component-state)
+        - [Comparison Class vs Function](#comparison-class-vs-function)
+      - [Update Function Component State](#update-function-component-state)
       - [Initialize State](#initialize-state)
       - [Use State Setter Outside of JSX](#use-state-setter-outside-of-jsx)
         - [Longer Example](#longer-example)
       - [Set From Previous State](#set-from-previous-state)
       - [Arrays in State](#arrays-in-state)
+      - [Objects in State](#objects-in-state)
+        - [Longer Example](#longer-example-1)
+      - [Separate Hooks for Separate States](#separate-hooks-for-separate-states)
+        - [Comparison](#comparison)
+    - [The Effect Hook - useEffect](#the-effect-hook---useeffect)
+      - [Function Component Effects](#function-component-effects)
+      - [Clean Up Effects](#clean-up-effects)
     - [JSX](#jsx)
       - [JSX Elements](#jsx-elements)
       - [JSX Elements And Their Surroundings](#jsx-elements-and-their-surroundings)
@@ -1337,7 +1345,129 @@ Note: If you’re familiar with lifecycle methods of class components, you could
 
 React offers a number of built-in Hooks. A few of these include useState(), useEffect(), useContext(), useReducer(), and useRef(). [See the full list in the docs](https://reactjs.org/docs/hooks-reference.html).
 
-##### Update Function Component State
+- With React, we feed static and dynamic data models to JSX to render a view to the screen
+- Use Hooks to “hook into” internal component state for managing dynamic data in function components
+- We employ the State Hook by using the code below:
+  - currentState to reference the current value of state
+  - stateSetter to reference a function used to update the value of this state
+  - the initialState argument to initialize the value of state for the component’s first render `const [currentState, stateSetter] = useState( initialState );`
+- Call state setters in event handlers
+- Define simple event handlers inline with our JSX event listeners and define complex event handlers outside of our JSX
+- Use a state setter callback function when our next value depends on our previous value
+- Use arrays and objects to organize and manage related data that tends to change together
+- Use the spread syntax on collections of dynamic data to copy the previous state into the next state like so: setArrayState((prev) => [ ...prev ]) and setObjectState((prev) => ({ ...prev }))
+- Split state into multiple, simpler variables instead of throwing it all into one state object
+
+##### Comparison Class vs Function
+
+**Class**
+
+```javascript
+import React, { Component } from "react";
+import NewTask from "../Presentational/NewTask";
+import TasksList from "../Presentational/TasksList";
+
+export default class AppClass extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      newTask: {},
+      allTasks: []
+    };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
+  }
+
+  handleChange({ target }){
+    const { name, value } = target;
+    this.setState((prevState) => ({
+      ...prevState,
+      newTask: {
+        ...prevState.newTask,
+        [name]: value,
+        id: Date.now()
+      }
+    }));
+  }
+
+  handleSubmit(event){
+    event.preventDefault();
+    if (!this.state.newTask.title) return;
+    this.setState((prevState) => ({
+      allTasks: [prevState.newTask, ...prevState.allTasks],
+      newTask: {}
+    }));
+  }
+
+  handleDelete(taskIdToRemove){
+    this.setState((prevState) => ({
+      ...prevState,
+      allTasks: prevState.allTasks.filter((task) => task.id !== taskIdToRemove)
+    }));
+  }
+
+  render() {
+    return (
+      <main>
+        <h1>Tasks</h1>
+        <NewTask
+          newTask={this.state.newTask}
+          handleChange={this.handleChange}
+          handleSubmit={this.handleSubmit}
+        />
+        <TasksList
+          allTasks={this.state.allTasks}
+          handleDelete={this.handleDelete}
+        />
+      </main>
+    );
+  }
+}
+```
+
+**Function**
+
+```javascript
+import React, { useState } from "react";
+import NewTask from "../Presentational/NewTask";
+import TasksList from "../Presentational/TasksList";
+
+export default function AppFunction() {
+  const [newTask, setNewTask] = useState({});
+  const handleChange = ({ target }) => {
+    const { name, value } = target;
+    setNewTask((prev) => ({ ...prev, id: Date.now(), [name]: value }));
+  };
+
+  const [allTasks, setAllTasks] = useState([]);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (!newTask.title) return;
+    setAllTasks((prev) => [newTask, ...prev]);
+    setNewTask({});
+  };
+  const handleDelete = (taskIdToRemove) => {
+    setAllTasks((prev) => prev.filter(
+      (task) => task.id !== taskIdToRemove
+    ));
+  };
+
+  return (
+    <main>
+      <h1>Tasks</h1>
+      <NewTask
+        newTask={newTask}
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
+      />
+      <TasksList allTasks={allTasks} handleDelete={handleDelete} />
+    </main>
+  );
+}
+```
+
+#### Update Function Component State
 
 Let’s get started with the State Hook, the most common Hook used for building React components. The State Hook is a named export from the React library, so we import it like this:
 
@@ -1566,6 +1696,244 @@ export default function GroceryCart() {
   );
 }
 ```
+
+#### Objects in State
+
+```javascript
+export default function Login() {
+  const [formState, setFormState] = useState({});
+ 
+  const handleChange = ({ target }) => {
+    const { name, value } = target;
+    setFormState((prev) => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+ 
+  return (
+    <form>
+      <input
+        value={formState.firstName}
+        onChange={handleChange}
+        name="firstName"
+        type="text"
+      />
+      <input
+        value={formState.password}
+        onChange={handleChange}
+        type="password"
+        name="password"
+      />
+    </form>
+  );
+}
+```
+
+A few things to notice:
+
+- We use a state setter callback function to update state based on the previous value
+The spread syntax is the same for objects as for arrays: { ...oldObject, newKey: newValue }
+- We reuse our event handler across multiple inputs by using the input tag’s name attribute to identify which input the change event came from
+- Once again, when updating the state with setFormState() inside a function component, we do not modify the same object. We must copy over the values from the previous object when setting the next value of state. Thankfully, the spread syntax makes this super easy to do!
+
+Anytime one of the input values is updated, the handleChange() function will be called. Inside of this event handler, we use object destructuring to unpack the target property from our event object, then we use object destructuring again to unpack the name and value properties from the target object.
+
+Inside of our state setter callback function, we wrap our curly brackets in parentheses like so: setFormState((prev) => ({ ...prev })). This tells JavaScript that our curly brackets refer to a new object to be returned. We use ..., the spread operator, to fill in the corresponding fields from our previous state. Finally, we overwrite the appropriate key with its updated value. Did you notice the square brackets around the name? This Computed Property Name allows us to use the string value stored by the name variable as a property key!
+
+##### Longer Example
+
+```javascript
+import React, { useState } from "react";
+
+export default function EditProfile() {
+  const [profile, setProfile] = useState({});
+
+  const handleChange = ({ target }) => {
+    const {name, value } = target;
+    setProfile((prevProfile) => ({
+      ...prevProfile,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    alert(JSON.stringify(profile, '', 2));
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input
+        value={profile.firstName || ''}
+        name="firstName"
+        type="text"
+        placeholder="First Name"
+        onChange={handleChange}
+      />
+      <input
+        value={profile.lastName || ''}
+        type="text"
+        name="lastName"
+        placeholder="Last Name"
+        onChange={handleChange}
+      />
+      <input
+        value={profile.bday || ''}
+        type="date"
+        name="bday"
+        onChange={handleChange}
+      />
+      <input
+        value={profile.password || ''}
+        type="password"
+        name="password"
+        placeholder="Password"
+        onChange={handleChange}
+      />
+      <button type="submit">Submit</button>
+    </form>
+    
+  );
+}
+```
+
+#### Separate Hooks for Separate States
+
+While there are times when it can be helpful to store related data in a data collection like an array or object, it can also be helpful to separate data that changes separately into completely different state variables. Managing dynamic data is much easier when we keep our data models as simple as possible.
+
+For example, if we had a single object that held state for a subject you are studying at school, it might look something like this:
+
+```javascript
+function Subject() {
+  const [state, setState] = useState({
+    currentGrade: 'B',
+    classmates: ['Hasan', 'Sam', 'Emma'],
+    classDetails: {topic: 'Math', teacher: 'Ms. Barry', room: 201};
+    exams: [{unit: 1, score: 91}, {unit: 2, score: 88}]);
+  });
+```
+
+
+This would work, but think about how messy it could get to copy over all the other values when we need to update something in this big state object. For example, to update the grade on an exam, we would need an event handler that did something like this:
+
+```javascript
+// Get the previous state in and pass that to something that is going to return a new object {}
+setState((prev) => ({
+  // Expand the previous state to grab everything
+ ...prev,
+ // You want the previous state, except with exams you're going to grab just exams and then map
+ // that to a new function where you'll extract just the exam you want and change the score
+  exams: prev.exams.map((exam) => {
+    if( exam.unit === updatedExam.unit ){
+      return { 
+        ...exam,
+        score: updatedExam.score
+      };
+    } else {
+      return exam;
+    }
+  }),
+}));
+```
+
+Yikes! Complex code like this is likely to cause bugs! Luckily, there is another option… We can make more than one call to the State Hook. In fact, we can make as many calls to useState() as we want! It’s best to split state into multiple state variables based on which values tend to change together. We can rewrite the previous example as follows…
+
+```javascript
+function Subject() {
+  const [currentGrade, setGrade] = useState('B');
+  const [classmates, setClassmates] = useState(['Hasan', 'Sam', 'Emma']);
+  const [classDetails, setClassDetails] = useState({topic: 'Math', teacher: 'Ms. Barry', room: 201});
+  const [exams, setExams] = useState([{unit: 1, score: 91}, {unit: 2, score: 88}]);
+  // ...
+}
+```
+
+See https://reactjs.org/docs/hooks-state.html#tip-using-multiple-state-variables
+
+##### Comparison
+
+```javascript
+function Musical() {
+   const [state, setState] = useState({
+    title: "Best Musical Ever",
+    actors: ["George Wilson", "Tim Hughes", "Larry Clements"],
+    locations: {
+      Chicago: {
+        dates: ["1/1", "2/2"], 
+        address: "chicago theater"}, 
+      SanFrancisco: {
+        dates: ["5/2"], 
+        address: "sf theater"
+      }
+    }
+  })
+ }
+
+function MusicalRefactored() {
+  const [title, setTitle] = useState("Best Musical Ever");
+  const [actors, setActors] = useState(["George Wilson", "Tim Hughes", "Larry Clements"]);
+  const [locations, setLocations] = useState({
+    Chicago: {
+      dates: ["1/1", "2/2"], 
+      address: "chicago theater"}, 
+    SanFrancisco: {
+      dates: ["5/2"], 
+      address: "sf theater"
+    }
+  });
+}
+```
+
+### The Effect Hook - useEffect
+
+Before Hooks, function components were only used to accept data in the form of props and return some JSX to be rendered. However, as we learned in the last lesson, the State Hook allows us to manage dynamic data, in the form of component state, within our function components.
+
+In this lesson, we’ll use the Effect Hook to run some JavaScript code after each render, such as:
+
+- fetching data from a backend service
+- subscribing to a stream of data
+- managing timers and intervals
+- reading from and making changes to the DOM
+
+**Why after each render?**
+
+Most interesting components will re-render multiple times throughout their lifetime and these key moments present the perfect opportunity to execute these “side effects”.
+
+There are three key moments when the Effect Hook can be utilized:
+
+- When the component is first added, or mounted, to the DOM and renders
+- When the state or props change, causing the component to re-render
+- When the component is removed, or unmounted, from the DOM.
+
+#### Function Component Effects
+
+```javascript
+import React, { useState, useEffect } from 'react';
+ 
+function PageTitle() {
+  const [name, setName] = useState('');
+ 
+  useEffect(() => {
+    document.title = `Hi, ${name}`;
+  });
+ 
+  return (
+    <div>
+      <p>Use the input field below to rename this page!</p>
+      <input onChange={({target}) => setName(target.value)} value={name} type='text' />
+    </div>
+  );
+}
+```
+
+In our effect, we assign the value of the name variable to the document.title within a string. For more on this syntax, have a look at this explanation of the document’s title property.
+
+Notice how we use the current state inside of our effect. Even though our effect is called after the component renders, we still have access to the variables in the scope of our function component! When React renders our component, it will update the DOM as usual, and then run our effect after the DOM has been updated. This happens for every render, including the first and last one.
+
+#### Clean Up Effects
+
+
 
 ### JSX
 
