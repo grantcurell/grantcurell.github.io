@@ -349,17 +349,150 @@
       <div class="wy-nav-content">
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li><li>Notes on nodejs</li>
+    <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+      <li>Notes on nodejs</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
   <hr/>
 </div>
-
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
                 <h1 id="notes-on-nodejs">Notes on nodejs</h1>
+<ul>
+<li><a href="#notes-on-nodejs">Notes on nodejs</a></li>
+<li><a href="#required-javascript">Required Javascript</a><ul>
+<li><a href="#arrow-expressions">Arrow expressions</a></li>
+<li><a href="#promises">Promises</a></li>
+<li><a href="#resolve-and-reject">Resolve and Reject</a></li>
+<li><a href="#asyncawait">Async/Await</a></li>
+<li><a href="#setinterval-and-settimeout">setInterval() and setTimeout()</a></li>
+</ul>
+</li>
+<li><a href="#node">Node</a><ul>
+<li><a href="#the-node-repl-read-eval-print-loop">The Node REPL (read-eval-print loop)</a></li>
+<li><a href="#running-a-program-with-node">Running a Program with Node</a></li>
+<li><a href="#core-modules">Core Modules</a></li>
+<li><a href="#console-module">Console Module</a></li>
+<li><a href="#the-process-module">The Process Module</a></li>
+<li><a href="#the-os-module">The OS Module</a></li>
+<li><a href="#the-util-module">The Util Module</a></li>
+<li><a href="#npm">NPM</a></li>
+<li><a href="#create-a-new-app">Create a new app</a></li>
+<li><a href="#nodemon">nodemon</a></li>
+<li><a href="#package-scope">Package Scope</a><ul>
+<li><a href="#global-packages">Global Packages</a></li>
+</ul>
+</li>
+<li><a href="#installing-a-custom-package">Installing a Custom Package</a></li>
+<li><a href="#modules">Modules</a></li>
+<li><a href="#exporting">Exporting</a></li>
+<li><a href="#require">Require</a></li>
+<li><a href="#using-object-destructuring-to-be-more-selective-with-require">Using Object Destructuring to be more Selective With require()</a></li>
+<li><a href="#the-events-module">The Events Module</a></li>
+<li><a href="#user-input-and-output">User Input and Output</a></li>
+<li><a href="#the-error-module">The Error Module</a></li>
+<li><a href="#why-error-first-callbacks">Why Error First Callbacks</a></li>
+<li><a href="#the-buffer-module">The Buffer Module</a></li>
+<li><a href="#readable-streams">Readable Streams</a></li>
+<li><a href="#further-explanation">Further explanation</a></li>
+<li><a href="#writable-streams">Writable Streams</a></li>
+<li><a href="#timers-modules">Timers Modules</a></li>
+</ul>
+</li>
+<li><a href="#knexjs">Knex.js</a><ul>
+<li><a href="#how-does-exportsup-and-exportsdown-work">How does exports.up and exports.down work</a></li>
+<li><a href="#seed-files">Seed Files</a></li>
+</ul>
+</li>
+<li><a href="#babel">Babel</a></li>
+<li><a href="#reactjs">ReactJS</a><ul>
+<li><a href="#importing-react-required-code">Importing React Required Code</a></li>
+<li><a href="#components">Components</a></li>
+<li><a href="#create-a-component-class">Create a Component Class</a></li>
+<li><a href="#the-render-function">The Render Function</a></li>
+<li><a href="#create-a-component-instance">Create a Component Instance</a></li>
+<li><a href="#use-this-in-a-class">Use This in a Class</a></li>
+<li><a href="#render-components-with-components">Render Components with Components</a></li>
+<li><a href="#importing-files-and-exporting-functionality">Importing Files and Exporting Functionality</a><ul>
+<li><a href="#importing">Importing</a></li>
+<li><a href="#exporting-1">Exporting</a></li>
+</ul>
+</li>
+<li><a href="#component-props">Component Props</a></li>
+<li><a href="#event-handler">Event Handler</a></li>
+<li><a href="#handleevent-onevent-and-thispropsonevent">handleEvent, onEvent, and this.props.onEvent</a></li>
+<li><a href="#thispropschildren">this.props.children</a></li>
+<li><a href="#default-properties">Default Properties</a></li>
+<li><a href="#component-state">Component State</a><ul>
+<li><a href="#thissetstate-from-another-function">this.setState from Another Function</a></li>
+</ul>
+</li>
+<li><a href="#component-lifecycle">Component Lifecycle</a></li>
+<li><a href="#componentdidmount">componentDidMount</a></li>
+<li><a href="#componentwillunmount">componentWillUnmount</a></li>
+<li><a href="#componentdidupdate">componentDidUpdate</a></li>
+<li><a href="#stateless-functional-components">Stateless Functional Components</a></li>
+<li><a href="#function-component-props">Function Component Props</a></li>
+<li><a href="#react-hooks">React Hooks</a><ul>
+<li><a href="#comparison-class-vs-function">Comparison Class vs Function</a></li>
+</ul>
+</li>
+<li><a href="#update-function-component-state">Update Function Component State</a></li>
+<li><a href="#initialize-state">Initialize State</a></li>
+<li><a href="#use-state-setter-outside-of-jsx">Use State Setter Outside of JSX</a><ul>
+<li><a href="#longer-example">Longer Example</a></li>
+</ul>
+</li>
+<li><a href="#set-from-previous-state">Set From Previous State</a></li>
+<li><a href="#arrays-in-state">Arrays in State</a></li>
+<li><a href="#objects-in-state">Objects in State</a><ul>
+<li><a href="#longer-example-1">Longer Example</a></li>
+</ul>
+</li>
+<li><a href="#separate-hooks-for-separate-states">Separate Hooks for Separate States</a><ul>
+<li><a href="#comparison">Comparison</a></li>
+</ul>
+</li>
+<li><a href="#the-effect-hook---useeffect">The Effect Hook - useEffect</a></li>
+<li><a href="#function-component-effects">Function Component Effects</a></li>
+<li><a href="#clean-up-effects">Clean Up Effects</a></li>
+<li><a href="#control-when-effects-are-called">Control When Effects are Called</a></li>
+<li><a href="#fetch-data-from-a-server">Fetch Data from a Server</a></li>
+<li><a href="#rules-of-hooks">Rules of Hooks</a></li>
+<li><a href="#separate-hooks-for-separate-effects">Separate Hooks for Separate Effects</a></li>
+<li><a href="#stateless-components-from-stateful-components">Stateless Components from Stateful Components</a></li>
+<li><a href="#build-a-stateful-component-class">Build a Stateful Component Class</a></li>
+<li><a href="#dont-update-props">Don't Update props</a></li>
+<li><a href="#child-components-update-their-parents-state">Child Components Update Their Parents' State</a></li>
+<li><a href="#jsx">JSX</a></li>
+<li><a href="#jsx-elements">JSX Elements</a></li>
+<li><a href="#jsx-elements-and-their-surroundings">JSX Elements And Their Surroundings</a></li>
+<li><a href="#attributes-in-jsx">Attributes In JSX</a></li>
+<li><a href="#nested-jsx">Nested JSX</a></li>
+<li><a href="#jsx-outer-elements">JSX Outer Elements</a></li>
+<li><a href="#rendering-jsx">Rendering JSX</a></li>
+<li><a href="#reactdomrender">ReactDOM.render()</a><ul>
+<li><a href="#passing-a-variable-to-reactdomrender">Passing a Variable to ReactDOM.render()</a></li>
+</ul>
+</li>
+<li><a href="#class-vs-classname">class vs className</a></li>
+<li><a href="#self-closing-tags">Self-Closing Tags</a></li>
+<li><a href="#javascript-in-jsx">Javascript in JSX</a></li>
+<li><a href="#variables-in-jsx">Variables in JSX</a></li>
+<li><a href="#event-listeners-in-jsx">Event Listeners in JSX</a></li>
+<li><a href="#jsx-conditionals">JSX Conditionals</a><ul>
+<li><a href="#ternary-operator">Ternary Operator</a></li>
+<li><a href="#">&amp;&amp;</a></li>
+</ul>
+</li>
+<li><a href="#map-in-jsx">.map in JSX</a></li>
+<li><a href="#list-keys">List Keys</a></li>
+<li><a href="#react-create-element">React Create Element</a></li>
+</ul>
+</li>
+</ul>
 <h2 id="required-javascript">Required Javascript</h2>
 <h3 id="arrow-expressions">Arrow expressions</h3>
 <p>Let’s take a look at the code below. You will see two different functions defined. The first is anonymous (function is not named), and the second is named. When using an arrow expression, we do not use the function declaration. To define an arrow expression you simply use: () =&gt; { }. You can pass arguments to an arrow expression between the parenthesis (()).</p>
@@ -468,7 +601,7 @@ const events = require('events');
 <li>.table() - prints out a table in the terminal from an object or array</li>
 </ul>
 <h3 id="the-process-module">The Process Module</h3>
-<p>Node has a global process object with useful methods and information about the current process. The console.log() method is a “thin wrapper” on the .stdout.write() method of the process object. </p>
+<p>Node has a global process object with useful methods and information about the current process. The console.log() method is a "thin wrapper" on the .stdout.write() method of the process object. </p>
 <p>The process.env property is an object which stores and controls information about the environment in which the process is currently running. For example, the process.env object contains a PWD property which holds a string with the directory in which the current process is located. It can be useful to have some if/else logic in a program depending on the current environment— a web application in a development phase might perform different tasks than when it’s live to users. We could store this information on the process.env. One convention is to add a property to process.env with the key NODE_ENV and a value of either production or development.</p>
 <pre><code class="language-javascript">if (process.env.NODE_ENV === 'development'){
   console.log('Testing! Testing! Does everything work?');
@@ -839,7 +972,7 @@ ReactDOM.render(
 </code></pre>
 <p>On line 4, you know that you are declaring a new component class, which is like a factory for building React components. You know that React.Component is a class, which you must subclass in order to create a component class of your own. You also know that React.Component is a property on the object which was returned by import React from 'react' on line 1.</p>
 <h4 id="the-render-function">The Render Function</h4>
-<p>A render method is a property whose name is render, and whose value is a function. The term “render method” can refer to the entire property, or to just the function part.</p>
+<p>A render method is a property whose name is render, and whose value is a function. The term "render method" can refer to the entire property, or to just the function part.</p>
 <pre><code class="language-javascript">class ComponentFactory extends React.Component {
   render() {
     return &lt;h1&gt;Hello world&lt;/h1&gt;;
@@ -847,7 +980,7 @@ ReactDOM.render(
 }
 </code></pre>
 <h4 id="create-a-component-instance">Create a Component Instance</h4>
-<p>To make a React component, you write a JSX element. Instead of naming your JSX element something like h1 or div like you’ve done before, give it the same name as a component class. Voilà, there’s your component instance! JSX elements can be either HTML-like, or component instances. JSX uses capitalization to distinguish between the two! That is the React-specific reason why component class names must begin with capital letters. In a JSX element, that capitalized first letter says, “I will be a component instance and not an HTML tag.”</p>
+<p>To make a React component, you write a JSX element. Instead of naming your JSX element something like h1 or div like you’ve done before, give it the same name as a component class. Voilà, there’s your component instance! JSX elements can be either HTML-like, or component instances. JSX uses capitalization to distinguish between the two! That is the React-specific reason why component class names must begin with capital letters. In a JSX element, that capitalized first letter says, "I will be a component instance and not an HTML tag."</p>
 <p>Whenever you make a component, that component inherits all of the methods of its component class. MyComponentClass has one method: MyComponentClass.render(). Therefore, <MyComponentClass /> also has a method named render.</p>
 <p>In order to render a component, that component needs to have a method named render. Your component has this! It inherited a method named render from MyComponentClass.</p>
 <p>To call a component’s render method, you pass that component to ReactDOM.render(). Notice your component, being passed as ReactDOM.render()‘s first argument:</p>
@@ -857,7 +990,7 @@ ReactDOM.render(
 );
 </code></pre>
 <p>ReactDOM.render() will tell <MyComponentClass /> to call its render method.</p>
-<p><MyComponentClass /> will call its render method, which will return the JSX element <h1>Hello world</h1>. ReactDOM.render() will then take that resulting JSX element, and add it to the virtual DOM. This will make “Hello world” appear on the screen.</p>
+<p><MyComponentClass /> will call its render method, which will return the JSX element <h1>Hello world</h1>. ReactDOM.render() will then take that resulting JSX element, and add it to the virtual DOM. This will make "Hello world" appear on the screen.</p>
 <h4 id="use-this-in-a-class">Use This in a Class</h4>
 <pre><code class="language-javascript">class IceCreamGuy extends React.Component {
   get food() {
@@ -886,7 +1019,7 @@ class Crazy extends React.Component {
 <h5 id="importing">Importing</h5>
 <p>The second important difference involves the contents of the string at the end of the statement: 'react' vs './NavBar.js'.</p>
 <p>If you use an import statement, and the string at the end begins with either a dot or a slash, then import will treat that string as a filepath. import will follow that filepath, and import the file that it finds.</p>
-<p>If your filepath doesn’t have a file extension, then “.js” is assumed. So the above example could be shortened:</p>
+<p>If your filepath doesn’t have a file extension, then ".js" is assumed. So the above example could be shortened:</p>
 <p><code>import { NavBar } from './NavBar';</code></p>
 <p>One final, important note:
 None of this behavior is specific to React! Module systems of independent, importable files are a very popular way to organize code. <a href="https://hacks.mozilla.org/2015/08/es6-in-depth-modules/">React’s specific module system comes from ES6.</a></p>
@@ -940,6 +1073,7 @@ import React from 'react';
 export class Button extends React.Component {
   render() {
     return (
+      // TODO - why is it `this` here?
       &lt;button onClick={this.props.talk}&gt;
         Click me!
       &lt;/button&gt;
@@ -956,8 +1090,8 @@ export class Button extends React.Component {
 <p>For our prop name, we also chose talk, as shown on line 15:</p>
 <p><code>return &lt;Button talk={this.talk} /&gt;;</code></p>
 <p>These two names can be whatever you want. However, there is a naming convention that they often follow. You don’t have to follow this convention, but you should understand it when you see it.</p>
-<p>Here’s how the naming convention works: first, think about what type of event you are listening for. In our example, the event type was “click.”</p>
-<p>If you are listening for a “click” event, then you name your event handler handleClick. If you are listening for a “keyPress” event, then you name your event handler handleKeyPress:</p>
+<p>Here’s how the naming convention works: first, think about what type of event you are listening for. In our example, the event type was "click."</p>
+<p>If you are listening for a "click" event, then you name your event handler handleClick. If you are listening for a "keyPress" event, then you name your event handler handleKeyPress:</p>
 <pre><code class="language-javascript">class MyClass extends React.Component {
   handleHover() {
     alert('I am an event handler.');
@@ -965,7 +1099,7 @@ export class Button extends React.Component {
   }
 }
 </code></pre>
-<p>Your prop name should be the word on, plus your event type. If you are listening for a “click” event, then you name your prop onClick. If you are listening for a “keyPress” event, then you name your prop onKeyPress:</p>
+<p>Your prop name should be the word on, plus your event type. If you are listening for a "click" event, then you name your prop onClick. If you are listening for a "keyPress" event, then you name your prop onKeyPress:</p>
 <pre><code class="language-javascript">class MyClass extends React.Component {
   handleHover() {
     alert('I am an event handler.');
@@ -988,6 +1122,7 @@ export class List extends React.Component {
   render() {
     let titleText = `Favorite ${this.props.type}`;
     if (this.props.children instanceof Array) {
+      // Add an s to make it plural if there is more than one
         titleText += 's';
     }
     return (
@@ -1142,7 +1277,7 @@ ReactDOM.render(&lt;Toggle /&gt;, document.getElementById('app'));
 Every React component you’ve ever interacted with does the first step at a minimum. If a component never mounted, you’d never see it!</li>
 </ol>
 <p>Most interesting components are updated at some point. A purely static component—like, for example, a logo—might not ever update. But if a component’s state changes, it updates. Or if different props are passed to a component, it updates.</p>
-<p>Finally, a component is unmounted when it’s removed from the DOM. For example, if you have a button that hides a component, chances are that component will be unmounted. If your app has multiple screens, it’s likely that each screen (and all of its child components) will be unmounted. If a component is “alive” for the entire lifetime of your app (say, a top-level <App /> component or a persistent navigation bar), it won’t be unmounted. But most components can get unmounted one way or another!</p>
+<p>Finally, a component is unmounted when it’s removed from the DOM. For example, if you have a button that hides a component, chances are that component will be unmounted. If your app has multiple screens, it’s likely that each screen (and all of its child components) will be unmounted. If a component is "alive" for the entire lifetime of your app (say, a top-level <App /> component or a persistent navigation bar), it won’t be unmounted. But most components can get unmounted one way or another!</p>
 <p>It’s worth noting that each component instance has its own lifecycle. For example, if you have 3 buttons on a page, then there are 3 component instances, each with its own lifecycle. However, once a component instance is unmounted, that’s it—it will never be re-mounted, or updated again, or unmounted.</p>
 <p>React components have several methods, called lifecycle methods, that are called at different parts of a component’s lifecycle. This is how you, the programmer, deal with the lifecycle of a component.</p>
 <p>You may not have known it, but you’ve already used two of the most common lifecycle methods: constructor() and render()! constructor() is the first method called during the mounting phase. render() is called later during the mounting phase, to render the component for the first time, and during the updating phase, to re-render the component.</p>
@@ -1299,9 +1434,125 @@ ReactDOM.render(
 <h3 id="react-hooks">React Hooks</h3>
 <p>With Hooks, we can use simple function components to do lots of the fancy things that we could only do with class components in the past.</p>
 <p>React Hooks, plainly put, are functions that let us manage the internal state of components and handle post-rendering side effects directly from our function components. Hooks don’t work inside classes — they let us use fancy React features without classes. Keep in mind that function components and React Hooks do not replace class components. They are completely optional; just a new tool that we can take advantage of.</p>
-<p>Note: If you’re familiar with lifecycle methods of class components, you could say that Hooks let us “hook into” state and lifecycle features directly from our function components.</p>
+<p>Note: If you’re familiar with lifecycle methods of class components, you could say that Hooks let us "hook into" state and lifecycle features directly from our function components.</p>
 <p>React offers a number of built-in Hooks. A few of these include useState(), useEffect(), useContext(), useReducer(), and useRef(). <a href="https://reactjs.org/docs/hooks-reference.html">See the full list in the docs</a>.</p>
-<h5 id="update-function-component-state">Update Function Component State</h5>
+<ul>
+<li>With React, we feed static and dynamic data models to JSX to render a view to the screen</li>
+<li>Use Hooks to “hook into” internal component state for managing dynamic data in function components</li>
+<li>We employ the State Hook by using the code below:</li>
+<li>currentState to reference the current value of state</li>
+<li>stateSetter to reference a function used to update the value of this state</li>
+<li>the initialState argument to initialize the value of state for the component’s first render <code>const [currentState, stateSetter] = useState( initialState );</code></li>
+<li>Call state setters in event handlers</li>
+<li>Define simple event handlers inline with our JSX event listeners and define complex event handlers outside of our JSX</li>
+<li>Use a state setter callback function when our next value depends on our previous value</li>
+<li>Use arrays and objects to organize and manage related data that tends to change together</li>
+<li>Use the spread syntax on collections of dynamic data to copy the previous state into the next state like so: setArrayState((prev) =&gt; [ ...prev ]) and setObjectState((prev) =&gt; ({ ...prev }))</li>
+<li>Split state into multiple, simpler variables instead of throwing it all into one state object</li>
+</ul>
+<h5 id="comparison-class-vs-function">Comparison Class vs Function</h5>
+<p><strong>Class</strong></p>
+<pre><code class="language-javascript">import React, { Component } from &quot;react&quot;;
+import NewTask from &quot;../Presentational/NewTask&quot;;
+import TasksList from &quot;../Presentational/TasksList&quot;;
+
+export default class AppClass extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      newTask: {},
+      allTasks: []
+    };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
+  }
+
+  handleChange({ target }){
+    const { name, value } = target;
+    this.setState((prevState) =&gt; ({
+      ...prevState,
+      newTask: {
+        ...prevState.newTask,
+        [name]: value,
+        id: Date.now()
+      }
+    }));
+  }
+
+  handleSubmit(event){
+    event.preventDefault();
+    if (!this.state.newTask.title) return;
+    this.setState((prevState) =&gt; ({
+      allTasks: [prevState.newTask, ...prevState.allTasks],
+      newTask: {}
+    }));
+  }
+
+  handleDelete(taskIdToRemove){
+    this.setState((prevState) =&gt; ({
+      ...prevState,
+      allTasks: prevState.allTasks.filter((task) =&gt; task.id !== taskIdToRemove)
+    }));
+  }
+
+  render() {
+    return (
+      &lt;main&gt;
+        &lt;h1&gt;Tasks&lt;/h1&gt;
+        &lt;NewTask
+          newTask={this.state.newTask}
+          handleChange={this.handleChange}
+          handleSubmit={this.handleSubmit}
+        /&gt;
+        &lt;TasksList
+          allTasks={this.state.allTasks}
+          handleDelete={this.handleDelete}
+        /&gt;
+      &lt;/main&gt;
+    );
+  }
+}
+</code></pre>
+<p><strong>Function</strong></p>
+<pre><code class="language-javascript">import React, { useState } from &quot;react&quot;;
+import NewTask from &quot;../Presentational/NewTask&quot;;
+import TasksList from &quot;../Presentational/TasksList&quot;;
+
+export default function AppFunction() {
+  const [newTask, setNewTask] = useState({});
+  const handleChange = ({ target }) =&gt; {
+    const { name, value } = target;
+    setNewTask((prev) =&gt; ({ ...prev, id: Date.now(), [name]: value }));
+  };
+
+  const [allTasks, setAllTasks] = useState([]);
+  const handleSubmit = (event) =&gt; {
+    event.preventDefault();
+    if (!newTask.title) return;
+    setAllTasks((prev) =&gt; [newTask, ...prev]);
+    setNewTask({});
+  };
+  const handleDelete = (taskIdToRemove) =&gt; {
+    setAllTasks((prev) =&gt; prev.filter(
+      (task) =&gt; task.id !== taskIdToRemove
+    ));
+  };
+
+  return (
+    &lt;main&gt;
+      &lt;h1&gt;Tasks&lt;/h1&gt;
+      &lt;NewTask
+        newTask={newTask}
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
+      /&gt;
+      &lt;TasksList allTasks={allTasks} handleDelete={handleDelete} /&gt;
+    &lt;/main&gt;
+  );
+}
+</code></pre>
+<h4 id="update-function-component-state">Update Function Component State</h4>
 <p>Let’s get started with the State Hook, the most common Hook used for building React components. The State Hook is a named export from the React library, so we import it like this:</p>
 <p><code>import React, { useState } from 'react';</code></p>
 <p>useState() is a JavaScript function defined in the React library. When we call this function, it returns an array with two values:</p>
@@ -1357,9 +1608,597 @@ export default function ColorPicker() {
 
 </code></pre>
 <h4 id="initialize-state">Initialize State</h4>
+<p>You can set a state at the beginning with: <code>const [color, setColor] = useState("Tomato");</code>. </p>
+<p>There are three ways in which this code affects our component:</p>
+<ol>
+<li>During the first render, the initial state argument is used.</li>
+<li>When the state setter is called, React ignores the initial state argument and uses the new value.</li>
+<li>When the component re-renders for any other reason, React continues to use the same value from the previous render.</li>
+</ol>
+<h4 id="use-state-setter-outside-of-jsx">Use State Setter Outside of JSX</h4>
+<p>https://www.codecademy.com/courses/react-101/lessons/the-state-hook/exercises/use-state-setter-outside-of-jsx</p>
+<p>Let’s see how to manage the changing value of a string as a user types into a text input field:</p>
+<pre><code class="language-javascript">import React, { useState } from 'react';
+
+export default function EmailTextInput() {
+  const [email, setEmail] = useState('');
+  const handleChange = (event) =&gt; {
+    const updatedEmail = event.target.value;
+    setEmail(updatedEmail);
+  }
+
+  return (
+    // Here value={email} will set the value to the current
+    // value in e-mail in the event hook
+    &lt;input value={email} onChange={handleChange} /&gt;
+  );
+}
+</code></pre>
+<p>Let’s break down how this code works!</p>
+<ul>
+<li>The square brackets on the left side of the assignment operator signal array destructuring</li>
+<li>The local variable named email is assigned the current state value at index 0 from the array returned by useState()</li>
+<li>The local variable named setEmail() is assigned a reference to the state setter function at index 1 from the array returned by useState()</li>
+<li>It’s convention to name this variable using the current state variable (email) with "set" prepended</li>
+</ul>
+<p>The JSX input tag has an event listener called onChange. This event listener calls an event handler each time the user types something in this element. In the example above, our event handler is defined inside of the definition for our function component, but outside of our JSX. Earlier in this lesson, we wrote our event handlers right in our JSX. Those inline event handlers work perfectly fine, but when we want to do something more interesting than just calling the state setter with a static value, it’s a good idea to separate that logic from everything else going on in our JSX. This separation of concerns makes our code easier to read, test, and modify.</p>
+<p>You can change:</p>
+<pre><code class="language-javascript">const updatedEmail = event.target.value;
+setEmail(updatedEmail);
+
+// to this
+const handleChange = ({target}) =&gt; setEmail(target.value);
+</code></pre>
+<h5 id="longer-example">Longer Example</h5>
+<pre><code class="language-javascript">import React, { useState } from &quot;react&quot;;
+
+// regex to match numbers between 1 and 10 digits long
+const validPhoneNumber = /^\d{1,10}$/;
+
+export default function PhoneNumber() {
+  const [phone, setPhone] = useState('');
+
+   const handleChange = ({ target })=&gt; {
+     const newPhone = target.value;
+     const isValid = validPhoneNumber.test(newPhone);
+     if (isValid) {
+       setPhone(newPhone);
+     }
+     // just ignore the event, when new value is invalid
+    };
+
+  return (
+    &lt;div className='phone'&gt;
+      &lt;label for='phone-input'&gt;Phone: &lt;/label&gt;
+      &lt;input value={phone} onChange={handleChange} id='phone-input' /&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<h4 id="set-from-previous-state">Set From Previous State</h4>
+<p>Often, the next value of our state is calculated using the current state. In this case, it is best practice to update state with a callback function. If we do not, we risk capturing outdated, or “stale”, state values.</p>
+<pre><code class="language-javascript">import React, { useState } from 'react';
+
+export default function Counter() {
+  const [count, setCount] = useState(0);
+
+  const increment = () =&gt; setCount(prevCount =&gt; prevCount + 1);
+
+  return (
+    &lt;div&gt;
+      &lt;p&gt;Wow, you've clicked that button: {count} times&lt;/p&gt;
+      &lt;button onClick={increment}&gt;Click here!&lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<p>When the button is pressed, the increment() event handler is called. Inside of this function, we use our setCount() state setter in a new way! Because the next value of count depends on the previous value of count, we pass a callback function as the argument for setCount() instead of a value (as we’ve done in previous exercises).</p>
+<p><code>setCount(prevCount =&gt; prevCount + 1)</code></p>
+<p>When our state setter calls the callback function, this state setter callback function takes our previous count as an argument. The value returned by this state setter callback function is used as the next value of count (in this case prevCount + 1). Note: We can just call setCount(count +1) and it would work the same in this example… but for reasons that are out of scope for this lesson, it is safer to use the callback method. </p>
+<h4 id="arrays-in-state">Arrays in State</h4>
+<pre><code class="language-javascript">import React, { useState } from &quot;react&quot;;
+import ItemList from &quot;./ItemList&quot;;
+import { produce, pantryItems } from &quot;./storeItems&quot;;
+
+export default function GroceryCart() {
+  // declare and initialize state 
+  const [cart, setCart] = useState([]);
+
+  // addItem is the event handler and will receive the item that
+  // gets clicked
+  const addItem = (item) =&gt; {
+
+    // setCart is the state setter
+    // and it will tell the component to update its state.
+    // Via the magic that is the totality of Javascript, it
+    // will magically receive the previous state to this function
+    // We then use spread syntax to expand the previous array
+    // and add it with the item.
+    setCart((prev) =&gt; {
+      return [item, ...prev];
+    });
+   };
+
+  // This removes the item at some set index.
+  const removeItem = (targetIndex) =&gt; {
+     setCart((prev) =&gt; {
+      return prev.filter((item, index) =&gt; index !== targetIndex);
+    });
+  };
+
+  return (
+    &lt;div&gt;
+      &lt;h1&gt;Grocery Cart&lt;/h1&gt;
+      &lt;ul&gt;
+        {cart.map((item, index) =&gt; (
+          &lt;li onClick={() =&gt; removeItem(index)} key={index}&gt;
+            {item}
+          &lt;/li&gt;
+        ))}
+      &lt;/ul&gt;
+      &lt;h2&gt;Produce&lt;/h2&gt;
+      &lt;ItemList items={produce} onItemClick={addItem} /&gt;
+      &lt;h2&gt;Pantry Items&lt;/h2&gt;
+      &lt;ItemList items={pantryItems} onItemClick={addItem} /&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<h4 id="objects-in-state">Objects in State</h4>
+<pre><code class="language-javascript">export default function Login() {
+  const [formState, setFormState] = useState({});
+
+  const handleChange = ({ target }) =&gt; {
+    const { name, value } = target;
+    setFormState((prev) =&gt; ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  return (
+    &lt;form&gt;
+      &lt;input
+        value={formState.firstName}
+        onChange={handleChange}
+        name=&quot;firstName&quot;
+        type=&quot;text&quot;
+      /&gt;
+      &lt;input
+        value={formState.password}
+        onChange={handleChange}
+        type=&quot;password&quot;
+        name=&quot;password&quot;
+      /&gt;
+    &lt;/form&gt;
+  );
+}
+</code></pre>
+<p>A few things to notice:</p>
+<ul>
+<li>We use a state setter callback function to update state based on the previous value
+The spread syntax is the same for objects as for arrays: { ...oldObject, newKey: newValue }</li>
+<li>We reuse our event handler across multiple inputs by using the input tag’s name attribute to identify which input the change event came from</li>
+<li>Once again, when updating the state with setFormState() inside a function component, we do not modify the same object. We must copy over the values from the previous object when setting the next value of state. Thankfully, the spread syntax makes this super easy to do!</li>
+</ul>
+<p>Anytime one of the input values is updated, the handleChange() function will be called. Inside of this event handler, we use object destructuring to unpack the target property from our event object, then we use object destructuring again to unpack the name and value properties from the target object.</p>
+<p>Inside of our state setter callback function, we wrap our curly brackets in parentheses like so: setFormState((prev) =&gt; ({ ...prev })). This tells JavaScript that our curly brackets refer to a new object to be returned. We use ..., the spread operator, to fill in the corresponding fields from our previous state. Finally, we overwrite the appropriate key with its updated value. Did you notice the square brackets around the name? This Computed Property Name allows us to use the string value stored by the name variable as a property key!</p>
+<h5 id="longer-example_1">Longer Example</h5>
+<pre><code class="language-javascript">import React, { useState } from &quot;react&quot;;
+
+export default function EditProfile() {
+  const [profile, setProfile] = useState({});
+
+  const handleChange = ({ target }) =&gt; {
+    const {name, value } = target;
+    setProfile((prevProfile) =&gt; ({
+      ...prevProfile,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = (event) =&gt; {
+    event.preventDefault();
+    alert(JSON.stringify(profile, '', 2));
+  };
+
+  return (
+    &lt;form onSubmit={handleSubmit}&gt;
+      &lt;input
+        value={profile.firstName || ''}
+        name=&quot;firstName&quot;
+        type=&quot;text&quot;
+        placeholder=&quot;First Name&quot;
+        onChange={handleChange}
+      /&gt;
+      &lt;input
+        value={profile.lastName || ''}
+        type=&quot;text&quot;
+        name=&quot;lastName&quot;
+        placeholder=&quot;Last Name&quot;
+        onChange={handleChange}
+      /&gt;
+      &lt;input
+        value={profile.bday || ''}
+        type=&quot;date&quot;
+        name=&quot;bday&quot;
+        onChange={handleChange}
+      /&gt;
+      &lt;input
+        value={profile.password || ''}
+        type=&quot;password&quot;
+        name=&quot;password&quot;
+        placeholder=&quot;Password&quot;
+        onChange={handleChange}
+      /&gt;
+      &lt;button type=&quot;submit&quot;&gt;Submit&lt;/button&gt;
+    &lt;/form&gt;
+
+  );
+}
+</code></pre>
+<h4 id="separate-hooks-for-separate-states">Separate Hooks for Separate States</h4>
+<p>While there are times when it can be helpful to store related data in a data collection like an array or object, it can also be helpful to separate data that changes separately into completely different state variables. Managing dynamic data is much easier when we keep our data models as simple as possible.</p>
+<p>For example, if we had a single object that held state for a subject you are studying at school, it might look something like this:</p>
+<pre><code class="language-javascript">function Subject() {
+  const [state, setState] = useState({
+    currentGrade: 'B',
+    classmates: ['Hasan', 'Sam', 'Emma'],
+    classDetails: {topic: 'Math', teacher: 'Ms. Barry', room: 201};
+    exams: [{unit: 1, score: 91}, {unit: 2, score: 88}]);
+  });
+</code></pre>
+<p>This would work, but think about how messy it could get to copy over all the other values when we need to update something in this big state object. For example, to update the grade on an exam, we would need an event handler that did something like this:</p>
+<pre><code class="language-javascript">// Get the previous state in and pass that to something that is going to return a new object {}
+setState((prev) =&gt; ({
+  // Expand the previous state to grab everything
+ ...prev,
+ // You want the previous state, except with exams you're going to grab just exams and then map
+ // that to a new function where you'll extract just the exam you want and change the score
+  exams: prev.exams.map((exam) =&gt; {
+    if( exam.unit === updatedExam.unit ){
+      return { 
+        ...exam,
+        score: updatedExam.score
+      };
+    } else {
+      return exam;
+    }
+  }),
+}));
+</code></pre>
+<p>Yikes! Complex code like this is likely to cause bugs! Luckily, there is another option… We can make more than one call to the State Hook. In fact, we can make as many calls to useState() as we want! It’s best to split state into multiple state variables based on which values tend to change together. We can rewrite the previous example as follows…</p>
+<pre><code class="language-javascript">function Subject() {
+  const [currentGrade, setGrade] = useState('B');
+  const [classmates, setClassmates] = useState(['Hasan', 'Sam', 'Emma']);
+  const [classDetails, setClassDetails] = useState({topic: 'Math', teacher: 'Ms. Barry', room: 201});
+  const [exams, setExams] = useState([{unit: 1, score: 91}, {unit: 2, score: 88}]);
+  // ...
+}
+</code></pre>
+<p>See https://reactjs.org/docs/hooks-state.html#tip-using-multiple-state-variables</p>
+<h5 id="comparison">Comparison</h5>
+<pre><code class="language-javascript">function Musical() {
+   const [state, setState] = useState({
+    title: &quot;Best Musical Ever&quot;,
+    actors: [&quot;George Wilson&quot;, &quot;Tim Hughes&quot;, &quot;Larry Clements&quot;],
+    locations: {
+      Chicago: {
+        dates: [&quot;1/1&quot;, &quot;2/2&quot;], 
+        address: &quot;chicago theater&quot;}, 
+      SanFrancisco: {
+        dates: [&quot;5/2&quot;], 
+        address: &quot;sf theater&quot;
+      }
+    }
+  })
+ }
+
+function MusicalRefactored() {
+  const [title, setTitle] = useState(&quot;Best Musical Ever&quot;);
+  const [actors, setActors] = useState([&quot;George Wilson&quot;, &quot;Tim Hughes&quot;, &quot;Larry Clements&quot;]);
+  const [locations, setLocations] = useState({
+    Chicago: {
+      dates: [&quot;1/1&quot;, &quot;2/2&quot;], 
+      address: &quot;chicago theater&quot;}, 
+    SanFrancisco: {
+      dates: [&quot;5/2&quot;], 
+      address: &quot;sf theater&quot;
+    }
+  });
+}
+</code></pre>
+<h3 id="the-effect-hook-useeffect">The Effect Hook - useEffect</h3>
+<p>Before Hooks, function components were only used to accept data in the form of props and return some JSX to be rendered. However, as we learned in the last lesson, the State Hook allows us to manage dynamic data, in the form of component state, within our function components.</p>
+<p>In this lesson, we’ll use the Effect Hook to run some JavaScript code after each render, such as:</p>
+<ul>
+<li>fetching data from a backend service</li>
+<li>subscribing to a stream of data</li>
+<li>managing timers and intervals</li>
+<li>reading from and making changes to the DOM</li>
+</ul>
+<p><strong>Why after each render?</strong></p>
+<p>Most interesting components will re-render multiple times throughout their lifetime and these key moments present the perfect opportunity to execute these “side effects”.</p>
+<p>There are three key moments when the Effect Hook can be utilized:</p>
+<ul>
+<li>When the component is first added, or mounted, to the DOM and renders</li>
+<li>When the state or props change, causing the component to re-render</li>
+<li>When the component is removed, or unmounted, from the DOM.</li>
+</ul>
+<h4 id="function-component-effects">Function Component Effects</h4>
+<pre><code class="language-javascript">import React, { useState, useEffect } from 'react';
+
+function PageTitle() {
+  const [name, setName] = useState('');
+
+  useEffect(() =&gt; {
+    document.title = `Hi, ${name}`;
+  });
+
+  return (
+    &lt;div&gt;
+      &lt;p&gt;Use the input field below to rename this page!&lt;/p&gt;
+      &lt;input onChange={({target}) =&gt; setName(target.value)} value={name} type='text' /&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+<p>In our effect, we assign the value of the name variable to the document.title within a string. For more on this syntax, have a look at this explanation of the document’s title property.</p>
+<p>Notice how we use the current state inside of our effect. Even though our effect is called after the component renders, we still have access to the variables in the scope of our function component! When React renders our component, it will update the DOM as usual, and then run our effect after the DOM has been updated. This happens for every render, including the first and last one.</p>
+<h4 id="clean-up-effects">Clean Up Effects</h4>
+<pre><code class="language-javascript">useEffect(()=&gt;{
+  document.addEventListener('keydown', handleKeyPress);
+  return () =&gt; {
+    document.removeEventListener('keydown', handleKeyPress);
+  };
+})
+</code></pre>
+<p>If our effect didn’t return a cleanup function, then a new event listener would be added to the DOM’s document object every time that our component re-renders. Not only would this cause bugs, but it could cause our application performance to diminish and maybe even crash!</p>
+<p>Because effects run after every render and not just once, React calls our cleanup function before each re-render and before unmounting to clean up each effect call.</p>
+<p>If our effect returns a function, then the useEffect() Hook always treats that as a cleanup function. React will call this cleanup function before the component re-renders or unmounts. Since this cleanup function is optional, it is our responsibility to return a cleanup function from our effect when our effect code could create memory leaks.</p>
+<pre><code class="language-javascript">import React, { useState, useEffect } from 'react';
+
+export default function Counter() {
+  const [clickCount, setClickCount] = useState(0);
+
+  const increment = () =&gt; setClickCount((prev) =&gt; prev + 1);
+
+  useEffect(() =&gt; {
+    document.addEventListener('mousedown', increment);
+    return () =&gt; {
+      document.removeEventListener('mousedown', increment);
+    };
+  });
+
+  return (
+      &lt;h1&gt;Document Clicks: {clickCount}&lt;/h1&gt;
+  );
+}
+</code></pre>
+<h4 id="control-when-effects-are-called">Control When Effects are Called</h4>
+<p>It is common, when defining function components, to run an effect only when the component mounts (renders the first time), but not when the component re-renders. The Effect Hook makes this very easy for us to do! If we want to only call our effect after the first render, we pass an empty array to useEffect() as the second argument. This second argument is called the dependency array.</p>
+<p>The dependency array is used to tell the useEffect() method when to call our effect and when to skip it. Our effect is always called after the first render but only called again if something in our dependency array has changed values between renders</p>
+<pre><code class="language-javascript">useEffect(() =&gt; {
+  alert(&quot;component rendered for the first time&quot;);
+  return () =&gt; {
+    alert(&quot;component is being removed from the DOM&quot;);
+  };
+}, []); 
+</code></pre>
+<h4 id="fetch-data-from-a-server">Fetch Data from a Server</h4>
+<p>Since the effect hook is called after every render we want to be extra careful when we are fetching data from a server as this will quickly sabotage the performance of our app.</p>
+<p>When the data that our components need to render doesn’t change, we can pass an empty dependency array, so that the data is fetched after the first render. When the response is received from the server, we can use a state setter from the State Hook to store the data from the server’s response in our local component state for future renders. Using the State Hook and the Effect Hook together in this way is a powerful pattern that saves our components from unnecessarily fetching new data after every render!</p>
+<p>An empty dependency array signals to the Effect Hook that our effect never needs to be re-run, that it doesn’t depend on anything. Specifying zero dependencies means that the result of running that effect won’t change and calling our effect once is enough.</p>
+<p>A dependency array that is not empty signals to the Effect Hook that it can skip calling our effect after re-renders unless the value of one of the variables in our dependency array has changed. If the value of a dependency has changed, then the Effect Hook will call our effect again!</p>
+<p>Here’s a nice example from the official React docs:</p>
+<pre><code class="language-javascript">useEffect(() =&gt; {
+  document.title = `You clicked ${count} times`;
+}, [count]); // Only re-run the effect if the value stored by count changes
+</code></pre>
+<h4 id="rules-of-hooks">Rules of Hooks</h4>
+<p>There are two main rules to keep in mind when using Hooks:</p>
+<ul>
+<li>only call Hooks at the top level</li>
+<li>only call Hooks from React functions</li>
+</ul>
+<p>As we have been practicing with the State Hook and the Effect Hook, we’ve been following these rules with ease, but it is helpful to keep these two rules in mind as you take your new understanding of Hooks out into the wild and begin using more Hooks in your React applications.</p>
+<p>When React builds the Virtual DOM, the library calls the functions that define our components over and over again as the user interacts with the user interface. React keeps track of the data and functions that we are managing with Hooks based on their order in the function component’s definition. For this reason, we always call our Hooks at the top level; we never call hooks inside of loops, conditions, or nested functions.</p>
+<p>Instead of confusing React with code like this:</p>
+<pre><code class="language-javascript">if (userName !== '') {
+  useEffect(() =&gt; {
+    localStorage.setItem('savedUserName', userName);
+  });
+}
+</code></pre>
+<p>We can accomplish the same goal, while consistently calling our Hook every time:</p>
+<pre><code class="language-javascript">useEffect(() =&gt; {
+  if (userName !== '') {
+    localStorage.setItem('savedUserName', userName);
+  }
+});
+</code></pre>
+<p>Secondly, Hooks can only be used in React Functions. We cannot use Hooks in class components and we cannot use Hooks in regular JavaScript functions. We’ve been working with useState() and useEffect() in function components, and this is the most common use. The only other place where Hooks can be used is within custom hooks. Custom Hooks are incredibly useful for organizing and reusing stateful logic between function components. For more on this topic, head to the React Docs.</p>
+<h4 id="separate-hooks-for-separate-effects">Separate Hooks for Separate Effects</h4>
+<p>When multiple values are closely related and change at the same time, it can make sense to group these values in a collection like an object or array. Packaging data together can also add complexity to the code responsible for managing that data. Therefore, it is a good idea to separate concerns by managing different data with different Hooks.</p>
+<p>Compare the complexity here, where data is bundled up into a single object:</p>
+<pre><code class="language-javascript">// Handle both position and menuItems with one useEffect hook.
+const [data, setData] = useState({ position: { x: 0, y: 0 } });
+useEffect(() =&gt; {
+  get('/menu').then((response) =&gt; {
+    setData((prev) =&gt; ({ ...prev, menuItems: response.data }));
+  });
+  const handleMove = (event) =&gt;
+    setData((prev) =&gt; ({
+      ...prev,
+      position: { x: event.clientX, y: event.clientY }
+    }));
+  window.addEventListener('mousemove', handleMove);
+  return () =&gt; window.removeEventListener('mousemove', handleMove);
+}, []);
+</code></pre>
+<p>To the simplicity here, where we have separated concerns:</p>
+<pre><code class="language-javascript">// Handle menuItems with one useEffect hook.
+const [menuItems, setMenuItems] = useState(null);
+useEffect(() =&gt; {
+  get('/menu').then((response) =&gt; setMenuItems(response.data));
+}, []);
+
+// Handle position with a separate useEffect hook.
+const [position, setPosition] = useState({ x: 0, y: 0 });
+useEffect(() =&gt; {
+  const handleMove = (event) =&gt;
+    setPosition({ x: event.clientX, y: event.clientY });
+  window.addEventListener('mousemove', handleMove);
+  return () =&gt; window.removeEventListener('mousemove', handleMove);
+}, []);
+</code></pre>
+<h3 id="stateless-components-from-stateful-components">Stateless Components from Stateful Components</h3>
+<p><img alt="" src="images/2022-10-25-09-11-27.png" /></p>
+<p>Instead of having one, very complicated, stateful, component, we have one stateful component (App) at the top level with many stateless components in a hierarchy. The stateful component will pass its state down to the stateless components.</p>
+<h4 id="build-a-stateful-component-class">Build a Stateful Component Class</h4>
+<p>Example of passing a parent's state into a stateless child</p>
+<pre><code class="language-javascript">
+// PARENT
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Child } from './Child';
+
+
+class Parent extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = { name: 'Frarthur' };
+  }
+
+  render() {
+    return &lt;Child name={this.state.name}/&gt;;
+  }
+}
+
+ReactDOM.render(&lt;Parent /&gt;, document.getElementById('app'));
+
+// CHILD
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+// We have to export this since it will be rendered by
+// another component
+export class Child extends React.Component {
+  render() {
+    return &lt;h1&gt;Hey, my name is {this.props.name}!&lt;/h1&gt;;
+  }
+}
+</code></pre>
+<p>This will print: Hey, my name is Frarthur!</p>
+<h4 id="dont-update-props">Don't Update props</h4>
+<p>A React component should use props to store information that can be changed, but can only be changed by a different component.</p>
+<p>A React component should use state to store information that the component itself can change.</p>
+<pre><code class="language-javascript">
+// BAD
+
+import React from 'react';
+
+class Bad extends React.Component {
+  render() {
+    this.props.message = 'yo'; // NOOOOOOOOOOOOOO!!!
+    return &lt;h1&gt;{this.props.message}&lt;/h1&gt;;
+  }
+}
+</code></pre>
+<h4 id="child-components-update-their-parents-state">Child Components Update Their Parents' State</h4>
+<p>How does a stateless, child component update the state of the parent component? Here’s how that works:</p>
+<p><strong>1</strong></p>
+<p>The parent component class defines a method that calls this.setState().</p>
+<p>For an example, look in Step1.js at the .handleClick() method.</p>
+<pre><code class="language-javascript">import React from 'react';
+import ReactDOM from 'react-dom';
+import { ChildClass } from './ChildClass';
+
+class ParentClass extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { totalClicks: 0 };
+  }
+
+  handleClick() {
+    const total = this.state.totalClicks;
+
+    // calling handleClick will 
+    // result in a state change:
+    this.setState(
+      { totalClicks: total + 1 }
+    );
+  }
+}
+</code></pre>
+<p><strong>2</strong></p>
+<p>The parent component binds the newly-defined method to the current instance of the component in its constructor. This ensures that when we pass the method to the child component, it will still update the parent component.</p>
+<p>For an example, look in Step2.js at the end of the constructor() method.</p>
+<p>An explanation of <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this">how this/bind work</a>
+How bind works: https://stackoverflow.com/a/10115970/4427375</p>
+<p><a href="https://javascript.info/global-object">What is the global object</a></p>
+<pre><code class="language-javascript">import React from 'react';
+import ReactDOM from 'react-dom';
+import { ChildClass } from './ChildClass';
+
+class ParentClass extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { totalClicks: 0 };
+
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    const total = this.state.totalClicks;
+
+    // calling handleClick will 
+    // result in a state change:
+    this.setState(
+      { totalClicks: total + 1 }
+    );
+  }
+
+  // The stateful component class passes down
+  // handleClick to a stateless component class:
+  render() {
+    return (
+      &lt;ChildClass onClick={this.handleClick} /&gt;
+    );
+  }
+}
+</code></pre>
+<p><strong>3</strong></p>
+<p>Once the parent has defined a method that updates its state and bound to it, the parent then passes that method down to a child.</p>
+<p>Look in Step2.js, at the prop on line 28.</p>
+<pre><code class="language-javascript">import React from 'react';
+import ReactDOM from 'react-dom';
+
+export class ChildClass extends React.Component {
+  render() {
+    return (
+      // The stateless component class uses
+      // the passed-down handleClick function,
+      // accessed here as this.props.onClick,
+      // as an event handler:
+      &lt;button onClick={this.props.onClick}&gt;
+        Click Me!
+      &lt;/button&gt;
+    );
+  }
+}
+</code></pre>
+<p><strong>4</strong></p>
+<p>The child receives the passed-down function, and uses it as an event handler.</p>
+<p>Look in Step3.js. When a user clicks on the <button></button>, a click event will fire. This will make the passed-down function get called, which will update the parent’s state.</p>
 <h3 id="jsx">JSX</h3>
 <p>JSX is a syntax extension for JavaScript. It was written to be used with React. JSX code looks a lot like HTML.</p>
-<p>What does “syntax extension” mean?</p>
+<p>What does "syntax extension" mean?</p>
 <p>In this case, it means that JSX is not valid JavaScript. Web browsers can’t read it!</p>
 <p>If a JavaScript file contains JSX code, then that file will have to be compiled. That means that before the file reaches a web browser, a JSX compiler will translate any JSX into regular JavaScript.</p>
 <h4 id="jsx-elements">JSX Elements</h4>
@@ -1541,7 +2380,7 @@ ReactDOM.render(
 );
 </code></pre>
 <h5 id="ternary-operator">Ternary Operator</h5>
-<p>Recall how it works: you write x ? y : z, where x, y, and z are all JavaScript expressions. When your code is executed, x is evaluated as either “truthy” or “falsy.” If x is truthy, then the entire ternary operator returns y. If x is falsy, then the entire ternary operator returns z. <a href="http://stackoverflow.com/questions/6259982/how-to-use-the-ternary-operator-in-javascript">Here’s</a> a nice explanation if you need a refresher.</p>
+<p>Recall how it works: you write x ? y : z, where x, y, and z are all JavaScript expressions. When your code is executed, x is evaluated as either "truthy" or "falsy." If x is truthy, then the entire ternary operator returns y. If x is falsy, then the entire ternary operator returns z. <a href="http://stackoverflow.com/questions/6259982/how-to-use-the-ternary-operator-in-javascript">Here’s</a> a nice explanation if you need a refresher.</p>
 <pre><code class="language-javascript">const headline = (
   &lt;h1&gt;
     { age &gt;= drinkingAge ? 'Buy Drink' : 'Do Teen Stuff' }
@@ -1583,7 +2422,7 @@ const listItems = strings.map(string =&gt; &lt;li&gt;{string}&lt;/li&gt;);
 <p>A key is a JSX attribute. The attribute’s name is key. The attribute’s value should be something unique, similar to an id attribute.</p>
 <p>keys don’t do anything that you can see! React uses them internally to keep track of lists. If you don’t use keys when you’re supposed to, React might accidentally scramble your list-items into the wrong order.</p>
 <p>Not all lists need to have keys. A list needs keys if either of the following are true:</p>
-<p>The list-items have memory from one render to the next. For instance, when a to-do list renders, each item must “remember” whether it was checked off. The items shouldn’t get amnesia when they render.</p>
+<p>The list-items have memory from one render to the next. For instance, when a to-do list renders, each item must "remember" whether it was checked off. The items shouldn’t get amnesia when they render.</p>
 <p>A list’s order might be shuffled. For instance, a list of search results might be shuffled from one render to the next.</p>
 <pre><code class="language-javascript">import React from 'react';
 import ReactDOM from 'react-dom';

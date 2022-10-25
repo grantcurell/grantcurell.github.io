@@ -461,13 +461,13 @@
       <div class="wy-nav-content">
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li><li>VxRail Architecture and Troubleshooting</li>
+    <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+      <li>VxRail Architecture and Troubleshooting</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
   <hr/>
 </div>
-
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
@@ -1001,17 +1001,20 @@ Error occurs when validating disk group on host JKSLH63</p>
 <ol>
 <li>Go to Edit Settings on your existing VxRail Manager and check its existing networking. There should be two networks. Make note of what they are as you will need these settings later. They are probably something like <code>vCenter Server Network-&lt;uuid&gt;</code> and <code>VxRail Manager-&lt;uuid&gt;</code>. </li>
 <li>Make note of the existing VxRail manager's IP address.</li>
-<li>Log into the existing VxRail Manager. Run <code>cat /var/lib/vmware-marvin/config-initial.json | jq | less</code>. This is the current settings for VxRail Manager. I strongly suggest backing up this file so that you can reference the values recorded here later.<ol>
-<li>This step is not necessary. If you know the values you can skip it but this ensures later on that you use the correct values.</li>
-</ol>
-</li>
+<li>Log into the existing VxRail Manager. Run <code>cat /var/lib/vmware-marvin/config-initial.json | jq | less</code>. This is the current settings for VxRail Manager. I suggest you back this up and use it for your answers to the script but this is not required. You will need to backup the following files in this directory:</li>
+<li>manifest.xml</li>
+<li>vcmRuleset.xml</li>
+<li>nodeManifestfile.xml</li>
+<li>node-upgrade.py</li>
+<li>baseline.json</li>
 <li>Power down the existing VxRail Manager.</li>
 <li>Import the new VxRail Manager. The values for the import are specific to the user <em>except</em> the networking. When selecting the networking for the new VxRail Manager there will be two networks. Match these to what you saw in the original VxRail Manager. <br><img alt="" src="images/2022-10-19-16-03-58.png" /></li>
 <li>Before powering on your VxRail Manager you will need to change the guest operating system. Right click the VM, edit settings, vm options, general options, change the operating system to SUSE Linux 12. After you power on this should autocorrect itself to the correct OS. If you don't do this you will get an error from vCenter saying the operating system is unsupported.</li>
 <li>Login to the VxRail Manager in the web console with root / Passw0rd!</li>
-<li>Set the ip address of eth0 with <code>ifconfig eth0 &lt;IP&gt;</code> and <code>ifconfig eth0 netmask &lt;NETMASK&gt;</code></li>
+<li>Set the ip address of eth0 with <code>ifconfig eth0 &lt;IP&gt;</code>, <code>ifconfig eth0 netmask &lt;NETMASK&gt;</code>, and <code>ip route add 0.0.0.0/0 via &lt;your_default_gateway&gt;</code></li>
 <li>If you do not already have it, contact Dell Support, ask for the script which comes with the KB <a href="https://dell.com/support/kbdoc/en-us/000189568?lang=en">Dell VxRail: Recover VxRail Manager VM from Scratch</a>. Use credentials mystic / VxRailManager@201602! to upload the script to the IP address you established for VxRail Manager with WinSCP or other utility. Alternatively, you can copy and paste it over SSH with vim or your favorite editor.</li>
 <li>SSH to the VxRail Manager.</li>
+<li>Copy the files you backed up earlier (manifest.xml, vcmRuleset.xml, nodeManifestfile.xml, node-upgrade.py, baseline.json) to the <code>/var/lib/vmware-marvin</code> folder and change their owner to <code>tcserver:pivotal</code>.</li>
 <li>Next, you will need to enable root login for SSH. Run <code>vim /etc/ssh/sshd_config</code> (or your favorite text editor). Change PermitRootLogin from no to yes. Save and restart sshd with <code>systemctl restart sshd</code></li>
 <li>Finally, run the uploaded script <code>vxm_recovery_70x.py</code>. Use the JSON you downloaded from the old VxRail Manager as a reference if you need it.<ol>
 <li>When asked if the VxRail Manager networking is configured as expected say no and then re-input all networking values.</li>
@@ -1025,7 +1028,7 @@ Error occurs when validating disk group on host JKSLH63</p>
 <li>vCenter IP: See <code>vxrail_supplied_vc_ip</code> in your JSON (this should be the IP address of your vCenter server)</li>
 <li>vcenter FQDN: The FQDN of vCenter. Ex: <code>vcluster202-vcsa.demo.local</code></li>
 <li>Admin account name: This is typically <code>administrator@something.something</code></li>
-<li>Management account name: This is the <strong>VxRail manager</strong> account name. NOT root. You can find it here: <br><img alt="" src="images/2022-10-19-23-28-55.png" /></li>
+<li>Management account name: This is the <strong>VxRail manager</strong> account name. NOT root. You can find it here: <br><img alt="" src="images/2022-10-19-23-28-55.png" />. <strong>WARNING</strong> if authentication fails, you may have to add <code>@localos</code> depending on your VxRail version.</li>
 <li>Is PSC external: n</li>
 <li>Is customized vds created? N</li>
 <li>Can you confirm the management account info of the ESXi host: Answer yes. You can find the ESXi Management account info here: <br><img alt="" src="images/2022-10-19-23-36-08.png" /></li>
@@ -1084,8 +1087,9 @@ Error occurs when validating disk group on host JKSLH63</p>
 </code></pre>
 </li>
 <li>
-<p>On vCenter as root run <code>mkdir -p /var/tmp/vmware &amp;&amp; chmod 755 /var/tmp/vmware</code></p>
+<p>On the Vxrail manager, confirm that in /etc/hosts you have an entry for your vCenter. If not, add it.</p>
 </li>
+<li>On vCenter as root run <code>mkdir -p /var/tmp/vmware &amp;&amp; chmod 755 /var/tmp/vmware</code></li>
 <li>Next run <code>/usr/lib/vmware-vmca/bin/certificate-manager</code>.<ol>
 <li>Select option 8</li>
 <li>Do you wish to generate all certs using configuration file: n</li>
