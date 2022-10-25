@@ -627,17 +627,22 @@ Note: My testing was done on VxRail 7.0.320
 
 1. Go to Edit Settings on your existing VxRail Manager and check its existing networking. There should be two networks. Make note of what they are as you will need these settings later. They are probably something like `vCenter Server Network-<uuid>` and `VxRail Manager-<uuid>`. 
 2. Make note of the existing VxRail manager's IP address.
-3. Log into the existing VxRail Manager. Run `cat /var/lib/vmware-marvin/config-initial.json | jq | less`. This is the current settings for VxRail Manager. I strongly suggest backing up this file so that you can reference the values recorded here later.
-      1. This step is not necessary. If you know the values you can skip it but this ensures later on that you use the correct values.
+3. Log into the existing VxRail Manager. Run `cat /var/lib/vmware-marvin/config-initial.json | jq | less`. This is the current settings for VxRail Manager. I suggest you back this up and use it for your answers to the script but this is not required. You will need to backup the following files in this directory:
+   1. manifest.xml
+   2. vcmRuleset.xml
+   3. nodeManifestfile.xml
+   4. node-upgrade.py
+   5. baseline.json
 4. Power down the existing VxRail Manager.
 5. Import the new VxRail Manager. The values for the import are specific to the user *except* the networking. When selecting the networking for the new VxRail Manager there will be two networks. Match these to what you saw in the original VxRail Manager. <br>![](images/2022-10-19-16-03-58.png)
 6. Before powering on your VxRail Manager you will need to change the guest operating system. Right click the VM, edit settings, vm options, general options, change the operating system to SUSE Linux 12. After you power on this should autocorrect itself to the correct OS. If you don't do this you will get an error from vCenter saying the operating system is unsupported.
 7. Login to the VxRail Manager in the web console with root / Passw0rd!
-8. Set the ip address of eth0 with `ifconfig eth0 <IP>` and `ifconfig eth0 netmask <NETMASK>`
+8. Set the ip address of eth0 with `ifconfig eth0 <IP>`, `ifconfig eth0 netmask <NETMASK>`, and `ip route add 0.0.0.0/0 via <your_default_gateway>`
 9. If you do not already have it, contact Dell Support, ask for the script which comes with the KB [Dell VxRail: Recover VxRail Manager VM from Scratch](https://dell.com/support/kbdoc/en-us/000189568?lang=en). Use credentials mystic / VxRailManager@201602! to upload the script to the IP address you established for VxRail Manager with WinSCP or other utility. Alternatively, you can copy and paste it over SSH with vim or your favorite editor.
 10. SSH to the VxRail Manager.
-11. Next, you will need to enable root login for SSH. Run `vim /etc/ssh/sshd_config` (or your favorite text editor). Change PermitRootLogin from no to yes. Save and restart sshd with `systemctl restart sshd`
-12. Finally, run the uploaded script `vxm_recovery_70x.py`. Use the JSON you downloaded from the old VxRail Manager as a reference if you need it.
+11. Copy the files you backed up earlier (manifest.xml, vcmRuleset.xml, nodeManifestfile.xml, node-upgrade.py, baseline.json) to the `/var/lib/vmware-marvin` folder and change their owner to `tcserver:pivotal`.
+12. Next, you will need to enable root login for SSH. Run `vim /etc/ssh/sshd_config` (or your favorite text editor). Change PermitRootLogin from no to yes. Save and restart sshd with `systemctl restart sshd`
+13. Finally, run the uploaded script `vxm_recovery_70x.py`. Use the JSON you downloaded from the old VxRail Manager as a reference if you need it.
        1.  When asked if the VxRail Manager networking is configured as expected say no and then re-input all networking values.
        2.  Domain Search Path: This is `top_level_domain` in your JSON.
        3.  Is the Domain Name server external: check the field `is_internal_dns` in your JSON. **WARNING** it asks you if you domain server is external. If the value of `is_internal_dns` is false then make sure you answer yes to this question.
@@ -649,13 +654,13 @@ Note: My testing was done on VxRail 7.0.320
        9.  vCenter IP: See `vxrail_supplied_vc_ip` in your JSON (this should be the IP address of your vCenter server)
        10. vcenter FQDN: The FQDN of vCenter. Ex: `vcluster202-vcsa.demo.local`
        11. Admin account name: This is typically `administrator@something.something`
-       12. Management account name: This is the **VxRail manager** account name. NOT root. You can find it here: <br>![](images/2022-10-19-23-28-55.png)
+       12. Management account name: This is the **VxRail manager** account name. NOT root. You can find it here: <br>![](images/2022-10-19-23-28-55.png). **WARNING** if authentication fails, you may have to add `@localos` depending on your VxRail version.
        13. Is PSC external: n
        14. Is customized vds created? N
        15. Can you confirm the management account info of the ESXi host: Answer yes. You can find the ESXi Management account info here: <br>![](images/2022-10-19-23-36-08.png)
-13. On vCenter, browse to VxRail here: <br>![](images/2022-10-19-18-03-38.png)
-14. Confirm that the dashboard populates. It is normal for it to have warnings if it cannot connect to the internet. If it is *not* working, the screen will be completely blank. Make sure if you alread had vCenter open that you refresh the page.
-15. Next, we are going to simulate a shutdown. You do not actually need to shutdown the cluster, but executing the shutdown simulation will confirm everything is working as expected.
+14. On vCenter, browse to VxRail here: <br>![](images/2022-10-19-18-03-38.png)
+15. Confirm that the dashboard populates. It is normal for it to have warnings if it cannot connect to the internet. If it is *not* working, the screen will be completely blank. Make sure if you alread had vCenter open that you refresh the page.
+16. Next, we are going to simulate a shutdown. You do not actually need to shutdown the cluster, but executing the shutdown simulation will confirm everything is working as expected.
     1.  In my instance I received the following: <br>![](images/2022-10-20-00-36-19.png) 
     2.  If you see this, it is more than likely a cert problem. You can confirm this by checking the `/var/log/microservice_log/short.term.log` on the VxRail Manager. If this is indeed the problem you should see:
 

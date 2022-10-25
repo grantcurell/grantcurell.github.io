@@ -82,6 +82,9 @@
       - [Rules of Hooks](#rules-of-hooks)
       - [Separate Hooks for Separate Effects](#separate-hooks-for-separate-effects)
     - [Stateless Components from Stateful Components](#stateless-components-from-stateful-components)
+      - [Build a Stateful Component Class](#build-a-stateful-component-class)
+      - [Don't Update props](#dont-update-props)
+      - [Child Components Update Their Parents' State](#child-components-update-their-parents-state)
     - [JSX](#jsx)
       - [JSX Elements](#jsx-elements)
       - [JSX Elements And Their Surroundings](#jsx-elements-and-their-surroundings)
@@ -2082,6 +2085,183 @@ useEffect(() => {
 ```
 
 ### Stateless Components from Stateful Components
+
+![](images/2022-10-25-09-11-27.png)
+
+Instead of having one, very complicated, stateful, component, we have one stateful component (App) at the top level with many stateless components in a hierarchy. The stateful component will pass its state down to the stateless components.
+
+#### Build a Stateful Component Class
+
+Example of passing a parent's state into a stateless child
+
+```javascript
+
+// PARENT
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Child } from './Child';
+
+
+class Parent extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = { name: 'Frarthur' };
+  }
+
+  render() {
+    return <Child name={this.state.name}/>;
+  }
+}
+
+ReactDOM.render(<Parent />, document.getElementById('app'));
+
+// CHILD
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+// We have to export this since it will be rendered by
+// another component
+export class Child extends React.Component {
+  render() {
+    return <h1>Hey, my name is {this.props.name}!</h1>;
+  }
+}
+```
+
+This will print: Hey, my name is Frarthur!
+
+#### Don't Update props
+
+A React component should use props to store information that can be changed, but can only be changed by a different component.
+
+A React component should use state to store information that the component itself can change.
+
+```javascript
+
+// BAD
+
+import React from 'react';
+
+class Bad extends React.Component {
+  render() {
+    this.props.message = 'yo'; // NOOOOOOOOOOOOOO!!!
+    return <h1>{this.props.message}</h1>;
+  }
+}
+```
+
+#### Child Components Update Their Parents' State
+
+How does a stateless, child component update the state of the parent component? Here’s how that works:
+
+**1**
+
+The parent component class defines a method that calls this.setState().
+
+For an example, look in Step1.js at the .handleClick() method.
+
+```javascript
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { ChildClass } from './ChildClass';
+
+class ParentClass extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { totalClicks: 0 };
+  }
+
+  handleClick() {
+    const total = this.state.totalClicks;
+
+    // calling handleClick will 
+    // result in a state change:
+    this.setState(
+      { totalClicks: total + 1 }
+    );
+  }
+}
+```
+
+**2**
+
+The parent component binds the newly-defined method to the current instance of the component in its constructor. This ensures that when we pass the method to the child component, it will still update the parent component.
+
+For an example, look in Step2.js at the end of the constructor() method.
+
+An explanation of [how this/bind work](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this)
+How bind works: https://stackoverflow.com/a/10115970/4427375
+
+[What is the global object](https://javascript.info/global-object)
+
+```javascript
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { ChildClass } from './ChildClass';
+
+class ParentClass extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { totalClicks: 0 };
+
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    const total = this.state.totalClicks;
+
+    // calling handleClick will 
+    // result in a state change:
+    this.setState(
+      { totalClicks: total + 1 }
+    );
+  }
+
+  // The stateful component class passes down
+  // handleClick to a stateless component class:
+  render() {
+    return (
+      <ChildClass onClick={this.handleClick} />
+    );
+  }
+}
+```
+
+**3**
+
+Once the parent has defined a method that updates its state and bound to it, the parent then passes that method down to a child.
+
+Look in Step2.js, at the prop on line 28.
+
+```javascript
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+export class ChildClass extends React.Component {
+  render() {
+    return (
+      // The stateless component class uses
+      // the passed-down handleClick function,
+      // accessed here as this.props.onClick,
+      // as an event handler:
+      <button onClick={this.props.onClick}>
+        Click Me!
+      </button>
+    );
+  }
+}
+```
+
+**4**
+
+The child receives the passed-down function, and uses it as an event handler.
+
+Look in Step3.js. When a user clicks on the <button></button>, a click event will fire. This will make the passed-down function get called, which will update the parent’s state.
 
 ### JSX
 
