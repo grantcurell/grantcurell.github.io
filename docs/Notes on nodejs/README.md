@@ -85,7 +85,26 @@
       - [Build a Stateful Component Class](#build-a-stateful-component-class)
       - [Don't Update props](#dont-update-props)
       - [Child Components Update Their Parents' State](#child-components-update-their-parents-state)
+        - [More Complex Example](#more-complex-example)
+      - [Child Components Update Sibling Components](#child-components-update-sibling-components)
     - [JSX](#jsx)
+      - [One Sibling to Display, Another to Change](#one-sibling-to-display-another-to-change)
+    - [Style](#style)
+      - [Inline Styles](#inline-styles)
+      - [Make a Style Object Variable](#make-a-style-object-variable)
+      - [Share Styles Across Multiple Components](#share-styles-across-multiple-components)
+    - [Separate Container Components from Presentational Components](#separate-container-components-from-presentational-components)
+      - [Create a Container Component](#create-a-container-component)
+      - [Create a Presentational Component](#create-a-presentational-component)
+    - [propTypes](#proptypes)
+      - [Apply PropTypes](#apply-proptypes)
+      - [PropTypes in Function Components](#proptypes-in-function-components)
+    - [React Forms](#react-forms)
+      - [Input on Change](#input-on-change)
+      - [Control vs Uncontrolled](#control-vs-uncontrolled)
+      - [Update an Input's Value](#update-an-inputs-value)
+      - [Set the Input's Initial State](#set-the-inputs-initial-state)
+    - [Dynamically Rendering Different Components without Switch: the Capitalized Reference Technique](#dynamically-rendering-different-components-without-switch-the-capitalized-reference-technique)
       - [JSX Elements](#jsx-elements)
       - [JSX Elements And Their Surroundings](#jsx-elements-and-their-surroundings)
       - [Attributes In JSX](#attributes-in-jsx)
@@ -1085,6 +1104,7 @@ class Example extends React.Component {
 ```
 
 What is [super(props)](https://www.geeksforgeeks.org/what-is-the-use-of-superprops/)
+Also: https://overreacted.io/why-do-we-write-super-props/
 
 ##### this.setState from Another Function
 
@@ -2198,6 +2218,10 @@ How bind works: https://stackoverflow.com/a/10115970/4427375
 
 [What is the global object](https://javascript.info/global-object)
 
+Once the parent has defined a method that updates its state and bound to it, the parent then passes that method down to a child.
+
+Look in Step2.js, at the prop on line 28.
+
 ```javascript
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -2234,9 +2258,9 @@ class ParentClass extends React.Component {
 
 **3**
 
-Once the parent has defined a method that updates its state and bound to it, the parent then passes that method down to a child.
+The child receives the passed-down function, and uses it as an event handler.
 
-Look in Step2.js, at the prop on line 28.
+Look in Step3.js. When a user clicks on the <button></button>, a click event will fire. This will make the passed-down function get called, which will update the parent’s state.
 
 ```javascript
 import React from 'react';
@@ -2257,11 +2281,92 @@ export class ChildClass extends React.Component {
 }
 ```
 
-**4**
+##### More Complex Example
 
-The child receives the passed-down function, and uses it as an event handler.
+**WARNING** this violates the rule that components should only do one thing!
 
-Look in Step3.js. When a user clicks on the <button></button>, a click event will fire. This will make the passed-down function get called, which will update the parent’s state.
+We fix this in [One Sibling to Display, Another to Change](#one-sibling-to-display-another-to-change)
+
+```javascript
+
+// CHILD
+
+import React from 'react';
+
+export class Child extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(e) {
+    const name = e.target.value;
+    this.props.onChange(name);
+  }
+
+  render() {
+    return (
+      <div>
+        <h1>
+          Hey my name is {this.props.name}!
+        </h1>
+        <select id="great-names" onChange={this.handleChange}>
+          <option value="Frarthur">
+            Frarthur
+          </option>
+
+          <option value="Gromulus">
+            Gromulus
+          </option>
+
+          <option value="Thinkpiece">
+            Thinkpiece
+          </option>
+        </select>
+      </div>
+    );
+  }
+}
+
+// PARENT
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Child } from './Child';
+
+class Parent extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { name: 'Frarthur' };
+    
+    this.changeName = this.changeName.bind(this);
+  }
+  
+  changeName(newName) {
+    this.setState({
+      name: newName
+    });
+  }
+
+  render() {
+    return <Child name={this.state.name} onChange={this.changeName} />
+  }
+}
+
+ReactDOM.render(
+	<Parent />,
+	document.getElementById('app')
+);
+```
+
+#### Child Components Update Sibling Components
+
+![](images/2022-10-26-06-17-54.png)
+
+1. The Reactions component passes an event handler to the Like component.
+2. When Like is clicked, the handler is called, which causes the parent Reactions component to send a new prop to Stats.
+3. The Stats component updates with the new information.
 
 ### JSX
 
@@ -2272,6 +2377,545 @@ What does "syntax extension" mean?
 In this case, it means that JSX is not valid JavaScript. Web browsers can’t read it!
 
 If a JavaScript file contains JSX code, then that file will have to be compiled. That means that before the file reaches a web browser, a JSX compiler will translate any JSX into regular JavaScript.
+
+#### One Sibling to Display, Another to Change
+
+You will have one stateless component display information, and a different stateless component offer the ability to change that information.
+
+- A stateful component class defines a function that calls this.setState. (Parent.js, lines 15-19)
+- The stateful component passes that function down to a stateless component. (Parent.js, line 24)
+- That stateless component class defines a function that calls the passed-down function, and that can take an event object as an argument. (Child.js, lines 10-13)
+- The stateless component class uses this new function as an event handler. (Child.js, line 20)
+- When an event is detected, the parent’s state updates. (A user selects a new dropdown menu item)
+- The stateful component class passes down its state, distinct from the ability to change its state, to a different stateless component. (Parent.js, line 25)
+- That stateless component class receives the state and displays it. (Sibling.js, lines 5-10)
+- An instance of the stateful component class is rendered. One stateless child component displays the state, and a different stateless child component displays a way to change the state. (Parent.js, lines 23-26)
+
+```javascript
+
+// PARENT
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Child } from './Child';
+import { Sibling } from './Sibling';
+
+class Parent extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { name: 'Frarthur' };
+
+    this.changeName = this.changeName.bind(this);
+  }
+
+  changeName(newName) {
+    this.setState({
+      name: newName
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <Child  
+          onChange={this.changeName} />
+        <Sibling name={this.state.name}/>
+      </div>
+    );
+  }
+}
+
+ReactDOM.render(
+  <Parent />,
+  document.getElementById('app')
+);
+
+
+// CHILD
+
+import React from 'react';
+
+export class Child extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(e) {
+    const name = e.target.value;
+    this.props.onChange(name);
+  }
+
+  render() {
+    return (
+      <div>
+        <select
+          id="great-names"
+          onChange={this.handleChange}>
+
+          <option value="Frarthur">Frarthur</option>
+          <option value="Gromulus">Gromulus</option>
+          <option value="Thinkpiece">Thinkpiece</option>
+        </select>
+      </div>
+    );
+  }
+}
+
+
+// SIBLING
+
+import React from 'react';
+
+export class Sibling extends React.Component {
+  render() {
+    const name = this.props.name;
+    return (
+      <div>
+        <h1>Hey, my name is {name}!</h1>
+        <h2>Don't you think {name} is the prettiest name ever?</h2>
+        <h2>Sure am glad that my parents picked {name}!</h2>
+      </div>
+    );
+  }
+}
+```
+
+### Style
+
+#### Inline Styles
+
+An inline style is a style that’s written as an attribute, like this: `<h1 style={{ color: 'red' }}>Hello world</h1>`
+
+Notice the double curly braces. What are those for?
+
+The outer curly braces inject JavaScript into JSX. They say, “everything between us should be read as JavaScript, not JSX.”
+
+The inner curly braces create a JavaScript object literal. They make this a valid JavaScript object: `{ color: 'red' }`
+
+If you inject an object literal into JSX, and your entire injection is only that object literal, then you will end up with double curly braces. There’s nothing unusual about how they work, but they look funny and can be confusing.
+
+#### Make a Style Object Variable
+
+Notice that here we define the style at the top level as a variable and then pass it in. In React style variable names are written camelCase.
+
+**NOTE**: The styles in ReactJS use numbers and the px is implied.
+
+```javascript
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+const styles = {
+  background: 'lightblue',
+  color: 'darkred'
+  marginTop: 100,
+  fontSize: 50
+};
+
+const styleMe = <h1 style={styles}>Please style me! I am so bland!</h1>;
+
+ReactDOM.render(
+	styleMe, 
+	document.getElementById('app')
+);
+```
+
+#### Share Styles Across Multiple Components
+
+```javascript
+
+// STYLES.JS
+
+const fontFamily = 'Comic Sans MS, Lucida Handwriting, cursive';
+const background = 'pink url("https://content.codecademy.com/programs/react/images/welcome-to-my-homepage.gif") fixed';
+const fontSize = '4em';
+const padding = '45px 0';
+const color = 'green';
+
+export const styles = {
+  fontFamily: fontFamily,
+  background: background,
+  fontSize: fontSize,
+  padding: padding,
+  color: color
+};
+
+// ATTENTIONGRABBER.JS
+
+import React from 'react';
+import { styles } from './styles';
+
+const h1Style = {
+  color: styles.color,
+  fontSize: styles.fontSize,
+  fontFamily: styles.fontFamily,
+  padding: styles.padding,
+  margin: 0,
+};
+
+export class AttentionGrabber extends React.Component {
+	render() {
+		return <h1 style={h1Style}>WELCOME TO MY HOMEPAGE!</h1>;
+	}
+}
+
+// HOME.JS
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { AttentionGrabber } from './AttentionGrabber';
+import { styles } from './styles';
+
+const divStyle = {
+  background: styles.background,
+  height: '100%' 
+};
+
+export class Home extends React.Component {
+  render() {
+    return (
+      <div style={divStyle}>
+        <AttentionGrabber />
+        <footer>THANK YOU FOR VISITING MY HOMEPAGE!</footer>
+      </div>
+    );
+  }
+}
+
+ReactDOM.render(
+	<Home />, 
+	document.getElementById('app')
+);
+```
+
+### Separate Container Components from Presentational Components
+
+As you continue building your React application, you will soon realize that one component has too many responsibilities, but how do you know when you have reached that point?
+
+Separating container components from presentational components helps to answer that question. It shows you when it might be a good time to divide a component into smaller components. It also shows you how to perform that division.
+
+`<GuineaPigs />`‘s job is to render a photo carousel of guinea pigs. It does this perfectly well! And yet, it has a problem: it does too much stuff. How might we divide this into a container component and a presentational component?
+
+```javascript
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+const GUINEAPATHS = [
+  'https://content.codecademy.com/courses/React/react_photo-guineapig-1.jpg',
+  'https://content.codecademy.com/courses/React/react_photo-guineapig-2.jpg',
+  'https://content.codecademy.com/courses/React/react_photo-guineapig-3.jpg',
+  'https://content.codecademy.com/courses/React/react_photo-guineapig-4.jpg'
+];
+
+export class GuineaPigs extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { currentGP: 0 };
+
+    this.interval = null;
+
+    this.nextGP = this.nextGP.bind(this);
+  }
+
+  nextGP() {
+    let current = this.state.currentGP;
+    let next = ++current % GUINEAPATHS.length;
+    this.setState({ currentGP: next });
+  }
+
+  componentDidMount() {
+    this.interval = setInterval(this.nextGP, 5000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+
+  render() {
+    let src = GUINEAPATHS[this.state.currentGP];
+    return (
+      <div>
+        <h1>Cute Guinea Pigs</h1>
+        <img src={src} />
+      </div>
+    );
+  }
+}
+
+ReactDOM.render(
+  <GuineaPigs />, 
+  document.getElementById('app')
+);
+```
+
+#### Create a Container Component
+
+Separating container components from presentational components is a popular React programming pattern. It is a special application of the concepts learned in the Stateless Components From Stateful Components module.
+
+If a component has to have state, make calculations based on props, or manage any other complex logic, then that component shouldn’t also have to render HTML-like JSX.
+
+The functional part of a component (state, calculations, etc.) can be separated into a container component.
+
+GuineaPigs.js contains a lot of logic! It has to select the correct guinea pig to render, wait for the right amount of time before rendering, render an image, select the next correct guinea pig, and so on.
+
+Let’s separate the logic from the GuineaPigs component into a container component.
+
+#### Create a Presentational Component
+
+The presentational component’s only job is to contain HTML-like JSX. It should be an exported component and will not render itself because a presentational component will always get rendered by a container component.
+
+As a separate example, say we have Presentational and Container components. Presentational.js must export the component class (or function, when applicable):
+
+`export class Presentational extends Component {`
+
+Container.js must import that component:
+
+`import { Presentational } from 'Presentational.js';`
+
+```javascript
+
+// GuineaPigs.js
+
+import React from 'react';
+
+export class GuineaPigs extends React.Component {
+  render() {
+    let src = this.props.src;
+    return (
+      <div>
+        <h1>Cute Guinea Pigs</h1>
+        <img src={src} />
+      </div>
+    );
+  }
+}
+
+
+// GuineaPigsContainer.js
+
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { GuineaPigs } from '../components/GuineaPigs';
+
+const GUINEAPATHS = [
+  'https://content.codecademy.com/courses/React/react_photo-guineapig-1.jpg',
+  'https://content.codecademy.com/courses/React/react_photo-guineapig-2.jpg',
+  'https://content.codecademy.com/courses/React/react_photo-guineapig-3.jpg',
+  'https://content.codecademy.com/courses/React/react_photo-guineapig-4.jpg'
+];
+
+class GuineaPigsContainer extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { currentGP: 0 };
+
+    this.interval = null;
+
+    this.nextGP = this.nextGP.bind(this);
+  }
+
+  nextGP() {
+    let current = this.state.currentGP;
+    let next = ++current % GUINEAPATHS.length;
+    this.setState({ currentGP: next });
+  }
+
+  componentDidMount() {
+    this.interval = setInterval(this.nextGP, 5000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+
+  render() { 
+    const src = GUINEAPATHS[this.state.currentGP]; 
+    return <GuineaPigs src={src} />;
+  }
+}
+
+ReactDOM.render(
+  <GuineaPigsContainer />, 
+  document.getElementById('app')
+);
+```
+
+### propTypes
+
+propTypes are useful for two reasons. The first reason is prop validation.
+
+Validation can ensure that your props are doing what they’re supposed to be doing. If props are missing, or if they’re present but they aren’t what you’re expecting, then a warning will print in the console.
+
+This is useful, but reason #2 is arguably more useful: documentation.
+
+Documenting props makes it easier to glance at a file and quickly understand the component class inside. When you have a lot of files, and you will, this can be a huge benefit.
+
+![](images/2022-10-26-11-33-01.png)
+
+#### Apply PropTypes
+
+The name of each property in propTypes should be the name of an expected prop. In our case, MessageDisplayer expects a prop named message, so our property’s name is message.
+
+The value of each property in propTypes should fit this pattern:
+
+PropTypes.expected_data_type_goes_here
+
+```javascript
+import React from 'react';
+import PropTypes from 'prop-types';
+
+export class BestSeller extends React.Component {
+  render() {
+    return (
+      <li>
+        Title: <span>
+          {this.props.title}
+        </span><br />
+        
+        Author: <span>
+          {this.props.author}
+        </span><br />
+        
+        Weeks: <span>
+          {this.props.weeksOnList}
+        </span>
+      </li>
+    );
+  }
+}
+
+BestSeller.propTypes = {
+  title: PropTypes.string.isRequired,
+  author: PropTypes.string.isRequired,
+  weeksOnList: PropTypes.number.isRequired
+};
+```
+
+#### PropTypes in Function Components
+
+```javascript
+// Normal way to display a prop:
+export class MyComponentClass extends React.Component {
+  render() {
+    return <h1>{this.props.title}</h1>;
+  }
+}
+
+// Functional component way to display a prop:
+export const MyComponentClass = (props) => {
+  return <h1>{props.title}</h1>;
+}
+
+// Normal way to display a prop using a variable:
+export class MyComponentClass extends React.component {
+  render() {
+  	let title = this.props.title;
+    return <h1>{title}</h1>;
+  }
+}
+
+// Functional component way to display a prop using a variable:
+export const MyComponentClass = (props) => {
+	let title = props.title;
+  return <h1>{title}</h1>;
+}
+```
+
+### React Forms
+
+Think about how forms work in a typical, non-React environment. A user types some data into a form’s input fields, and the server doesn’t know about it. The server remains clueless until the user hits a “submit” button, which sends all of the form’s data over to the server simultaneously.
+
+In React, as in many other JavaScript environments, this is not the best way of doing things.
+
+The problem is the period of time during which a form thinks that a user has typed one thing, but the server thinks that the user has typed a different thing. What if, during that time, a third part of the website needs to know what a user has typed? It could ask the form or the server and get two different answers. In a complex JavaScript app with many moving, interdependent parts, this kind of conflict can easily lead to problems.
+
+In a React form, you want the server to know about every new character or deletion, as soon as it happens. That way, your screen will always be in sync with the rest of your application.
+
+#### Input on Change
+
+A traditional form doesn’t update the server until a user hits “submit.” But you want to update the server any time a user enters or deletes any character.
+
+```javascript
+import React from 'react';
+
+export class Example extends React.Component {
+	constructor(props) {
+		super(props);
+
+		this.state = { userInput: '' };
+
+		this.handleChange = this.handleChange.bind(this);
+	}
+
+	handleChange(e) {
+	  this.setState({
+	    userInput: e.target.value
+	  });
+	}
+
+	render() {
+	  return (
+	    <input 
+	      onChange={this.handleChange} 
+	      type="text" />
+	  );
+	}
+}
+
+```
+
+#### Control vs Uncontrolled
+
+There are two terms that will probably come up when you talk about React forms: controlled component and uncontrolled component. Like automatic binding, controlled vs uncontrolled components is a topic that you should be familiar with, but don’t need to understand deeply at this point.
+
+An uncontrolled component is a component that maintains its own internal state. A controlled component is a component that does not maintain any internal state. Since a controlled component has no state, it must be controlled by someone else.
+
+Think of a typical <input type='text' /> element. It appears onscreen as a text box. If you need to know what text is currently in the box, then you can ask the <input />, possibly with some code like this:
+
+```javascript
+let input = document.querySelector('input[type="text"]');
+ 
+let typedText = input.value; // input.value will be equal to whatever text is currently in the text box.
+```
+
+The important thing here is that the <input /> keeps track of its own text. You can ask it what its text is at any time, and it will be able to tell you.
+
+The fact that <input /> keeps track of information makes it an uncontrolled component. It maintains its own internal state, by remembering data about itself.
+
+A controlled component, on the other hand, has no memory. If you ask it for information about itself, then it will have to get that information through props. Most React components are controlled.
+
+In React, when you give an <input /> a value attribute, then something strange happens: the <input /> BECOMES controlled. It stops using its internal storage. This is a more ‘React’ way of doing things.
+
+#### Update an Input's Value
+
+When a user types or deletes in the <input />, then that will trigger a change event, which will call handleUserInput. That’s good!
+
+handleUserInput will set this.state.userInput equal to whatever text is currently in the input field. That’s also good!
+
+There’s only one problem: you can set this.state.userInput to whatever you want, but <input /> won’t care. You need to somehow make the <input />‘s text responsive to this.state.userInput.
+
+Easy enough! You can control an <input />‘s text by setting its value attribute.
+
+#### Set the Input's Initial State
+
+Good! Any time that someone types or deletes in <input />, the .handleUserInput() method will update this.state.userInput with the <input />‘s text.
+
+Since you’re using this.setState, that means that Input needs an initial state! What should this.state‘s initial value be?
+
+Well, this.state.userInput will be displayed in the <input />. What should the initial text in the <input /> be, when a user first visits the page?
+
+The initial text should be blank! Otherwise it would look like someone had already typed something.
+
+### Dynamically Rendering Different Components without Switch: the Capitalized Reference Technique
+
+See: https://j5bot.medium.com/react-dynamically-rendering-different-components-without-switch-the-capitalized-reference-e668d89e460b
+
+
 
 #### JSX Elements
 
