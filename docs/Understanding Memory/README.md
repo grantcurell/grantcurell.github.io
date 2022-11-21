@@ -21,6 +21,7 @@ NOTE: Probably best to just read the Reddit post at the bottom.
   - [RAM and it's relation to CPU Speed](#ram-and-its-relation-to-cpu-speed)
   - [More on Channels](#more-on-channels)
   - [Best Memory for Different Circumstances](#best-memory-for-different-circumstances)
+  - [DRAM Channel vs Rank vs Bank](#dram-channel-vs-rank-vs-bank)
 
 ## What is a RAM channel?
 
@@ -220,3 +221,7 @@ Source: Ph.D. computer architecture student who's studied DRAM organization for 
 ## Best Memory for Different Circumstances
 
 https://www.microway.com/hpc-tech-tips/ddr4-rdimm-lrdimm-performance-comparison/
+
+## DRAM Channel vs Rank vs Bank
+
+https://electronics.stackexchange.com/a/454717/279031

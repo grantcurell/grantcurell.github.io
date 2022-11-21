@@ -34,6 +34,15 @@
       - [Further explanation](#further-explanation)
     - [Writable Streams](#writable-streams)
     - [Timers Modules](#timers-modules)
+    - [HTTP Server](#http-server)
+    - [The URL Module](#the-url-module)
+    - [Routing](#routing)
+      - [Longer Example](#longer-example)
+    - [Returning a Status Code](#returning-a-status-code)
+  - [Express](#express)
+    - [Request Object Properties](#request-object-properties)
+    - [Request Object Methods](#request-object-methods)
+    - [Response Object](#response-object)
   - [Knex.js](#knexjs)
     - [How does exports.up and exports.down work](#how-does-exportsup-and-exportsdown-work)
     - [Seed Files](#seed-files)
@@ -67,14 +76,16 @@
       - [Update Function Component State](#update-function-component-state)
       - [Initialize State](#initialize-state)
       - [Use State Setter Outside of JSX](#use-state-setter-outside-of-jsx)
-        - [Longer Example](#longer-example)
+        - [Longer Example](#longer-example-1)
       - [Set From Previous State](#set-from-previous-state)
       - [Arrays in State](#arrays-in-state)
       - [Objects in State](#objects-in-state)
-        - [Longer Example](#longer-example-1)
+        - [Longer Example](#longer-example-2)
       - [Separate Hooks for Separate States](#separate-hooks-for-separate-states)
         - [Comparison](#comparison)
     - [The Effect Hook - useEffect](#the-effect-hook---useeffect)
+      - [React Hooks and Component Lifecycle Equivalent](#react-hooks-and-component-lifecycle-equivalent)
+        - [componentWillMount for react functional component?](#componentwillmount-for-react-functional-component)
       - [Function Component Effects](#function-component-effects)
       - [Clean Up Effects](#clean-up-effects)
       - [Control When Effects are Called](#control-when-effects-are-called)
@@ -87,7 +98,6 @@
       - [Child Components Update Their Parents' State](#child-components-update-their-parents-state)
         - [More Complex Example](#more-complex-example)
       - [Child Components Update Sibling Components](#child-components-update-sibling-components)
-    - [JSX](#jsx)
       - [One Sibling to Display, Another to Change](#one-sibling-to-display-another-to-change)
     - [Style](#style)
       - [Inline Styles](#inline-styles)
@@ -105,6 +115,16 @@
       - [Update an Input's Value](#update-an-inputs-value)
       - [Set the Input's Initial State](#set-the-inputs-initial-state)
     - [Dynamically Rendering Different Components without Switch: the Capitalized Reference Technique](#dynamically-rendering-different-components-without-switch-the-capitalized-reference-technique)
+    - [React Router](#react-router)
+      - [BrowserRouter](#browserrouter)
+      - [Route](#route)
+      - [Routes](#routes)
+      - [Links](#links)
+      - [URL Parameters](#url-parameters)
+      - [Nested Routes](#nested-routes)
+      - [Pass props to Router Components](#pass-props-to-router-components)
+    - [Good Practices for Calling APIs from ReactJS](#good-practices-for-calling-apis-from-reactjs)
+    - [JSX](#jsx)
       - [JSX Elements](#jsx-elements)
       - [JSX Elements And Their Surroundings](#jsx-elements-and-their-surroundings)
       - [Attributes In JSX](#attributes-in-jsx)
@@ -729,6 +749,265 @@ myInterface.on('line', transformData);
 You may already be familiar with some timer functions such as, setTimeout() and setInterval(). Timer functions in Node.js behave similarly to how they work in front-end JavaScript programs, but the difference is that they are added to the Node.js event loop. This means that the timer functions are scheduled and put into a queue. This queue is processed at every iteration of the event loop. If a timer function is executed outside of a module, the behavior will be random (non-deterministic).
 
 The setImmediate() function is often compared with the setTimeout() function. When setImmediate() is called, it executes the specified callback function after the current (poll phase) is completed. The method accepts two parameters: the callback function (required) and arguments for the callback function (optional). If you instantiate multiple setImmediate() functions, they will be queued for execution in the order that they were created.
+
+### HTTP Server
+
+
+To process HTTP requests in JavaScript and Node.js, we can use the built-in http module. This core module is key in leveraging Node.js networking and is extremely useful in creating HTTP servers and processing HTTP requests.
+
+The http module comes with various methods that are useful when engaging with HTTP network requests. One of the most commonly used methods within the http module is the .createServer() method. This method is responsible for doing exactly what its namesake implies; it creates an HTTP server. To implement this method to create a server, the following code can be used:
+
+```javascript
+const server = http.createServer((req, res) => {
+  res.end('Server is running!');
+});
+ 
+server.listen(8080, () => {
+  const { address, port } = server.address();
+  console.log(`Server is listening on: http://${address}:${port}`);
+})
+```
+
+The .createServer() method takes a single argument in the form of a callback function. This callback function has two primary arguments; the request (commonly written as req) and the response (commonly written as res).
+
+The req object contains all of the information about an HTTP request ingested by the server. It exposes information such as the HTTP method (GET, POST, etc.), the pathname, headers, body, and so on. The res object contains methods and properties pertaining to the generation of a response by the HTTP server. This object contains methods such as .setHeader() (sets HTTP headers on the response), .statusCode (set the status code of the response), and .end() (dispatches the response to the client who made the request). In the example above, we use the .end() method to send the string ‘Server is Running!’ to the client, which will display on the web page.
+
+Once the .createServer() method has instantiated the server, it must begin listening for connections. This final step is accomplished by the .listen() method on the server instance. This method takes a port number as the first argument, which tells the server to listen for connections at the given port number. In our example above, the server has been set to listen on port 8080. Additionally, the .listen() method takes an optional callback function as a second argument, allowing it to carry out a task after the server has successfully started.
+
+Using this simple .createServer() method, in conjunction with the callback, provides the ability to process HTTP requests dynamically and dispatch responses back to their callers.
+
+### The URL Module
+
+Typically, an HTTP server will require information from the request URL to accurately process a request. This request URL is located on the url property contained within the req object itself. To parse the different parts of this URL easily, Node.js provides the built-in url module. The core of the url module revolves around the URL class. A new URL object can be instantiated using the URL class as follows:
+
+```javascript
+const url = new URL('https://www.example.com/p/a/t/h?query=string');
+Once instantiated, different parts of the URL can be accessed and modified via various properties, which include:
+```
+
+- hostname: Gets and sets the host name portion of the URL.
+- pathname: Gets and sets the path portion of the URL.
+- searchParams: Gets the search parameter object representing the query parameters contained within the URL. Returns an instance of the URLSearchParams class.
+
+You might recognize the URL and URLSearchParams classes if you are familiar with browser-based JavaScript. It’s because they are actually the same thing! These classes are defined by the WHATWG URL specification. Both the browser and Node.js implement this API, which means developers can have a similar developer experience working with both client and server-side JavaScript.
+
+Using these properties, one can break the URL down into easily usable parts for processing the request.
+
+```javascript
+const host = url.hostname; // example.com
+const pathname = url.pathname; // /p/a/t/h
+const searchParams = url.searchParams; // {query: 'string'}
+```
+
+While the url module can be used to deconstruct a URL into its constituent parts, it can also be used to construct a URL. Constructing a URL via this method relies on most of the same properties listed above to set values on the URL instead of retrieving them. This can be done by setting each of these values equal to a value for the newly constructed URL. Once all parts of the URL have been added, the composed URL can be obtained using the .toString() method.
+
+```javascript
+const createdUrl = new URL('https://www.example.com');
+createdUrl.pathname = '/p/a/t/h';
+createdUrl.search = '?query=string';
+ 
+createUrl.toString(); // Creates https://www.example.com/p/a/t/h?query=string
+```
+
+### Routing
+
+To process and respond to requests appropriately, servers need to do more than look at a request and dispatch a response. Internally, a server needs to maintain a way to handle each request based on specific criteria such as method, pathname, etc. The process of handling requests in specific ways based on the information provided within the request is known as routing.
+
+The method is one important piece of information that can be used to route requests. Since each HTTP request contains a method such as GET and POST, it is a great way to discern different classes of requests based on the action intended for the server to carry out. Thus, all GET requests could be routed to a specific function for handling, while all POST requests are routed to another function to be handled. This also allows for the logical co-location of processing code with the specific verb to be handled.
+
+```javascript
+const server = http.createServer((req, res) => {
+  const { method } = req;
+ 
+  switch(method) {
+    case 'GET':
+      return handleGetRequest(req, res);
+    case 'POST':
+      return handlePostRequest(req, res);
+    case 'DELETE':
+      return handleDeleteRequest(req, res);
+    case 'PUT':
+      return handlePutRequest(req, res);
+    default:
+      throw new Error(`Unsupported request method: ${method}`);
+  }
+})
+```
+
+In the above example, the HTTP method property is destructured from the req object and used to conditionally invoke a handler function built specifically for handling those types of requests. This is great at first glance, but it should soon become apparent that the routing is not specific enough. After all, how will one GET request be distinguished from another?
+
+We can distinguish one request from another of the same method through the use of the pathname. The pathname allows the server to understand what resource is being targeted. Let’s take a look at the handleGetRequest handler function.
+
+```javascript
+function handleGetRequest(req, res) {
+  const { pathname } = new URL(req.url);
+  let data = {};
+ 
+  if (pathname === '/projects') {
+    data = await getProjects();
+    res.setHeader('Content-Type', 'application/json');
+    return res.end(JSON.stringify(data));
+  }
+ 
+  res.statusCode = 404;
+  return res.end('Requested resource does not exist');
+ 
+}
+```
+
+Within the handleGetRequest() function, the pathname is being checked to match a known resource, '/projects'. If the pathname matches, the resource data is fetched and then subsequently dispatched from the server as a successful response. Otherwise, the .statusCode property is set to 404, indicating that the resource is not found, and a corresponding error message is dispatched. This pattern can be extrapolated to any number of conditional resource matches, allowing the server to handle many different types of requests to different resources.
+
+#### Longer Example
+
+```javascript
+const http = require('http');
+
+// Handle get request
+const handleGetRequest = (req, res) => {
+  const pathname = req.url;
+
+  if (pathname === '/users') {
+    res.end(JSON.stringify([]));
+  }
+}
+
+// Creates server instance
+const server = http.createServer((req, res) => {
+  const { method } = req;
+ 
+  switch(method) {
+    case 'GET':
+      return handleGetRequest(req, res);
+    default:
+      throw new Error(`Unsupported request method: ${method}`);
+  }
+});
+
+// Starts server listening on specified port
+server.listen(4001, () => {
+  const { address, port } = server.address();
+  console.log(`Server is listening on: http://${address}:${port}`);
+});
+```
+
+### Returning a Status Code
+
+```javascript
+const http = require('http');
+
+const handleGetRequest = (req, res) => {
+  res.statusCode = 200;
+  return res.end(JSON.stringify({ data: [] }));
+}
+
+const handlePostRequest = (req, res) => {
+  res.statusCode = 500;
+  return res.end("Unable to create record");
+}
+
+// Creates server instance
+const server = http.createServer((req, res) => {
+  const { method } = req;
+ 
+  switch(method) {
+    case 'GET':
+      return handleGetRequest(req, res);
+    case 'POST':
+      return handlePostRequest(req, res);
+    default:
+      throw new Error(`Unsupported request method: ${method}`);
+  }
+});
+
+// Starts server listening on specified port
+server.listen(4001, () => {
+  const { address, port } = server.address();
+  console.log(`Server is listening on: http://${address}:${port}`);
+});
+```
+
+
+## Express
+
+### Request Object Properties
+
+| Index | Properties        | Description                                                                                                                                                                                                   |
+|-------|-------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 1.    | req.app           | This is used to hold a reference to the instance of the express application that is using the middleware.                                                                                                     |
+| 2.    | req.baseurl       | It specifies the URL path on which a router instance was mounted.                                                                                                                                             |
+| 3.    | req.body          | It contains key-value pairs of data submitted in the request body. By default, it is undefined, and is populated when you use body-parsing middleware such as body-parser.                                    |
+| 4.    | req.cookies       | When we use cookie-parser middleware, this property is an object that contains cookies sent by the request.                                                                                                   |
+| 5.    | req.fresh         | It specifies that the request is "fresh." it is the opposite of req.stale.                                                                                                                                    |
+| 6.    | req.hostname      | It contains the hostname from the "host" http header.                                                                                                                                                         |
+| 7.    | req.ip            | It specifies the remote IP address of the request.                                                                                                                                                            |
+| 8.    | req.ips           | When the trust proxy setting is true, this property contains an array of IP addresses specified in the ?x-forwarded-for? request header.                                                                      |
+| 9.    | req.originalurl   | This property is much like req.url; however, it retains the original request URL, allowing you to rewrite req.url freely for internal routing purposes.                                                       |
+| 10.   | req.params        | An object containing properties mapped to the named route ?parameters?. For example, if you have the route /user/:name, then the "name" property is available as req.params.name. This object defaults to {}. |
+| 11.   | req.path          | It contains the path part of the request URL.                                                                                                                                                                 |
+| 12.   | req.protocol      | The request protocol string, "http" or "https" when requested with TLS.                                                                                                                                       |
+| 13.   | req.query         | An object containing a property for each query string parameter in the route.                                                                                                                                 |
+| 14.   | req.route         | The currently-matched route, a string.                                                                                                                                                                        |
+| 15.   | req.secure        | A Boolean that is true if a TLS connection is established.                                                                                                                                                    |
+| 16.   | req.signedcookies | When using cookie-parser middleware, this property contains signed cookies sent by the request, unsigned and ready for use.                                                                                   |
+| 17.   | req.stale         | It indicates whether the request is "stale," and is the opposite of req.fresh.                                                                                                                                |
+| 18.   | req.subdomains    |  It represents an array of subdomains in the domain name of the request.                                                                                                                                      |
+| 19.   | req.xhr           | A Boolean value that is true if the request's "x-requested-with" header field is "xmlhttprequest", indicating that the request was issued by a client library such as jQuery                                  |
+
+### Request Object Methods
+
+- `req.accepts` 
+
+This method is used to check whether the specified content types are acceptable, based on the request's Accept HTTP header field.
+
+```javascript
+req.accepts('html');  
+//=>?html?  
+req.accepts('text/html');  
+// => ?text/html?  
+```
+
+- `req.get(field)`
+
+This method returns the specified HTTP request header field.
+
+```javascript
+req.get('Content-Type');  
+// => "text/plain"  
+req.get('content-type');  
+// => "text/plain"  
+req.get('Something');  
+// => undefined  
+```
+
+- `req.is(type)`
+
+```javascript
+// With Content-Type: text/html; charset=utf-8  
+req.is('html');  
+req.is('text/html');  
+req.is('text/*');  
+// => true  
+```
+
+- `req.param(name [,defaultValue])`
+
+This method is used to fetch the value of param name when present.
+
+```javascript
+// ?name=sasha  
+req.param('name')  
+// => "sasha"  
+// POST name=sasha  
+req.param('name')  
+// => "sasha"  
+// /user/sasha for /user/:name   
+req.param('name')  
+// => "sasha"  
+```
+
+### Response Object
+
+
 
 ## Knex.js
 
@@ -1933,6 +2212,14 @@ There are three key moments when the Effect Hook can be utilized:
 - When the state or props change, causing the component to re-render
 - When the component is removed, or unmounted, from the DOM.
 
+#### React Hooks and Component Lifecycle Equivalent
+
+https://stackoverflow.com/a/53254018/4427375
+
+##### componentWillMount for react functional component?
+
+https://stackoverflow.com/questions/62091146/componentwillmount-for-react-functional-component
+
 #### Function Component Effects
 
 ```javascript
@@ -2367,16 +2654,6 @@ ReactDOM.render(
 1. The Reactions component passes an event handler to the Like component.
 2. When Like is clicked, the handler is called, which causes the parent Reactions component to send a new prop to Stats.
 3. The Stats component updates with the new information.
-
-### JSX
-
-JSX is a syntax extension for JavaScript. It was written to be used with React. JSX code looks a lot like HTML.
-
-What does "syntax extension" mean?
-
-In this case, it means that JSX is not valid JavaScript. Web browsers can’t read it!
-
-If a JavaScript file contains JSX code, then that file will have to be compiled. That means that before the file reaches a web browser, a JSX compiler will translate any JSX into regular JavaScript.
 
 #### One Sibling to Display, Another to Change
 
@@ -2875,7 +3152,7 @@ There are two terms that will probably come up when you talk about React forms: 
 
 An uncontrolled component is a component that maintains its own internal state. A controlled component is a component that does not maintain any internal state. Since a controlled component has no state, it must be controlled by someone else.
 
-Think of a typical <input type='text' /> element. It appears onscreen as a text box. If you need to know what text is currently in the box, then you can ask the <input />, possibly with some code like this:
+Think of a typical `<input type='text' />` element. It appears onscreen as a text box. If you need to know what text is currently in the box, then you can ask the `<input />`, possibly with some code like this:
 
 ```javascript
 let input = document.querySelector('input[type="text"]');
@@ -2883,31 +3160,31 @@ let input = document.querySelector('input[type="text"]');
 let typedText = input.value; // input.value will be equal to whatever text is currently in the text box.
 ```
 
-The important thing here is that the <input /> keeps track of its own text. You can ask it what its text is at any time, and it will be able to tell you.
+The important thing here is that the `<input />` keeps track of its own text. You can ask it what its text is at any time, and it will be able to tell you.
 
-The fact that <input /> keeps track of information makes it an uncontrolled component. It maintains its own internal state, by remembering data about itself.
+The fact that `<input />` keeps track of information makes it an uncontrolled component. It maintains its own internal state, by remembering data about itself.
 
 A controlled component, on the other hand, has no memory. If you ask it for information about itself, then it will have to get that information through props. Most React components are controlled.
 
-In React, when you give an <input /> a value attribute, then something strange happens: the <input /> BECOMES controlled. It stops using its internal storage. This is a more ‘React’ way of doing things.
+In React, when you give an `<input />` a value attribute, then something strange happens: the `<input />` BECOMES controlled. It stops using its internal storage. This is a more ‘React’ way of doing things.
 
 #### Update an Input's Value
 
-When a user types or deletes in the <input />, then that will trigger a change event, which will call handleUserInput. That’s good!
+When a user types or deletes in the `<input />`, then that will trigger a change event, which will call handleUserInput. That’s good!
 
 handleUserInput will set this.state.userInput equal to whatever text is currently in the input field. That’s also good!
 
-There’s only one problem: you can set this.state.userInput to whatever you want, but <input /> won’t care. You need to somehow make the <input />‘s text responsive to this.state.userInput.
+There’s only one problem: you can set this.state.userInput to whatever you want, but `<input />` won’t care. You need to somehow make the `<input />`‘s text responsive to this.state.userInput.
 
-Easy enough! You can control an <input />‘s text by setting its value attribute.
+Easy enough! You can control an `<input />`‘s text by setting its value attribute.
 
 #### Set the Input's Initial State
 
-Good! Any time that someone types or deletes in <input />, the .handleUserInput() method will update this.state.userInput with the <input />‘s text.
+Good! Any time that someone types or deletes in `<input />`, the .handleUserInput() method will update this.state.userInput with the `<input />`‘s text.
 
 Since you’re using this.setState, that means that Input needs an initial state! What should this.state‘s initial value be?
 
-Well, this.state.userInput will be displayed in the <input />. What should the initial text in the <input /> be, when a user first visits the page?
+Well, this.state.userInput will be displayed in the `<input />`. What should the initial text in the `<input />` be, when a user first visits the page?
 
 The initial text should be blank! Otherwise it would look like someone had already typed something.
 
@@ -2915,7 +3192,275 @@ The initial text should be blank! Otherwise it would look like someone had alrea
 
 See: https://j5bot.medium.com/react-dynamically-rendering-different-components-without-switch-the-capitalized-reference-e668d89e460b
 
+### React Router
 
+https://ui.dev/react-router-tutorial
+
+#### BrowserRouter
+
+Naturally, in order to do its thing, React Router needs to be both aware and in control of your app's location. The way it does this is with its BrowserRouter component.
+
+Under the hood, BrowserRouter uses both the [history](https://github.com/ReactTraining/history) library as well as [React Context](https://ui.dev/react-context). The history library helps React Router keep track of the browsing history of the application using the browser's built-in history stack, and React Context helps make history available wherever React Router needs it.
+
+There's not much to BrowserRouter, you just need to make sure that if you're using React Router on the web, you wrap your app inside of the BrowserRouter
+
+```javascript
+import ReactDOM from 'react-dom'
+import * as React from 'react'
+import { BrowserRouter } from 'react-router-dom'
+import App from './App`
+
+ReactDOM.render(
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
+, document.getElementById('app))
+```
+
+#### Route
+
+Put simply, Route allows you to map your app's location to different React components. For example, say we wanted to render a Dashboard component whenever a user navigated to the /dashboard path. To do so, we'd render a Route that looked like this.
+
+```javascript
+<Route path="/dashboard" element={<Dashboard />} />
+```
+
+The mental model I use for Route is that it always has to render something – either its element prop if the path matches the app's current location or null, if it doesn't.
+
+You can render as many Routes as you'd like.
+
+```javascript
+<Route path="/" element={<Home />} />
+<Route path="/about" element={<About />} />
+<Route path="/settings" element={<Settings />} />
+```
+
+You can even render nested routes, which we'll talk about later on in this post.
+
+With our Route elements in this configuration, it's possible for multiple routes to match on a single URL. You might want to do that sometimes, but most often you want React Router to only render the route that matches best. Fortunately, we can easily do that with Routes.
+
+#### Routes
+
+You can think of Routes as the metaphorical conductor of your routes. Whenever you have one or more Routes, you'll most likely want to wrap them in a Routes.
+
+```javascript
+import { Routes, Route } from "react-router-dom";
+
+function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/about" element={<About />} />
+      <Route path="/settings" element={<Settings />} />
+      <Route path="*" element={<NotFound />} />
+    </Routes>
+  );
+}
+```
+
+The reason for this is because it's Routes job is to understand all of its children Route elements, and intelligently choose which ones are the best to render.
+
+Though it's not shown in the simple example above, once we start adding more complex Routes to our application, Routes will start to do more work like enabling intelligent rendering and relative paths. We'll see these scenarios in a bit.
+
+Next up, linking between pages.
+
+#### Links
+
+Now that you know how to map the app's location to certain React components using Routes and Route, the next step is being able to navigate between them. This is the purpose of the Link component.
+
+To tell Link what path to take the user to when clicked, you pass it a to prop.
+
+```javascript
+<nav>
+  <Link to="/">Home</Link>
+  <Link to="/about">About</Link>
+  <Link to="/settings">Settings</Link>
+</nav>
+```
+
+If you need more control over Link, you can also pass to as an object. Doing so allows you to add a query string via the search property or pass along any data to the new route via state.
+
+```javascript
+<nav>
+  <Link to="/">Home</Link>
+  <Link to="/about">About</Link>
+  <Link
+    to={{
+      pathname: "/settings",
+      search: "?sort=date",
+      state: { fromHome: true },
+    }}
+  >
+    Settings
+  </Link>
+</nav>
+```
+
+#### URL Parameters
+
+Like function parameters allow you to declare placeholders when you define a function, URL Parameters allow you to declare placeholders for portions of a URL.
+
+Take Wikipedia for example. When you visit a topic on Wikipedia, you'll notice that the URL pattern is always the same, wikipedia.com/wiki/{topicId}.
+
+Instead of defining a route for every topic on the site, they can declare one route with a placeholder for the topic's id. The way you tell React Router that a certain portion of the URL is a placeholder (or URL Parameter), is by using a : in the Route's path prop.
+
+`<Route path="/wiki/:topicId" element={<Article />} />`
+
+Now whenever anyone visits a URL that matches the /wiki/:topicId pattern (/wiki/javascript, /wiki/Brendan_Eich, /wiki/anything) , the Article component is rendered.
+
+Now the question becomes, how do you access the dynamic portion of the URL – in this case, topicId – in the component that's rendered?
+
+As of v5.1, React Router comes with a useParams Hook that returns an object with a mapping between the URL parameter(s) and its value.
+
+```javascript
+import * as React from 'react'
+import { useParams } from 'react-router-dom'
+import { getArticle } from '../utils'
+
+function Article () {
+  const [article, setArticle] = React.useState(null)
+  const { topicId } = useParams()
+
+  React.useEffect(() => {
+    getArticle(topicId)
+      .then(setUser)
+  }, [topicId])
+
+  return (
+    ...
+  )
+}
+```
+
+#### Nested Routes
+
+Nested Routes allow the parent Route to act as a wrapper and control the rendering of a child Route.
+
+![](images/2022-10-28-09-49-19.png)
+
+A real-life example of this UI could look similar to Twitter's /messages route. When you go to /messages, you see all of your previous conversations on the left side of the screen. Then, when you go to /messages/:id, you still see all your messages, but you also see your chat history for :id.
+
+Let's look at how we could implement this sort of nested routes pattern with React Router. We'll start off with some basic Routes.
+
+```javascript
+// App.js
+function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/messages" element={<Messages />} />
+      <Route path="/settings" element={<Settings />} />
+    </Routes>
+  );
+}
+```
+
+Now, if we want Messages to be in control of rendering a child Routes, what's stopping us from just rendering another Routes component inside Messages? Something like this:
+
+```javascript
+function Messages() {
+  return (
+    <Container>
+      <Conversations />
+
+      <Routes>
+        <Route path=":id" element={<Chat />} />
+      </Routes>
+    </Container>
+  );
+}
+```
+
+Now when the user navigates to /messages, React Router renders the Messages component. From there, Messages shows all our conversations via the Conversations component and then renders another Routes with a Route that maps /messages/:id to the Chat component.
+
+**Relative Routes**
+
+Notice that we don't have to include the full /messages/:id path in the nested Route. This is because Routes is intelligent and by leaving off the leading /, it assumes we want this path to be relative to the parent's location, /messages.
+
+Looks good, but there's one subtle issue. Can you spot it?
+
+Messages only gets rendered when the user is at /messages. When they visit a URL that matches the /messages/:id pattern, Messages no longer matches and therefore, our nested Routes never gets rendered.
+
+To fix this, naturally, we need a way to tell React Router that we want to render Messages both when the user is at /messages or any other location that matches the /messages/* pattern.
+
+Wait. What if we just update our path to be /messages/*?
+
+```javascript
+// App.js
+function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/messages/*" element={<Messages />} />
+      <Route path="/settings" element={<Settings />} />
+    </Routes>
+  );
+}
+```
+
+Much to our delight, that'll work. By appending a /* to the end of our /messages path, we're essentially telling React Router that Messages has a nested Routes component and our parent path should match for /messages as well as any other location that matches the /messages/* pattern. Exactly what we wanted.
+
+At this point, we've looked at how you can create nested routes by appending /* to our Route's path and rendering, literally, a nested Routes component. This works when you want your child Route in control of rendering the nested Routes, but what if we wanted our App component to contain all the information it needed to create our nested routes rather than having to do it inside of Messages?
+
+Because this is a common preference, React Router supports this way of creating nested routes as well. Here's what it looks like.
+
+```javascript
+function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/messages" element={<Messages />}>
+        <Route path=":id" element={<Chats />} />
+      </Route>
+      <Route path="/settings" element={<Settings />} />
+    </Routes>
+  );
+}
+```
+
+You declaratively nest the child Route as a children of the parent Route. Like before, the child Route is now relative to the parent, so you don't need to include the parent (/messages) path.
+
+Now, the last thing you need to do is tell React Router where in the parent Route (Messages) should it render the child Route (Chats).
+
+To do this, you use React Router's Outlet component.
+
+```javascript
+import { Outlet } from "react-router-dom";
+
+function Messages() {
+  return (
+    <Container>
+      <Conversations />
+
+      <Outlet />
+    </Container>
+  );
+}
+```
+
+If the app's location matches the nested Route's path, this Outlet component will render the Route's element. So based on our Routes above, if we were at /messages, the Outlet component would render null, but if we were at /messages/1, it would render the <Chats /> component.
+
+#### Pass props to Router Components
+
+In previous versions of React Router (v4), this was non-trivial since React Router was in charge of creating the React element.
+
+However, with React Router v6, since you're in charge of creating the element, you just pass a prop to the component as you normally would.
+
+`<Route path="/dashboard" element={<Dashboard authed={true} />} />`
+
+### Good Practices for Calling APIs from ReactJS
+
+https://medium.com/weekly-webtips/patterns-for-doing-api-calls-in-reactjs-8fd9a42ac7d4
+
+### JSX
+
+JSX is a syntax extension for JavaScript. It was written to be used with React. JSX code looks a lot like HTML.
+
+What does "syntax extension" mean?
+
+In this case, it means that JSX is not valid JavaScript. Web browsers can’t read it!
+
+If a JavaScript file contains JSX code, then that file will have to be compiled. That means that before the file reaches a web browser, a JSX compiler will translate any JSX into regular JavaScript.
 
 #### JSX Elements
 

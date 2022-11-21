@@ -72,6 +72,7 @@ nav:
 - VMWare/VMWare APIs/README.md
 - VMWare/VxRail Architecture and Troubleshooting/README.md
 - VMWare/Change User on VxRail Plugin/README.md
+- VMare/How to Pull Usage Metrics/README.md
 - Web Traffic Generator/README.md
 remote_branch: main
 repo_name: https://github.com/grantcurell/grantcurell.github.io/tree/master
