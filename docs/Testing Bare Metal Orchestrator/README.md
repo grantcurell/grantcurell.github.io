@@ -1,5 +1,18 @@
 # Testing Bare Metal Orchestrator
 
+- [Testing Bare Metal Orchestrator](#testing-bare-metal-orchestrator)
+  - [Supported Operating Systems](#supported-operating-systems)
+  - [License Requirements](#license-requirements)
+  - [Architecture](#architecture)
+  - [BMO Features and Functions](#bmo-features-and-functions)
+    - [Archecture with HA](#archecture-with-ha)
+  - [Setup](#setup)
+    - [Create a User for Global Admin](#create-a-user-for-global-admin)
+  - [Deploy a Server](#deploy-a-server)
+  - [Questions](#questions)
+  - [Problems](#problems)
+  - [Bug Report](#bug-report)
+
 ## Supported Operating Systems
 
 https://infohub.delltechnologies.com/l/bare-metal-orchestrator-1-2-command-line-interface-user-s-guide-1/validated-hypervisors-and-operating-systems-7
@@ -115,8 +128,7 @@ roles:
 
 ## Deploy a Server
 
-
-
+TODO
 
 ## Questions
 
@@ -129,6 +141,7 @@ roles:
   - The mMetadata link for servers: https://infohub.delltechnologies.com/l/bare-metal-orchestrator-1-2-command-line-interface-user-s-guide-1/create-a-server-or-multiple-servers-and-update-configurations-3#GUID-12309190-709C-4436-8937-D367B5978993
 - Error when adding server. When I was in sites I just used the name.
   - I had to look under inventory, actions, discover device to realize that the global site name was actually gc
+- This link is broken: https://infohub.delltechnologies.com/l/bare-metal-orchestrator-1-2-command-line-interface-user-s-guide-1/create-a-server-or-multiple-servers-and-update-configurations-3#GUID-AF06D60B-3E6D-46A3-9722-B3D2E0D44BCB on https://infohub.delltechnologies.com/l/bare-metal-orchestrator-1-2-command-line-interface-user-s-guide-1/create-a-server-or-multiple-servers-and-update-configurations-3
 
 ![](images/2022-10-12-14-31-59.png)
 
@@ -153,5 +166,18 @@ spec:
 
 ```
 
-- 
-  - 
+- It would be helpful if the help were contextual. Ex: `bmo create --help` returns the command help fur create rather than the generic BMO command
+- It would be helpful to have a way to pretty print the output of something like `bmo create hardwareprofile -f <FILE>`
+- Error I received on import was
+
+```
+dell@bmo-manager-1:~$ bmo create hardwareprofile -f hw_pf_bios.yaml 
+Failed to create hardware profile in the 'metalweaver' namespace, reason: HardwareProfile.mw.dell.com "r7525-profile" is invalid: [spec.server.bios.attributes.numLock: Unsupported value: "true": supported values: "On", "Off", spec.server.bios.attributes.setBootOrderEn: Invalid value: "AHCI": spec.server.bios.attributes.setBootOrderEn in body should match '^$|^((\w+|\*)\.(\w+|\*)\.(\w+|\*)(\-(\w+|\*))*((\w+|\*))*(\:((\w+|\*)\.(\w+|\*)\.(\w+|\*)(\-(\w+|\*))*((\w+|\*))*))*)(\,(\w+|\*)\.(\w+|\*)\.(\w+|\*)(\-(\w+|\*))*((\w+|\*))*(\:((\w+|\*)\.(\w+|\*)\.(\w+|\*)(\-(\w+|\*))*((\w+|\*))*))*)*$', spec.server.bios.attributes.serialPortAddress: Unsupported value: "Com": supported values: "Com1", "Com2", spec.server.bios.attributes.conTermType: Unsupported value: "Vt": supported values: "Vt100Vt220", "Ansi", spec.server.bios.attributes.tpmSecurity: Unsupported value: "true": supported values: "On", "Off", "OnPbm", "OnNoPbm", spec.server.bios.attributes.usbManagedPort: Unsupported value: "true": supported values: "On", "Off", spec.server.bios.attributes.pxeDev1Interface: Invalid value: "NIC": spec.server.bios.attributes.pxeDev1Interface in body should match '^NIC\.[A-Za-z]+\.[0-9]+\-[0-9]+\-[0-9]+']
+```
+
+but in my file I had `NumLock: On` which is confusing because I did properly have numlock set to On. The real problem was that it wanted `numLock` instead of `NumLock`
+
+## Bug Report
+
+See [Bug Report](./bug_report.md)
+
