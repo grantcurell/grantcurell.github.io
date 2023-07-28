@@ -9,7 +9,7 @@
     - [What does each block have](#what-does-each-block-have)
     - [What is a permissionless blockchain?](#what-is-a-permissionless-blockchain)
       - [Consensus Algorithm](#consensus-algorithm)
-    - [What is a permissioned blockchain?](#what-is-a-permissioned-blockchain)
+    - [What is a permissions blockchain?](#what-is-a-permissioned-blockchain)
     - [What is a block](#what-is-a-block)
       - [Genesis Block](#genesis-block)
     - [Creating a new transaction](#creating-a-new-transaction)

@@ -17,6 +17,7 @@ nav:
 - esrally (INCOMPLETE)/README.md
 - Get NVMe Drives from iDRAC Redfish/README.md
 - High Speed Packet Capture/README.md
+- How Bitcoin-Blockchain Works - Notes/README.md
 - How OS10 Installer Works/README.md
 - How to ONIE Install and ZTP Config Dell SONiC/README.md
 - How to Read lstopo and a PCIe Overview/README.md
@@ -34,9 +35,13 @@ nav:
 - Migrating Storage Volumes to PowerStore/README.md
 - Mulitple Span on 4112F-ON with OpenSwitch/README.md
 - Multiple Span on 4112F-ON with OS10/README.md
+- Notes on AMD Processor/README.md
+- Notes on Building a Datacenter from Scratch/README.md
 - Notes on HPC/README.md
+- Notes on HSM/README.md
 - Notes on Improving Drive Performance/README.md
 - Notes on mdraid Performance Testing/README.md
+- Notes on nodejs/README.md
 - Notes on NVMe Log Pages/README.md
 - Notes on PCIe/README.md
 - Nvidia GPUDirect/README.md
@@ -49,6 +54,7 @@ nav:
 - OS10 Password Recovery Bug/README.md
 - PCIev3 vs v4/README.md
 - Playing with virsh/README.md
+- PowerScale Setup/README.md
 - Reset OS10 Admin Password/README.md
 - Run VPN on OS10/README.md
 - Running DNS from OS10/README.md
@@ -60,6 +66,7 @@ nav:
 - Site to Site VPN with PFSense and CentOS 8/README.md
 - SONiC - Sample Datacenter Automation Architecture/README.md
 - Switch Directly to Client Test/README.md
+- Testing Bare Metal Orchestrator/README.md
 - Testing Intel x520 on RHEL 6/README.md
 - Understanding Memory/README.md
 - Use OS10 as Aggregator/README.md
@@ -71,9 +78,8 @@ nav:
 - VMWare/Troubleshooting vSAN/README.md
 - VMWare/VMWare APIs/README.md
 - VMWare/VxRail Architecture and Troubleshooting/README.md
-- VMWare/Change User on VxRail Plugin/README.md
-- VMWare/How to Pull Usage Metrics/README.md
 - Web Traffic Generator/README.md
+- Writing udev Rules for Dell PERC H755/README.md
 remote_branch: main
 repo_name: https://github.com/grantcurell/grantcurell.github.io/tree/master
 site_author: Grant Curell
