@@ -1,25 +1,31 @@
 # My PowerScale Setup Notes
 
 - [My PowerScale Setup Notes](#my-powerscale-setup-notes)
-  - [Test 1 - Generic Share](#test-1---generic-share)
-    - [Against Windows 11](#against-windows-11)
-    - [Against Rocky Linux 9](#against-rocky-linux-9)
-  - [Test 2 - Add FIPS](#test-2---add-fips)
-    - [Add FIPS](#add-fips)
-    - [Test 1 - Against Windows 11](#test-1---against-windows-11)
+  - [Testing](#testing)
+    - [Test 1 - Generic Share](#test-1---generic-share)
+      - [Against Windows 11](#against-windows-11)
+      - [Against Rocky Linux 9](#against-rocky-linux-9)
+    - [Test 2 - Add FIPS](#test-2---add-fips)
+      - [Add FIPS](#add-fips)
+      - [Test Against Windows 11](#test-against-windows-11)
       - [Set Up Active Directory](#set-up-active-directory)
-  - [Test 2 - Against Rocky Linux 9](#test-2---against-rocky-linux-9)
+      - [Test Against Rocky Linux 9](#test-against-rocky-linux-9)
+  - [How Kerberos Works in This Scenario](#how-kerberos-works-in-this-scenario)
+    - [What is a Service Principal](#what-is-a-service-principal)
   - [Questions](#questions)
   - [Random Notes](#random-notes)
+    - [Debugging](#debugging)
 
 
-## Test 1 - Generic Share
+## Testing
+
+### Test 1 - Generic Share
 
 - Created a system user grant on the local OS, set up a share, and gave that user privileges.
 
 ![](images/2023-07-27-13-41-29.png)
 
-### Against Windows 11
+#### Against Windows 11
 
 - I was able to access that without issue
 
@@ -29,7 +35,7 @@
 
 ![](images/2023-07-27-13-45-37.png)
 
-### Against Rocky Linux 9
+#### Against Rocky Linux 9
 
 - Ran command `sudo mount.cifs //10.10.25.80/ifs ~/share -o vers=2.0,username=grant,password='somepassword'` which gave `mount error(2): No such file or directory`
 - Received: 
@@ -52,9 +58,9 @@ dns_resolver           16384  1 cifs
 
 ![](images/2023-07-27-14-05-35.png)
 
-## Test 2 - Add FIPS
+### Test 2 - Add FIPS
 
-### Add FIPS
+#### Add FIPS
 
 Working from [this procedure](https://infohub.delltechnologies.com/l/dell-powerscale-onefs-security-considerations/configuration-3608)
 
@@ -128,7 +134,7 @@ gcluster-1# isi security settings view
 Restricted shell Enabled: No
 ```
 
-### Test 1 - Against Windows 11
+#### Test Against Windows 11
 
 - It nows fails:
 
@@ -275,8 +281,8 @@ Pubkey Accepted Key Types: ssh-rsa
 
 ![](images/2023-07-28-13-30-45.png)
 
+- 
 - At this point I swapped over to Linux.
-
 
 #### Set Up Active Directory
 
@@ -287,7 +293,7 @@ Pubkey Accepted Key Types: ssh-rsa
 - I was not able to join with `isi auth ads create --name=win-6c2vli4n0lo.grant.lan --user=administrator --groupnet=groupnet0`
 - *DO NOT* select the RFC2309 option
 
-## Test 2 - Against Rocky Linux 9
+#### Test Against Rocky Linux 9
 
 - Join the domain
 
@@ -343,7 +349,7 @@ Refer to the mount.cifs(8) manual page (e.g. man mount.cifs) and kernel log mess
 - Attempt to setting `sec=krb5` returns bug-looking results:
 
 ```
-[root@acas ~]# sudo mount -t cifs //10.10.25.80/teshtshare /mnt/testshare -o username=administrator,domain=grant.lan,sec=krb5
+[root@acas ~]# sudo mount -t cifs //10.10.25.80/testshare /mnt/testshare -o username=administrator,domain=grant.lan,sec=krb5
 mount error(0): Success
 Refer to the mount.cifs(8) manual page (e.g. man mount.cifs) and kernel log messages (dmesg)
 ```
@@ -352,20 +358,77 @@ when you inspect `dmseg` you see:
 
 ```
 [86217.278254] CIFS: VFS: \\10.10.25.80 Send error in SessSetup = -13
-[86228.682870] CIFS: Attempting to mount \\10.10.25.80\teshtshare
+[86228.682870] CIFS: Attempting to mount \\10.10.25.80\testshare
 [86228.816520] CIFS: VFS: Verify user has a krb5 ticket and keyutils is installed
 [86228.816530] CIFS: VFS: \\10.10.25.80 Send error in SessSetup = -126
 [86228.816564] CIFS: VFS: cifs_mount failed w/return code = -126
 ```
 
+## How Kerberos Works in This Scenario
+
+Overview: https://www.freecodecamp.org/news/how-does-kerberos-work-authentication-protocol/
+
+Synopsis: the Active Directory user `administrator@grant.lan` logged into the Rocky 9 client (`acas.lan`) wants to mount a CIFS share on the Dell PowerScale (`gcluster-1`) that requires Active Directory Kerberos authentication.
+
+1. TGT Acquisition with kinit:
+   - Before attempting to mount the CIFS share, the user `administrator@grant.lan` on the Rocky 9 client (`acas.lan`) must obtain a Ticket Granting Ticket (TGT) from the Key Distribution Center (KDC).
+   - To get the TGT, the user runs the `kinit` command and provides their password when prompted:
+     ```
+     bash-5.1$ kinit administrator@grant.lan
+     Password for administrator@grant.lan:
+     ```
+
+2. TGT Request to KDC:
+   - With the TGT in hand, the Rocky 9 client (`acas.lan`) can now initiate the request to mount the CIFS share on the Dell PowerScale (`gcluster-1`) using the `mount` command.
+
+3. CIFS Share Mount:
+   - The user `administrator@grant.lan` runs the `mount` command with the required options to mount the CIFS share on the Dell PowerScale:
+     ```
+     bash-5.1$ sudo mount -t cifs //10.10.25.80/testshare /mnt/testshare -o username=administrator@grant.lan,domain=GRANT.LAN,sec=krb5
+     ```
+
+4. TGT Usage and Service Principal:
+   - The `mount` command uses the TGT acquired earlier to authenticate and obtain the Service Ticket from the KDC for accessing the CIFS service on `gcluster-1`.
+   - The Service Ticket is generated for the service principal associated with the CIFS service on `gcluster-1`. In this case, the service principal is `CIFS/gcluster-1.grant.lan@GRANT.LAN`.
+
+5. Service Ticket Response:
+   - The KDC (`dc.grant.lan`) validates the TGT and generates a Service Ticket for the CIFS service (`CIFS/gcluster-1.grant.lan`) on the Dell PowerScale.
+
+6. Mounting the CIFS Share:
+   - With the Service Ticket, the Rocky 9 client (`acas.lan`) successfully mounts the CIFS share on the Dell PowerScale (`gcluster-1`) at the specified mount point.
+
+The user acquires a TGT using `kinit`, and then the `mount` command leverages the TGT to request and obtain the Service Ticket for the CIFS share from the KDC. The Service Ticket is then used for mounting the CIFS share on the Dell PowerScale, allowing the user to access the share securely without re-entering their password during the session.
+
+
+8. Mounting the CIFS Share:
+   - The Rocky 9 client (`acas.lan`) receives the Service Ticket and sends it, along with the request to mount the CIFS share, to the Dell PowerScale (`gcluster-1`).
+   - The Dell PowerScale (`gcluster-1`) decrypts the Service Ticket using the session key shared with the client and validates the user's identity and permissions to access the CIFS share.
+   - If everything checks out, the CIFS share is successfully mounted on the Rocky 9 client (`acas.lan`).
+
+9. Session Key for Secure Communication:
+   - The client (`acas.lan`) and the CIFS service on the Dell PowerScale (`gcluster-1`) now have a shared session key for secure communication during the CIFS session.
+
+Throughout this process, the client, KDC, and CIFS service use symmetric encryption and shared secret keys to securely exchange credentials and generate tickets. Once the user is authenticated with a TGT, they can access the CIFS share without having to re-enter their password during the session. This provides a secure and seamless single sign-on (SSO) experience for the user.
+
+### What is a Service Principal
+
+A service principal is a unique identity within a Kerberos-based authentication system that represents a specific network service or application. In a Kerberos authentication environment, each network service (e.g., web server, email server, file server) is assigned its own service principal, which is used to authenticate and authorize clients to access the service securely.
+
+Service principals are created and managed by the Key Distribution Center (KDC) in the Kerberos realm. The KDC issues a set of cryptographic keys to each service principal, which are used for secure communication between the client and the service.
+
+When a client wants to access a network service that requires Kerberos authentication, it requests a Ticket Granting Ticket (TGT) from the KDC by authenticating with its own principal (typically associated with a user). The TGT allows the client to request Service Tickets for specific service principals. The client then presents the Service Ticket to the service principal as proof of its identity, and the service principal validates the ticket and grants access to the requested service.
+
+Service principals are essential for securing communication in a Kerberos environment because they allow clients and services to establish trust and verify each other's identities. Each service principal has a unique name and is associated with a specific network service, ensuring that only authorized clients can access the corresponding service.
+
+For example, if you have a web server named "example.com," it would have its own service principal called "HTTP/example.com@REALM" (where REALM is the Kerberos realm name). Clients authenticating to the web server would obtain Service Tickets for this specific service principal to gain access to the web server's resources securely.
+
 ## Questions
 
-- SMBv3?
-  - They have two and three
-- What kind of Linux clients?
-- Are the Linux clients still using AD to authenticate against the PowerScale?
-  - Yes
-- What version of Windows Server?
+- Why do I keep seeing?
+
+![](images/2023-08-01-10-12-58.png)
+
+- Why does active directory work and then stop working???
 
 ## Random Notes
 
@@ -375,3 +438,20 @@ when you inspect `dmseg` you see:
 
 > The access zone and the Active Directory provider must reference the same groupnet. 
 
+- No STIGS - just FIPS
+- 9.5.0.3
+- Have they pinned to v3 on SMB? Unknown
+- They have three access zones: management, 75%, and 25%. 16 total nodes. 
+  - 12 nodes are for the primary datacenter in a zone
+  - 4 nodes are secondary zone
+  - all 16 are for management zone
+- We believe there are Linux hosts in all three access zones
+- There is an LTS 9.5.0 - as of May 17th it's under long term support. Stable software release
+- MUST BE GRANT.LAN
+
+### Debugging
+
+- This command does not cause any traffic to the DC so it's not talking to it:
+
+bash-5.1$ kvno cifs/10.10.25.80
+kvno: Server not found in Kerberos database while getting credentials for cifs/10.10.25.80@GRANT.LAN
