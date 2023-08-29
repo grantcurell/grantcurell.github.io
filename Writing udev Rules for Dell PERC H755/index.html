@@ -105,11 +105,19 @@
                 </li>
               </ul>
               <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Finding%20Rare%20Logs%20with%20DBSCAN/">Finding Rare Logs with DBSCAN</a>
+                </li>
+              </ul>
+              <ul>
                 <li class="toctree-l1"><a class="reference internal" href="../Get%20NVMe%20Drives%20from%20iDRAC%20Redfish/">Get NVMe Drives from iDRAC Redfish</a>
                 </li>
               </ul>
               <ul>
                 <li class="toctree-l1"><a class="reference internal" href="../High%20Speed%20Packet%20Capture/">High Speed Packet Capture</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20Bitcoin-Blockchain%20Works%20-%20Notes/">How Bitcoin-Blockchain Works - Notes</a>
                 </li>
               </ul>
               <ul>
@@ -181,7 +189,19 @@
                 </li>
               </ul>
               <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20AMD%20Processor/">Notes on AMD Processor</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20Building%20a%20Datacenter%20from%20Scratch/">Notes on Building a Datacenter from Scratch</a>
+                </li>
+              </ul>
+              <ul>
                 <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20HPC/">Notes on HPC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20HSM/">Notes on HSM</a>
                 </li>
               </ul>
               <ul>
@@ -190,6 +210,10 @@
               </ul>
               <ul>
                 <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20mdraid%20Performance%20Testing/">Notes on mdraid Performance Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20nodejs/">Notes on nodejs</a>
                 </li>
               </ul>
               <ul>
@@ -241,6 +265,10 @@
                 </li>
               </ul>
               <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PowerScale%20Setup/">PowerScale Setup</a>
+                </li>
+              </ul>
+              <ul>
                 <li class="toctree-l1"><a class="reference internal" href="../Reset%20OS10%20Admin%20Password/">Reset OS10 Admin Password</a>
                 </li>
               </ul>
@@ -282,6 +310,10 @@
               </ul>
               <ul>
                 <li class="toctree-l1"><a class="reference internal" href="../Switch%20Directly%20to%20Client%20Test/">Switch Directly to Client Test</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Testing%20Bare%20Metal%20Orchestrator/">Testing Bare Metal Orchestrator</a>
                 </li>
               </ul>
               <ul>
@@ -329,15 +361,47 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Change%20User%20on%20VxRail%20Plugin/">Change User on VxRail Plugin</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="" href="../VMare/How to Pull Usage Metrics/README.md">None</a>
-                </li>
-              </ul>
-              <ul>
                 <li class="toctree-l1"><a class="reference internal" href="../Web%20Traffic%20Generator/">Web Traffic Generator</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Writing udev Rules for Dell PERC H755</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#operating-system">Operating System</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#test-1">Test 1</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#etcudevrulesd99-abjnrrules">/etc/udev/rules.d/99-abj.nr.rules</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#udevadm-test-actionadd-sysblocksdc-with-custom-rules">udevadm test --action="add" /sys/block/sdc with custom rules</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#test-without-custom-rules">Test Without Custom Rules</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#perccli64-c0-show">perccli64 /c0 show</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#optmegaraidperccliperccli64-c1-show">/opt/MegaRAID/perccli/perccli64 /c1 show</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#lsblk">lsblk</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#test-2">Test 2</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#99-abjnrrules">99-abj.nr.rules</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#optmegaraidperccliperccli64-c1-show_1">/opt/MegaRAID/perccli/perccli64 /c1 show</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#udevadm-test-actionadd-sysblocksda">udevadm test --action="add" /sys/block/sda</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#nr_requests-value">nr_requests value</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#post-reboot">Post Reboot</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    </ul>
                 </li>
               </ul>
       </div>
@@ -1603,6 +1667,9 @@ SUBSYSTEM==&quot;block&quot;,ACTION==&quot;add|change&quot;,KERNEL==&quot;md*&qu
               
             </div>
           </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../Web%20Traffic%20Generator/" class="btn btn-neutral float-left" title="Web Traffic Generator"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+    </div>
 
   <hr/>
 
@@ -1623,6 +1690,8 @@ SUBSYSTEM==&quot;block&quot;,ACTION==&quot;add|change&quot;,KERNEL==&quot;md*&qu
   <div class="rst-versions" role="note" aria-label="Versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
     
+    
+      <span><a href="../Web%20Traffic%20Generator/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
   </span>

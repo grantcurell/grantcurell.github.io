@@ -105,11 +105,19 @@
                 </li>
               </ul>
               <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Finding%20Rare%20Logs%20with%20DBSCAN/">Finding Rare Logs with DBSCAN</a>
+                </li>
+              </ul>
+              <ul>
                 <li class="toctree-l1"><a class="reference internal" href="../Get%20NVMe%20Drives%20from%20iDRAC%20Redfish/">Get NVMe Drives from iDRAC Redfish</a>
                 </li>
               </ul>
               <ul>
                 <li class="toctree-l1"><a class="reference internal" href="../High%20Speed%20Packet%20Capture/">High Speed Packet Capture</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20Bitcoin-Blockchain%20Works%20-%20Notes/">How Bitcoin-Blockchain Works - Notes</a>
                 </li>
               </ul>
               <ul>
@@ -181,7 +189,19 @@
                 </li>
               </ul>
               <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20AMD%20Processor/">Notes on AMD Processor</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20Building%20a%20Datacenter%20from%20Scratch/">Notes on Building a Datacenter from Scratch</a>
+                </li>
+              </ul>
+              <ul>
                 <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20HPC/">Notes on HPC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20HSM/">Notes on HSM</a>
                 </li>
               </ul>
               <ul>
@@ -190,6 +210,318 @@
               </ul>
               <ul>
                 <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20mdraid%20Performance%20Testing/">Notes on mdraid Performance Testing</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Notes on nodejs</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#required-javascript">Required Javascript</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#arrow-expressions">Arrow expressions</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#promises">Promises</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#resolve-and-reject">Resolve and Reject</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#asyncawait">Async/Await</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#setinterval-and-settimeout">setInterval() and setTimeout()</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#node">Node</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#the-node-repl-read-eval-print-loop">The Node REPL (read-eval-print loop)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#running-a-program-with-node">Running a Program with Node</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#core-modules">Core Modules</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#console-module">Console Module</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#the-process-module">The Process Module</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#the-os-module">The OS Module</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#the-util-module">The Util Module</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#npm">NPM</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#create-a-new-app">Create a new app</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#nodemon">nodemon</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#package-scope">Package Scope</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#installing-a-custom-package">Installing a Custom Package</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#modules">Modules</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#exporting">Exporting</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#require">Require</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#using-object-destructuring-to-be-more-selective-with-require">Using Object Destructuring to be more Selective With require()</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#the-events-module">The Events Module</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#user-input-and-output">User Input and Output</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#the-error-module">The Error Module</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#why-error-first-callbacks">Why Error First Callbacks</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#the-buffer-module">The Buffer Module</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#readable-streams">Readable Streams</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#further-explanation">Further explanation</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#writable-streams">Writable Streams</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#timers-modules">Timers Modules</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#http-server">HTTP Server</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#the-url-module">The URL Module</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#routing">Routing</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#longer-example">Longer Example</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#returning-a-status-code">Returning a Status Code</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#express">Express</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#request-object-properties">Request Object Properties</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#request-object-methods">Request Object Methods</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#response-object">Response Object</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#knexjs">Knex.js</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#how-does-exportsup-and-exportsdown-work">How does exports.up and exports.down work</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#seed-files">Seed Files</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#babel">Babel</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#reactjs">ReactJS</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#importing-react-required-code">Importing React Required Code</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#components">Components</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#create-a-component-class">Create a Component Class</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#the-render-function">The Render Function</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#create-a-component-instance">Create a Component Instance</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#use-this-in-a-class">Use This in a Class</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#render-components-with-components">Render Components with Components</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#importing-files-and-exporting-functionality">Importing Files and Exporting Functionality</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#component-props">Component Props</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#event-handler">Event Handler</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#handleevent-onevent-and-thispropsonevent">handleEvent, onEvent, and this.props.onEvent</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#thispropschildren">this.props.children</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#default-properties">Default Properties</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#component-state">Component State</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#component-lifecycle">Component Lifecycle</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#componentdidmount">componentDidMount</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#componentwillunmount">componentWillUnmount</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#componentdidupdate">componentDidUpdate</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#stateless-functional-components">Stateless Functional Components</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#function-component-props">Function Component Props</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#react-hooks">React Hooks</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#comparison-class-vs-function">Comparison Class vs Function</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#update-function-component-state">Update Function Component State</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#initialize-state">Initialize State</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#use-state-setter-outside-of-jsx">Use State Setter Outside of JSX</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#set-from-previous-state">Set From Previous State</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#arrays-in-state">Arrays in State</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#objects-in-state">Objects in State</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#separate-hooks-for-separate-states">Separate Hooks for Separate States</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#the-effect-hook-useeffect">The Effect Hook - useEffect</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#react-hooks-and-component-lifecycle-equivalent">React Hooks and Component Lifecycle Equivalent</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#function-component-effects">Function Component Effects</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#clean-up-effects">Clean Up Effects</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#control-when-effects-are-called">Control When Effects are Called</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#fetch-data-from-a-server">Fetch Data from a Server</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#rules-of-hooks">Rules of Hooks</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#separate-hooks-for-separate-effects">Separate Hooks for Separate Effects</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#stateless-components-from-stateful-components">Stateless Components from Stateful Components</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#build-a-stateful-component-class">Build a Stateful Component Class</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#dont-update-props">Don't Update props</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#child-components-update-their-parents-state">Child Components Update Their Parents' State</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#child-components-update-sibling-components">Child Components Update Sibling Components</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#one-sibling-to-display-another-to-change">One Sibling to Display, Another to Change</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#style">Style</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#inline-styles">Inline Styles</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#make-a-style-object-variable">Make a Style Object Variable</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#share-styles-across-multiple-components">Share Styles Across Multiple Components</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#separate-container-components-from-presentational-components">Separate Container Components from Presentational Components</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#create-a-container-component">Create a Container Component</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#create-a-presentational-component">Create a Presentational Component</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#proptypes">propTypes</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#apply-proptypes">Apply PropTypes</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#proptypes-in-function-components">PropTypes in Function Components</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#react-forms">React Forms</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#input-on-change">Input on Change</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#control-vs-uncontrolled">Control vs Uncontrolled</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#update-an-inputs-value">Update an Input's Value</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#set-the-inputs-initial-state">Set the Input's Initial State</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#dynamically-rendering-different-components-without-switch-the-capitalized-reference-technique">Dynamically Rendering Different Components without Switch: the Capitalized Reference Technique</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#react-router">React Router</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#browserrouter">BrowserRouter</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#route">Route</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#routes">Routes</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#links">Links</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#url-parameters">URL Parameters</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#nested-routes">Nested Routes</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#pass-props-to-router-components">Pass props to Router Components</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#good-practices-for-calling-apis-from-reactjs">Good Practices for Calling APIs from ReactJS</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#jsx">JSX</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#jsx-elements">JSX Elements</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#jsx-elements-and-their-surroundings">JSX Elements And Their Surroundings</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#attributes-in-jsx">Attributes In JSX</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#nested-jsx">Nested JSX</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#jsx-outer-elements">JSX Outer Elements</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#rendering-jsx">Rendering JSX</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#reactdomrender">ReactDOM.render()</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#class-vs-classname">class vs className</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#self-closing-tags">Self-Closing Tags</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#javascript-in-jsx">Javascript in JSX</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#variables-in-jsx">Variables in JSX</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#event-listeners-in-jsx">Event Listeners in JSX</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#jsx-conditionals">JSX Conditionals</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#map-in-jsx">.map in JSX</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#list-keys">List Keys</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#react-create-element">React Create Element</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    </ul>
                 </li>
               </ul>
               <ul>
@@ -241,6 +573,10 @@
                 </li>
               </ul>
               <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PowerScale%20Setup/">PowerScale Setup</a>
+                </li>
+              </ul>
+              <ul>
                 <li class="toctree-l1"><a class="reference internal" href="../Reset%20OS10%20Admin%20Password/">Reset OS10 Admin Password</a>
                 </li>
               </ul>
@@ -282,6 +618,10 @@
               </ul>
               <ul>
                 <li class="toctree-l1"><a class="reference internal" href="../Switch%20Directly%20to%20Client%20Test/">Switch Directly to Client Test</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Testing%20Bare%20Metal%20Orchestrator/">Testing Bare Metal Orchestrator</a>
                 </li>
               </ul>
               <ul>
@@ -329,15 +669,11 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Change%20User%20on%20VxRail%20Plugin/">Change User on VxRail Plugin</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="" href="../VMare/How to Pull Usage Metrics/README.md">None</a>
-                </li>
-              </ul>
-              <ul>
                 <li class="toctree-l1"><a class="reference internal" href="../Web%20Traffic%20Generator/">Web Traffic Generator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Writing%20udev%20Rules%20for%20Dell%20PERC%20H755/">Writing udev Rules for Dell PERC H755</a>
                 </li>
               </ul>
       </div>
@@ -3514,6 +3850,10 @@ ReactDOM.render(&lt;ul&gt;{peopleLis}&lt;/ul&gt;, document.getElementById('app')
               
             </div>
           </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../Notes%20on%20mdraid%20Performance%20Testing/" class="btn btn-neutral float-left" title="Notes on mdraid Performance Testing"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../Notes%20on%20NVMe%20Log%20Pages/" class="btn btn-neutral float-right" title="Notes on NVMe Log Pages">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
 
   <hr/>
 
@@ -3535,6 +3875,10 @@ ReactDOM.render(&lt;ul&gt;{peopleLis}&lt;/ul&gt;, document.getElementById('app')
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
+      <span><a href="../Notes%20on%20mdraid%20Performance%20Testing/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../Notes%20on%20NVMe%20Log%20Pages/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

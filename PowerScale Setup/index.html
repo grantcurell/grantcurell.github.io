@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Grant Curell" /><link rel="canonical" href="https://grantcurell.github.io/PowerScale%20Setup/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>PowerScale Setup - Grant Curell's Dell Projects</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "PowerScale Setup";
+        var mkdocs_page_input_path = "PowerScale Setup\\README.md";
+        var mkdocs_page_url = "/PowerScale%20Setup/";
+      </script>
+    
+    <script src="../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Grant Curell's Dell Projects
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Grant Curell's Dell Projects</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Adding%20Hashing%20to%20OpenSwitch/">Adding Hashing to OpenSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Adding%20Intel%20I219-LM%20%288086.0d4c%29%20Driver%20to%20ESXi/">Adding Intel I219-LM (8086.0d4c) Driver to ESXi</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Automating%20OME%20Hardware%20Reports/">Automating OME Hardware Reports</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Backup%20OS10%20Config%20with%20Ansible/">Backup OS10 Config with Ansible</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../CloudLink/">CloudLink</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20FN410%20as%20a%20Switch/">Configure FN410 as a Switch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20Gigamon%20Tap/">Configure Gigamon Tap</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configuring%20VLT%20on%20OS10/">Configuring VLT on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Create%20Kickstart%20Server%20on%20Fedora/">Create Kickstart Server on Fedora</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Create%20OpenSwitch%20VM/">Create OpenSwitch VM</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Dell%20Ansible%20Testing/">Dell Ansible Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../DHCP%20Relay%20on%20SONiC/">DHCP Relay on SONiC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Elasticsearch%20Display%20Map%20Data/">Elasticsearch Display Map Data</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Elasticsearch%20Load%20Testing/">Elasticsearch Load Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../esrally%20%28INCOMPLETE%29/">esrally (INCOMPLETE)</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Finding%20Rare%20Logs%20with%20DBSCAN/">Finding Rare Logs with DBSCAN</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Get%20NVMe%20Drives%20from%20iDRAC%20Redfish/">Get NVMe Drives from iDRAC Redfish</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../High%20Speed%20Packet%20Capture/">High Speed Packet Capture</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20Bitcoin-Blockchain%20Works%20-%20Notes/">How Bitcoin-Blockchain Works - Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20OS10%20Installer%20Works/">How OS10 Installer Works</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20to%20ONIE%20Install%20and%20ZTP%20Config%20Dell%20SONiC/">How to ONIE Install and ZTP Config Dell SONiC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20to%20Read%20lstopo%20and%20a%20PCIe%20Overview/">How to Read lstopo and a PCIe Overview</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../idrac%20with%20LDAP/">idrac with LDAP</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Importing%20Elasticsearch%20Data/">Importing Elasticsearch Data</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Installing%20DPDK%20with%20NapaTech%20Card/">Installing DPDK with NapaTech Card</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../IO%20Identities%20with%20LifeCycle%20Controller/">IO Identities with LifeCycle Controller</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../LDAP%20with%20OpenManage/">LDAP with OpenManage</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balance%20Testing%20on%204112F-ON/OpenSwitch%20%28OPX%29/">Load Balancing with LAG OPX</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balance%20Testing%20on%204112F-ON/OS10/">Load Balance Testing on 4112F-ON w/OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balance%20Testing%20with%20OpenVSwitch/">Load Balance Testing with OpenVSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balancing%20on%20Mellanox%20Switches/">Load Balancing on Mellanox Switches</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balancing%20with%20LAG%20on%205112F-ON/">Load Balancing with LAG on 5112F-ON</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Make%20USB%20Read%20Only/">Make USB Read Only</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Migrating%20Storage%20Volumes%20to%20PowerStore/">Migrating Storage Volumes to PowerStore</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Mulitple%20Span%20on%204112F-ON%20with%20OpenSwitch/">Mulitple Span on 4112F-ON with OpenSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Multiple%20Span%20on%204112F-ON%20with%20OS10/">Multiple Span on 4112F-ON with OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20AMD%20Processor/">Notes on AMD Processor</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20Building%20a%20Datacenter%20from%20Scratch/">Notes on Building a Datacenter from Scratch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20HPC/">Notes on HPC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20HSM/">Notes on HSM</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20Improving%20Drive%20Performance/">Notes on Improving Drive Performance</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20mdraid%20Performance%20Testing/">Notes on mdraid Performance Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20nodejs/">Notes on nodejs</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20NVMe%20Log%20Pages/">Notes on NVMe Log Pages</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20PCIe/">Notes on PCIe</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Nvidia%20GPUDirect/">Nvidia GPUDirect</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Nvidia%20GRID%20Notes/">Nvidia GRID Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../NVMe%20Performance%20Testing/">NVMe Performance Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Offline%20Updates%20with%20OpenManage%20Enterprise/">Offline Updates with OpenManage Enterprise</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OME%20Bug/">OME Bug</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OME%20Integration%20for%20VMWare/">OME Integration for VMWare</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OpenFlow%20on%204112F-ON/">OpenFlow on 4112F-ON</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OS10%20Password%20Recovery%20Bug/">OS10 Password Recovery Bug</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PCIev3%20vs%20v4/">PCIev3 vs v4</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Playing%20with%20virsh/">Playing with virsh</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">PowerScale Setup</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#testing">Testing</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#test-1-generic-share">Test 1 - Generic Share</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#against-windows-11">Against Windows 11</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#against-rocky-linux-9">Against Rocky Linux 9</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#test-2-add-fips">Test 2 - Add FIPS</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#add-fips">Add FIPS</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#test-against-windows-11">Test Against Windows 11</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#set-up-active-directory">Set Up Active Directory</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#test-against-rocky-linux-9">Test Against Rocky Linux 9</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#how-kerberos-works-in-this-scenario">How Kerberos Works in This Scenario</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#what-is-a-service-principal">What is a Service Principal</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#questions">Questions</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#random-notes">Random Notes</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#debugging">Debugging</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Reset%20OS10%20Admin%20Password/">Reset OS10 Admin Password</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Run%20VPN%20on%20OS10/">Run VPN on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Running%20DNS%20from%20OS10/">Running DNS from OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Set%20Up%20RSPAN%20on%20OS10/">Set Up RSPAN on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setting%20Up%20Breakout%20Cables/">Setting Up Breakout Cables</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setting%20Up%20iDRAC%20Telemetry%20with%20Splunk/">Setting Up iDRAC Telemetry with Splunk</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setting%20Up%20SmartFabric%20Director/">Setting Up SmartFabric Director</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setup%20IDPA/">Setup IDPA</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Site%20to%20Site%20VPN%20with%20PFSense%20and%20CentOS%208/">Site to Site VPN with PFSense and CentOS 8</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../SONiC%20-%20Sample%20Datacenter%20Automation%20Architecture/">SONiC - Sample Datacenter Automation Architecture</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Switch%20Directly%20to%20Client%20Test/">Switch Directly to Client Test</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Testing%20Bare%20Metal%20Orchestrator/">Testing Bare Metal Orchestrator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Testing%20Intel%20x520%20on%20RHEL%206/">Testing Intel x520 on RHEL 6</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Understanding%20Memory/">Understanding Memory</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Use%20OS10%20as%20Aggregator/">Use OS10 as Aggregator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Using%20the%20iDRAC%20Service%20Module/">Using the iDRAC Service Module</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VEP%20Testing/">VEP Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Automate%20ESXi%20Installation/">Automating ESXi Installation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/ESXi%20Architecture/">VMWare Architecture Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Setup%20VXRail/">VxRail Setup</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Troubleshooting%20vSAN/">Troubleshooting vSAN</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/VMWare%20APIs/">VMWare APIs</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/VxRail%20Architecture%20and%20Troubleshooting/">VxRail Architecture and Troubleshooting</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Web%20Traffic%20Generator/">Web Traffic Generator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Writing%20udev%20Rules%20for%20Dell%20PERC%20H755/">Writing udev Rules for Dell PERC H755</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Grant Curell's Dell Projects</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li><li>PowerScale Setup</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="powerscale-setup">PowerScale Setup</h1>
+<ul>
+<li><a href="#my-powerscale-setup-notes">My PowerScale Setup Notes</a></li>
+<li><a href="#testing">Testing</a><ul>
+<li><a href="#test-1---generic-share">Test 1 - Generic Share</a></li>
+<li><a href="#against-windows-11">Against Windows 11</a></li>
+<li><a href="#against-rocky-linux-9">Against Rocky Linux 9</a></li>
+<li><a href="#test-2---add-fips">Test 2 - Add FIPS</a></li>
+<li><a href="#add-fips">Add FIPS</a></li>
+<li><a href="#test-against-windows-11">Test Against Windows 11</a></li>
+<li><a href="#set-up-active-directory">Set Up Active Directory</a></li>
+<li><a href="#test-against-rocky-linux-9">Test Against Rocky Linux 9</a></li>
+</ul>
+</li>
+<li><a href="#how-kerberos-works-in-this-scenario">How Kerberos Works in This Scenario</a><ul>
+<li><a href="#what-is-a-service-principal">What is a Service Principal</a></li>
+</ul>
+</li>
+<li><a href="#questions">Questions</a></li>
+<li><a href="#random-notes">Random Notes</a><ul>
+<li><a href="#debugging">Debugging</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="testing">Testing</h2>
+<h3 id="test-1-generic-share">Test 1 - Generic Share</h3>
+<ul>
+<li>Created a system user grant on the local OS, set up a share, and gave that user privileges.</li>
+</ul>
+<p><img alt="" src="images/2023-07-27-13-41-29.png" /></p>
+<h4 id="against-windows-11">Against Windows 11</h4>
+<ul>
+<li>I was able to access that without issue</li>
+</ul>
+<p><img alt="" src="images/2023-07-27-13-41-58.png" /></p>
+<ul>
+<li>Default communication happened with SMBv2</li>
+</ul>
+<p><img alt="" src="images/2023-07-27-13-45-37.png" /></p>
+<h4 id="against-rocky-linux-9">Against Rocky Linux 9</h4>
+<ul>
+<li>Ran command <code>sudo mount.cifs //10.10.25.80/ifs ~/share -o vers=2.0,username=grant,password='somepassword'</code> which gave <code>mount error(2): No such file or directory</code></li>
+<li>Received: </li>
+</ul>
+<p><img alt="" src="images/2023-07-27-13-58-14.png" /></p>
+<ul>
+<li>I think the "STATUS_FS_DRIVER_REQUIRED" may be misleading because I have the CIFS module:</li>
+</ul>
+<pre><code>[root@acas ~]# lsmod | grep cif
+cifs                 2355200  0
+cifs_arc4              16384  1 cifs
+rdma_cm               139264  1 cifs
+ib_core               450560  4 rdma_cm,cifs,iw_cm,ib_cm
+cifs_md4               16384  1 cifs
+dns_resolver           16384  1 cifs
+</code></pre>
+<ul>
+<li>The problem was I was providing the share path not the share name - like a genius. <code>sudo mount -t cifs //10.10.25.80/testshare /root/share -o username=grant,password='somepassword'</code> works.</li>
+</ul>
+<p><img alt="" src="images/2023-07-27-14-05-35.png" /></p>
+<h3 id="test-2-add-fips">Test 2 - Add FIPS</h3>
+<h4 id="add-fips">Add FIPS</h4>
+<p>Working from <a href="https://infohub.delltechnologies.com/l/dell-powerscale-onefs-security-considerations/configuration-3608">this procedure</a></p>
+<ul>
+<li>Check if FIPS is already active</li>
+</ul>
+<pre><code>gcluster-1# isi security settings view
+       FIPS Mode Enabled: No
+      USB Ports Disabled: No
+Restricted shell Enabled: No
+</code></pre>
+<ul>
+<li>Make sure nodes are healthy</li>
+</ul>
+<pre><code>gcluster-1# isi status
+Cluster Name: gcluster
+Cluster Health:     [ ATTN]
+Data Reduction:     1.00 : 1
+Storage Efficiency: 0.31 : 1
+Cluster Storage:  HDD                 SSD Storage
+Size:             168.1G (234.9G Raw) 0 (0 Raw)
+VHS Size:         66.8G
+Used:             327.9M (&lt; 1%)       0 (n/a)
+Avail:            167.8G (&gt; 99%)      0 (n/a)
+
+                   Health Ext  Throughput (bps)  HDD Storage      SSD Storage
+ID |IP Address     |DASR |C/N|  In   Out  Total| Used / Size     |Used / Size
+---+---------------+-----+---+-----+-----+-----+-----------------+-----------------
+  1|10.10.25.80    |-A-- | C |27.1k| 2.1M| 2.1M| 126M/56.0G(&lt; 1%)|(No Storage SSDs)
+  2|10.10.25.81    |-A-- | C |    0|67.1k|67.1k| 109M/56.0G(&lt; 1%)|(No Storage SSDs)
+  3|10.10.25.82    |-A-- | C |    0| 270k| 270k|93.1M/56.0G(&lt; 1%)|(No Storage SSDs)
+---+---------------+-----+---+-----+-----+-----+-----------------+-----------------
+Cluster Totals:              |27.1k| 2.4M| 2.4M| 328M/ 168G(&lt; 1%)|(No Storage SSDs)
+
+     Health Fields: D = Down, A = Attention, S = Smartfailed, R = Read-Only
+           External Network Fields: C = Connected, N = Not Connected
+
+Critical Events:
+Time            LNN  Event
+--------------- ---- -------------------------------------------------------
+07/27 12:04:21  1    One or more drives (location(s) Bay  7, Bay  8, Bay ...
+07/27 12:30:35  3    Missing COMMITTED image in secure catalog
+07/27 12:30:56  2    One or more drives (location(s) Bay  7, Bay  8, Bay ...
+07/27 12:35:35  3    One or more drives (location(s) Bay  7, Bay  8, Bay ...
+
+
+Cluster Job Status:
+
+No running jobs.
+
+No paused or waiting jobs.
+
+No failed jobs.
+
+Recent job results:
+Time            Job                        Event
+--------------- -------------------------- ------------------------------
+07/27 12:29:37  MultiScan[3]               Succeeded
+07/27 12:22:42  MultiScan[2]               Succeeded
+07/27 11:58:30  DomainTag[1]               Succeeded
+</code></pre>
+<ul>
+<li>Turn on FIPS</li>
+</ul>
+<pre><code>gcluster-1# isi security settings modify --fips-mode-enabled=true
+gcluster-1# isi security settings view
+       FIPS Mode Enabled: Yes
+      USB Ports Disabled: No
+Restricted shell Enabled: No
+</code></pre>
+<h4 id="test-against-windows-11">Test Against Windows 11</h4>
+<ul>
+<li>It nows fails:</li>
+</ul>
+<p><img alt="" src="images/2023-07-27-14-37-58.png" /></p>
+<ul>
+<li>This tracks since it's clear from the <code>NTLMSSP_NEGOTIATE</code> flag that it is using NTLM which the docs say is disabled.</li>
+</ul>
+<blockquote>
+<p>Note: Updating the password hash also implicitly disables the NTLM support for SMB access that is used when shares are accessed through IP.</p>
+</blockquote>
+<ul>
+<li>The instructions also tell you to explicitly make the hash type SHA512 which also issues the warning regarding NTLM:</li>
+</ul>
+<pre><code>gcluster-1# isi auth file modify System --password-hash-type=SHA512
+NTLM support and authentication for all file protocols has been disabled for this provider due to change of password hash type.
+gcluster-1# isi auth local modify System --password-hash-type=SHA512
+</code></pre>
+<ul>
+<li>It also seems that without manual intervention the SSH key/cipher settings are more permissive than they should be:</li>
+</ul>
+<pre><code>gcluster-1# isi ssh settings view
+                   Banner: /etc/motd
+  CA Signature Algorithms: ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,ssh-ed25519,rsa-sha2-512,rsa-sha2-256,ssh-rsa
+                  Ciphers: aes256-ctr
+      Host Key Algorithms: +ssh-dss,ssh-dss-cert-v01@openssh.com
+            Ignore Rhosts: Yes
+           Kex Algorithms: ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group14-sha256,diffie-hellman-group-exchange-sha256
+         Login Grace Time: 2m
+                Log Level: INFO
+                     Macs: hmac-sha2-256
+           Max Auth Tries: 3
+             Max Sessions: -
+             Max Startups:
+   Permit Empty Passwords: No
+        Permit Root Login: Yes
+                     Port: 22
+               Print Motd: Yes
+Pubkey Accepted Key Types: +ssh-dss,ssh-dss-cert-v01@openssh.com,ssh-rsa
+             Strict Modes: No
+                Subsystem: sftp /usr/local/libexec/sftp-server
+          Syslog Facility: AUTH
+           Tcp Keep Alive: No
+   Auth Settings Template: any
+</code></pre>
+<ul>
+<li>You have to follow <a href="https://infohub.delltechnologies.com/l/dell-powerscale-onefs-security-considerations/appendix-a-ssh-key-exchange-ciphers-algorithms-and-tags">this guide</a> to fix them</li>
+</ul>
+<pre><code>gcluster-1# isi ssh settings modify --kex-algorithms 'diffie-hellman-group16-sha512,diffie-hellman-group16-sha512,ecdh-sha2-nistp384'
+gcluster-1# isi ssh settings modify --ciphers 'aes256-ctr,aes256-gcm@openssh.com'
+gcluster-1# isi ssh settings modify --host-key-algorithms 'ecdsa-sha2-nistp384'
+gcluster-1#
+gcluster-1# isi_for_array 'yes | /usr/local/bin/ssh-keygen -t ecdsa -f /etc/ssh/ssh_host_ecdsa_key -b 384 -N &quot;&quot;'
+gcluster-3: Generating public/private ecdsa key pair.
+gcluster-3: /etc/ssh/ssh_host_ecdsa_key already exists.
+gcluster-3: Overwrite (y/n)? Your identification has been saved in /etc/ssh/ssh_host_ecdsa_key
+gcluster-3: Your public key has been saved in /etc/ssh/ssh_host_ecdsa_key.pub
+gcluster-3: The key fingerprint is:
+gcluster-3: SHA256:D6AMW5qyjg0jk61DRU2ed67zxOtqydWEU0xxzsnV+4Y root@gcluster-3
+gcluster-3: The key's randomart image is:
+gcluster-3: +---[ECDSA 384]---+
+gcluster-3: |    o.    oo.. ..|
+gcluster-3: |   ....    o= o .|
+gcluster-3: |  o .o.. .o  =  .|
+gcluster-3: |   O ...oo .   . |
+gcluster-3: |. = o   S.+    ..|
+gcluster-3: | *      o+ .  E o|
+gcluster-3: |O .   .ooo.    . |
+gcluster-3: |=*     ++ .      |
+gcluster-3: |oo.   ..o+       |
+gcluster-3: +----[SHA256]-----+
+gcluster-2: Generating public/private ecdsa key pair.
+gcluster-2: /etc/ssh/ssh_host_ecdsa_key already exists.
+gcluster-1: Generating public/private ecdsa key pair.
+gcluster-1: /etc/ssh/ssh_host_ecdsa_key already exists.
+gcluster-2: Overwrite (y/n)? Your identification has been saved in /etc/ssh/ssh_host_ecdsa_key
+gcluster-2: Your public key has been saved in /etc/ssh/ssh_host_ecdsa_key.pub
+gcluster-2: The key fingerprint is:
+gcluster-2: SHA256:mv24dik4vJVvGbHhOorynFlNa8N6Ol2kiRGwoMrWuCs root@gcluster-2
+gcluster-2: The key's randomart image is:
+gcluster-2: +---[ECDSA 384]---+
+gcluster-2: |  . ..           |
+gcluster-2: | . . ..          |
+gcluster-2: |.   .  .         |
+gcluster-2: |o o   .   +      |
+gcluster-2: |.+ .   oS= +     |
+gcluster-2: |. .   .Boo=      |
+gcluster-2: | .   .+oXo +     |
+gcluster-2: |E o. ==+B==      |
+gcluster-2: |.. o* =Oo*o      |
+gcluster-2: +----[SHA256]-----+
+gcluster-1: Overwrite (y/n)? Your identification has been saved in /etc/ssh/ssh_host_ecdsa_key
+gcluster-1: Your public key has been saved in /etc/ssh/ssh_host_ecdsa_key.pub
+gcluster-1: The key fingerprint is:
+gcluster-1: SHA256:ahrGrkc/YE1Ii4+YCxJgwFraGmiG2cb6M3yaY/AwMNA root@gcluster-1
+gcluster-1: The key's randomart image is:
+gcluster-1: +---[ECDSA 384]---+
+gcluster-1: |+.               |
+gcluster-1: |ooE .            |
+gcluster-1: |BB o o           |
+gcluster-1: |@o* o .          |
+gcluster-1: |+X o o  S        |
+gcluster-1: |@ ..= ..         |
+gcluster-1: |oO o+oo          |
+gcluster-1: |. O+o+o          |
+gcluster-1: | .+Oo  .         |
+gcluster-1: +----[SHA256]-----+
+gcluster-1#
+gcluster-1# isi ssh settings modify --pubkey-accepted-key-types 'ssh-rsa'
+gcluster-1# isi ssh settings modify --macs 'hmac-sha2-256,hmac-sha2-512,hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com'
+gcluster-1# isi ssh settings view
+                   Banner: /etc/motd
+  CA Signature Algorithms: ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,ssh-ed25519,rsa-sha2-512,rsa-sha2-256,ssh-rsa
+                  Ciphers: aes256-ctr,aes256-gcm@openssh.com
+      Host Key Algorithms: ecdsa-sha2-nistp384
+            Ignore Rhosts: Yes
+           Kex Algorithms: diffie-hellman-group16-sha512,diffie-hellman-group16-sha512,ecdh-sha2-nistp384
+         Login Grace Time: 2m
+                Log Level: INFO
+                     Macs: hmac-sha2-256,hmac-sha2-512,hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com
+           Max Auth Tries: 3
+             Max Sessions: -
+             Max Startups:
+   Permit Empty Passwords: No
+        Permit Root Login: Yes
+                     Port: 22
+               Print Motd: Yes
+Pubkey Accepted Key Types: ssh-rsa
+             Strict Modes: No
+                Subsystem: sftp /usr/local/libexec/sftp-server
+          Syslog Facility: AUTH
+           Tcp Keep Alive: No
+   Auth Settings Template: any
+</code></pre>
+<ul>
+<li>From the guide on having to disable FIPS mode:</li>
+</ul>
+<blockquote>
+<p>PowerScale clusters running OneFS 9.4.0.0 with FIPS mode enabled may upgrade to OneFS 9.5.0.0 or later. After upgrading to OneFS Release 9.5.0.0 or later and committing the upgrade, re-enable FIPS mode. Disabling FIPS mode before upgrading is not required.</p>
+</blockquote>
+<ul>
+<li>I noticed that turning on FIPS immediately broke the admin user for the web ui</li>
+<li>At this point I <a href="#set-up-active-directory">set up active directory</a></li>
+<li>I added domain admins to the admins roles for system and security for powerscale</li>
+<li>I added my grant domain user to the SMB share:</li>
+</ul>
+<p><img alt="" src="images/2023-07-28-13-30-45.png" /></p>
+<ul>
+<li></li>
+<li>At this point I swapped over to Linux.</li>
+</ul>
+<h4 id="set-up-active-directory">Set Up Active Directory</h4>
+<ul>
+<li>I already had an active directory server to test against</li>
+</ul>
+<p><img alt="" src="images/2023-07-28-11-43-17.png" /></p>
+<ul>
+<li>I was not able to join with <code>isi auth ads create --name=win-6c2vli4n0lo.grant.lan --user=administrator --groupnet=groupnet0</code></li>
+<li><em>DO NOT</em> select the RFC2309 option</li>
+</ul>
+<h4 id="test-against-rocky-linux-9">Test Against Rocky Linux 9</h4>
+<ul>
+<li>Join the domain</li>
+</ul>
+<pre><code># Install required packages
+sudo dnf install -y realmd sssd oddjob oddjob-mkhomedir adcli samba-common
+
+# Discover and join the Active Directory domain
+sudo realm discover grant.lan
+sudo realm join -U administrator grant.lan
+
+# Allow domain users to log in
+sudo authselect select sssd --force
+
+# Enable home directory creation for domain users
+sudo systemctl enable oddjobd
+sudo systemctl start oddjobd
+
+# Verify the domain membership and users
+realm list
+</code></pre>
+<ul>
+<li>Ensure domain join successful:</li>
+</ul>
+<pre><code>[root@acas ~]# realm list
+grant.lan
+  type: kerberos
+  realm-name: GRANT.LAN
+  domain-name: grant.lan
+  configured: kerberos-member
+  server-software: active-directory
+  client-software: sssd
+  required-package: oddjob
+  required-package: oddjob-mkhomedir
+  required-package: sssd
+  required-package: adcli
+  required-package: samba-common-tools
+  login-formats: %U@grant.lan
+  login-policy: allow-realm-logins
+</code></pre>
+<ul>
+<li>Run the mount:</li>
+</ul>
+<pre><code>[root@acas ~]# sudo mount -t cifs //10.10.25.80/testshare /mnt/testshare -o username=administrator,domain=grant.lan,password=somepassword
+mount error(13): Permission denied
+Refer to the mount.cifs(8) manual page (e.g. man mount.cifs) and kernel log messages (dmesg)
+</code></pre>
+<p><img alt="" src="images/2023-07-28-13-56-38.png" /></p>
+<ul>
+<li>Attempt to setting <code>sec=krb5</code> returns bug-looking results:</li>
+</ul>
+<pre><code>[root@acas ~]# sudo mount -t cifs //10.10.25.80/testshare /mnt/testshare -o username=administrator,domain=grant.lan,sec=krb5
+mount error(0): Success
+Refer to the mount.cifs(8) manual page (e.g. man mount.cifs) and kernel log messages (dmesg)
+</code></pre>
+<p>when you inspect <code>dmseg</code> you see:</p>
+<pre><code>[86217.278254] CIFS: VFS: \\10.10.25.80 Send error in SessSetup = -13
+[86228.682870] CIFS: Attempting to mount \\10.10.25.80\testshare
+[86228.816520] CIFS: VFS: Verify user has a krb5 ticket and keyutils is installed
+[86228.816530] CIFS: VFS: \\10.10.25.80 Send error in SessSetup = -126
+[86228.816564] CIFS: VFS: cifs_mount failed w/return code = -126
+</code></pre>
+<h2 id="how-kerberos-works-in-this-scenario">How Kerberos Works in This Scenario</h2>
+<p>Overview: https://www.freecodecamp.org/news/how-does-kerberos-work-authentication-protocol/</p>
+<p>Synopsis: the Active Directory user <code>administrator@grant.lan</code> logged into the Rocky 9 client (<code>acas.lan</code>) wants to mount a CIFS share on the Dell PowerScale (<code>gcluster-1</code>) that requires Active Directory Kerberos authentication.</p>
+<ol>
+<li>TGT Acquisition with kinit:</li>
+<li>Before attempting to mount the CIFS share, the user <code>administrator@grant.lan</code> on the Rocky 9 client (<code>acas.lan</code>) must obtain a Ticket Granting Ticket (TGT) from the Key Distribution Center (KDC).</li>
+<li>
+<p>To get the TGT, the user runs the <code>kinit</code> command and provides their password when prompted:
+     <code>bash-5.1$ kinit administrator@grant.lan
+     Password for administrator@grant.lan:</code></p>
+</li>
+<li>
+<p>TGT Request to KDC:</p>
+</li>
+<li>
+<p>With the TGT in hand, the Rocky 9 client (<code>acas.lan</code>) can now initiate the request to mount the CIFS share on the Dell PowerScale (<code>gcluster-1</code>) using the <code>mount</code> command.</p>
+</li>
+<li>
+<p>CIFS Share Mount:</p>
+</li>
+<li>
+<p>The user <code>administrator@grant.lan</code> runs the <code>mount</code> command with the required options to mount the CIFS share on the Dell PowerScale:
+     <code>bash-5.1$ sudo mount -t cifs //10.10.25.80/testshare /mnt/testshare -o username=administrator@grant.lan,domain=GRANT.LAN,sec=krb5</code></p>
+</li>
+<li>
+<p>TGT Usage and Service Principal:</p>
+</li>
+<li>The <code>mount</code> command uses the TGT acquired earlier to authenticate and obtain the Service Ticket from the KDC for accessing the CIFS service on <code>gcluster-1</code>.</li>
+<li>
+<p>The Service Ticket is generated for the service principal associated with the CIFS service on <code>gcluster-1</code>. In this case, the service principal is <code>CIFS/gcluster-1.grant.lan@GRANT.LAN</code>.</p>
+</li>
+<li>
+<p>Service Ticket Response:</p>
+</li>
+<li>
+<p>The KDC (<code>dc.grant.lan</code>) validates the TGT and generates a Service Ticket for the CIFS service (<code>CIFS/gcluster-1.grant.lan</code>) on the Dell PowerScale.</p>
+</li>
+<li>
+<p>Mounting the CIFS Share:</p>
+</li>
+<li>With the Service Ticket, the Rocky 9 client (<code>acas.lan</code>) successfully mounts the CIFS share on the Dell PowerScale (<code>gcluster-1</code>) at the specified mount point.</li>
+</ol>
+<p>The user acquires a TGT using <code>kinit</code>, and then the <code>mount</code> command leverages the TGT to request and obtain the Service Ticket for the CIFS share from the KDC. The Service Ticket is then used for mounting the CIFS share on the Dell PowerScale, allowing the user to access the share securely without re-entering their password during the session.</p>
+<ol>
+<li>Mounting the CIFS Share:</li>
+<li>The Rocky 9 client (<code>acas.lan</code>) receives the Service Ticket and sends it, along with the request to mount the CIFS share, to the Dell PowerScale (<code>gcluster-1</code>).</li>
+<li>The Dell PowerScale (<code>gcluster-1</code>) decrypts the Service Ticket using the session key shared with the client and validates the user's identity and permissions to access the CIFS share.</li>
+<li>
+<p>If everything checks out, the CIFS share is successfully mounted on the Rocky 9 client (<code>acas.lan</code>).</p>
+</li>
+<li>
+<p>Session Key for Secure Communication:</p>
+</li>
+<li>The client (<code>acas.lan</code>) and the CIFS service on the Dell PowerScale (<code>gcluster-1</code>) now have a shared session key for secure communication during the CIFS session.</li>
+</ol>
+<p>Throughout this process, the client, KDC, and CIFS service use symmetric encryption and shared secret keys to securely exchange credentials and generate tickets. Once the user is authenticated with a TGT, they can access the CIFS share without having to re-enter their password during the session. This provides a secure and seamless single sign-on (SSO) experience for the user.</p>
+<h3 id="what-is-a-service-principal">What is a Service Principal</h3>
+<p>A service principal is a unique identity within a Kerberos-based authentication system that represents a specific network service or application. In a Kerberos authentication environment, each network service (e.g., web server, email server, file server) is assigned its own service principal, which is used to authenticate and authorize clients to access the service securely.</p>
+<p>Service principals are created and managed by the Key Distribution Center (KDC) in the Kerberos realm. The KDC issues a set of cryptographic keys to each service principal, which are used for secure communication between the client and the service.</p>
+<p>When a client wants to access a network service that requires Kerberos authentication, it requests a Ticket Granting Ticket (TGT) from the KDC by authenticating with its own principal (typically associated with a user). The TGT allows the client to request Service Tickets for specific service principals. The client then presents the Service Ticket to the service principal as proof of its identity, and the service principal validates the ticket and grants access to the requested service.</p>
+<p>Service principals are essential for securing communication in a Kerberos environment because they allow clients and services to establish trust and verify each other's identities. Each service principal has a unique name and is associated with a specific network service, ensuring that only authorized clients can access the corresponding service.</p>
+<p>For example, if you have a web server named "example.com," it would have its own service principal called "HTTP/example.com@REALM" (where REALM is the Kerberos realm name). Clients authenticating to the web server would obtain Service Tickets for this specific service principal to gain access to the web server's resources securely.</p>
+<h2 id="questions">Questions</h2>
+<ul>
+<li>Why do I keep seeing?</li>
+</ul>
+<p><img alt="" src="images/2023-08-01-10-12-58.png" /></p>
+<ul>
+<li>Why does active directory work and then stop working???</li>
+</ul>
+<h2 id="random-notes">Random Notes</h2>
+<ul>
+<li>The web UI only comes up after you have three nodes and it listens on HTTPS port 8080</li>
+<li>9.5.0 CLI Guide: https://dl.dell.com/content/manual68735761-powerscaleonefs-9-5-0-0-cli-administration-guide.pdf</li>
+<li>From the CLI Guide:</li>
+</ul>
+<blockquote>
+<p>The access zone and the Active Directory provider must reference the same groupnet. </p>
+</blockquote>
+<ul>
+<li>No STIGS - just FIPS</li>
+<li>9.5.0.3</li>
+<li>Have they pinned to v3 on SMB? Unknown</li>
+<li>They have three access zones: management, 75%, and 25%. 16 total nodes. </li>
+<li>12 nodes are for the primary datacenter in a zone</li>
+<li>4 nodes are secondary zone</li>
+<li>all 16 are for management zone</li>
+<li>We believe there are Linux hosts in all three access zones</li>
+<li>There is an LTS 9.5.0 - as of May 17th it's under long term support. Stable software release</li>
+<li>MUST BE GRANT.LAN</li>
+</ul>
+<h3 id="debugging">Debugging</h3>
+<ul>
+<li>This command does not cause any traffic to the DC so it's not talking to it:</li>
+</ul>
+<p>bash-5.1$ kvno cifs/10.10.25.80
+kvno: Server not found in Kerberos database while getting credentials for cifs/10.10.25.80@GRANT.LAN</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../Playing%20with%20virsh/" class="btn btn-neutral float-left" title="Playing with virsh"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../Reset%20OS10%20Admin%20Password/" class="btn btn-neutral float-right" title="Reset OS10 Admin Password">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../Playing%20with%20virsh/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../Reset%20OS10%20Admin%20Password/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

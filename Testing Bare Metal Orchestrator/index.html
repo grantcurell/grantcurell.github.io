@@ -105,11 +105,19 @@
                 </li>
               </ul>
               <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Finding%20Rare%20Logs%20with%20DBSCAN/">Finding Rare Logs with DBSCAN</a>
+                </li>
+              </ul>
+              <ul>
                 <li class="toctree-l1"><a class="reference internal" href="../Get%20NVMe%20Drives%20from%20iDRAC%20Redfish/">Get NVMe Drives from iDRAC Redfish</a>
                 </li>
               </ul>
               <ul>
                 <li class="toctree-l1"><a class="reference internal" href="../High%20Speed%20Packet%20Capture/">High Speed Packet Capture</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20Bitcoin-Blockchain%20Works%20-%20Notes/">How Bitcoin-Blockchain Works - Notes</a>
                 </li>
               </ul>
               <ul>
@@ -181,7 +189,19 @@
                 </li>
               </ul>
               <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20AMD%20Processor/">Notes on AMD Processor</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20Building%20a%20Datacenter%20from%20Scratch/">Notes on Building a Datacenter from Scratch</a>
+                </li>
+              </ul>
+              <ul>
                 <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20HPC/">Notes on HPC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20HSM/">Notes on HSM</a>
                 </li>
               </ul>
               <ul>
@@ -190,6 +210,10 @@
               </ul>
               <ul>
                 <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20mdraid%20Performance%20Testing/">Notes on mdraid Performance Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20nodejs/">Notes on nodejs</a>
                 </li>
               </ul>
               <ul>
@@ -241,6 +265,10 @@
                 </li>
               </ul>
               <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PowerScale%20Setup/">PowerScale Setup</a>
+                </li>
+              </ul>
+              <ul>
                 <li class="toctree-l1"><a class="reference internal" href="../Reset%20OS10%20Admin%20Password/">Reset OS10 Admin Password</a>
                 </li>
               </ul>
@@ -282,6 +310,28 @@
               </ul>
               <ul>
                 <li class="toctree-l1"><a class="reference internal" href="../Switch%20Directly%20to%20Client%20Test/">Switch Directly to Client Test</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Testing Bare Metal Orchestrator</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#supported-operating-systems">Supported Operating Systems</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#license-requirements">License Requirements</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#architecture">Architecture</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#bmo-features-and-functions">BMO Features and Functions</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#archecture-with-ha">Archecture with HA</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#setup">Setup</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#bug-report">Bug Report</a>
+    </li>
+    </ul>
                 </li>
               </ul>
               <ul>
@@ -329,15 +379,11 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Change%20User%20on%20VxRail%20Plugin/">Change User on VxRail Plugin</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="" href="../VMare/How to Pull Usage Metrics/README.md">None</a>
-                </li>
-              </ul>
-              <ul>
                 <li class="toctree-l1"><a class="reference internal" href="../Web%20Traffic%20Generator/">Web Traffic Generator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Writing%20udev%20Rules%20for%20Dell%20PERC%20H755/">Writing udev Rules for Dell PERC H755</a>
                 </li>
               </ul>
       </div>
@@ -364,6 +410,24 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="testing-bare-metal-orchestrator">Testing Bare Metal Orchestrator</h1>
+<ul>
+<li><a href="#testing-bare-metal-orchestrator">Testing Bare Metal Orchestrator</a></li>
+<li><a href="#supported-operating-systems">Supported Operating Systems</a></li>
+<li><a href="#license-requirements">License Requirements</a></li>
+<li><a href="#architecture">Architecture</a></li>
+<li><a href="#bmo-features-and-functions">BMO Features and Functions</a><ul>
+<li><a href="#archecture-with-ha">Archecture with HA</a></li>
+</ul>
+</li>
+<li><a href="#setup">Setup</a><ul>
+<li><a href="#create-a-user-for-global-admin">Create a User for Global Admin</a></li>
+</ul>
+</li>
+<li><a href="#deploy-a-server">Deploy a Server</a></li>
+<li><a href="#questions">Questions</a></li>
+<li><a href="#problems">Problems</a></li>
+<li><a href="#bug-report">Bug Report</a></li>
+</ul>
 <h2 id="supported-operating-systems">Supported Operating Systems</h2>
 <p>https://infohub.delltechnologies.com/l/bare-metal-orchestrator-1-2-command-line-interface-user-s-guide-1/validated-hypervisors-and-operating-systems-7</p>
 <h2 id="license-requirements">License Requirements</h2>
@@ -461,8 +525,7 @@ roles:
 
 ## Deploy a Server
 
-
-
+TODO
 
 ## Questions
 
@@ -475,6 +538,7 @@ roles:
   - The mMetadata link for servers: https://infohub.delltechnologies.com/l/bare-metal-orchestrator-1-2-command-line-interface-user-s-guide-1/create-a-server-or-multiple-servers-and-update-configurations-3#GUID-12309190-709C-4436-8937-D367B5978993
 - Error when adding server. When I was in sites I just used the name.
   - I had to look under inventory, actions, discover device to realize that the global site name was actually gc
+- This link is broken: https://infohub.delltechnologies.com/l/bare-metal-orchestrator-1-2-command-line-interface-user-s-guide-1/create-a-server-or-multiple-servers-and-update-configurations-3#GUID-AF06D60B-3E6D-46A3-9722-B3D2E0D44BCB on https://infohub.delltechnologies.com/l/bare-metal-orchestrator-1-2-command-line-interface-user-s-guide-1/create-a-server-or-multiple-servers-and-update-configurations-3
 
 ![](images/2022-10-12-14-31-59.png)
 
@@ -494,14 +558,25 @@ spec:
   bmcEndPoint: "https://192.168.1.46"
   userName: "root"
   password: "password"</p>
-<p>```</p>
-<ul>
-<li></li>
-<li></li>
-</ul>
+<pre><code>
+- It would be helpful if the help were contextual. Ex: `bmo create --help` returns the command help fur create rather than the generic BMO command
+- It would be helpful to have a way to pretty print the output of something like `bmo create hardwareprofile -f &lt;FILE&gt;`
+- Error I received on import was
+
+</code></pre>
+<p>dell@bmo-manager-1:~$ bmo create hardwareprofile -f hw_pf_bios.yaml 
+Failed to create hardware profile in the 'metalweaver' namespace, reason: HardwareProfile.mw.dell.com "r7525-profile" is invalid: [spec.server.bios.attributes.numLock: Unsupported value: "true": supported values: "On", "Off", spec.server.bios.attributes.setBootOrderEn: Invalid value: "AHCI": spec.server.bios.attributes.setBootOrderEn in body should match '^$|^((\w+|*).(\w+|*).(\w+|*)(-(\w+|*))<em>((\w+|*))</em>(\:((\w+|*).(\w+|*).(\w+|*)(-(\w+|*))<em>((\w+|*))</em>))<em>)(\,(\w+|*).(\w+|*).(\w+|*)(-(\w+|*))</em>((\w+|*))<em>(\:((\w+|*).(\w+|*).(\w+|*)(-(\w+|*))</em>((\w+|*))<em>))</em>)*$', spec.server.bios.attributes.serialPortAddress: Unsupported value: "Com": supported values: "Com1", "Com2", spec.server.bios.attributes.conTermType: Unsupported value: "Vt": supported values: "Vt100Vt220", "Ansi", spec.server.bios.attributes.tpmSecurity: Unsupported value: "true": supported values: "On", "Off", "OnPbm", "OnNoPbm", spec.server.bios.attributes.usbManagedPort: Unsupported value: "true": supported values: "On", "Off", spec.server.bios.attributes.pxeDev1Interface: Invalid value: "NIC": spec.server.bios.attributes.pxeDev1Interface in body should match '^NIC.[A-Za-z]+.[0-9]+-[0-9]+-[0-9]+']
+```</p>
+<p>but in my file I had <code>NumLock: On</code> which is confusing because I did properly have numlock set to On. The real problem was that it wanted <code>numLock</code> instead of <code>NumLock</code></p>
+<h2 id="bug-report">Bug Report</h2>
+<p>See <a href="bug_report/">Bug Report</a></p>
               
             </div>
           </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../Switch%20Directly%20to%20Client%20Test/" class="btn btn-neutral float-left" title="Switch Directly to Client Test"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../Testing%20Intel%20x520%20on%20RHEL%206/" class="btn btn-neutral float-right" title="Testing Intel x520 on RHEL 6">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
 
   <hr/>
 
@@ -523,6 +598,10 @@ spec:
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
+      <span><a href="../Switch%20Directly%20to%20Client%20Test/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../Testing%20Intel%20x520%20on%20RHEL%206/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
