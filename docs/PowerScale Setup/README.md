@@ -1,4 +1,4 @@
-# My PowerScale Setup Notes
+# PowerScale Setup
 
 - [My PowerScale Setup Notes](#my-powerscale-setup-notes)
   - [Testing](#testing)
