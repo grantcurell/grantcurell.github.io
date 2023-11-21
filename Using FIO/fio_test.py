@@ -17,10 +17,15 @@ def run_fio(block_size, io_type, size, device, ioengine, iodepth, numjobs):
         f'--filename={device}'
     ]
 
-    process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
-    stdout, stderr = process.communicate()
+    print("Starting FIO test. This may take a while, depending on the test parameters...")
+    process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True)
 
-    return stdout
+    # Print live output from FIO
+    for line in iter(process.stdout.readline, ''):
+        print(line, end='')
+
+    process.stdout.close()
+    process.wait()
 
 def print_detailed_instructions():
     print("""
@@ -81,8 +86,7 @@ def main():
 
     args = parser.parse_args()
 
-    output = run_fio(args.block_size, args.io_type, args.size, args.device, args.ioengine, args.iodepth, args.numjobs)
-    print(output)
+    run_fio(args.block_size, args.io_type, args.size, args.device, args.ioengine, args.iodepth, args.numjobs)
 
 if __name__ == "__main__":
     main()
