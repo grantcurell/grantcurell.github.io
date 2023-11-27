@@ -12,7 +12,6 @@
       - [Test Against Rocky Linux 9](#test-against-rocky-linux-9)
   - [How Kerberos Works in This Scenario](#how-kerberos-works-in-this-scenario)
     - [What is a Service Principal](#what-is-a-service-principal)
-  - [Questions](#questions)
     - [Debugging](#debugging)
 
 
@@ -420,14 +419,6 @@ When a client wants to access a network service that requires Kerberos authentic
 Service principals are essential for securing communication in a Kerberos environment because they allow clients and services to establish trust and verify each other's identities. Each service principal has a unique name and is associated with a specific network service, ensuring that only authorized clients can access the corresponding service.
 
 For example, if you have a web server named "example.com," it would have its own service principal called "HTTP/example.com@REALM" (where REALM is the Kerberos realm name). Clients authenticating to the web server would obtain Service Tickets for this specific service principal to gain access to the web server's resources securely.
-
-## Questions
-
-- Why do I keep seeing?
-
-![](images/2023-08-01-10-12-58.png)
-
-- Why does active directory work and then stop working???
 
 ### Debugging
 
