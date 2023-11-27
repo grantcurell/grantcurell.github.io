@@ -845,35 +845,6 @@ Refer to the mount.cifs(8) manual page (e.g. man mount.cifs) and kernel log mess
 <p>When a client wants to access a network service that requires Kerberos authentication, it requests a Ticket Granting Ticket (TGT) from the KDC by authenticating with its own principal (typically associated with a user). The TGT allows the client to request Service Tickets for specific service principals. The client then presents the Service Ticket to the service principal as proof of its identity, and the service principal validates the ticket and grants access to the requested service.</p>
 <p>Service principals are essential for securing communication in a Kerberos environment because they allow clients and services to establish trust and verify each other's identities. Each service principal has a unique name and is associated with a specific network service, ensuring that only authorized clients can access the corresponding service.</p>
 <p>For example, if you have a web server named "example.com," it would have its own service principal called "HTTP/example.com@REALM" (where REALM is the Kerberos realm name). Clients authenticating to the web server would obtain Service Tickets for this specific service principal to gain access to the web server's resources securely.</p>
-<h2 id="questions">Questions</h2>
-<ul>
-<li>Why do I keep seeing?</li>
-</ul>
-<p><img alt="" src="images/2023-08-01-10-12-58.png" /></p>
-<ul>
-<li>Why does active directory work and then stop working???</li>
-</ul>
-<h2 id="random-notes">Random Notes</h2>
-<ul>
-<li>The web UI only comes up after you have three nodes and it listens on HTTPS port 8080</li>
-<li>9.5.0 CLI Guide: https://dl.dell.com/content/manual68735761-powerscaleonefs-9-5-0-0-cli-administration-guide.pdf</li>
-<li>From the CLI Guide:</li>
-</ul>
-<blockquote>
-<p>The access zone and the Active Directory provider must reference the same groupnet. </p>
-</blockquote>
-<ul>
-<li>No STIGS - just FIPS</li>
-<li>9.5.0.3</li>
-<li>Have they pinned to v3 on SMB? Unknown</li>
-<li>They have three access zones: management, 75%, and 25%. 16 total nodes. </li>
-<li>12 nodes are for the primary datacenter in a zone</li>
-<li>4 nodes are secondary zone</li>
-<li>all 16 are for management zone</li>
-<li>We believe there are Linux hosts in all three access zones</li>
-<li>There is an LTS 9.5.0 - as of May 17th it's under long term support. Stable software release</li>
-<li>MUST BE GRANT.LAN</li>
-</ul>
 <h3 id="debugging">Debugging</h3>
 <ul>
 <li>This command does not cause any traffic to the DC so it's not talking to it:</li>
