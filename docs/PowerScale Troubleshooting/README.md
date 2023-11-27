@@ -36,7 +36,9 @@ efs.gmp.has_super_block_quorum: 1
 
 1 indicates success whereas 0 indicates that there is no quorum. Super Blocks are described [here](#super-block-quorum).
 
-## Code Test
+## Code for Reproduction
+
+### Python
 
 ```python
 from pprint import pprint
@@ -133,7 +135,7 @@ def csrf_protected_authentication(ip_address, username, password):
 # Example usage
 ip_address = "10.10.25.80"  # Replace with the actual IP address of the PowerScale
 username = "root"
-password = "I.am.ghost.47"
+password = "password"
 
 # Test Basic Authentication
 basic_auth_result = basic_authentication(ip_address, username, password)
@@ -151,6 +153,8 @@ print("-------------------------------------------------------------------------
 csrf_auth_result = csrf_protected_authentication(ip_address, username, password)
 
 ```
+
+### Output
 
 ```
 C:\Users\grant\AppData\Local\Programs\Python\Python310\python.exe "C:\Users\grant\Documents\code\grantcurell.github.io\docs\PowerScale Troubleshooting\authentication_test.py" 
