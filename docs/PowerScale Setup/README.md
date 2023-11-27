@@ -1,6 +1,6 @@
 # PowerScale Setup
 
-- [My PowerScale Setup Notes](#my-powerscale-setup-notes)
+- [PowerScale Setup](#powerscale-setup)
   - [Testing](#testing)
     - [Test 1 - Generic Share](#test-1---generic-share)
       - [Against Windows 11](#against-windows-11)
@@ -13,7 +13,6 @@
   - [How Kerberos Works in This Scenario](#how-kerberos-works-in-this-scenario)
     - [What is a Service Principal](#what-is-a-service-principal)
   - [Questions](#questions)
-  - [Random Notes](#random-notes)
     - [Debugging](#debugging)
 
 
@@ -429,25 +428,6 @@ For example, if you have a web server named "example.com," it would have its own
 ![](images/2023-08-01-10-12-58.png)
 
 - Why does active directory work and then stop working???
-
-## Random Notes
-
-- The web UI only comes up after you have three nodes and it listens on HTTPS port 8080
-- 9.5.0 CLI Guide: https://dl.dell.com/content/manual68735761-powerscaleonefs-9-5-0-0-cli-administration-guide.pdf
-- From the CLI Guide:
-
-> The access zone and the Active Directory provider must reference the same groupnet. 
-
-- No STIGS - just FIPS
-- 9.5.0.3
-- Have they pinned to v3 on SMB? Unknown
-- They have three access zones: management, 75%, and 25%. 16 total nodes. 
-  - 12 nodes are for the primary datacenter in a zone
-  - 4 nodes are secondary zone
-  - all 16 are for management zone
-- We believe there are Linux hosts in all three access zones
-- There is an LTS 9.5.0 - as of May 17th it's under long term support. Stable software release
-- MUST BE GRANT.LAN
 
 ### Debugging
 
