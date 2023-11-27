@@ -1,13 +1,18 @@
 # PowerScale Troubleshooting
 
-In my scenario I needed to resurrect a lab cluster I had not used in some time. It had FIPS enabled and had previously used Active Directory for authentication. After turning everything on I noticed the system didn't have a quorum and I wasn't able to hit it via SSH.
-
-![](images/2023-11-27-10-37-46.png)
+- [PowerScale Troubleshooting](#powerscale-troubleshooting)
+  - [Rebuild](#rebuild)
+  - [Initial Setup](#initial-setup)
+  - [Code for Reproduction](#code-for-reproduction)
+    - [Python](#python)
+    - [Output](#output)
+  - [Concepts](#concepts)
+    - [Super Block Quorum](#super-block-quorum)
 
 
 ## Rebuild
 
-I factory reset the nodes to save time with `isi_reformat_node`
+I hopped on an old cluster I used for testing and ran `isi_reformat_node`
 
 ## Initial Setup
 
