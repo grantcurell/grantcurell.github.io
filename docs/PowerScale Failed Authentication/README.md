@@ -16,11 +16,11 @@
 
 ## Problem Summary
 
-PowerScale OneOS incorrectly reports authentication failures when the number of concurrent sessions is exceeded.
+PowerScale OneOS inaccurately reports authentication failures when the number of concurrent sessions is exceeded.
 
 ## Problem Details
 
-If `--concurrent-session-limit=LIMIT` is set with `isi auth settings global modify --concurrent-session-limit=15` and that limit is exceeded the logs will incorrectly reflect:
+If `--concurrent-session-limit=LIMIT` is set with `isi auth settings global modify --concurrent-session-limit=15` and that limit is exceeded the logs will say:
 
 **HTTP Error Log**
 
@@ -46,6 +46,8 @@ tail -f /var/log/apache2/webui_httpd_access.log
 Total Successful Sessions: 0
 Authentication Failed: Status Code 401, Error: Unable to create session.
 ```
+
+While this is accurate, technically, it is extremely misleading and has lead to a substantial waste of resources investigating authentication failures when in reality the problem is that concurrent sessions was exceeded.
 
 ## Expected Behavior
 
