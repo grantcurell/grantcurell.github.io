@@ -92,7 +92,7 @@ def csrf_protected_authentication(ip_address, username, password):
 # Example usage
 ip_address = "10.10.25.80"  # Replace with the actual IP address of the PowerScale
 username = "root"
-password = "password"
+password = "YOUR_PASSWORD"
 
 # Test Basic Authentication
 basic_auth_result = basic_authentication(ip_address, username, password)
