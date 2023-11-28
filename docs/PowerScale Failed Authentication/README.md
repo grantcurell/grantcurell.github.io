@@ -1,6 +1,6 @@
-# PowerScale Troubleshooting
+# PowerScale Failed Authentication
 
-- [PowerScale Troubleshooting](#powerscale-troubleshooting)
+- [PowerScale Failed Authentication](#powerscale-failed-authentication)
   - [Problem Summary](#problem-summary)
   - [Problem Details](#problem-details)
   - [Expected Behavior](#expected-behavior)
