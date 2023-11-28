@@ -16,7 +16,7 @@
 
 ## Problem Summary
 
-PowerScale OneOS incorrect reports authentication failures when the number of concurrent sessions is exceeded.
+PowerScale OneOS incorrectly reports authentication failures when the number of concurrent sessions is exceeded.
 
 ## Problem Details
 
