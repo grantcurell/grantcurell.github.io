@@ -57,7 +57,7 @@ def close_session(base_url, session_cookies):
 def main():
     ip_address = "10.10.25.80"  # Replace with the actual IP address of the PowerScale
     username = "root"
-    password = "I.am.ghost.47"
+    password = "YOUR_PASSWORD"
 
     # Authenticate and create a session
     session_cookies, base_url = session_cookie_authentication(ip_address, username, password)
