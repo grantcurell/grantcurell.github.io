@@ -10,9 +10,9 @@
     - [Rebuild](#rebuild)
     - [Initial Setup](#initial-setup)
   - [Code for Testing Authentication Mechanisms](#code-for-testing-authentication-mechanisms)
-      - [Output](#output)
   - [Concepts](#concepts)
     - [Super Block Quorum](#super-block-quorum)
+    - [How Do Session Teardowns Work?](#how-do-session-teardowns-work)
 
 ## Problem Summary
 
@@ -56,7 +56,7 @@ The error message should make it so technicians resolve the problem without havi
 
 ## Reproduction
 
-The below Python script will reproduce the problem. Replace the credentials with your PowerScale credentials and then run. It will generate 30 threads each of which will hold a session open for 10 seconds. If the number of concurrent sessions is below 30 it will fail.
+The below [Python script](https://github.com/grantcurell/grantcurell.github.io/blob/dev/docs/PowerScale%20Failed%20Authentication/multiple_sessions_test.py) will reproduce the problem. Replace the credentials with your PowerScale credentials and then run. It will generate 30 threads each of which will hold a session open for 10 seconds. If the number of concurrent sessions is below 30 it will fail.
 
 ```python
 import requests
@@ -240,83 +240,14 @@ efs.gmp.has_super_block_quorum: 1
 
 ## Code for Testing Authentication Mechanisms
 
-I used [this code]() to test the different authentication mechanisms to confirm valid credentials.
-
-#### Output
-
-For reasons unknown on these URL endpoints I receive ``
-
-```
-C:\Users\grant\AppData\Local\Programs\Python\Python310\python.exe "C:\Users\grant\Documents\code\grantcurell.github.io\docs\PowerScale Troubleshooting\authentication_test.py" 
-Basic Authentication Response:
-Status Code: 401
-<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
-<html>
-<head>
-<title>401 Unauthorized to access PAPI.</title>
-</head>
-<script type="text/javascript">
-        var regex = new RegExp(/http:\/\/([^:]+):([^/]+)/),
-            match = regex.exec(window.location.href);
-
-        if (match !== null) {
-           window.location = 'https://' + match[1] + ':' + match[2];
-        }
- </script>
-<body>
-<h1>Unauthorized to access PAPI.</h1>
-<p>Please contact Administrator.</p>
-</body>
-</html>
-
---------------------------------------------------------------------------------
-Session Cookie Authentication Response:
-Status Code: 201
-{'services': ['platform', 'namespace'],
- 'timeout_absolute': 14400,
- 'timeout_inactive': 900,
- 'username': 'root'}
-Session Details Response:
-Status Code: 200
-{'services': ['platform', 'namespace'],
- 'timeout_absolute': 14399,
- 'timeout_inactive': 899,
- 'username': 'root'}
---------------------------------------------------------------------------------
-Session Cookie Authentication Response:
-Status Code: 201
-{'services': ['platform', 'namespace'],
- 'timeout_absolute': 14400,
- 'timeout_inactive': 900,
- 'username': 'root'}
-CSRF Protected Authentication Response:
-Status Code: 401
-<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
-<html>
-<head>
-<title>401 Unauthorized to access PAPI.</title>
-</head>
-<script type="text/javascript">
-        var regex = new RegExp(/http:\/\/([^:]+):([^/]+)/),
-            match = regex.exec(window.location.href);
-
-        if (match !== null) {
-           window.location = 'https://' + match[1] + ':' + match[2];
-        }
- </script>
-<body>
-<h1>Unauthorized to access PAPI.</h1>
-<p>Please contact Administrator.</p>
-</body>
-</html>
-
-
-Process finished with exit code 0
-
-```
+I used [this code](https://github.com/grantcurell/grantcurell.github.io/blob/dev/docs/PowerScale%20Failed%20Authentication/authentication_test.py) to test the different authentication mechanisms to confirm valid credentials.
 
 ## Concepts
 
 ### Super Block Quorum
 
 Referred to as `efs.gmp.has_super_block_quorum`, is a property that ensures the file system's integrity by requiring more than half of the nodes in the cluster to be available and in agreement over the internal network. This quorum prevents data conflicts, such as conflicting versions of the same file if two groups of nodes become unsynchronized. If a node is unreachable, OneFS will separate it from the cluster, known as splitting. Operations can continue as long as a quorum of nodes remains connected. If the split nodes can reconnect and re-synchronize, they rejoin the majority group in a process known as merging. The superblock quorum status can be checked by connecting to a node via SSH and running the `sysctl efs.gmp.has_super_block_quorum` command-line tool as root.
+
+### How Do Session Teardowns Work?
+
+See [Session Teardown Reverse Engineering](./session_teardown_reverse_engineering.md)
