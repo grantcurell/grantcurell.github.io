@@ -49,7 +49,7 @@ Authentication Failed: Status Code 401, Error: Unable to create session.
 
 ## Expected Behavior
 
-The errors in [Problem Details](#problem-details) are extremely misleading to both technicians and users. If the number of concurrent sessions is exceeded both the logs and the API responses should reflect that the issue is that the concurrent sessions have been exceeded instead of reporting an authentication error even if generating JWT tokens is the actual product of exceeding concurrent sessions.
+The errors in [Problem Details](#problem-details) are  misleading to both technicians and users. If the number of concurrent sessions is exceeded both the logs and the API responses should reflect that the issue is that the concurrent sessions have been exceeded instead of reporting an authentication error even if generating JWT tokens is the actual product of exceeding concurrent sessions.
 
 The error message should make it so technicians resolve the problem without having to rely on developer support.
 
