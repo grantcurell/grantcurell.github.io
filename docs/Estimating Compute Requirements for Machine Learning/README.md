@@ -1,4 +1,4 @@
-# System Performance Analysis
+# Estimating Compute Requirements for Machine Learning
 
 - [System Performance Analysis](#system-performance-analysis)
   - [Executive Summary](#executive-summary)

@@ -1,4 +1,4 @@
-# Understanding FIO Test Output
+# Using FIO
 
 - [Understanding FIO Test Output](#understanding-fio-test-output)
   - [Overview](#overview)
