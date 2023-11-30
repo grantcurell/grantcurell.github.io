@@ -7,37 +7,46 @@ RKE2 advertises itself as an automatic K8s installer. That is... sort of true ba
 
 I recommend just making life easy and doing an `su -` and just doing everything as root.
 
+Note: after heavy experimentation to include writing the below code that does [this](https://stackoverflow.com/a/60736109/4427375) I still found flannel choked with firewalld on so ultimately I just ran `systemctl disable --now firewalld`. See [Troubleshooting Flannel Issues](#troubleshooting-flannel-issues). Since it's a lab I decided the juice wasn't worth the squeeze because I think the problem is in the internal masquerade rules.
+
 ```bash
 curl -sfL https://get.rke2.io | sudo sh -
+# Kubernetes API Server
 firewall-cmd --permanent --add-port=6443/tcp
+# RKE2 Server
 firewall-cmd --permanent --add-port=9345/tcp
-# Open etcd ports if etcd is running on this server
+# etcd server client API
 firewall-cmd --permanent --add-port=2379/tcp
 firewall-cmd --permanent --add-port=2380/tcp
-firewall-cmd --permanent --add-port=2381/tcp
+# HTTPS
 firewall-cmd --permanent --add-port=443/tcp
-# Open NodePort range if NodePort services are used
+# NodePort Services
 firewall-cmd --permanent --add-port=30000-32767/tcp
-firewall-cmd --permanent --add-port=6443/tcp # Kubernetes API server
-firewall-cmd --permanent --add-port=2379-2380/tcp # etcd server client API
-firewall-cmd --permanent --add-port=10250/tcp # Kubelet API
-firewall-cmd --permanent --add-port=10251/tcp # kube-scheduler
-firewall-cmd --permanent --add-port=10252/tcp # kube-controller-manager
-firewall-cmd --permanent --add-port=8285/udp # Flannel
-firewall-cmd --permanent --add-port=8472/udp # Flannel
+# Kubelet API
+firewall-cmd --permanent --add-port=10250/tcp
+# kube-scheduler
+firewall-cmd --permanent --add-port=10251/tcp
+# kube-controller-manager
+firewall-cmd --permanent --add-port=10252/tcp
+# Flannel
+firewall-cmd --permanent --add-port=8285/udp
+firewall-cmd --permanent --add-port=8472/udp
+# Additional ports required for Kubernetes
+firewall-cmd --permanent --add-port=10255/tcp # Read-only Kubelet API
+firewall-cmd --permanent --add-port=30000-32767/tcp # NodePort Services range
+firewall-cmd --permanent --add-port=6783/tcp # Flannel
+firewall-cmd --permanent --add-port=6783/udp # Flannel
+firewall-cmd --permanent --add-port=6784/udp # Flannel
 firewall-cmd --add-masquerade --permanent
-# only if you want NodePorts exposed on control plane IP as well
-firewall-cmd --permanent --add-port=30000-32767/tcp
 firewall-cmd --reload
 systemctl restart firewalld
-firewall-cmd --reload
 sudo systemctl enable rke2-server.service
 sudo systemctl start rke2-server.service
 cd /var/lib/rancher/rke2/bin
 echo 'export KUBECONFIG=/etc/rancher/rke2/rke2.yaml' >> ~/.bashrc
-echo 'export PATH=$PATH:/var/lib/rancher/rke2/bin' >> ~/.bashrc && source ~/.bashrc
-# Wait a bit
-# Useful binaries are in /var/lib/rancher/rke2/bin
+echo 'export PATH=$PATH:/var/lib/rancher/rke2/bin' >> ~/.bashrc
+source ~/.bashrc
+
 ```
 
 The rke2 server process listens on port 9345 for new nodes to register. The Kubernetes API is still served on port 6443, as normal.
@@ -46,22 +55,24 @@ The rke2 server process listens on port 9345 for new nodes to register. The Kube
 
 ```bash
 sudo curl -sfL https://get.rke2.io | sudo INSTALL_RKE2_TYPE="agent" sh -
-# Open kubelet metrics port
+# Kubelet API and Flannel ports
 firewall-cmd --permanent --add-port=10250/tcp
-# Open port for Flannel VXLAN if it's used
+firewall-cmd --permanent --add-port=8285/udp
 firewall-cmd --permanent --add-port=8472/udp
-firewall-cmd --permanent --add-port=10250/tcp
-firewall-cmd --permanent --add-port=8285/udp # Flannel
-firewall-cmd --permanent --add-port=8472/udp # Flannel
+# NodePort Services
 firewall-cmd --permanent --add-port=30000-32767/tcp
+# Additional ports required for Kubernetes
+firewall-cmd --permanent --add-port=10255/tcp # Read-only Kubelet API
+firewall-cmd --permanent --add-port=6783/tcp # Flannel
+firewall-cmd --permanent --add-port=6783/udp # Flannel
+firewall-cmd --permanent --add-port=6784/udp # Flannel
 firewall-cmd --add-masquerade --permanent
 firewall-cmd --reload
 systemctl restart firewalld
-# Apply the changes
-firewall-cmd --reload
 sudo systemctl enable rke2-agent.service
 mkdir -p /etc/rancher/rke2/
-echo 'export PATH=$PATH:/var/lib/rancher/rke2/bin' >> ~/.bashrc && source ~/.bashrc
+echo 'export PATH=$PATH:/var/lib/rancher/rke2/bin' >> ~/.bashrc
+source ~/.bashrc
 vim /etc/rancher/rke2/config.yaml
 ```
 
@@ -124,7 +135,7 @@ echo https://k8s-server.lan/dashboard/?setup=$(kubectl get secret --namespace ca
 
 Warning: Sassy commentary ahead.
 
-I haven't built K8s from scratch since 2017 and I'm glad to see that getting flannel to work is still a huge, bug riddled, mess. With that said, here's how to go about troubleshooting it when it inevitably fails. (Seriously, it has been 7 years, how is it still this bad?)
+I haven't built K8s from scratch since 2017 and I'm glad to see that getting flannel to work is still a huge mess. With that said, here's how to go about troubleshooting it when it inevitably fails. (Seriously, it has been 7 years, how is it still this bad?)
 
 ### Rancher Woes
 
@@ -215,3 +226,7 @@ listening on flannel.1, link-type EN10MB (Ethernet), snapshot length 262144 byte
 16:17:41.895024 IP k8s-agent1.lan > 10.42.0.0: ICMP host 10.42.1.32 unreachable - admin prohibited filter, length 68
 16:17:42.727005 IP 10.42.0.0.54136 > 10.42.1.32.tungsten-https: Flags [S], seq 1383176303, win 64860, options [mss 1410,sackOK
 ```
+
+The moral of the story is that if you see that, there's probably a firewall port you've missed.
+
+Why isn't that built into the installer so you aren't manually looking up and opening more than a dozen ports I hear you asking? Great question.
