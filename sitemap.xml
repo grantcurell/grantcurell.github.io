@@ -2,602 +2,637 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://grantcurell.github.io/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Adding%20Hashing%20to%20OpenSwitch/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Adding%20Intel%20I219-LM%20%288086.0d4c%29%20Driver%20to%20ESXi/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Automating%20OME%20Hardware%20Reports/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Backup%20OS10%20Config%20with%20Ansible/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/CloudLink/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://grantcurell.github.io/Common%20Questions%20About%20LLMs%20Answered/</loc>
+         <lastmod>2023-11-30</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://grantcurell.github.io/Common%20Questions%20About%20LLMs%20Answered/README_temp/</loc>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Configure%20FN410%20as%20a%20Switch/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Configure%20Gigamon%20Tap/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Configuring%20VLT%20on%20OS10/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Create%20Kickstart%20Server%20on%20Fedora/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Create%20Kickstart%20Server%20on%20Fedora/LICENSE/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Create%20OpenSwitch%20VM/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/DHCP%20Relay%20on%20SONiC/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Dell%20Ansible%20Testing/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Elasticsearch%20Display%20Map%20Data/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Elasticsearch%20Display%20Map%20Data/did_not_work/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Elasticsearch%20Load%20Testing/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://grantcurell.github.io/Estimating%20Compute%20Requirements%20for%20Machine%20Learning/</loc>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Finding%20Rare%20Logs%20with%20DBSCAN/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Get%20NVMe%20Drives%20from%20iDRAC%20Redfish/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/High%20Speed%20Packet%20Capture/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/High%20Speed%20Packet%20Capture/DPDK%20on%20ESXi%20with%20CentOS%207%20%28INCOMPLETE%29/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/High%20Speed%20Packet%20Capture/DPDK%20on%20FC640%20with%20RHEL%208/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/High%20Speed%20Packet%20Capture/DPDK%20on%20R940%20with%20Napatech/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/High%20Speed%20Packet%20Capture/ntop/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/High%20Speed%20Packet%20Capture/ntop%20on%20R940%20with%20Napatech/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/How%20Bitcoin-Blockchain%20Works%20-%20Notes/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/How%20OS10%20Installer%20Works/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/How%20to%20ONIE%20Install%20and%20ZTP%20Config%20Dell%20SONiC/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/How%20to%20ONIE%20Install%20and%20ZTP%20Config%20Dell%20SONiC/webserver/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/How%20to%20Read%20lstopo%20and%20a%20PCIe%20Overview/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/IO%20Identities%20with%20LifeCycle%20Controller/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Importing%20Elasticsearch%20Data/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Installing%20DPDK%20with%20NapaTech%20Card/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/LDAP%20with%20OpenManage/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/LDAP%20with%20OpenManage/README-CentOS-OpenLDAP/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/LDAP%20with%20OpenManage/README-FreeIPA-CENTOS/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/LDAP%20with%20OpenManage/README-Turnkey-Linux/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/LDAP%20with%20OpenManage/keycloak/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/LDAP%20with%20OpenManage/LDAP%20Group%20Import%20Bug/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Load%20Balance%20Testing%20on%204112F-ON/OS10/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Load%20Balance%20Testing%20on%204112F-ON/OS10/Test%20Case%201/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Load%20Balance%20Testing%20on%204112F-ON/OS10/Test%20Case%202/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Load%20Balance%20Testing%20on%204112F-ON/OS10/Test%20Case%203/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Load%20Balance%20Testing%20on%204112F-ON/OS10/Test%20Case%204/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Load%20Balance%20Testing%20on%204112F-ON/OpenSwitch%20%28OPX%29/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Load%20Balance%20Testing%20with%20OpenVSwitch/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Load%20Balancing%20on%20Mellanox%20Switches/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Load%20Balancing%20with%20LAG%20on%205112F-ON/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Make%20USB%20Read%20Only/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Migrating%20Storage%20Volumes%20to%20PowerStore/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Mulitple%20Span%20on%204112F-ON%20with%20OpenSwitch/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Multiple%20Span%20on%204112F-ON%20with%20OS10/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/NVMe%20Performance%20Testing/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Notes%20on%20AMD%20Processor/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Notes%20on%20Building%20a%20Datacenter%20from%20Scratch/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Notes%20on%20Building%20a%20Datacenter%20from%20Scratch/README_temp/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Notes%20on%20HPC/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Notes%20on%20HPC/chiplet_based_systems/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Notes%20on%20HPC/cxl/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Notes%20on%20HPC/fabric_attached_memory/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Notes%20on%20HSM/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Notes%20on%20Improving%20Drive%20Performance/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Notes%20on%20NVMe%20Log%20Pages/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Notes%20on%20PCIe/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Notes%20on%20mdraid%20Performance%20Testing/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Notes%20on%20mdraid%20Performance%20Testing/lstopo/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Notes%20on%20nodejs/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Notes%20on%20nodejs/README_temp/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Nvidia%20GPUDirect/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Nvidia%20GPUDirect/background_research/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Nvidia%20GRID%20Notes/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/OME%20Bug/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/OME%20Integration%20for%20VMWare/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/OS10%20Password%20Recovery%20Bug/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Offline%20Updates%20with%20OpenManage%20Enterprise/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/OpenFlow%20on%204112F-ON/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/OpenFlow%20on%204112F-ON/angular/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/OpenFlow%20on%204112F-ON/openflow_bug/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/PCIev3%20vs%20v4/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Playing%20with%20virsh/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://grantcurell.github.io/PowerScale%20-%20Configure%20with%20Kubernetes%20%28Incomplete%29/</loc>
+         <lastmod>2023-11-30</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://grantcurell.github.io/PowerScale%20Failed%20Authentication/</loc>
+         <lastmod>2023-11-30</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://grantcurell.github.io/PowerScale%20Failed%20Authentication/session_teardown_reverse_engineering/</loc>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/PowerScale%20Setup/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Reset%20OS10%20Admin%20Password/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Reset%20OS10%20Admin%20Password/problems/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Run%20VPN%20on%20OS10/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Run%20VPN%20on%20OS10/README_wireguard_%28unfinished%29/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Running%20DNS%20from%20OS10/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/SONiC%20-%20Sample%20Datacenter%20Automation%20Architecture/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Set%20Up%20RSPAN%20on%20OS10/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Setting%20Up%20Breakout%20Cables/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Setting%20Up%20SmartFabric%20Director/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Setting%20Up%20SmartFabric%20Director/BUG/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Setting%20Up%20iDRAC%20Telemetry%20with%20Splunk/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Setup%20IDPA/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Site%20to%20Site%20VPN%20with%20PFSense%20and%20CentOS%208/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Switch%20Directly%20to%20Client%20Test/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Testing%20Bare%20Metal%20Orchestrator/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Testing%20Bare%20Metal%20Orchestrator/bug_report/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Testing%20Intel%20x520%20on%20RHEL%206/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Understanding%20Memory/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Use%20OS10%20as%20Aggregator/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://grantcurell.github.io/Using%20FIO/</loc>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Using%20the%20iDRAC%20Service%20Module/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/VEP%20Testing/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/VMWare/Automate%20ESXi%20Installation/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/VMWare/Automate%20ESXi%20Installation/LICENSE/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/VMWare/Change%20User%20on%20VxRail%20Plugin/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/VMWare/ESXi%20Architecture/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/VMWare/How%20to%20Pull%20Usage%20Metrics/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/VMWare/Notes%20on%20VSAN/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/VMWare/Setup%20VXRail/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/VMWare/Setup%20VXRail/vcenter_deploy/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/VMWare/Troubleshooting%20vSAN/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/VMWare/Troubleshooting%20vSAN/setting_up_vsan_lab/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/VMWare/VMWare%20APIs/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/VMWare/VxRail%20Architecture%20and%20Troubleshooting/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/VMWare/vRealize%20Setup%20%28Incomplete%29/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Web%20Traffic%20Generator/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/Writing%20udev%20Rules%20for%20Dell%20PERC%20H755/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/esrally%20%28INCOMPLETE%29/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/idrac%20with%20LDAP/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://grantcurell.github.io/idrac%20with%20LDAP/open-LDAP-failed/</loc>
-         <lastmod>2023-08-29</lastmod>
+         <lastmod>2023-11-30</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>

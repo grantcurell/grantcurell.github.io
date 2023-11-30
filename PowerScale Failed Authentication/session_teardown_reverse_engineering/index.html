@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Grant Curell" /><link rel="canonical" href="https://grantcurell.github.io/PowerScale%20Failed%20Authentication/session_teardown_reverse_engineering/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>How Does Session Teardown Work? - Grant Curell's Dell Projects</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "How Does Session Teardown Work?";
+        var mkdocs_page_input_path = "PowerScale Failed Authentication/session_teardown_reverse_engineering.md";
+        var mkdocs_page_url = "/PowerScale%20Failed%20Authentication/session_teardown_reverse_engineering/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Grant Curell's Dell Projects
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Grant Curell's Dell Projects</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Adding%20Hashing%20to%20OpenSwitch/">Adding Hashing to OpenSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Adding%20Intel%20I219-LM%20%288086.0d4c%29%20Driver%20to%20ESXi/">Adding Intel I219-LM (8086.0d4c) Driver to ESXi</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Automating%20OME%20Hardware%20Reports/">Automating OME Hardware Reports</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Backup%20OS10%20Config%20with%20Ansible/">Backup OS10 Config with Ansible</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../CloudLink/">CloudLink</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Common%20Questions%20About%20LLMs%20Answered/">Common Questions About AI/ML and Large Language Models (LLMs) Answered</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Configure%20FN410%20as%20a%20Switch/">Configure FN410 as a Switch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Configure%20Gigamon%20Tap/">Configure Gigamon Tap</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Configuring%20VLT%20on%20OS10/">Configuring VLT on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Create%20Kickstart%20Server%20on%20Fedora/">Create Kickstart Server on Fedora</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Create%20OpenSwitch%20VM/">Create OpenSwitch VM</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Dell%20Ansible%20Testing/">Dell Ansible Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../DHCP%20Relay%20on%20SONiC/">DHCP Relay on SONiC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Elasticsearch%20Display%20Map%20Data/">Elasticsearch Display Map Data</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Elasticsearch%20Load%20Testing/">Elasticsearch Load Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../esrally%20%28INCOMPLETE%29/">esrally (INCOMPLETE)</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Estimating%20Compute%20Requirements%20for%20Machine%20Learning/">Estimating Compute Requirements for Machine Learning</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Finding%20Rare%20Logs%20with%20DBSCAN/">Finding Rare Logs with DBSCAN</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Get%20NVMe%20Drives%20from%20iDRAC%20Redfish/">Get NVMe Drives from iDRAC Redfish</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../High%20Speed%20Packet%20Capture/">High Speed Packet Capture</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../How%20Bitcoin-Blockchain%20Works%20-%20Notes/">How Bitcoin-Blockchain Works - Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../How%20OS10%20Installer%20Works/">How OS10 Installer Works</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../How%20to%20ONIE%20Install%20and%20ZTP%20Config%20Dell%20SONiC/">How to ONIE Install and ZTP Config Dell SONiC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../How%20to%20Read%20lstopo%20and%20a%20PCIe%20Overview/">How to Read lstopo and a PCIe Overview</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../idrac%20with%20LDAP/">idrac with LDAP</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Importing%20Elasticsearch%20Data/">Importing Elasticsearch Data</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Installing%20DPDK%20with%20NapaTech%20Card/">Installing DPDK with NapaTech Card</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../IO%20Identities%20with%20LifeCycle%20Controller/">IO Identities with LifeCycle Controller</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../LDAP%20with%20OpenManage/">LDAP with OpenManage</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Load%20Balance%20Testing%20on%204112F-ON/OpenSwitch%20%28OPX%29/">Load Balancing with LAG OPX</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Load%20Balance%20Testing%20on%204112F-ON/OS10/">Load Balance Testing on 4112F-ON w/OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Load%20Balance%20Testing%20with%20OpenVSwitch/">Load Balance Testing with OpenVSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Load%20Balancing%20on%20Mellanox%20Switches/">Load Balancing on Mellanox Switches</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Load%20Balancing%20with%20LAG%20on%205112F-ON/">Load Balancing with LAG on 5112F-ON</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Make%20USB%20Read%20Only/">Make USB Read Only</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Migrating%20Storage%20Volumes%20to%20PowerStore/">Migrating Storage Volumes to PowerStore</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Mulitple%20Span%20on%204112F-ON%20with%20OpenSwitch/">Mulitple Span on 4112F-ON with OpenSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Multiple%20Span%20on%204112F-ON%20with%20OS10/">Multiple Span on 4112F-ON with OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Notes%20on%20AMD%20Processor/">Notes on AMD Processor</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Notes%20on%20Building%20a%20Datacenter%20from%20Scratch/">Notes on Building a Datacenter from Scratch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Notes%20on%20HPC/">Notes on HPC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Notes%20on%20HSM/">Notes on HSM</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Notes%20on%20Improving%20Drive%20Performance/">Notes on Improving Drive Performance</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Notes%20on%20mdraid%20Performance%20Testing/">Notes on mdraid Performance Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Notes%20on%20nodejs/">Notes on nodejs</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Notes%20on%20NVMe%20Log%20Pages/">Notes on NVMe Log Pages</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Notes%20on%20PCIe/">Notes on PCIe</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Nvidia%20GPUDirect/">Nvidia GPUDirect</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Nvidia%20GRID%20Notes/">Nvidia GRID Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../NVMe%20Performance%20Testing/">NVMe Performance Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Offline%20Updates%20with%20OpenManage%20Enterprise/">Offline Updates with OpenManage Enterprise</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../OME%20Bug/">OME Bug</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../OME%20Integration%20for%20VMWare/">OME Integration for VMWare</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../OpenFlow%20on%204112F-ON/">OpenFlow on 4112F-ON</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../OS10%20Password%20Recovery%20Bug/">OS10 Password Recovery Bug</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../PCIev3%20vs%20v4/">PCIev3 vs v4</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Playing%20with%20virsh/">Playing with virsh</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../PowerScale%20-%20Configure%20with%20Kubernetes%20%28Incomplete%29/">PowerScale - Configure with Kubernetes (Incomplete)</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../">PowerScale Failed Authentication</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../PowerScale%20Setup/">PowerScale Setup</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Reset%20OS10%20Admin%20Password/">Reset OS10 Admin Password</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Run%20VPN%20on%20OS10/">Run VPN on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Running%20DNS%20from%20OS10/">Running DNS from OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Set%20Up%20RSPAN%20on%20OS10/">Set Up RSPAN on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Setting%20Up%20Breakout%20Cables/">Setting Up Breakout Cables</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Setting%20Up%20iDRAC%20Telemetry%20with%20Splunk/">Setting Up iDRAC Telemetry with Splunk</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Setting%20Up%20SmartFabric%20Director/">Setting Up SmartFabric Director</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Setup%20IDPA/">Setup IDPA</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Site%20to%20Site%20VPN%20with%20PFSense%20and%20CentOS%208/">Site to Site VPN with PFSense and CentOS 8</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../SONiC%20-%20Sample%20Datacenter%20Automation%20Architecture/">SONiC - Sample Datacenter Automation Architecture</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Switch%20Directly%20to%20Client%20Test/">Switch Directly to Client Test</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Testing%20Bare%20Metal%20Orchestrator/">Testing Bare Metal Orchestrator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Testing%20Intel%20x520%20on%20RHEL%206/">Testing Intel x520 on RHEL 6</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Understanding%20Memory/">Understanding Memory</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Use%20OS10%20as%20Aggregator/">Use OS10 as Aggregator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Using%20FIO/">Using FIO</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Using%20the%20iDRAC%20Service%20Module/">Using the iDRAC Service Module</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../VEP%20Testing/">VEP Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../VMWare/Automate%20ESXi%20Installation/">Automating ESXi Installation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../VMWare/ESXi%20Architecture/">VMWare Architecture Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../VMWare/Setup%20VXRail/">VxRail Setup</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../VMWare/Troubleshooting%20vSAN/">Troubleshooting vSAN</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../VMWare/VMWare%20APIs/">VMWare APIs</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../VMWare/VxRail%20Architecture%20and%20Troubleshooting/">VxRail Architecture and Troubleshooting</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Web%20Traffic%20Generator/">Web Traffic Generator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Writing%20udev%20Rules%20for%20Dell%20PERC%20H755/">Writing udev Rules for Dell PERC H755</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Grant Curell's Dell Projects</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">How Does Session Teardown Work?</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="how-does-session-teardown-work">How Does Session Teardown Work?</h1>
+<p>I received a question about how the PowerScale does session teardown so below I walk through a mid-level overview of what that looks like. PowerScale leverages Apache so let's first understand what session teardown looks like from the webserver perspective.</p>
+<h2 id="session-teardown-in-apache">Session Teardown in Apache</h2>
+<p>A highly detailed technical explanation of how Apache server handles session teardown, leading to a 204 response, involves understanding both the HTTP protocol and the specific implementation of session management in Apache.</p>
+<h3 id="http-protocol-and-the-204-response">HTTP Protocol and the 204 Response</h3>
+<ul>
+<li>
+<p><strong>204 No Content</strong>: In HTTP, a 204 status code indicates that the server has successfully processed the request, but is not returning any content. This is often used in situations where the server's response itself is not important, but the confirmation of successful processing is.</p>
+</li>
+<li>
+<p><strong>Request Reception</strong>: When a request to terminate a session (typically a DELETE request) is received, Apache first parses and interprets the HTTP request.</p>
+</li>
+<li><strong>Session Identification</strong>: Apache identifies the session to be terminated. This is done with a session identifier.</li>
+<li><strong>Session Management</strong>: Apache uses modules for session management. These modules are responsible for creating, maintaining, and destroying sessions. When a session teardown is requested, the relevant module locates the session in its storage (which could be memory, a database, etc.).</li>
+<li><strong>Session Validation</strong>: Before proceeding with the teardown, Apache checks if the session exists and whether the client making the request has the right to terminate it.</li>
+<li><strong>Resource Cleanup</strong>: Upon successful validation, Apache instructs the session management module to release any resources associated with the session. This includes things like freeing memory, deleting session data from any running applications, and revoking authentication tokens.</li>
+<li><strong>Session Destruction</strong>: The session is then marked for destruction. This means it's effectively invalidated and cannot be used for further requests.</li>
+<li><strong>Client Notification</strong>: After the session is terminated, Apache sends a response back to the client. If there is no additional content to return (which is typical for session teardown), a 204 No Content response is used. This response is merely an acknowledgment that the request was successfully processed and the session was terminated.</li>
+<li><strong>Logging and Monitoring</strong>: Apache logs this interaction for administrative and security purposes. This could include information about the request, the client IP, the session identifier, and the outcome of the operation.</li>
+</ul>
+<p>To demonstrate this I wrote <a href="../trace_teardown.py">trace_teardown.py</a>. It sets up a session with the PowerScale and then tears it down. Now we can't see the guts of the PowerScale with this code (I'll get to that) but we can see all the Apache-side handling.</p>
+<pre><code>C:\Users\grant\AppData\Local\Programs\Python\Python310\python.exe &quot;C:\Users\grant\Documents\code\grantcurell.github.io\docs\PowerScale Failed Authentication\trace_teardown.py&quot; 
+DEBUG:__main__:Attempting to authenticate and create a session...
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): 10.10.25.80:8080
+DEBUG:urllib3.connectionpool:https://10.10.25.80:8080 &quot;POST /session/1/session HTTP/1.1&quot; 201 104
+DEBUG:__main__:Authentication response: 201, {&quot;services&quot;:[&quot;platform&quot;,&quot;namespace&quot;],&quot;timeout_absolute&quot;:14400,&quot;timeout_inactive&quot;:900,&quot;username&quot;:&quot;root&quot;}
+
+DEBUG:__main__:Session successfully created. Cookies: {'isicsrf': '25cd0346-4204-4c5d-be1d-49630c78c4ff', 'isisessid': 'eyJhbGciOiJQUzUxMiJ9.eyJhdWQiOlsicGxhdGZvcm0iLCJuYW1lc3BhY2UiXSwiZXhwIjoxNzAxMjA5NDM4LCJpYXQiOjE3MDExOTUwMzgsIm9uZWZzL2NzcmYiOiIyNWNkMDM0Ni00MjA0LTRjNWQtYmUxZC00OTYzMGM3OGM0ZmYiLCJvbmVmcy9pcCI6IjE3Mi4xNi41LjE1NSIsIm9uZWZzL25vbmNlIjozOTM4NzI5NDg2NTQ2MDY1NjU2LCJvbmVmcy9zZXNzaW9uIjoiZThkYzYyM2ItOWM5Yy00YmE3LWE2MjAtYzQzZTdkNzBhMzlhIiwib25lZnMvdWEiOiJweXRob24tcmVxdWVzdHMvMi4yOC4xIiwib25lZnMvemlkIjoxLCJzdWIiOiJyb290In0K.nnaDPBOw6ZSHT66mguImZZL57PsMkodUG9S2Nop0_B3r3oSwgX-1CkL4R70_oGRDMPztaskMOVSbc0YsvHXERI9IqEdE2jZaseIAZIOmUEaqPDgpjEZzkBMAiqsAcp9kFAxhDInZHzJobJn7kSa3RBKFD1rr6fi8_MljtennkX8IWpwPOWutkVMN6MNGM0YUAPPLD6qnQ1VcbFeYZU6unljhj7-n7eLrvoOfWprWjTh6vtT1jHF-Ecu_uD5Tue5IMkivsAEFnti5-TCas1qatmWYG2jlXrOoHEH7q0fEv5ZUWO6T-jGxGLZtp4E01EBJzudlaSfCZqTpL4JPaZOgbJEyFiQU2BQp7Ik0lRkLqTUO40f1lJDDnIK4xDbiN_4cIGowQjq0yTcKlu-FW9hIC2xGajoICIAuMBIJz9mEh4R_Gcvap_K1vPo796Hib3xyM-fgdeUzS3GwTVBuBWPczZQP2UMLmKSFeJuuMDbsB3_tu4V_xqnsmxWSyP-E_Btudwi75lEOJNnA7N-vrU1VK8IyBEsNU2TIJ4f_BjTE3gMvyRsk-BXayqmQ4u9PwPOTISLKGpDGuAAgYEryb9N48O_AKojglMcGEdonHLI-ep4ajWV3es6KWCmpvblQ2tpP8mTVhIRVi4xefYUG_ZCF23CrtOgoYur843lz7Mx5iS0%3D'}
+DEBUG:__main__:Attempting to close the session...
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): 10.10.25.80:8080
+DEBUG:urllib3.connectionpool:https://10.10.25.80:8080 &quot;DELETE /session/1/session HTTP/1.1&quot; 204 0
+DEBUG:__main__:Session closure response: 204, 
+DEBUG:__main__:Session successfully closed.
+</code></pre>
+<p>Here you can see the steps listed above play out to include visibility on both the session ID and the Cross-Site Request Forgery (CSRF) token.</p>
+<p>Now in addition to the above PowerScale is going to do a whole bunch of things internally and tracing each line of what happens would be an extremely long essay so we'll hit the highlights. Below is a copy of <a href="#apache-config">PowerScale's webui_http.conf</a> which defines Apache's behaviors for any given thing. From this we have a very clear idea of how session teardown works on the PowerScale.</p>
+<p>The provided configuration file for PowerScale, which is leveraging Apache, offers insights into how Apache is configured and potentially how it handles sessions in this environment. Let’s break down some key parts of the configuration related to session management and their implications:</p>
+<ol>
+<li><strong>Session Authentication Modules</strong>: </li>
+<li><code>mod_auth_isilon</code> - PowerScale's custom auth handler. This is handled by the shared library <code>mod_auth_isilon.so</code>. Now we don't have visibility into the code here, but realistically, these things follow design patterns that are pretty constant. If we were so inclined we could attach a debugger here, but the reality is we can make some pretty safe assumptions just based on how everyone does auth with Apache. The module is going to have all the code related to user authentication incluing the JWT tokens mentioned here <a href="../">README.md</a>, it will handle session management and expiry, and it will likely make calls out to some other service for things like RBAC.</li>
+<li><code>IsiAuthSessionSecurity ip_check agent_check</code> indicates additional security checks for session validation, like IP address and user-agent consistency.</li>
+<li><strong>Worker Module Configuration</strong>: </li>
+<li><code>mpm_worker_module</code> is used, which tells us it's a multi-threaded processing model. This module allows efficient handling of multiple concurrent connections,  crucial for session management in a high-traffic environment.</li>
+<li><strong>FastCGI for External Handlers</strong>:</li>
+<li>FastCGI (<code>mod_fastcgi</code>) is configured to communicate with external servers/processes like <code>isi_papi_d</code>, <code>isi_rsapi_d</code>, and <code>isi_object_d</code>. These external servers are responsible for handling other parts of the session lifecycle.</li>
+<li><strong>Session-Specific Directives</strong>:</li>
+<li><code>&lt;Location /session/1/session&gt;</code> tells us that session management (creation, validation, teardown) is handled by a specific handler (<code>SetHandler session-service</code>).</li>
+<li><code>IsiAuthSessionTimeoutInactive</code> and <code>IsiAuthSessionTimeoutAbsolute</code> directives give session timeout settings</li>
+<li><strong>Virtual Host Configuration</strong>:</li>
+<li>Within the <code>&lt;VirtualHost&gt;</code> section, you can see session-specific details. <ul>
+<li>We see that SSL is enforced</li>
+<li>CSP is present</li>
+<li>There are a series of custom error documents which can be returned</li>
+<li>There are a lot of custom URL rewrites</li>
+<li>Specific URLs are handled by <a href="https://en.wikipedia.org/wiki/FastCGI">FastCGI</a>. This includes all the APIs</li>
+</ul>
+</li>
+<li><strong>ErrorDocument Directives</strong>:</li>
+<li>Custom error documents for various HTTP status codes, including those that might be relevant to session handling (e.g., 401 Unauthorized).</li>
+</ol>
+<h3 id="understanding-session-teardown">Understanding Session Teardown</h3>
+<p>Apache itself, as configured here, doesn't directly reveal the mechanisms of session teardown. However, the combination of the worker module, SSL settings, custom authentication module, and external FastCGI processes suggests a complex session handling mechanism that is likely controlled both by Apache and additional PowerScale components.</p>
+<h4 id="teardown-process">Teardown Process:</h4>
+<ol>
+<li><strong>Session Termination Request</strong>: A request to terminate a session (a DELETE request to the session endpoint) is received by Apache.</li>
+<li><strong>Request Handling</strong>: Apache, through its worker module, accepts and processes the request</li>
+<li><strong>Custom Authentication Module Processing</strong>: The <code>mod_auth_isilon</code> module, along with any session-related directives, validate the session and the request, ensuring that it's legitimate and authorized.</li>
+<li><strong>Communication with External Handlers</strong>: If session management is partially offloaded to external processes (as seen in the FastCGI configuration), Apache forwards the relevant information to these processes.</li>
+<li><strong>Session Invalidating and Cleanup</strong>: The responsible component (Apache module or external handler) invalidates the session, cleans up associated resources, and updates any necessary data stores.</li>
+<li><strong>Response to Client</strong>: Once the session is successfully terminated, a response is sent back to the client. In the case of a successful teardown without further content, a 204 No Content response.</li>
+</ol>
+<h2 id="apache-config">Apache Config</h2>
+<pre><code># X: ----------------
+# X: This file is automatically generated and should not be
+# X: edited directly.  If you must make changes to the
+# X: contents of this file it should be done via the PowerScale
+# X: Web UI, or via the template file located at
+# X: /etc/mcp/templates/webui_httpd.conf
+# X: ----------------
+
+# =================================================
+# Basic settings
+# =================================================
+Listen 8080 https
+
+# =================================================
+# Modules
+# =================================================
+LoadModule unixd_module modules/mod_unixd.so
+LoadModule ssl_module modules/mod_ssl.so
+LoadModule authz_core_module modules/mod_authz_core.so
+LoadModule authn_core_module modules/mod_authn_core.so
+LoadModule authz_host_module modules/mod_authz_host.so
+LoadModule authz_user_module modules/mod_authz_user.so
+LoadModule mpm_worker_module modules/mod_mpm_worker.so
+LoadModule auth_isilon_module modules/mod_auth_isilon.so
+LoadModule cgid_module modules/mod_cgid.so
+LoadModule fastcgi_module modules/mod_fastcgi.so
+LoadModule alias_module modules/mod_alias.so
+LoadModule deflate_module modules/mod_deflate.so
+LoadModule dir_module modules/mod_dir.so
+LoadModule filter_module modules/mod_filter.so
+LoadModule headers_module modules/mod_headers.so
+LoadModule log_config_module modules/mod_log_config.so
+LoadModule mime_module modules/mod_mime.so
+LoadModule reqtimeout_module modules/mod_reqtimeout.so
+LoadModule rewrite_module modules/mod_rewrite.so
+LoadModule setenvif_module modules/mod_setenvif.so
+
+User daemon
+Group daemon
+UseCanonicalName On
+ServerRoot &quot;/usr/local/apache2&quot;
+DocumentRoot &quot;/usr/local/www/static&quot;
+PidFile &quot;/var/apache2/run/webui_httpd.pid&quot;
+Mutex flock:/var/apache2/run mpm-accept
+EnableMMAP Off
+EnableSendfile On
+KeepAlive On
+MaxKeepAliveRequests 500
+KeepAliveTimeout 15
+
+## Implementing Clickjacking protection
+Header always set X-Frame-Options &quot;sameorigin&quot;
+## MIME types advertised in the Content-Type headers should not be changed
+## requires mod_headers.so (don't comment this line out)
+Header always set X-Content-Type-Options &quot;nosniff&quot;
+Header always set X-XSS-Protection &quot;1; mode=block&quot;
+
+
+#Hiding apache version in http header
+ServerTokens Prod
+ServerSignature Off
+
+### Fix for CVE-2003-1567: HTTP TRACE / TRACK Methods Allowed ###
+TraceEnable off
+
+# Enable/Disable IsiAuthSessionSecurity agent_check and ip_check
+# IsiAuthSessionSecurity ip_check -&gt; ip_check enabled
+# IsiAuthSessionSecurity -ip_check -&gt; ip_check disabled
+# IsiAuthSessionSecurity agent_check -&gt; agent_check enabled
+# IsiAuthSessionSecurity -agent_check -&gt; agent_check disabled
+IsiAuthSessionSecurity ip_check agent_check
+
+# We must use a single process, multi-threaded server to correctly
+# cache user credentials (fds) across Platform API sessions.
+# StartServers: initial number of server processes to start
+# MaxRequestWorkers: maximum number of simultaneous client connections
+# MinSpareThreads: minimum number of worker threads which are kept spare
+# MaxSpareThreads: maximum number of worker threads which are kept spare
+# ThreadsPerChild: constant number of worker threads in each server process
+# MaxConnectionsPerChild: maximum number of requests a server process serves
+&lt;IfModule mpm_worker_module&gt;
+    ServerLimit 1
+    StartServers 1
+    MaxRequestWorkers 64
+    MinSpareThreads 10
+    MaxSpareThreads 25
+    ThreadsPerChild 64
+    MaxConnectionsPerChild 0
+&lt;/IfModule&gt;
+
+# =================================================
+# REQTIMEOUT
+# =================================================
+&lt;IfModule reqtimeout_module&gt;
+    RequestReadTimeout handshake=0 header=20-40,MinRate=500 body=20,MinRate=500
+&lt;/IfModule&gt;
+
+# =================================================
+# Logging, Errors, User Agent
+# =================================================
+LogFormat &quot;%h %l %u %t \&quot;%r\&quot; %&gt;s %b \&quot;%{Referer}i\&quot; \&quot;%{User-Agent}i\&quot;&quot; combined
+# Log errors with syslog to /var/log/apache2/webui_httpd_error.log
+ErrorLog syslog:local2
+LogLevel error
+
+ErrorDocument 500 /httpd/500Text.html
+ErrorDocument 400 /httpd/400Text.html
+
+SetEnvIf User-Agent &quot;.*MSIE.*&quot; \
+         nokeepalive ssl-unclean-shutdown \
+         downgrade-1.0 force-response-1.0
+
+# =================================================
+# Platform API
+# =================================================
+&lt;IfModule fastcgi_module&gt;
+    FastCgiExternalServer /usr/sbin/isi_papi_d -socket /var/run/papi.sock -pass-cred -idle-timeout 600
+&lt;/IfModule&gt;
+
+# =================================================
+# Remote-Service API
+# =================================================
+&lt;IfModule fastcgi_module&gt;
+    FastCgiExternalServer /usr/sbin/isi_rsapi_d -socket /var/run/isi_rsapi_d.sock -pass-cred -idle-timeout 600
+&lt;/IfModule&gt;
+
+# =================================================
+# Object API
+# =================================================
+&lt;IfModule fastcgi_module&gt;
+    FastCgiExternalServer /usr/sbin/isi_object_d -pass-cred -idle-timeout 2147483647 -socket /var/run/isi_object_d.sock
+&lt;/IfModule&gt;
+
+# =================================================
+# Files
+# =================================================
+AcceptFilter http none
+AcceptFilter https none
+
+&lt;IfModule dir_module&gt;
+    DirectoryIndex isilonnoindex.none
+&lt;/IfModule&gt;
+
+&lt;Directory /&gt;
+    Options FollowSymLinks
+    AllowOverride None
+    Require all denied
+&lt;/Directory&gt;
+
+&lt;Directory &quot;/usr/local/www/static&quot;&gt;
+    Options Indexes FollowSymLinks MultiViews
+    AllowOverride None
+    &lt;LimitExcept GET POST DELETE HEAD&gt;
+        Require all denied
+    &lt;/LimitExcept&gt;
+&lt;/Directory&gt;
+
+&lt;FilesMatch &quot;^\.ht&quot;&gt;
+    Require all denied
+&lt;/FilesMatch&gt;
+
+&lt;IfModule mime_module&gt;
+    TypesConfig conf/mime.types
+    AddEncoding gzip .gz
+    AddEncoding x-compress .Z
+    AddType application/x-compress .Z
+    AddType application/x-gzip .gz .tgz
+&lt;/IfModule&gt;
+
+# =================================================
+# SSL
+# =================================================
+&lt;IfModule ssl_module&gt;
+    AddType application/x-x509-ca-cert .crt
+    AddType application/x-pkcs7-crl .crl
+    SSLPassPhraseDialog builtin
+    #SSLSessionCache dbm:/var/run/ssl_scache
+    SSLSessionCache none
+    SSLSessionCacheTimeout 300
+    Mutex flock:/var/apache2/run ssl-cache
+    SSLRandomSeed startup file:/dev/urandom 1024
+    SSLRandomSeed connect file:/dev/urandom 1024
+    SSLProtocol -all -TLSv1.1 +TLSv1.2
+    SSLCipherSuite ECDHE+aRSA+AES:DHE+aRSA+AES:ECDHE+ECDSA+AES:@STRENGTH
+    SSLHonorCipherOrder on
+    SSLCompression off
+    SSLSessionTickets off
+    SSLPassPhraseDialog exec:/etc/mcp/scripts/httpd_keypass.py
+    SSLProxyCheckPeerCN off
+    SSLProxyCheckPeerName off
+    SSLProxyCheckPeerExpire off
+    SSLOpenSSLConfCmd DHParameters /usr/local/apache24/conf/webui_dhparams.pem
+    SSLOpenSSLConfCmd Curves prime256v1:secp384r1:secp521r1
+&lt;/IfModule&gt;
+
+# =================================================
+# Platform API Virtual Hosts
+# =================================================
+&lt;VirtualHost _default_:8080&gt;
+    SSLEngine on
+    SSLCertificateFile /ifs/.ifsvar/modules/isi_certs/system/server/zone_1/certs/794429aa484f2be3114356307ea2ff0bf004a8fbaa66e3e9c8647a923720f1ba.crt
+    SSLCertificateKeyFile /ifs/.ifsvar/modules/isi_certs/system/server/zone_1/private/794429aa484f2be3114356307ea2ff0bf004a8fbaa66e3e9c8647a923720f1ba.key
+    DocumentRoot &quot;/usr/local/www/static&quot;
+    ServerAdmin support@isilon.com
+    Header set Content-Security-Policy &quot;default-src 'self' 'unsafe-inline' 'unsafe-eval' data:; script-src 'self' 'unsafe-eval'; style-src 'unsafe-inline' 'self'; &quot;
+
+    # Log access with syslog to /var/log/apache2/webui_httpd_access.log
+    CustomLog &quot;|$ logger -t httpd -p local3.info&quot; combined
+
+    AddOutputFilterByType DEFLATE text/css text/javascript application/javascript application/x-javascript
+    BrowserMatch ^Mozilla/4 gzip-only-text/html
+    BrowserMatch ^Mozilla/4\.0[678] no-gzip
+    BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
+    AllowEncodedSlashes On
+    ErrorDocument 503 /httpd/503Text.html
+    ErrorDocument 400 /httpd/400WebUIText.html
+    ErrorDocument 401 /httpd/401WebUIText.html
+    ErrorDocument 403 /httpd/403WebUIText.html
+    ErrorDocument 404 /httpd/404WebUIText.html
+    ErrorDocument 405 /httpd/405WebUIText.html
+    ErrorDocument 422 /httpd/422WebUIText.html
+    ErrorDocument 423 /httpd/423WebUIText.html
+    ErrorDocument 424 /httpd/424WebUIText.html
+    ErrorDocument 500 /httpd/500WebUIText.html
+
+    &lt;IfModule rewrite_module&gt;
+        RewriteEngine On
+        #Uncomment these lines to debug rewrite rules
+        #RewriteLog  &quot;/var/log/apache2/webui_httpd_error.log&quot;
+        #RewriteLogLevel 9
+        # Redirect internal subrequests to an error to prevent them from being
+        # redirected to another module and causing another authentication.
+        RewriteCond %{IS_SUBREQ} t
+        RewriteRule ^ - [G]
+
+        # Restrict unnecessary http methods
+        RewriteCond %{REQUEST_METHOD} ^(PATCH|OPTIONS|TRACK|CONNECT|TRACE|COPY|LINK|UNLINK|PURGE|LOCK|UNLOCK|PROPFIND|VIEW)
+        RewriteRule .* - [L,R=405]
+        RewriteCond %{REQUEST_METHOD} ^(PATCH|OPTIONS|TRACK|CONNECT|TRACE|COPY|LINK|UNLINK|PURGE|LOCK|UNLOCK|PROPFIND|VIEW)
+        RewriteRule .* - [L,R=405]
+        RewriteCond %{REQUEST_METHOD} ^(PATCH|OPTIONS|TRACK|CONNECT|TRACE|COPY|LINK|UNLINK|PURGE|LOCK|UNLOCK|PROPFIND|VIEW)
+        RewriteRule .* - [L,R=405]
+
+        # Older UI versions will redirect to (legacy) Login
+        # after an upgrade.  Force them into the new system
+        RewriteRule ^/$ /v2/html/OneFS.html
+        RewriteRule ^/Login.* /v2/html/OneFS.html
+        RewriteRule ^/cloudpool_eula.* /v2/html/cloudpool_eula.txt
+        RewriteRule ^/OneFS$ /v2/html/OneFS.html
+
+        # Reroute legacy /Status to base URI
+        RewriteRule ^/Status* https://%{SERVER_ADDR}:8080/ [L,R]
+
+        RewriteCond %{DOCUMENT_ROOT}%{REQUEST_FILENAME}.gz -f
+        RewriteRule (.*\.(html|js|css))$ $1.gz [L]
+
+        # Rewrite all request past /OneFS to v3
+        RewriteRule ^/OneFS/(.*) /v3/$1
+
+        # For v3 requests, if the file exists on disk, serve it
+        RewriteCond %{REQUEST_FILENAME} ^/v3 [NC]
+        RewriteCond %{DOCUMENT_ROOT}%{REQUEST_FILENAME}.gz -f
+        RewriteRule (.*)$ $1.gz [L]
+
+        RewriteCond %{REQUEST_FILENAME} ^/v3 [NC]
+        RewriteCond %{DOCUMENT_ROOT}%{REQUEST_FILENAME} -f
+        RewriteRule ^ - [L]
+
+        # For all request to v3 that do no exists (like 404) return the index file so
+        # the app can handle them
+        RewriteRule ^/v3 /v3/index.html.gz [L]
+
+        # Stop requests for static files
+        RewriteRule ^/(json|v2|vasa-catalog|httpd)/.* $0 [L]
+
+
+              RewriteRule ^/namespace(.*) /namespace$1 [PT]
+
+        RewriteRule ^/object(.*) - [R=503]
+        RewriteRule ^/webhdfs(.*) - [R=503]
+        RewriteRule ^/imagetransfer(.*) - [R=503]
+        RewriteRule ^/jmx(.*) - [R=503]
+
+        RewriteRule ^/authenticate /session/1/session [P]
+        RewriteRule ^/objectstore(.*) /object$1 [PT]
+        RewriteRule ^/favicon.ico /v2/images/favicon.ico [L]
+        RewriteRule ^/MIBs/(.*) &quot;/usr/share/snmp/mibs/$1&quot; [L]
+        RewriteRule ^/MIBs-DEFs/(.*) &quot;/usr/share/snmp/defs/$1&quot; [L]
+        RewriteRule ^/platform(.*) /platform$1 [PT]
+        RewriteRule ^/remote-service(.*) /remote-service$1 [PT]
+        RewriteRule ^/session(.*) /session$1 [PT]
+        RewriteRule ^/mod_ssl:error:HTTP-request https://%{SERVER_ADDR}:8080/ [L,R]
+    &lt;/IfModule&gt;
+
+    &lt;FilesMatch .*\.html.gz&gt;
+        ForceType text/html
+    &lt;/FilesMatch&gt;
+
+    &lt;FilesMatch .*\.css.gz&gt;
+        ForceType text/css
+    &lt;/FilesMatch&gt;
+
+    &lt;FilesMatch .*\.js.gz&gt;
+        ForceType application/javascript
+    &lt;/FilesMatch&gt;
+
+    &lt;Directory &quot;/usr/share/snmp/mibs&quot;&gt;
+        Options Indexes MultiViews
+        ForceType application/octet-stream
+        AllowOverride None
+        Require all granted
+    &lt;/Directory&gt;
+    &lt;Directory &quot;/usr/share/snmp/defs&quot;&gt;
+        Options Indexes MultiViews
+        ForceType application/octet-stream
+        AllowOverride None
+        Require all granted
+    &lt;/Directory&gt;
+
+    &lt;Location /webhdfs&gt;
+        RemoveEncoding .gz .Z
+    &lt;/Location&gt;
+
+
+
+    Header always add Strict-Transport-Security: &quot;max-age=31536000;&quot;
+
+    # =================================================
+    # Platform API
+    # =================================================
+    Alias /platform /usr/sbin/isi_papi_d
+    &lt;Location /platform&gt;
+        AuthType Isilon
+        IsiAuthName &quot;platform&quot;
+        IsiAuthTypeBasic Off
+        IsiAuthTypeSessionCookie On
+        IsiDisabledZoneAllow Off
+        IsiMultiZoneAllow On
+        IsiCsrfCheck On
+        Require valid-user
+        SetHandler fastcgi-script
+        Options +ExecCGI
+        ErrorDocument 400 /httpd/400PAPIText.html
+        ErrorDocument 401 /httpd/401PAPIText.html
+        ErrorDocument 403 /httpd/403PAPIText.html
+        ErrorDocument 404 /httpd/404PAPIText.html
+        ErrorDocument 405 /httpd/405PAPIText.html
+        ErrorDocument 422 /httpd/422PAPIText.html
+        ErrorDocument 423 /httpd/423PAPIText.html
+        ErrorDocument 424 /httpd/424PAPIText.html
+        ErrorDocument 500 /httpd/500PAPIText.html
+    &lt;/Location&gt;
+
+    &lt;Location /session/1/session&gt;
+        SetHandler session-service
+        IsiAuthServices platform remote-service namespace
+        ForceType text/plain
+        ErrorDocument 401 /json/401.json
+
+    &lt;/Location&gt;
+
+    &lt;Location /session/1/saml/logout/slostatus&gt;
+        SetHandler saml-logout-slo
+        ErrorDocument 401 /json/401.json
+
+    &lt;/Location&gt;
+
+    &lt;Location /session/1/saml/logout/session&gt;
+        SetHandler saml-logout-session
+        ErrorDocument 401 /json/401.json
+
+    &lt;/Location&gt;
+
+    # Authentication is not required to access these resources
+    &lt;Location /platform/*/cluster/identity&gt;
+        IsiAuthIgnore GET
+    &lt;/Location&gt;
+    &lt;Location /platform/*/cluster/identity/&gt;
+        IsiAuthIgnore GET
+    &lt;/Location&gt;
+    &lt;Location /platform/*/cluster/brand&gt;
+        IsiAuthIgnore GET
+    &lt;/Location&gt;
+    &lt;Location /platform/*/auth/users/*/change-password&gt;
+        IsiAuthIgnore PUT
+    &lt;/Location&gt;
+    &lt;Location /platform/*/auth/providers/saml-services/settings&gt;
+        IsiAuthIgnore GET
+    &lt;/Location&gt;
+    &lt;Location /platform/*/auth/providers/saml-services&gt;
+        IsiAuthIgnore GET
+    &lt;/Location&gt;
+    &lt;Location /platform/*/upgrade/cluster/mixed-mode&gt;
+        IsiAuthIgnore GET
+    &lt;/Location&gt;
+    &lt;Location /platform/*/cluster/version&gt;
+        IsiAuthIgnore GET
+    &lt;/Location&gt;
+
+
+
+    # =================================================
+    # Object API
+    # =================================================
+
+    Alias /namespace /usr/sbin/isi_object_d
+    &lt;Location /namespace&gt;
+        AuthType Isilon
+        IsiAuthName &quot;namespace&quot;
+        IsiAuthTypeBasic Off
+        IsiAuthTypeSessionCookie On
+        IsiDisabledZoneAllow Off
+        IsiMultiZoneAllow On
+        IsiCsrfCheck On
+        Require valid-user
+        SetHandler fastcgi-script
+        Options +ExecCGI
+        ErrorDocument 401 /json/401.json
+        Header set Content-Security-Policy &quot;default-src 'none'&quot;
+    &lt;/Location&gt;
+
+    # =================================================
+    # Remote-Service API
+    # =================================================
+    Alias /remote-service /usr/sbin/isi_rsapi_d
+    &lt;Location /remote-service&gt;
+        AuthType Isilon
+        IsiAuthName &quot;remote-service&quot;
+        IsiAuthTypeBasic Off
+        IsiAuthTypeSessionCookie On
+        Require valid-user
+        SetHandler fastcgi-script
+        Options +ExecCGI
+        ErrorDocument 401 /json/401.json
+    &lt;/Location&gt;
+
+
+    # Session timeouts
+    IsiAuthSessionTimeoutInactive 900
+    IsiAuthSessionTimeoutAbsolute 14400
+    Timeout 500
+
+&lt;/VirtualHost&gt;
+</code></pre>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
