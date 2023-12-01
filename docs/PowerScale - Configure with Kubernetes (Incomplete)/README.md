@@ -187,15 +187,26 @@ metadata:
   name: default
 spec:
   addresses:
-  - 10.10.25.140-10.10.25.149
- REPLACE WITH YOUR IP ADDRESS POOL - SHOULD NOT OVERLAP WITH NODE IPS
+  - 10.10.25.140-10.10.25.149 REPLACE WITH YOUR IP ADDRESS POOL - SHOULD NOT OVERLAP WITH NODE IPS
+```
+
+Run `vim l2adv.yaml`
+
+```
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+  namespace: metallb-system
+  name: layer2-config
 ```
 
 Next run:
 
 ```bash
 helm repo add metallb https://metallb.github.io/metallb
-helm install metallb metallb/metallb --create-namespace --namespace metallb-system -f metallb.yaml
+helm install metallb metallb/metallb --create-namespace --namespace metallb-system
+kubectl apply -f metallb.yaml
+kubectl apply -f l2advertisement.yaml
 ```
 
 Now we need to make sure Rancher uses metallb:
