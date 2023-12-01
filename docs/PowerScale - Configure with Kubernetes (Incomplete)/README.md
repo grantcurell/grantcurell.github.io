@@ -1,6 +1,6 @@
 # PowerScale - Configure with Kubernetes (Incomplete)
 
-RKE2 advertises itself as an automatic K8s installer. That is... sort of true based on my experience. It is certainly simpler than what I had to do 7 years ago, but significant assembly by someone who knows kubernetes and networking was still required. It was still a pretty large PITA.
+RKE2 advertises itself as an automatic K8s installer. That is... sort of true based on my experience. It is certainly simpler than what I had to do 7 years ago, but significant assembly by someone who knows kubernetes and networking was still required.
 
 
 ## Install RKE2 on Server
@@ -218,11 +218,6 @@ kubectl patch svc rancher -n cattle-system -p '{"spec": {"type": "LoadBalancer"}
 
 ### Flannel Issues
 
-Warning: Sassy commentary ahead.
-
-I haven't built K8s from scratch since 2017 and I'm glad to see that getting flannel to work is still a huge mess. With that said, here's how to go about troubleshooting it when it inevitably fails. (Seriously, it has been 7 years, how is it still this bad?)
-
-#### Rancher Woes
 
 My rancher install failed with no output from the installer. You can manually pull the logs by examining the rancher pod with `kubectl logs -n cattle-system rancher-64cf6ddd96-2x2ms`
 
