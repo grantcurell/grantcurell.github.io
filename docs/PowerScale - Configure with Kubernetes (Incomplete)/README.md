@@ -7,46 +7,17 @@ RKE2 advertises itself as an automatic K8s installer. That is... sort of true ba
 
 I recommend just making life easy and doing an `su -` and just doing everything as root.
 
-Note: after heavy experimentation to include writing the below code that does [this](https://stackoverflow.com/a/60736109/4427375) I still found flannel choked with firewalld on so ultimately I just ran `systemctl disable --now firewalld`. See [Troubleshooting Flannel Issues](#troubleshooting-flannel-issues). Since it's a lab I decided the juice wasn't worth the squeeze because I think the problem is in the internal masquerade rules.
+Note: after heavy experimentation to include writing the below code that does [this](https://stackoverflow.com/a/60736109/4427375) I still found flannel choked with firewalld on so ultimately I just ran `systemctl disable --now firewalld`. See [Troubleshooting Flannel Issues](#troubleshooting-flannel-issues). Since it's a lab I decided the juice wasn't worth the squeeze because I think the problem is in the internal masquerade rules. The firewall rules I tried are in [firewall ports I tried](#firewalld-ports-i-tried)
 
 ```bash
 curl -sfL https://get.rke2.io | sudo sh -
-# Kubernetes API Server
-firewall-cmd --permanent --add-port=6443/tcp
-# RKE2 Server
-firewall-cmd --permanent --add-port=9345/tcp
-# etcd server client API
-firewall-cmd --permanent --add-port=2379/tcp
-firewall-cmd --permanent --add-port=2380/tcp
-# HTTPS
-firewall-cmd --permanent --add-port=443/tcp
-# NodePort Services
-firewall-cmd --permanent --add-port=30000-32767/tcp
-# Kubelet API
-firewall-cmd --permanent --add-port=10250/tcp
-# kube-scheduler
-firewall-cmd --permanent --add-port=10251/tcp
-# kube-controller-manager
-firewall-cmd --permanent --add-port=10252/tcp
-# Flannel
-firewall-cmd --permanent --add-port=8285/udp
-firewall-cmd --permanent --add-port=8472/udp
-# Additional ports required for Kubernetes
-firewall-cmd --permanent --add-port=10255/tcp # Read-only Kubelet API
-firewall-cmd --permanent --add-port=30000-32767/tcp # NodePort Services range
-firewall-cmd --permanent --add-port=6783/tcp # Flannel
-firewall-cmd --permanent --add-port=6783/udp # Flannel
-firewall-cmd --permanent --add-port=6784/udp # Flannel
-firewall-cmd --add-masquerade --permanent
-firewall-cmd --reload
-systemctl restart firewalld
+sudo systemectl disable --now firewalld
 sudo systemctl enable rke2-server.service
 sudo systemctl start rke2-server.service
 cd /var/lib/rancher/rke2/bin
 echo 'export KUBECONFIG=/etc/rancher/rke2/rke2.yaml' >> ~/.bashrc
 echo 'export PATH=$PATH:/var/lib/rancher/rke2/bin' >> ~/.bashrc
 source ~/.bashrc
-
 ```
 
 The rke2 server process listens on port 9345 for new nodes to register. The Kubernetes API is still served on port 6443, as normal.
@@ -55,26 +26,80 @@ The rke2 server process listens on port 9345 for new nodes to register. The Kube
 
 ```bash
 sudo curl -sfL https://get.rke2.io | sudo INSTALL_RKE2_TYPE="agent" sh -
-# Kubelet API and Flannel ports
-firewall-cmd --permanent --add-port=10250/tcp
-firewall-cmd --permanent --add-port=8285/udp
-firewall-cmd --permanent --add-port=8472/udp
-# NodePort Services
-firewall-cmd --permanent --add-port=30000-32767/tcp
-# Additional ports required for Kubernetes
-firewall-cmd --permanent --add-port=10255/tcp # Read-only Kubelet API
-firewall-cmd --permanent --add-port=6783/tcp # Flannel
-firewall-cmd --permanent --add-port=6783/udp # Flannel
-firewall-cmd --permanent --add-port=6784/udp # Flannel
-firewall-cmd --add-masquerade --permanent
-firewall-cmd --reload
-systemctl restart firewalld
+systemctl disable --now firewalld
 sudo systemctl enable rke2-agent.service
 mkdir -p /etc/rancher/rke2/
 echo 'export PATH=$PATH:/var/lib/rancher/rke2/bin' >> ~/.bashrc
 source ~/.bashrc
 vim /etc/rancher/rke2/config.yaml
 ```
+
+Note: If you don't update bashrc and source it, none of the `kubectl` commands will run correctly because RKE2 uses a custom API port (6443) whereas the Kubernetes default is 8080.
+
+Next you have to populate the config file with your server's token info. You get the token by logging into the server and running:
+
+```bash
+[root@k8s-server tmp]# cat /var/lib/rancher/rke2/server/node-token
+K1016508dd12aa27c24f9898fdebd534a7f2dc5b8cd719d1f6cf131edb799247d0e::server:ede9908e983065b06dfabcd9ba45d7ab
+```
+
+Then you put that token in the aforementioned config file:
+
+```
+server: https://k8s-server.lan:9345
+token: K1016508dd12aa27c24f9898fdebd534a7f2dc5b8cd719d1f6cf131edb799247d0e::server:ede9908e983065b06dfabcd9ba45d7ab
+```
+
+After you do this and save it I **strongly** suggest running `shutdown -r now` and giving things a reboot. I noticed on my setup, for some reason, flannel failed to come up. You can check if this is the case by running `ip a s`. You should see:
+
+```bash
+[grant@k8s-agent1 ~]$ ip a s
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host
+       valid_lft forever preferred_lft forever
+2: ens33: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP group default qlen 1000
+    link/ether 00:50:56:8a:b2:8c brd ff:ff:ff:ff:ff:ff
+    altname enp2s1
+    inet 10.10.25.136/24 brd 10.10.25.255 scope global noprefixroute ens33
+       valid_lft forever preferred_lft forever
+    inet6 fe80::250:56ff:fe8a:b28c/64 scope link noprefixroute
+       valid_lft forever preferred_lft forever
+3: calia304d00df8c@if3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1450 qdisc noqueue state UP group default qlen 1000
+    link/ether ee:ee:ee:ee:ee:ee brd ff:ff:ff:ff:ff:ff link-netns cni-fef0629e-72af-acbf-9e2e-27a43f48407e
+    inet6 fe80::ecee:eeff:feee:eeee/64 scope link
+       valid_lft forever preferred_lft forever
+4: calib76b9de74c6@if3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1450 qdisc noqueue state UP group default qlen 1000
+    link/ether ee:ee:ee:ee:ee:ee brd ff:ff:ff:ff:ff:ff link-netns cni-60486c79-4e9c-14fd-be02-c8243d382b4a
+    inet6 fe80::ecee:eeff:feee:eeee/64 scope link
+       valid_lft forever preferred_lft forever
+5: cali4fbea555e83@if3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1450 qdisc noqueue state UP group default qlen 1000
+    link/ether ee:ee:ee:ee:ee:ee brd ff:ff:ff:ff:ff:ff link-netns cni-5c1b74d4-961c-6f3c-950b-4c910cf5c8d6
+    inet6 fe80::ecee:eeff:feee:eeee/64 scope link
+       valid_lft forever preferred_lft forever
+6: flannel.1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1450 qdisc noqueue state UNKNOWN group default
+    link/ether 12:6d:b8:f6:c8:66 brd ff:ff:ff:ff:ff:ff
+    inet 10.42.1.0/32 scope global flannel.1
+       valid_lft forever preferred_lft forever
+    inet6 fe80::106d:b8ff:fef6:c866/64 scope link
+       valid_lft forever preferred_lft forever
+9: calid194e3ad4a3@if3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1450 qdisc noqueue state UP group default qlen 1000
+    link/ether ee:ee:ee:ee:ee:ee brd ff:ff:ff:ff:ff:ff link-netns cni-5f9c0ded-120d-b035-fe1d-6eab65c96d11
+    inet6 fe80::ecee:eeff:feee:eeee/64 scope link
+       valid_lft forever preferred_lft forever
+10: calia758d43a129@if3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1450 qdisc noqueue state UP group default qlen 1000
+    link/ether ee:ee:ee:ee:ee:ee brd ff:ff:ff:ff:ff:ff link-netns cni-97f784af-18ec-46df-ce3f-6607efa71a7f
+    inet6 fe80::ecee:eeff:feee:eeee/64 scope link
+       valid_lft forever preferred_lft forever
+11: calie1439757d80@if3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1450 qdisc noqueue state UP group default qlen 1000
+    link/ether ee:ee:ee:ee:ee:ee brd ff:ff:ff:ff:ff:ff link-netns cni-a65f26af-89c4-e98c-1248-64b0f4a6cef8
+    inet6 fe80::ecee:eeff:feee:eeee/64 scope link
+       valid_lft forever preferred_lft forever
+```
+
+Notice that `flannel.1` is present along with the calico interfaces. If you **don't** see that, try the reboot.
 
 After the server setup I noticed it took quite some time to come up. You can track progress with `journalctl -u rke2-server -f`. My logs looked like this:
 
@@ -105,7 +130,7 @@ Nov 29 14:22:17 k8s-server.lan rke2[1016]: time="2023-11-29T14:22:17-05:00" leve
 
 You can see you get constant 500 errors until it eventually fixes itself. When everything has settled down make sure that you see nodes:
 
-```
+```bash
 [root@k8s-server bin]# kubectl get nodes
 NAME             STATUS   ROLES                       AGE   VERSION
 k8s-agent1.lan   Ready    <none>                      11m   v1.26.10+rke2r2
@@ -114,7 +139,9 @@ k8s-server.lan   Ready    control-plane,etcd,master   60m   v1.26.10+rke2r2
 
 ## Install Helm
 
-```
+On the server:
+
+```bash
 cd /tmp
 wget https://get.helm.sh/helm-v3.13.2-linux-amd64.tar.gz # Update version as needed
 tar xzf helm-v3.13.2-linux-amd64.tar.gz
@@ -122,22 +149,70 @@ sudo mv linux-amd64/helm /usr/local/bin/helm
 helm version
 ```
 
+## Install Cert Manager
+
+On the server:
+
+```bash
+helm repo add jetstack https://charts.jetstack.io
+helm repo update
+helm install \
+  cert-manager jetstack/cert-manager \
+  --namespace cert-manager \
+  --create-namespace \
+  --version v1.13.2 \
+  --set installCRDs=true
+```
+
 ## Install Rancher
 
-```
+On the server:
+
+```bash
 helm repo add rancher-stable https://releases.rancher.com/server-charts/stable
 kubectl create namespace cattle-system
-helm install rancher rancher-stable/rancher --namespace cattle-system --set hostname=<your-rancher-hostname> --set bootstrapPassword=<your-admin-password> --set ingress.tls.source=rancher # YOU HAVE TO UPDATE THIS
+helm install rancher rancher-stable/rancher --namespace cattle-system --set hostname=k8s-server.lan --set bootstrapPassword=I.am.ghost.47 --set ingress.tls.source=rancher # YOU HAVE TO UPDATE THIS
 echo https://k8s-server.lan/dashboard/?setup=$(kubectl get secret --namespace cattle-system bootstrap-secret -o go-template='{{.data.bootstrapPassword|base64decode}}')
 ```
 
-## Troubleshooting Flannel Issues
+## Install a Load Balancer for Bare Metal (metallb)
+
+Run `vim metallb.yaml` and create a file with these contents:
+
+```
+configInline:
+  address-pools:
+  - name: default
+    protocol: layer2
+    addresses:
+    - 10.10.25.140-10.10.25.149
+```
+
+Next run:
+
+```bash
+helm repo add metallb https://metallb.github.io/metallb
+helm install metallb metallb/metallb --create-namespace --namespace metallb-system -f metallb.yaml
+```
+Now we need to make sure Rancher uses metallb:
+
+**WARNING:** you need to change the hostname to your hostname
+**WARNING:** make sure Rancher is healthy before continuing!
+
+```bash
+helm upgrade rancher rancher-stable/rancher --namespace cattle-system  --set hostname=k8s-server.lan --set rancher.service.type=LoadBalancer
+kubectl patch svc rancher -n cattle-system -p '{"spec": {"type": "LoadBalancer"}}'
+```
+
+## Troubleshooting 
+
+### Flannel Issues
 
 Warning: Sassy commentary ahead.
 
 I haven't built K8s from scratch since 2017 and I'm glad to see that getting flannel to work is still a huge mess. With that said, here's how to go about troubleshooting it when it inevitably fails. (Seriously, it has been 7 years, how is it still this bad?)
 
-### Rancher Woes
+#### Rancher Woes
 
 My rancher install failed with no output from the installer. You can manually pull the logs by examining the rancher pod with `kubectl logs -n cattle-system rancher-64cf6ddd96-2x2ms`
 
@@ -227,6 +302,139 @@ listening on flannel.1, link-type EN10MB (Ethernet), snapshot length 262144 byte
 16:17:42.727005 IP 10.42.0.0.54136 > 10.42.1.32.tungsten-https: Flags [S], seq 1383176303, win 64860, options [mss 1410,sackOK
 ```
 
-The moral of the story is that if you see that, there's probably a firewall port you've missed.
+Ultimately even after opening the ports I wasn't able to get it to work so I disabled firewalld altogether.
 
-Why isn't that built into the installer so you aren't manually looking up and opening more than a dozen ports I hear you asking? Great question.
+##### Firewalld Ports I tried
+
+
+Firewall rules I tried on server:
+
+```bash
+# Kubernetes API Server
+firewall-cmd --permanent --add-port=6443/tcp
+# RKE2 Server
+firewall-cmd --permanent --add-port=9345/tcp
+# etcd server client API
+firewall-cmd --permanent --add-port=2379/tcp
+firewall-cmd --permanent --add-port=2380/tcp
+# HTTPS
+firewall-cmd --permanent --add-port=443/tcp
+# NodePort Services
+firewall-cmd --permanent --add-port=30000-32767/tcp
+# Kubelet API
+firewall-cmd --permanent --add-port=10250/tcp
+# kube-scheduler
+firewall-cmd --permanent --add-port=10251/tcp
+# kube-controller-manager
+firewall-cmd --permanent --add-port=10252/tcp
+# Flannel
+firewall-cmd --permanent --add-port=8285/udp
+firewall-cmd --permanent --add-port=8472/udp
+# Additional ports required for Kubernetes
+firewall-cmd --permanent --add-port=10255/tcp # Read-only Kubelet API
+firewall-cmd --permanent --add-port=30000-32767/tcp # NodePort Services range
+firewall-cmd --permanent --add-port=6783/tcp # Flannel
+firewall-cmd --permanent --add-port=6783/udp # Flannel
+firewall-cmd --permanent --add-port=6784/udp # Flannel
+firewall-cmd --add-masquerade --permanent
+firewall-cmd --reload
+systemctl restart firewalld
+```
+
+Firewall rules I tried on agent:
+
+Firewall rules I've tried
+
+```bash
+# Kubelet API and Flannel ports
+firewall-cmd --permanent --add-port=10250/tcp
+firewall-cmd --permanent --add-port=8285/udp
+firewall-cmd --permanent --add-port=8472/udp
+# NodePort Services
+firewall-cmd --permanent --add-port=30000-32767/tcp
+# Additional ports required for Kubernetes
+firewall-cmd --permanent --add-port=10255/tcp # Read-only Kubelet API
+firewall-cmd --permanent --add-port=6783/tcp # Flannel
+firewall-cmd --permanent --add-port=6783/udp # Flannel
+firewall-cmd --permanent --add-port=6784/udp # Flannel
+firewall-cmd --add-masquerade --permanent
+firewall-cmd --reload
+systemctl restart firewalld
+```
+
+### Getting Kubernetes Status
+
+**Get Node status**
+
+```bash
+kubectl get nodes
+```
+
+**Get Detailed Node Status**
+
+```bash
+kubectl describe nodes
+```
+
+**Check all pods status**
+
+```bash
+kubectl get pods --all-namespaces
+```
+
+**Check specific pod status**
+
+```bash
+kubectl get pods -n cert-manager
+```
+
+**Get detailed info for a specific pod**
+
+```bash
+kubectl describe pod -n cert-manager cert-manager-6f799f7ff8-xx68n
+```
+
+**Get the logs from a specific pod**
+
+```bash
+kubectl logs -n kube-system rke2-ingress-nginx-controller-89d4c
+```
+
+**Check to see if metallb is giving a service an external IP address**
+
+```bash
+kubectl get svc -n cattle-system
+```
+
+**Check metellb config**
+
+```bash
+kubectl get configmap -n metallb-system config -o yaml
+```
+
+**Check the metallb speaker output to see if there was an error giving out an IP address**
+
+```bash
+kubectl logs -l component=controller -n metallb-system
+```
+
+**Edit a config file inside of K8s**
+
+```bash
+kubectl edit configmap config -n metallb-system
+```
+
+**Restart metallb after a config change**
+
+```bash
+kubectl rollout restart daemonset -n metallb-system speaker
+kubectl rollout restart deployment -n metallb-system controller
+```
+
+**Restart a target service**
+
+Sometimes this helps get an IP unstuck from pending
+
+```bash
+kubectl rollout restart deployment rancher -n cattle-system
+```
