@@ -171,7 +171,7 @@ On the server:
 ```bash
 helm repo add rancher-stable https://releases.rancher.com/server-charts/stable
 kubectl create namespace cattle-system
-helm install rancher rancher-stable/rancher --namespace cattle-system --set hostname=k8s-server.lan --set bootstrapPassword=I.am.ghost.47 --set ingress.tls.source=rancher # YOU HAVE TO UPDATE THIS
+helm install rancher rancher-stable/rancher --namespace cattle-system --set hostname=k8s-server.lan --set bootstrapPassword=PASSWORD --set ingress.tls.source=rancher # YOU HAVE TO UPDATE THIS
 echo https://k8s-server.lan/dashboard/?setup=$(kubectl get secret --namespace cattle-system bootstrap-secret -o go-template='{{.data.bootstrapPassword|base64decode}}')
 ```
 
