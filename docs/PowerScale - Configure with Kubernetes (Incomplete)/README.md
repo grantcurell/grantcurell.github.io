@@ -180,12 +180,15 @@ echo https://k8s-server.lan/dashboard/?setup=$(kubectl get secret --namespace ca
 Run `vim metallb.yaml` and create a file with these contents:
 
 ```
-configInline:
-  address-pools:
-  - name: default
-    protocol: layer2
-    addresses:
-    - 10.10.25.140-10.10.25.149
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  namespace: metallb-system
+  name: default
+spec:
+  addresses:
+  - 10.10.25.140-10.10.25.149
+ REPLACE WITH YOUR IP ADDRESS POOL - SHOULD NOT OVERLAP WITH NODE IPS
 ```
 
 Next run:
@@ -194,6 +197,7 @@ Next run:
 helm repo add metallb https://metallb.github.io/metallb
 helm install metallb metallb/metallb --create-namespace --namespace metallb-system -f metallb.yaml
 ```
+
 Now we need to make sure Rancher uses metallb:
 
 **WARNING:** you need to change the hostname to your hostname
