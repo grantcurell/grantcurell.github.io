@@ -177,37 +177,32 @@ echo https://k8s-server.lan/dashboard/?setup=$(kubectl get secret --namespace ca
 
 ## Install a Load Balancer for Bare Metal (metallb)
 
+```bash
+kubectl create namespace metallb-system
+kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.13.12/config/manifests/metallb-native.yaml
+```
+
 Run `vim metallb.yaml` and create a file with these contents:
 
 ```
+---
 apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
 metadata:
+  name: nat
   namespace: metallb-system
-  name: default
 spec:
   addresses:
-  - 10.10.25.140-10.10.25.149 REPLACE WITH YOUR IP ADDRESS POOL - SHOULD NOT OVERLAP WITH NODE IPS
-```
-
-Run `vim l2adv.yaml`
-
-```
+    - 10.10.25.140-10.10.25.149
+---
 apiVersion: metallb.io/v1beta1
 kind: L2Advertisement
 metadata:
+  name: empty
   namespace: metallb-system
-  name: layer2-config
 ```
 
-Next run:
-
-```bash
-helm repo add metallb https://metallb.github.io/metallb
-helm install metallb metallb/metallb --create-namespace --namespace metallb-system
-kubectl apply -f metallb.yaml
-kubectl apply -f l2advertisement.yaml
-```
+After you create the file run `kubectl apply -f metallb.yaml`
 
 Now we need to make sure Rancher uses metallb:
 
@@ -215,7 +210,7 @@ Now we need to make sure Rancher uses metallb:
 **WARNING:** make sure Rancher is healthy before continuing!
 
 ```bash
-helm upgrade rancher rancher-stable/rancher --namespace cattle-system  --set hostname=k8s-server.lan --set rancher.service.type=LoadBalancer
+helm upgrade rancher rancher-stable/rancher --namespace cattle-system --set hostname=k8s-server.lan --set rancher.service.type=LoadBalancer
 kubectl patch svc rancher -n cattle-system -p '{"spec": {"type": "LoadBalancer"}}'
 ```
 
