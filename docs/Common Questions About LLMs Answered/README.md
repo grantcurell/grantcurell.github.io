@@ -22,6 +22,12 @@ I receive a lot of questions about AI/ML and LLMs at work particularly after the
     - [Some Reference Points](#some-reference-points)
     - [A General Rule of Thumb for GPT Runtime](#a-general-rule-of-thumb-for-gpt-runtime)
     - [Some Estimations on Real Hardware](#some-estimations-on-real-hardware)
+  - [What is GPT?](#what-is-gpt)
+  - [What Are Hallucinations](#what-are-hallucinations)
+  - [What Are the Different Types of Image Recognition](#what-are-the-different-types-of-image-recognition)
+  - [Dave's Problems](#daves-problems)
+  - [How Much Training Data Do I Need](#how-much-training-data-do-i-need)
+    - [Hoeffding Inequality](#hoeffding-inequality)
 
 
 ## What Is Artificial Intelligence (AI) / Machine Learning (ML)
@@ -162,7 +168,7 @@ Generated with ChatGPT4 in case you're wondering about the funny formatting.
 
 Why am I babbling about my language hobby? Because that difference means that translating them becomes much harder with many more possible translations which means the spread of answers from language models is *also* wider.
 
-In the scope of **GPT models specifically**, smaller models have fewer data points to understand context and language semantics so you will **generally** receive correspondingly "worse" answers. However, worse is an extremely nuanced concepts. Insofar as a smaller model is more likely to produce less precise responses, this may appear to give a bigger sense of randomness and subsequently creativity. In the context of my language program, the responses from 3.5 are much more scattered and sometimes do capture interesting things whereas GPT4 is more succinct and generally more accurate in the context of the prompt. Example:
+In the scope of **GPT models specifically**, smaller models have fewer data points to understand context and language semantics so you will **generally** receive correspondingly "worse" answers. However, worse is an extremely nuanced concept . Insofar as a smaller model is more likely to produce less precise responses, this may appear to give a bigger sense of randomness and subsequently creativity. In the context of my language program, the responses from 3.5 are much more scattered and sometimes do capture interesting things whereas GPT4 is more succinct and generally more accurate in the context of the prompt. Example:
 
 Norwegian Word: å overføre
 English: to transfer
@@ -232,6 +238,7 @@ Here is a graphical representation of what is going on. Imagine that the over-fi
 
 It's important that during training data you don't just draw perfect boxes around every data point and assume that the real world will look the same. Your model has to generalize well as you see on the right hand side of our graph.
 
+
 ## How Much Computing Power Do I Need?
 
 There are a couple of key questions that will determine your computing requirements for running an AI/ML workload.
@@ -275,3 +282,35 @@ If it's LLM models we're talking about they are usually based on what is called 
 
 I wrote an extensive estimation analysis available [here](../Estimating%20Compute%20Requirements%20for%20Machine%20Learning/README.md) that gets into the weeds on some real world estimations.
 
+
+## What is GPT?
+
+- TODO
+
+## What Are Hallucinations
+
+- TODO
+
+## What Are the Different Types of Image Recognition
+
+## Dave's Problems
+
+## How Much Training Data Do I Need
+
+This, like everything else I've discussed, depends on the exact circumstances. In the most general of senses, in math we use something called the [Hoeffding Inequality](#hoeffding-inequality) to understand this problem. I decided not to
+
+### Hoeffding Inequality
+
+The Hoeffding Bound is a concept from statistics and probability theory that helps us understand how many samples of something we need to be sure that if we make a guess that guess is X percentage correct. This is fact how polling works.
+
+Imagine you have a large jar of colored balls, some red and some blue, and you want to estimate the proportion of red balls in the jar. Instead of counting all the balls in the jar (which could be very time-consuming), you take a smaller, random sample of balls and count the red ones in that sample.
+
+The Hoeffding Bound gives you a way to say, "I am X% confident that the true percentage of red balls in the jar is within Y% of what I observed in my sample." For example, you might be able to say, "I am 95% confident that the true percentage of red balls is within 5% of what I saw in my sample."
+
+This is especially useful when:
+- The jar (or dataset) is very large, making it impractical to count or measure everything.
+- You want to have an idea of how accurate your sample-based estimate is.
+
+There are practical limitations of how useful this math theory can be in machine learning but it does found the basis for how we make many estimations.
+
+Fun Fact: There is a common misconception that polling in the 2016 election was inaccurate. This was not actually the case, pollsters use the Hoeffding Inequality to understand how many people they have to ask regarding their voting intentions and indeed, all the major polls fell within expected parameters. It just happened that the election was so close that when Hillary fell short in many states, since the electoral college is winner takes all in most places, this lead to her losing. However, the amount byy which she lost was in the vast majority of places within the expected error of the polls; the election was just that close that those few percentage points of error ended up mattering. Major news outlets however are not apt to cover such mathematical nuances so it is easier to say, "The polls were wrong."

@@ -2,6 +2,9 @@
 
 RKE2 advertises itself as an automatic K8s installer. That is... sort of true based on my experience. It is certainly simpler than what I had to do 7 years ago, but significant assembly by someone who knows kubernetes and networking was still required.
 
+## My IPs
+
+
 
 ## Install RKE2 on Server
 
@@ -213,6 +216,55 @@ Now we need to make sure Rancher uses metallb:
 helm upgrade rancher rancher-stable/rancher --namespace cattle-system --set hostname=k8s-server.lan --set rancher.service.type=LoadBalancer
 kubectl patch svc rancher -n cattle-system -p '{"spec": {"type": "LoadBalancer"}}'
 ```
+
+## PowerScale
+
+### Setting Up the PowerScale
+
+See [PowerScale Setup](../PowerScale%20Setup/README.md).
+
+### Install the CSI Driver
+
+I started by following [this tutorial](https://www.youtube.com/watch?v=pwpEnZ2mwVE)
+
+- Enable NFSv4
+
+![](images/2023-12-05-15-43-39.png)
+
+- Create a directory
+
+![](images/2023-12-05-15-47-50.png)
+
+- Create NFS export
+
+![](images/2023-12-05-15-49-20.png)
+
+- Move these files onto your system
+
+- [secret.yaml](./secret.yml)
+- [empty-secret.yaml](./empy-secret.yaml)
+- [my-isilon-settings.yaml](./my-isilon-settings.yaml)
+- [isilon.yml](./isilon.yml)
+- [test-pvc.yaml](./test-pvc.yaml)
+- [test-pod.yaml](./test-pod.yaml)
+
+- Do the following
+
+```bash
+sudo dnf install -y git && git clone -b v2.8.0 https://github.com/dell/csi-powerscale.git
+cd csi-powerscale/
+wget -O my-isilon-settings.yaml https://raw.githubusercontent.com/dell/helm-charts/csi-isilon-2.8.0/charts/csi-isilon/values.yaml
+kubectl create namespace isilon
+kubectl create -f empty-secret.yml
+kubectl create secret generic isilon-creds -n isilon --from-file=config=secret.yaml
+```
+
+- On the Isilon you have to run `isi_gconfig -t web-config auth_basic=true` because I was lazy and I used basic auth and not session based auth.
+- Next deploy the storage class with `kubectl apply -f samples/storageclass/isilon.yml`
+- Check it worked with `kubectl get storageclass` and `kubectl describe storageclass isilon`
+- Build a test pvc with `kubectl apply -f test-pvc.yaml` (this should run against the test-pvc file you transferred). Make sure it bound with `kubectl get pvc test-pvc`
+- On all servers run `dnf install -y nfs-utils`. **IF YOU DO NOT DO THIS YOU WILL SEE AN ERROR ABOUT LOCKS**. The package is `nfs-common` on Debian-based systems.
+
 
 ## Troubleshooting 
 
