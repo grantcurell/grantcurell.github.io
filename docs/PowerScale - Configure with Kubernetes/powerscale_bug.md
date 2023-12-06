@@ -6,7 +6,6 @@
   - [Details](#details)
   - [Isilon Server Config](#isilon-server-config)
   - [K8s Config](#k8s-config)
-  - [Problem](#problem)
 
 ## Problem Description
 
@@ -136,5 +135,3 @@ output: mount.nfs: access denied by server while mounting 10.10.25.80:/ifs/data/
 ## K8s Config
 
 Exactly how I built the K8s cluster is available [here](./README.md)
-
-## Problem 
