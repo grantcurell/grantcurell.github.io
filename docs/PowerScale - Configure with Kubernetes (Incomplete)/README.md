@@ -261,6 +261,7 @@ kubectl create secret generic isilon-creds -n isilon --from-file=config=secret.y
 
 - On the Isilon you have to run `isi_gconfig -t web-config auth_basic=true` because I was lazy and I used basic auth and not session based auth.
 - Deploy the CSI driver with `./csi-install.sh --namespace isilon --values my-isilon-settings.yaml`
+  - **WARNING** YOU MUST ENABLE `ignoreUnresolvableHosts: True` in the current version. We are currently investigating the issue and are not exactly sure where the problem is, but the NFS mount from K8s shows up on the Isilon as an IP even with DNS enabled. This will cause the Isilon to reject it and when you attempt to write to the mount it will fail.
 - Next deploy the storage class with `kubectl apply -f ./isilon.yml`
 - Check it worked with `kubectl get storageclass` and `kubectl describe storageclass isilon`
 - Build a test pvc with `kubectl apply -f test-pvc.yaml` (this should run against the test-pvc file you transferred). Make sure it bound with `kubectl get pvc test-pvc`

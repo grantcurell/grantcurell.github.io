@@ -339,7 +339,7 @@ isiVolumePathPermissions: "0777"
 #   true: ignore existing unresolvable hosts and append new host to the existing export
 #   false: exhibits OneFS default behavior i.e. if any of existing hosts are unresolvable while adding new one it fails
 # Default value: false
-ignoreUnresolvableHosts: false
+ignoreUnresolvableHosts: True
 
 # noProbeOnStart: Indicates whether the controller/node should probe all the PowerScale clusters during driver initialization
 # When set to true, the driver will not set node labels, please manually add
