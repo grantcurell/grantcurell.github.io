@@ -3,6 +3,7 @@
 - [Powerscale CSI Bug](#powerscale-csi-bug)
   - [Problem Description](#problem-description)
     - [Permanent Fix](#permanent-fix)
+    - [Problems with Permanent Fix](#problems-with-permanent-fix)
   - [Details](#details)
   - [Isilon Server Config](#isilon-server-config)
   - [K8s Config](#k8s-config)
@@ -16,6 +17,10 @@ Customer reporting that when they attempt to write to an NFS mount via CSI drive
 ### Permanent Fix
 
 Instead of manually updating each export users can enable `ignoreUnresolvableHosts` in their [values.yml](https://github.com/dell/helm-charts/blob/c48cfd6bcd8390d3671e032672016407c5142f94/charts/csi-isilon/values.yaml#L342) file during installation. By doing this the CSI driver will always use IP addresses fixing the issue until we completely a root cause analysis.
+
+### Problems with Permanent Fix
+
+If the K8s worker node IPs change, the PVC must be refreshed (this likely will happen anyway when you change the IP) or the PVC mounts on PowerScale must be manually updated.
 
 ## Details
 
