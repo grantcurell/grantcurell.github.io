@@ -1,6 +1,23 @@
 # PowerScale - Configure with Kubernetes
 
-RKE2 advertises itself as an automatic K8s installer. That is... sort of true based on my experience. It is certainly simpler than what I had to do 7 years ago, but significant assembly by someone who knows kubernetes and networking was still required.
+RKE2 advertises itself as an automatic K8s installer. That is... sort of true based on my experience. It is certainly simpler than what I had to do 7 years ago, but significant assembly by someone who knows Kubernetes and networking was still required.
+
+- [PowerScale - Configure with Kubernetes](#powerscale---configure-with-kubernetes)
+  - [My IPs](#my-ips)
+  - [Install RKE2 on Server](#install-rke2-on-server)
+  - [Set Up a K8s Node](#set-up-a-k8s-node)
+  - [Install Helm](#install-helm)
+  - [Install Cert Manager](#install-cert-manager)
+  - [Install Rancher](#install-rancher)
+  - [Install a Load Balancer for Bare Metal (metallb)](#install-a-load-balancer-for-bare-metal-metallb)
+  - [PowerScale](#powerscale)
+    - [Setting Up the PowerScale](#setting-up-the-powerscale)
+    - [Install the CSI Driver](#install-the-csi-driver)
+  - [Troubleshooting](#troubleshooting)
+    - [Flannel Issues](#flannel-issues)
+        - [Firewalld Ports I tried](#firewalld-ports-i-tried)
+    - [Getting Kubernetes Status](#getting-kubernetes-status)
+
 
 ## My IPs
 
