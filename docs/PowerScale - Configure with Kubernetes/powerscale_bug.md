@@ -2,15 +2,21 @@
 
 - [Powerscale CSI Bug](#powerscale-csi-bug)
   - [Problem Description](#problem-description)
+    - [Permanent Fix](#permanent-fix)
   - [Details](#details)
   - [Isilon Server Config](#isilon-server-config)
   - [K8s Config](#k8s-config)
+  - [Problem](#problem)
 
 ## Problem Description
 
-Customer reporting that when they attempt to write to an NFS mount via CSI driver inside a container they immediately receive access denied.
+Customer reporting that when they attempt to write to an NFS mount via CSI driver inside a container they immediately receive access denied. We are unsure of root cause but Dell staff were able to reproduce and when working with the developers determined the fix action is to use IP addresses in the NFS export:
 
-Dell escalation staff able to reproduce and received an identical error.
+![](images/2023-12-06-17-37-08.png)
+
+### Permanent Fix
+
+Instead of manually updating each export users can enable `ignoreUnresolvableHosts` in their [values.yml](https://github.com/dell/helm-charts/blob/c48cfd6bcd8390d3671e032672016407c5142f94/charts/csi-isilon/values.yaml#L342) file during installation. By doing this the CSI driver will always use IP addresses fixing the issue until we completely a root cause analysis.
 
 ## Details
 
@@ -130,3 +136,5 @@ output: mount.nfs: access denied by server while mounting 10.10.25.80:/ifs/data/
 ## K8s Config
 
 Exactly how I built the K8s cluster is available [here](./README.md)
+
+## Problem 
