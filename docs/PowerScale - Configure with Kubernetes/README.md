@@ -1,4 +1,4 @@
-# PowerScale - Configure with Kubernetes (Incomplete)
+# PowerScale - Configure with Kubernetes
 
 RKE2 advertises itself as an automatic K8s installer. That is... sort of true based on my experience. It is certainly simpler than what I had to do 7 years ago, but significant assembly by someone who knows kubernetes and networking was still required.
 
