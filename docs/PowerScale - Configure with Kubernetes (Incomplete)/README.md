@@ -4,7 +4,9 @@ RKE2 advertises itself as an automatic K8s installer. That is... sort of true ba
 
 ## My IPs
 
-
+- K8s Master - 10.10.25.135 (k8s-server.lan)
+- K8s Worker - 10.10.25.136 (k8s-agent1.lan)
+- Isilon - 10.10.25.80
 
 ## Install RKE2 on Server
 
