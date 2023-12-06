@@ -260,7 +260,8 @@ kubectl create secret generic isilon-creds -n isilon --from-file=config=secret.y
 ```
 
 - On the Isilon you have to run `isi_gconfig -t web-config auth_basic=true` because I was lazy and I used basic auth and not session based auth.
-- Next deploy the storage class with `kubectl apply -f samples/storageclass/isilon.yml`
+- Deploy the CSI driver with `./csi-install.sh --namespace isilon --values my-isilon-settings.yaml`
+- Next deploy the storage class with `kubectl apply -f ./isilon.yml`
 - Check it worked with `kubectl get storageclass` and `kubectl describe storageclass isilon`
 - Build a test pvc with `kubectl apply -f test-pvc.yaml` (this should run against the test-pvc file you transferred). Make sure it bound with `kubectl get pvc test-pvc`
 - On all servers run `dnf install -y nfs-utils`. **IF YOU DO NOT DO THIS YOU WILL SEE AN ERROR ABOUT LOCKS**. The package is `nfs-common` on Debian-based systems.
