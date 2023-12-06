@@ -1,5 +1,11 @@
 # Powerscale CSI Bug
 
+- [Powerscale CSI Bug](#powerscale-csi-bug)
+  - [Problem Description](#problem-description)
+  - [Details](#details)
+  - [Isilon Server Config](#isilon-server-config)
+  - [K8s Config](#k8s-config)
+
 ## Problem Description
 
 Customer reporting that when they attempt to write to an NFS mount via CSI driver inside a container they immediately receive access denied.
@@ -120,3 +126,7 @@ output: mount.nfs: access denied by server while mounting 10.10.25.80:/ifs/data/
 - Global NFS Settings
 
 ![](images/2023-12-06-09-43-25.png)
+
+## K8s Config
+
+Exactly how I built the K8s cluster is available [here](./README.md)
