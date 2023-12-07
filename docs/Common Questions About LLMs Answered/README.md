@@ -2,11 +2,17 @@
 
 I receive a lot of questions about AI/ML and LLMs at work particularly after the advent of ChatGPT so I thought I would leave behind all the math and answer some of the most common questions I receive in plain English. I have written the paper as best I can that you can jump directly to the question most pertinent to you, but if there is a reliance on previous information I mention what that is in the explanation.
 
+I have done my best to order the sections roughly in the order of most common/relevant questions to least common.
+
 - [Common Questions About AI/ML and Large Language Models (LLMs) Answered](#common-questions-about-aiml-and-large-language-models-llms-answered)
   - [What Is Artificial Intelligence (AI) / Machine Learning (ML)](#what-is-artificial-intelligence-ai--machine-learning-ml)
   - [What is the Difference Between AI and ML?](#what-is-the-difference-between-ai-and-ml)
   - [What is Training and Inferencing?](#what-is-training-and-inferencing)
   - [What is a large language model (LLM)?](#what-is-a-large-language-model-llm)
+    - [What is (Chat)GPT / Is GPT the Best?](#what-is-chatgpt--is-gpt-the-best)
+      - [Generative Pre-Trained Transformer (GPT)](#generative-pre-trained-transformer-gpt)
+      - [Bidirectional Encoder Representations from Transformers (BERT)](#bidirectional-encoder-representations-from-transformers-bert)
+      - [Large Language Model Meta AI 2 (LLaMA 2)](#large-language-model-meta-ai-2-llama-2)
   - [What is a Hyperparameter?](#what-is-a-hyperparameter)
   - [What is Model Size?](#what-is-model-size)
   - [What Does it Mean to Tune a Ducking Model?](#what-does-it-mean-to-tune-a-ducking-model)
@@ -15,6 +21,9 @@ I receive a lot of questions about AI/ML and LLMs at work particularly after the
     - [A Concrete Example with ChatGPT](#a-concrete-example-with-chatgpt)
     - [So Which was Better ChatGPT 3.5 or ChatGPT 4?](#so-which-was-better-chatgpt-35-or-chatgpt-4)
   - [What is Over-fitting?](#what-is-over-fitting)
+  - [How Much Training Data Do I Need](#how-much-training-data-do-i-need)
+    - [Hoeffding Inequality](#hoeffding-inequality)
+      - [Statistics in Real Life](#statistics-in-real-life)
   - [How Much Computing Power Do I Need?](#how-much-computing-power-do-i-need)
     - [Biggest Factor](#biggest-factor)
     - [Primary Questions](#primary-questions)
@@ -22,12 +31,6 @@ I receive a lot of questions about AI/ML and LLMs at work particularly after the
     - [Some Reference Points](#some-reference-points)
     - [A General Rule of Thumb for GPT Runtime](#a-general-rule-of-thumb-for-gpt-runtime)
     - [Some Estimations on Real Hardware](#some-estimations-on-real-hardware)
-  - [What is GPT?](#what-is-gpt)
-  - [What Are Hallucinations](#what-are-hallucinations)
-  - [What Are the Different Types of Image Recognition](#what-are-the-different-types-of-image-recognition)
-  - [Dave's Problems](#daves-problems)
-  - [How Much Training Data Do I Need](#how-much-training-data-do-i-need)
-    - [Hoeffding Inequality](#hoeffding-inequality)
 
 
 ## What Is Artificial Intelligence (AI) / Machine Learning (ML)
@@ -74,6 +77,46 @@ Think of a large language model as a supercharged version of the auto-suggestion
 However, just like your phone's keyboard doesn't 'understand' what you're typing, LLMs don't truly 'understand' language in the human sense. They're statistical machines. Given a prompt, they generate responses based on the patterns they've learned from their training data. 
 
 In essence, a large language model is a sophisticated tool for mimicking human-like text based on the probability of certain words and sentences following others, based on its training data. It's a product of combining many simple concepts from mathematics and computer science, but the sheer scale of data and computations involved creates something that can seem quite complex and intelligent on the surface.
+
+### What is (Chat)GPT / Is GPT the Best?
+
+GPT stands for Generative Pre-Trained Transformer. There's really no not-mathy way for me to get into that, but if you are looking for a hardcore mathematical analysis I have one of the transformer architecture [here](../LLMs%20Explained/README.md). The best, not math, explanation I can give you is that a transformer is a thing that takes the totality of human speech, turns it into numbers, and then figures out how it's all connected. It is the math that makes it so if I say, "Beggers can't be XXXXXXXX" the model will instantly know the next word is "choosers" or in my favorite Chinese phrase, "城門失火，殃及池XXXXXXX - Fire at the gate brings death to the XXXXXX [in the] moat" the model will guess 魚 (fish). For the curious - the phrase is a bit like saying, "Robbing Peter to pay Paul" because it is implied you have to drain the water in the moat to put out the fire.
+
+LLMs became huge after ChatGPT, but it's really important to understand ChatGPT is the most well known game in town, but not the only one. Not only is it not the only one, it is perfectly likely that a GPT model may not even be the best for your use case.
+
+Here are some common models just to give you an idea of what is out there. You don't have to read this section - the key takeaway is that you need to be familiar with the particular problem you want to solve and then select your model. GPT is great, but it isn't inherently better in all scenarios.
+
+#### Generative Pre-Trained Transformer (GPT)
+
+- **Strengths**
+  - **High Quality of Text Generation**: GPT models, especially GPT-3, are known for generating coherent and contextually relevant text across a wide range of topics.
+  - **Flexibility**: They can perform a variety of language tasks without task-specific training, including translation, question-answering, and content creation.
+  - **Ease of Use**: The API provided by OpenAI makes it relatively easy for developers to integrate GPT into applications.
+- **Weaknesses**
+  - **Resource Intensive**: These models require significant computational resources, making them expensive to train and run.
+  - **Biases and Errors**: GPT models can sometimes generate biased or factually incorrect information, as they rely on patterns found in their training data.
+
+#### Bidirectional Encoder Representations from Transformers (BERT)
+
+- **Strengths**
+  - **Understanding Context**: BERT is particularly good at understanding the context of a word in a sentence (bi-directional understanding), which is valuable for tasks like sentiment analysis or question answering.
+    - Sentiment Analysis is when you take all the text in a conversation and try to determine how someone feels. You see it a lot for things like call centers - is the customer getting happier the more the agent talks to them or are they becoming more angry etc.
+  - **Fine-tuning Capabilities**: It can be fine-tuned for specific tasks, providing more accurate results in those areas.
+- **Weaknesses**
+  - **Not Designed for Text Generation**: BERT is primarily used for understanding language, not generating it, which limits its applications in creative text generation.
+  - **Requires Task-Specific Fine-Tuning**: To achieve the best results, it often needs additional training for specific tasks.
+
+#### Large Language Model Meta AI 2 (LLaMA 2)
+
+- **Strengths**:
+  - **Performance on NLP Benchmarks**: LLaMA-2-70b matches or exceeds GPT-3.5 and GPT-4 in accuracy for specific tasks like news summarization.
+  - **Cost-Effectiveness and Transparency**: Offers cost-effective solutions with open-source transparency.
+  - **Efficiency**: Operates more efficiently with fewer parameters than larger models like GPT.
+- **Weaknesses**:
+  - **Limited Token Limit**: Has a lower token limit compared to GPT models.
+  - **Lacks Multimodality**: Unlike GPT-4, it doesn't support multimodal tasks.
+  - **Focused Application**: Best suited for specific applications like chatbots in small businesses.
+
 
 ## What is a Hyperparameter?
 
@@ -228,16 +271,89 @@ This gives you an idea of just how incredibly nuanced model size can be. You sim
 
 ## What is Over-fitting?
 
-What is over-fitting? To make it very simple, returning to our analogy from [What is Training and Inferencing](#what-is-training-and-inferencing) regarding studying, you have yourself probably made this mistake at some point. Imagine that in the course of studying for a test you became very focused on a narrow set of information and assumed that this narrow set of information would be sufficient for all the test questions. Perhaps it is a math course and you determined only certain algorithms were important and ignored the rest. When you got to the exam, you got 40% of the questions right, but were completely wrong on the others. That is over-fitting. You trained yourself on only 40% of the training data but accidentally omitted information representative of the other 60%.
+For this we will return to our [school example](#what-is-training-and-inferencing). Imagine that you are studying for a math test and during the training phase (studying in the case of our test), instead of understanding the concepts in the training material you simply memorized the answers to a practice test. Your performance on the practice test will obviously be quite high, but when confronted with the real test with different values, you fail spectacularly. Overfitting in AI/ML is no different, it is when you tune the hyperparameters tightly to your training data to such a point that when applied to real data the model performs poorly.
 
-Here is a graphical representation of what is going on. Imagine that the over-fitted graphs are what you studied. Some very specific subset of the real data and you memorized only those things. The right side you see in the training data it appears to perform significantly worse, but when it comes time to the real world test, it does significantly better because it isn't overly-fit to the training data.
+Below is an example. I realize at first glance it may not be obvious what is happening so I'll step through it:
 
-![](images/2023-11-30-17-01-01.png)
+- The image in the top left is our training data. Imagine that you want to match that training data 100% so you simply crate a model that draws a line between every available data point.
+- The top right graph is that same data accept instead we use a more generalizable model where we draw the line as best we can through the center of the data.
+
+Based only on the training data at the top, one might think that the model in the top left is significantly better. After all, it is 100% accurate whereas the model on the right clearly misses the mark on several data points. So you've built your perfect model and now you're ready to start predicting things so you take it out to the real world.
+
+- The chart on the bottom left is the overfit model vs real world data
+- The chart on the bottom right is the well fit model on world data.
+
+![](images/2023-12-07-10-51-26.png)
 
 [Source Code](./code/overfitting.py)
 
-It's important that during training data you don't just draw perfect boxes around every data point and assume that the real world will look the same. Your model has to generalize well as you see on the right hand side of our graph.
+Suddenly it's not so clear that the overfit model is better. In fact, the well fit model will significantly outperform the overfit model particularly on large data sets.
 
+This is a somewhat drastic example, but exactly the same thing happens when you have hundreds, thousands, or more hyperparameters. It just takes more computing power to generate the model, but you can overfit them just the same. The consequences would also likely be more subtle.
+
+## How Much Training Data Do I Need
+
+This, like everything else I've discussed, depends on the exact circumstances. In the most general of senses, in math we use something called the [Hoeffding Inequality](#hoeffding-inequality) to understand this problem. This is tangentially related to the question, "How much training data do I need?" but it does provide significant intuition along with some insights into [the 2016 US election](#statistics-in-real-life) people may find interesting. Specifically, the Hoeffding Inequality can you tell you theoretically how much data you need, but has severe practical limitations.
+
+If you aren't living in the [Hoeffding Inequality's](#hoeffding-inequality) theory land, there is no exact way to calculate but there are many guidelines that dictate how much training data you will need.
+
+**Complexity of the Task**: Simpler tasks (like linear regression) typically require less data than complex tasks (like image recognition or natural language processing). For example, here's a model that I built that identifies aircraft from high resolution imagery. It is trained at a relatively constant altitude such that ultimately most of the aircraft look similar.
+
+**NOTE** True box is my training data where I personally drew the boxes. Predicted boxes are what the model guessed without my assistance. This data was generated with [H2O's HydrogenTorch](https://h2o.ai/platform/ai-cloud/make/hydrogen-torch/).
+
+![](images/2023-12-07-12-32-05.png)
+
+I spent no time tuning this model and you can see that the predicted boxes are very good. What is important to understand here though is that [the data (VHR-10)](https://torchgeo.readthedocs.io/en/latest/api/datasets.html#vhr-10) was fairly uniform. The aircraft looked similar and the pictures were at generally similar altitudes. What happens then when I instead use fairly different pictures of aircraft.
+
+Now you can see the performance is significantly worse. For a human this difference may have been subtle as it is still extremely easy for us to say, "Yes, that's an airplane." Frankly, let this be a testament to you of exactly how insanely good the human brain is at parallel processing. Our human ability to integrate information still makes even the most powerful computer look relatively weak.
+
+To that point, you see that by changing the angle and the coloring a bit the model is not so great. This is a clear indicator your training data was insufficient. Your training data must be diverse and, [as the Clinton campaign learned the hard way](#statistics-in-real-life), be representative of the thing you are trying to predict. "Similar to" is insufficient for accurate prediction.
+
+![](images/2023-12-07-12-38-07.png)
+
+**Quality of Data**: High-quality, well-labeled, and relevant data reduces the amount of data needed. In contrast, noisy or poorly labeled data may require more examples to achieve the same performance. For example, if in my airplane example I had drawn random boxes around nothing occasionally the model still ultimately would have learned what an airplane was. However, for the math to filter out that noise it would have needed many more pictures to eventually eliminate the noise coming from the random boxes I drew.
+
+**Model Complexity**: More complex models (like deep neural networks) generally require more data to learn effectively without overfitting. For example: if you wanted to built a ChatGPT competitor, you couldn't just feed your GPT model a single essay and expect it to extract from that essay the totality of human speech. You would need billions of documents to achieve that sort of complexity. However, if you wanted a model that simply identified verbs in Spanish, that would require significantly less data.
+
+**Desired Performance**: Higher accuracy or precision  requires more data. If you have lower performance requirements, you may get by with less data. My airplane example is a good one - I had a not bad model after only a few pictures. You can actually see this.
+
+Here is the image from above again:
+
+![](images/2023-12-07-12-32-05.png)
+
+Those boxes are drawn at what is called a 30% confidence threshold. What that means is that anything the model is at least 30% certain is an airplane, it goes ahead and draws a box. Here are those exact same pictures except the model will **only** draw a box if it is 99% confident that the thing depicted is an airplane.
+
+![](images/2023-12-07-12-49-48.png)
+
+You can see that many airplanes are no longer highlighted. That's because the model wasn't as sure on those. If you want certainty, the main way to obtain that is more training data.
+
+**Variability in Data**: If the data has high variability (e.g., diverse images in an image recognition task), you'll need more data to cover all the variations. For tasks with less variability, less data will suffice. I showed this visually in the task complexity section.
+
+**Transfer Learning**: If you're using transfer learning, where a model trained on one task is adapted for another, you won't need as much data. For example, say you spent years perfecting a language model that writes officer performance reports (OPRs) for the US Air Force because a younger, lieutenant, version of yourself very much hated doing it. It would not require nearly as much data to transfer the language seen in OPRs to the similarly written Enlisted Performance Reports (EPRs).
+
+The exact amount of training data is a matter of trial and error, but for most tasks that interest people we are talking about a minimum of hundreds of samples. For a benchmark, my airplane model had 750 pictures I labeled by hand. If I wanted it to perform well on the wider data set I showed, I would at least expect to roughly double that. More complex tasks easily become thousands, tens of thousands, or more.
+
+### Hoeffding Inequality
+
+This section can be safely ignored, but many may find the intuition it provides interesting as it is how you can predict exactly how much data you need in theory.
+
+The Hoeffding Bound is a concept from statistics and probability theory that helps us understand how many samples of something we need to be sure that if we make a guess that guess is X percentage correct. This is fact how polling works.
+
+Imagine you have a large jar of colored balls, some red and some blue, and you want to estimate the proportion of red balls in the jar. Instead of counting all the balls in the jar (which could be very time-consuming), you take a smaller, random sample of balls and count the red ones in that sample.
+
+The Hoeffding Bound gives you a way to say, "I am X% confident that the true percentage of red balls in the jar is within Y% of what I observed in my sample." For example, you might be able to say, "I am 95% confident that the true percentage of red balls is within 5% of what I saw in my sample."
+
+This is especially useful when:
+- The jar (or dataset) is very large, making it impractical to count or measure everything.
+- You want to have an idea of how accurate your sample-based estimate is.
+
+There are practical limitations of how useful this math theory can be in machine learning but it does found the basis for how we make many estimations.
+
+#### Statistics in Real Life
+
+Fun Fact: There is a common misconception that polling in the 2016 US election was inaccurate. This was not actually the case, pollsters use techniques similar to the Hoeffding Inequality (and a host of other more sophisticated techniques) to understand how many people they have to ask regarding their voting intentions and indeed, all the major polls fell within expected parameters. It just happened that the election was so close that when Hillary fell only a bit short in many states, since the electoral college is winner takes all in most places, this lead to her losing. However, the amount by which she lost was in the vast majority of places was within the expected error of what the math predicted; the election was just that close that those few percentage points of error ended up being the difference.
+
+This political sidebar also does a great job of illustrating a very important point, understanding your training data matters. Another reason people say, "The polls got it wrong" is that most people were focused on national polling. The national polls were dead on and Hillary did in fact win the national vote; it's just that in the US the national vote isn't what matters, it's the electoral college. The AI/ML moral here is that you need to select training data that is representative of the outcome you are trying to predict. In US elections, national polling isn't nearly as relevant to predicting election outcomes as is predicting the outcome in key battleground states. It's easy to select training data that looks like it is representative of what you want, but for some subtle reason, actually isn't.
 
 ## How Much Computing Power Do I Need?
 
@@ -281,36 +397,3 @@ If it's LLM models we're talking about they are usually based on what is called 
 ### Some Estimations on Real Hardware
 
 I wrote an extensive estimation analysis available [here](../Estimating%20Compute%20Requirements%20for%20Machine%20Learning/README.md) that gets into the weeds on some real world estimations.
-
-
-## What is GPT?
-
-- TODO
-
-## What Are Hallucinations
-
-- TODO
-
-## What Are the Different Types of Image Recognition
-
-## Dave's Problems
-
-## How Much Training Data Do I Need
-
-This, like everything else I've discussed, depends on the exact circumstances. In the most general of senses, in math we use something called the [Hoeffding Inequality](#hoeffding-inequality) to understand this problem. I decided not to
-
-### Hoeffding Inequality
-
-The Hoeffding Bound is a concept from statistics and probability theory that helps us understand how many samples of something we need to be sure that if we make a guess that guess is X percentage correct. This is fact how polling works.
-
-Imagine you have a large jar of colored balls, some red and some blue, and you want to estimate the proportion of red balls in the jar. Instead of counting all the balls in the jar (which could be very time-consuming), you take a smaller, random sample of balls and count the red ones in that sample.
-
-The Hoeffding Bound gives you a way to say, "I am X% confident that the true percentage of red balls in the jar is within Y% of what I observed in my sample." For example, you might be able to say, "I am 95% confident that the true percentage of red balls is within 5% of what I saw in my sample."
-
-This is especially useful when:
-- The jar (or dataset) is very large, making it impractical to count or measure everything.
-- You want to have an idea of how accurate your sample-based estimate is.
-
-There are practical limitations of how useful this math theory can be in machine learning but it does found the basis for how we make many estimations.
-
-Fun Fact: There is a common misconception that polling in the 2016 election was inaccurate. This was not actually the case, pollsters use the Hoeffding Inequality to understand how many people they have to ask regarding their voting intentions and indeed, all the major polls fell within expected parameters. It just happened that the election was so close that when Hillary fell short in many states, since the electoral college is winner takes all in most places, this lead to her losing. However, the amount byy which she lost was in the vast majority of places within the expected error of the polls; the election was just that close that those few percentage points of error ended up mattering. Major news outlets however are not apt to cover such mathematical nuances so it is easier to say, "The polls were wrong."
