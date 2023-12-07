@@ -329,7 +329,7 @@ You can see that many airplanes are no longer highlighted. That's because the mo
 
 **Variability in Data**: If the data has high variability (e.g., diverse images in an image recognition task), you'll need more data to cover all the variations. For tasks with less variability, less data will suffice. I showed this visually in the task complexity section.
 
-**Transfer Learning**: If you're using transfer learning, where a model trained on one task is adapted for another, you won't need as much data. For example, say you spent years perfecting a language model that writes officer performance reports (OPRs) for the US Air Force because a younger, lieutenant, version of yourself very much hated doing it. It would not require nearly as much data to transfer the language seen in OPRs to the similarly written Enlisted Performance Reports (EPRs).
+**Transfer Learning**: If you're using transfer learning, where a model trained on one task is adapted for another, you won't need as much data. For example, say you spent years perfecting a language model that writes officer performance reports (OPRs) for the US Air Force because a younger, lieutenant, version of yourself very much disliked writing them. It would not require nearly as much data to transfer the language seen in OPRs to the similarly written Enlisted Performance Reports (EPRs).
 
 The exact amount of training data is a matter of trial and error, but for most tasks that interest people we are talking about a minimum of hundreds of samples. For a benchmark, my airplane model had 750 pictures I labeled by hand. If I wanted it to perform well on the wider data set I showed, I would at least expect to roughly double that. More complex tasks easily become thousands, tens of thousands, or more.
 
