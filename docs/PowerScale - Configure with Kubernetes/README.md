@@ -17,6 +17,7 @@ RKE2 advertises itself as an automatic K8s installer. That is... sort of true ba
     - [Flannel Issues](#flannel-issues)
         - [Firewalld Ports I tried](#firewalld-ports-i-tried)
     - [Getting Kubernetes Status](#getting-kubernetes-status)
+    - [Testing NFS Mount Quickly](#testing-nfs-mount-quickly)
 
 
 ## My IPs
@@ -516,3 +517,20 @@ Sometimes this helps get an IP unstuck from pending
 ```bash
 kubectl rollout restart deployment rancher -n cattle-system
 ```
+
+### Testing NFS Mount Quickly
+
+If you get an access denied error you will see something like the below in the pod description
+
+```bash
+mounting arguments: -t nfs -o rw 10.10.25.80:/ifs/data/rancher-storage/k8s-5b6cb091d0 /var/lib/kubelet/pods/e1bb5844-f482-4dfa-b4b0-0aa8225a316b/volumes/kubernetes.io~csi/k8s-5b6cb091d0/mount
+output: mount.nfs: access denied by server while mounting 10.10.25.80:/ifs/data/rancher-storage/k8s-5b6cb091d0
+```
+
+Under the hood the container is just running a generic nfs mount command which you can use for testing. For example, the above would become:
+
+```bash
+mount -t nfs -o rw 10.10.25.80:/ifs/data/rancher-storage/k8s-5b6cb091d0 /var/lib/kubelet/pods/e1bb5844-f482-4dfa-b4b0-0aa8225a316b/volumes/kubernetes.io~csi/k8s-5b6cb091d0/mount <MOUNT_POINT>
+```
+
+You can use this to quickly test without restarting the containers.
