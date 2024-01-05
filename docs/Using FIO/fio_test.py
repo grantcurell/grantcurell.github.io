@@ -78,7 +78,7 @@ def main():
     parser.add_argument("-s", "--size", default="2G", help="Size of the test data (default: '2G').")
     parser.add_argument("-d", "--iodepth", default="64", help="I/O depth for operations (default: 64).")
     parser.add_argument("-j", "--numjobs", default=default_numjobs, type=int, help=f"Number of jobs to spawn (default: {default_numjobs}).")
-    parser.add_argument("device", nargs='?', help="The target device, e.g., '/dev/sda'.")
+    parser.add_argument("device", help="The target device, e.g., '/dev/sda'.")
 
     if len(sys.argv) == 1:
         print_detailed_instructions()

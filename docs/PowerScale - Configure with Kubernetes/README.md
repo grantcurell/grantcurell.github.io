@@ -18,6 +18,9 @@ RKE2 advertises itself as an automatic K8s installer. That is... sort of true ba
         - [Firewalld Ports I tried](#firewalld-ports-i-tried)
     - [Getting Kubernetes Status](#getting-kubernetes-status)
     - [Testing NFS Mount Quickly](#testing-nfs-mount-quickly)
+    - [Checking ACLs](#checking-acls)
+      - [Get ACLs List](#get-acls-list)
+      - [See a Specific User's Privileges](#see-a-specific-users-privileges)
 
 
 ## My IPs
@@ -534,3 +537,45 @@ mount -t nfs -o rw 10.10.25.80:/ifs/data/rancher-storage/k8s-5b6cb091d0 /var/lib
 ```
 
 You can use this to quickly test without restarting the containers.
+
+### Checking ACLs
+
+#### Get ACLs List
+
+You can check ACL permissions with `ls -led <target>`:
+
+```bash
+grantcluster-1# ls -led /ifs/data/rancher-storage/k8s-7e21fa52bb
+drwxrwxrwx     2 root  wheel  25 Dec  6 20:11 /ifs/data/rancher-storage/k8s-7e21fa52bb
+ OWNER: user:root
+ GROUP: group:wheel
+ SYNTHETIC ACL
+ 0: user:root allow dir_gen_read,dir_gen_write,dir_gen_execute,std_write_dac,delete_child
+ 1: group:wheel allow dir_gen_read,dir_gen_write,dir_gen_execute,delete_child
+ 2: everyone allow dir_gen_read,dir_gen_write,dir_gen_execute,delete_child
+```
+
+#### See a Specific User's Privileges
+
+```bash
+grantcluster-1# isi auth access root /ifs/data/rancher-storage/k8s-7e21fa52bb
+               User
+                 Name: root
+                  UID: 0
+                  SID: SID:S-1-22-1-0
+
+               File
+                  Owner
+                 Name: root
+                   ID: UID:0
+                  Group
+                 Name: wheel
+                   ID: GID:0
+       Effective Path: /ifs/data/rancher-storage/k8s-7e21fa52bb
+     File Permissions: root level permissions were found for this user and this file.
+                 Mode: drwxrwxrwx
+        Relevant Mode: drwx------
+        Snapshot Path: No
+         Delete Child: The parent directory allows delete_child for this user, the user may delete the file.
+            Ownership: User is owner and can view and modify file's security descriptor.
+```
