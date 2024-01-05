@@ -4,7 +4,6 @@
   - [Hardware](#hardware)
   - [Initial State](#initial-state)
   - [Testing](#testing)
-  - [Setting the CPU Affinity](#setting-the-cpu-affinity)
   - [Understanding Interrupts](#understanding-interrupts)
   - [How Interrupts Are Structured](#how-interrupts-are-structured)
     - [Understanding the Interrupt Table](#understanding-the-interrupt-table)
@@ -42,6 +41,20 @@ Check performance mode:
 
 As explained in [the reverse engineering section](#reverse-engineering-the-lsi-driver) the -1 corresponds to the mode being ignored.
 
+Make sure that affinity is enabled for the system as a whole:
+
+```bash
+cat /proc/irq/default_smp_affinity
+ffffffff,ffffffff,ffffffff,ffffffff
+```
+
+Check CPU affinity for observed interrupts?
+
+```bash
+cat /proc/irq/379/affinity_hint
+00000000,00000000,00000000,00000000
+```
+
 ## Testing
 
 I used [this script I have previously written](../Using%20FIO/fio_test.py) with:
@@ -55,22 +68,6 @@ Interrupts increased as expected:
 ```bash
 awk '/megasas/ { printf "%s: %s\n", $NF, $2 }' /proc/interrupts
 ...SNIP...
-```
-
-Make sure that affinity is enabled for the system as a whole:
-
-```bash
-[grant@r7525 ~]$ cat /proc/irq/default_smp_affinity
-ffffffff,ffffffff,ffffffff,ffffffff
-```
-
-## Setting the CPU Affinity
-
-We know we want to update interrupt 379 so we check its infinity on CPU0 to confirm:
-
-```bash
-[grant@r7525 ~]$ cat /proc/irq/379/affinity_hint
-00000000,00000000,00000000,00000000
 ```
 
 ## Understanding Interrupts
