@@ -1,21 +1,38 @@
 # Testing PERC Interrupts
 
 - [Testing PERC Interrupts](#testing-perc-interrupts)
-  - [Hardware](#hardware)
-  - [Initial State](#initial-state)
-  - [Testing](#testing)
-  - [Understanding Interrupts](#understanding-interrupts)
-  - [How Interrupts Are Structured](#how-interrupts-are-structured)
-    - [Understanding the Interrupt Table](#understanding-the-interrupt-table)
-    - [What is a Trigger Mode and What Does Edge Triggered Mean?](#what-is-a-trigger-mode-and-what-does-edge-triggered-mean)
-    - [What is an MSI-X Vector?](#what-is-an-msi-x-vector)
-  - [Reverse Engineering the LSI Driver](#reverse-engineering-the-lsi-driver)
-  - [Helpful Commands](#helpful-commands)
-    - [View all Interrupts](#view-all-interrupts)
+	- [Hardware](#hardware)
+	- [How Affinity Works](#how-affinity-works)
+	- [Initial State](#initial-state)
+	- [Testing](#testing)
+	- [Understanding Interrupts](#understanding-interrupts)
+	- [How Interrupts Are Structured](#how-interrupts-are-structured)
+		- [Understanding the Interrupt Table](#understanding-the-interrupt-table)
+		- [What is a Trigger Mode and What Does Edge Triggered Mean?](#what-is-a-trigger-mode-and-what-does-edge-triggered-mean)
+		- [What is an MSI-X Vector?](#what-is-an-msi-x-vector)
+	- [Reverse Engineering the LSI Driver](#reverse-engineering-the-lsi-driver)
+	- [Reverse Engineering the MPI Driver](#reverse-engineering-the-mpi-driver)
+	- [Helpful Commands](#helpful-commands)
+		- [View all Interrupts](#view-all-interrupts)
+	- [Investigating Hardware Noise](#investigating-hardware-noise)
 
 ## Hardware
 
 I used a Dell R7525 (Rome) for testing.
+
+## How Affinity Works
+
+Here is the provided text converted to Markdown:
+
+1. Driver loads.
+2. When the driver loads, it checks the affinity flags and gets the current value as seen in proc. 
+   1. The value is defined by PCI_IRQ_AFFINITY (see [PCI_IRQ_AFFINITY documentation](https://www.kernel.org/doc/Documentation/PCI/MSI-HOWTO.txt)).
+   2. In the code, that's `irq_flags |= PCI_IRQ_AFFINITY | PCI_IRQ_ALL_TYPES;`
+3. The driver then checks how many MSI-X vectors the device can support (a property of the PCIe device itself, and the value is stored in PCIe config space).
+4. Driver calls `pci_alloc_irq_vectors_affinity` with `retval = pci_alloc_irq_vectors_affinity(mrioc->pdev, min_vec, max_vectors, irq_flags, &desc)`. See [pci_alloc_irq_vectors_affinity documentation](https://archive.kernel.org/oldlinux/htmldocs/kernel-api/API-pci-alloc-irq-vectors-affinity.html).
+5. Based on that call, when the MSI-X vectors get set up, the OS then knows whether to apply affinity rules to them.
+6. The OS owns it from there and does the actual allocating of cores.
+
 
 ## Initial State
 
@@ -392,7 +409,7 @@ static struct megasas_instance_template megasas_instance_template_xscale = {
 };
 ```
 
-- This takes us to the actual interrupt handler entry point [`megasas_isr`](./MegaRAID%20Driver/megaraid_sas_base.c#4085). We can see that the function checks to make sure that a firmware reset isn't in progress and if it isn't then it acquires a spinlock and runs the function `megasas_deplete_reply_queue`.
+- This takes us to the actual interrupt handler entry point [`megasas_isr`](./MegaRAID%20Driver/megaraid_sas_base.c#L4085). We can see that the function checks to make sure that a firmware reset isn't in progress and if it isn't then it acquires a spinlock and runs the function `megasas_deplete_reply_queue`.
 
 ```c
 /**
@@ -418,7 +435,7 @@ static irqreturn_t megasas_isr(int irq, void *devp)
 }
 ```
 
-- [`megasas_deplete_reply_queue`](./MegaRAID%20Driver/megaraid_sas_base.c#4014) is defined below. It processes completed commands from the RAID controller. The function first checks for a reset condition and then clears any pending interrupts. If certain conditions are met, such as a firmware state change or a fault state, it handles these scenarios appropriately, which might include logging the state, managing internal data structures, or scheduling further tasks. The use of tasklet_schedule suggests it defers some processing to a tasklet, a type of bottom half handler in the Linux kernel, for handling tasks that don't need to be processed immediately in the interrupt context.
+- [`megasas_deplete_reply_queue`](./MegaRAID%20Driver/megaraid_sas_base.c#L4014) is defined below. It processes completed commands from the RAID controller. The function first checks for a reset condition and then clears any pending interrupts. If certain conditions are met, such as a firmware state change or a fault state, it handles these scenarios appropriately, which might include logging the state, managing internal data structures, or scheduling further tasks. The use of tasklet_schedule suggests it defers some processing to a tasklet, a type of bottom half handler in the Linux kernel, for handling tasks that don't need to be processed immediately in the interrupt context.
 
 ```c
 /**
@@ -499,6 +516,125 @@ megasas_deplete_reply_queue(struct megasas_instance *instance,
 
 - After all this, what I found entertaining is that I learned that modern drivers completely ignore the IRQ number. So in my case the IRQ 379 basically does nothing. What matters is just the state of the device. You can see in `megasas_isr` that the IRQ number comes in as an input and is quite literally, dropped on the floor. Ultimately the request handler just makes sure that the RAID controller is in the appropriate state.
 
+## Reverse Engineering the MPI Driver
+
+- [IRQ setup](./MPI%20Driver/mpi3mr_fw.c#L780). We see that the IRQ affinity is identical.
+  - See [the docs](https://archive.kernel.org/oldlinux/htmldocs/kernel-api/API-pci-alloc-irq-vectors-affinity.html) for pci_alloc_irq_vectors_affinityy
+
+```c
+irq_flags |= PCI_IRQ_AFFINITY | PCI_IRQ_ALL_TYPES;
+
+retval = pci_alloc_irq_vectors_affinity(mrioc->pdev,
+	min_vec, max_vectors, irq_flags, &desc);
+```
+
+```c
+/**
+ * mpi3mr_setup_isr - Setup ISR for the controller
+ * @mrioc: Adapter instance reference
+ * @setup_one: Request one IRQ or more
+ *
+ * Allocate IRQ vectors and call mpi3mr_request_irq to setup ISR
+ *
+ * Return: 0 on success and non zero on failures.
+ */
+static int mpi3mr_setup_isr(struct mpi3mr_ioc *mrioc, u8 setup_one)
+{
+	unsigned int irq_flags = PCI_IRQ_MSIX;
+	int max_vectors, min_vec;
+	int retval;
+	int i;
+	struct irq_affinity desc = { .pre_vectors =  1, .post_vectors = 1 };
+
+	if (mrioc->is_intr_info_set)
+		return 0;
+
+	mpi3mr_cleanup_isr(mrioc);
+
+	if (setup_one || reset_devices) {
+		max_vectors = 1;
+		retval = pci_alloc_irq_vectors(mrioc->pdev,
+		    1, max_vectors, irq_flags);
+		if (retval < 0) {
+			ioc_err(mrioc, "cannot allocate irq vectors, ret %d\n",
+			    retval);
+			goto out_failed;
+		}
+	} else {
+		max_vectors =
+		    min_t(int, mrioc->cpu_count + 1 +
+			mrioc->requested_poll_qcount, mrioc->msix_count);
+
+		mpi3mr_calc_poll_queues(mrioc, max_vectors);
+
+		ioc_info(mrioc,
+		    "MSI-X vectors supported: %d, no of cores: %d,",
+		    mrioc->msix_count, mrioc->cpu_count);
+		ioc_info(mrioc,
+		    "MSI-x vectors requested: %d poll_queues %d\n",
+		    max_vectors, mrioc->requested_poll_qcount);
+
+		desc.post_vectors = mrioc->requested_poll_qcount;
+		min_vec = desc.pre_vectors + desc.post_vectors;
+		irq_flags |= PCI_IRQ_AFFINITY | PCI_IRQ_ALL_TYPES;
+
+		retval = pci_alloc_irq_vectors_affinity(mrioc->pdev,
+			min_vec, max_vectors, irq_flags, &desc);
+
+		if (retval < 0) {
+			ioc_err(mrioc, "cannot allocate irq vectors, ret %d\n",
+			    retval);
+			goto out_failed;
+		}
+
+
+		/*
+		 * If only one MSI-x is allocated, then MSI-x 0 will be shared
+		 * between Admin queue and operational queue
+		 */
+		if (retval == min_vec)
+			mrioc->op_reply_q_offset = 0;
+		else if (retval != (max_vectors)) {
+			ioc_info(mrioc,
+			    "allocated vectors (%d) are less than configured (%d)\n",
+			    retval, max_vectors);
+		}
+
+		max_vectors = retval;
+		mrioc->op_reply_q_offset = (max_vectors > 1) ? 1 : 0;
+
+		mpi3mr_calc_poll_queues(mrioc, max_vectors);
+
+	}
+
+	mrioc->intr_info = kzalloc(sizeof(struct mpi3mr_intr_info) * max_vectors,
+	    GFP_KERNEL);
+	if (!mrioc->intr_info) {
+		retval = -ENOMEM;
+		pci_free_irq_vectors(mrioc->pdev);
+		goto out_failed;
+	}
+	for (i = 0; i < max_vectors; i++) {
+		retval = mpi3mr_request_irq(mrioc, i);
+		if (retval) {
+			mrioc->intr_info_count = i;
+			goto out_failed;
+		}
+	}
+	if (reset_devices || !setup_one)
+		mrioc->is_intr_info_set = true;
+	mrioc->intr_info_count = max_vectors;
+	mpi3mr_ioc_enable_intr(mrioc);
+	return 0;
+
+out_failed:
+	mpi3mr_cleanup_isr(mrioc);
+
+	return retval;
+}
+```
+
+
 ## Helpful Commands
 
 ### View all Interrupts
@@ -506,3 +642,6 @@ megasas_deplete_reply_queue(struct megasas_instance *instance,
 ```bash
 awk '/megasas/ { printf "%s: %s\n", $NF, $2 }' /proc/interrupts
 ```
+
+## Investigating Hardware Noise
+
