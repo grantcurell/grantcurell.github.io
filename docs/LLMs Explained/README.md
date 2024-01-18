@@ -29,6 +29,10 @@
       - [Output](#output)
     - [Training](#training)
     - [GPT Time Complexity](#gpt-time-complexity)
+  - [Retrieval Augmented Generation (RAG)](#retrieval-augmented-generation-rag)
+    - [Nearest Neighbor Search](#nearest-neighbor-search)
+      - [The General Idea](#the-general-idea)
+      - [Algorithms for Nearest Neighbor Searches:](#algorithms-for-nearest-neighbor-searches)
   - [Supplemental Information](#supplemental-information)
     - [Word Embeddings](#word-embeddings)
     - [Weight Matrices](#weight-matrices)
@@ -46,6 +50,7 @@
     - [Decoder Attention Heads](#decoder-attention-heads)
     - [Calculate Encoder-Decoder Output](#calculate-encoder-decoder-output)
     - [What is Cross Entropy Loss](#what-is-cross-entropy-loss)
+  - [Other Sources](#other-sources)
 
 
 ## Overview
@@ -171,7 +176,8 @@ To break that down further:
     Using the formula for even indices (2i):
 $$i = 0$$
 $$PE_{(0, 2(0))} = \sin\left(\frac{0}{10000^{2(0)/4}}\right)$$
-    Since $\sin(0)$ is 0, the value is 0.
+
+Since $\sin(0)$ is 0, the value is 0.
 
 - **For $PE_{(0,1)}$**
     Using the formula for odd indices (2i+1):
@@ -307,7 +313,7 @@ Of course! Let's dive deeper into the roles of the Query (Q), Key (K), and Value
 
 **An Analogy**:
 
-Imagine you're in a spy in a room with multiple people having conversations. You're eavesdropping on one person (the "query"), but you also want to gather context from what everyone else (the "keys") are saying to understand as much as you can.
+Imagine you're a spy in a room with multiple people having conversations. You're eavesdropping on one person (the "query"), but you also want to gather context from what everyone else (the "keys") are saying to understand as much as you can.
 
 - The **Q** (Query) is you asking: "Who in this room is relevant to what the target (query) is saying?"
 - The **K** (Keys) are the topics each person in the room is talking about. By comparing your query to each topic (taking the dot product of Q and K), you determine who is talking about things most relevant to the person you're focusing on.
@@ -1092,7 +1098,7 @@ With all of that learned, we are finally ready to go to the main event - GPT.
 
 ### What's so different about GPT models?
 
-The most obvious problem with the above is the same problem everyone has... you have to have training data. Creating training data is tedious, error prone, and generally miserable.
+The most obvious problem with the above is the same problem everyone has... you have to have training data. Creating training data is tedious, error prone, and generally difficult.
 
 So what makes GPT models special? They work on **unlabeled** text. You can point them at a huge corpus of text and they can train themselves. Even better, you can feed in labeled data to enhance a GPT model for domain-specific tasks. As [Troy Wang points out though](https://www.cis.upenn.edu/wp-content/uploads/2021/10/Tianzheng_Troy_Wang_CIS498EAS499_Submission.pdf#page=17)
 
@@ -1148,6 +1154,28 @@ $$ h_0(\text{"AI"}) = \left[ 0.79, 0.60 \right] $$
 
 The math for the self attention mechanism remain the same as they were in [this section](#self-attention)
 
+The difference is that the output of:
+
+$$
+Score = \frac{Q \times K^T}{\sqrt{d_k}}
+$$
+
+is multiplied by:
+
+$$
+\text{Mask} = \begin{pmatrix}
+0 & -\infty & -\infty \\
+0 & 0 & -\infty \\
+0 & 0 & 0
+\end{pmatrix}
+$$
+
+This has the effect of masking out future tokens so that the model is only able to use the information from previous tokens to predict the future tokens. Visually this appears as:
+
+![](images/2024-01-17-15-45-07.png)
+
+[Image Source](https://www.cis.upenn.edu/wp-content/uploads/2021/10/Tianzheng_Troy_Wang_CIS498EAS499_Submission.pdf#page=18)
+
 Suppose for our masked self-attention, the attention weights (for the word "love") give 0.1 importance to the word "I" and 0.9 to itself. The word "AI" hasn't appeared yet, so it gets 0 importance.
 Hence, the attention output for "love" will be:
 
@@ -1171,16 +1199,12 @@ This remains the same [as before](#output-layer-for-word-probabilities).
 
 1. **Model Objective:** 
    The primary goal during pre-training is to maximize the likelihood of a particular token given its preceding tokens. For a model being trained, it tries to predict the next word in a sequence using the context provided by the preceding words.
-
 2. **Context Window:** 
-   In the "roses are red" example from the passage, the context window is two words. Similarly, for "I love AI," if we were to use a context window of two words, the model would be given "I love" and would try to predict "AI."
-
+   For "I love AI," if we were to use a context window of two words, the model would be given "I love" and would try to predict "AI." 
 3. **Tokenizing and Embeddings:** 
    The passage mentions breaking down input into embeddings. In the case of "I love AI," the words "I," "love," and "AI" are tokenized and then converted into dense vectors or embeddings. These embeddings capture semantic meanings and relationships between words.
-
 4. **Maximizing Likelihood:** 
    As the formula $L_1(U) = \Sigma_i \log P(u_i|u_{i-k}, ..., u_{i-1})$ suggests, the model tries to maximize the probability (or likelihood) of observing the token $u_i$ given its previous k tokens. For our example "I love AI," if you feed "I love" into the model, it should assign a high probability to "AI" being the next word, assuming "I love AI" is a frequent phrase in the training data.
-
 5. **Unsupervised Nature:** 
    The term "unsupervised" implies that there's no explicit label provided to the model for training. Instead, the model uses the context (preceding words) as input and tries to predict the next word. The correct answer (or "label") is just the next word in the sequence. So, the data itself provides both the input and the "label."
 
@@ -1206,6 +1230,70 @@ The primary bottleneck in terms of time complexity for GPT models is the self-at
 It's also worth noting that while the theoretical time complexity gives us an understanding of how computation grows with the size of input and model, in practice, optimizations, hardware accelerations, and efficient implementations will have a huge impact on the performance of the model.
 
 To provide a rough order of magnitude, GPT3 has 175 layers and d is often set to a value like 1024 in a large model.
+
+## Retrieval Augmented Generation (RAG)
+
+RAG is a technique used to take an existing model and extend it with new information.
+
+1. **Input Processing**:
+   - **Question**: Take a question as input. For example, "What are the health benefits of green tea?"
+   - **Embedding**: Convert this question into a vector using the same transformer model used for encoding the documents in the database.
+2. **Retrieval Phase**:
+   - [**Approximate Nearest Neighbor Search**](#nearest-neighbor-search): Using the embedded question, perform an ANN search in the database to retrieve the most relevant documents. Let's say we retrieve 'N' documents.
+   - **Document Vectors**: These documents are represented by their respective embedding vectors, say $([D_1, D_2, ..., D_N])$.
+3. **Combining Retrieved Knowledge with LLM**:
+   - **Contextual Integration**: The LLM is provided with both the original question and the retrieved documents to generate an answer.
+   - **Attention Mechanism**: The model uses a cross-attention mechanism between the question and each of the retrieved documents to understand the context better.
+4. **Generating the Answer**:
+   - **Sequence Generation**: The LLM generates the answer token by token. For each token:
+     - It computes a probability distribution over the vocabulary.
+     - The probability is conditioned on the input question and the retrieved documents.
+     - The model chooses the token with the highest probability at each step.
+   - **Example**: The model might start with "Green tea is known for its...", incorporating information from both the question and the content of the retrieved documents.
+
+5. **Loss Calculation and Training**:
+   - **Training**: During training, the model's parameters are adjusted to minimize the difference between the generated answer and the correct answer.
+   - **Loss Function**: A common choice is the cross-entropy loss between the predicted and actual answers.
+   - **Joint Training**: Both the retrieval component and the generation model are trained jointly to improve the coherence between retrieved documents and generated answers.
+
+**Mathematical Representation**
+
+- **Question Embedding**: \( Q = \text{Transformer}( \text{"What are the health benefits of green tea?"} ) \)
+- **Document Retrieval**: \( [D_1, D_2, ..., D_N] = \text{ANN\_Search}(Q) \)
+- **Generation Probability**: \( P(\text{word} | Q, D_1, D_2, ..., D_N) \)
+- **Answer Generation**: \( \text{Answer} = \arg\max \prod P(\text{word}_i | \text{word}_{<i}, Q, D_1, D_2, ..., D_N) \)
+
+### Nearest Neighbor Search
+
+A nearest neighbor search (NNS) is an algorithm used to find the closest or most similar data points to a given query point in a dataset.
+
+#### The General Idea
+
+1. **Dataset**: Consider a dataset comprising a collection of points. These points could represent anything depending on the application - for instance, they could be vectors encoding the features of images, text, or any type of numerical data.
+2. **Query Point**: You have a query point (or a search point), and you want to find the point(s) in your dataset that are closest to this query point.
+3. **Distance Metric**: A distance metric is used to measure the closeness or similarity between points. Common metrics include Euclidean distance, Manhattan distance, cosine similarity, and others, depending on the nature of the data and the application.
+
+#### Algorithms for Nearest Neighbor Searches:
+
+What matters:
+
+1. **Scalability**: ANN algorithms are designed to handle very large datasets efficiently, which is crucial for RAG models as they often involve searching through extensive collections of documents or embeddings.
+2. **Speed**: Exact NNS can be computationally intensive and time-consuming, especially in high-dimensional spaces (like text embeddings). ANN provides a good balance between accuracy and computational efficiency.
+3. **Dimensionality**: Text data, when converted into embeddings (vector representations), typically reside in high-dimensional space. ANN algorithms are more adept at handling the curse of dimensionality than exact NNS methods.
+
+Common Algorithms
+
+1. **Locality-Sensitive Hashing (LSH)**: LSH is a method of performing probabilistic dimension reduction of high-dimensional data. It hashes input items so that similar items map to the same “buckets” with high probability.
+2. **Hierarchical Navigable Small World Graphs (HNSW)**: HNSW is known for its high efficiency and accuracy, especially in high-dimensional data. It builds a layered graph structure that allows for faster query times.
+3. **Faiss (Facebook AI Similarity Search)**: Developed by Facebook AI, Faiss is a library for efficient similarity search and clustering of dense vectors. It contains implementations of several ANN algorithms and is optimized for use with GPUs.
+4. **Annoy (Approximate Nearest Neighbors Oh Yeah)**: Annoy is a C++ library with Python bindings to search for points in space that are close to a given query point. It's particularly useful for large datasets and is used by Spotify for music recommendation.
+
+Common problems and solutions:
+
+1. **Curse of Dimensionality**: As the number of dimensions (features) of the data increases, finding the nearest neighbor becomes computationally intensive. This is because the volume of the space increases exponentially with each additional dimension, making the data points sparse.
+2. **Approximate Nearest Neighbor (ANN)**: To counter the computational challenges, especially in high-dimensional spaces, approximate methods are used. These methods do not always guarantee the exact nearest neighbor but can find an approximation much faster.
+3. **Indexing Structures**: Data structures like KD-trees, Ball trees, and Hash tables are used to optimize NNS, making searches faster than a brute-force search that compares the query point with every point in the dataset.
+4. **Parallelization and Distributed Computing**: Leveraging multiple processors or distributed systems can significantly speed up nearest neighbor searches in large datasets.
 
 ## Supplemental Information
 
@@ -2263,3 +2351,8 @@ Output:
 Loss for first prediction: 0.357
 Loss for second prediction: 2.303
 ```
+
+## Other Sources
+
+- [Retrieval-Augmented Generation for Knowledge Intensive NLP Tasks](https://arxiv.org/pdf/2005.11401.pdf)
+- [Nvidia - AI Chatbot with Retrieval Augmented Generation](https://docs.nvidia.com/ai-enterprise/workflows-generative-ai/0.1.0/technical-brief.html)
