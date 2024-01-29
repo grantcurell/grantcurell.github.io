@@ -1,84 +1,5 @@
 nav:
 - README.md
-- Create Kickstart Server on Fedora/README.md
-- Create OpenSwitch VM/README.md
-- Dell Ansible Testing/README.md
-- DHCP Relay on SONiC/README.md
-- Elasticsearch Display Map Data/README.md
-- Elasticsearch Load Testing/README.md
-- esrally (INCOMPLETE)/README.md
-- Estimating Compute Requirements for Machine Learning/README.md
-- Finding Rare Logs with DBSCAN/README.md
-- Get NVMe Drives from iDRAC Redfish/README.md
-- High Speed Packet Capture/README.md
-- How Bitcoin-Blockchain Works - Notes/README.md
-- How OS10 Installer Works/README.md
-- How to ONIE Install and ZTP Config Dell SONiC/README.md
-- How to Read lstopo and a PCIe Overview/README.md
-- idrac with LDAP/README.md
-- Importing Elasticsearch Data/README.md
-- Installing DPDK with NapaTech Card/README.md
-- IO Identities with LifeCycle Controller/README.md
-- LDAP with OpenManage/README.md
-- LLMs Explained/README.md
-- Load Balance Testing on 4112F-ON/OpenSwitch (OPX)/README.md
-- Load Balance Testing on 4112F-ON/OS10/README.md
-- Load Balance Testing with OpenVSwitch/README.md
-- Load Balancing on Mellanox Switches/README.md
-- Load Balancing with LAG on 5112F-ON/README.md
-- Migrating Storage Volumes to PowerStore/README.md
-- Mulitple Span on 4112F-ON with OpenSwitch/README.md
-- Multiple Span on 4112F-ON with OS10/README.md
-- Notes on AMD Processor/README.md
-- Notes on Building a Datacenter from Scratch/README.md
-- Notes on HPC/README.md
-- Notes on Improving Drive Performance/README.md
-- Notes on mdraid Performance Testing/README.md
-- Notes on nodejs/README.md
-- Notes on NVMe Log Pages/README.md
-- Notes on PCIe/README.md
-- Nvidia GPUDirect/README.md
-- Nvidia GRID Notes/README.md
-- NVMe Performance Testing/README.md
-- Offline Updates with OpenManage Enterprise/README.md
-- Make USB Read Only/README.md
-- Notes on HSM/README.md
-- OME Bug/README.md
-- OME Integration for VMWare/README.md
-- OpenFlow on 4112F-ON/README.md
-- OS10 Password Recovery Bug/README.md
-- PCIev3 vs v4/README.md
-- Playing with virsh/README.md
-- PowerScale - Configure with Kubernetes/README.md
-- PowerScale Failed Authentication/README.md
-- PowerScale Setup/README.md
-- Reset OS10 Admin Password/README.md
-- Run VPN on OS10/README.md
-- Running DNS from OS10/README.md
-- Set Up RSPAN on OS10/README.md
-- Setting Up Breakout Cables/README.md
-- Setting Up iDRAC Telemetry with Splunk/README.md
-- Setting Up SmartFabric Director/README.md
-- Setup IDPA/README.md
-- Site to Site VPN with PFSense and CentOS 8/README.md
-- SONiC - Sample Datacenter Automation Architecture/README.md
-- Switch Directly to Client Test/README.md
-- Testing Bare Metal Orchestrator/README.md
-- Testing Intel x520 on RHEL 6/README.md
-- Understanding Memory/README.md
-- Understanding PERC Interrupts/README.md
-- Use OS10 as Aggregator/README.md
-- Using FIO/README.md
-- Using the iDRAC Service Module/README.md
-- VEP Testing/README.md
-- VMWare/Automate ESXi Installation/README.md
-- VMWare/ESXi Architecture/README.md
-- VMWare/Setup VXRail/README.md
-- VMWare/Troubleshooting vSAN/README.md
-- VMWare/VMWare APIs/README.md
-- VMWare/VxRail Architecture and Troubleshooting/README.md
-- Web Traffic Generator/README.md
-- Writing udev Rules for Dell PERC H755/README.md
 - Adding Hashing to OpenSwitch/README.md
 - Adding Intel I219-LM (8086.0d4c) Driver to ESXi/README.md
 - Automatically Provision Dell Servers/README.md
@@ -89,6 +10,89 @@ nav:
 - Configure FN410 as a Switch/README.md
 - Configure Gigamon Tap/README.md
 - Configuring VLT on OS10/README.md
+- Create Kickstart Server on Fedora/README.md
+- Create OpenSwitch VM/README.md
+- DHCP Relay on SONiC/README.md
+- Dell Ansible Testing/README.md
+- Elasticsearch Display Map Data/README.md
+- Elasticsearch Load Testing/README.md
+- Estimating Compute Requirements for Machine Learning/README.md
+- Finding Rare Logs with DBSCAN/README.md
+- Get NVMe Drives from iDRAC Redfish/README.md
+- High Speed Packet Capture/README.md
+- How Bitcoin-Blockchain Works - Notes/README.md
+- How OS10 Installer Works/README.md
+- How to ONIE Install and ZTP Config Dell SONiC/README.md
+- How to Read lstopo and a PCIe Overview/README.md
+- IO Identities with LifeCycle Controller/README.md
+- Importing Elasticsearch Data/README.md
+- Installing DPDK with NapaTech Card/README.md
+- LDAP with OpenManage/README.md
+- LLMs Explained/README.md
+- Load Balance Testing with OpenVSwitch/README.md
+- Load Balancing on Mellanox Switches/README.md
+- Load Balancing with LAG on 5112F-ON/README.md
+- Make USB Read Only/README.md
+- Migrating Storage Volumes to PowerStore/README.md
+- Mulitple Span on 4112F-ON with OpenSwitch/README.md
+- Multiple Span on 4112F-ON with OS10/README.md
+- NVMe Performance Testing/README.md
+- Notes on AMD Processor/README.md
+- Notes on Building a Datacenter from Scratch/README.md
+- Notes on HPC/README.md
+- Notes on HSM/README.md
+- Notes on Improving Drive Performance/README.md
+- Notes on NVMe Log Pages/README.md
+- Notes on PCIe/README.md
+- Notes on mdraid Performance Testing/README.md
+- Notes on nodejs/README.md
+- Nvidia GPUDirect/README.md
+- Nvidia GRID Notes/README.md
+- OME Bug/README.md
+- OME Integration for VMWare/README.md
+- OS10 Password Recovery Bug/README.md
+- Offline Updates with OpenManage Enterprise/README.md
+- OpenFlow on 4112F-ON/README.md
+- PCIev3 vs v4/README.md
+- Playing with virsh/README.md
+- PowerScale - Configure with Kubernetes/README.md
+- PowerScale Failed Authentication/README.md
+- PowerScale Setup/README.md
+- Reset OS10 Admin Password/README.md
+- Run VPN on OS10/README.md
+- Running DNS from OS10/README.md
+- SONiC - Sample Datacenter Automation Architecture/README.md
+- Set Up RSPAN on OS10/README.md
+- Setting Up Breakout Cables/README.md
+- Setting Up SmartFabric Director/README.md
+- Setting Up iDRAC Telemetry with Splunk/README.md
+- Setup IDPA/README.md
+- Site to Site VPN with PFSense and CentOS 8/README.md
+- Switch Directly to Client Test/README.md
+- Testing Bare Metal Orchestrator/README.md
+- Testing Intel x520 on RHEL 6/README.md
+- Understanding Memory/README.md
+- Understanding PERC Interrupts/README.md
+- Use OS10 as Aggregator/README.md
+- Using FIO/README.md
+- Using the iDRAC Service Module/README.md
+- VEP Testing/README.md
+- Web Traffic Generator/README.md
+- Writing udev Rules for Dell PERC H755/README.md
+- esrally (INCOMPLETE)/README.md
+- idrac with LDAP/README.md
+- Load Balance Testing on 4112F-ON/OS10/README.md
+- Load Balance Testing on 4112F-ON/OpenSwitch (OPX)/README.md
+- VMWare/Automate ESXi Installation/README.md
+- VMWare/Change User on VxRail Plugin/README.md
+- VMWare/ESXi Architecture/README.md
+- VMWare/How to Pull Usage Metrics/README.md
+- VMWare/Notes on VSAN/README.md
+- VMWare/Setup VXRail/README.md
+- VMWare/Troubleshooting vSAN/README.md
+- VMWare/VMWare APIs/README.md
+- VMWare/VxRail Architecture and Troubleshooting/README.md
+- VMWare/vRealize Setup (Incomplete)/README.md
 remote_branch: main
 repo_name: https://github.com/grantcurell/grantcurell.github.io/tree/master
 site_author: Grant Curell
