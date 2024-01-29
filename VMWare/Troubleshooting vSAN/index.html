@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Grant Curell" /><link rel="canonical" href="https://grantcurell.github.io/VMWare/Troubleshooting%20vSAN/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Troubleshooting vSAN - Grant Curell's Dell Projects</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Troubleshooting vSAN";
+        var mkdocs_page_input_path = "VMWare/Troubleshooting vSAN/README.md";
+        var mkdocs_page_url = "/VMWare/Troubleshooting%20vSAN/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Grant Curell's Dell Projects
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Grant Curell's Dell Projects</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Create%20Kickstart%20Server%20on%20Fedora/">Create Kickstart Server on Fedora</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Create%20OpenSwitch%20VM/">Create OpenSwitch VM</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Dell%20Ansible%20Testing/">Dell Ansible Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../DHCP%20Relay%20on%20SONiC/">DHCP Relay on SONiC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Elasticsearch%20Display%20Map%20Data/">Elasticsearch Display Map Data</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Elasticsearch%20Load%20Testing/">Elasticsearch Load Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../esrally%20%28INCOMPLETE%29/">esrally (INCOMPLETE)</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Estimating%20Compute%20Requirements%20for%20Machine%20Learning/">Estimating Compute Requirements for Machine Learning</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Finding%20Rare%20Logs%20with%20DBSCAN/">Finding Rare Logs with DBSCAN</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Get%20NVMe%20Drives%20from%20iDRAC%20Redfish/">Get NVMe Drives from iDRAC Redfish</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../High%20Speed%20Packet%20Capture/">High Speed Packet Capture</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../How%20Bitcoin-Blockchain%20Works%20-%20Notes/">How Bitcoin-Blockchain Works - Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../How%20OS10%20Installer%20Works/">How OS10 Installer Works</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../How%20to%20ONIE%20Install%20and%20ZTP%20Config%20Dell%20SONiC/">How to ONIE Install and ZTP Config Dell SONiC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../How%20to%20Read%20lstopo%20and%20a%20PCIe%20Overview/">How to Read lstopo and a PCIe Overview</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../idrac%20with%20LDAP/">idrac with LDAP</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Importing%20Elasticsearch%20Data/">Importing Elasticsearch Data</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Installing%20DPDK%20with%20NapaTech%20Card/">Installing DPDK with NapaTech Card</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../IO%20Identities%20with%20LifeCycle%20Controller/">IO Identities with LifeCycle Controller</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../LDAP%20with%20OpenManage/">LDAP with OpenManage</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../LLMs%20Explained/">LLMs Explained</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Load%20Balance%20Testing%20on%204112F-ON/OpenSwitch%20%28OPX%29/">Load Balancing with LAG OPX</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Load%20Balance%20Testing%20on%204112F-ON/OS10/">Load Balance Testing on 4112F-ON w/OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Load%20Balance%20Testing%20with%20OpenVSwitch/">Load Balance Testing with OpenVSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Load%20Balancing%20on%20Mellanox%20Switches/">Load Balancing on Mellanox Switches</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Load%20Balancing%20with%20LAG%20on%205112F-ON/">Load Balancing with LAG on 5112F-ON</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Migrating%20Storage%20Volumes%20to%20PowerStore/">Migrating Storage Volumes to PowerStore</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Mulitple%20Span%20on%204112F-ON%20with%20OpenSwitch/">Mulitple Span on 4112F-ON with OpenSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Multiple%20Span%20on%204112F-ON%20with%20OS10/">Multiple Span on 4112F-ON with OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Notes%20on%20AMD%20Processor/">Notes on AMD Processor</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Notes%20on%20Building%20a%20Datacenter%20from%20Scratch/">Notes on Building a Datacenter from Scratch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Notes%20on%20HPC/">Notes on HPC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Notes%20on%20Improving%20Drive%20Performance/">Notes on Improving Drive Performance</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Notes%20on%20mdraid%20Performance%20Testing/">Notes on mdraid Performance Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Notes%20on%20nodejs/">Notes on nodejs</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Notes%20on%20NVMe%20Log%20Pages/">Notes on NVMe Log Pages</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Notes%20on%20PCIe/">Notes on PCIe</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Nvidia%20GPUDirect/">Nvidia GPUDirect</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Nvidia%20GRID%20Notes/">Nvidia GRID Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../NVMe%20Performance%20Testing/">NVMe Performance Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Offline%20Updates%20with%20OpenManage%20Enterprise/">Offline Updates with OpenManage Enterprise</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Make%20USB%20Read%20Only/">Make USB Read Only</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Notes%20on%20HSM/">Notes on HSM</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../OME%20Bug/">OME Bug</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../OME%20Integration%20for%20VMWare/">OME Integration for VMWare</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../OpenFlow%20on%204112F-ON/">OpenFlow on 4112F-ON</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../OS10%20Password%20Recovery%20Bug/">OS10 Password Recovery Bug</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../PCIev3%20vs%20v4/">PCIev3 vs v4</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Playing%20with%20virsh/">Playing with virsh</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../PowerScale%20-%20Configure%20with%20Kubernetes/">PowerScale - Configure with Kubernetes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../PowerScale%20Failed%20Authentication/">PowerScale Failed Authentication</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../PowerScale%20Setup/">PowerScale Setup</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Reset%20OS10%20Admin%20Password/">Reset OS10 Admin Password</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Run%20VPN%20on%20OS10/">Run VPN on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Running%20DNS%20from%20OS10/">Running DNS from OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Set%20Up%20RSPAN%20on%20OS10/">Set Up RSPAN on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Setting%20Up%20Breakout%20Cables/">Setting Up Breakout Cables</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Setting%20Up%20iDRAC%20Telemetry%20with%20Splunk/">Setting Up iDRAC Telemetry with Splunk</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Setting%20Up%20SmartFabric%20Director/">Setting Up SmartFabric Director</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Setup%20IDPA/">Setup IDPA</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Site%20to%20Site%20VPN%20with%20PFSense%20and%20CentOS%208/">Site to Site VPN with PFSense and CentOS 8</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../SONiC%20-%20Sample%20Datacenter%20Automation%20Architecture/">SONiC - Sample Datacenter Automation Architecture</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Switch%20Directly%20to%20Client%20Test/">Switch Directly to Client Test</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Testing%20Bare%20Metal%20Orchestrator/">Testing Bare Metal Orchestrator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Testing%20Intel%20x520%20on%20RHEL%206/">Testing Intel x520 on RHEL 6</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Understanding%20Memory/">Understanding Memory</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Understanding%20PERC%20Interrupts/">Understanding PERC Interrupts</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Use%20OS10%20as%20Aggregator/">Use OS10 as Aggregator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Using%20FIO/">Using FIO</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Using%20the%20iDRAC%20Service%20Module/">Using the iDRAC Service Module</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../VEP%20Testing/">VEP Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Automate%20ESXi%20Installation/">Automating ESXi Installation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../ESXi%20Architecture/">VMWare Architecture Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setup%20VXRail/">VxRail Setup</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Troubleshooting vSAN</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#helpful-resources">Helpful Resources</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#vsan-support-insight">vSAN Support Insight</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#overall-approach">Overall Approach</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#technical-approach">Technical Approach</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#identify">Identify</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#using-vsan-observer">Using vSAN Observer</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#running-from-a-remote-machine">Running from a remote machine</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#running-vsan-observer-without-internet-access">Running vSAN Observer without Internet Access</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#vsan-observer-case-studies">vSAN Observer Case Studies</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#anatomy-of-a-writeread-operation-in-hybrid-config">Anatomy of a Write/Read Operation in Hybrid Config</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#helpful-commands">Helpful Commands</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#networking">Networking</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#determine-disk-group-assignmnts">Determine Disk Group Assignmnts</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#check-failed-disks">Check Failed Disks</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#determine-what-drives-are-attached-to-which-storage-adapters">Determine what drives are attached to which storage adapters</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#get-detailed-version">Get Detailed Version</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#simple-list">Simple List</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#interpreting-the-output">Interpreting the Output</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#list-scsi-devices-and-their-sizes">List SCSI devices and their sizes</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#get-a-list-of-all-pci-devices-allows-you-to-check-for-rebranding">Get a list of all PCI devices (allows you to check for rebranding)</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#determine-adapter-driver-and-version">Determine Adapter Driver and Version</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#get-a-list-of-vibs">Get a list of VIBs</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#check-failures-to-tolerate-and-stripe">Check failures to tolerate and stripe</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#check-what-the-fault-domains-are">Check what the fault domains are</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#inspect-a-specific-object-vm-in-vsan">Inspect a Specific Object (VM) in vSAN</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#understanding-drive-types">Understanding Drive Types</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#vcg-check-summary">VCG Check Summary</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#absent-vs-degraded-failure">Absent vs Degraded Failure</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#object-compliance-status-compliant-vs-non-compliant">Object Compliance Status: Compliant vs Non Compliant</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#object-operational-state-healthy-vs-unhealthy">Object Operational State: Healthy vs Unhealthy</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#vm-accessibility-inaccessible-vs-orphaned">VM Accessibility: Inaccessible vs Orphaned</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#todo">TODO</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare%20APIs/">VMWare APIs</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VxRail%20Architecture%20and%20Troubleshooting/">VxRail Architecture and Troubleshooting</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Web%20Traffic%20Generator/">Web Traffic Generator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Writing%20udev%20Rules%20for%20Dell%20PERC%20H755/">Writing udev Rules for Dell PERC H755</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Adding%20Hashing%20to%20OpenSwitch/">Adding Hashing to OpenSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Adding%20Intel%20I219-LM%20%288086.0d4c%29%20Driver%20to%20ESXi/">Adding Intel I219-LM (8086.0d4c) Driver to ESXi</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Automatically%20Provision%20Dell%20Servers/">Automatically Provision Dell Servers</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Automating%20OME%20Hardware%20Reports/">Automating OME Hardware Reports</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Backup%20OS10%20Config%20with%20Ansible/">Backup OS10 Config with Ansible</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../CloudLink/">CloudLink</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Common%20Questions%20About%20LLMs%20Answered/">Common Questions About LLMs Answered</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Configure%20FN410%20as%20a%20Switch/">Configure FN410 as a Switch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Configure%20Gigamon%20Tap/">Configure Gigamon Tap</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Configuring%20VLT%20on%20OS10/">Configuring VLT on OS10</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Grant Curell's Dell Projects</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Troubleshooting vSAN</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="troubleshooting-vsan">Troubleshooting vSAN</h1>
+<ul>
+<li><a href="#troubleshooting-vsan">Troubleshooting vSAN</a></li>
+<li><a href="#helpful-resources">Helpful Resources</a></li>
+<li><a href="#vsan-support-insight">vSAN Support Insight</a></li>
+<li><a href="#overall-approach">Overall Approach</a></li>
+<li><a href="#technical-approach">Technical Approach</a><ul>
+<li><a href="#identify">Identify</a></li>
+</ul>
+</li>
+<li><a href="#using-vsan-observer">Using vSAN Observer</a><ul>
+<li><a href="#running-from-a-remote-machine">Running from a remote machine</a></li>
+<li><a href="#running-vsan-observer-without-internet-access">Running vSAN Observer without Internet Access</a></li>
+<li><a href="#vsan-observer-case-studies">vSAN Observer Case Studies</a></li>
+</ul>
+</li>
+<li><a href="#anatomy-of-a-writeread-operation-in-hybrid-config">Anatomy of a Write/Read Operation in Hybrid Config</a></li>
+<li><a href="#helpful-commands">Helpful Commands</a><ul>
+<li><a href="#networking">Networking</a></li>
+<li><a href="#determine-disk-group-assignmnts">Determine Disk Group Assignmnts</a></li>
+<li><a href="#check-failed-disks">Check Failed Disks</a></li>
+<li><a href="#determine-what-drives-are-attached-to-which-storage-adapters">Determine what drives are attached to which storage adapters</a></li>
+<li><a href="#get-detailed-version">Get Detailed Version</a></li>
+<li><a href="#simple-list">Simple List</a></li>
+<li><a href="#interpreting-the-output">Interpreting the Output</a></li>
+<li><a href="#list-scsi-devices-and-their-sizes">List SCSI devices and their sizes</a></li>
+<li><a href="#get-a-list-of-all-pci-devices-allows-you-to-check-for-rebranding">Get a list of all PCI devices (allows you to check for rebranding)</a></li>
+<li><a href="#determine-adapter-driver-and-version">Determine Adapter Driver and Version</a><ul>
+<li><a href="#determine-driver-parameters">Determine Driver Parameters</a></li>
+</ul>
+</li>
+<li><a href="#get-a-list-of-vibs">Get a list of VIBs</a></li>
+<li><a href="#check-failures-to-tolerate-and-stripe">Check failures to tolerate and stripe</a></li>
+<li><a href="#check-what-the-fault-domains-are">Check what the fault domains are</a></li>
+<li><a href="#inspect-a-specific-object-vm-in-vsan">Inspect a Specific Object (VM) in vSAN</a></li>
+</ul>
+</li>
+<li><a href="#understanding-drive-types">Understanding Drive Types</a></li>
+<li><a href="#vcg-check-summary">VCG Check Summary</a></li>
+<li><a href="#absent-vs-degraded-failure">Absent vs Degraded Failure</a></li>
+<li><a href="#object-compliance-status-compliant-vs-non-compliant">Object Compliance Status: Compliant vs Non Compliant</a></li>
+<li><a href="#object-operational-state-healthy-vs-unhealthy">Object Operational State: Healthy vs Unhealthy</a></li>
+<li><a href="#vm-accessibility-inaccessible-vs-orphaned">VM Accessibility: Inaccessible vs Orphaned</a></li>
+<li><a href="#todo">TODO</a></li>
+</ul>
+<h2 id="helpful-resources">Helpful Resources</h2>
+<p><a href="virtual-san-diagnostics-troubleshooting-reference-manual.pdf">Virtual SAN Diagnostics and Troubleshooting Reference Manual</a> - Outside of what I have recorded here, chapter 7 - Understanding expected failure behavior may be useful. It covers what you'll see in the logs, UI, etc when different types of failure occur. It also describes things like what happens when you plug in a new disk in both the capacity and cache tiers. <strong>If you don't know how to handle a problem</strong> this is the place to look. I have a lot of the highlights below but there are a lot of scenarios they cover that I don't.</p>
+<p><a href="vmware-ruby-vsphere-console-command-reference-for-virtual-san.pdf">VMware Ruby vSphere Console Command Reference for Virtual SAN</a></p>
+<p><a href="https://core.vmware.com/resource/troubleshooting-vsan-performance">Troubleshooting vSAN Performance</a></p>
+<p><a href="Monitoring-with-VSAN-Observer-v1.2.pdf">Monitoring with vSAN Observer</a> - Covers interpreting and understanding all the functionality of vSAN observer.</p>
+<p><a href="../Notes%20on%20vSAN/README.md">My Notes on vSAN</a> - I documented how a number of vSAN features function and the variosu highlights.</p>
+<h2 id="vsan-support-insight">vSAN Support Insight</h2>
+<h2 id="overall-approach">Overall Approach</h2>
+<p>vSAN observer
+vSAN health test
+Time/resource permitting vSAN HCI benchmark
+I'll also do a general network survey to make sure I understand the physical and logical layout paying particular attention to the various VLANs</p>
+<p>https://core.vmware.com/resource/troubleshooting-vsan-performance</p>
+<ol>
+<li>Identify and quantify. This step helps to clearly define the issue. Clarifying questions can help properly qualify the problem statement, which will allow for a more targeted approach to addressing. This process helps sort out real versus perceived issues, and focuses on the end result and supporting symptoms, without implying the cause of the issue.</li>
+<li>Discovery/Review - Environment. This step takes a review of the current configuration. This will help eliminate previously unnoticed basic configuration or topology issues that might be plaguing the environment.</li>
+<li>Discovery/Review - Workload. This step will help the reader review the applications and workflows. This will help a virtualization administrator better understand what the application is attempting to perform, and why. </li>
+<li>Performance Metrics - Insight. This step will review some of the key performance metrics to view, and how to interpret some of the findings the reader may see when observing their workloads. It clarifies what the performance metrics means, and how they relate to each other..</li>
+<li>Mitigation - Options in potential software and hardware changes. This step will help the reader step through the potential actions for mitigation.
+<img alt="" src="images/2021-08-29-20-59-39.png" /> <img alt="" src="images/2021-08-29-21-02-43.png" /></li>
+</ol>
+<h2 id="technical-approach">Technical Approach</h2>
+<p>Potential Bottlenecks: https://core.vmware.com/blog/understanding-performance-bottlenecks</p>
+<h3 id="identify">Identify</h3>
+<ol>
+<li>Check VxRail version</li>
+<li>Perform a network survey and understand what switches and devices are in between each of the hosts</li>
+<li>Verify everything is licensed<ol>
+<li>Hosts that are participating in the vSAN cluster but not providing storage still require a license</li>
+</ol>
+</li>
+<li>Check that the flash cache to capacity ratio is 1:10</li>
+<li>Check cluster health with <code>esxcli vsan health cluster list</code><ol>
+<li>Cross reference in RVC with <code>vsan.cluster_info &lt;target&gt;</code>. This is good for getting a big picture view of what is going on.</li>
+<li>Check the overall state of the cluster in RVC with <code>vsan.check_state &lt;target&gt;</code>. This will check for inaccessible vSAN objects, invalid/inaccessible VMs, VMs for which VC/hostd/vmx are out of sync.
+        1. <strong>Inaccessible vSAN Objects</strong>: Inaccessible Virtual SAN objects are an indication that there is probably a failure  somewhere in the cluster, but that Virtual SAN is still able to track the virtual  machine. An invalid or inaccessible object is when the VM has objects that have lost  the majority of its components or votes, again due to hardware failures.   Note that  for a VM’s object to be accessible, it must have a full, intact mirror and greater than  50% of its components/votes available.
+        2. <strong>Invalid/inaccessible VMs</strong>: The next check is for invalid or inaccessible VMs. These are VMs that, most likely  due to the fact that the failure(s) that have occurred in the cluster, have been  impacted so much that it is no longer accessible by the vCenter server or the ESXi  hosts. This is likely be due to the fact that the VM Home Namespace, where the .vmx  file resides, is no longer online. Common causes are clusters that have had multiple  failures, but the virtual machines have been configured to tolerate only one failure,  or network outages.
+        3. <strong>Check that vCenter and hosts are in sync</strong>: The final check just makes sure vCenter Server (VC) and hosts agree on the state of the cluster.</li>
+<li>Use RVC to check that the cluster is operating within limits with <code>vsan.check_limits</code> <img alt="" src="images/2021-08-30-18-15-53.png" />
+        1. From a network perspective the most important things to check are associations (Assocs) and the the socket count. Associations track peer-to-peer network state within the vSAN and you should not run out (max 45k). Sockts are used for various things. The max is 10,000.</li>
+<li>Check that the cluster has enough resources to tolerate a failure with RVC command <code>vsan.whatif_host_failures</code>
+        1. RC reservations means Read Cache reservations and is only used in hybrid configurations. You can dedicate a certain amount of read cache to a specific VM.
+        2. HDD capacity only refers to the capacity tier.</li>
+</ol>
+</li>
+<li>Check host connectivity<ol>
+<li>Note it may be helpful if you need to identify where a host is plugged in to use LLDP with the RVC command <code>vsan.lldpnetmap localhost/datacenter/computers/vSAN\ Cluster/</code></li>
+<li>Check cluster ping with <code>vmkping -I &lt;vmk_interface&gt; &lt;target_ip&gt;</code></li>
+<li>Check to make sure all hosts are on the same network segment with <code>esxcli network ip neighbor list</code></li>
+<li>Check round trip time with <code>esxcli network diag ping</code></li>
+<li>Check to make sure multicast is working and a host is receiving heartbeats with <code>tcpdump-uw –i &lt;your_vmk&gt; udp port 23451 –v -s0</code></li>
+<li>Each ESXi node in the vSAN cluster will send out IGMP membership reports (aka joins) every 90-300 seconds. Check for receipt with <code>tcpdump-uw -i &lt;yourvmk&gt; igmp</code></li>
+<li>Make sure the following ports are accessible through any firewalls: <img alt="" src="images/2021-08-30-20-57-51.png" /></li>
+</ol>
+</li>
+<li>Use iperf to get a baseline idea of the network bandwidth available. This will cause degredation of performance! Most useful for initial setup. See <a href="https://kb.vmware.com/s/article/2001003#Network">this KB article</a></li>
+<li>You can also use RVC's <code>vsan.vm_perf_stats</code> command to get a feel for the performance. Ex <code>vsan.vm_perf_stats ~/vms/W2k12-SQL2k12 --interval 10 --show-objects</code>. IOPS = (MBps Throughput / KB per IO) * 1024. MBps = (IOPS * KB per IO) / 1024</li>
+<li><strong>NOTE</strong>: <a href="virtual-san-diagnostics-troubleshooting-reference-manual.pdf">Virtual SAN Diagnostics and Troubleshooting Reference Manual</a> covers a lot of other scenarios I didn't here.</li>
+<li>Consider <img alt="" src="images/2021-08-30-21-08-07.png" /></li>
+<li>Kick off vSAN Observer. See <a href="#using-vsan-observer">Using vSAN Observer</a>. Details on using vSAN observer available in <a href="Monitoring-with-VSAN-Observer-v1.2.pdf">this PDF</a>. It is also covered starting on page 197 in <a href="virtual-san-diagnostics-troubleshooting-reference-manual.pdf">Virtual SAN Diagnostics and Troubleshooting Reference Manual</a><ol>
+<li>Check the latency as seen by a guest VM running the application of interest (check on the VMs tab)<ol>
+<li>VM Home - This is where the VM's configuration file, log files, and other VM related small files are stored. The RAID tree subsection shows the different component owners for VM Home.</li>
+<li>Virtual Disk - This shows the different virtual disks attached to the VM. Each disk displas stats specific to that disk. You can drill down to individual virtual disks. The VSCSI layer shows the aggregate latency, IOPS and throughput numbers for a particular virtual disk of a VM.</li>
+</ol>
+</li>
+<li><strong>NOTE</strong>: On the various full graphs you may see <em>RecovWrite</em> - these are the number of writes that are being used for component rebuilds. Note that this metric will be 0 for vSAN clients because they do not have visibility into rebuild I/O - DOM does that. You will also see <em>Write LE</em> - this refers to write log entry. For every write there are actually two I/Os: the actual data and a log entry.</li>
+<li>Check for high outstanding IOPs (vSAN client tab and vSAN disks). On the vSAN disks tab make sure that outstanding IO is well balanced across the hosts. A high outstanding IO may be something like 200. <img alt="" src="images/2021-08-30-22-17-06.png" /></li>
+<li>On the vSAN disks tab look for a high number of evictions. These occur when vSAN has to evict data blocks from the write buffer to make room for new data blocks. In an optimized system, the working data for an application should mostly reside in write cache. We should not see too many evictions. Maybe this workload is not suitable?</li>
+<li>Check for high latencies (time it takes to complete on I/O operation from application viewpoint). (vSAN client tab and vSAN disk tab). Consier that if the latency in the vSAN client tab is much higher than the disk tab than it is more likely the network is the problem.<ol>
+<li>Make sure that what we see on the vSAN client tab correspondings to what is on the vSAN disk tabs</li>
+<li>Common causes of high latency:<ol>
+<li>Large average I/O sizes, which leads to increased latencies</li>
+<li>Large number of writes</li>
+<li>Large number of I/Os</li>
+<li>Slow SSD that isn't keeping up</li>
+<li>Too many random reads causing cache misses in the SSD.</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>Latency formula: outstanding IOs / drive max write or I/O = x ms</li>
+<li>If we kick off a lot of read ops on something we generally expect there to a spike in latency followed by a drop as things are cached (assuming the same thing is being read)</li>
+<li>The standard deviation graph is telling you the frequency you are outside a single standard deviation</li>
+<li>Check bandwidth utilization<ol>
+<li>Lots of small I/Os could cause you to hit I/O ceiling before bandwidth</li>
+<li>Large I/Os may exhaust bandwidth</li>
+</ol>
+</li>
+<li>Check buffer utilization. You can see this on the client and disk tabs. On the deep dive tab you can check RC hit rate for the various hosts. If we are seeing a lot of misse on the read cache this may indicate the cache isn't large enough and we expect to see a spike in hits against our capacity drives. <img alt="" src="images/2021-08-30-22-05-19.png" /></li>
+<li>Check PCPU utilization. It isn't uncommon to see 30-50% utilization when under I/O load. Sustained high CPU utilization could indicate a problem.<ol>
+<li>If you have problems but don't expect them, make sure that if the server has a power management setting that it isn't set to a lower performance setting</li>
+</ol>
+</li>
+<li>Check memory consumption paying specific attention to congestion. <ol>
+<li>The vmkernel log will commonly display this error in the event of a memory shortage:<img alt="" src="images/2021-08-30-08-19-24.png" /></li>
+<li>Or this error when trying to add a disk group: <img alt="" src="images/2021-08-30-08-20-45.png" /></li>
+<li>An error will also be displayed in the GUI: <img alt="" src="images/2021-08-30-08-21-56.png" /></li>
+</ol>
+</li>
+<li>Check distribution of <a href="../Notes%20on%20vSAN/README.md#components">components</a>. The line should be uniform indicating roughly equal distribution of components</li>
+</ol>
+</li>
+<li>Check that the storage controller is supported and running normaly with <code>esxcli storage core device list</code>. Compare to VCG. You can cross reference this with <code>esxcli core storage adapter list</code> and <code>esxcfg-scsidevs -a</code><ol>
+<li>You may see the word <em>degraded</em> - this occurs when there is only a single path to teh device. If there are multiple paths this will not show. This is not an issue for local disk configurations.</li>
+<li>If you see <em>Logical Volume</em> in the model field it implies there is a RAID volume configuration on the disk - probably RAID0. Certain storage controllers can pass disk devices directly to the ESXi host; this is called pass-through mode. You may also see it called JBOD or HBA mode. Other storage controllers require each disk device be configured as a RAID0 volume before ESXi can recognize it. You can check the VCG to determine whether something supports pass through or not: <img alt="" src="images/2021-08-30-08-31-36.png" /></li>
+<li>Double check the VCG! If a controller is supported in RAID0 mode only, it may still work in pass-through mode but the disks will frequently error. </li>
+</ol>
+</li>
+<li>Make sure the storage adapter is supported and the driver is up to date. See <a href="#get-a-list-of-all-pci-devices-allows-you-to-check-for-rebranding">Get a list of all PCI devices</a></li>
+<li>Review <a href="#vcg-check-summary">the VCG check summary</a> and make sure everything is good to go</li>
+<li>If you are having general performace issues with vSAN you can go to a host seeing the issues and check the controller queue depth with <code>esxtop</code>. You can use the D option to see the queue stats. Hit enter to return to the general view and then you can check AQLEN. ESXi requires a depth greater than 256. You can also check it with the command <code>esxcfg-info –s | grep “==+SCSI Interface” –A 1</code></li>
+<li>Disable controller caching. This is the VMWare recommended setting. If you can't disable it try setting the cache to 100% read.</li>
+<li>Make sure all disks that are meant to be claimed by vSAN are with the command <code>esxcli vsan storage list</code>. Make sure in the output that CMMDS is set to true. This implies that the cluster membership and directory services know about the disk in question and that the capacity of the disk is contributing to the capactiy of the vSAN datastore.</li>
+</ol>
+<h2 id="using-vsan-observer">Using vSAN Observer</h2>
+<p>SSH to vCenter and then run <code>rvc administrator@vsphere.lan@localhost</code>
+<code>vsan.observer /localhost/datacenter/computers/vSAN\ Cluster/ --run-webserver --force</code>
+Go to https://vcenter.lan:8010/ (it must be https)</p>
+<p>You can also write the output to a JSON file. If you only have the JSON output you can produce static HTML with the <code>vsan.observer_process_statsfile &lt;stats_file&gt; &lt;output_folder&gt;</code></p>
+<h3 id="running-from-a-remote-machine">Running from a remote machine</h3>
+<p>Install Ruby: https://rubyinstaller.org/downloads/
+Install Ruby vSphere Console: https://rubydoc.info/gems/rvc/1.6.0 <code>gem install rvc</code></p>
+<h3 id="running-vsan-observer-without-internet-access">Running vSAN Observer without Internet Access</h3>
+<p>See page 198 of <a href="virtual-san-diagnostics-troubleshooting-reference-manual.pdf">Virtual SAN Diagnostics and Troubleshooting Reference Manual</a></p>
+<h3 id="vsan-observer-case-studies">vSAN Observer Case Studies</h3>
+<p>Starts on page 262 of <a href="virtual-san-diagnostics-troubleshooting-reference-manual.pdf">Virtual SAN Diagnostics and Troubleshooting Reference Manual</a></p>
+<h2 id="anatomy-of-a-writeread-operation-in-hybrid-config">Anatomy of a Write/Read Operation in Hybrid Config</h2>
+<p><img alt="" src="images/2021-08-30-22-07-14.png" />
+<img alt="" src="images/2021-08-30-22-09-16.png" />
+<img alt="" src="images/2021-08-30-22-09-50.png" />
+For more details see page 245 of <a href="virtual-san-diagnostics-troubleshooting-reference-manual.pdf">Virtual SAN Diagnostics and Troubleshooting Reference Manual</a></p>
+<h2 id="helpful-commands">Helpful Commands</h2>
+<h3 id="networking">Networking</h3>
+<pre><code class="language-bash">esxcli network ip interface list
+esxcli network ip interface ipv4 get
+esxcli network ip neighbor list # view ARP table
+esxcli vsan network list # Determine which vmk interface is used for vSAN
+esxcli network nic list # List the physical interfaces
+
+# This can be run at the cluster level and also gives vmk interface for vSAN
+vsan.cluster_info &lt;vSAN cluster&gt; 
+
+# Use LLDP to obtain upstream switch info
+vsan.lldpnetmap localhost/datacenter/computers/vSAN\ Cluster/
+</code></pre>
+<h3 id="determine-disk-group-assignmnts">Determine Disk Group Assignmnts</h3>
+<p><img alt="" src="images/2021-08-30-21-29-46.png" />
+<img alt="" src="images/2021-08-30-21-30-03.png" />
+<img alt="" src="images/2021-08-30-21-46-48.png" /></p>
+<h3 id="check-failed-disks">Check Failed Disks</h3>
+<p><code>esxcli storage core device stats get</code></p>
+<p><img alt="" src="images/2021-08-30-21-48-02.png" /></p>
+<h3 id="determine-what-drives-are-attached-to-which-storage-adapters">Determine what drives are attached to which storage adapters</h3>
+<h4 id="get-detailed-version">Get Detailed Version</h4>
+<p><code>esxcli storage core path list</code></p>
+<h4 id="simple-list">Simple List</h4>
+<p><code>esxcfg-scsidevs –A</code></p>
+<h4 id="interpreting-the-output">Interpreting the Output</h4>
+<p>NAA stands for Network Addressing Authority identifier. EUI stands for Extended  Unique Identifier. The number is guaranteed to be unique to that LUN. The NAA or  EUI identifier is the preferred method of identifying LUNs and the storage device  generates the number. Since the NAA or EUI is unique to the LUN, if the LUN is  presented the same way across all ESXi hosts, the NAA or EUI identifier remains the  same. Some devices do not provide the NAA number described above. In these  circumstances, an MPX Identifier is generated by ESXi to represent the LUN or disk.  The identifier takes the form similar to that of the canonical name of previous  versions of ESXi with the “mpx.” prefix. This identifier can be used in the exact same  way as the NAA Identifier described above.” Refer to <a href="http://kb.vmware.com/kb/1014953">VMware KB article 1014953</a>  for further information. </p>
+<h3 id="list-scsi-devices-and-their-sizes">List SCSI devices and their sizes</h3>
+<p><code>esxcfg-scsidevs –c</code></p>
+<h3 id="get-a-list-of-all-pci-devices-allows-you-to-check-for-rebranding">Get a list of all PCI devices (allows you to check for rebranding)</h3>
+<p>You an use a combination of the vendor IDs, device IDs, sub-vendor IDs, and sub-device IDs, to verify an adapter is on the VCG. Some vendors rebrand devices to reflect their own range of products however, the vendor and device ids remain the same. It is not uncommon to find that one vendor's controller is not listed under the vendor name in the VCG but is actually listed under another vendor.</p>
+<p><code>esxcli hardware pci list</code></p>
+<h4 id="determine-adapter-driver-and-version">Determine Adapter Driver and Version</h4>
+<p><em>Module Name</em> indicates the driver that is currently in use. You can use the <code>vmkload_mod -s &lt;driver name&gt;</code> or <code>esxcli system module get -m</code> command to determine the driver version. Check that against the VCG; as bugs arise the supported drivers can change. You can also check the adapters with <code>vsan.disks_info localhost/datacenter/computers/vSAN\ Cluster/hosts/vsan1.lan --show-adapters</code> in RVC. </p>
+<h5 id="determine-driver-parameters">Determine Driver Parameters</h5>
+<p><code>vmkload_mod -s &lt;driver name&gt;</code></p>
+<h3 id="get-a-list-of-vibs">Get a list of VIBs</h3>
+<p><code>esxcli software vib list</code></p>
+<p>If someone built using a custom ISO, it is common that they may have upgraded the driver to too high a version and that this version is unsupported.</p>
+<h3 id="check-failures-to-tolerate-and-stripe">Check failures to tolerate and stripe</h3>
+<p><img alt="" src="images/2021-08-30-22-30-32.png" /></p>
+<p>You can see this on a per object level in <code>vsan.object_info</code></p>
+<h3 id="check-what-the-fault-domains-are">Check what the fault domains are</h3>
+<p><code>vsan.cluster_info computers/vSAN\ Cluster/</code></p>
+<h3 id="inspect-a-specific-object-vm-in-vsan">Inspect a Specific Object (VM) in vSAN</h3>
+<p><code>vsan.vm_object_info &lt;target&gt;</code></p>
+<h2 id="understanding-drive-types">Understanding Drive Types</h2>
+<p>Flash devices are placed in classes. Performance classes are measured in writes per second (not sure if this is up to date):</p>
+<p><img alt="" src="images/2021-08-30-09-05-22.png" /></p>
+<p>Endurance is measured in Terabytes Written. Drives are qualified by the number of terabytes they are capable of writing per some time period per the vendor.</p>
+<p><img alt="" src="images/2021-08-30-09-08-06.png" /></p>
+<p><img alt="" src="images/2021-08-30-09-09-13.png" /></p>
+<h2 id="vcg-check-summary">VCG Check Summary</h2>
+<p><img alt="" src="images/2021-08-30-09-13-54.png" /></p>
+<h2 id="absent-vs-degraded-failure">Absent vs Degraded Failure</h2>
+<p><img alt="" src="images/2021-08-30-09-24-56.png" />
+<img alt="" src="images/2021-08-30-09-26-15.png" /></p>
+<h2 id="object-compliance-status-compliant-vs-non-compliant">Object Compliance Status: Compliant vs Non Compliant</h2>
+<p><img alt="" src="images/2021-08-30-09-27-28.png" /></p>
+<h2 id="object-operational-state-healthy-vs-unhealthy">Object Operational State: Healthy vs Unhealthy</h2>
+<p><img alt="" src="images/2021-08-30-09-28-25.png" /></p>
+<h2 id="vm-accessibility-inaccessible-vs-orphaned">VM Accessibility: Inaccessible vs Orphaned</h2>
+<p><img alt="" src="images/2021-08-30-09-31-12.png" />
+<img alt="" src="images/2021-08-30-09-33-30.png" /></p>
+<h2 id="todo">TODO</h2>
+<ul>
+<li>Review P141 - Verifying Virtual SAN storage operation - RVC in <a href="virtual-san-diagnostics-troubleshooting-reference-manual.pdf">Virtual SAN Diagnostics and Troubleshooting Reference Manual</a></li>
+<li>Review P152 - Testing vSAN functionality - deploying VMs in <a href="virtual-san-diagnostics-troubleshooting-reference-manual.pdf">Virtual SAN Diagnostics and Troubleshooting Reference Manual</a></li>
+<li>P156 of <a href="virtual-san-diagnostics-troubleshooting-reference-manual.pdf">Virtual SAN Diagnostics and Troubleshooting Reference Manual</a></li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../Setup%20VXRail/" class="btn btn-neutral float-left" title="VxRail Setup"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../VMWare%20APIs/" class="btn btn-neutral float-right" title="VMWare APIs">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../Setup%20VXRail/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../VMWare%20APIs/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

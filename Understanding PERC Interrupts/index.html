@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Grant Curell" /><link rel="canonical" href="https://grantcurell.github.io/Understanding%20PERC%20Interrupts/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Understanding PERC Interrupts - Grant Curell's Dell Projects</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Understanding PERC Interrupts";
+        var mkdocs_page_input_path = "Understanding PERC Interrupts/README.md";
+        var mkdocs_page_url = "/Understanding%20PERC%20Interrupts/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Grant Curell's Dell Projects
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Grant Curell's Dell Projects</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Create%20Kickstart%20Server%20on%20Fedora/">Create Kickstart Server on Fedora</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Create%20OpenSwitch%20VM/">Create OpenSwitch VM</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Dell%20Ansible%20Testing/">Dell Ansible Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../DHCP%20Relay%20on%20SONiC/">DHCP Relay on SONiC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Elasticsearch%20Display%20Map%20Data/">Elasticsearch Display Map Data</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Elasticsearch%20Load%20Testing/">Elasticsearch Load Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../esrally%20%28INCOMPLETE%29/">esrally (INCOMPLETE)</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Estimating%20Compute%20Requirements%20for%20Machine%20Learning/">Estimating Compute Requirements for Machine Learning</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Finding%20Rare%20Logs%20with%20DBSCAN/">Finding Rare Logs with DBSCAN</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Get%20NVMe%20Drives%20from%20iDRAC%20Redfish/">Get NVMe Drives from iDRAC Redfish</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../High%20Speed%20Packet%20Capture/">High Speed Packet Capture</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20Bitcoin-Blockchain%20Works%20-%20Notes/">How Bitcoin-Blockchain Works - Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20OS10%20Installer%20Works/">How OS10 Installer Works</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20to%20ONIE%20Install%20and%20ZTP%20Config%20Dell%20SONiC/">How to ONIE Install and ZTP Config Dell SONiC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20to%20Read%20lstopo%20and%20a%20PCIe%20Overview/">How to Read lstopo and a PCIe Overview</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../idrac%20with%20LDAP/">idrac with LDAP</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Importing%20Elasticsearch%20Data/">Importing Elasticsearch Data</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Installing%20DPDK%20with%20NapaTech%20Card/">Installing DPDK with NapaTech Card</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../IO%20Identities%20with%20LifeCycle%20Controller/">IO Identities with LifeCycle Controller</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../LDAP%20with%20OpenManage/">LDAP with OpenManage</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../LLMs%20Explained/">LLMs Explained</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balance%20Testing%20on%204112F-ON/OpenSwitch%20%28OPX%29/">Load Balancing with LAG OPX</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balance%20Testing%20on%204112F-ON/OS10/">Load Balance Testing on 4112F-ON w/OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balance%20Testing%20with%20OpenVSwitch/">Load Balance Testing with OpenVSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balancing%20on%20Mellanox%20Switches/">Load Balancing on Mellanox Switches</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balancing%20with%20LAG%20on%205112F-ON/">Load Balancing with LAG on 5112F-ON</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Migrating%20Storage%20Volumes%20to%20PowerStore/">Migrating Storage Volumes to PowerStore</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Mulitple%20Span%20on%204112F-ON%20with%20OpenSwitch/">Mulitple Span on 4112F-ON with OpenSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Multiple%20Span%20on%204112F-ON%20with%20OS10/">Multiple Span on 4112F-ON with OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20AMD%20Processor/">Notes on AMD Processor</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20Building%20a%20Datacenter%20from%20Scratch/">Notes on Building a Datacenter from Scratch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20HPC/">Notes on HPC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20Improving%20Drive%20Performance/">Notes on Improving Drive Performance</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20mdraid%20Performance%20Testing/">Notes on mdraid Performance Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20nodejs/">Notes on nodejs</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20NVMe%20Log%20Pages/">Notes on NVMe Log Pages</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20PCIe/">Notes on PCIe</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Nvidia%20GPUDirect/">Nvidia GPUDirect</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Nvidia%20GRID%20Notes/">Nvidia GRID Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../NVMe%20Performance%20Testing/">NVMe Performance Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Offline%20Updates%20with%20OpenManage%20Enterprise/">Offline Updates with OpenManage Enterprise</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Make%20USB%20Read%20Only/">Make USB Read Only</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20HSM/">Notes on HSM</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OME%20Bug/">OME Bug</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OME%20Integration%20for%20VMWare/">OME Integration for VMWare</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OpenFlow%20on%204112F-ON/">OpenFlow on 4112F-ON</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OS10%20Password%20Recovery%20Bug/">OS10 Password Recovery Bug</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PCIev3%20vs%20v4/">PCIev3 vs v4</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Playing%20with%20virsh/">Playing with virsh</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PowerScale%20-%20Configure%20with%20Kubernetes/">PowerScale - Configure with Kubernetes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PowerScale%20Failed%20Authentication/">PowerScale Failed Authentication</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PowerScale%20Setup/">PowerScale Setup</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Reset%20OS10%20Admin%20Password/">Reset OS10 Admin Password</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Run%20VPN%20on%20OS10/">Run VPN on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Running%20DNS%20from%20OS10/">Running DNS from OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Set%20Up%20RSPAN%20on%20OS10/">Set Up RSPAN on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setting%20Up%20Breakout%20Cables/">Setting Up Breakout Cables</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setting%20Up%20iDRAC%20Telemetry%20with%20Splunk/">Setting Up iDRAC Telemetry with Splunk</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setting%20Up%20SmartFabric%20Director/">Setting Up SmartFabric Director</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setup%20IDPA/">Setup IDPA</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Site%20to%20Site%20VPN%20with%20PFSense%20and%20CentOS%208/">Site to Site VPN with PFSense and CentOS 8</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../SONiC%20-%20Sample%20Datacenter%20Automation%20Architecture/">SONiC - Sample Datacenter Automation Architecture</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Switch%20Directly%20to%20Client%20Test/">Switch Directly to Client Test</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Testing%20Bare%20Metal%20Orchestrator/">Testing Bare Metal Orchestrator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Testing%20Intel%20x520%20on%20RHEL%206/">Testing Intel x520 on RHEL 6</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Understanding%20Memory/">Understanding Memory</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Understanding PERC Interrupts</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#hardware">Hardware</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#how-affinity-works">How Affinity Works</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#initial-state">Initial State</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#testing">Testing</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#understanding-interrupts">Understanding Interrupts</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#how-interrupts-are-structured">How Interrupts Are Structured</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#understanding-the-interrupt-table">Understanding the Interrupt Table</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#what-is-a-trigger-mode-and-what-does-edge-triggered-mean">What is a Trigger Mode and What Does Edge Triggered Mean?</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#what-is-an-msi-x-vector">What is an MSI-X Vector?</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#reverse-engineering-the-lsi-driver">Reverse Engineering the LSI Driver</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#reverse-engineering-the-mpi-driver">Reverse Engineering the MPI Driver</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#helpful-commands">Helpful Commands</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#view-all-interrupts">View all Interrupts</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#investigating-hardware-noise">Investigating Hardware Noise</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Use%20OS10%20as%20Aggregator/">Use OS10 as Aggregator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Using%20FIO/">Using FIO</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Using%20the%20iDRAC%20Service%20Module/">Using the iDRAC Service Module</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VEP%20Testing/">VEP Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Automate%20ESXi%20Installation/">Automating ESXi Installation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/ESXi%20Architecture/">VMWare Architecture Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Setup%20VXRail/">VxRail Setup</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Troubleshooting%20vSAN/">Troubleshooting vSAN</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/VMWare%20APIs/">VMWare APIs</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/VxRail%20Architecture%20and%20Troubleshooting/">VxRail Architecture and Troubleshooting</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Web%20Traffic%20Generator/">Web Traffic Generator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Writing%20udev%20Rules%20for%20Dell%20PERC%20H755/">Writing udev Rules for Dell PERC H755</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Adding%20Hashing%20to%20OpenSwitch/">Adding Hashing to OpenSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Adding%20Intel%20I219-LM%20%288086.0d4c%29%20Driver%20to%20ESXi/">Adding Intel I219-LM (8086.0d4c) Driver to ESXi</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Automatically%20Provision%20Dell%20Servers/">Automatically Provision Dell Servers</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Automating%20OME%20Hardware%20Reports/">Automating OME Hardware Reports</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Backup%20OS10%20Config%20with%20Ansible/">Backup OS10 Config with Ansible</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../CloudLink/">CloudLink</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Common%20Questions%20About%20LLMs%20Answered/">Common Questions About LLMs Answered</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20FN410%20as%20a%20Switch/">Configure FN410 as a Switch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20Gigamon%20Tap/">Configure Gigamon Tap</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configuring%20VLT%20on%20OS10/">Configuring VLT on OS10</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Grant Curell's Dell Projects</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Understanding PERC Interrupts</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="understanding-perc-interrupts">Understanding PERC Interrupts</h1>
+<ul>
+<li><a href="#testing-perc-interrupts">Testing PERC Interrupts</a><ul>
+<li><a href="#hardware">Hardware</a></li>
+<li><a href="#how-affinity-works">How Affinity Works</a></li>
+<li><a href="#initial-state">Initial State</a></li>
+<li><a href="#testing">Testing</a></li>
+<li><a href="#understanding-interrupts">Understanding Interrupts</a></li>
+<li><a href="#how-interrupts-are-structured">How Interrupts Are Structured</a><ul>
+<li><a href="#understanding-the-interrupt-table">Understanding the Interrupt Table</a></li>
+<li><a href="#what-is-a-trigger-mode-and-what-does-edge-triggered-mean">What is a Trigger Mode and What Does Edge Triggered Mean?</a></li>
+<li><a href="#what-is-an-msi-x-vector">What is an MSI-X Vector?</a></li>
+</ul>
+</li>
+<li><a href="#reverse-engineering-the-lsi-driver">Reverse Engineering the LSI Driver</a></li>
+<li><a href="#reverse-engineering-the-mpi-driver">Reverse Engineering the MPI Driver</a></li>
+<li><a href="#helpful-commands">Helpful Commands</a><ul>
+<li><a href="#view-all-interrupts">View all Interrupts</a></li>
+</ul>
+</li>
+<li><a href="#investigating-hardware-noise">Investigating Hardware Noise</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="hardware">Hardware</h2>
+<p>I used a Dell R7525 (Rome) for testing.</p>
+<h2 id="how-affinity-works">How Affinity Works</h2>
+<p>Here is the provided text converted to Markdown:</p>
+<ol>
+<li>Driver loads.</li>
+<li>When the driver loads, it checks the affinity flags and gets the current value as seen in proc. </li>
+<li>The value is defined by PCI_IRQ_AFFINITY (see <a href="https://www.kernel.org/doc/Documentation/PCI/MSI-HOWTO.txt">PCI_IRQ_AFFINITY documentation</a>).</li>
+<li>In the code, that's <code>irq_flags |= PCI_IRQ_AFFINITY | PCI_IRQ_ALL_TYPES;</code></li>
+<li>The driver then checks how many MSI-X vectors the device can support (a property of the PCIe device itself, and the value is stored in PCIe config space).</li>
+<li>Driver calls <code>pci_alloc_irq_vectors_affinity</code> with <code>retval = pci_alloc_irq_vectors_affinity(mrioc-&gt;pdev, min_vec, max_vectors, irq_flags, &amp;desc)</code>. See <a href="https://archive.kernel.org/oldlinux/htmldocs/kernel-api/API-pci-alloc-irq-vectors-affinity.html">pci_alloc_irq_vectors_affinity documentation</a>.</li>
+<li>Based on that call, when the MSI-X vectors get set up, the OS then knows whether to apply affinity rules to them.</li>
+<li>The OS owns it from there and does the actual allocating of cores.</li>
+</ol>
+<h2 id="initial-state">Initial State</h2>
+<p>This was what was present when I logged into the system. I had been doing testing with FIO and interrupt <code>megasas12-msix120: 18429</code> had the following:</p>
+<table>
+<thead>
+<tr>
+<th>IRQ</th>
+<th>CPU0</th>
+<th>CPU1</th>
+<th>CPU2</th>
+<th>CPU3</th>
+<th>...</th>
+<th>Device</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>379</td>
+<td>16101</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>...</td>
+<td>IR-PCI-MSI 101187704-edge</td>
+</tr>
+</tbody>
+</table>
+<p>I also went ahead and checked the CPU affinity:</p>
+<pre><code class="language-bash">cat /sys/module/megaraid_sas/parameters/smp_affinity_enable
+1
+</code></pre>
+<p>Check performance mode:</p>
+<pre><code class="language-bash">[grant@r7525 ~]$ cat /sys/module/megaraid_sas/parameters/perf_mode
+-1
+</code></pre>
+<p>As explained in <a href="#reverse-engineering-the-lsi-driver">the reverse engineering section</a> the -1 corresponds to the mode being ignored.</p>
+<p>Make sure that affinity is enabled for the system as a whole:</p>
+<pre><code class="language-bash">cat /proc/irq/default_smp_affinity
+ffffffff,ffffffff,ffffffff,ffffffff
+</code></pre>
+<p>Check CPU affinity for observed interrupts?</p>
+<pre><code class="language-bash">cat /proc/irq/379/affinity_hint
+00000000,00000000,00000000,00000000
+</code></pre>
+<h2 id="testing">Testing</h2>
+<p>I used <a href="../Using%20FIO/fio_test.py">this script I have previously written</a> with:</p>
+<pre><code class="language-bash">sudo python3 fio_test.py -s 1TB /dev/sda
+</code></pre>
+<p>Interrupts increased as expected:</p>
+<pre><code class="language-bash">awk '/megasas/ { printf &quot;%s: %s\n&quot;, $NF, $2 }' /proc/interrupts
+...SNIP...
+</code></pre>
+<h2 id="understanding-interrupts">Understanding Interrupts</h2>
+<p>I wanted to know more about how the driver functioned so I pulled up my model:</p>
+<pre><code class="language-bash">[grant@r7525 ~]$ lspci | grep -i raid
+01:00.0 RAID bus controller: Broadcom / LSI MegaRAID 12GSAS/PCIe Secure SAS39xx
+</code></pre>
+<p>which is listed on <a href="https://linux-hardware.org/?id=pci:1000-10e2-1028-2176">the Linux Hardware Page</a></p>
+<h2 id="how-interrupts-are-structured">How Interrupts Are Structured</h2>
+<h3 id="understanding-the-interrupt-table">Understanding the Interrupt Table</h3>
+<p><code>megasas12-msix120</code> in <code>/proc/interrupts</code> is likely an MSI-X (Message Signaled Interrupts Extended) vector used by the MegaRAID SAS driver for a specific RAID controller function. In the Linux kernel, drivers for devices like RAID controllers map their interrupt handling routines to MSI-X vectors. Each vector represents a specific interrupt line that the hardware can trigger. The driver, upon receiving an interrupt on this vector, executes the corresponding interrupt service routine. The naming convention (<code>megasas12-msix120</code>) typically includes the driver name (<code>megasas</code>) and a unique identifier for the interrupt vector (<code>msix120</code>), which helps in identifying the source of the interrupt.</p>
+<h3 id="what-is-a-trigger-mode-and-what-does-edge-triggered-mean">What is a Trigger Mode and What Does Edge Triggered Mean?</h3>
+<p>In computing, a trigger mode for an interrupt signals how the processor identifies the presence of an interrupt. "Edge-triggered" means the interrupt is triggered by a change of state or an edge of a signal – specifically, the transition from low voltage to high (rising edge) or high voltage to low (falling edge). Edge-triggered interrupts are activated once per edge event, making them suitable for devices that need to signal a change of state rather than a continuous condition.</p>
+<h3 id="what-is-an-msi-x-vector">What is an MSI-X Vector?</h3>
+<p>An MSI-X (Message Signaled Interrupts Extended) vector is a mechanism used in modern computer systems to improve interrupt handling efficiency. It is an extension of MSI, which stands for Message Signaled Interrupts. Both MSI and MSI-X are techniques used to manage interrupts in a more scalable and efficient way compared to traditional interrupt mechanisms like IRQs (Interrupt Request Lines).</p>
+<p>In the context of MSI-X:</p>
+<ol>
+<li>
+<p><strong>Message Signaled Interrupts (MSI)</strong>: MSI allows devices to send interrupt signals directly to the CPU(s) without going through a specific interrupt controller chip. Each interrupt is associated with a unique data message and a target CPU or set of CPUs. This reduces interrupt handling overhead and can lead to better performance in multi-core/multi-processor systems.</p>
+</li>
+<li>
+<p><strong>Message Signaled Interrupts Extended (MSI-X)</strong>: MSI-X is an extension of MSI that provides more flexibility and scalability. It allows a device to have multiple interrupt vectors (or "vectors") associated with it, each pointing to a different interrupt handler. This means that a single device can generate multiple interrupts, each with its own associated handler, which can improve the handling of diverse events or multiple queues in devices like network cards, storage controllers, and more.</p>
+</li>
+</ol>
+<h2 id="reverse-engineering-the-lsi-driver">Reverse Engineering the LSI Driver</h2>
+<p>The driver itself is available on <a href="https://github.com/torvalds/linux/tree/master/drivers/scsi/megaraid">the official Linux GitHub page</a></p>
+<ul>
+<li>We can see the irq vectors are registered in <a href="MegaRAID%20Driver/megaraid_sas_base.c">megaraid_sas_base.c</a> with <a href="MegaRAID%20Driver/megaraid_sas_base.c#L5945">megasas_alloc_irq_vectors(struct megasas_instance *instance)</a></li>
+</ul>
+<pre><code class="language-c">/**
+ * megasas_alloc_irq_vectors -  Allocate IRQ vectors/enable MSI-x vectors
+ * @instance:           Adapter soft state
+ * return:          void
+ */
+static void
+megasas_alloc_irq_vectors(struct megasas_instance *instance)
+{
+    int i;
+    unsigned int num_msix_req;
+
+    instance-&gt;iopoll_q_count = 0;
+    if ((instance-&gt;adapter_type != MFI_SERIES) &amp;&amp;
+        poll_queues) {
+
+        instance-&gt;perf_mode = MR_LATENCY_PERF_MODE;
+        instance-&gt;low_latency_index_start = 1;
+
+        /* reserve for default and non-mananged pre-vector. */
+        if (instance-&gt;msix_vectors &gt; (poll_queues + 2))
+            instance-&gt;iopoll_q_count = poll_queues;
+        else
+            instance-&gt;iopoll_q_count = 0;
+
+        num_msix_req = num_online_cpus() + instance-&gt;low_latency_index_start;
+        instance-&gt;msix_vectors = min(num_msix_req,
+                instance-&gt;msix_vectors);
+
+    }
+
+    i = __megasas_alloc_irq_vectors(instance);
+
+    if (((instance-&gt;perf_mode == MR_BALANCED_PERF_MODE)
+        || instance-&gt;iopoll_q_count) &amp;&amp;
+        (i != (instance-&gt;msix_vectors - instance-&gt;iopoll_q_count))) {
+        if (instance-&gt;msix_vectors)
+            pci_free_irq_vectors(instance-&gt;pdev);
+        /* Disable Balanced IOPS mode and try realloc vectors */
+        instance-&gt;perf_mode = MR_LATENCY_PERF_MODE;
+        instance-&gt;low_latency_index_start = 1;
+        num_msix_req = num_online_cpus() + instance-&gt;low_latency_index_start;
+
+        instance-&gt;msix_vectors = min(num_msix_req,
+                instance-&gt;msix_vectors);
+
+        instance-&gt;iopoll_q_count = 0;
+        i = __megasas_alloc_irq_vectors(instance);
+
+    }
+
+    dev_info(&amp;instance-&gt;pdev-&gt;dev,
+        &quot;requested/available msix %d/%d poll_queue %d\n&quot;,
+            instance-&gt;msix_vectors - instance-&gt;iopoll_q_count,
+            i, instance-&gt;iopoll_q_count);
+
+    if (i &gt; 0)
+        instance-&gt;msix_vectors = i;
+    else
+        instance-&gt;msix_vectors = 0;
+
+    if (instance-&gt;smp_affinity_enable)
+        megasas_set_high_iops_queue_affinity_and_hint(instance);
+}
+</code></pre>
+<ul>
+<li>Of particular note here are <code>MR_BALANCED_PERF_MODE</code> AND <code>MR_LATENCY_PERF_MODE</code>. It seems these are associated with Aero adapters per the below comment. Moreover the value must be between 0-2 for it to do anything other wise it is ignored.</li>
+</ul>
+<blockquote>
+<p>"Performance mode (only for Aero adapters), options:
+    0 - balanced: High iops and low latency queues are allocated &amp;
+    interrupt coalescing is enabled only on high iops queues
+    1 - iops: High iops queues are not allocated &amp;
+    interrupt coalescing is enabled on all queues
+    2 - latency: High iops queues are not allocated &amp;
+    interrupt coalescing is disabled on all queues
+    default mode is 'balanced'"</p>
+</blockquote>
+<pre><code class="language-c">/*
+    * Performance mode settings provided through module parameter-perf_mode will
+    * take affect only for:
+    * 1. Aero family of adapters.
+    * 2. When user sets module parameter- perf_mode in range of 0-2.
+    */
+if ((perf_mode &gt;= MR_BALANCED_PERF_MODE) &amp;&amp;
+    (perf_mode &lt;= MR_LATENCY_PERF_MODE))
+    instance-&gt;perf_mode = perf_mode;
+</code></pre>
+<ul>
+<li>You can check your device model by inspecting the output from <code>lspci -nn | grep RAID</code> and then checking it against <a href="MegaRAID%20Driver/megaraid_sas.h#L34">the device IDs</a>. You can see from the output below I have <code>[1000:10e2]</code> which corresponds to <code>PCI_DEVICE_ID_LSI_AERO_10E2</code> so I do have an aero-type RAID controller and could change the performance modes if I wanted to.</li>
+</ul>
+<pre><code class="language-bash">[grant@r7525 ~]$ lspci -nn | grep RAID
+01:00.0 RAID bus controller [0104]: Broadcom / LSI MegaRAID 12GSAS/PCIe Secure SAS39xx [1000:10e2]
+</code></pre>
+<pre><code class="language-c">/*
+ * Device IDs
+ */
+#define PCI_DEVICE_ID_LSI_SAS1078R      0x0060
+#define PCI_DEVICE_ID_LSI_SAS1078DE     0x007C
+#define PCI_DEVICE_ID_LSI_VERDE_ZCR     0x0413
+#define PCI_DEVICE_ID_LSI_SAS1078GEN2       0x0078
+#define PCI_DEVICE_ID_LSI_SAS0079GEN2       0x0079
+#define PCI_DEVICE_ID_LSI_SAS0073SKINNY     0x0073
+#define PCI_DEVICE_ID_LSI_SAS0071SKINNY     0x0071
+#define PCI_DEVICE_ID_LSI_FUSION        0x005b
+#define PCI_DEVICE_ID_LSI_PLASMA        0x002f
+#define PCI_DEVICE_ID_LSI_INVADER       0x005d
+#define PCI_DEVICE_ID_LSI_FURY          0x005f
+#define PCI_DEVICE_ID_LSI_INTRUDER      0x00ce
+#define PCI_DEVICE_ID_LSI_INTRUDER_24       0x00cf
+#define PCI_DEVICE_ID_LSI_CUTLASS_52        0x0052
+#define PCI_DEVICE_ID_LSI_CUTLASS_53        0x0053
+#define PCI_DEVICE_ID_LSI_VENTURA           0x0014
+#define PCI_DEVICE_ID_LSI_CRUSADER          0x0015
+#define PCI_DEVICE_ID_LSI_HARPOON           0x0016
+#define PCI_DEVICE_ID_LSI_TOMCAT            0x0017
+#define PCI_DEVICE_ID_LSI_VENTURA_4PORT     0x001B
+#define PCI_DEVICE_ID_LSI_CRUSADER_4PORT    0x001C
+#define PCI_DEVICE_ID_LSI_AERO_10E1     0x10e1
+#define PCI_DEVICE_ID_LSI_AERO_10E2     0x10e2
+#define PCI_DEVICE_ID_LSI_AERO_10E5     0x10e5
+#define PCI_DEVICE_ID_LSI_AERO_10E6     0x10e6
+#define PCI_DEVICE_ID_LSI_AERO_10E0     0x10e0
+#define PCI_DEVICE_ID_LSI_AERO_10E3     0x10e3
+#define PCI_DEVICE_ID_LSI_AERO_10E4     0x10e4
+#define PCI_DEVICE_ID_LSI_AERO_10E7     0x10e7
+
+/*
+ * Intel HBA SSDIDs
+ */
+#define MEGARAID_INTEL_RS3DC080_SSDID       0x9360
+#define MEGARAID_INTEL_RS3DC040_SSDID       0x9362
+#define MEGARAID_INTEL_RS3SC008_SSDID       0x9380
+#define MEGARAID_INTEL_RS3MC044_SSDID       0x9381
+#define MEGARAID_INTEL_RS3WC080_SSDID       0x9341
+#define MEGARAID_INTEL_RS3WC040_SSDID       0x9343
+#define MEGARAID_INTEL_RMS3BC160_SSDID      0x352B
+
+/*
+ * Intruder HBA SSDIDs
+ */
+#define MEGARAID_INTRUDER_SSDID1        0x9371
+#define MEGARAID_INTRUDER_SSDID2        0x9390
+#define MEGARAID_INTRUDER_SSDID3        0x9370
+</code></pre>
+<ul>
+<li>We see that CPU affinity is handled in the function <a href="MegaRAID%20Driver/megaraid_sas_base.c#L5916">__megasas_alloc_irq_vectors</a>. Specifically there appears to be a flag as part of the PERC instance which defines whether SMP (symmetric multi-processing) affinity is enabled <code>if (instance-&gt;smp_affinity_enable)</code>. You can check this with <code>cat /sys/module/megaraid_sas/parameters/smp_affinity_enable</code></li>
+</ul>
+<pre><code class="language-c">static int
+__megasas_alloc_irq_vectors(struct megasas_instance *instance)
+{
+    int i, irq_flags;
+    struct irq_affinity desc = { .pre_vectors = instance-&gt;low_latency_index_start };
+    struct irq_affinity *descp = &amp;desc;
+
+    irq_flags = PCI_IRQ_MSIX;
+
+    if (instance-&gt;smp_affinity_enable)
+        irq_flags |= PCI_IRQ_AFFINITY | PCI_IRQ_ALL_TYPES;
+    else
+        descp = NULL;
+
+    /* Do not allocate msix vectors for poll_queues.
+     * msix_vectors is always within a range of FW supported reply queue.
+     */
+    i = pci_alloc_irq_vectors_affinity(instance-&gt;pdev,
+        instance-&gt;low_latency_index_start,
+        instance-&gt;msix_vectors - instance-&gt;iopoll_q_count, irq_flags, descp);
+
+    return i;
+}
+</code></pre>
+<ul>
+<li>The variable is defined in <a href="MegaRAID%20Driver/megaraid_sas.h#L2334">megaraid_sas.h</a> and we can see that by default it is enabled <a href="MegaRAID%20Driver/megaraid_sas_base.c#L81"><code>static int smp_affinity_enable = 1;</code></a>.</li>
+<li>We can also conclude from this that the number of vectors is variable and in some way based on the machine's available count of MSI-X vectors as defined by <a href="MegaRAID%20Driver/megaraid_sas_base.c#L66"><code>MODULE_PARM_DESC(msix_vectors, "MSI-X max vector count. Default: Set by FW");</code></a>:</li>
+<li>We can see the handlers themselves are registered in <a href="MegaRAID%20Driver/megaraid_sas_base.c#L5671"><code>megasas_setup_irqs_ioapic</code></a> and <a href="MegaRAID%20Driver/megaraid_sas_base.c#L5703"><code>megasas_setup_irqs_msix</code></a></li>
+</ul>
+<pre><code class="language-c">/*
+ * megasas_setup_irqs_ioapic -      register legacy interrupts.
+ * @instance:               Adapter soft state
+ *
+ * Do not enable interrupt, only setup ISRs.
+ *
+ * Return 0 on success.
+ */
+static int
+megasas_setup_irqs_ioapic(struct megasas_instance *instance)
+{
+    struct pci_dev *pdev;
+
+    pdev = instance-&gt;pdev;
+    instance-&gt;irq_context[0].instance = instance;
+    instance-&gt;irq_context[0].MSIxIndex = 0;
+    snprintf(instance-&gt;irq_context-&gt;name, MEGASAS_MSIX_NAME_LEN, &quot;%s%u&quot;,
+        &quot;megasas&quot;, instance-&gt;host-&gt;host_no);
+    if (request_irq(pci_irq_vector(pdev, 0),
+            instance-&gt;instancet-&gt;service_isr, IRQF_SHARED,
+            instance-&gt;irq_context-&gt;name, &amp;instance-&gt;irq_context[0])) {
+        dev_err(&amp;instance-&gt;pdev-&gt;dev,
+                &quot;Failed to register IRQ from %s %d\n&quot;,
+                __func__, __LINE__);
+        return -1;
+    }
+    instance-&gt;perf_mode = MR_LATENCY_PERF_MODE;
+    instance-&gt;low_latency_index_start = 0;
+    return 0;
+}
+
+/**
+ * megasas_setup_irqs_msix -        register MSI-x interrupts.
+ * @instance:               Adapter soft state
+ * @is_probe:               Driver probe check
+ *
+ * Do not enable interrupt, only setup ISRs.
+ *
+ * Return 0 on success.
+ */
+static int
+megasas_setup_irqs_msix(struct megasas_instance *instance, u8 is_probe)
+{
+    int i, j;
+    struct pci_dev *pdev;
+
+    pdev = instance-&gt;pdev;
+
+    /* Try MSI-x */
+    for (i = 0; i &lt; instance-&gt;msix_vectors; i++) {
+        instance-&gt;irq_context[i].instance = instance;
+        instance-&gt;irq_context[i].MSIxIndex = i;
+        snprintf(instance-&gt;irq_context[i].name, MEGASAS_MSIX_NAME_LEN, &quot;%s%u-msix%u&quot;,
+            &quot;megasas&quot;, instance-&gt;host-&gt;host_no, i);
+        if (request_irq(pci_irq_vector(pdev, i),
+            instance-&gt;instancet-&gt;service_isr, 0, instance-&gt;irq_context[i].name,
+            &amp;instance-&gt;irq_context[i])) {
+            dev_err(&amp;instance-&gt;pdev-&gt;dev,
+                &quot;Failed to register IRQ for vector %d.\n&quot;, i);
+            for (j = 0; j &lt; i; j++) {
+                if (j &lt; instance-&gt;low_latency_index_start)
+                    irq_update_affinity_hint(
+                        pci_irq_vector(pdev, j), NULL);
+                free_irq(pci_irq_vector(pdev, j),
+                     &amp;instance-&gt;irq_context[j]);
+            }
+            /* Retry irq register for IO_APIC*/
+            instance-&gt;msix_vectors = 0;
+            instance-&gt;msix_load_balance = false;
+            if (is_probe) {
+                pci_free_irq_vectors(instance-&gt;pdev);
+                return megasas_setup_irqs_ioapic(instance);
+            } else {
+                return -1;
+            }
+        }
+    }
+
+    return 0;
+}
+</code></pre>
+<ul>
+<li>From this we can see that the interrupt handler is defined as <code>service_isr</code>. This in turn corresponds to <code>megasas_isr</code>. There are different structs for different megasas devices but they all use the same interrupt handler.</li>
+</ul>
+<pre><code class="language-c">static struct megasas_instance_template megasas_instance_template_xscale = {
+
+    .fire_cmd = megasas_fire_cmd_xscale,
+    .enable_intr = megasas_enable_intr_xscale,
+    .disable_intr = megasas_disable_intr_xscale,
+    .clear_intr = megasas_clear_intr_xscale,
+    .read_fw_status_reg = megasas_read_fw_status_reg_xscale,
+    .adp_reset = megasas_adp_reset_xscale,
+    .check_reset = megasas_check_reset_xscale,
+    .service_isr = megasas_isr,
+    .tasklet = megasas_complete_cmd_dpc,
+    .init_adapter = megasas_init_adapter_mfi,
+    .build_and_issue_cmd = megasas_build_and_issue_cmd,
+    .issue_dcmd = megasas_issue_dcmd,
+};
+</code></pre>
+<ul>
+<li>This takes us to the actual interrupt handler entry point <a href="MegaRAID%20Driver/megaraid_sas_base.c#L4085"><code>megasas_isr</code></a>. We can see that the function checks to make sure that a firmware reset isn't in progress and if it isn't then it acquires a spinlock and runs the function <code>megasas_deplete_reply_queue</code>.</li>
+</ul>
+<pre><code class="language-c">/**
+ * megasas_isr - isr entry point
+ * @irq:    IRQ number
+ * @devp:   IRQ context address
+ */
+static irqreturn_t megasas_isr(int irq, void *devp)
+{
+    struct megasas_irq_context *irq_context = devp;
+    struct megasas_instance *instance = irq_context-&gt;instance;
+    unsigned long flags;
+    irqreturn_t rc;
+
+    if (atomic_read(&amp;instance-&gt;fw_reset_no_pci_access))
+        return IRQ_HANDLED;
+
+    spin_lock_irqsave(&amp;instance-&gt;hba_lock, flags);
+    rc = megasas_deplete_reply_queue(instance, DID_OK);
+    spin_unlock_irqrestore(&amp;instance-&gt;hba_lock, flags);
+
+    return rc;
+}
+</code></pre>
+<ul>
+<li><a href="MegaRAID%20Driver/megaraid_sas_base.c#L4014"><code>megasas_deplete_reply_queue</code></a> is defined below. It processes completed commands from the RAID controller. The function first checks for a reset condition and then clears any pending interrupts. If certain conditions are met, such as a firmware state change or a fault state, it handles these scenarios appropriately, which might include logging the state, managing internal data structures, or scheduling further tasks. The use of tasklet_schedule suggests it defers some processing to a tasklet, a type of bottom half handler in the Linux kernel, for handling tasks that don't need to be processed immediately in the interrupt context.</li>
+</ul>
+<pre><code class="language-c">/**
+ * megasas_deplete_reply_queue -    Processes all completed commands
+ * @instance:               Adapter soft state
+ * @alt_status:             Alternate status to be returned to
+ *                  SCSI mid-layer instead of the status
+ *                  returned by the FW
+ * Note: this must be called with hba lock held
+ */
+static int
+megasas_deplete_reply_queue(struct megasas_instance *instance,
+                    u8 alt_status)
+{
+    u32 mfiStatus;
+    u32 fw_state;
+
+    if (instance-&gt;instancet-&gt;check_reset(instance, instance-&gt;reg_set) == 1)
+        return IRQ_HANDLED;
+
+    mfiStatus = instance-&gt;instancet-&gt;clear_intr(instance);
+    if (mfiStatus == 0) {
+        /* Hardware may not set outbound_intr_status in MSI-X mode */
+        if (!instance-&gt;msix_vectors)
+            return IRQ_NONE;
+    }
+
+    instance-&gt;mfiStatus = mfiStatus;
+
+    if ((mfiStatus &amp; MFI_INTR_FLAG_FIRMWARE_STATE_CHANGE)) {
+        fw_state = instance-&gt;instancet-&gt;read_fw_status_reg(
+                instance) &amp; MFI_STATE_MASK;
+
+        if (fw_state != MFI_STATE_FAULT) {
+            dev_notice(&amp;instance-&gt;pdev-&gt;dev, &quot;fw state:%x\n&quot;,
+                        fw_state);
+        }
+
+        if ((fw_state == MFI_STATE_FAULT) &amp;&amp;
+                (instance-&gt;disableOnlineCtrlReset == 0)) {
+            dev_notice(&amp;instance-&gt;pdev-&gt;dev, &quot;wait adp restart\n&quot;);
+
+            if ((instance-&gt;pdev-&gt;device ==
+                    PCI_DEVICE_ID_LSI_SAS1064R) ||
+                (instance-&gt;pdev-&gt;device ==
+                    PCI_DEVICE_ID_DELL_PERC5) ||
+                (instance-&gt;pdev-&gt;device ==
+                    PCI_DEVICE_ID_LSI_VERDE_ZCR)) {
+
+                *instance-&gt;consumer =
+                    cpu_to_le32(MEGASAS_ADPRESET_INPROG_SIGN);
+            }
+
+
+            instance-&gt;instancet-&gt;disable_intr(instance);
+            atomic_set(&amp;instance-&gt;adprecovery, MEGASAS_ADPRESET_SM_INFAULT);
+            instance-&gt;issuepend_done = 0;
+
+            atomic_set(&amp;instance-&gt;fw_outstanding, 0);
+            megasas_internal_reset_defer_cmds(instance);
+
+            dev_notice(&amp;instance-&gt;pdev-&gt;dev, &quot;fwState=%x, stage:%d\n&quot;,
+                    fw_state, atomic_read(&amp;instance-&gt;adprecovery));
+
+            schedule_work(&amp;instance-&gt;work_init);
+            return IRQ_HANDLED;
+
+        } else {
+            dev_notice(&amp;instance-&gt;pdev-&gt;dev, &quot;fwstate:%x, dis_OCR=%x\n&quot;,
+                fw_state, instance-&gt;disableOnlineCtrlReset);
+        }
+    }
+
+    tasklet_schedule(&amp;instance-&gt;isr_tasklet);
+    return IRQ_HANDLED;
+}
+</code></pre>
+<ul>
+<li>After all this, what I found entertaining is that I learned that modern drivers completely ignore the IRQ number. So in my case the IRQ 379 basically does nothing. What matters is just the state of the device. You can see in <code>megasas_isr</code> that the IRQ number comes in as an input and is quite literally, dropped on the floor. Ultimately the request handler just makes sure that the RAID controller is in the appropriate state.</li>
+</ul>
+<h2 id="reverse-engineering-the-mpi-driver">Reverse Engineering the MPI Driver</h2>
+<ul>
+<li><a href="MPI%20Driver/mpi3mr_fw.c#L780">IRQ setup</a>. We see that the IRQ affinity is identical.</li>
+<li>See <a href="https://archive.kernel.org/oldlinux/htmldocs/kernel-api/API-pci-alloc-irq-vectors-affinity.html">the docs</a> for pci_alloc_irq_vectors_affinityy</li>
+</ul>
+<pre><code class="language-c">irq_flags |= PCI_IRQ_AFFINITY | PCI_IRQ_ALL_TYPES;
+
+retval = pci_alloc_irq_vectors_affinity(mrioc-&gt;pdev,
+    min_vec, max_vectors, irq_flags, &amp;desc);
+</code></pre>
+<pre><code class="language-c">/**
+ * mpi3mr_setup_isr - Setup ISR for the controller
+ * @mrioc: Adapter instance reference
+ * @setup_one: Request one IRQ or more
+ *
+ * Allocate IRQ vectors and call mpi3mr_request_irq to setup ISR
+ *
+ * Return: 0 on success and non zero on failures.
+ */
+static int mpi3mr_setup_isr(struct mpi3mr_ioc *mrioc, u8 setup_one)
+{
+    unsigned int irq_flags = PCI_IRQ_MSIX;
+    int max_vectors, min_vec;
+    int retval;
+    int i;
+    struct irq_affinity desc = { .pre_vectors =  1, .post_vectors = 1 };
+
+    if (mrioc-&gt;is_intr_info_set)
+        return 0;
+
+    mpi3mr_cleanup_isr(mrioc);
+
+    if (setup_one || reset_devices) {
+        max_vectors = 1;
+        retval = pci_alloc_irq_vectors(mrioc-&gt;pdev,
+            1, max_vectors, irq_flags);
+        if (retval &lt; 0) {
+            ioc_err(mrioc, &quot;cannot allocate irq vectors, ret %d\n&quot;,
+                retval);
+            goto out_failed;
+        }
+    } else {
+        max_vectors =
+            min_t(int, mrioc-&gt;cpu_count + 1 +
+            mrioc-&gt;requested_poll_qcount, mrioc-&gt;msix_count);
+
+        mpi3mr_calc_poll_queues(mrioc, max_vectors);
+
+        ioc_info(mrioc,
+            &quot;MSI-X vectors supported: %d, no of cores: %d,&quot;,
+            mrioc-&gt;msix_count, mrioc-&gt;cpu_count);
+        ioc_info(mrioc,
+            &quot;MSI-x vectors requested: %d poll_queues %d\n&quot;,
+            max_vectors, mrioc-&gt;requested_poll_qcount);
+
+        desc.post_vectors = mrioc-&gt;requested_poll_qcount;
+        min_vec = desc.pre_vectors + desc.post_vectors;
+        irq_flags |= PCI_IRQ_AFFINITY | PCI_IRQ_ALL_TYPES;
+
+        retval = pci_alloc_irq_vectors_affinity(mrioc-&gt;pdev,
+            min_vec, max_vectors, irq_flags, &amp;desc);
+
+        if (retval &lt; 0) {
+            ioc_err(mrioc, &quot;cannot allocate irq vectors, ret %d\n&quot;,
+                retval);
+            goto out_failed;
+        }
+
+
+        /*
+         * If only one MSI-x is allocated, then MSI-x 0 will be shared
+         * between Admin queue and operational queue
+         */
+        if (retval == min_vec)
+            mrioc-&gt;op_reply_q_offset = 0;
+        else if (retval != (max_vectors)) {
+            ioc_info(mrioc,
+                &quot;allocated vectors (%d) are less than configured (%d)\n&quot;,
+                retval, max_vectors);
+        }
+
+        max_vectors = retval;
+        mrioc-&gt;op_reply_q_offset = (max_vectors &gt; 1) ? 1 : 0;
+
+        mpi3mr_calc_poll_queues(mrioc, max_vectors);
+
+    }
+
+    mrioc-&gt;intr_info = kzalloc(sizeof(struct mpi3mr_intr_info) * max_vectors,
+        GFP_KERNEL);
+    if (!mrioc-&gt;intr_info) {
+        retval = -ENOMEM;
+        pci_free_irq_vectors(mrioc-&gt;pdev);
+        goto out_failed;
+    }
+    for (i = 0; i &lt; max_vectors; i++) {
+        retval = mpi3mr_request_irq(mrioc, i);
+        if (retval) {
+            mrioc-&gt;intr_info_count = i;
+            goto out_failed;
+        }
+    }
+    if (reset_devices || !setup_one)
+        mrioc-&gt;is_intr_info_set = true;
+    mrioc-&gt;intr_info_count = max_vectors;
+    mpi3mr_ioc_enable_intr(mrioc);
+    return 0;
+
+out_failed:
+    mpi3mr_cleanup_isr(mrioc);
+
+    return retval;
+}
+</code></pre>
+<h2 id="helpful-commands">Helpful Commands</h2>
+<h3 id="view-all-interrupts">View all Interrupts</h3>
+<pre><code class="language-bash">awk '/megasas/ { printf &quot;%s: %s\n&quot;, $NF, $2 }' /proc/interrupts
+</code></pre>
+<h2 id="investigating-hardware-noise">Investigating Hardware Noise</h2>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../Understanding%20Memory/" class="btn btn-neutral float-left" title="Understanding Memory"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../Use%20OS10%20as%20Aggregator/" class="btn btn-neutral float-right" title="Use OS10 as Aggregator">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../Understanding%20Memory/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../Use%20OS10%20as%20Aggregator/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

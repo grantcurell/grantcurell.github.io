@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Grant Curell" /><link rel="canonical" href="https://grantcurell.github.io/Automatically%20Provision%20Dell%20Servers/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Automatically Provision Dell Servers - Grant Curell's Dell Projects</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Automatically Provision Dell Servers";
+        var mkdocs_page_input_path = "Automatically Provision Dell Servers/README.md";
+        var mkdocs_page_url = "/Automatically%20Provision%20Dell%20Servers/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Grant Curell's Dell Projects
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Grant Curell's Dell Projects</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Create%20Kickstart%20Server%20on%20Fedora/">Create Kickstart Server on Fedora</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Create%20OpenSwitch%20VM/">Create OpenSwitch VM</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Dell%20Ansible%20Testing/">Dell Ansible Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../DHCP%20Relay%20on%20SONiC/">DHCP Relay on SONiC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Elasticsearch%20Display%20Map%20Data/">Elasticsearch Display Map Data</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Elasticsearch%20Load%20Testing/">Elasticsearch Load Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../esrally%20%28INCOMPLETE%29/">esrally (INCOMPLETE)</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Estimating%20Compute%20Requirements%20for%20Machine%20Learning/">Estimating Compute Requirements for Machine Learning</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Finding%20Rare%20Logs%20with%20DBSCAN/">Finding Rare Logs with DBSCAN</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Get%20NVMe%20Drives%20from%20iDRAC%20Redfish/">Get NVMe Drives from iDRAC Redfish</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../High%20Speed%20Packet%20Capture/">High Speed Packet Capture</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20Bitcoin-Blockchain%20Works%20-%20Notes/">How Bitcoin-Blockchain Works - Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20OS10%20Installer%20Works/">How OS10 Installer Works</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20to%20ONIE%20Install%20and%20ZTP%20Config%20Dell%20SONiC/">How to ONIE Install and ZTP Config Dell SONiC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20to%20Read%20lstopo%20and%20a%20PCIe%20Overview/">How to Read lstopo and a PCIe Overview</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../idrac%20with%20LDAP/">idrac with LDAP</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Importing%20Elasticsearch%20Data/">Importing Elasticsearch Data</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Installing%20DPDK%20with%20NapaTech%20Card/">Installing DPDK with NapaTech Card</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../IO%20Identities%20with%20LifeCycle%20Controller/">IO Identities with LifeCycle Controller</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../LDAP%20with%20OpenManage/">LDAP with OpenManage</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../LLMs%20Explained/">LLMs Explained</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balance%20Testing%20on%204112F-ON/OpenSwitch%20%28OPX%29/">Load Balancing with LAG OPX</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balance%20Testing%20on%204112F-ON/OS10/">Load Balance Testing on 4112F-ON w/OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balance%20Testing%20with%20OpenVSwitch/">Load Balance Testing with OpenVSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balancing%20on%20Mellanox%20Switches/">Load Balancing on Mellanox Switches</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balancing%20with%20LAG%20on%205112F-ON/">Load Balancing with LAG on 5112F-ON</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Migrating%20Storage%20Volumes%20to%20PowerStore/">Migrating Storage Volumes to PowerStore</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Mulitple%20Span%20on%204112F-ON%20with%20OpenSwitch/">Mulitple Span on 4112F-ON with OpenSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Multiple%20Span%20on%204112F-ON%20with%20OS10/">Multiple Span on 4112F-ON with OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20AMD%20Processor/">Notes on AMD Processor</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20Building%20a%20Datacenter%20from%20Scratch/">Notes on Building a Datacenter from Scratch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20HPC/">Notes on HPC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20Improving%20Drive%20Performance/">Notes on Improving Drive Performance</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20mdraid%20Performance%20Testing/">Notes on mdraid Performance Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20nodejs/">Notes on nodejs</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20NVMe%20Log%20Pages/">Notes on NVMe Log Pages</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20PCIe/">Notes on PCIe</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Nvidia%20GPUDirect/">Nvidia GPUDirect</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Nvidia%20GRID%20Notes/">Nvidia GRID Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../NVMe%20Performance%20Testing/">NVMe Performance Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Offline%20Updates%20with%20OpenManage%20Enterprise/">Offline Updates with OpenManage Enterprise</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Make%20USB%20Read%20Only/">Make USB Read Only</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20HSM/">Notes on HSM</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OME%20Bug/">OME Bug</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OME%20Integration%20for%20VMWare/">OME Integration for VMWare</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OpenFlow%20on%204112F-ON/">OpenFlow on 4112F-ON</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OS10%20Password%20Recovery%20Bug/">OS10 Password Recovery Bug</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PCIev3%20vs%20v4/">PCIev3 vs v4</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Playing%20with%20virsh/">Playing with virsh</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PowerScale%20-%20Configure%20with%20Kubernetes/">PowerScale - Configure with Kubernetes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PowerScale%20Failed%20Authentication/">PowerScale Failed Authentication</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PowerScale%20Setup/">PowerScale Setup</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Reset%20OS10%20Admin%20Password/">Reset OS10 Admin Password</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Run%20VPN%20on%20OS10/">Run VPN on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Running%20DNS%20from%20OS10/">Running DNS from OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Set%20Up%20RSPAN%20on%20OS10/">Set Up RSPAN on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setting%20Up%20Breakout%20Cables/">Setting Up Breakout Cables</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setting%20Up%20iDRAC%20Telemetry%20with%20Splunk/">Setting Up iDRAC Telemetry with Splunk</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setting%20Up%20SmartFabric%20Director/">Setting Up SmartFabric Director</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setup%20IDPA/">Setup IDPA</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Site%20to%20Site%20VPN%20with%20PFSense%20and%20CentOS%208/">Site to Site VPN with PFSense and CentOS 8</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../SONiC%20-%20Sample%20Datacenter%20Automation%20Architecture/">SONiC - Sample Datacenter Automation Architecture</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Switch%20Directly%20to%20Client%20Test/">Switch Directly to Client Test</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Testing%20Bare%20Metal%20Orchestrator/">Testing Bare Metal Orchestrator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Testing%20Intel%20x520%20on%20RHEL%206/">Testing Intel x520 on RHEL 6</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Understanding%20Memory/">Understanding Memory</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Understanding%20PERC%20Interrupts/">Understanding PERC Interrupts</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Use%20OS10%20as%20Aggregator/">Use OS10 as Aggregator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Using%20FIO/">Using FIO</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Using%20the%20iDRAC%20Service%20Module/">Using the iDRAC Service Module</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VEP%20Testing/">VEP Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Automate%20ESXi%20Installation/">Automating ESXi Installation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/ESXi%20Architecture/">VMWare Architecture Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Setup%20VXRail/">VxRail Setup</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Troubleshooting%20vSAN/">Troubleshooting vSAN</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/VMWare%20APIs/">VMWare APIs</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/VxRail%20Architecture%20and%20Troubleshooting/">VxRail Architecture and Troubleshooting</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Web%20Traffic%20Generator/">Web Traffic Generator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Writing%20udev%20Rules%20for%20Dell%20PERC%20H755/">Writing udev Rules for Dell PERC H755</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Adding%20Hashing%20to%20OpenSwitch/">Adding Hashing to OpenSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Adding%20Intel%20I219-LM%20%288086.0d4c%29%20Driver%20to%20ESXi/">Adding Intel I219-LM (8086.0d4c) Driver to ESXi</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Automatically Provision Dell Servers</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#helpful-links">Helpful Links</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#when-to-use-openmanage-enterprise-ome-and-when-not">When to Use OpenManage Enterprise (OME) and When Not</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ome-workflow">OME Workflow</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#overview-of-configuration-for-both">Overview of Configuration for Both</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#overview-of-how-it-works-after-config">Overview of How it Works After Config</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#using-server-initiated-discovery">Using Server Initiated Discovery</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#using-a-custom-discovery-workflow">Using a Custom Discovery Workflow</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#entirely-custom-workflow">Entirely Custom Workflow</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Automating%20OME%20Hardware%20Reports/">Automating OME Hardware Reports</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Backup%20OS10%20Config%20with%20Ansible/">Backup OS10 Config with Ansible</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../CloudLink/">CloudLink</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Common%20Questions%20About%20LLMs%20Answered/">Common Questions About LLMs Answered</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20FN410%20as%20a%20Switch/">Configure FN410 as a Switch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20Gigamon%20Tap/">Configure Gigamon Tap</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configuring%20VLT%20on%20OS10/">Configuring VLT on OS10</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Grant Curell's Dell Projects</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Automatically Provision Dell Servers</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="automatically-provision-dell-servers">Automatically Provision Dell Servers</h1>
+<p>This tutorial covers the various ways to automatically provision Dell servers.</p>
+<h2 id="helpful-links">Helpful Links</h2>
+<ul>
+<li><a href="https://www.dell.com/support/manuals/en-us/dell-openmanage-enterprise/ome-3.4_ug/create-a-template-from-a-reference-device?guid=guid-c4b89f0b-7e15-48f6-9210-3ea1e2f74c61&amp;lang=en-us">OME Template Function</a></li>
+<li><a href="https://www.dell.com/support/kbdoc/en-us/000192340/training-video-that-covers-server-initiated-discovery-in-openmanage-enterprise">OME Server Initiated Discovery</a></li>
+<li><a href="https://www.dell.com/support/manuals/en-au/dell-openmanage-enterprise/ome_3.5_ug/discover-servers-automatically-by-using-the-server-initiated-discovery-feature?guid=guid-23bd252f-9651-410a-88de-3f332d748b55&amp;lang=en-us">Enabling OME Server Initiated Discovery</a></li>
+<li><a href="https://www.dell.com/support/kbdoc/en-us/000175879/support-for-openmanage-enterprise">OME Download</a></li>
+<li><a href="https://infohub.delltechnologies.com/p/new-openmanage-enterprise-advanced-ready-to-bring-new-customer-benefits/">OME Licensing Info</a></li>
+<li><a href="https://www.dell.com/support/manuals/en-us/dell-openmanage-enterprise/ome-3.4_ug/auto-deployment-of-configuration-on-yet-to-be-discovered-servers-or-chassis?guid=guid-4c0e00fb-fed3-443f-9ac8-66a0db461f0b&amp;lang=en-us">OME Auto Deploy Instructions</a></li>
+<li><a href="https://www.dell.com/support/manuals/en-us/dell-openmanage-enterprise/ome-3.4_ug/create-auto-deployment-targets?guid=guid-0777321e-9232-4e02-b16f-1932def39879&amp;lang=en-us">OME Create Auto Deployment Targets</a></li>
+<li><a href="https://dl.dell.com/manuals/all-products/esuprt_software_int/esuprt_software_ent_systems_mgmt/dell-openmanage-enterprise_white-papers11_en-us.pdf">Dell Whitepaper on OME Autodeploy</a></li>
+<li><a href="https://infohub.delltechnologies.com/p/update-manager-plugin-for-openmanage-enterprise-overview/">Dell Update Manager Plugin</a></li>
+<li><a href="https://dl.dell.com/manuals/all-products/esuprt_software_int/esuprt_software_ent_systems_mgmt/dell-openmanage-enterprise_white-papers15_en-us.pdf">Dell Server Initiated Discovery Whitepaper</a></li>
+<li><a href="https://docs.ansible.com/ansible/latest/collections/dellemc/openmanage/ome_discovery_module.html#ansible-collections-dellemc-openmanage-ome-discovery-module">Discovery with Ansible</a></li>
+<li><a href="https://github.com/dell/OpenManage-Enterprise/blob/main/docs/API.md#invoke-discover-device">OME API Discovery with Python/PowerShell</a></li>
+<li><a href="https://developer.dell.com/apis">Dell's API documentation</a></li>
+<li><a href="https://developer.dell.com/apis/2978/versions/7.xx/docs/0WhatsNew.md">RedFish Documentation</a></li>
+</ul>
+<h2 id="overview">Overview</h2>
+<p>There are two predominant workflows for automatically deploying and provisioning Dell servers.</p>
+<ol>
+<li>Use <a href="https://www.dell.com/support/kbdoc/en-us/000175879/support-for-openmanage-enterprise">OpenManage Enterprise (OME). OME is free</a>.</li>
+<li>The auto deployment feature requires the OME Advanced license to be present on the iDRAC but this is usually added by default by Dell. In my personal experience, I've never seen a server sold without it in all my time at Dell. More info about the difference between the licenses is <a href="https://infohub.delltechnologies.com/p/new-openmanage-enterprise-advanced-ready-to-bring-new-customer-benefits/">here</a>. If this is a concern just ask whoever is selling you the server (whether it be Dell directly or a partner) to make sure they put the OME Advanced license on the server if they haven't already.</li>
+<li>I have seen two variations of how OME deploys the server depending on how you want the initial discovery to occur.</li>
+<li>Manually via the Dell APIs.</li>
+</ol>
+<h3 id="when-to-use-openmanage-enterprise-ome-and-when-not">When to Use OpenManage Enterprise (OME) and When Not</h3>
+<p><strong>Warning</strong>: Honesty based on personal experience ahead. Forthright commentary serves to save others from mistakes I have personally made or watched others make.</p>
+<p>Unless there is a compelling reason not to use OME, it makes life significantly easier and is probably the better solution. </p>
+<p>Potential good reasons to not do <strong>automated deployment</strong> with OME (I bolded the automated deployment bit because for reasons I explain below, you're still going to end up using OME):</p>
+<ol>
+<li>You are using Bare Metal Orchestrator (BMO) and have a workflow built there. If this is the case you are probably a TELCO or something of equivalent size and aren't reading this article</li>
+<li>You have a significant investment in a multi-vendor deployment solution and already have the in-house personnel and talent up, running, and using this solution</li>
+</ol>
+<p><strong>The worst reason to not do this with OME:</strong></p>
+<ol>
+<li>You are me at 27 years old and think building everything open source is better because you haven't yet had to handle or pay for manpower in the maintenance phase of code you have written. (Ok, so I actually never made this mistake with OME, but I did with other things.)</li>
+</ol>
+<p><strong>Benefits of doing this with OME:</strong></p>
+<ol>
+<li>Dell is on the hook for support</li>
+<li>Unless you're going to build an entire patch management framework from scratch, which is a very bad idea because new you are on the hook for making sure patches are applied in the correct order, handling failures, reporting, code maintenance, repository maintenance, and all the other not-so-fun things that come with a custom patch management framework, you are going to want to use OME for patch management anyway. </li>
+<li>I've worked with the TELCOs, they use OME. I cannot think of a valid reason to ever re-invent this wheel.</li>
+<li>I am also assuming you are not so cruel to your administrators that in 2024 (or whenever you read this) you will make them do manual patching.</li>
+<li>This supports custom repos with <a href="https://infohub.delltechnologies.com/p/update-manager-plugin-for-openmanage-enterprise-overview/">Update Manager Plugin</a></li>
+<li>OME will automatically take care of BIOS-config templating.</li>
+<li>Again, this is another function you will have to manually build and maintain if you don't use OME. I have personally done this one. It's doable, but requires a lot of tedious, boilerplate, code and you will have to write a bunch of logic to handle all the boarder cases you might encounter. This becomes particularly miserable if you have multiple different servers you have to independently account for with multiple different BIOS templates.</li>
+<li>Again, this is why TELCOs use OME</li>
+<li>You don't have to maintain a custom patch repository if you are on the internet.</li>
+<li>If you are a government or other customer in a SCIF or other such facility see <a href="../Offline%20Updates%20with%20OpenManage%20Enterprise/">Offline Updates with OpenManage Enterprise</a></li>
+<li>OME provides power monitoring</li>
+<li>OME provides config diff tracking</li>
+<li>OME gives you a one stop shop to monitoring to including grouping servers and applying policies to them based on those groups</li>
+<li>OME provides a convenient panel for getting to all the iDRACs</li>
+<li>OME will track all your warranties</li>
+</ol>
+<p>Those are just the common benefits, there are a bunch of niche things it does as well that don't apply to everyone (ex: ServiceNow integration).</p>
+<h2 id="ome-workflow">OME Workflow</h2>
+<p>There are two workflows I see with OME: one using server initiated discovery and one where you do discovery with some code framework and load that into OME. If you are in a Dell environment then you probably just want to go ahead and use server initiated discovery. It's one less thing you have to maintain and it again is supported by Dell end to end. If you have a multi-vendor environment and have to build a discovery framework regardless, it may make more sense to centralize discovery in your custom framework. I describe both below.</p>
+<p>An important note on understanding how OME works: OME controls the servers over iDRAC's RedFish API. Most everything you could do directly to the iDRAC over RedFish, you can also do centrally with OME.</p>
+<h3 id="overview-of-configuration-for-both">Overview of Configuration for Both</h3>
+<p>See <a href="https://dl.dell.com/manuals/all-products/esuprt_software_int/esuprt_software_ent_systems_mgmt/dell-openmanage-enterprise_white-papers11_en-us.pdf">this link</a> for a Dell whitepaper on auto deploy.</p>
+<ol>
+<li>Configure OpenManage Enterprise (OME) with the BIOS templates you want.
+   You’ll configure the BIOS templates by taking a representative server and extracting the BIOS from it. <a href="https://www.dell.com/support/manuals/en-us/dell-openmanage-enterprise/ome-3.4_ug/create-a-template-from-a-reference-device?guid=guid-c4b89f0b-7e15-48f6-9210-3ea1e2f74c61&amp;lang=en-us">OME has a function for doing this</a> so you just make one server look exactly the way you want the rest, point OME at it, it saves that config, then you make that your template.</li>
+<li>Configure OME for auto deploy to include pointing it at whatever ISO you want to be deployed to the different target servers. See <a href="https://www.dell.com/support/manuals/en-us/dell-openmanage-enterprise/ome-3.4_ug/auto-deployment-of-configuration-on-yet-to-be-discovered-servers-or-chassis?guid=guid-4c0e00fb-fed3-443f-9ac8-66a0db461f0b&amp;lang=en-us">this documentation</a></li>
+<li>Create a list of service tags with your various servers and put them in a CSV file</li>
+<li>Create the auto deployment targets in OME. See <a href="https://www.dell.com/support/manuals/en-us/dell-openmanage-enterprise/ome-3.4_ug/create-auto-deployment-targets?guid=guid-0777321e-9232-4e02-b16f-1932def39879&amp;lang=en-us">this documentation</a></li>
+<li><a href="https://www.dell.com/support/manuals/en-us/dell-openmanage-enterprise/ome-3.4_ug/create-auto-deployment-targets?guid=guid-0777321e-9232-4e02-b16f-1932def39879&amp;lang=en-us">Create the auto deployment targets in OME</a>. This will tie specific templates/ISOs to specific groups. Those groups will be assigned to servers based on their service tags and then automatically applied.</li>
+<li>ISO files are mounted via network path via either CIFs or NFS</li>
+<li>Use either a custom discovery framework via APIs or configure Dell's Server Initiated Discovery to register the servers with OME</li>
+<li>Turn on new servers and watch them build themselves from nothing</li>
+<li>As an added bonus, configure firmware updates in OME and set it to automatically update on next reboot for patch management.</li>
+<li>You can maintain custom repositories with <a href="https://infohub.delltechnologies.com/p/update-manager-plugin-for-openmanage-enterprise-overview/">Update Manager Plugin</a> or you can simply download latest (it does this by default)</li>
+</ol>
+<h3 id="overview-of-how-it-works-after-config">Overview of How it Works After Config</h3>
+<ol>
+<li>(for server initiated discovery) Server goes to DHCP for DNS server, DNS server has OME's IP address registered</li>
+<li>Server gets registered in OME either via server initiated discovery or you have custom Ansible/API/other workflow that registers it in OME</li>
+<li>Once the server's iDRAC is registered in OME, OME launches the auto deployment process based on the server's registered service tag</li>
+<li>OME applies appropriate BIOS template</li>
+<li>This can include all the custom properties for MX chassis or storage for things like IOMs</li>
+<li>OME mounts ISO file via CIFs/NFS to the server</li>
+<li>Server boots up and your automation workflow continues from there. Kickstart, windows unattended installation, etc</li>
+</ol>
+<h3 id="using-server-initiated-discovery">Using Server Initiated Discovery</h3>
+<p>Dell has a whitepaper on server initiated discovery <a href="https://dl.dell.com/manuals/all-products/esuprt_software_int/esuprt_software_ent_systems_mgmt/dell-openmanage-enterprise_white-papers15_en-us.pdf">here</a>.</p>
+<p>Dell servers are factory shipped with server initiated discovery on. The way it works is the iDRAC will check DNS and if an entry for OME is present, iDRAC will automatically register itself with OME which then kicks off the automated deployment process.</p>
+<p>See <a href="https://www.dell.com/support/manuals/en-au/dell-openmanage-enterprise/ome_3.5_ug/discover-servers-automatically-by-using-the-server-initiated-discovery-feature?guid=guid-23bd252f-9651-410a-88de-3f332d748b55&amp;lang=en-us">here</a> for instructions on how to enable it. We have a YouTube video available <a href="https://www.youtube.com/watch?v=p3NGoSrk4xI">here</a>.</p>
+<h3 id="using-a-custom-discovery-workflow">Using a Custom Discovery Workflow</h3>
+<p>If you don't use server initiated discovery you will need to build a custom harness for discovering the server. All of these ultimately leverage either iDRAC's or OMEs APIs.</p>
+<ul>
+<li>The best way to do this is with Ansible. Dell has an entire team dedicated to supporting the Ansible module. See <a href="https://docs.ansible.com/ansible/latest/collections/dellemc/openmanage/ome_discovery_module.html#ansible-collections-dellemc-openmanage-ome-discovery-module">here</a> for the discovery module documentation.</li>
+<li>There is an example of how to do discovery via API with Python/PowerShell <a href="https://github.com/dell/OpenManage-Enterprise/blob/main/docs/API.md#invoke-discover-device">here</a>. You will need to modify this code based on your particular framework but the script itself provides a good starting place to build from.</li>
+<li>Dell's API documentation is <a href="https://developer.dell.com/apis">here</a></li>
+<li>RedFish is <a href="https://developer.dell.com/apis/2978/versions/7.xx/docs/0WhatsNew.md">here</a></li>
+<li>OpenManage's API is <a href="https://developer.dell.com/apis/5898/versions/4.0.0/docs/Introduction.md">here</a></li>
+</ul>
+<h2 id="entirely-custom-workflow">Entirely Custom Workflow</h2>
+<p>You're on your own here. I vehemently recommend against this route. Some places to begin the process:</p>
+<ul>
+<li><a href="https://docs.ansible.com/ansible/latest/collections/dellemc/openmanage/ome_discovery_module.html#ansible-collections-dellemc-openmanage-ome-discovery-module">Discovery with Ansible</a></li>
+<li><a href="https://github.com/dell/OpenManage-Enterprise/blob/main/docs/API.md#invoke-discover-device">OME API Discovery with Python/PowerShell</a></li>
+<li><a href="https://developer.dell.com/apis">Dell's API documentation</a></li>
+<li><a href="https://developer.dell.com/apis/2978/versions/7.xx/docs/0WhatsNew.md">RedFish Documentation</a></li>
+<li><a href="https://developer.dell.com/apis/5898/versions/4.0.0/docs/Introduction.md">OME API Docs</a></li>
+<li><a href="https://github.com/dell/iDRAC-Redfish-Scripting">iDRAC RedFish Scripting Examples</a></li>
+<li><a href="https://docs.ansible.com/ansible/latest/collections/dellemc/openmanage/idrac_bios_module.html#ansible-collections-dellemc-openmanage-idrac-bios-module">Modifying BIOS Attributes</a></li>
+<li><a href="https://docs.ansible.com/ansible/latest/collections/dellemc/openmanage/idrac_firmware_module.html#ansible-collections-dellemc-openmanage-idrac-firmware-module">Firmware Upgrade Module</a></li>
+<li><a href="https://docs.ansible.com/ansible/latest/collections/dellemc/openmanage/idrac_os_deployment_module.html#ansible-collections-dellemc-openmanage-idrac-os-deployment-module">OS Deployment Module</a></li>
+</ul>
+<p>You will need way more than just the above. You will need to do all the job management because you will need to handle errors, you will need to do templating, you will need to create custom reporting, and a lot more.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../Adding%20Intel%20I219-LM%20%288086.0d4c%29%20Driver%20to%20ESXi/" class="btn btn-neutral float-left" title="Adding Intel I219-LM (8086.0d4c) Driver to ESXi"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../Automating%20OME%20Hardware%20Reports/" class="btn btn-neutral float-right" title="Automating OME Hardware Reports">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../Adding%20Intel%20I219-LM%20%288086.0d4c%29%20Driver%20to%20ESXi/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../Automating%20OME%20Hardware%20Reports/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Grant Curell" /><link rel="canonical" href="https://grantcurell.github.io/Configuring%20VLT%20on%20OS10/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Configuring VLT on OS10 - Grant Curell's Dell Projects</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Configuring VLT on OS10";
+        var mkdocs_page_input_path = "Configuring VLT on OS10/README.md";
+        var mkdocs_page_url = "/Configuring%20VLT%20on%20OS10/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Grant Curell's Dell Projects
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Grant Curell's Dell Projects</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Create%20Kickstart%20Server%20on%20Fedora/">Create Kickstart Server on Fedora</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Create%20OpenSwitch%20VM/">Create OpenSwitch VM</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Dell%20Ansible%20Testing/">Dell Ansible Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../DHCP%20Relay%20on%20SONiC/">DHCP Relay on SONiC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Elasticsearch%20Display%20Map%20Data/">Elasticsearch Display Map Data</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Elasticsearch%20Load%20Testing/">Elasticsearch Load Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../esrally%20%28INCOMPLETE%29/">esrally (INCOMPLETE)</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Estimating%20Compute%20Requirements%20for%20Machine%20Learning/">Estimating Compute Requirements for Machine Learning</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Finding%20Rare%20Logs%20with%20DBSCAN/">Finding Rare Logs with DBSCAN</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Get%20NVMe%20Drives%20from%20iDRAC%20Redfish/">Get NVMe Drives from iDRAC Redfish</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../High%20Speed%20Packet%20Capture/">High Speed Packet Capture</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20Bitcoin-Blockchain%20Works%20-%20Notes/">How Bitcoin-Blockchain Works - Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20OS10%20Installer%20Works/">How OS10 Installer Works</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20to%20ONIE%20Install%20and%20ZTP%20Config%20Dell%20SONiC/">How to ONIE Install and ZTP Config Dell SONiC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20to%20Read%20lstopo%20and%20a%20PCIe%20Overview/">How to Read lstopo and a PCIe Overview</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../idrac%20with%20LDAP/">idrac with LDAP</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Importing%20Elasticsearch%20Data/">Importing Elasticsearch Data</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Installing%20DPDK%20with%20NapaTech%20Card/">Installing DPDK with NapaTech Card</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../IO%20Identities%20with%20LifeCycle%20Controller/">IO Identities with LifeCycle Controller</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../LDAP%20with%20OpenManage/">LDAP with OpenManage</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../LLMs%20Explained/">LLMs Explained</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balance%20Testing%20on%204112F-ON/OpenSwitch%20%28OPX%29/">Load Balancing with LAG OPX</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balance%20Testing%20on%204112F-ON/OS10/">Load Balance Testing on 4112F-ON w/OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balance%20Testing%20with%20OpenVSwitch/">Load Balance Testing with OpenVSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balancing%20on%20Mellanox%20Switches/">Load Balancing on Mellanox Switches</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balancing%20with%20LAG%20on%205112F-ON/">Load Balancing with LAG on 5112F-ON</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Migrating%20Storage%20Volumes%20to%20PowerStore/">Migrating Storage Volumes to PowerStore</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Mulitple%20Span%20on%204112F-ON%20with%20OpenSwitch/">Mulitple Span on 4112F-ON with OpenSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Multiple%20Span%20on%204112F-ON%20with%20OS10/">Multiple Span on 4112F-ON with OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20AMD%20Processor/">Notes on AMD Processor</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20Building%20a%20Datacenter%20from%20Scratch/">Notes on Building a Datacenter from Scratch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20HPC/">Notes on HPC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20Improving%20Drive%20Performance/">Notes on Improving Drive Performance</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20mdraid%20Performance%20Testing/">Notes on mdraid Performance Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20nodejs/">Notes on nodejs</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20NVMe%20Log%20Pages/">Notes on NVMe Log Pages</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20PCIe/">Notes on PCIe</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Nvidia%20GPUDirect/">Nvidia GPUDirect</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Nvidia%20GRID%20Notes/">Nvidia GRID Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../NVMe%20Performance%20Testing/">NVMe Performance Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Offline%20Updates%20with%20OpenManage%20Enterprise/">Offline Updates with OpenManage Enterprise</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Make%20USB%20Read%20Only/">Make USB Read Only</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20HSM/">Notes on HSM</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OME%20Bug/">OME Bug</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OME%20Integration%20for%20VMWare/">OME Integration for VMWare</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OpenFlow%20on%204112F-ON/">OpenFlow on 4112F-ON</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OS10%20Password%20Recovery%20Bug/">OS10 Password Recovery Bug</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PCIev3%20vs%20v4/">PCIev3 vs v4</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Playing%20with%20virsh/">Playing with virsh</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PowerScale%20-%20Configure%20with%20Kubernetes/">PowerScale - Configure with Kubernetes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PowerScale%20Failed%20Authentication/">PowerScale Failed Authentication</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PowerScale%20Setup/">PowerScale Setup</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Reset%20OS10%20Admin%20Password/">Reset OS10 Admin Password</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Run%20VPN%20on%20OS10/">Run VPN on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Running%20DNS%20from%20OS10/">Running DNS from OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Set%20Up%20RSPAN%20on%20OS10/">Set Up RSPAN on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setting%20Up%20Breakout%20Cables/">Setting Up Breakout Cables</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setting%20Up%20iDRAC%20Telemetry%20with%20Splunk/">Setting Up iDRAC Telemetry with Splunk</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setting%20Up%20SmartFabric%20Director/">Setting Up SmartFabric Director</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setup%20IDPA/">Setup IDPA</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Site%20to%20Site%20VPN%20with%20PFSense%20and%20CentOS%208/">Site to Site VPN with PFSense and CentOS 8</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../SONiC%20-%20Sample%20Datacenter%20Automation%20Architecture/">SONiC - Sample Datacenter Automation Architecture</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Switch%20Directly%20to%20Client%20Test/">Switch Directly to Client Test</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Testing%20Bare%20Metal%20Orchestrator/">Testing Bare Metal Orchestrator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Testing%20Intel%20x520%20on%20RHEL%206/">Testing Intel x520 on RHEL 6</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Understanding%20Memory/">Understanding Memory</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Understanding%20PERC%20Interrupts/">Understanding PERC Interrupts</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Use%20OS10%20as%20Aggregator/">Use OS10 as Aggregator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Using%20FIO/">Using FIO</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Using%20the%20iDRAC%20Service%20Module/">Using the iDRAC Service Module</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VEP%20Testing/">VEP Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Automate%20ESXi%20Installation/">Automating ESXi Installation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/ESXi%20Architecture/">VMWare Architecture Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Setup%20VXRail/">VxRail Setup</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Troubleshooting%20vSAN/">Troubleshooting vSAN</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/VMWare%20APIs/">VMWare APIs</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/VxRail%20Architecture%20and%20Troubleshooting/">VxRail Architecture and Troubleshooting</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Web%20Traffic%20Generator/">Web Traffic Generator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Writing%20udev%20Rules%20for%20Dell%20PERC%20H755/">Writing udev Rules for Dell PERC H755</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Adding%20Hashing%20to%20OpenSwitch/">Adding Hashing to OpenSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Adding%20Intel%20I219-LM%20%288086.0d4c%29%20Driver%20to%20ESXi/">Adding Intel I219-LM (8086.0d4c) Driver to ESXi</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Automatically%20Provision%20Dell%20Servers/">Automatically Provision Dell Servers</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Automating%20OME%20Hardware%20Reports/">Automating OME Hardware Reports</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Backup%20OS10%20Config%20with%20Ansible/">Backup OS10 Config with Ansible</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../CloudLink/">CloudLink</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Common%20Questions%20About%20LLMs%20Answered/">Common Questions About LLMs Answered</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20FN410%20as%20a%20Switch/">Configure FN410 as a Switch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20Gigamon%20Tap/">Configure Gigamon Tap</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Configuring VLT on OS10</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#my-test-platform">My Test Platform</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#configuration-of-vlt">Configuration of VLT</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#device-1">Device 1</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#device-2">Device 2</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#configuration-of-vlans-for-test">Configuration of VLANs for Test</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#test-scenario">Test Scenario</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#objective">Objective</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#useful-commands">Useful Commands</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#spanning-tree-and-vlt">Spanning Tree and VLT</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Grant Curell's Dell Projects</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Configuring VLT on OS10</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="configuring-vlt-on-os10">Configuring VLT on OS10</h1>
+<ul>
+<li><a href="#configuring-vlt-on-os10">Configuring VLT on OS10</a></li>
+<li><a href="#my-test-platform">My Test Platform</a></li>
+<li><a href="#configuration-of-vlt">Configuration of VLT</a><ul>
+<li><a href="#device-1">Device 1</a></li>
+<li><a href="#device-2">Device 2</a></li>
+</ul>
+</li>
+<li><a href="#configuration-of-vlans-for-test">Configuration of VLANs for Test</a></li>
+<li><a href="#test-scenario">Test Scenario</a><ul>
+<li><a href="#objective">Objective</a></li>
+</ul>
+</li>
+<li><a href="#useful-commands">Useful Commands</a></li>
+<li><a href="#spanning-tree-and-vlt">Spanning Tree and VLT</a></li>
+</ul>
+<h2 id="my-test-platform">My Test Platform</h2>
+<pre><code>OS10# show version
+Dell EMC Networking OS10 Enterprise
+Copyright (c) 1999-2020 by Dell Inc. All Rights Reserved.
+OS Version: 10.5.1.3
+Build Version: 10.5.1.3.190
+Build Time: 2020-06-19T21:48:07+0000
+System Type: S4112F-ON
+Architecture: x86_64
+Up Time: 00:19:57
+</code></pre>
+<p><img alt="" src="images/diagram.jpg" /></p>
+<h2 id="configuration-of-vlt">Configuration of VLT</h2>
+<h3 id="device-1">Device 1</h3>
+<pre><code># Configure management
+configure terminal
+interface mgmt 1/1/1
+no ip address dhcp
+ip address 192.168.1.24/24
+exit
+# Configure spanning tree
+spanning-tree mode rstp
+interface range ethernet 1/1/13-1/1/14
+# Create a VLT Domain and Configure the VLT interconnect (VLTi)
+no switchport
+exit
+vlt-domain 1
+discovery-interface ethernet 1/1/13
+discovery-interface ethernet 1/1/14
+# Configure the VLT Priority, VLT MAC Address, and VLT Backup Link
+primary-priority 4096
+vlt-mac 00:11:22:33:44:55
+backup destination 192.168.1.25
+end
+</code></pre>
+<h3 id="device-2">Device 2</h3>
+<pre><code># Configure management
+configure terminal
+interface mgmt 1/1/1
+no ip address dhcp
+ip address 192.168.1.25/24
+exit
+# Configure spanning tree
+spanning-tree mode rstp
+interface range ethernet 1/1/13-1/1/14
+# Create a VLT Domain and Configure the VLT interconnect (VLTi)
+no switchport
+exit
+vlt-domain 1
+discovery-interface ethernet 1/1/13
+discovery-interface ethernet 1/1/14
+# Configure the VLT Priority, VLT MAC Address, and VLT Backup Link
+primary-priority 8192
+vlt-mac 00:11:22:33:44:55
+backup destination 192.168.1.24
+end
+</code></pre>
+<h2 id="configuration-of-vlans-for-test">Configuration of VLANs for Test</h2>
+<p>(On both devices)</p>
+<pre><code>configure terminal
+interface vlan 9
+no shut
+exit
+interface ethernet 1/1/1
+switchport mode trunk
+switchport trunk allowed vlan 9
+end
+</code></pre>
+<p>On ESXi I used two separate virtual switches each with a port group. Each port group was assigned VLAN 9.</p>
+<h2 id="test-scenario">Test Scenario</h2>
+<h3 id="objective">Objective</h3>
+<p>Ping from VM1 to VM2 to show that communication will flow over the VLT and vice versa.</p>
+<p><img alt="" src="images/working.PNG" /></p>
+<p>Works as expected.</p>
+<h2 id="useful-commands">Useful Commands</h2>
+<ul>
+<li><code>show vlt 1</code></li>
+<li><code>show vlt 1 mismatch</code></li>
+<li><code>show running-configuration vlt</code></li>
+</ul>
+<h2 id="spanning-tree-and-vlt">Spanning Tree and VLT</h2>
+<p>I created the below scenario to see what would happen if you created a situation where RSTP can forward from S2 across both port 11 and port 12 to get to interface VLAN 1 on switch 3. In this scenario I gave the VLAN 1 SVI on S2 10.0.0.2 and on S# 10.0.0.3. </p>
+<p><img alt="" src="images/2021-07-28-18-25-22.png" /></p>
+<p>The first thing I investigated were the effects on STP on S2.</p>
+<p>Under the hood you can drop to the Linux command line and inspect the bridge associated with the VLT setup to see its root path cost (here my VLT interface is <code>bo1000</code>). It is worth noting that VLT interfaces are represented as bonds to the Linux kernel. Furthermore I also noticed the updated values, if updated from the OS10 shell, are not reflected here:</p>
+<pre><code>root@OS10:~# brctl showstp br1
+br1
+bridge id              8000.886fd498b7b1
+designated root        8000.886fd498b7b1
+root port                 0                    path cost                  0
+max age                  20.00                 bridge max age            20.00
+hello time                2.00                 bridge hello time          2.00
+forward delay            15.00                 bridge forward delay      15.00
+ageing time            5400.00
+hello timer               0.00                 tcn timer                  0.00
+topology change timer     0.00                 gc timer                 910.24
+flags
+
+
+bo1000 (16)
+port id                8010                    state                forwarding
+designated root        8000.886fd498b7b1       path cost                100
+designated bridge      8000.886fd498b7b1       message age timer          0.00
+designated port        8010                    forward delay timer        0.00
+designated cost           0                    hold timer                 0.00
+flags
+
+...
+
+e101-012-0 (13)
+port id                800d                    state                forwarding
+designated root        8000.886fd498b7b1       path cost                100
+designated bridge      8000.886fd498b7b1       message age timer          0.00
+designated port        800d                    forward delay timer        0.00
+designated cost           0                    hold timer                 0.00
+flags
+</code></pre>
+<p>You can see which interfaces are in the VLT bond with <code>ip a s | grep &lt;the interface use used for vlt&gt;</code>. In my case I only used interface 11 so I did:</p>
+<pre><code>root@OS10:~# ip a s | grep e101-011-0
+23: e101-011-0: &lt;BROADCAST,MULTICAST,ALLMULTI,SLAVE,UP,LOWER_UP&gt; mtu 9184 qdisc multiq master bo1000 state UP group default qlen 1000
+</code></pre>
+<p>so we can see here that the VLT bond is bo1000. I then performed a <code>ping 10.0.0.3</code> from S2 and checked the MAC address table.</p>
+<pre><code>OS10(conf-if-vl-1)# do show mac address-table
+VlanId  Mac Address             Type            Interface
+...
+1       88:6f:d4:98:a7:b1       static          port-channel1000
+</code></pre>
+<p>We can see that the switch learned the MAC address for switch 3 over the VLT interface.</p>
+<p>I had a sneaky suspicion that the switch was biasing the VLT link so I reset the experiment except instead of having the VLT between S2 and S3 I put the VLT between S1 and S2. This has the effect of making it so that instead of a single hop across a port channel to get to S3 it would have two hops using the VLT:</p>
+<p><img alt="" src="images/2021-07-28-18-59-15.png" /></p>
+<p>I then repeated my VLAN 1 ping test from S2 to S3 and as expected - S2 learned S3's mac address of <code>88:6f:d4:98:a7:b1</code> on the VLT port <em>not</em> the port channel:</p>
+<p>On S2:</p>
+<pre><code>OS10# show mac address-table
+VlanId  Mac Address             Type            Interface
+...
+1       88:6f:d4:98:a7:b1       dynamic         port-channel1000
+</code></pre>
+<p>What's going on here is that under the covers it looks like, all things being equal, spanning tree will favor the VLT link. However, if you go into the interface and set the port priority and cost with <code>spanning-tree rstp cost 1</code> and <code>spanning-tree rstp priority 0</code>, you can force it to use the port channel instead. I repeated my ping test and then checked the mac address table on S2 and as expected got:</p>
+<pre><code>OS10(config)# show mac address-table
+VlanId  Mac Address             Type            Interface
+...
+1       88:6f:d4:98:a7:b1       dynamic         ethernet1/1/11
+</code></pre>
+<p>Then to confirm my results, on S2, I went back and deprioritized port 11 with:</p>
+<pre><code>OS10(config)# interface ethernet 1/1/11
+OS10(conf-if-eth1/1/11)# spanning-tree rstp cost 200000000
+OS10(conf-if-eth1/1/11)# spanning-tree rstp priority 240
+</code></pre>
+<p>and then redid my ping and as expected got:</p>
+<pre><code>OS10(config)# ping 10.0.0.3
+PING 10.0.0.3 (10.0.0.3) 56(84) bytes of data.
+64 bytes from 10.0.0.3: icmp_seq=1 ttl=64 time=1.16 ms
+64 bytes from 10.0.0.3: icmp_seq=2 ttl=64 time=1.04 ms
+^C
+--- 10.0.0.3 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1001ms
+rtt min/avg/max/mdev = 1.047/1.106/1.166/0.068 ms
+OS10(config)# show mac address-table
+VlanId  Mac Address             Type            Interface
+...
+1       88:6f:d4:98:a7:b1       dynamic         port-channel1000
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../Configure%20Gigamon%20Tap/" class="btn btn-neutral float-left" title="Configure Gigamon Tap"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../Configure%20Gigamon%20Tap/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

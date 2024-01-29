@@ -1,0 +1,1611 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Grant Curell" /><link rel="canonical" href="https://grantcurell.github.io/Estimating%20Compute%20Requirements%20for%20Machine%20Learning/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Estimating Compute Requirements for Machine Learning - Grant Curell's Dell Projects</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Estimating Compute Requirements for Machine Learning";
+        var mkdocs_page_input_path = "Estimating Compute Requirements for Machine Learning/README.md";
+        var mkdocs_page_url = "/Estimating%20Compute%20Requirements%20for%20Machine%20Learning/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Grant Curell's Dell Projects
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Grant Curell's Dell Projects</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Create%20Kickstart%20Server%20on%20Fedora/">Create Kickstart Server on Fedora</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Create%20OpenSwitch%20VM/">Create OpenSwitch VM</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Dell%20Ansible%20Testing/">Dell Ansible Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../DHCP%20Relay%20on%20SONiC/">DHCP Relay on SONiC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Elasticsearch%20Display%20Map%20Data/">Elasticsearch Display Map Data</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Elasticsearch%20Load%20Testing/">Elasticsearch Load Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../esrally%20%28INCOMPLETE%29/">esrally (INCOMPLETE)</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Estimating Compute Requirements for Machine Learning</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#executive-summary">Executive Summary</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#training-benchmarks">Training Benchmarks</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#inference-benchmarks">Inference Benchmarks</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#extrapolating-performance">Extrapolating Performance</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#caveats">Caveats</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#inference-benchmarking">Inference Benchmarking</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#retinanet-benchmark">Retinanet Benchmark</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#what-is-the-retinanet-benchmark">What is the retinanet benchmark?</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#the-results">The Results</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#understanding-the-results">Understanding the Results</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#executive-brief-interpretation">Executive Brief Interpretation</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#system-description">System Description</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#training-benchmarking">Training Benchmarking</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#mlperf-benchmark-rules">MLPerf Benchmark Rules</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#accuracy-targets-for-mask-r-cnn-and-ssd-retinanet">Accuracy Targets for Mask R-CNN and SSD (RetinaNet)</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#mask-r-cnn-object-detection-heavy-weight">Mask R-CNN (Object Detection - Heavy Weight)</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#ssd-retinanet-object-detection-light-weight">SSD (RetinaNet) (Object Detection - Light Weight)</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#what-is-mean-average-precision-map">What is mean Average Precision (mAP)</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#single-shot-multibox-detector-ssd">Single Shot MultiBox Detector (SSD)</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#what-is-ssd">What is SSD</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#hyperparameters">Hyperparameters</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#results">Results</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#mask-region-based-convolutional-neural-network-mask-r-cnn">Mask Region-based Convolutional Neural Network (Mask R-CNN)</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#what-is-mask-r-cnn">What is Mask R-CNN</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#hyperparameters_1">Hyperparameters</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#results_1">Results</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#system-description_1">System Description</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Finding%20Rare%20Logs%20with%20DBSCAN/">Finding Rare Logs with DBSCAN</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Get%20NVMe%20Drives%20from%20iDRAC%20Redfish/">Get NVMe Drives from iDRAC Redfish</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../High%20Speed%20Packet%20Capture/">High Speed Packet Capture</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20Bitcoin-Blockchain%20Works%20-%20Notes/">How Bitcoin-Blockchain Works - Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20OS10%20Installer%20Works/">How OS10 Installer Works</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20to%20ONIE%20Install%20and%20ZTP%20Config%20Dell%20SONiC/">How to ONIE Install and ZTP Config Dell SONiC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20to%20Read%20lstopo%20and%20a%20PCIe%20Overview/">How to Read lstopo and a PCIe Overview</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../idrac%20with%20LDAP/">idrac with LDAP</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Importing%20Elasticsearch%20Data/">Importing Elasticsearch Data</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Installing%20DPDK%20with%20NapaTech%20Card/">Installing DPDK with NapaTech Card</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../IO%20Identities%20with%20LifeCycle%20Controller/">IO Identities with LifeCycle Controller</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../LDAP%20with%20OpenManage/">LDAP with OpenManage</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../LLMs%20Explained/">LLMs Explained</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balance%20Testing%20on%204112F-ON/OpenSwitch%20%28OPX%29/">Load Balancing with LAG OPX</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balance%20Testing%20on%204112F-ON/OS10/">Load Balance Testing on 4112F-ON w/OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balance%20Testing%20with%20OpenVSwitch/">Load Balance Testing with OpenVSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balancing%20on%20Mellanox%20Switches/">Load Balancing on Mellanox Switches</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balancing%20with%20LAG%20on%205112F-ON/">Load Balancing with LAG on 5112F-ON</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Migrating%20Storage%20Volumes%20to%20PowerStore/">Migrating Storage Volumes to PowerStore</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Mulitple%20Span%20on%204112F-ON%20with%20OpenSwitch/">Mulitple Span on 4112F-ON with OpenSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Multiple%20Span%20on%204112F-ON%20with%20OS10/">Multiple Span on 4112F-ON with OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20AMD%20Processor/">Notes on AMD Processor</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20Building%20a%20Datacenter%20from%20Scratch/">Notes on Building a Datacenter from Scratch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20HPC/">Notes on HPC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20Improving%20Drive%20Performance/">Notes on Improving Drive Performance</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20mdraid%20Performance%20Testing/">Notes on mdraid Performance Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20nodejs/">Notes on nodejs</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20NVMe%20Log%20Pages/">Notes on NVMe Log Pages</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20PCIe/">Notes on PCIe</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Nvidia%20GPUDirect/">Nvidia GPUDirect</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Nvidia%20GRID%20Notes/">Nvidia GRID Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../NVMe%20Performance%20Testing/">NVMe Performance Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Offline%20Updates%20with%20OpenManage%20Enterprise/">Offline Updates with OpenManage Enterprise</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Make%20USB%20Read%20Only/">Make USB Read Only</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20HSM/">Notes on HSM</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OME%20Bug/">OME Bug</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OME%20Integration%20for%20VMWare/">OME Integration for VMWare</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OpenFlow%20on%204112F-ON/">OpenFlow on 4112F-ON</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OS10%20Password%20Recovery%20Bug/">OS10 Password Recovery Bug</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PCIev3%20vs%20v4/">PCIev3 vs v4</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Playing%20with%20virsh/">Playing with virsh</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PowerScale%20-%20Configure%20with%20Kubernetes/">PowerScale - Configure with Kubernetes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PowerScale%20Failed%20Authentication/">PowerScale Failed Authentication</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PowerScale%20Setup/">PowerScale Setup</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Reset%20OS10%20Admin%20Password/">Reset OS10 Admin Password</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Run%20VPN%20on%20OS10/">Run VPN on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Running%20DNS%20from%20OS10/">Running DNS from OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Set%20Up%20RSPAN%20on%20OS10/">Set Up RSPAN on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setting%20Up%20Breakout%20Cables/">Setting Up Breakout Cables</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setting%20Up%20iDRAC%20Telemetry%20with%20Splunk/">Setting Up iDRAC Telemetry with Splunk</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setting%20Up%20SmartFabric%20Director/">Setting Up SmartFabric Director</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setup%20IDPA/">Setup IDPA</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Site%20to%20Site%20VPN%20with%20PFSense%20and%20CentOS%208/">Site to Site VPN with PFSense and CentOS 8</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../SONiC%20-%20Sample%20Datacenter%20Automation%20Architecture/">SONiC - Sample Datacenter Automation Architecture</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Switch%20Directly%20to%20Client%20Test/">Switch Directly to Client Test</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Testing%20Bare%20Metal%20Orchestrator/">Testing Bare Metal Orchestrator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Testing%20Intel%20x520%20on%20RHEL%206/">Testing Intel x520 on RHEL 6</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Understanding%20Memory/">Understanding Memory</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Understanding%20PERC%20Interrupts/">Understanding PERC Interrupts</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Use%20OS10%20as%20Aggregator/">Use OS10 as Aggregator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Using%20FIO/">Using FIO</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Using%20the%20iDRAC%20Service%20Module/">Using the iDRAC Service Module</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VEP%20Testing/">VEP Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Automate%20ESXi%20Installation/">Automating ESXi Installation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/ESXi%20Architecture/">VMWare Architecture Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Setup%20VXRail/">VxRail Setup</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Troubleshooting%20vSAN/">Troubleshooting vSAN</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/VMWare%20APIs/">VMWare APIs</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/VxRail%20Architecture%20and%20Troubleshooting/">VxRail Architecture and Troubleshooting</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Web%20Traffic%20Generator/">Web Traffic Generator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Writing%20udev%20Rules%20for%20Dell%20PERC%20H755/">Writing udev Rules for Dell PERC H755</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Adding%20Hashing%20to%20OpenSwitch/">Adding Hashing to OpenSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Adding%20Intel%20I219-LM%20%288086.0d4c%29%20Driver%20to%20ESXi/">Adding Intel I219-LM (8086.0d4c) Driver to ESXi</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Automatically%20Provision%20Dell%20Servers/">Automatically Provision Dell Servers</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Automating%20OME%20Hardware%20Reports/">Automating OME Hardware Reports</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Backup%20OS10%20Config%20with%20Ansible/">Backup OS10 Config with Ansible</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../CloudLink/">CloudLink</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Common%20Questions%20About%20LLMs%20Answered/">Common Questions About LLMs Answered</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20FN410%20as%20a%20Switch/">Configure FN410 as a Switch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20Gigamon%20Tap/">Configure Gigamon Tap</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configuring%20VLT%20on%20OS10/">Configuring VLT on OS10</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Grant Curell's Dell Projects</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Estimating Compute Requirements for Machine Learning</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="estimating-compute-requirements-for-machine-learning">Estimating Compute Requirements for Machine Learning</h1>
+<ul>
+<li><a href="#system-performance-analysis">System Performance Analysis</a></li>
+<li><a href="#executive-summary">Executive Summary</a><ul>
+<li><a href="#training-benchmarks">Training Benchmarks</a></li>
+<li><a href="#inference-benchmarks">Inference Benchmarks</a></li>
+<li><a href="#extrapolating-performance">Extrapolating Performance</a></li>
+<li><a href="#caveats">Caveats</a></li>
+</ul>
+</li>
+<li><a href="#inference-benchmarking">Inference Benchmarking</a><ul>
+<li><a href="#retinanet-benchmark">Retinanet Benchmark</a></li>
+<li><a href="#what-is-the-retinanet-benchmark">What is the retinanet benchmark?</a></li>
+<li><a href="#the-results">The Results</a></li>
+<li><a href="#understanding-the-results">Understanding the Results</a><ul>
+<li><a href="#constraints-of-the-benchmark">Constraints of the Benchmark:</a></li>
+<li><a href="#benchmark-results">Benchmark Results:</a></li>
+</ul>
+</li>
+<li><a href="#executive-brief-interpretation">Executive Brief Interpretation</a></li>
+<li><a href="#system-description">System Description</a></li>
+</ul>
+</li>
+<li><a href="#training-benchmarking">Training Benchmarking</a><ul>
+<li><a href="#mlperf-benchmark-rules">MLPerf Benchmark Rules</a></li>
+<li><a href="#accuracy-targets-for-mask-r-cnn-and-ssd-retinanet">Accuracy Targets for Mask R-CNN and SSD (RetinaNet)</a></li>
+<li><a href="#mask-r-cnn-object-detection---heavy-weight">Mask R-CNN (Object Detection - Heavy Weight)</a></li>
+<li><a href="#ssd-retinanet-object-detection---light-weight">SSD (RetinaNet) (Object Detection - Light Weight)</a></li>
+<li><a href="#what-is-mean-average-precision-map">What is mean Average Precision (mAP)</a></li>
+<li><a href="#single-shot-multibox-detector-ssd">Single Shot MultiBox Detector (SSD)</a></li>
+<li><a href="#what-is-ssd">What is SSD</a></li>
+<li><a href="#hyperparameters">Hyperparameters</a></li>
+<li><a href="#results">Results</a><ul>
+<li><a href="#intersection-over-union-iou">Intersection over Union (IoU)</a></li>
+</ul>
+</li>
+<li><a href="#mask-region-based-convolutional-neural-network-mask-r-cnn">Mask Region-based Convolutional Neural Network (Mask R-CNN)</a></li>
+<li><a href="#what-is-mask-r-cnn">What is Mask R-CNN</a></li>
+<li><a href="#hyperparameters-1">Hyperparameters</a></li>
+<li><a href="#results-1">Results</a></li>
+<li><a href="#system-description-1">System Description</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="executive-summary">Executive Summary</h2>
+<p>The focus of this analysis is on object detection in images with three algorithms; two for training and one for inference where training is the process of creating a model which can identify objects and inference is using that model to identify the objects.</p>
+<p>The subject of the analysis is the MLPerf (Machine Learning Performance) benchmark which is the industry standard for judging performance. We specifically examine the results for the Dell XE8960, a GPU-focused server with eight Nvidia H100 GPUs.</p>
+<h3 id="training-benchmarks">Training Benchmarks</h3>
+<ul>
+<li>It takes the XE9680 with 8 H100s 37 minutes 21 seconds to pass the <a href="#single-shot-multibox-detector-ssd">Single Shot Multibox Detector (SSD) object detection benchmark</a> where the input data came from OpenImages dataset</li>
+<li>SSD is generally used for live object detection. Think a Tesla recognizing a stop sign on the fly.</li>
+<li>The MLPerf benchmark specifies an overall mAP (mean Average Precision) score of 34%. mAP is a measurement is defined as both accurately identifying the existence of objects and correctly drawing a box around the object. Ex:</li>
+</ul>
+<p><img alt="" src="images/2023-09-27-16-15-00.png" /></p>
+<p><a href="https://b2633864.smushcdn.com/2633864/wp-content/uploads/2016/09/iou_examples.png?lossy=2&amp;strip=1&amp;webp=1">Source</a></p>
+<ul>
+<li>The above image demonstrates precision. The other metric fed into the 34% value is correctly identifying all objects. Ex: The model could perfectly draw a box around one object but not notice that there were another 5 objects in the model.</li>
+<li>This is saying it takes 37 minutes to create a model that is correct 34% of the time. There is some nuance to this, but this is the high level.</li>
+<li>It takes the XE9680 19 minutes 50 seconds to pass the <a href="#mask-region-based-convolutional-neural-network-mask-r-cnn">Mask Region-based Convolutional Neural Networ (Mask R-CNN) benchmark</a> where the training data came from the COCO dataset</li>
+<li>Mask R-CNN is used for recognizing objects and classifying the parts of objects. It is typically less realtime focused than something like SSD.</li>
+<li>The MLPerf benchmark specifies that the model must reach Minimum Box mAP (mean Average Precision): 0.377 and Minimum Mask mAP (mean Average Precision): 0.339. The box mAP is described above for SSD and remains unchanged. That is to say, correctly drawing a box around an object. Mask R-CNN also requires the model to draw a mask as pictured below:</li>
+</ul>
+<p><img alt="" src="images/2023-09-27-16-27-57.png" /></p>
+<p><a href="https://developers.arcgis.com/python/guide/images/pointrend_maskrcnn.jpg">Source</a></p>
+<h3 id="inference-benchmarks">Inference Benchmarks</h3>
+<ul>
+<li>A detailed analysis of all the rules governing the inference benchmark is too complex to place here. The high level is that for the benchmark everyone's model must perform to a certain standard. The key stat is that the model must perform to at least a level of mAP=37.55% where mAP is as described above.</li>
+<li>The benchmark used for object detection is retinanet</li>
+<li>The XE9680 with 8 H100s is able to process 12484.05 images per second with a mean latency of 12199791 nanoseconds.</li>
+</ul>
+<h3 id="extrapolating-performance">Extrapolating Performance</h3>
+<p>The case described above is for a single XE9680 with 8 H100s. In the ideal case, performance scales linearly. However, in the real world performance will scale linearly...ish. The factors affecting this are myriad and complex, but your main bottleneck will be software inefficiencies which prevent the hardware from being fully utilized.</p>
+<h3 id="caveats">Caveats</h3>
+<ul>
+<li>The viability of these numbers and using them to estimate performance hinge on your data being similar to the benchmark data. I have selected these algorithms because they are most relevant to our use case. The training data is an unknown.</li>
+<li>How many objects you want to detect, how different they are, how well the data is preprocessed, etc all play a massive role in performance. Hundreds of orders of magnitude easily. For example, if the data is preprocessed perfectly then you can expect stunningly accurate results. The opposite is also true.</li>
+<li>In all of these benchmarks the data has already been labeled by experts. One can easily spend months or years just prepping the data for consumption by a model.</li>
+</ul>
+<h2 id="inference-benchmarking">Inference Benchmarking</h2>
+<h3 id="retinanet-benchmark">Retinanet Benchmark</h3>
+<p>See <a href="https://github.com/mlcommons/inference_results_v3.1/tree/main/closed/Dell/results/XE9680_H100_SXM_80GBx8_TRT/retinanet/Server/performance/run_1">here</a> for the original results.</p>
+<h4 id="what-is-the-retinanet-benchmark">What is the retinanet benchmark?</h4>
+<p>RetinaNet is a computer program designed to automatically find and identify objects in pictures or videos. Imagine you have a security camera that needs to recognize people, cars, and other objects. RetinaNet is the brain behind that camera.</p>
+<p>How it works:</p>
+<ol>
+<li><strong>Object Detection</strong>: When you show RetinaNet an image or video frame, it looks for objects in it. Objects could be people, cars, animals, or anything you want it to find.</li>
+<li><strong>Efficient and Fast</strong>: RetinaNet is really good at finding objects quickly. It doesn't waste time by looking at every tiny part of the image. It's like finding a needle in a haystack without checking every straw.</li>
+<li><strong>Smart Learning</strong>: It learns from examples. You show it lots of pictures with objects marked, and it figures out how to recognize those objects in new pictures.</li>
+<li><strong>Handles Different Sizes</strong>: RetinaNet can find both big and small objects. For example, it can spot a person standing far away or a small item up close.</li>
+<li><strong>Works in Many Fields</strong>: People use RetinaNet in all sorts of places. In factories, it checks for defects in products. In self-driving cars, it helps them see other cars and pedestrians. It's even used in security cameras to identify intruders.</li>
+</ol>
+<h4 id="the-results">The Results</h4>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Value</th>
+<th>Description</th>
+<th>Layman's Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SUT name</td>
+<td>LWIS_Server</td>
+<td>System Under Test name.</td>
+<td>The name of the hardware and software configuration used for the benchmark.</td>
+</tr>
+<tr>
+<td>Scenario</td>
+<td>Server</td>
+<td>Benchmark scenario.</td>
+<td>Indicates the scenario under which the test was conducted, in this case, a server-side inference scenario.</td>
+</tr>
+<tr>
+<td>Mode</td>
+<td>PerformanceOnly</td>
+<td>Benchmarking mode.</td>
+<td>Focus on achieving high throughput and efficiency.</td>
+</tr>
+<tr>
+<td>Scheduled samples per second</td>
+<td>12484.77</td>
+<td>Scheduled rate of inference samples per second.</td>
+<td>The planned rate at which inference samples are processed per second.</td>
+</tr>
+<tr>
+<td>Result is</td>
+<td>VALID</td>
+<td>Overall benchmark result.</td>
+<td>Indicates that the benchmark run meets the defined criteria and constraints.</td>
+</tr>
+<tr>
+<td>Performance constraints satisfied</td>
+<td>Yes</td>
+<td>Whether performance constraints are satisfied.</td>
+<td>Confirms that performance constraints have been met.</td>
+</tr>
+<tr>
+<td>Min duration satisfied</td>
+<td>Yes</td>
+<td>Whether the minimum duration requirement is met.</td>
+<td>The benchmark ran for at least the required minimum duration.</td>
+</tr>
+<tr>
+<td>Min queries satisfied</td>
+<td>Yes</td>
+<td>Whether the minimum query count requirement is met.</td>
+<td>The benchmark processed at least the required minimum number of queries.</td>
+</tr>
+<tr>
+<td>Early stopping satisfied</td>
+<td>Yes</td>
+<td>Whether early stopping criteria are met.</td>
+<td>Successful early stopping.</td>
+</tr>
+<tr>
+<td>Completed samples per second</td>
+<td>12484.05</td>
+<td>Actual rate of completed inference samples per second.</td>
+<td>The achieved rate of processing inference samples per second.</td>
+</tr>
+<tr>
+<td>Min latency (ns)</td>
+<td>8611423</td>
+<td>Minimum observed latency in nanoseconds.</td>
+<td>The shortest time taken for inference.</td>
+</tr>
+<tr>
+<td>Max latency (ns)</td>
+<td>34852012</td>
+<td>Maximum observed latency in nanoseconds.</td>
+<td>The longest time taken for inference.</td>
+</tr>
+<tr>
+<td>Mean latency (ns)</td>
+<td>12199791</td>
+<td>Average observed latency in nanoseconds.</td>
+<td>The typical time taken for inference.</td>
+</tr>
+<tr>
+<td>50.00 percentile latency (ns)</td>
+<td>12137988</td>
+<td>Median latency at the 50th percentile.</td>
+<td>The middle value of latency observations.</td>
+</tr>
+<tr>
+<td>90.00 percentile latency (ns)</td>
+<td>14458213</td>
+<td>Latency at the 90th percentile.</td>
+<td>The latency below which 90% of measurements fall.</td>
+</tr>
+<tr>
+<td>95.00 percentile latency (ns)</td>
+<td>15073964</td>
+<td>Latency at the 95th percentile.</td>
+<td>The latency below which 95% of measurements fall.</td>
+</tr>
+<tr>
+<td>97.00 percentile latency (ns)</td>
+<td>15527007</td>
+<td>Latency at the 97th percentile.</td>
+<td>The latency below which 97% of measurements fall.</td>
+</tr>
+<tr>
+<td>99.00 percentile latency (ns)</td>
+<td>16502552</td>
+<td>Latency at the 99th percentile.</td>
+<td>The latency below which 99% of measurements fall.</td>
+</tr>
+<tr>
+<td>99.90 percentile latency (ns)</td>
+<td>18403063</td>
+<td>Latency at the 99.90th percentile.</td>
+<td>A high percentile latency value.</td>
+</tr>
+<tr>
+<td>samples_per_query</td>
+<td>1</td>
+<td>Number of data samples processed per inference query.</td>
+<td>Each inference query processes one data sample.</td>
+</tr>
+<tr>
+<td>target_qps</td>
+<td>12480</td>
+<td>Target queries per second (throughput) for the benchmark.</td>
+<td>The desired rate of processing inference queries per second.</td>
+</tr>
+<tr>
+<td>target_latency (ns)</td>
+<td>100000000</td>
+<td>Target latency in nanoseconds.</td>
+<td>The desired maximum time allowed for inference.</td>
+</tr>
+<tr>
+<td>max_async_queries</td>
+<td>0</td>
+<td>Maximum number of asynchronous queries allowed.</td>
+<td>No asynchronous queries are allowed.</td>
+</tr>
+<tr>
+<td>min_duration (ms)</td>
+<td>600000</td>
+<td>Minimum duration of the benchmark run in milliseconds.</td>
+<td>The shortest time for the benchmark run.</td>
+</tr>
+<tr>
+<td>max_duration (ms)</td>
+<td>0</td>
+<td>Maximum duration of the benchmark run in milliseconds.</td>
+<td>No maximum duration is set.</td>
+</tr>
+<tr>
+<td>min_query_count</td>
+<td>100</td>
+<td>Minimum number of queries to be processed.</td>
+<td>At least 100 queries must be processed.</td>
+</tr>
+<tr>
+<td>max_query_count</td>
+<td>0</td>
+<td>Maximum number of queries to be processed.</td>
+<td>No maximum query count is set.</td>
+</tr>
+<tr>
+<td>qsl_rng_seed</td>
+<td>148687905518835231</td>
+<td>RNG seed for query set list.</td>
+<td>Seed value for randomizing the query set list.</td>
+</tr>
+<tr>
+<td>sample_index_rng_seed</td>
+<td>520418551913322573</td>
+<td>RNG seed for sample index.</td>
+<td>Seed value for randomizing sample indices.</td>
+</tr>
+<tr>
+<td>schedule_rng_seed</td>
+<td>811580660758947900</td>
+<td>RNG seed for scheduling.</td>
+<td>Seed value for scheduling-related randomization.</td>
+</tr>
+<tr>
+<td>accuracy_log_rng_seed</td>
+<td>0</td>
+<td>RNG seed for accuracy log entries.</td>
+<td>Seed value for generating accuracy log entries.</td>
+</tr>
+<tr>
+<td>accuracy_log_probability</td>
+<td>0</td>
+<td>Probability of logging accuracy information.</td>
+<td>The likelihood of logging accuracy information.</td>
+</tr>
+<tr>
+<td>accuracy_log_sampling_target</td>
+<td>0</td>
+<td>Target for accuracy log sampling.</td>
+<td>The desired level of sampling accuracy information.</td>
+</tr>
+<tr>
+<td>print_timestamps</td>
+<td>0</td>
+<td>Whether timestamps were printed.</td>
+<td>Indicates if timestamps were included in the output.</td>
+</tr>
+<tr>
+<td>performance_issue_unique</td>
+<td>0</td>
+<td>Flag for unique performance issue.</td>
+<td>Indicates the presence of a unique performance issue.</td>
+</tr>
+<tr>
+<td>performance_issue_same</td>
+<td>0</td>
+<td>Flag for the same performance issue.</td>
+<td>Indicates the presence of the same performance issue.</td>
+</tr>
+<tr>
+<td>performance_issue_same_index</td>
+<td>0</td>
+<td>Index of a performance issue.</td>
+<td>Identifies the specific index of a performance issue.</td>
+</tr>
+<tr>
+<td>performance_sample_count</td>
+<td>64</td>
+<td>Specific value not provided.</td>
+<td>The count of performance samples.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="understanding-the-results">Understanding the Results</h4>
+<h5 id="constraints-of-the-benchmark">Constraints of the Benchmark:</h5>
+<ol>
+<li><strong>Performance Constraints:</strong> The benchmark sets certain performance expectations that the AI system needs to meet. In this case, the AI system was able to meet these performance standards. It performed efficiently and met the required speed and accuracy criteria.</li>
+<li><strong>Minimum Duration:</strong> The benchmark specifies a minimum duration for the test, ensuring that the AI system runs for a specific amount of time to collect meaningful data. In this test, the AI system ran for at least 600,000 milliseconds (10 minutes).</li>
+<li><strong>Minimum Query Count:</strong> To ensure thorough testing, the benchmark requires that a minimum number of queries (inquiries or requests) be processed. In this case, at least 100 queries needed to be processed to evaluate the system's performance.</li>
+<li><strong>Early Stopping:</strong> The benchmark has a mechanism for early stopping, which means if the AI system performs exceptionally well before completing the full test, it can stop early. In this test, early stopping criteria were met successfully.</li>
+</ol>
+<h5 id="benchmark-results">Benchmark Results:</h5>
+<ol>
+<li><strong>Overall Result:</strong> The overall result of the benchmark is labeled as "VALID," indicating that the AI system performed well and met the defined criteria and constraints. Essentially, it passed the test.</li>
+<li><strong>Latency:</strong> Latency refers to the time it takes for the AI system to process a request or query. The benchmark measured various aspects of latency, including the fastest (8,611,423 nanoseconds) and slowest (34,852,012 nanoseconds) response times. On average, the AI system took approximately 12,199,791 nanoseconds to process a request.</li>
+<li><strong>Throughput:</strong> Throughput measures how fast the AI system can handle requests. In this case, the system processed around 12,484 requests per second, indicating its ability to handle a high volume of requests efficiently.</li>
+<li><strong>Additional Stats:</strong> The benchmark also provided additional statistics about the AI system's performance across different scenarios, such as different object sizes in object detection tasks. These statistics help assess how well the system can detect objects of various sizes in images.</li>
+</ol>
+<p>In summary, this benchmark rigorously tested the AI system's performance, ensuring it met speed and accuracy requirements, ran for a sufficient duration, and processed a minimum number of queries. The AI system successfully passed the test, demonstrating its efficiency in handling requests with varying levels of complexity and object sizes in image recognition tasks.</p>
+<h4 id="executive-brief-interpretation">Executive Brief Interpretation</h4>
+<p>The benchmark results for the XE9680 with eight H100s system indicate outstanding performance in processing image-related tasks. The system achieved a remarkable rate of approximately 12,484.77 image tasks per second, demonstrating its efficiency in handling image-based workloads.</p>
+<p>When assessing response times, the system consistently delivered rapid results. The minimum response time observed during testing was 8,611,423 nanoseconds (ns), highlighting the system's ability to swiftly process image tasks. Even at higher percentiles, response times remained impressive, with the 99.90th percentile response time at approximately 18,403,063 ns.</p>
+<p>Importantly, the system met all specified requirements and criteria, including performance constraints, minimum duration, and query count. It also successfully met early stopping criteria, indicating a high level of performance reliability.</p>
+<p>The benchmark employed settings that align with the system's focus on efficiently handling image tasks. It aimed for a throughput of 12,480 image tasks per second with a target response time of 100,000,000 ns.</p>
+<p>In summary, the system showcased exceptional performance in processing image-related tasks, making it well-suited for demanding applications that require fast and efficient image processing capabilities.</p>
+<h3 id="system-description">System Description</h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>accelerator_frequency</td>
+<td></td>
+</tr>
+<tr>
+<td>accelerator_host_interconnect</td>
+<td>PCIe Gen5 x16</td>
+</tr>
+<tr>
+<td>accelerator_interconnect</td>
+<td>TBD</td>
+</tr>
+<tr>
+<td>accelerator_interconnect_topology</td>
+<td></td>
+</tr>
+<tr>
+<td>accelerator_memory_capacity</td>
+<td>80 GB</td>
+</tr>
+<tr>
+<td>accelerator_memory_configuration</td>
+<td>HBM3</td>
+</tr>
+<tr>
+<td>accelerator_model_name</td>
+<td>NVIDIA H100-SXM-80GB</td>
+</tr>
+<tr>
+<td>accelerator_on-chip_memories</td>
+<td></td>
+</tr>
+<tr>
+<td>accelerators_per_node</td>
+<td>8</td>
+</tr>
+<tr>
+<td>boot_firmware_version</td>
+<td></td>
+</tr>
+<tr>
+<td>cooling</td>
+<td>air-cooled</td>
+</tr>
+<tr>
+<td>disk_controllers</td>
+<td></td>
+</tr>
+<tr>
+<td>disk_drives</td>
+<td></td>
+</tr>
+<tr>
+<td>division</td>
+<td>closed</td>
+</tr>
+<tr>
+<td>filesystem</td>
+<td></td>
+</tr>
+<tr>
+<td>framework</td>
+<td>TensorRT 9.0.0, CUDA 12.2</td>
+</tr>
+<tr>
+<td>host_memory_capacity</td>
+<td>2 TB</td>
+</tr>
+<tr>
+<td>host_memory_configuration</td>
+<td>TBD</td>
+</tr>
+<tr>
+<td>host_networking</td>
+<td>Infiniband</td>
+</tr>
+<tr>
+<td>host_networking_topology</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>host_network_card_count</td>
+<td>8x 400Gb Infiniband</td>
+</tr>
+<tr>
+<td>system_type_detail</td>
+<td>TBD</td>
+</tr>
+<tr>
+<td>host_processor_caches</td>
+<td></td>
+</tr>
+<tr>
+<td>host_processor_core_count</td>
+<td>52</td>
+</tr>
+<tr>
+<td>host_processor_frequency</td>
+<td></td>
+</tr>
+<tr>
+<td>host_processor_interconnect</td>
+<td></td>
+</tr>
+<tr>
+<td>host_processor_model_name</td>
+<td>Intel(R) Xeon(R) Platinum 8470</td>
+</tr>
+<tr>
+<td>host_processors_per_node</td>
+<td>2</td>
+</tr>
+<tr>
+<td>host_storage_capacity</td>
+<td>3 TB</td>
+</tr>
+<tr>
+<td>host_storage_type</td>
+<td>NVMe SSD</td>
+</tr>
+<tr>
+<td>hw_notes</td>
+<td></td>
+</tr>
+<tr>
+<td>management_firmware_version</td>
+<td></td>
+</tr>
+<tr>
+<td>network_speed_mbit</td>
+<td></td>
+</tr>
+<tr>
+<td>nics_enabled_connected</td>
+<td></td>
+</tr>
+<tr>
+<td>nics_enabled_firmware</td>
+<td></td>
+</tr>
+<tr>
+<td>nics_enabled_os</td>
+<td></td>
+</tr>
+<tr>
+<td>number_of_nodes</td>
+<td>1</td>
+</tr>
+<tr>
+<td>number_of_type_nics_installed</td>
+<td></td>
+</tr>
+<tr>
+<td>operating_system</td>
+<td>Ubuntu 22.04</td>
+</tr>
+<tr>
+<td>other_hardware</td>
+<td></td>
+</tr>
+<tr>
+<td>other_software_stack</td>
+<td>TensorRT 9.0.0, CUDA 12.2, cuDNN 8.8.0, Driver 525.85.12, DALI 1.28.0</td>
+</tr>
+<tr>
+<td>power_management</td>
+<td></td>
+</tr>
+<tr>
+<td>power_supply_details</td>
+<td></td>
+</tr>
+<tr>
+<td>power_supply_quantity_and_rating_watts</td>
+<td></td>
+</tr>
+<tr>
+<td>status</td>
+<td>available</td>
+</tr>
+<tr>
+<td>submitter</td>
+<td>Dell</td>
+</tr>
+<tr>
+<td>sw_notes</td>
+<td></td>
+</tr>
+<tr>
+<td>system_name</td>
+<td>Dell PowerEdge XE9680 (8x H100-SXM-80GB, TensorRT)</td>
+</tr>
+<tr>
+<td>system_type</td>
+<td>datacenter</td>
+</tr>
+</tbody>
+</table>
+<h2 id="training-benchmarking">Training Benchmarking</h2>
+<h3 id="mlperf-benchmark-rules">MLPerf Benchmark Rules</h3>
+<p>The rules for the training models are available <a href="https://github.com/mlcommons/training_policies/blob/master/training_rules.adoc#data-state-at-start-of-run">here</a>.</p>
+<h3 id="accuracy-targets-for-mask-r-cnn-and-ssd-retinanet">Accuracy Targets for Mask R-CNN and SSD (RetinaNet)</h3>
+<h4 id="mask-r-cnn-object-detection-heavy-weight">Mask R-CNN (Object Detection - Heavy Weight)</h4>
+<ul>
+<li>Minimum Box mAP (mean Average Precision): 0.377</li>
+<li>Minimum Mask mAP (mean Average Precision): 0.339</li>
+</ul>
+<p><strong>Description</strong>: For Mask R-CNN, these accuracy targets represent the model's ability to identify and outline objects in images. The "Box mAP" target of 0.377 means that it should correctly draw bounding boxes around objects in images about 38% of the time. The "Mask mAP" target of 0.339 means that it should accurately outline the shapes of these objects about 34% of the time.</p>
+<h4 id="ssd-retinanet-object-detection-light-weight">SSD (RetinaNet) (Object Detection - Light Weight)</h4>
+<ul>
+<li>Minimum mAP (mean Average Precision): 34.0%</li>
+</ul>
+<p><strong>Description</strong>: In the case of SSD (RetinaNet), these accuracy targets signify the model's capability to detect objects in images. The mAP target of 34.0% means that it should correctly identify objects in images with an accuracy of at least 34%. For instance, when shown 100 images with objects, it should accurately locate those objects in about 34 of those images.</p>
+<h4 id="what-is-mean-average-precision-map">What is mean Average Precision (mAP)</h4>
+<p>A great description of mAP is available <a href="https://blog.roboflow.com/mean-average-precision/">here</a></p>
+<p>The bottom line is it is a measurement of both how correctly the model draws a box around a known target object and how well does it identify all objects in an image. For example, a precise model with poor recall might accurately identify a single object in an image but not realize that there were ten objects total. However, for that single object, it did precisely draw a box around the object. An imprecise model with high recall might identify all ten objects but the boxes it draws are incorrect. If the model is both precise and has good recall then its map score should be closer to one.</p>
+<p>The goal of the training benchmark is to see how fast you can train a model to have the specified accuracy as defined my mAP.</p>
+<h3 id="single-shot-multibox-detector-ssd">Single Shot MultiBox Detector (SSD)</h3>
+<h4 id="what-is-ssd">What is SSD</h4>
+<p>The Single Shot MultiBox Detector (SSD) is a computer vision algorithm designed to facilitate object detection within images or video frames. It is engineered as a sophisticated visual analysis tool with the following key characteristics:</p>
+<ol>
+<li><strong>Enhanced Visual Perception:</strong> SSD equips computational systems with the capability to comprehend and locate objects within visual content.</li>
+<li><strong>Multi-Faceted Analysis:</strong> This algorithm performs multi-scale analysis, simultaneously examining both the comprehensive context and fine-grained details within an image. It then generates predictions regarding the potential locations of objects.</li>
+<li><strong>Object Identification:</strong> For each prediction, SSD attempts to recognize the nature of the object present (e.g., labeling it as a "car" or "dog") and precisely determine its spatial coordinates within the image.</li>
+<li><strong>Refined Predictions:</strong> SSD employs a sophisticated filtering process to refine and retain the most accurate predictions while discarding less reliable ones. This is akin to selecting the best answers from a pool of possibilities.</li>
+<li><strong>Final Output:</strong> Upon completion of its analysis, SSD presents a detailed report of identified objects, accompanied by bounding boxes delineating their exact positions within the image.</li>
+</ol>
+<p>Key Advantages of SSD:
+- <strong>Rapid Processing:</strong> SSD is distinguished by its speed and efficiency in detecting objects within visual data.
+- <strong>Versatility:</strong> It is proficient at detecting objects of varying sizes within a single analysis.
+- <strong>Prudent Filtering:</strong> SSD employs intelligent filtering techniques to minimize false identifications.</p>
+<p>In essence, SSD empowers computer systems to comprehend visual content and efficiently discern objects within images, making it a valuable tool for a wide range of applications in business and technology.</p>
+<h4 id="hyperparameters">Hyperparameters</h4>
+<p>These are defined by MLCommons <a href="https://github.com/mlcommons/training_policies/blob/master/training_rules.adoc#91-hyperparameters">here</a></p>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Optimizer</th>
+<th>Name</th>
+<th>Constraint</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SSD</td>
+<td>Adam</td>
+<td>Global Batch Size</td>
+<td>Arbitrary constant</td>
+<td>Total number of input examples processed in a training batch.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Optimal Learning Rate Warm-up Epochs</td>
+<td>Integer (&gt;= 0)</td>
+<td>Number of epochs for learning rate to warm up.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Optimal Learning Rate Warm-up Factor</td>
+<td>Unconstrained</td>
+<td>Constant factor applied during learning rate warm-up.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Optimal Base Learning Rate</td>
+<td>Unconstrained</td>
+<td>Base learning rate after warm-up and before decay.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Optimal Weight Decay</td>
+<td>0</td>
+<td>L2 weight decay.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="results">Results</h4>
+<p>These results taken from <a href="https://github.com/mlcommons/training_results_v3.0/blob/main/Dell/results/XE9680x8H100-SXM-80GB/ssd/result_4.txt">here</a></p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Value</th>
+<th>Description</th>
+<th>Layman's Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Average Precision (AP) @ IoU=0.50:0.95</td>
+<td>0.34562</td>
+<td>Average precision over various IoU thresholds for all object sizes, with a limit of 100 detections per image. This measures the accuracy of object detection.</td>
+<td>This measures how well the model finds objects in images. A higher value is better.</td>
+</tr>
+<tr>
+<td>Average Precision (AP) @ IoU=0.50</td>
+<td>0.49204</td>
+<td>Average precision at IoU=0.50 for all object sizes, with a limit of 100 detections per image.</td>
+<td>This measures the accuracy of object detection when objects overlap by 50%. A higher value is better.</td>
+</tr>
+<tr>
+<td>Average Precision (AP) @ IoU=0.75</td>
+<td>0.36934</td>
+<td>Average precision at IoU=0.75 for all object sizes, with a limit of 100 detections per image.</td>
+<td>This measures the accuracy of object detection when objects overlap by 75%. A higher value is better.</td>
+</tr>
+<tr>
+<td>Average Precision (AP) @ IoU=0.50:0.95</td>
+<td>0.00922</td>
+<td>Average precision over various IoU thresholds for small objects, with a limit of 100 detections per image.</td>
+<td>This measures how well the model finds small objects in images. A higher value is better.</td>
+</tr>
+<tr>
+<td>Average Precision (AP) @ IoU=0.50:0.95</td>
+<td>0.10076</td>
+<td>Average precision over various IoU thresholds for medium-sized objects, with a limit of 100 detections per image.</td>
+<td>This measures how well the model finds medium-sized objects in images. A higher value is better.</td>
+</tr>
+<tr>
+<td>Average Precision (AP) @ IoU=0.50:0.95</td>
+<td>0.38291</td>
+<td>Average precision over various IoU thresholds for large objects, with a limit of 100 detections per image.</td>
+<td>This measures how well the model finds large objects in images. A higher value is better.</td>
+</tr>
+<tr>
+<td>Average Recall (AR) @ IoU=0.50:0.95</td>
+<td>0.40965 (maxDets=1)</td>
+<td>Average recall over various IoU thresholds for all object sizes, with a limit of 1 detection per image.</td>
+<td>This measures how well the model recalls objects when considering only the most confident detection. A higher value is better.</td>
+</tr>
+<tr>
+<td>Average Recall (AR) @ IoU=0.50:0.95</td>
+<td>0.58156 (maxDets=10)</td>
+<td>Average recall over various IoU thresholds for all object sizes, with a limit of 10 detections per image.</td>
+<td>This measures how well the model recalls objects when considering up to 10 detections per image. A higher value is better.</td>
+</tr>
+<tr>
+<td>Average Recall (AR) @ IoU=0.50:0.95</td>
+<td>0.60825 (maxDets=100)</td>
+<td>Average recall over various IoU thresholds for all object sizes, with a limit of 100 detections per image.</td>
+<td>This measures how well the model recalls objects when considering up to 100 detections per image. A higher value is better.</td>
+</tr>
+<tr>
+<td>Average Recall (AR) @ IoU=0.50:0.95</td>
+<td>0.03928 (maxDets=100)</td>
+<td>Average recall over various IoU thresholds for small objects, with a limit of 100 detections per image.</td>
+<td>This measures how well the model recalls small objects when considering up to 100 detections per image. A higher value is better.</td>
+</tr>
+<tr>
+<td>Average Recall (AR) @ IoU=0.50:0.95</td>
+<td>0.24963 (maxDets=100)</td>
+<td>Average recall over various IoU thresholds for medium-sized objects, with a limit of 100 detections per image.</td>
+<td>This measures how well the model recalls medium-sized objects when considering up to 100 detections per image. A higher value is better.</td>
+</tr>
+<tr>
+<td>Average Recall (AR) @ IoU=0.50:0.95</td>
+<td>0.66018 (maxDets=100)</td>
+<td>Average recall over various IoU thresholds for large objects, with a limit of 100 detections per image.</td>
+<td>This measures how well the model recalls large objects when considering up to 100 detections per image. A higher value is better.</td>
+</tr>
+<tr>
+<td>Training Duration</td>
+<td>37 minutes 21 seconds</td>
+<td>Total time taken for training.</td>
+<td>The time it took to train the model.</td>
+</tr>
+<tr>
+<td>Throughput</td>
+<td>287.7233 samples/s</td>
+<td>The number of samples processed per second during training.</td>
+<td>How fast the model can process images during training.</td>
+</tr>
+<tr>
+<td>MLPerf Metric Time</td>
+<td>1322.8699 seconds</td>
+<td>The total time taken for the MLPerf benchmark.</td>
+<td>The overall time it took to run the benchmark.</td>
+</tr>
+</tbody>
+</table>
+<h5 id="intersection-over-union-iou">Intersection over Union (IoU)</h5>
+<p><strong>Intersection over Union (IoU)</strong> is a metric commonly used in object detection and image segmentation tasks to evaluate the accuracy of predicted object boundaries or masks. It quantifies the degree of overlap between the predicted region and the ground truth (actual) region of an object within an image. IoU is calculated as the ratio of the area of intersection between the predicted and ground truth regions to the area of their union.</p>
+<p>In simpler terms, IoU measures how well a predicted object's location aligns with the actual object's location. It provides a value between 0 and 1, where:</p>
+<ul>
+<li>IoU = 0 indicates no overlap, meaning the prediction and ground truth have completely different locations.</li>
+<li>IoU = 1 signifies a perfect match, where the predicted and ground truth regions are identical.</li>
+</ul>
+<p>IoU is particularly valuable in tasks where precise object localization is crucial, such as object detection and image segmentation, as it helps assess the quality of the predictions and the model's accuracy in delineating objects within images.</p>
+<h3 id="mask-region-based-convolutional-neural-network-mask-r-cnn">Mask Region-based Convolutional Neural Network (Mask R-CNN)</h3>
+<h4 id="what-is-mask-r-cnn">What is Mask R-CNN</h4>
+<p>Mask R-CNN is a computer vision algorithm designed for advanced object detection and instance segmentation tasks in images or video frames. It is engineered to provide precise and detailed analysis of visual content with the following key characteristics:</p>
+<ol>
+<li><strong>Object Detection and Segmentation:</strong> Mask R-CNN is capable of not only detecting objects within images but also precisely segmenting each object's pixels, providing a mask that outlines its exact shape.</li>
+<li><strong>Multi-Task Approach:</strong> This algorithm simultaneously tackles multiple tasks, including object detection, object classification, and instance segmentation. It excels in providing a comprehensive understanding of visual scenes.</li>
+<li><strong>Accurate Object Localization:</strong> For each detected object, Mask R-CNN not only identifies the object's class (e.g., "car" or "dog") but also delineates its precise boundaries with pixel-level accuracy.</li>
+<li><strong>Semantic Segmentation:</strong> In addition to instance segmentation, Mask R-CNN can perform semantic segmentation by assigning each pixel in the image to a specific object class.</li>
+<li><strong>Real-Time Capabilities:</strong> Mask R-CNN is designed for real-time or near-real-time performance, making it suitable for applications that require fast and accurate object detection and segmentation.</li>
+</ol>
+<p>Key Advantages of Mask R-CNN:
+- <strong>High Precision:</strong> It provides exceptionally precise object masks and localization, making it suitable for tasks that demand pixel-level accuracy.
+- <strong>Rich Information:</strong> The algorithm not only identifies objects but also provides detailed information about each object's shape and class.
+- <strong>Versatility:</strong> Mask R-CNN can handle a wide range of object classes and varying object sizes within a single image.</p>
+<p>In summary, Mask R-CNN is a powerful tool for computer vision tasks that involve object detection, instance segmentation, and semantic segmentation. Its ability to provide detailed and accurate information about objects within images makes it valuable for applications in diverse industries.</p>
+<h4 id="hyperparameters_1">Hyperparameters</h4>
+<p>These are defined by MLCommons <a href="https://github.com/mlcommons/training_policies/blob/master/training_rules.adoc#91-hyperparameters">here</a></p>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Optimizer</th>
+<th>Name</th>
+<th>Constraint</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mask R-CNN</td>
+<td>SGD</td>
+<td>Max Image Size*</td>
+<td>Fixed to Reference</td>
+<td>Maximum size of the longer side</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Min Image Size*</td>
+<td>Fixed to Reference</td>
+<td>Maximum size of the shorter side</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Num Image Candidates*</td>
+<td>1000 or 1000 * Batches per Chip</td>
+<td>Tunable number of region proposals for given batch size</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Optimal Learning Rate Warm-up Factor</td>
+<td>Unconstrained</td>
+<td>Constant factor applied during learning rate warm-up</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Optimal Learning Rate Warm-up Steps</td>
+<td>Unconstrained</td>
+<td>Number of steps for learning rate to warm up</td>
+</tr>
+</tbody>
+</table>
+<h4 id="results_1">Results</h4>
+<p>Pulled from <a href="https://github.com/mlcommons/training_results_v3.0/blob/main/Dell/results/XE9680x8H100-SXM-80GB/maskrcnn/result_4.txt">these results</a></p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Value</th>
+<th>Description</th>
+<th>Layman's Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Average Precision (AP) @ IoU=0.50:0.95</td>
+<td>0.34411</td>
+<td>Average precision over various IoU thresholds for all object sizes, with a limit of 100 detections per image. This measures the accuracy of object detection.</td>
+<td>This measures how well the model finds objects in images. A higher value is better.</td>
+</tr>
+<tr>
+<td>Average Precision (AP) @ IoU=0.50</td>
+<td>0.56214</td>
+<td>Average precision at IoU=0.50 for all object sizes, with a limit of 100 detections per image.</td>
+<td>This measures the accuracy of object detection when objects overlap by 50%. A higher value is better.</td>
+</tr>
+<tr>
+<td>Average Precision (AP) @ IoU=0.75</td>
+<td>0.36660</td>
+<td>Average precision at IoU=0.75 for all object sizes, with a limit of 100 detections per image.</td>
+<td>This measures the accuracy of object detection when objects overlap by 75%. A higher value is better.</td>
+</tr>
+<tr>
+<td>Average Precision (AP) @ IoU=0.50:0.95</td>
+<td>0.15656</td>
+<td>Average precision over various IoU thresholds for small objects, with a limit of 100 detections per image.</td>
+<td>This measures how well the model finds small objects in images. A higher value is better.</td>
+</tr>
+<tr>
+<td>Average Precision (AP) @ IoU=0.50:0.95</td>
+<td>0.36903</td>
+<td>Average precision over various IoU thresholds for medium-sized objects, with a limit of 100 detections per image.</td>
+<td>This measures how well the model finds medium-sized objects in images. A higher value is better.</td>
+</tr>
+<tr>
+<td>Average Precision (AP) @ IoU=0.50:0.95</td>
+<td>0.50665</td>
+<td>Average precision over various IoU thresholds for large objects, with a limit of 100 detections per image.</td>
+<td>This measures how well the model finds large objects in images. A higher value is better.</td>
+</tr>
+<tr>
+<td>Average Recall (AR) @ IoU=0.50:0.95</td>
+<td>0.29223 (maxDets=1)</td>
+<td>Average recall over various IoU thresholds for all object sizes, with a limit of 1 detection per image.</td>
+<td>This measures how well the model recalls objects when considering only the most confident detection. A higher value is better.</td>
+</tr>
+<tr>
+<td>Average Recall (AR) @ IoU=0.50:0.95</td>
+<td>0.44859 (maxDets=10)</td>
+<td>Average recall over various IoU thresholds for all object sizes, with a limit of 10 detections per image.</td>
+<td>This measures how well the model recalls objects when considering up to 10 detections per image. A higher value is better.</td>
+</tr>
+<tr>
+<td>Average Recall (AR) @ IoU=0.50:0.95</td>
+<td>0.46795 (maxDets=100)</td>
+<td>Average recall over various IoU thresholds for all object sizes, with a limit of 100 detections per image.</td>
+<td>This measures how well the model recalls objects when considering up to 100 detections per image. A higher value is better.</td>
+</tr>
+<tr>
+<td>Average Recall (AR) @ IoU=0.50:0.95</td>
+<td>0.27618 (maxDets=100)</td>
+<td>Average recall over various IoU thresholds for small objects, with a limit of 100 detections per image.</td>
+<td>This measures how well the model recalls small objects when considering up to 100 detections per image. A higher value is better.</td>
+</tr>
+<tr>
+<td>Average Recall (AR) @ IoU=0.50:0.95</td>
+<td>0.50280 (maxDets=100)</td>
+<td>Average recall over various IoU thresholds for medium-sized objects, with a limit of 100 detections per image.</td>
+<td>This measures how well the model recalls medium-sized objects when considering up to 100 detections per image. A higher value is better.</td>
+</tr>
+<tr>
+<td>Average Recall (AR) @ IoU=0.50:0.95</td>
+<td>0.61762 (maxDets=100)</td>
+<td>Average recall over various IoU thresholds for large objects, with a limit of 100 detections per image.</td>
+<td>This measures how well the model recalls large objects when considering up to 100 detections per image. A higher value is better.</td>
+</tr>
+<tr>
+<td>Training Duration</td>
+<td>19 minutes 50 seconds</td>
+<td>Total time taken for training.</td>
+<td>The time it took to train the model.</td>
+</tr>
+<tr>
+<td>Throughput</td>
+<td>1388.8244 samples/s</td>
+<td>The number of samples processed per second during training.</td>
+<td>How fast the model can process images during training.</td>
+</tr>
+<tr>
+<td>MLPerf Metric Time</td>
+<td>1322.8699 seconds</td>
+<td>The total time taken for the MLPerf benchmark.</td>
+<td>The overall time it took to run the benchmark.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="system-description_1">System Description</h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>submitter</td>
+<td>Dell</td>
+</tr>
+<tr>
+<td>division</td>
+<td>closed</td>
+</tr>
+<tr>
+<td>status</td>
+<td>onprem</td>
+</tr>
+<tr>
+<td>system_name</td>
+<td>XE9680x8H100-SXM-80GB</td>
+</tr>
+<tr>
+<td>number_of_nodes</td>
+<td>1</td>
+</tr>
+<tr>
+<td>host_processors_per_node</td>
+<td>2</td>
+</tr>
+<tr>
+<td>host_processor_model_name</td>
+<td>Intel(R) Xeon(R) Platinum 8470</td>
+</tr>
+<tr>
+<td>host_processor_core_count</td>
+<td>52</td>
+</tr>
+<tr>
+<td>host_processor_vcpu_count</td>
+<td>208</td>
+</tr>
+<tr>
+<td>host_processor_frequency</td>
+<td></td>
+</tr>
+<tr>
+<td>host_processor_caches</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>host_processor_interconnect</td>
+<td></td>
+</tr>
+<tr>
+<td>host_memory_capacity</td>
+<td>1.024 TB</td>
+</tr>
+<tr>
+<td>host_storage_type</td>
+<td>NVMe</td>
+</tr>
+<tr>
+<td>host_storage_capacity</td>
+<td>4x6.4TB NVMe</td>
+</tr>
+<tr>
+<td>host_networking</td>
+<td></td>
+</tr>
+<tr>
+<td>host_networking_topology</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>host_memory_configuration</td>
+<td>32x 32GB DDR5</td>
+</tr>
+<tr>
+<td>accelerators_per_node</td>
+<td>8</td>
+</tr>
+<tr>
+<td>accelerator_model_name</td>
+<td>NVIDIA H100-SXM5-80GB</td>
+</tr>
+<tr>
+<td>accelerator_host_interconnect</td>
+<td>PCIe 5.0x16</td>
+</tr>
+<tr>
+<td>accelerator_frequency</td>
+<td>1980MHz</td>
+</tr>
+<tr>
+<td>accelerator_on-chip_memories</td>
+<td></td>
+</tr>
+<tr>
+<td>accelerator_memory_configuration</td>
+<td>HBM3</td>
+</tr>
+<tr>
+<td>accelerator_memory_capacity</td>
+<td>80 GB</td>
+</tr>
+<tr>
+<td>accelerator_interconnect</td>
+<td>18xNVLink 25GB/s + 4xNVSwitch</td>
+</tr>
+<tr>
+<td>accelerator_interconnect_topology</td>
+<td></td>
+</tr>
+<tr>
+<td>cooling</td>
+<td></td>
+</tr>
+<tr>
+<td>hw_notes</td>
+<td>GPU TDP:700W</td>
+</tr>
+<tr>
+<td>framework</td>
+<td>NGC MXNet 23.04, NGC Pytorch 23.04, NGC HugeCTR 23.04</td>
+</tr>
+<tr>
+<td>other_software_stack</td>
+<td>cuda_version: 12.0, cuda_driver_version: 530.30.02, cublas_version: 12.1.3, cudnn_version: 8.9.0, trt_version: 8.6.1, dali_version: 1.23.0, nccl_version: 2.17.1, openmpi_version: 4.1.4+, mofed_version: 5.4-rdmacore36.0</td>
+</tr>
+<tr>
+<td>operating_system</td>
+<td>Red Hat Enterprise Linux 9.1</td>
+</tr>
+<tr>
+<td>sw_notes</td>
+<td>N/A</td>
+</tr>
+</tbody>
+</table>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../esrally%20%28INCOMPLETE%29/" class="btn btn-neutral float-left" title="esrally (INCOMPLETE)"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../Finding%20Rare%20Logs%20with%20DBSCAN/" class="btn btn-neutral float-right" title="Finding Rare Logs with DBSCAN">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../esrally%20%28INCOMPLETE%29/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../Finding%20Rare%20Logs%20with%20DBSCAN/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
