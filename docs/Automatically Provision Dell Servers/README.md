@@ -60,7 +60,8 @@ Potential good reasons to not do **automated deployment** with OME (I bolded the
 1. Dell is on the hook for support
 2. Unless you're going to build an entire patch management framework from scratch, which is a very bad idea because new you are on the hook for making sure patches are applied in the correct order, handling failures, reporting, code maintenance, repository maintenance, and all the other not-so-fun things that come with a custom patch management framework, you are going to want to use OME for patch management anyway. 
    1. I've worked with the TELCOs, they use OME. I cannot think of a valid reason to ever re-invent this wheel.
-   2. I am also assuming you are not so cruel to your administrators that in 2024 (or whenever you read this) you will make them do manual patching.
+   2. I am also assuming you are not so cruel to your administrators that in 2024 (or whenever you read this) as to make them do manual patching.
+      1. Seriously though, manual patching is bad.
    3. This supports custom repos with [Update Manager Plugin](https://infohub.delltechnologies.com/p/update-manager-plugin-for-openmanage-enterprise-overview/)
 3. OME will automatically take care of BIOS-config templating.
    1. Again, this is another function you will have to manually build and maintain if you don't use OME. I have personally done this one. It's doable, but requires a lot of tedious, boilerplate, code and you will have to write a bunch of logic to handle all the boarder cases you might encounter. This becomes particularly miserable if you have multiple different servers you have to independently account for with multiple different BIOS templates.
