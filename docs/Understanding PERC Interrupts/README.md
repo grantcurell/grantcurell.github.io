@@ -1,4 +1,4 @@
-# Testing PERC Interrupts
+# Understanding PERC Interrupts
 
 - [Testing PERC Interrupts](#testing-perc-interrupts)
 	- [Hardware](#hardware)

@@ -1,4 +1,4 @@
-# Common Questions About AI/ML and Large Language Models (LLMs) Answered
+# Common Questions About LLMs Answered
 
 I receive a lot of questions about AI/ML and LLMs at work particularly after the advent of ChatGPT so I thought I would leave behind all the math and answer some of the most common questions I receive in plain English. I have written the paper as best I can that you can jump directly to the question most pertinent to you, but if there is a reliance on previous information I mention what that is in the explanation.
 
