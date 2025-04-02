@@ -1,0 +1,1 @@
+Moved to [Deploy OpenShift Offline](../Deploy%20OpenShift%20Offline)
