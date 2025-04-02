@@ -2,18 +2,29 @@ nav:
 - README.md
 - Adding Hashing to OpenSwitch/README.md
 - Adding Intel I219-LM (8086.0d4c) Driver to ESXi/README.md
+- Aircraft Detection/README.md
 - Automatically Provision Dell Servers/README.md
 - Automating OME Hardware Reports/README.md
+- BIOS Options Explanation/README.md
 - Backup OS10 Config with Ansible/README.md
+- Build NVIDIA AI Enterprise/README.md
+- Build OpenShift/README.md
+- Build Preboot Environment with Ansible/README.md
 - CloudLink/README.md
 - Common Questions About LLMs Answered/README.md
 - Configure FN410 as a Switch/README.md
 - Configure Gigamon Tap/README.md
+- Configure Multi-Protocol PowerStore with LDAP/README.md
+- Configure PowerStore SMB User/README.md
+- Configure kdump with SSH/README.md
 - Configuring VLT on OS10/README.md
+- Connect to APC PDU with Redfish/README.md
 - Create Kickstart Server on Fedora/README.md
 - Create OpenSwitch VM/README.md
+- Custom NVMe Debug Driver/README.md
 - DHCP Relay on SONiC/README.md
 - Dell Ansible Testing/README.md
+- Deploy OpenShift Offline/README.md
 - Elasticsearch Display Map Data/README.md
 - Elasticsearch Load Testing/README.md
 - Estimating Compute Requirements for Machine Learning/README.md
@@ -21,11 +32,16 @@ nav:
 - Get NVMe Drives from iDRAC Redfish/README.md
 - High Speed Packet Capture/README.md
 - How Bitcoin-Blockchain Works - Notes/README.md
+- How Does Power Work/README.md
+- How Does SIFT Work/README.md
 - How OS10 Installer Works/README.md
+- How drive detection order works/README.md
 - How to ONIE Install and ZTP Config Dell SONiC/README.md
 - How to Read lstopo and a PCIe Overview/README.md
+- How to Setup PGP with Mailvelope/README.md
 - IO Identities with LifeCycle Controller/README.md
 - Importing Elasticsearch Data/README.md
+- Install OpenCV with CUDA Support on Rocky Linux/README.md
 - Installing DPDK with NapaTech Card/README.md
 - LDAP with OpenManage/README.md
 - LLMs Explained/README.md
@@ -36,6 +52,7 @@ nav:
 - Migrating Storage Volumes to PowerStore/README.md
 - Mulitple Span on 4112F-ON with OpenSwitch/README.md
 - Multiple Span on 4112F-ON with OS10/README.md
+- NVMe Driver Reverse Engineering/README.md
 - NVMe Performance Testing/README.md
 - Notes on AMD Processor/README.md
 - Notes on Building a Datacenter from Scratch/README.md
@@ -53,12 +70,15 @@ nav:
 - OS10 Password Recovery Bug/README.md
 - Offline Updates with OpenManage Enterprise/README.md
 - OpenFlow on 4112F-ON/README.md
+- OpenShift - Change MTU/README.md
+- Overprovisioning Explained/README.md
 - PCIev3 vs v4/README.md
 - Playing with virsh/README.md
 - PowerScale - Configure with Kubernetes/README.md
 - PowerScale Failed Authentication/README.md
 - PowerScale Setup/README.md
 - Reset OS10 Admin Password/README.md
+- Reverse Engineering OpenSHMEM/README.md
 - Run VPN on OS10/README.md
 - Running DNS from OS10/README.md
 - SONiC - Sample Datacenter Automation Architecture/README.md
@@ -68,12 +88,21 @@ nav:
 - Setting Up iDRAC Telemetry with Splunk/README.md
 - Setup IDPA/README.md
 - Site to Site VPN with PFSense and CentOS 8/README.md
+- Swap Kernel on Rocky 9/README.md
 - Switch Directly to Client Test/README.md
 - Testing Bare Metal Orchestrator/README.md
 - Testing Intel x520 on RHEL 6/README.md
+- Testing SHMEM/README.md
+- Troubleshooting 5G Connection/README.md
+- Troubleshooting PowerStore Permissions/README.md
+- Understand and Run LINPACK/README.md
+- Understanding Cellular Technology/README.md
 - Understanding Memory/README.md
+- Understanding NCCL/README.md
 - Understanding PERC Interrupts/README.md
+- Update iDRAC Cipher Suite with Redfish/README.md
 - Use OS10 as Aggregator/README.md
+- Using Dell Repository Manager to Create Bootable ISO/README.md
 - Using FIO/README.md
 - Using the iDRAC Service Module/README.md
 - VEP Testing/README.md
@@ -81,6 +110,7 @@ nav:
 - Writing udev Rules for Dell PERC H755/README.md
 - esrally (INCOMPLETE)/README.md
 - idrac with LDAP/README.md
+- log_analysis/README.md
 - Load Balance Testing on 4112F-ON/OS10/README.md
 - Load Balance Testing on 4112F-ON/OpenSwitch (OPX)/README.md
 - VMWare/Automate ESXi Installation/README.md

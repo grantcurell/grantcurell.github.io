@@ -1,4 +1,4 @@
-# 5G Troubleshooting
+# Troubleshooting 5G Connection
 
 ## Troubleshooting
 

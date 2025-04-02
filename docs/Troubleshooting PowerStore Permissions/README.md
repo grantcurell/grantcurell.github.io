@@ -1,4 +1,4 @@
-# Troubleshooting PowerStore Permissions (IN PROGRESS)
+# Troubleshooting PowerStore Permissions
 
 ## Problem Summary
 

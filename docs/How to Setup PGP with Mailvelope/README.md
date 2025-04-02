@@ -1,4 +1,4 @@
-# How to Set Up PGP with Mailvelope
+# How to Setup PGP with Mailvelope
 
 - Install [mailvelope from here](https://mailvelope.com/en)
 - Click on Mailvelope in the browser bar

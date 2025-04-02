@@ -1,4 +1,4 @@
-
+# Install OpenCV with CUDA Support on Rocky Linux
 - Download the NVIDIA Toolkit
 
 You can get the NVIDIA toolkit from [here](https://developer.nvidia.com/cuda-downloads?target_os=Linux&target_arch=x86_64&Distribution=Rocky&target_version=9&target_type=runfile_local)

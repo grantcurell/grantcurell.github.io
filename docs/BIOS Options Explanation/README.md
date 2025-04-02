@@ -1,4 +1,4 @@
-# BIOS Settings
+# BIOS Options Explanation
 
 - [BIOS Settings](#bios-settings)
   - [Equipment Used](#equipment-used)

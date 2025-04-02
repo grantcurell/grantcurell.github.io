@@ -1,4 +1,4 @@
-# How Drive Overprovisioning Works
+# Overprovisioning Explained
 
 - [How Drive Overprovisioning Works](#how-drive-overprovisioning-works)
   - [What is Drive Overprovisioning](#what-is-drive-overprovisioning)

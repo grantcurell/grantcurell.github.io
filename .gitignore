@@ -34,3 +34,5 @@ docs/Reverse Engineering OpenShmem/SOS-main
 docs/Reverse Engineering OpenSHMEM/libfabric-main/
 docs/Configure Multi-Protocol PowerStore with LDAP/issues/
 docs/Connect to APC PDU with Redfish/issues/
+
+docs/Finding Rare Logs with DBSCAN/xml_files/

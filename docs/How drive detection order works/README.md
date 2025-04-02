@@ -1,4 +1,4 @@
-# How It Works
+# How drive detection order works
 
 1. BIOS initializes the hardware done in some order defined by the BIOS (or less euphemistically, UEFI in 2024). Usually, this follows whatever the priority settings are in BIOS or some firmware default.
 

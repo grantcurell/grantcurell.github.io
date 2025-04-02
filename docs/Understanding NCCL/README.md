@@ -1,4 +1,4 @@
-
+# Understanding NCCL
 
 - [Intro](#intro)
 - [NVIDIA Collective Communications Library (NCCL)](#nvidia-collective-communications-library-nccl)

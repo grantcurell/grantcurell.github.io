@@ -1,4 +1,4 @@
-# Build OpenShift
+# Deploy OpenShift Offline
 
 - [Build OpenShift](#build-openshift)
   - [Install](#install)
