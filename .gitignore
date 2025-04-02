@@ -1,12 +1,36 @@
-
+# Top-level ignores
 .idea/
-
-.vscode/ftp-sync.json
-
-BingSiteAuth.xml
-
-google3c20e65f49ac224c.html
-
-site/
-
 .vscode/
+.vscode/ftp-sync.json
+BingSiteAuth.xml
+google3c20e65f49ac224c.html
+site/
+*.keras
+*.pyc
+
+# docs/ folder ignores
+docs/How Does Power Work/.idea/
+docs/Compile Custom NVMe Driver/linux_source
+docs/Swap Kernel on Rocky 9/source
+docs/Custom NVMe Debug Driver/kernel-grant-nvme-6.6.16-1.x86_64.rpm
+docs/Understand and Run LINPACK/.idea/
+docs/Understand and Run LINPACK/binary/mpiexec.hydra
+docs/Understand and Run LINPACK/binary/mpiexec.hydra.i64
+docs/Understand and Run LINPACK/binary/xhpl_intel64_dynamic
+docs/Understand and Run LINPACK/binary/xhpl_intel64_dynamic.i64
+docs/Understand and Run LINPACK/tommy_notes.md
+docs/How Does SIFT Work/output_images/
+docs/Deploy OpenShift Offline/agent-config.yaml.mine.yaml
+docs/Deploy OpenShift Offline/install-config.yaml.mine.yaml
+docs/log_analysis/xml_files/
+docs/Deploy OpenShift Offline/old_stuff.md
+docs/How Does SIFT Work/U4E00.pdf
+docs/How Does SIFT Work/cedict_1_0_ts_utf-8_mdbg.txt.gz
+docs/Troubleshooting 5G Connection/notes_for_troubleshooting.md
+docs/.vscode/
+docs/Aircraft Detection/data_set/
+docs/Aircraft Detection/aircraft_classifier.h5
+docs/Reverse Engineering OpenShmem/SOS-main
+docs/Reverse Engineering OpenSHMEM/libfabric-main/
+docs/Configure Multi-Protocol PowerStore with LDAP/issues/
+docs/Connect to APC PDU with Redfish/issues/
