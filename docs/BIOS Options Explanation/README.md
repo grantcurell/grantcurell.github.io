@@ -43,7 +43,7 @@ This guide was written for an R7525 with a Milan processor.
 
 - A useful explanation of the different types of memory supported on PowerEdge is available [here](https://www.dell.com/support/kbdoc/en-us/000135681/supported-memory-configuration-guide-for-poweredge-servers)
 - For each PowerEdge server, you can find a description of the memory layout in the System Memory section of the service manual. For example, [this is the R7525's layout](https://www.dell.com/support/manuals/en-us/poweredge-r7525/r7525_ism_pub/system-memory-guidelines?guid=guid-8665c17a-2613-45b2-9204-c02a89225024&lang=en-us).
-- [This paper on error correction](resources/pdfs/common_dellemc_poweredge_yx4x_memoryras_v1_0.pdf) by Jordan Chin, Co-Chair of the CXL Memory Systems Workgroup and memory engineering specialist at Dell
+- [This paper on error correction](https://dl.dell.com/manuals/common/dellemc_poweredge_yx4x_memoryras_v1_0.pdf) by Jordan Chin, Co-Chair of the CXL Memory Systems Workgroup and memory engineering specialist at Dell
 
 ### Dram Refresh Delay
 
