@@ -1,7 +1,6 @@
 # LLMs Explained
-# The Math Behind GPT Models (Rough Draft)
 
-- [The Math Behind GPT Models (Rough Draft)](#the-math-behind-gpt-models-rough-draft)
+- [LLMs Explained](#llms-explained)
   - [Overview](#overview)
   - [How Transformers Work](#how-transformers-work)
     - [1 - Input Sequence to Encoder Embeddings](#1---input-sequence-to-encoder-embeddings)
@@ -889,12 +888,7 @@ In practice, additional techniques such as dropout, layer normalization, and adv
 
 Each of these steps is carefully monitored using validation sets to ensure that the model is learning generalizable patterns and not just memorizing the training data.
 
-Let's take a look at a concrete example.
-
-
-Let's look at a concrete example:
-
-Sure, let's consider a simple example involving a language model that is training to predict the next word in a sentence. Let's say our model's current task is to predict the word following "The cat sat on the ___."
+Let's say our model's current task is to predict the word following "The cat sat on the ___."
 
 For simplicity, imagine our model's vocabulary only consists of four words: {mat, hat, bat, rat}, each represented by a one-hot encoded vector:
 

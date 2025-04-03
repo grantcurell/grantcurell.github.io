@@ -92,7 +92,6 @@ nav:
 - Switch Directly to Client Test/README.md
 - Testing Bare Metal Orchestrator/README.md
 - Testing Intel x520 on RHEL 6/README.md
-- Testing SHMEM/README.md
 - Troubleshooting 5G Connection/README.md
 - Troubleshooting PowerStore Permissions/README.md
 - Understand and Run LINPACK/README.md
@@ -110,7 +109,6 @@ nav:
 - Writing udev Rules for Dell PERC H755/README.md
 - esrally (INCOMPLETE)/README.md
 - idrac with LDAP/README.md
-- log_analysis/README.md
 - Load Balance Testing on 4112F-ON/OS10/README.md
 - Load Balance Testing on 4112F-ON/OpenSwitch (OPX)/README.md
 - VMWare/Automate ESXi Installation/README.md
