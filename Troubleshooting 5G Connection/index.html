@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Grant Curell" /><link rel="canonical" href="https://grantcurell.github.io/Troubleshooting%205G%20Connection/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Troubleshooting 5G Connection - Grant Curell's Dell Projects</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Troubleshooting 5G Connection";
+        var mkdocs_page_input_path = "Troubleshooting 5G Connection\\README.md";
+        var mkdocs_page_url = "/Troubleshooting%205G%20Connection/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Grant Curell's Dell Projects
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Grant Curell's Dell Projects</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Adding%20Hashing%20to%20OpenSwitch/">Adding Hashing to OpenSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Adding%20Intel%20I219-LM%20%288086.0d4c%29%20Driver%20to%20ESXi/">Adding Intel I219-LM (8086.0d4c) Driver to ESXi</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Aircraft%20Detection/">Aircraft Detection</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Automatically%20Provision%20Dell%20Servers/">Automatically Provision Dell Servers</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Automating%20OME%20Hardware%20Reports/">Automating OME Hardware Reports</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../BIOS%20Options%20Explanation/">BIOS Options Explanation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Backup%20OS10%20Config%20with%20Ansible/">Backup OS10 Config with Ansible</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Build%20NVIDIA%20AI%20Enterprise/">Build NVIDIA AI Enterprise</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Build%20OpenShift/">Build OpenShift</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Build%20Preboot%20Environment%20with%20Ansible/">Build Preboot Environment with Ansible</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../CloudLink/">CloudLink</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Common%20Questions%20About%20LLMs%20Answered/">Common Questions About LLMs Answered</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20FN410%20as%20a%20Switch/">Configure FN410 as a Switch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20Gigamon%20Tap/">Configure Gigamon Tap</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20Multi-Protocol%20PowerStore%20with%20LDAP/">Configure Multi-Protocol PowerStore with LDAP</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20PowerStore%20SMB%20User/">Configure PowerStore SMB User</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20kdump%20with%20SSH/">Configure kdump with SSH</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configuring%20VLT%20on%20OS10/">Configuring VLT on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Connect%20to%20APC%20PDU%20with%20Redfish/">Connect to APC PDU with Redfish</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Create%20Kickstart%20Server%20on%20Fedora/">Create Kickstart Server on Fedora</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Create%20OpenSwitch%20VM/">Create OpenSwitch VM</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Custom%20NVMe%20Debug%20Driver/">Custom NVMe Debug Driver</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../DHCP%20Relay%20on%20SONiC/">DHCP Relay on SONiC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Dell%20Ansible%20Testing/">Dell Ansible Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Deploy%20OpenShift%20Offline/">Deploy OpenShift Offline</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Elasticsearch%20Display%20Map%20Data/">Elasticsearch Display Map Data</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Elasticsearch%20Load%20Testing/">Elasticsearch Load Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Estimating%20Compute%20Requirements%20for%20Machine%20Learning/">Estimating Compute Requirements for Machine Learning</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Finding%20Rare%20Logs%20with%20DBSCAN/">Finding Rare Logs with DBSCAN</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Get%20NVMe%20Drives%20from%20iDRAC%20Redfish/">Get NVMe Drives from iDRAC Redfish</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../High%20Speed%20Packet%20Capture/">High Speed Packet Capture</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20Bitcoin-Blockchain%20Works%20-%20Notes/">How Bitcoin-Blockchain Works - Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20Does%20Power%20Work/">How Does Power Work</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20Does%20SIFT%20Work/">How Does SIFT Work</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20OS10%20Installer%20Works/">How OS10 Installer Works</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20drive%20detection%20order%20works/">How drive detection order works</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20to%20ONIE%20Install%20and%20ZTP%20Config%20Dell%20SONiC/">How to ONIE Install and ZTP Config Dell SONiC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20to%20Read%20lstopo%20and%20a%20PCIe%20Overview/">How to Read lstopo and a PCIe Overview</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20to%20Setup%20PGP%20with%20Mailvelope/">How to Setup PGP with Mailvelope</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../IO%20Identities%20with%20LifeCycle%20Controller/">IO Identities with LifeCycle Controller</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Importing%20Elasticsearch%20Data/">Importing Elasticsearch Data</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Install%20OpenCV%20with%20CUDA%20Support%20on%20Rocky%20Linux/">Install OpenCV with CUDA Support on Rocky Linux</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Installing%20DPDK%20with%20NapaTech%20Card/">Installing DPDK with NapaTech Card</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../LDAP%20with%20OpenManage/">LDAP with OpenManage</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../LLMs%20Explained/">LLMs Explained</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balance%20Testing%20with%20OpenVSwitch/">Load Balance Testing with OpenVSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balancing%20on%20Mellanox%20Switches/">Load Balancing on Mellanox Switches</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balancing%20with%20LAG%20on%205112F-ON/">Load Balancing with LAG on 5112F-ON</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Make%20USB%20Read%20Only/">Make USB Read Only</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Migrating%20Storage%20Volumes%20to%20PowerStore/">Migrating Storage Volumes to PowerStore</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Mulitple%20Span%20on%204112F-ON%20with%20OpenSwitch/">Mulitple Span on 4112F-ON with OpenSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Multiple%20Span%20on%204112F-ON%20with%20OS10/">Multiple Span on 4112F-ON with OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../NVMe%20Driver%20Reverse%20Engineering/">NVMe Driver Reverse Engineering</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../NVMe%20Performance%20Testing/">NVMe Performance Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20AMD%20Processor/">Notes on AMD Processor</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20Building%20a%20Datacenter%20from%20Scratch/">Notes on Building a Datacenter from Scratch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20HPC/">Notes on HPC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20HSM/">Notes on HSM</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20Improving%20Drive%20Performance/">Notes on Improving Drive Performance</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20NVMe%20Log%20Pages/">Notes on NVMe Log Pages</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20PCIe/">Notes on PCIe</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20mdraid%20Performance%20Testing/">Notes on mdraid Performance Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20nodejs/">Notes on nodejs</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Nvidia%20GPUDirect/">Nvidia GPUDirect</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Nvidia%20GRID%20Notes/">Nvidia GRID Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OME%20Bug/">OME Bug</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OME%20Integration%20for%20VMWare/">OME Integration for VMWare</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OS10%20Password%20Recovery%20Bug/">OS10 Password Recovery Bug</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Offline%20Updates%20with%20OpenManage%20Enterprise/">Offline Updates with OpenManage Enterprise</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OpenFlow%20on%204112F-ON/">OpenFlow on 4112F-ON</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OpenShift%20-%20Change%20MTU/">OpenShift - Change MTU</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Overprovisioning%20Explained/">Overprovisioning Explained</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PCIev3%20vs%20v4/">PCIev3 vs v4</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Playing%20with%20virsh/">Playing with virsh</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PowerScale%20-%20Configure%20with%20Kubernetes/">PowerScale - Configure with Kubernetes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PowerScale%20Failed%20Authentication/">PowerScale Failed Authentication</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PowerScale%20Setup/">PowerScale Setup</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Reset%20OS10%20Admin%20Password/">Reset OS10 Admin Password</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Reverse%20Engineering%20OpenSHMEM/">Reverse Engineering OpenSHMEM</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Run%20VPN%20on%20OS10/">Run VPN on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Running%20DNS%20from%20OS10/">Running DNS from OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../SONiC%20-%20Sample%20Datacenter%20Automation%20Architecture/">SONiC - Sample Datacenter Automation Architecture</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Set%20Up%20RSPAN%20on%20OS10/">Set Up RSPAN on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setting%20Up%20Breakout%20Cables/">Setting Up Breakout Cables</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setting%20Up%20SmartFabric%20Director/">Setting Up SmartFabric Director</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setting%20Up%20iDRAC%20Telemetry%20with%20Splunk/">Setting Up iDRAC Telemetry with Splunk</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setup%20IDPA/">Setup IDPA</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Site%20to%20Site%20VPN%20with%20PFSense%20and%20CentOS%208/">Site to Site VPN with PFSense and CentOS 8</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Swap%20Kernel%20on%20Rocky%209/">Swap Kernel on Rocky 9</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Switch%20Directly%20to%20Client%20Test/">Switch Directly to Client Test</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Testing%20Bare%20Metal%20Orchestrator/">Testing Bare Metal Orchestrator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Testing%20Intel%20x520%20on%20RHEL%206/">Testing Intel x520 on RHEL 6</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Troubleshooting 5G Connection</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#troubleshooting">Troubleshooting</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#problem-description">Problem Description</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#what-is-pmradioracbfailmsg3dtx-and-what-does-it-tell-us">What is pmRadioRaCbFailMsg3Dtx and What Does it Tell Us</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#where-the-failure-is">Where the Failure Is</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#top-priorities">Top Priorities</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#possible-problems">Possible Problems</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Understand%20and%20Run%20LINPACK/">Understand and Run LINPACK</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Understanding%20Cellular%20Technology/">Understanding Cellular Technology</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Understanding%20Memory/">Understanding Memory</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Understanding%20NCCL/">Understanding NCCL</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Understanding%20PERC%20Interrupts/">Understanding PERC Interrupts</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Update%20iDRAC%20Cipher%20Suite%20with%20Redfish/">Update iDRAC Cipher Suite with Redfish</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Use%20OS10%20as%20Aggregator/">Use OS10 as Aggregator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Using%20Dell%20Repository%20Manager%20to%20Create%20Bootable%20ISO/">Using Dell Repository Manager to Create Bootable ISO</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Using%20FIO/">Using FIO</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Using%20the%20iDRAC%20Service%20Module/">Using the iDRAC Service Module</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VEP%20Testing/">VEP Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Web%20Traffic%20Generator/">Web Traffic Generator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Writing%20udev%20Rules%20for%20Dell%20PERC%20H755/">Writing udev Rules for Dell PERC H755</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../esrally%20%28INCOMPLETE%29/">esrally (INCOMPLETE)</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../idrac%20with%20LDAP/">idrac with LDAP</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balance%20Testing%20on%204112F-ON/OS10/">Load Balance Testing on 4112F-ON w/OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balance%20Testing%20on%204112F-ON/OpenSwitch%20%28OPX%29/">Load Balancing with LAG OPX</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Automate%20ESXi%20Installation/">Automating ESXi Installation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Change%20User%20on%20VxRail%20Plugin/">Change User on VxRail Plugin</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/ESXi%20Architecture/">VMWare Architecture Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/How%20to%20Pull%20Usage%20Metrics/">How to Pull Usage Metrics</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Notes%20on%20VSAN/">Notes on vSAN</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Setup%20VXRail/">VxRail Setup</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Troubleshooting%20vSAN/">Troubleshooting vSAN</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/VMWare%20APIs/">VMWare APIs</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/VxRail%20Architecture%20and%20Troubleshooting/">VxRail Architecture and Troubleshooting</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/vRealize%20Setup%20%28Incomplete%29/">Setting Up vRealize</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Grant Curell's Dell Projects</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Troubleshooting 5G Connection</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="troubleshooting-5g-connection">Troubleshooting 5G Connection</h1>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="problem-description">Problem Description</h3>
+<p><img alt="" src="images/2024-08-21-23-06-11.png" /></p>
+<ul>
+<li>This output is telling us that the base station is sending both message 1 (peramble transmission) and message 2 (random access response). However, the <code>pmRadioRaCbFailMsg3Dtx</code> field tells us that message 3 is never sent from the UE back to the baseband.</li>
+<li>In the next few sections I explain what that field means, how it tells us where the failure is, and where we should look to troubleshoot.</li>
+</ul>
+<h3 id="what-is-pmradioracbfailmsg3dtx-and-what-does-it-tell-us">What is <code>pmRadioRaCbFailMsg3Dtx</code> and What Does it Tell Us</h3>
+<p><img alt="" src="images/2024-08-21-22-20-51.png" /></p>
+<ul>
+<li>In message 2, the base station sends the following information: Time Advance (TA) command for timing adjustment, the RAPID (Random Access Preamble ID) matching the preamble sent by the UE, and an initial uplink grant for the UE. The gNB also assigns a temporary identifier called RA-RNTI (Random Access Radio Network Temporary Identifier) to the UE. The grant tells the UE what time slot it can use to transmit message 3 back to the baseband.</li>
+<li>DTX means detect transmission. The baseband tells the UE in message 2 what time slot to use so during that time slot it begins listening to see if the identified UE responds during the pre-coordinated time. If it <strong>does not</strong> respond during that window, the <code>pmRadioRaCbFailMsg3Dtx</code> counter is incremented. This output is telling us that 17 times the baseband sent the UE message 2 and the UE failed to respond.</li>
+<li>We can asertain from this that at a minimum the downlink is working correctly because the UE is able to decode message one which tells us the broadcast is working.</li>
+</ul>
+<h3 id="where-the-failure-is">Where the Failure Is</h3>
+<ul>
+<li>From the above we know that one of the following is happening:</li>
+<li>The UE is not receiving message 2</li>
+<li>The UE receives message 2 but due to a paramater mismatch is either rejecting message 2 or one of the settings in message 2 is causing a failed send of message 3 back to the baseband</li>
+<li>The baseband is failing to receive message 3</li>
+</ul>
+<h3 id="top-priorities">Top Priorities</h3>
+<ol>
+<li>Determine if message 2 is being received by the UE</li>
+<li>Determine if the UE is sending message 3</li>
+</ol>
+<h3 id="possible-problems">Possible Problems</h3>
+<ul>
+<li>Time Advance (TA) Issues: If the Time Advance (TA) value provided by the base station in message 2 is incorrect or not correctly interpreted by the UE, the UE might transmit message 3 at the wrong time, outside the expected time window. This could cause the base station to miss the response, leading to the increment of the pmRadioRaCbFailMsg3Dtx counter.</li>
+<li>Network Delay: Variations in network delay or timing synchronization issues between the UE and the base station could also result in the UE transmitting message 3 outside the expected time window.</li>
+<li>Frequency Interference: Interference or noise on the uplink channel might prevent the UE from successfully transmitting message 3, or it might cause the base station to fail in detecting the transmission.</li>
+<li>Power Control Problems: If the UE is unable to transmit at the required power level (due to poor battery conditions, power control issues, or hardware limitations), it might not be able to send message 3 with the correct power for the base station to detect it. This doesn't inherently mean it is too </li>
+<li>RA-RNTI Mismatch - If the UE does not use the RA-RNTI (Random Access Radio Network Temporary Identifier) assigned by the base station (beacuse it is not correctly interpreted), the base station would not recognize the UEs response.</li>
+<li>Interference or Noise: External interference or noise in the RF environment could be causing the UE's message 3 to be lost or corrupted before it reaches the base station.</li>
+<li>Seems unlikely unless UE is too close</li>
+<li>RAR (Random Access Request) window problem. The UE must listen in the correct RAR window in order to receive the DCI. The RAR window should be in the SIB.</li>
+<li>Resource allocation problem. This seems unlikely, but the baseband has to allocate domain and frequency resources to the UE. If for some reason it thinks there isn't enough or they are incorrect, the UE may not be able to transmit message 3</li>
+<li>Subcarrier Spacing and Cyclic Prefix Consistency - Any inconsistency in subcarrier spacing or cyclic prefix between the PDCCH, PDSCH, and SIB1 might cause the UE to fail in correctly decoding the PDSCH or sending Message 3.</li>
+<li>In message 3, the transform precoding could be incorrect</li>
+<li>In message 3, we could have a subcarrier mismatch</li>
+<li>Problems with HARQ/PUSCH in message 3</li>
+</ul>
+<h1 id="academics">Academics</h1>
+<ul>
+<li><a href="#5g-troubleshooting">5G Troubleshooting</a></li>
+<li><a href="#troubleshooting">Troubleshooting</a><ul>
+<li><a href="#problem-description">Problem Description</a></li>
+<li><a href="#what-is-pmradioracbfailmsg3dtx-and-what-does-it-tell-us">What is <code>pmRadioRaCbFailMsg3Dtx</code> and What Does it Tell Us</a></li>
+<li><a href="#where-the-failure-is">Where the Failure Is</a></li>
+<li><a href="#top-priorities">Top Priorities</a></li>
+<li><a href="#possible-problems">Possible Problems</a></li>
+</ul>
+</li>
+<li><a href="#academics">Academics</a></li>
+<li><a href="#sources">Sources</a></li>
+<li><a href="#overview-of-pre-rrc-connect-process">Overview of Pre-RRC Connect Process</a><ul>
+<li><a href="#leading-up-to-rrc-connection-request">Leading Up to RRC Connection Request</a></li>
+<li><a href="#sib-summary">SIB Summary</a></li>
+<li><a href="#1-mib-master-information-block">1. <strong>MIB (Master Information Block)</strong></a></li>
+<li><a href="#2-sib1">2. <strong>SIB1</strong></a></li>
+<li><a href="#3-sib2">3. <strong>SIB2</strong></a></li>
+<li><a href="#4-sib3">4. <strong>SIB3</strong></a></li>
+<li><a href="#5-sib4">5. <strong>SIB4</strong></a></li>
+<li><a href="#6-sib5">6. <strong>SIB5</strong></a></li>
+<li><a href="#7-sib6">7. <strong>SIB6</strong></a></li>
+<li><a href="#8-sib7">8. <strong>SIB7</strong></a></li>
+<li><a href="#9-sib8">9. <strong>SIB8</strong></a></li>
+<li><a href="#10-sib9">10. <strong>SIB9</strong></a></li>
+<li><a href="#11-sib10-to-sib13">11. <strong>SIB10 to SIB13</strong></a></li>
+<li><a href="#12-sib14-to-sib25-including-sib17bis-sibpos-etc">12. <strong>SIB14 to SIB25 (including SIB17bis, SIBpos, etc.)</strong></a></li>
+</ul>
+</li>
+<li><a href="#rrc-connection-control">RRC Connection Control</a><ul>
+<li><a href="#1-conditions-for-rrc-connection-establishment">1. <strong>Conditions for RRC Connection Establishment</strong></a></li>
+<li><a href="#2-preconditions-before-initiating-rrc-connection">2. <strong>Preconditions Before Initiating RRC Connection</strong></a></li>
+<li><a href="#3-random-access-procedure-initiation">3. <strong>Random Access Procedure Initiation</strong></a></li>
+<li><a href="#4-rrcsetuprequest-message-transmission">4. <strong>RRCSetupRequest Message Transmission</strong></a></li>
+<li><a href="#5-network-response-rrcsetup-message">5. <strong>Network Response: RRCSetup Message</strong></a></li>
+<li><a href="#6-ue-actions-upon-receiving-rrcsetup">6. <strong>UE Actions Upon Receiving RRCSetup</strong></a></li>
+<li><a href="#7-rrcsetupcomplete-message-transmission">7. <strong>RRCSetupComplete Message Transmission</strong></a></li>
+<li><a href="#8-finalization">8. <strong>Finalization</strong></a></li>
+<li><a href="#9-handling-failures">9. <strong>Handling Failures</strong></a></li>
+<li><a href="#10-abortion-of-rrc-connection-establishment">10. <strong>Abortion of RRC Connection Establishment</strong></a></li>
+</ul>
+</li>
+<li><a href="#message-2-description">Message 2 Description</a><ul>
+<li><a href="#1-sending-dci-with-ra-rnti">1. <strong>Sending DCI with RA-RNTI:</strong></a></li>
+<li><a href="#2-pdcch-detection-and-rar-window">2. <strong>PDCCH Detection and RAR-Window:</strong></a></li>
+<li><a href="#3-dci-format-for-rar-scheduling">3. <strong>DCI Format for RAR Scheduling:</strong></a></li>
+<li><a href="#4-resource-allocation-types">4. <strong>Resource Allocation Types:</strong></a></li>
+<li><a href="#5-rar-window-configuration">5. <strong>RAR-Window Configuration:</strong></a></li>
+<li><a href="#6-decoding-pdcch-and-pdsch">6. <strong>Decoding PDCCH and PDSCH:</strong></a></li>
+<li><a href="#7-matching-rapid-in-rar">7. <strong>Matching RAPID in RAR:</strong></a></li>
+<li><a href="#8-consistency-in-subcarrier-spacing-and-cyclic-prefix">8. <strong>Consistency in Subcarrier Spacing and Cyclic Prefix:</strong></a></li>
+</ul>
+</li>
+<li><a href="#message-3-description">Message 3 Description</a><ul>
+<li><a href="#1-determining-transform-precoding">1. <strong>Determining Transform Precoding:</strong></a></li>
+<li><a href="#2-subcarrier-spacing-scs-for-msg3-pusch">2. <strong>Subcarrier Spacing (SCS) for Msg3 PUSCH:</strong></a></li>
+<li><a href="#3-timing-between-msg2-rar-and-msg3-pusch">3. <strong>Timing Between Msg2 (RAR) and Msg3 (PUSCH):</strong></a></li>
+<li><a href="#4-timing-and-contents-example">4. <strong>Timing and Contents Example:</strong></a></li>
+</ul>
+</li>
+</ul>
+<h2 id="sources">Sources</h2>
+<ul>
+<li>[https://www.sharetechnote.com/html/5G/5G_RACH.html]</li>
+<li>[https://www.3gpp.org/ftp/Specs/archive/38_series/38.331/]</li>
+</ul>
+<h2 id="overview-of-pre-rrc-connect-process">Overview of Pre-RRC Connect Process</h2>
+<ol>
+<li><strong>MIB (Master Information Block)</strong>:</li>
+<li><strong>Transmission</strong>: The MIB is broadcast by the base station on the BCH (Broadcast Channel) and provides essential information that the UE needs to acquire the SIB1.</li>
+<li><strong>Content</strong>: The MIB contains information such as the system frame number, the bandwidth configuration, and the information needed to decode the SIB1.</li>
+<li>
+<p><strong>Timing</strong>: The MIB is transmitted with a periodicity of 80 ms and is repeated within this period. It is closely tied to the SSB (Synchronization Signal Block) scheduling.</p>
+</li>
+<li>
+<p><strong>SIB1 (System Information Block 1)</strong>:</p>
+</li>
+<li><strong>Transmission</strong>: SIB1 is transmitted on the DL-SCH (Downlink Shared Channel) and provides critical information about the cell, including the availability and scheduling of other SIBs.</li>
+<li><strong>Content</strong>: SIB1 includes parameters such as cell selection information, scheduling information for other SIBs, and configuration details for UEs to perform SI requests if needed.</li>
+<li>
+<p><strong>Timing</strong>: SIB1 is transmitted with a periodicity of 160 ms, and the repetition period can vary depending on network implementation.</p>
+</li>
+<li>
+<p><strong>Other SIBs</strong>:</p>
+</li>
+<li><strong>Content and Transmission</strong>: SIBs other than SIB1 carry various other types of system information, such as information related to cell reselection, neighboring cells, and public warning systems. These SIBs are grouped into System Information (SI) messages, each with its own periodicity.</li>
+<li>
+<p><strong>SI Windows</strong>: Each SI message is transmitted within a specific time window, known as the SI-window, during which the message can be repeated.</p>
+</li>
+<li>
+<p><strong>System Information Acquisition</strong>:</p>
+</li>
+<li><strong>Initial Acquisition</strong>: The UE must first acquire the MIB to synchronize with the cell and obtain the information necessary to decode SIB1. Once SIB1 is acquired, the UE can decode the scheduling information for the remaining SIBs.</li>
+<li><strong>Subsequent Acquisitions</strong>: After the initial acquisition, the UE continues to monitor and acquire other SIBs as indicated by SIB1. This ensures that the UE has all the necessary system information to proceed with network access and service initiation.</li>
+</ol>
+<h3 id="leading-up-to-rrc-connection-request">Leading Up to RRC Connection Request</h3>
+<ul>
+<li><strong>Cell Search and Synchronization</strong>: Before acquiring the SI, the UE performs cell search and synchronization, where it detects the cell's synchronization signals (PSS and SSS) and synchronizes with the base station.</li>
+<li><strong>System Information Acquisition</strong>: The UE then acquires the MIB and SIB1, followed by other SIBs, to gather all necessary parameters and network configurations.</li>
+<li><strong>Random Access Procedure</strong>: After acquiring the system information and determining that the cell is suitable for connection, the UE initiates the Random Access Procedure (RACH) to request initial resources from the network.</li>
+<li><strong>RRC Connection Request</strong>: Once the UE has successfully completed the random access procedure, it sends the <strong>RRC Connection Request</strong> to the base station, marking the formal start of the connection setup process.</li>
+</ul>
+<h3 id="sib-summary">SIB Summary</h3>
+<h4 id="1-mib-master-information-block">1. <strong>MIB (Master Information Block)</strong></h4>
+<ul>
+<li><strong>Purpose</strong>: The MIB provides fundamental information that the UE needs to acquire SIB1, synchronize with the network, and access the system.</li>
+<li><strong>Actions</strong>: The UE stores the MIB, checks whether the cell is barred, and if not, proceeds to acquire SIB1.</li>
+</ul>
+<h4 id="2-sib1">2. <strong>SIB1</strong></h4>
+<ul>
+<li><strong>Purpose</strong>: SIB1 contains essential information about the cell, including details on how other SIBs are scheduled, cell selection parameters, and the configuration needed for the UE to make further system information requests.</li>
+<li><strong>Actions</strong>: The UE stores SIB1 and checks if the cell is barred based on specific criteria (e.g., for NTN, ATG, RedCap UEs). If the cell is not barred, the UE uses the information to proceed with network access.</li>
+</ul>
+<h4 id="3-sib2">3. <strong>SIB2</strong></h4>
+<ul>
+<li><strong>Purpose</strong>: SIB2 provides information related to radio resource configuration, including uplink and downlink parameters, access barring information, and common channels.</li>
+<li><strong>Actions</strong>: The UE applies the configuration for the selected frequency band, including uplink and downlink parameters, and any additional spectrum emissions if supported.</li>
+</ul>
+<h4 id="4-sib3">4. <strong>SIB3</strong></h4>
+<ul>
+<li><strong>Purpose</strong>: SIB3 typically includes information on cell reselection parameters, especially in LTE and 5G NR, guiding the UE on when and how to perform cell reselection to maintain or improve service.</li>
+<li><strong>Actions</strong>: No specific actions are outlined for the UE beyond using the information in SIB3 within other relevant procedures, such as cell reselection.</li>
+</ul>
+<h4 id="5-sib4">5. <strong>SIB4</strong></h4>
+<ul>
+<li><strong>Purpose</strong>: SIB4 contains information about inter-frequency cell reselection, including details on neighboring cells on different frequencies.</li>
+<li><strong>Actions</strong>: The UE stores and uses this information to perform inter-frequency cell reselection, particularly ensuring that the UE can identify and connect to suitable neighboring cells.</li>
+</ul>
+<h4 id="6-sib5">6. <strong>SIB5</strong></h4>
+<ul>
+<li><strong>Purpose</strong>: SIB5 provides information on inter-frequency and inter-RAT (Radio Access Technology) cell reselection, particularly focusing on UEs that may need to transition between different network technologies (e.g., LTE to 5G).</li>
+<li><strong>Actions</strong>: Similar to SIB3 and SIB4, the UE uses this information within cell reselection and other system information-dependent procedures.</li>
+</ul>
+<h4 id="7-sib6">7. <strong>SIB6</strong></h4>
+<ul>
+<li><strong>Purpose</strong>: SIB6 is used to transmit emergency warning messages to the UE, part of the public warning system implemented by mobile networks.</li>
+<li><strong>Actions</strong>: The UE forwards any received emergency warning messages to the upper layers for user notification.</li>
+</ul>
+<h4 id="8-sib7">8. <strong>SIB7</strong></h4>
+<ul>
+<li><strong>Purpose</strong>: SIB7 also relates to public warning messages, often containing additional information or segments of a warning message that are to be assembled by the UE.</li>
+<li><strong>Actions</strong>: The UE assembles the warning message from the segments, forwards it to the upper layers, and manages the message reception and storage as needed.</li>
+</ul>
+<h4 id="9-sib8">9. <strong>SIB8</strong></h4>
+<ul>
+<li><strong>Purpose</strong>: SIB8 may contain further emergency warning information, including geographical area coordinates relevant to the warning.</li>
+<li><strong>Actions</strong>: The UE processes and forwards the complete warning message and geographical data to the upper layers.</li>
+</ul>
+<h4 id="10-sib9">10. <strong>SIB9</strong></h4>
+<ul>
+<li><strong>Purpose</strong>: SIB9 may include information related to time synchronization or specific network parameters relevant for network access, particularly in specialized or non-public networks.</li>
+<li><strong>Actions</strong>: The UE processes this timing information and applies it as required for synchronization or other network-specific configurations.</li>
+</ul>
+<h4 id="11-sib10-to-sib13">11. <strong>SIB10 to SIB13</strong></h4>
+<ul>
+<li><strong>Purpose</strong>: These SIBs can include a variety of additional information such as network slicing priorities, additional public warning systems, or system configurations for specific use cases.</li>
+<li><strong>Actions</strong>: The UE processes each SIB as required, storing, applying, or forwarding the information to the upper layers as relevant.</li>
+</ul>
+<h4 id="12-sib14-to-sib25-including-sib17bis-sibpos-etc">12. <strong>SIB14 to SIB25 (including SIB17bis, SIBpos, etc.)</strong></h4>
+<ul>
+<li><strong>Purpose</strong>: These SIBs generally provide more specialized information, such as details for disaster roaming (SIB15), slicing for mobile broadband, additional sidelink configurations, or public safety information.</li>
+<li><strong>Actions</strong>: Depending on the content, the UE processes, stores, applies, or forwards the relevant information to ensure correct operation and support for specialized services or configurations.</li>
+</ul>
+<h2 id="rrc-connection-control">RRC Connection Control</h2>
+<p><img alt="" src="images/2024-08-21-17-45-53.png" /></p>
+<p><img alt="" src="images/2024-08-21-17-47-06.png" /></p>
+<h3 id="1-conditions-for-rrc-connection-establishment">1. <strong>Conditions for RRC Connection Establishment</strong></h3>
+<ul>
+<li><strong>General Initiation</strong>: The UE initiates the RRC connection when it is in <strong>RRC_IDLE</strong> or <strong>RRC_INACTIVE</strong> and needs to send data or perform specific actions (e.g., NAS signaling, sidelink communication).</li>
+<li><strong>Sidelink Communication</strong>: For NR sidelink communication (e.g., V2X or sidelink discovery), the UE only initiates the RRC connection under specific conditions, such as when configured to transmit and the frequency is available in the system information blocks (e.g., SIB12).</li>
+</ul>
+<h3 id="2-preconditions-before-initiating-rrc-connection">2. <strong>Preconditions Before Initiating RRC Connection</strong></h3>
+<ul>
+<li><strong>System Information Acquisition</strong>: Before initiating the RRC connection, the UE must ensure that it has valid and up-to-date essential system information, such as SIB1, which includes necessary configuration parameters for access and random access procedures.</li>
+<li><strong>Unified Access Control</strong>: If the upper layers provide an access category and identities, the UE performs access control to ensure the attempt is not barred. If the access is barred, the procedure ends.</li>
+</ul>
+<h3 id="3-random-access-procedure-initiation">3. <strong>Random Access Procedure Initiation</strong></h3>
+<ul>
+<li>If the UE is not barred, it proceeds with the random access procedure. This procedure involves the following steps:<ol>
+<li><strong>Selection of NSAG (Network Slice Assistance Group)</strong>: The UE selects the NSAG with the highest priority based on the information provided in SIB1.</li>
+<li><strong>Random Access Preamble</strong>: The UE transmits a random access preamble on the selected frequency using the PRACH (Physical Random Access Channel).</li>
+<li><strong>Random Access Response</strong>: The network responds with timing advance information, uplink grant, and a temporary identity (C-RNTI).</li>
+</ol>
+</li>
+</ul>
+<h3 id="4-rrcsetuprequest-message-transmission">4. <strong>RRCSetupRequest Message Transmission</strong></h3>
+<ul>
+<li>
+<p>The UE sets up the contents of the <strong>RRCSetupRequest</strong> message, which includes:</p>
+<ol>
+<li><strong>UE Identity</strong>: If the upper layers provide a 5G-S-TMSI (Temporary Mobile Subscriber Identity), the UE includes it in the request. Otherwise, the UE generates a random value.</li>
+<li><strong>Establishment Cause</strong>: The UE includes the cause for initiating the connection, such as "emergency" or "high priority access."</li>
+<li><strong>TA (Timing Advance) Report</strong>: If required, the UE indicates the need for a TA report.</li>
+</ol>
+</li>
+<li>
+<p><strong>Transmission</strong>: The RRCSetupRequest message is then transmitted to the network, initiating the formal connection setup process.</p>
+</li>
+</ul>
+<h3 id="5-network-response-rrcsetup-message">5. <strong>Network Response: RRCSetup Message</strong></h3>
+<ul>
+<li>The network processes the RRCSetupRequest and, if accepted, sends an <strong>RRCSetup</strong> message back to the UE. The message includes:<ol>
+<li><strong>Configuration Information</strong>: The network provides configuration for the radio bearer (SRB1), MAC, RLC, and PDCP layers. It also provides information about the physical layer, such as time alignment.</li>
+<li><strong>Cell Group Configuration</strong>: If applicable, the message includes configuration for master and secondary cell groups.</li>
+</ol>
+</li>
+</ul>
+<h3 id="6-ue-actions-upon-receiving-rrcsetup">6. <strong>UE Actions Upon Receiving RRCSetup</strong></h3>
+<ul>
+<li>The UE performs several actions upon receiving the RRCSetup message:<ol>
+<li><strong>Stop Timers</strong>: The UE stops any running timers related to the connection setup, such as T300, T301, and T319.</li>
+<li><strong>Apply Configuration</strong>: The UE applies the received configuration for the radio bearers, MAC, RLC, and PDCP layers.</li>
+<li><strong>Release Old Resources</strong>: The UE releases any old radio resources or configurations that are no longer needed.</li>
+<li><strong>Enter RRC_CONNECTED State</strong>: The UE transitions to the <strong>RRC_CONNECTED</strong> state, indicating that the connection has been successfully established.</li>
+<li><strong>Handle Failures</strong>: If the UE has any stored information about previous connection failures or handover failures, it updates this information as needed.</li>
+</ol>
+</li>
+</ul>
+<h3 id="7-rrcsetupcomplete-message-transmission">7. <strong>RRCSetupComplete Message Transmission</strong></h3>
+<ul>
+<li>After applying the configuration, the UE sends an <strong>RRCSetupComplete</strong> message back to the network, which:<ol>
+<li><strong>Confirms Configuration</strong>: Confirms that the UE has successfully applied the configuration provided by the network.</li>
+<li><strong>NAS Message Transfer</strong>: Includes any initial NAS (Non-Access Stratum) messages, such as registration or session establishment requests, which are forwarded to the core network.</li>
+<li><strong>Optional Information</strong>: The UE may also include additional information, such as logging available measurements, mobility history, or any application layer configurations that need to be reported.</li>
+</ol>
+</li>
+</ul>
+<h3 id="8-finalization">8. <strong>Finalization</strong></h3>
+<ul>
+<li>Once the <strong>RRCSetupComplete</strong> message is received by the network, the RRC connection is fully established, and the UE can now communicate with the core network for data transfer, service requests, or any other necessary operations.</li>
+</ul>
+<h3 id="9-handling-failures">9. <strong>Handling Failures</strong></h3>
+<ul>
+<li><strong>RRCReject</strong>: If the network rejects the connection (RRCReject), the UE follows specific procedures to handle the rejection, such as waiting before retrying or logging the failure for reporting.</li>
+<li><strong>T300 Expiry</strong>: If the T300 timer expires without a response from the network, the UE resets the MAC layer, releases the configuration, and may attempt cell reselection.</li>
+</ul>
+<h3 id="10-abortion-of-rrc-connection-establishment">10. <strong>Abortion of RRC Connection Establishment</strong></h3>
+<ul>
+<li>If the connection establishment is aborted due to an upper-layer request (e.g., due to NAS procedure failure), the UE stops the timers, resets the MAC, and releases the configurations.</li>
+</ul>
+<h2 id="message-2-description">Message 2 Description</h2>
+<ul>
+<li><a href="https://www.sharetechnote.com/html/5G/5G_RACH.html#InitialAttach_Step_B">https://www.sharetechnote.com/html/5G/5G_RACH.html#InitialAttach_Step_B</a></li>
+</ul>
+<h3 id="1-sending-dci-with-ra-rnti">1. <strong>Sending DCI with RA-RNTI:</strong></h3>
+<ul>
+<li><strong>DCI (Downlink Control Information):</strong> DCI is a message sent on the PDCCH (Physical Downlink Control Channel) that provides the UE with information about how to receive and decode data sent on the PDSCH (Physical Downlink Shared Channel).</li>
+<li><strong>RA-RNTI (Random Access Radio Network Temporary Identifier):</strong> RA-RNTI is a temporary identifier assigned to the UE during the Random Access procedure. It is calculated based on the parameters of the Random Access Preamble that the UE transmitted in Msg1 (the first message in the RACH procedure).</li>
+<li><strong>Scrambling with RA-RNTI:</strong> The DCI sent by the gNB is scrambled with the RA-RNTI, meaning the DCI is encoded in a way that only the UE that generated or was assigned the matching RA-RNTI can correctly decode it. This ensures that only the intended UE receives and processes the DCI.</li>
+</ul>
+<h3 id="2-pdcch-detection-and-rar-window">2. <strong>PDCCH Detection and RAR-Window:</strong></h3>
+<ul>
+<li><strong>PDCCH (Physical Downlink Control Channel):</strong> The PDCCH is the channel used by the gNB to send control information (like DCI) to the UE. The UE must monitor the PDCCH to receive the DCI.</li>
+<li><strong>RAR-Window:</strong> The RAR-Window is a time period during which the UE expects to receive the Random Access Response (RAR). This window is configured by the gNB and communicated to the UE through system information (e.g., in SIB1). The UE must continuously monitor the PDCCH during this window to catch the DCI.</li>
+<li><strong>Type 1 PDCCH Common Search Space:</strong> This refers to the specific search space within the PDCCH that the UE is monitoring. Search spaces define where in the time-frequency grid the UE should look for control messages. Type 1 Common Search Space is shared among UEs and is specifically used for common DCI messages like those during the RACH procedure.</li>
+</ul>
+<h3 id="3-dci-format-for-rar-scheduling">3. <strong>DCI Format for RAR Scheduling:</strong></h3>
+<ul>
+<li><strong>DCI Format 1_0:</strong> This is the format of the DCI used by the gNB to schedule the PDSCH that carries the Random Access Response (RAR). Format 1_0 is used to provide scheduling information such as resource allocation, modulation, and coding scheme for the PDSCH.</li>
+<li><strong>RA-RNTI:</strong> As mentioned earlier, the DCI is scrambled with the RA-RNTI, ensuring that the intended UE can identify and decode the DCI.</li>
+</ul>
+<h3 id="4-resource-allocation-types">4. <strong>Resource Allocation Types:</strong></h3>
+<ul>
+<li><strong>Resource Allocation Type 1:</strong> This is the resource allocation method used for scheduling the PDSCH. In Resource Allocation Type 1, the gNB allocates resources using a bitmap that specifies which resource blocks (RBs) in the frequency domain are assigned to the UE. This allows flexible allocation of non-contiguous resources, which is useful for optimizing spectral efficiency.</li>
+<li><strong>Frequency Domain Resource Allocation:</strong> The DCI Format 1_0 carries the frequency domain resource allocation information. This tells the UE which resource blocks it should use to receive the PDSCH.</li>
+<li><strong>Time Domain Resource Allocation:</strong> In addition to frequency resources, the DCI Format 1_0 and the PDSCH-ConfigCommon (configured in the SIB) specify the time domain allocation, indicating when the UE should listen for the PDSCH carrying the RAR.</li>
+</ul>
+<h3 id="5-rar-window-configuration">5. <strong>RAR-Window Configuration:</strong></h3>
+<ul>
+<li><strong>rar-WindowLength IE (Information Element):</strong> This parameter, configured in a System Information Block (SIB) message (likely SIB1), defines the duration of the RAR-Window. This is the time during which the UE should monitor the PDCCH for the DCI message. The length of this window can affect how quickly the UE can respond to the gNB.</li>
+</ul>
+<h3 id="6-decoding-pdcch-and-pdsch">6. <strong>Decoding PDCCH and PDSCH:</strong></h3>
+<ul>
+<li><strong>Decoding PDCCH:</strong> If the UE successfully detects and decodes the DCI message on the PDCCH within the RAR-Window, it now has the information needed to decode the subsequent PDSCH.</li>
+<li><strong>PDSCH Carrying RAR Data:</strong> The PDSCH is where the actual Random Access Response (RAR) data is transmitted. This data includes the Time Advance (TA), RAPID (Random Access Preamble ID), uplink grant, and the RA-RNTI.</li>
+</ul>
+<h3 id="7-matching-rapid-in-rar">7. <strong>Matching RAPID in RAR:</strong></h3>
+<ul>
+<li><strong>RAPID (Random Access Preamble ID):</strong> The RAR message includes the RAPID, which is the identifier of the Random Access Preamble that the UE sent in Msg1. The UE checks this value in the RAR to confirm that the response is intended for it. If the RAPID matches the one used by the UE, the UE knows that the RAR is for it.</li>
+</ul>
+<h3 id="8-consistency-in-subcarrier-spacing-and-cyclic-prefix">8. <strong>Consistency in Subcarrier Spacing and Cyclic Prefix:</strong></h3>
+<ul>
+<li><strong>Same Subcarrier Spacing and Cyclic Prefix as SIB1:</strong> The PDCCH and PDSCH used in this RAR process should have the same subcarrier spacing and cyclic prefix configuration as the SIB1 message. This ensures consistency in how the UE and gNB communicate during the initial access procedure, reducing the risk of errors due to misalignment of subcarrier spacing or cyclic prefix.</li>
+</ul>
+<h2 id="message-3-description">Message 3 Description</h2>
+<ul>
+<li>Source: <a href="https://www.sharetechnote.com/html/5G/5G_RACH.html#InitialAttach_Step_D">https://www.sharetechnote.com/html/5G/5G_RACH.html#InitialAttach_Step_D</a></li>
+</ul>
+<p>In the 5G NR Random Access Procedure, Msg3 refers to the message sent by the UE to the gNB after it has received the Random Access Response (RAR). Msg3 is transmitted on the PUSCH (Physical Uplink Shared Channel), and its timing, frequency, and other parameters are crucial for ensuring that the gNB successfully receives and processes this message.</p>
+<h4 id="1-determining-transform-precoding">1. <strong>Determining Transform Precoding:</strong></h4>
+<ul>
+<li>The UE checks whether it needs to apply transform precoding for Msg3 PUSCH. This decision is based on the <code>msg3-tp</code> parameter from the RRC (Radio Resource Control) configuration. Transform precoding is a technique used to spread the signal across multiple subcarriers, which can help in certain conditions to improve robustness against interference.</li>
+</ul>
+<h4 id="2-subcarrier-spacing-scs-for-msg3-pusch">2. <strong>Subcarrier Spacing (SCS) for Msg3 PUSCH:</strong></h4>
+<ul>
+<li>The subcarrier spacing for Msg3 PUSCH is determined by the RRC parameter called <code>msg3-scs</code> (Subcarrier Spacing). Subcarrier spacing is a critical parameter that determines the spacing between subcarriers in the frequency domain. This can vary in 5G depending on the deployment scenario, with common values being 15 kHz, 30 kHz, 60 kHz, etc.</li>
+<li>The UE must use the same subcarrier spacing for Msg3 as was used for PRACH (Physical Random Access Channel) to maintain consistency in the transmission.</li>
+</ul>
+<h4 id="3-timing-between-msg2-rar-and-msg3-pusch">3. <strong>Timing Between Msg2 (RAR) and Msg3 (PUSCH):</strong></h4>
+<ul>
+<li>
+<p>The timing of Msg3 is determined by two key parameters:</p>
+<ul>
+<li><strong>k2:</strong> This value, determined by the RAR, specifies the time offset (in slots) between the last symbol of Msg2 (PDSCH) and the first symbol of Msg3 (PUSCH). This ensures that the UE knows when to start transmitting Msg3 after receiving Msg2.</li>
+<li><strong>Δ (Delta):</strong> This is an additional offset value that depends on the subcarrier spacing (<code>μPUSCH</code>) used for Msg3. This value is defined in the 3GPP standard (TS 38.214) and varies depending on the subcarrier spacing.</li>
+</ul>
+</li>
+<li>
+<p><strong>Minimum Delay Calculation:</strong></p>
+<ul>
+<li>The formula <code>N_{T,1} + N_{T,2} + 0.5 ms</code> defines the minimum delay between Msg2 and Msg3. Here:</li>
+<li><strong>N_{T,1}:</strong> Represents the time duration of symbols corresponding to a PDSCH reception period required by the UE for processing (based on its capability).</li>
+<li><strong>N_{T,2}:</strong> Represents the time duration required for the UE to prepare the PUSCH for Msg3.</li>
+<li>This delay ensures the UE has sufficient time to decode Msg2 and prepare for Msg3 transmission.</li>
+</ul>
+</li>
+</ul>
+<h4 id="4-timing-and-contents-example">4. <strong>Timing and Contents Example:</strong></h4>
+<ul>
+<li>
+<p>The example shown in the image demonstrates the exact timing between the RAR and Msg3 PUSCH as observed in a protocol log. The key timings are:</p>
+<ul>
+<li><strong>RAR Timing (<code>120.7</code>):</strong> The RAR was sent at time 120.7.</li>
+<li><strong>Msg3 PUSCH Timing (<code>120.17</code>):</strong> Msg3 PUSCH was sent at time 120.17.</li>
+</ul>
+</li>
+<li>
+<p>The difference in timing between these events is explained by the sum of <code>k2</code> and <code>Δ</code>:</p>
+<ul>
+<li><strong>k2 = 7 slots:</strong> As per the information, the value of <code>k2</code> is 7, determined by the RAR and corresponding subcarrier spacing.</li>
+<li><strong>Δ = 3 slots:</strong> This is derived based on the numerology (<code>μ</code>) of the subcarrier spacing.</li>
+</ul>
+</li>
+<li>
+<p>The total time delay of 10 slots between RAR and Msg3 PUSCH is consistent with the values of <code>k2</code> and <code>Δ</code>.</p>
+</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../Testing%20Intel%20x520%20on%20RHEL%206/" class="btn btn-neutral float-left" title="Testing Intel x520 on RHEL 6"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../Understand%20and%20Run%20LINPACK/" class="btn btn-neutral float-right" title="Understand and Run LINPACK">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="None" class="fa fa-code-fork" style="color: #fcfcfc"> https://github.com/grantcurell/grantcurell.github.io/tree/master</a>
+        </span>
+    
+    
+      <span><a href="../Testing%20Intel%20x520%20on%20RHEL%206/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../Understand%20and%20Run%20LINPACK/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

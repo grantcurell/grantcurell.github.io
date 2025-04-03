@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Grant Curell" /><link rel="canonical" href="https://grantcurell.github.io/OpenShift%20-%20Change%20MTU/bug/network_pod_description/" />
+      <link rel="shortcut icon" href="../../../img/favicon.ico" />
+    <title>Network pod description - Grant Curell's Dell Projects</title>
+    <link rel="stylesheet" href="../../../css/theme.css" />
+    <link rel="stylesheet" href="../../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Network pod description";
+        var mkdocs_page_input_path = "OpenShift - Change MTU\\bug\\network_pod_description.md";
+        var mkdocs_page_url = "/OpenShift%20-%20Change%20MTU/bug/network_pod_description/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../../.." class="icon icon-home"> Grant Curell's Dell Projects
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../..">Grant Curell's Dell Projects</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Adding%20Hashing%20to%20OpenSwitch/">Adding Hashing to OpenSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Adding%20Intel%20I219-LM%20%288086.0d4c%29%20Driver%20to%20ESXi/">Adding Intel I219-LM (8086.0d4c) Driver to ESXi</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Aircraft%20Detection/">Aircraft Detection</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Automatically%20Provision%20Dell%20Servers/">Automatically Provision Dell Servers</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Automating%20OME%20Hardware%20Reports/">Automating OME Hardware Reports</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../BIOS%20Options%20Explanation/">BIOS Options Explanation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Backup%20OS10%20Config%20with%20Ansible/">Backup OS10 Config with Ansible</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Build%20NVIDIA%20AI%20Enterprise/">Build NVIDIA AI Enterprise</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Build%20OpenShift/">Build OpenShift</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Build%20Preboot%20Environment%20with%20Ansible/">Build Preboot Environment with Ansible</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../CloudLink/">CloudLink</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Common%20Questions%20About%20LLMs%20Answered/">Common Questions About LLMs Answered</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Configure%20FN410%20as%20a%20Switch/">Configure FN410 as a Switch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Configure%20Gigamon%20Tap/">Configure Gigamon Tap</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Configure%20Multi-Protocol%20PowerStore%20with%20LDAP/">Configure Multi-Protocol PowerStore with LDAP</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Configure%20PowerStore%20SMB%20User/">Configure PowerStore SMB User</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Configure%20kdump%20with%20SSH/">Configure kdump with SSH</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Configuring%20VLT%20on%20OS10/">Configuring VLT on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Connect%20to%20APC%20PDU%20with%20Redfish/">Connect to APC PDU with Redfish</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Create%20Kickstart%20Server%20on%20Fedora/">Create Kickstart Server on Fedora</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Create%20OpenSwitch%20VM/">Create OpenSwitch VM</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Custom%20NVMe%20Debug%20Driver/">Custom NVMe Debug Driver</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../DHCP%20Relay%20on%20SONiC/">DHCP Relay on SONiC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Dell%20Ansible%20Testing/">Dell Ansible Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Deploy%20OpenShift%20Offline/">Deploy OpenShift Offline</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Elasticsearch%20Display%20Map%20Data/">Elasticsearch Display Map Data</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Elasticsearch%20Load%20Testing/">Elasticsearch Load Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Estimating%20Compute%20Requirements%20for%20Machine%20Learning/">Estimating Compute Requirements for Machine Learning</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Finding%20Rare%20Logs%20with%20DBSCAN/">Finding Rare Logs with DBSCAN</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Get%20NVMe%20Drives%20from%20iDRAC%20Redfish/">Get NVMe Drives from iDRAC Redfish</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../High%20Speed%20Packet%20Capture/">High Speed Packet Capture</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../How%20Bitcoin-Blockchain%20Works%20-%20Notes/">How Bitcoin-Blockchain Works - Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../How%20Does%20Power%20Work/">How Does Power Work</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../How%20Does%20SIFT%20Work/">How Does SIFT Work</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../How%20OS10%20Installer%20Works/">How OS10 Installer Works</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../How%20drive%20detection%20order%20works/">How drive detection order works</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../How%20to%20ONIE%20Install%20and%20ZTP%20Config%20Dell%20SONiC/">How to ONIE Install and ZTP Config Dell SONiC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../How%20to%20Read%20lstopo%20and%20a%20PCIe%20Overview/">How to Read lstopo and a PCIe Overview</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../How%20to%20Setup%20PGP%20with%20Mailvelope/">How to Setup PGP with Mailvelope</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../IO%20Identities%20with%20LifeCycle%20Controller/">IO Identities with LifeCycle Controller</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Importing%20Elasticsearch%20Data/">Importing Elasticsearch Data</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Install%20OpenCV%20with%20CUDA%20Support%20on%20Rocky%20Linux/">Install OpenCV with CUDA Support on Rocky Linux</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Installing%20DPDK%20with%20NapaTech%20Card/">Installing DPDK with NapaTech Card</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../LDAP%20with%20OpenManage/">LDAP with OpenManage</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../LLMs%20Explained/">LLMs Explained</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Load%20Balance%20Testing%20with%20OpenVSwitch/">Load Balance Testing with OpenVSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Load%20Balancing%20on%20Mellanox%20Switches/">Load Balancing on Mellanox Switches</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Load%20Balancing%20with%20LAG%20on%205112F-ON/">Load Balancing with LAG on 5112F-ON</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Make%20USB%20Read%20Only/">Make USB Read Only</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Migrating%20Storage%20Volumes%20to%20PowerStore/">Migrating Storage Volumes to PowerStore</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Mulitple%20Span%20on%204112F-ON%20with%20OpenSwitch/">Mulitple Span on 4112F-ON with OpenSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Multiple%20Span%20on%204112F-ON%20with%20OS10/">Multiple Span on 4112F-ON with OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../NVMe%20Driver%20Reverse%20Engineering/">NVMe Driver Reverse Engineering</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../NVMe%20Performance%20Testing/">NVMe Performance Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Notes%20on%20AMD%20Processor/">Notes on AMD Processor</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Notes%20on%20Building%20a%20Datacenter%20from%20Scratch/">Notes on Building a Datacenter from Scratch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Notes%20on%20HPC/">Notes on HPC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Notes%20on%20HSM/">Notes on HSM</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Notes%20on%20Improving%20Drive%20Performance/">Notes on Improving Drive Performance</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Notes%20on%20NVMe%20Log%20Pages/">Notes on NVMe Log Pages</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Notes%20on%20PCIe/">Notes on PCIe</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Notes%20on%20mdraid%20Performance%20Testing/">Notes on mdraid Performance Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Notes%20on%20nodejs/">Notes on nodejs</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Nvidia%20GPUDirect/">Nvidia GPUDirect</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Nvidia%20GRID%20Notes/">Nvidia GRID Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../OME%20Bug/">OME Bug</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../OME%20Integration%20for%20VMWare/">OME Integration for VMWare</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../OS10%20Password%20Recovery%20Bug/">OS10 Password Recovery Bug</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Offline%20Updates%20with%20OpenManage%20Enterprise/">Offline Updates with OpenManage Enterprise</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../OpenFlow%20on%204112F-ON/">OpenFlow on 4112F-ON</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../">OpenShift - Change MTU</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Overprovisioning%20Explained/">Overprovisioning Explained</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../PCIev3%20vs%20v4/">PCIev3 vs v4</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Playing%20with%20virsh/">Playing with virsh</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../PowerScale%20-%20Configure%20with%20Kubernetes/">PowerScale - Configure with Kubernetes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../PowerScale%20Failed%20Authentication/">PowerScale Failed Authentication</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../PowerScale%20Setup/">PowerScale Setup</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Reset%20OS10%20Admin%20Password/">Reset OS10 Admin Password</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Reverse%20Engineering%20OpenSHMEM/">Reverse Engineering OpenSHMEM</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Run%20VPN%20on%20OS10/">Run VPN on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Running%20DNS%20from%20OS10/">Running DNS from OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../SONiC%20-%20Sample%20Datacenter%20Automation%20Architecture/">SONiC - Sample Datacenter Automation Architecture</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Set%20Up%20RSPAN%20on%20OS10/">Set Up RSPAN on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Setting%20Up%20Breakout%20Cables/">Setting Up Breakout Cables</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Setting%20Up%20SmartFabric%20Director/">Setting Up SmartFabric Director</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Setting%20Up%20iDRAC%20Telemetry%20with%20Splunk/">Setting Up iDRAC Telemetry with Splunk</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Setup%20IDPA/">Setup IDPA</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Site%20to%20Site%20VPN%20with%20PFSense%20and%20CentOS%208/">Site to Site VPN with PFSense and CentOS 8</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Swap%20Kernel%20on%20Rocky%209/">Swap Kernel on Rocky 9</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Switch%20Directly%20to%20Client%20Test/">Switch Directly to Client Test</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Testing%20Bare%20Metal%20Orchestrator/">Testing Bare Metal Orchestrator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Testing%20Intel%20x520%20on%20RHEL%206/">Testing Intel x520 on RHEL 6</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Troubleshooting%205G%20Connection/">Troubleshooting 5G Connection</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Understand%20and%20Run%20LINPACK/">Understand and Run LINPACK</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Understanding%20Cellular%20Technology/">Understanding Cellular Technology</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Understanding%20Memory/">Understanding Memory</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Understanding%20NCCL/">Understanding NCCL</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Understanding%20PERC%20Interrupts/">Understanding PERC Interrupts</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Update%20iDRAC%20Cipher%20Suite%20with%20Redfish/">Update iDRAC Cipher Suite with Redfish</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Use%20OS10%20as%20Aggregator/">Use OS10 as Aggregator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Using%20Dell%20Repository%20Manager%20to%20Create%20Bootable%20ISO/">Using Dell Repository Manager to Create Bootable ISO</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Using%20FIO/">Using FIO</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Using%20the%20iDRAC%20Service%20Module/">Using the iDRAC Service Module</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../VEP%20Testing/">VEP Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Web%20Traffic%20Generator/">Web Traffic Generator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Writing%20udev%20Rules%20for%20Dell%20PERC%20H755/">Writing udev Rules for Dell PERC H755</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../esrally%20%28INCOMPLETE%29/">esrally (INCOMPLETE)</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../idrac%20with%20LDAP/">idrac with LDAP</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Load%20Balance%20Testing%20on%204112F-ON/OS10/">Load Balance Testing on 4112F-ON w/OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Load%20Balance%20Testing%20on%204112F-ON/OpenSwitch%20%28OPX%29/">Load Balancing with LAG OPX</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../VMWare/Automate%20ESXi%20Installation/">Automating ESXi Installation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../VMWare/Change%20User%20on%20VxRail%20Plugin/">Change User on VxRail Plugin</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../VMWare/ESXi%20Architecture/">VMWare Architecture Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../VMWare/How%20to%20Pull%20Usage%20Metrics/">How to Pull Usage Metrics</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../VMWare/Notes%20on%20VSAN/">Notes on vSAN</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../VMWare/Setup%20VXRail/">VxRail Setup</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../VMWare/Troubleshooting%20vSAN/">Troubleshooting vSAN</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../VMWare/VMWare%20APIs/">VMWare APIs</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../VMWare/VxRail%20Architecture%20and%20Troubleshooting/">VxRail Architecture and Troubleshooting</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../VMWare/vRealize%20Setup%20%28Incomplete%29/">Setting Up vRealize</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../..">Grant Curell's Dell Projects</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Network pod description</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <p>Priority Class Name:  system-node-critical
+Node:                 00-50-56-8a-fb-ea/10.10.25.235
+Start Time:           Thu, 18 Jul 2024 15:58:21 -0400
+Labels:               app=ovnkube-node
+                      component=network
+                      controller-revision-hash=5ffcfbd6cd
+                      kubernetes.io/os=linux
+                      openshift.io/component=network
+                      ovn-db-pod=true
+                      pod-template-generation=2
+                      type=infra
+Annotations:          network.operator.openshift.io/ovnkube-script-lib-hash: 663c3a02e150fe737e3198bcbd4b9054e311852f
+                      networkoperator.openshift.io/cluster-network-cidr: 10.128.0.0/14
+                      networkoperator.openshift.io/hybrid-overlay-status: disabled
+                      networkoperator.openshift.io/ip-family-mode: single-stack
+Status:               Running
+IP:                   10.10.25.235
+IPs:
+  IP:           10.10.25.235
+Controlled By:  DaemonSet/ovnkube-node
+Init Containers:
+  kubecfg-setup:
+    Container ID:  cri-o://86d1421710d88dc5a35bf7b2b906b2c63e0a03af34c3623fd82ccb531d364d31
+    Image:         quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:23395965032acaad15638e79257b8439395640c8bf73b8c0bb702759840f3b85
+    Image ID:      quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:23395965032acaad15638e79257b8439395640c8bf73b8c0bb702759840f3b85
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      /bin/bash
+      -c
+      cat &lt;&lt; EOF &gt; /etc/ovn/kubeconfig
+      apiVersion: v1
+      clusters:
+        - cluster:
+            certificate-authority: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+            server: https://api-int.vmware-cluster.openshift.lan:6443
+          name: default-cluster
+      contexts:
+        - context:
+            cluster: default-cluster
+            namespace: default
+            user: default-auth
+          name: default-context
+      current-context: default-context
+      kind: Config
+      preferences: {}
+      users:
+        - name: default-auth
+          user:
+            client-certificate: /etc/ovn/ovnkube-node-certs/ovnkube-client-current.pem
+            client-key: /etc/ovn/ovnkube-node-certs/ovnkube-client-current.pem
+      EOF</p>
+<pre><code>State:          Terminated
+  Reason:       Completed
+  Exit Code:    0
+  Started:      Thu, 18 Jul 2024 21:19:36 -0400
+  Finished:     Thu, 18 Jul 2024 21:19:36 -0400
+Ready:          True
+Restart Count:  4
+Environment:    &lt;none&gt;
+Mounts:
+  /etc/ovn/ from etc-openvswitch (rw)
+  /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-t4qsw (ro)
+</code></pre>
+<p>Containers:
+  ovn-controller:
+    Container ID:  cri-o://1d22558b72511867c3c781f4148b76a06678be11428a8812c6a89f9746608c41
+    Image:         quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:23395965032acaad15638e79257b8439395640c8bf73b8c0bb702759840f3b85
+    Image ID:      quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:23395965032acaad15638e79257b8439395640c8bf73b8c0bb702759840f3b85
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      /bin/bash
+      -c
+      set -e
+      . /ovnkube-lib/ovnkube-lib.sh || exit 1
+      start-ovn-controller ${OVN_LOG_LEVEL}</p>
+<pre><code>State:          Running
+  Started:      Thu, 18 Jul 2024 21:19:37 -0400
+Ready:          True
+Restart Count:  4
+Requests:
+  cpu:     10m
+  memory:  300Mi
+Environment:
+  OVN_LOG_LEVEL:  info
+  K8S_NODE:        (v1:spec.nodeName)
+Mounts:
+  /dev/log from log-socket (rw)
+  /env from env-overrides (rw)
+  /etc/openvswitch from etc-openvswitch (rw)
+  /etc/ovn/ from etc-openvswitch (rw)
+  /ovnkube-lib from ovnkube-script-lib (rw)
+  /run/openvswitch from run-openvswitch (rw)
+  /run/ovn/ from run-ovn (rw)
+  /var/lib/openvswitch from var-lib-openvswitch (rw)
+  /var/log/ovn/ from node-log (rw)
+  /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-t4qsw (ro)
+</code></pre>
+<p>ovn-acl-logging:
+    Container ID:  cri-o://e03313771074e5f2faa7128b24e8a6e097be550e4627a687d3e3d17df6b703a1
+    Image:         quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:23395965032acaad15638e79257b8439395640c8bf73b8c0bb702759840f3b85
+    Image ID:      quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:23395965032acaad15638e79257b8439395640c8bf73b8c0bb702759840f3b85
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      /bin/bash
+      -c
+      set -euo pipefail
+      . /ovnkube-lib/ovnkube-lib.sh || exit 1
+      start-audit-log-rotation</p>
+<pre><code>State:          Running
+  Started:      Thu, 18 Jul 2024 21:19:37 -0400
+Ready:          True
+Restart Count:  4
+Requests:
+  cpu:        10m
+  memory:     20Mi
+Environment:  &lt;none&gt;
+Mounts:
+  /ovnkube-lib from ovnkube-script-lib (rw)
+  /run/ovn/ from run-ovn (rw)
+  /var/log/ovn/ from node-log (rw)
+  /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-t4qsw (ro)
+</code></pre>
+<p>kube-rbac-proxy-node:
+    Container ID:  cri-o://8f21eeaa76f5b1a52f7126e32a589972fdcbd80ae4e7e7dc575f0c394aa5b2c6
+    Image:         quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:f6a8f8e5b0c9b186512e95cfd740947bdd66584b86150b63ac7bc29b295c94bd
+    Image ID:      quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:f6a8f8e5b0c9b186512e95cfd740947bdd66584b86150b63ac7bc29b295c94bd
+    Port:          9103/TCP
+    Host Port:     9103/TCP
+    Command:
+      /bin/bash
+      -c
+      #!/bin/bash
+      set -euo pipefail
+      . /ovnkube-lib/ovnkube-lib.sh || exit 1
+      start-rbac-proxy-node ovn-node-metrics 9103 29103 /etc/pki/tls/metrics-cert/tls.key /etc/pki/tls/metrics-cert/tls.crt</p>
+<pre><code>State:          Running
+  Started:      Thu, 18 Jul 2024 21:19:37 -0400
+Ready:          True
+Restart Count:  4
+Requests:
+  cpu:        10m
+  memory:     20Mi
+Environment:  &lt;none&gt;
+Mounts:
+  /etc/pki/tls/metrics-cert from ovn-node-metrics-cert (ro)
+  /ovnkube-lib from ovnkube-script-lib (rw)
+  /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-t4qsw (ro)
+</code></pre>
+<p>kube-rbac-proxy-ovn-metrics:
+    Container ID:  cri-o://2e8e75fef4c5c29c48ef2de198beff1d1a8d2cf82d772c21a5214b405456b864
+    Image:         quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:f6a8f8e5b0c9b186512e95cfd740947bdd66584b86150b63ac7bc29b295c94bd
+    Image ID:      quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:f6a8f8e5b0c9b186512e95cfd740947bdd66584b86150b63ac7bc29b295c94bd
+    Port:          9105/TCP
+    Host Port:     9105/TCP
+    Command:
+      /bin/bash
+      -c
+      #!/bin/bash
+      set -euo pipefail
+      . /ovnkube-lib/ovnkube-lib.sh || exit 1
+      start-rbac-proxy-node ovn-metrics 9105 29105 /etc/pki/tls/metrics-cert/tls.key /etc/pki/tls/metrics-cert/tls.crt</p>
+<pre><code>State:          Running
+  Started:      Thu, 18 Jul 2024 21:19:37 -0400
+Ready:          True
+Restart Count:  4
+Requests:
+  cpu:        10m
+  memory:     20Mi
+Environment:  &lt;none&gt;
+Mounts:
+  /etc/pki/tls/metrics-cert from ovn-node-metrics-cert (ro)
+  /ovnkube-lib from ovnkube-script-lib (rw)
+  /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-t4qsw (ro)
+</code></pre>
+<p>northd:
+    Container ID:  cri-o://2fad50e5d4aecccd782f4697e5445f826078a402f5267cc60e3cd9ce3101ecb5
+    Image:         quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:23395965032acaad15638e79257b8439395640c8bf73b8c0bb702759840f3b85
+    Image ID:      quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:23395965032acaad15638e79257b8439395640c8bf73b8c0bb702759840f3b85
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      /bin/bash
+      -c
+      set -xem
+      if [[ -f /env/_master ]]; then
+        set -o allexport
+        source /env/_master
+        set +o allexport
+      fi
+      . /ovnkube-lib/ovnkube-lib.sh || exit 1</p>
+<pre><code>  trap quit-ovn-northd TERM INT
+  start-ovn-northd "${OVN_LOG_LEVEL}"
+
+State:          Running
+  Started:      Thu, 18 Jul 2024 21:19:37 -0400
+Ready:          True
+Restart Count:  4
+Requests:
+  cpu:     10m
+  memory:  70Mi
+Environment:
+  OVN_LOG_LEVEL:  info
+Mounts:
+  /env from env-overrides (rw)
+  /etc/ovn from etc-openvswitch (rw)
+  /ovnkube-lib from ovnkube-script-lib (rw)
+  /run/ovn/ from run-ovn (rw)
+  /var/log/ovn from node-log (rw)
+  /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-t4qsw (ro)
+</code></pre>
+<p>nbdb:
+    Container ID:  cri-o://cb6e22a681696d999db1ec967df6ef523f88afbc2860b965db928947ad3f93dd
+    Image:         quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:23395965032acaad15638e79257b8439395640c8bf73b8c0bb702759840f3b85
+    Image ID:      quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:23395965032acaad15638e79257b8439395640c8bf73b8c0bb702759840f3b85
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      /bin/bash
+      -c
+      set -xem
+      if [[ -f /env/_master ]]; then
+        set -o allexport
+        source /env/_master
+        set +o allexport
+      fi
+      . /ovnkube-lib/ovnkube-lib.sh || exit 1</p>
+<pre><code>  trap quit-nbdb TERM INT
+  start-nbdb ${OVN_LOG_LEVEL}
+
+State:          Running
+  Started:      Thu, 18 Jul 2024 21:19:37 -0400
+Ready:          True
+Restart Count:  4
+Requests:
+  cpu:      10m
+  memory:   300Mi
+Readiness:  exec [/bin/bash -c set -xeo pipefail
+</code></pre>
+<p>. /ovnkube-lib/ovnkube-lib.sh || exit 1
+ovndb-readiness-probe "nb"
+] delay=10s timeout=5s period=10s #success=1 #failure=3
+    Environment:
+      OVN_LOG_LEVEL:  info
+      K8S_NODE:        (v1:spec.nodeName)
+    Mounts:
+      /env from env-overrides (rw)
+      /etc/ovn/ from etc-openvswitch (rw)
+      /ovnkube-lib from ovnkube-script-lib (rw)
+      /run/ovn/ from run-ovn (rw)
+      /var/log/ovn from node-log (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-t4qsw (ro)
+  sbdb:
+    Container ID:  cri-o://43336c1654c81d435dc83e3310feece4c024d9de409d5cd3c61a90c0ddd0cb24
+    Image:         quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:23395965032acaad15638e79257b8439395640c8bf73b8c0bb702759840f3b85
+    Image ID:      quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:23395965032acaad15638e79257b8439395640c8bf73b8c0bb702759840f3b85
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      /bin/bash
+      -c
+      set -xem
+      if [[ -f /env/_master ]]; then
+        set -o allexport
+        source /env/_master
+        set +o allexport
+      fi
+      . /ovnkube-lib/ovnkube-lib.sh || exit 1</p>
+<pre><code>  trap quit-sbdb TERM INT
+  start-sbdb ${OVN_LOG_LEVEL}
+
+State:          Running
+  Started:      Thu, 18 Jul 2024 21:19:40 -0400
+Ready:          True
+Restart Count:  4
+Requests:
+  cpu:      10m
+  memory:   300Mi
+Readiness:  exec [/bin/bash -c set -xeo pipefail
+</code></pre>
+<p>. /ovnkube-lib/ovnkube-lib.sh || exit 1
+ovndb-readiness-probe "sb"
+] delay=10s timeout=5s period=10s #success=1 #failure=3
+    Environment:
+      OVN_LOG_LEVEL:  info
+    Mounts:
+      /env from env-overrides (rw)
+      /etc/ovn/ from etc-openvswitch (rw)
+      /ovnkube-lib from ovnkube-script-lib (rw)
+      /run/ovn/ from run-ovn (rw)
+      /var/log/ovn from node-log (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-t4qsw (ro)
+  ovnkube-controller:
+    Container ID:  cri-o://dce7e6bf4da07d1a996eda3768ff680c7fc94b0a60c902a2194d9438df83e6c8
+    Image:         quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:23395965032acaad15638e79257b8439395640c8bf73b8c0bb702759840f3b85
+    Image ID:      quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:23395965032acaad15638e79257b8439395640c8bf73b8c0bb702759840f3b85
+    Port:          29105/TCP
+    Host Port:     29105/TCP
+    Command:
+      /bin/bash
+      -c
+      set -xe
+      . /ovnkube-lib/ovnkube-lib.sh || exit 1
+      start-ovnkube-node ${OVN_KUBE_LOG_LEVEL} 29103 29105</p>
+<pre><code>State:       Waiting
+  Reason:    CrashLoopBackOff
+Last State:  Terminated
+  Reason:    Error
+  Message:   r ovn-lb-controller
+</code></pre>
+<p>I0719 01:40:54.006431   31935 egressservice_zone.go:261] Shutting down Egress Services controller
+E0719 01:40:54.006439   31935 ovn.go:458] Error running OVN Kubernetes Services controller: error syncing service and endpoint handlers
+I0719 01:40:54.006439   31935 admin_network_policy_controller.go:299] Shutting down controller default-network-controller
+I0719 01:40:54.006446   31935 obj_retry.go:432] Stop channel got triggered: will stop retrying failed objects of type <em>v1.EgressFirewall
+I0719 01:40:54.006455   31935 obj_retry.go:432] Stop channel got triggered: will stop retrying failed objects of type </em>factory.egressIPPod
+I0719 01:40:54.006456   31935 obj_retry.go:432] Stop channel got triggered: will stop retrying failed objects of type <em>v1.Pod
+I0719 01:40:54.006459   31935 obj_retry.go:432] Stop channel got triggered: will stop retrying failed objects of type </em>v1.EgressIP
+I0719 01:40:54.006482   31935 obj_retry.go:432] Stop channel got triggered: will stop retrying failed objects of type <em>factory.egressNode
+I0719 01:40:54.006476   31935 obj_retry.go:432] Stop channel got triggered: will stop retrying failed objects of type </em>v1.Node
+I0719 01:40:54.006488   31935 obj_retry.go:432] Stop channel got triggered: will stop retrying failed objects of type *v1.Namespace
+I0719 01:40:54.006521   31935 network_attach_def_controller
+      Exit Code:    1
+      Started:      Thu, 18 Jul 2024 21:40:53 -0400
+      Finished:     Thu, 18 Jul 2024 21:40:54 -0400
+    Ready:          False
+    Restart Count:  36
+    Requests:
+      cpu:      10m
+      memory:   600Mi
+    Readiness:  exec [/bin/bash -c #!/bin/bash
+test -f /etc/cni/net.d/10-ovn-kubernetes.conf
+] delay=5s timeout=1s period=30s #success=1 #failure=3
+    Environment:
+      KUBERNETES_SERVICE_PORT:          6443
+      KUBERNETES_SERVICE_HOST:          api-int.vmware-cluster.openshift.lan
+      OVN_CONTROLLER_INACTIVITY_PROBE:  180000
+      OVN_KUBE_LOG_LEVEL:               4
+      K8S_NODE:                          (v1:spec.nodeName)
+      POD_NAME:                         ovnkube-node-9h9qr (v1:metadata.name)
+    Mounts:
+      /cni-bin-dir from host-cni-bin (rw)
+      /env from env-overrides (rw)
+      /etc/cni/net.d from host-cni-netd (rw)
+      /etc/openvswitch from etc-openvswitch (rw)
+      /etc/ovn/ from etc-openvswitch (rw)
+      /etc/systemd/system from systemd-units (ro)
+      /host from host-slash (ro)
+      /ovnkube-lib from ovnkube-script-lib (rw)
+      /run/netns from host-run-netns (ro)
+      /run/openvswitch from run-openvswitch (rw)
+      /run/ovn-kubernetes/ from host-run-ovn-kubernetes (rw)
+      /run/ovn/ from run-ovn (rw)
+      /run/ovnkube-config/ from ovnkube-config (rw)
+      /var/lib/cni/networks/ovn-k8s-cni-overlay from host-var-lib-cni-networks-ovn-kubernetes (rw)
+      /var/lib/kubelet from host-kubelet (ro)
+      /var/lib/openvswitch from var-lib-openvswitch (rw)
+      /var/log/ovnkube/ from etc-openvswitch (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-t4qsw (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True
+  Initialized                 True
+  Ready                       False
+  ContainersReady             False
+  PodScheduled                True
+Volumes:
+  host-kubelet:
+    Type:          HostPath (bare host directory volume)
+    Path:          /var/lib/kubelet
+    HostPathType:
+  systemd-units:
+    Type:          HostPath (bare host directory volume)
+    Path:          /etc/systemd/system
+    HostPathType:
+  host-slash:
+    Type:          HostPath (bare host directory volume)
+    Path:          /
+    HostPathType:
+  host-run-netns:
+    Type:          HostPath (bare host directory volume)
+    Path:          /run/netns
+    HostPathType:
+  var-lib-openvswitch:
+    Type:          HostPath (bare host directory volume)
+    Path:          /var/lib/openvswitch/data
+    HostPathType:
+  etc-openvswitch:
+    Type:          HostPath (bare host directory volume)
+    Path:          /var/lib/ovn-ic/etc
+    HostPathType:
+  run-openvswitch:
+    Type:          HostPath (bare host directory volume)
+    Path:          /var/run/openvswitch
+    HostPathType:
+  run-ovn:
+    Type:          HostPath (bare host directory volume)
+    Path:          /var/run/ovn-ic
+    HostPathType:
+  node-log:
+    Type:          HostPath (bare host directory volume)
+    Path:          /var/log/ovn
+    HostPathType:
+  log-socket:
+    Type:          HostPath (bare host directory volume)
+    Path:          /dev/log
+    HostPathType:
+  host-run-ovn-kubernetes:
+    Type:          HostPath (bare host directory volume)
+    Path:          /run/ovn-kubernetes
+    HostPathType:
+  host-cni-bin:
+    Type:          HostPath (bare host directory volume)
+    Path:          /var/lib/cni/bin
+    HostPathType:
+  host-cni-netd:
+    Type:          HostPath (bare host directory volume)
+    Path:          /var/run/multus/cni/net.d
+    HostPathType:
+  host-var-lib-cni-networks-ovn-kubernetes:
+    Type:          HostPath (bare host directory volume)
+    Path:          /var/lib/cni/networks/ovn-k8s-cni-overlay
+    HostPathType:
+  ovnkube-config:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      ovnkube-config
+    Optional:  false
+  env-overrides:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      env-overrides
+    Optional:  true
+  ovn-node-metrics-cert:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  ovn-node-metrics-cert
+    Optional:    true
+  ovnkube-script-lib:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      ovnkube-script-lib
+    Optional:  false
+  kube-api-access-t4qsw:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+    ConfigMapName:           openshift-service-ca.crt
+    ConfigMapOptional:       <nil>
+QoS Class:                   Burstable
+Node-Selectors:              kubernetes.io/os=linux
+Tolerations:                 op=Exists
+Events:
+  Type     Reason        Age                    From               Message
+  ----     ------        ----                   ----               -------
+  Normal   Scheduled     5h45m                  default-scheduler  Successfully assigned openshift-ovn-kubernetes/ovnkube-node-9h9qr to 00-50-56-8a-fb-ea
+  Normal   Pulling       5h45m                  kubelet            Pulling image "quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:23395965032acaad15638e79257b8439395640c8bf73b8c0bb702759840f3b85"
+  Normal   Pulled        5h44m                  kubelet            Successfully pulled image "quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:23395965032acaad15638e79257b8439395640c8bf73b8c0bb702759840f3b85" in 22.33s (22.33s including waiting)
+  Normal   Created       5h44m                  kubelet            Created container kubecfg-setup
+  Normal   Started       5h44m                  kubelet            Started container kubecfg-setup
+  Normal   Started       5h44m                  kubelet            Started container ovn-acl-logging
+  Normal   Created       5h44m                  kubelet            Created container ovn-controller
+  Normal   Started       5h44m                  kubelet            Started container ovn-controller
+  Normal   Pulled        5h44m                  kubelet            Container image "quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:23395965032acaad15638e79257b8439395640c8bf73b8c0bb702759840f3b85" already present on machine
+  Normal   Created       5h44m                  kubelet            Created container ovn-acl-logging
+  Normal   Created       5h44m                  kubelet            Created container northd
+  Normal   Pulled        5h44m                  kubelet            Container image "quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:f6a8f8e5b0c9b186512e95cfd740947bdd66584b86150b63ac7bc29b295c94bd" already present on machine
+  Normal   Created       5h44m                  kubelet            Created container kube-rbac-proxy-node
+  Normal   Started       5h44m                  kubelet            Started container kube-rbac-proxy-node
+  Normal   Pulled        5h44m                  kubelet            Container image "quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:f6a8f8e5b0c9b186512e95cfd740947bdd66584b86150b63ac7bc29b295c94bd" already present on machine
+  Normal   Created       5h44m                  kubelet            Created container kube-rbac-proxy-ovn-metrics
+  Normal   Pulled        5h44m                  kubelet            Container image "quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:23395965032acaad15638e79257b8439395640c8bf73b8c0bb702759840f3b85" already present on machine
+  Normal   Pulled        5h44m                  kubelet            Container image "quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:23395965032acaad15638e79257b8439395640c8bf73b8c0bb702759840f3b85" already present on machine
+  Normal   Started       5h44m                  kubelet            Started container kube-rbac-proxy-ovn-metrics
+  Normal   Started       5h44m                  kubelet            Started container northd
+  Normal   Pulled        5h44m                  kubelet            Container image "quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:23395965032acaad15638e79257b8439395640c8bf73b8c0bb702759840f3b85" already present on machine
+  Normal   Created       5h44m                  kubelet            Created container nbdb
+  Normal   Started       5h44m                  kubelet            Started container nbdb
+  Normal   Started       5h44m                  kubelet            Started container sbdb
+  Normal   Created       5h44m                  kubelet            Created container sbdb
+  Normal   Pulled        5h44m                  kubelet            Container image "quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:23395965032acaad15638e79257b8439395640c8bf73b8c0bb702759840f3b85" already present on machine
+  Warning  NodeNotReady  3h9m                   node-controller    Node is not ready
+  Normal   Pulled        3h9m                   kubelet            Container image "quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:23395965032acaad15638e79257b8439395640c8bf73b8c0bb702759840f3b85" already present on machine
+  Normal   Created       3h9m                   kubelet            Created container kubecfg-setup
+  Normal   Started       3h9m                   kubelet            Started container kubecfg-setup
+  Normal   Pulled        3h9m                   kubelet            Container image "quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:23395965032acaad15638e79257b8439395640c8bf73b8c0bb702759840f3b85" already present on machine
+  Normal   Created       3h9m                   kubelet            Created container nbdb
+  Normal   Started       3h9m                   kubelet            Started container ovn-controller
+  Normal   Pulled        3h9m                   kubelet            Container image "quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:23395965032acaad15638e79257b8439395640c8bf73b8c0bb702759840f3b85" already present on machine
+  Normal   Created       3h9m                   kubelet            Created container ovn-acl-logging
+  Normal   Started       3h9m                   kubelet            Started container ovn-acl-logging
+  Normal   Created       3h9m                   kubelet            Created container ovn-controller
+  Normal   Created       3h9m                   kubelet            Created container kube-rbac-proxy-node
+  Normal   Started       3h9m                   kubelet            Started container kube-rbac-proxy-node
+  Normal   Pulled        3h9m                   kubelet            Container image "quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:f6a8f8e5b0c9b186512e95cfd740947bdd66584b86150b63ac7bc29b295c94bd" already present on machine
+  Normal   Created       3h9m                   kubelet            Created container kube-rbac-proxy-ovn-metrics
+  Normal   Started       3h9m                   kubelet            Started container nbdb
+  Normal   Pulled        3h9m                   kubelet            Container image "quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:23395965032acaad15638e79257b8439395640c8bf73b8c0bb702759840f3b85" already present on machine
+  Normal   Created       3h9m                   kubelet            Created container northd
+  Normal   Started       3h9m                   kubelet            Started container northd
+  Normal   Pulled        3h9m                   kubelet            Container image "quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:23395965032acaad15638e79257b8439395640c8bf73b8c0bb702759840f3b85" already present on machine
+  Normal   Started       3h9m                   kubelet            Started container kube-rbac-proxy-ovn-metrics
+  Normal   Pulled        3h9m                   kubelet            Container image "quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:f6a8f8e5b0c9b186512e95cfd740947bdd66584b86150b63ac7bc29b295c94bd" already present on machine
+  Normal   Created       3h9m                   kubelet            Created container sbdb
+  Normal   Pulled        3h9m                   kubelet            Container image "quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:23395965032acaad15638e79257b8439395640c8bf73b8c0bb702759840f3b85" already present on machine
+  Normal   Started       3h9m                   kubelet            Started container sbdb
+  Normal   Pulled        3h9m                   kubelet            Container image "quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:23395965032acaad15638e79257b8439395640c8bf73b8c0bb702759840f3b85" already present on machine
+  Normal   Created       169m                   kubelet            Created container kubecfg-setup
+  Normal   Pulled        169m                   kubelet            Container image "quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:23395965032acaad15638e79257b8439395640c8bf73b8c0bb702759840f3b85" already present on machine
+  Normal   Started       169m                   kubelet            Started container kubecfg-setup
+  Normal   Pulled        169m                   kubelet            Container image "quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:23395965032acaad15638e79257b8439395640c8bf73b8c0bb702759840f3b85" already present on machine
+  Normal   Created       169m                   kubelet            Created container ovn-controller
+  Normal   Started       169m                   kubelet            Started container ovn-controller
+  Normal   Pulled        169m                   kubelet            Container image "quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:23395965032acaad15638e79257b8439395640c8bf73b8c0bb702759840f3b85" already present on machine
+  Normal   Created       169m                   kubelet            Created container ovn-acl-logging
+  Normal   Pulled        169m                   kubelet            Container image "quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:f6a8f8e5b0c9b186512e95cfd740947bdd66584b86150b63ac7bc29b295c94bd" already present on machine
+  Normal   Pulled        169m                   kubelet            Container image "quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:f6a8f8e5b0c9b186512e95cfd740947bdd66584b86150b63ac7bc29b295c94bd" already present on machine
+  Normal   Started       169m                   kubelet            Started container kube-rbac-proxy-node
+  Normal   Started       169m                   kubelet            Started container ovn-acl-logging
+  Normal   Created       169m                   kubelet            Created container kube-rbac-proxy-node
+  Normal   Created       169m                   kubelet            Created container nbdb
+  Normal   Started       169m                   kubelet            Started container kube-rbac-proxy-ovn-metrics
+  Normal   Pulled        169m                   kubelet            Container image "quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:23395965032acaad15638e79257b8439395640c8bf73b8c0bb702759840f3b85" already present on machine
+  Normal   Created       169m                   kubelet            Created container northd
+  Normal   Started       169m                   kubelet            Started container northd
+  Normal   Pulled        169m                   kubelet            Container image "quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:23395965032acaad15638e79257b8439395640c8bf73b8c0bb702759840f3b85" already present on machine
+  Normal   Started       169m                   kubelet            Started container nbdb
+  Normal   Created       169m                   kubelet            Created container kube-rbac-proxy-ovn-metrics
+  Normal   Created       169m                   kubelet            Created container sbdb
+  Normal   Started       169m                   kubelet            Started container sbdb
+  Normal   Pulled        169m                   kubelet            Container image "quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:23395965032acaad15638e79257b8439395640c8bf73b8c0bb702759840f3b85" already present on machine
+  Normal   Pulled        169m                   kubelet            Container image "quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:23395965032acaad15638e79257b8439395640c8bf73b8c0bb702759840f3b85" already present on machine
+  Warning  NodeNotReady  119m                   node-controller    Node is not ready
+  Normal   Started       119m                   kubelet            Started container kubecfg-setup
+  Normal   Pulled        119m                   kubelet            Container image "quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:23395965032acaad15638e79257b8439395640c8bf73b8c0bb702759840f3b85" already present on machine
+  Normal   Created       119m                   kubelet            Created container kubecfg-setup
+  Normal   Pulled        119m                   kubelet            Container image "quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:f6a8f8e5b0c9b186512e95cfd740947bdd66584b86150b63ac7bc29b295c94bd" already present on machine
+  Normal   Created       119m                   kubelet            Created container ovn-controller
+  Normal   Started       119m                   kubelet            Started container ovn-controller
+  Normal   Pulled        119m                   kubelet            Container image "quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:23395965032acaad15638e79257b8439395640c8bf73b8c0bb702759840f3b85" already present on machine
+  Normal   Created       119m                   kubelet            Created container ovn-acl-logging
+  Normal   Started       119m                   kubelet            Started container ovn-acl-logging
+  Normal   Pulled        119m                   kubelet            Container image "quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:23395965032acaad15638e79257b8439395640c8bf73b8c0bb702759840f3b85" already present on machine
+  Normal   Created       119m                   kubelet            Created container kube-rbac-proxy-node
+  Normal   Started       119m                   kubelet            Started container kube-rbac-proxy-node
+  Normal   Pulled        119m                   kubelet            Container image "quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:f6a8f8e5b0c9b186512e95cfd740947bdd66584b86150b63ac7bc29b295c94bd" already present on machine
+  Normal   Created       119m                   kubelet            Created container kube-rbac-proxy-ovn-metrics
+  Normal   Started       119m                   kubelet            Started container kube-rbac-proxy-ovn-metrics
+  Normal   Pulled        119m                   kubelet            Container image "quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:23395965032acaad15638e79257b8439395640c8bf73b8c0bb702759840f3b85" already present on machine
+  Normal   Created       119m                   kubelet            Created container northd
+  Normal   Started       119m                   kubelet            Started container northd
+  Normal   Pulled        119m                   kubelet            Container image "quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:23395965032acaad15638e79257b8439395640c8bf73b8c0bb702759840f3b85" already present on machine
+  Normal   Created       119m                   kubelet            Created container nbdb
+  Normal   Started       119m                   kubelet            Started container nbdb
+  Normal   Pulled        119m                   kubelet            Container image "quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:23395965032acaad15638e79257b8439395640c8bf73b8c0bb702759840f3b85" already present on machine
+  Normal   Created       119m                   kubelet            Created container sbdb
+  Normal   Started       119m                   kubelet            Started container sbdb
+  Normal   Pulled        119m                   kubelet            Container image "quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:23395965032acaad15638e79257b8439395640c8bf73b8c0bb702759840f3b85" already present on machine
+  Warning  BackOff       29m (x436 over 119m)   kubelet            Back-off restarting failed container ovnkube-controller in pod ovnkube-node-9h9qr_openshift-ovn-kubernetes(5ade0811-dd08-4a17-bac7-fd66e33604a2)
+  Normal   Pulling       24m                    kubelet            Pulling image "quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:23395965032acaad15638e79257b8439395640c8bf73b8c0bb702759840f3b85"
+  Normal   Pulled        23m                    kubelet            Successfully pulled image "quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:23395965032acaad15638e79257b8439395640c8bf73b8c0bb702759840f3b85" in 26.642s (26.642s including waiting)
+  Normal   Created       23m                    kubelet            Created container kubecfg-setup
+  Normal   Started       23m                    kubelet            Started container kubecfg-setup
+  Normal   Started       23m                    kubelet            Started container kube-rbac-proxy-node
+  Normal   Created       23m                    kubelet            Created container ovn-controller
+  Normal   Started       23m                    kubelet            Started container ovn-controller
+  Normal   Pulled        23m                    kubelet            Container image "quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:23395965032acaad15638e79257b8439395640c8bf73b8c0bb702759840f3b85" already present on machine
+  Normal   Created       23m                    kubelet            Created container ovn-acl-logging
+  Normal   Started       23m                    kubelet            Started container nbdb
+  Normal   Pulled        23m                    kubelet            Container image "quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:f6a8f8e5b0c9b186512e95cfd740947bdd66584b86150b63ac7bc29b295c94bd" already present on machine
+  Normal   Created       23m                    kubelet            Created container kube-rbac-proxy-node
+  Normal   Pulled        23m                    kubelet            Container image "quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:23395965032acaad15638e79257b8439395640c8bf73b8c0bb702759840f3b85" already present on machine
+  Normal   Pulled        23m                    kubelet            Container image "quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:f6a8f8e5b0c9b186512e95cfd740947bdd66584b86150b63ac7bc29b295c94bd" already present on machine
+  Normal   Created       23m                    kubelet            Created container kube-rbac-proxy-ovn-metrics
+  Normal   Started       23m                    kubelet            Started container kube-rbac-proxy-ovn-metrics
+  Normal   Pulled        23m                    kubelet            Container image "quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:23395965032acaad15638e79257b8439395640c8bf73b8c0bb702759840f3b85" already present on machine
+  Normal   Created       23m                    kubelet            Created container northd
+  Normal   Started       23m                    kubelet            Started container northd
+  Normal   Pulled        23m                    kubelet            Container image "quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:23395965032acaad15638e79257b8439395640c8bf73b8c0bb702759840f3b85" already present on machine
+  Normal   Created       23m                    kubelet            Created container nbdb
+  Normal   Started       23m                    kubelet            Started container ovn-acl-logging
+  Normal   Pulled        23m                    kubelet            Container image "quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:23395965032acaad15638e79257b8439395640c8bf73b8c0bb702759840f3b85" already present on machine
+  Normal   Created       23m                    kubelet            Created container sbdb
+  Normal   Started       23m                    kubelet            Started container sbdb
+  Warning  BackOff       4m14s (x100 over 23m)  kubelet            Back-off restarting failed container ovnkube-controller in pod ovnkube-node-9h9qr_openshift-ovn-kubernetes(5ade0811-dd08-4a17-bac7-fd66e33604a2)</p>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="None" class="fa fa-code-fork" style="color: #fcfcfc"> https://github.com/grantcurell/grantcurell.github.io/tree/master</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../../..";</script>
+    <script src="../../../js/theme_extra.js"></script>
+    <script src="../../../js/theme.js"></script>
+      <script src="../../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

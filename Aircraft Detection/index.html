@@ -1,0 +1,1916 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Grant Curell" /><link rel="canonical" href="https://grantcurell.github.io/Aircraft%20Detection/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Aircraft Detection - Grant Curell's Dell Projects</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Aircraft Detection";
+        var mkdocs_page_input_path = "Aircraft Detection\\README.md";
+        var mkdocs_page_url = "/Aircraft%20Detection/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Grant Curell's Dell Projects
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Grant Curell's Dell Projects</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Adding%20Hashing%20to%20OpenSwitch/">Adding Hashing to OpenSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Adding%20Intel%20I219-LM%20%288086.0d4c%29%20Driver%20to%20ESXi/">Adding Intel I219-LM (8086.0d4c) Driver to ESXi</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Aircraft Detection</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#code">Code</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#test-results-against-f16s">Test Results Against F16s</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#how-the-code-works">How the Code Works</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#dataset">Dataset</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#key-points">Key Points</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#prepare_data-function">prepare_data Function</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#explanation">Explanation:</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#split_data-function">split_data Function</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#explanation_1">Explanation:</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#create_generators-function">create_generators Function</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#explanation_2">Explanation:</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#build_model-function">build_model Function</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#explanation_3">Explanation:</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#train_model-function">train_model Function</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#explanation_4">Explanation:</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#6-main-script">6. Main Script</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#how-the-math-works">How the Math Works</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#efficientnetb3-as-the-base-model">EfficientNetB3 as the Base Model</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#input-shape">Input Shape</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#convolution-operation">Convolution Operation</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#activation-function-relu">Activation Function (ReLU)</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#strided-convolutions-downsampling">Strided Convolutions (Downsampling)</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#global-max-pooling">Global Max Pooling</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#fully-connected-layers">Fully Connected Layers</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#batch-normalization">Batch Normalization</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#dense-layer-256-units">Dense Layer (256 Units)</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#dropout">Dropout</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#dense-layer-with-softmax-output-layer">Dense Layer with Softmax (Output Layer)</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#compilation">Compilation</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#categorical-cross-entropy-loss">Categorical Cross-Entropy Loss</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#adamax-optimizer">Adamax Optimizer</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#understanding-kernels-filters-in-convolution">Understanding Kernels (Filters) in Convolution</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#kernel-shape">Kernel Shape</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#convolution-operation_1">Convolution Operation</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#sliding-the-kernel-across-the-image">Sliding the Kernel Across the Image</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#example-3-times-3-kernel-on-a-grayscale-image">Example: $3 \times 3$ Kernel on a Grayscale Image</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#input-image">Input Image</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#kernel">Kernel</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#receptive-field-at-1-1">Receptive Field at $(1, 1)$</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#element-wise-multiplication-and-summation">Element-wise Multiplication and Summation</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#output-dimensions">Output Dimensions</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#relu-activation-function-and-non-linearity">ReLU Activation Function and Non-Linearity</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#step-by-step-explanation">Step-by-Step Explanation</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#why-relu-is-preferred-over-other-activations">Why ReLU is Preferred Over Other Activations</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#example-of-relu-in-action">Example of ReLU in Action</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#impact-of-relu-on-feature-maps">Impact of ReLU on Feature Maps</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#global-max-pooling-reducing-a-3d-tensor-to-a-1d-vector">Global Max Pooling: Reducing a 3D Tensor to a 1D Vector</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#the-math-of-global-max-pooling">The Math of Global Max Pooling</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#step-by-step-explanation-of-global-max-pooling">Step-by-Step Explanation of Global Max Pooling</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#why-use-global-max-pooling">Why Use Global Max Pooling?</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#example">Example</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#impact-of-global-max-pooling">Impact of Global Max Pooling</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Automatically%20Provision%20Dell%20Servers/">Automatically Provision Dell Servers</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Automating%20OME%20Hardware%20Reports/">Automating OME Hardware Reports</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../BIOS%20Options%20Explanation/">BIOS Options Explanation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Backup%20OS10%20Config%20with%20Ansible/">Backup OS10 Config with Ansible</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Build%20NVIDIA%20AI%20Enterprise/">Build NVIDIA AI Enterprise</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Build%20OpenShift/">Build OpenShift</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Build%20Preboot%20Environment%20with%20Ansible/">Build Preboot Environment with Ansible</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../CloudLink/">CloudLink</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Common%20Questions%20About%20LLMs%20Answered/">Common Questions About LLMs Answered</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20FN410%20as%20a%20Switch/">Configure FN410 as a Switch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20Gigamon%20Tap/">Configure Gigamon Tap</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20Multi-Protocol%20PowerStore%20with%20LDAP/">Configure Multi-Protocol PowerStore with LDAP</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20PowerStore%20SMB%20User/">Configure PowerStore SMB User</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20kdump%20with%20SSH/">Configure kdump with SSH</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configuring%20VLT%20on%20OS10/">Configuring VLT on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Connect%20to%20APC%20PDU%20with%20Redfish/">Connect to APC PDU with Redfish</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Create%20Kickstart%20Server%20on%20Fedora/">Create Kickstart Server on Fedora</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Create%20OpenSwitch%20VM/">Create OpenSwitch VM</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Custom%20NVMe%20Debug%20Driver/">Custom NVMe Debug Driver</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../DHCP%20Relay%20on%20SONiC/">DHCP Relay on SONiC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Dell%20Ansible%20Testing/">Dell Ansible Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Deploy%20OpenShift%20Offline/">Deploy OpenShift Offline</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Elasticsearch%20Display%20Map%20Data/">Elasticsearch Display Map Data</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Elasticsearch%20Load%20Testing/">Elasticsearch Load Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Estimating%20Compute%20Requirements%20for%20Machine%20Learning/">Estimating Compute Requirements for Machine Learning</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Finding%20Rare%20Logs%20with%20DBSCAN/">Finding Rare Logs with DBSCAN</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Get%20NVMe%20Drives%20from%20iDRAC%20Redfish/">Get NVMe Drives from iDRAC Redfish</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../High%20Speed%20Packet%20Capture/">High Speed Packet Capture</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20Bitcoin-Blockchain%20Works%20-%20Notes/">How Bitcoin-Blockchain Works - Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20Does%20Power%20Work/">How Does Power Work</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20Does%20SIFT%20Work/">How Does SIFT Work</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20OS10%20Installer%20Works/">How OS10 Installer Works</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20drive%20detection%20order%20works/">How drive detection order works</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20to%20ONIE%20Install%20and%20ZTP%20Config%20Dell%20SONiC/">How to ONIE Install and ZTP Config Dell SONiC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20to%20Read%20lstopo%20and%20a%20PCIe%20Overview/">How to Read lstopo and a PCIe Overview</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20to%20Setup%20PGP%20with%20Mailvelope/">How to Setup PGP with Mailvelope</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../IO%20Identities%20with%20LifeCycle%20Controller/">IO Identities with LifeCycle Controller</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Importing%20Elasticsearch%20Data/">Importing Elasticsearch Data</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Install%20OpenCV%20with%20CUDA%20Support%20on%20Rocky%20Linux/">Install OpenCV with CUDA Support on Rocky Linux</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Installing%20DPDK%20with%20NapaTech%20Card/">Installing DPDK with NapaTech Card</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../LDAP%20with%20OpenManage/">LDAP with OpenManage</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../LLMs%20Explained/">LLMs Explained</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balance%20Testing%20with%20OpenVSwitch/">Load Balance Testing with OpenVSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balancing%20on%20Mellanox%20Switches/">Load Balancing on Mellanox Switches</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balancing%20with%20LAG%20on%205112F-ON/">Load Balancing with LAG on 5112F-ON</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Make%20USB%20Read%20Only/">Make USB Read Only</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Migrating%20Storage%20Volumes%20to%20PowerStore/">Migrating Storage Volumes to PowerStore</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Mulitple%20Span%20on%204112F-ON%20with%20OpenSwitch/">Mulitple Span on 4112F-ON with OpenSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Multiple%20Span%20on%204112F-ON%20with%20OS10/">Multiple Span on 4112F-ON with OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../NVMe%20Driver%20Reverse%20Engineering/">NVMe Driver Reverse Engineering</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../NVMe%20Performance%20Testing/">NVMe Performance Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20AMD%20Processor/">Notes on AMD Processor</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20Building%20a%20Datacenter%20from%20Scratch/">Notes on Building a Datacenter from Scratch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20HPC/">Notes on HPC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20HSM/">Notes on HSM</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20Improving%20Drive%20Performance/">Notes on Improving Drive Performance</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20NVMe%20Log%20Pages/">Notes on NVMe Log Pages</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20PCIe/">Notes on PCIe</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20mdraid%20Performance%20Testing/">Notes on mdraid Performance Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20nodejs/">Notes on nodejs</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Nvidia%20GPUDirect/">Nvidia GPUDirect</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Nvidia%20GRID%20Notes/">Nvidia GRID Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OME%20Bug/">OME Bug</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OME%20Integration%20for%20VMWare/">OME Integration for VMWare</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OS10%20Password%20Recovery%20Bug/">OS10 Password Recovery Bug</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Offline%20Updates%20with%20OpenManage%20Enterprise/">Offline Updates with OpenManage Enterprise</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OpenFlow%20on%204112F-ON/">OpenFlow on 4112F-ON</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OpenShift%20-%20Change%20MTU/">OpenShift - Change MTU</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Overprovisioning%20Explained/">Overprovisioning Explained</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PCIev3%20vs%20v4/">PCIev3 vs v4</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Playing%20with%20virsh/">Playing with virsh</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PowerScale%20-%20Configure%20with%20Kubernetes/">PowerScale - Configure with Kubernetes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PowerScale%20Failed%20Authentication/">PowerScale Failed Authentication</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PowerScale%20Setup/">PowerScale Setup</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Reset%20OS10%20Admin%20Password/">Reset OS10 Admin Password</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Reverse%20Engineering%20OpenSHMEM/">Reverse Engineering OpenSHMEM</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Run%20VPN%20on%20OS10/">Run VPN on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Running%20DNS%20from%20OS10/">Running DNS from OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../SONiC%20-%20Sample%20Datacenter%20Automation%20Architecture/">SONiC - Sample Datacenter Automation Architecture</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Set%20Up%20RSPAN%20on%20OS10/">Set Up RSPAN on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setting%20Up%20Breakout%20Cables/">Setting Up Breakout Cables</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setting%20Up%20SmartFabric%20Director/">Setting Up SmartFabric Director</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setting%20Up%20iDRAC%20Telemetry%20with%20Splunk/">Setting Up iDRAC Telemetry with Splunk</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setup%20IDPA/">Setup IDPA</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Site%20to%20Site%20VPN%20with%20PFSense%20and%20CentOS%208/">Site to Site VPN with PFSense and CentOS 8</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Swap%20Kernel%20on%20Rocky%209/">Swap Kernel on Rocky 9</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Switch%20Directly%20to%20Client%20Test/">Switch Directly to Client Test</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Testing%20Bare%20Metal%20Orchestrator/">Testing Bare Metal Orchestrator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Testing%20Intel%20x520%20on%20RHEL%206/">Testing Intel x520 on RHEL 6</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Troubleshooting%205G%20Connection/">Troubleshooting 5G Connection</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Understand%20and%20Run%20LINPACK/">Understand and Run LINPACK</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Understanding%20Cellular%20Technology/">Understanding Cellular Technology</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Understanding%20Memory/">Understanding Memory</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Understanding%20NCCL/">Understanding NCCL</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Understanding%20PERC%20Interrupts/">Understanding PERC Interrupts</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Update%20iDRAC%20Cipher%20Suite%20with%20Redfish/">Update iDRAC Cipher Suite with Redfish</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Use%20OS10%20as%20Aggregator/">Use OS10 as Aggregator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Using%20Dell%20Repository%20Manager%20to%20Create%20Bootable%20ISO/">Using Dell Repository Manager to Create Bootable ISO</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Using%20FIO/">Using FIO</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Using%20the%20iDRAC%20Service%20Module/">Using the iDRAC Service Module</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VEP%20Testing/">VEP Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Web%20Traffic%20Generator/">Web Traffic Generator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Writing%20udev%20Rules%20for%20Dell%20PERC%20H755/">Writing udev Rules for Dell PERC H755</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../esrally%20%28INCOMPLETE%29/">esrally (INCOMPLETE)</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../idrac%20with%20LDAP/">idrac with LDAP</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balance%20Testing%20on%204112F-ON/OS10/">Load Balance Testing on 4112F-ON w/OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balance%20Testing%20on%204112F-ON/OpenSwitch%20%28OPX%29/">Load Balancing with LAG OPX</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Automate%20ESXi%20Installation/">Automating ESXi Installation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Change%20User%20on%20VxRail%20Plugin/">Change User on VxRail Plugin</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/ESXi%20Architecture/">VMWare Architecture Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/How%20to%20Pull%20Usage%20Metrics/">How to Pull Usage Metrics</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Notes%20on%20VSAN/">Notes on vSAN</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Setup%20VXRail/">VxRail Setup</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Troubleshooting%20vSAN/">Troubleshooting vSAN</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/VMWare%20APIs/">VMWare APIs</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/VxRail%20Architecture%20and%20Troubleshooting/">VxRail Architecture and Troubleshooting</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/vRealize%20Setup%20%28Incomplete%29/">Setting Up vRealize</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Grant Curell's Dell Projects</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Aircraft Detection</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="aircraft-detection">Aircraft Detection</h1>
+<ul>
+<li><a href="#aircraft-detection">Aircraft Detection</a></li>
+<li><a href="#how-the-code-works">How the Code Works</a><ul>
+<li><a href="#dataset">Dataset</a></li>
+<li><a href="#key-points">Key Points</a></li>
+<li><a href="#prepare_data-function"><code>prepare_data</code> Function</a></li>
+<li><a href="#explanation">Explanation:</a></li>
+<li><a href="#split_data-function"><code>split_data</code> Function</a></li>
+<li><a href="#explanation-1">Explanation:</a></li>
+<li><a href="#create_generators-function"><code>create_generators</code> Function</a></li>
+<li><a href="#explanation-2">Explanation:</a></li>
+<li><a href="#build_model-function"><code>build_model</code> Function</a></li>
+<li><a href="#explanation-3">Explanation:</a></li>
+<li><a href="#train_model-function"><code>train_model</code> Function</a></li>
+<li><a href="#explanation-4">Explanation:</a></li>
+<li><a href="#6-main-script">6. Main Script</a></li>
+</ul>
+</li>
+<li><a href="#how-the-math-works">How the Math Works</a><ul>
+<li><a href="#efficientnetb3-as-the-base-model">EfficientNetB3 as the Base Model</a></li>
+<li><a href="#input-shape">Input Shape</a></li>
+<li><a href="#convolution-operation">Convolution Operation</a></li>
+<li><a href="#activation-function-relu">Activation Function (ReLU)</a></li>
+<li><a href="#strided-convolutions-downsampling">Strided Convolutions (Downsampling)</a></li>
+<li><a href="#global-max-pooling">Global Max Pooling</a></li>
+<li><a href="#fully-connected-layers">Fully Connected Layers</a></li>
+<li><a href="#batch-normalization">Batch Normalization</a></li>
+<li><a href="#dense-layer-256-units">Dense Layer (256 Units)</a></li>
+<li><a href="#dropout">Dropout</a></li>
+<li><a href="#dense-layer-with-softmax-output-layer">Dense Layer with Softmax (Output Layer)</a></li>
+<li><a href="#compilation">Compilation</a></li>
+<li><a href="#categorical-cross-entropy-loss">Categorical Cross-Entropy Loss</a></li>
+<li><a href="#adamax-optimizer">Adamax Optimizer</a></li>
+<li><a href="#understanding-kernels-filters-in-convolution">Understanding Kernels (Filters) in Convolution</a></li>
+<li><a href="#kernel-shape">Kernel Shape</a></li>
+<li><a href="#convolution-operation-1">Convolution Operation</a></li>
+<li><a href="#sliding-the-kernel-across-the-image">Sliding the Kernel Across the Image</a></li>
+<li><a href="#example-3-times-3-kernel-on-a-grayscale-image">Example: $3 \times 3$ Kernel on a Grayscale Image</a></li>
+<li><a href="#input-image">Input Image</a></li>
+<li><a href="#kernel">Kernel</a></li>
+<li><a href="#receptive-field-at-1-1">Receptive Field at $(1, 1)$</a></li>
+<li><a href="#element-wise-multiplication-and-summation">Element-wise Multiplication and Summation</a></li>
+<li><a href="#output-dimensions">Output Dimensions</a></li>
+<li><a href="#relu-activation-function-and-non-linearity">ReLU Activation Function and Non-Linearity</a></li>
+<li><a href="#step-by-step-explanation">Step-by-Step Explanation</a></li>
+<li><a href="#why-relu-is-preferred-over-other-activations">Why ReLU is Preferred Over Other Activations</a></li>
+<li><a href="#example-of-relu-in-action">Example of ReLU in Action</a></li>
+<li><a href="#impact-of-relu-on-feature-maps">Impact of ReLU on Feature Maps</a></li>
+<li><a href="#global-max-pooling-reducing-a-3d-tensor-to-a-1d-vector">Global Max Pooling: Reducing a 3D Tensor to a 1D Vector</a></li>
+<li><a href="#the-math-of-global-max-pooling">The Math of Global Max Pooling</a></li>
+<li><a href="#step-by-step-explanation-of-global-max-pooling">Step-by-Step Explanation of Global Max Pooling</a></li>
+<li><a href="#why-use-global-max-pooling">Why Use Global Max Pooling?</a></li>
+<li><a href="#example">Example</a></li>
+<li><a href="#impact-of-global-max-pooling">Impact of Global Max Pooling</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="code">Code</h2>
+<ul>
+<li>Training program is <a href="main.py">main.py</a></li>
+<li>To test a trained model I used <a href="f16_test_model.py">f16_test_model.py</a></li>
+</ul>
+<h2 id="test-results-against-f16s">Test Results Against F16s</h2>
+<p>This isn't the most robust of tests, but I pulled a few dozen F16 images and ran a test against them using <a href="f16_test_model.py">f16_test_model.py</a>. These images varied pretty widely and I picked the F16 on purpose because the conformal fuel tanks make it a bit harder to recognize. The pictures were all different sizes, different angles, different weather, etc so I made it pretty difficult. The model still did ok in that despite a lot of noise it got 3/4 correct. Here is what I noticed tripped it up:</p>
+<ol>
+<li>Multiple different aircraft in the same picture (this one makes sense and would be hard to train out without using a different model)</li>
+<li>Shock condensation was present</li>
+<li>The color scheme was significantly different. Ex: some of the images had a desert paint scheme and it missed all of those</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>Image Name</th>
+<th>Predicted</th>
+<th>Confidence</th>
+<th>Correct</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-1x-1.webp</td>
+<td>F16</td>
+<td>0.99</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>05frontirusukr2903202405-696x374.png</td>
+<td>F16</td>
+<td>1.00</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>0x0 (1).webp</td>
+<td>F16</td>
+<td>1.00</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>0x0 (2).webp</td>
+<td>F16</td>
+<td>1.00</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>0x0 (3).webp</td>
+<td>F16</td>
+<td>0.97</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>0x0.webp</td>
+<td>B1</td>
+<td>0.56</td>
+<td>No</td>
+</tr>
+<tr>
+<td>1000w_q95 (1).webp</td>
+<td>F16</td>
+<td>0.83</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>1000w_q95.webp</td>
+<td>Su34</td>
+<td>0.93</td>
+<td>No</td>
+</tr>
+<tr>
+<td>1200x675_336905.webp</td>
+<td>F16</td>
+<td>1.00</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>63d560d4c00db.jpeg</td>
+<td>F16</td>
+<td>1.00</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>646752a44e3fe1148c5cacea.webp</td>
+<td>F16</td>
+<td>1.00</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>64c7a25a4e3fe0112c582728.webp</td>
+<td>F16</td>
+<td>1.00</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>6762-01.webp</td>
+<td>F16</td>
+<td>1.00</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>160824-F-QJ658-404-scaled.webp</td>
+<td>F16</td>
+<td>0.84</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>1685548869503.jpeg</td>
+<td>Tornado</td>
+<td>0.43</td>
+<td>No</td>
+</tr>
+<tr>
+<td>1720619878283.webp</td>
+<td>Y20</td>
+<td>0.54</td>
+<td>No</td>
+</tr>
+<tr>
+<td>9eea165897293b9d3cff2d36736d.webp</td>
+<td>F16</td>
+<td>0.96</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>2376e84a-b65c-4bb4-8884-59f70b84c4f1_16x9_1200x676.webp</td>
+<td>F35</td>
+<td>1.00</td>
+<td>No</td>
+</tr>
+<tr>
+<td>240709-F-XO977-1093-900x600.jpeg</td>
+<td>F16</td>
+<td>0.97</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>5633.webp</td>
+<td>F16</td>
+<td>1.00</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>6e588e65af644a5933ab301f075f2cdc.webp</td>
+<td>F16</td>
+<td>0.36</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>belgian-air-force-f-16b.webp</td>
+<td>F16</td>
+<td>1.00</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>do-you-think-that-the-f-16-will-still-be-in-service-past-v0-8rwx3k9176jc1.webp</td>
+<td>F16</td>
+<td>1.00</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>F-16-AIM-missile.webp</td>
+<td>F16</td>
+<td>1.00</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>f16-preparing-for-flight.webp</td>
+<td>U2</td>
+<td>0.78</td>
+<td>No</td>
+</tr>
+<tr>
+<td>f16s-turkey-1.webp</td>
+<td>U2</td>
+<td>0.81</td>
+<td>No</td>
+</tr>
+<tr>
+<td>GUJWOKLWkAAnCOn.jpeg</td>
+<td>Tu160</td>
+<td>0.98</td>
+<td>No</td>
+</tr>
+<tr>
+<td>IMG_7849web.webp</td>
+<td>F16</td>
+<td>1.00</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>TopAces_F16_5.webp</td>
+<td>F16</td>
+<td>1.00</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>400_0_1651495143-4194.webp</td>
+<td>F16</td>
+<td>1.00</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>41_2024-638559731785460659-546.jpeg</td>
+<td>JAS39</td>
+<td>1.00</td>
+<td>No</td>
+</tr>
+<tr>
+<td>240709-F-XO977-1124-1024x681.jpeg</td>
+<td>F16</td>
+<td>1.00</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>29771645698247cc1ae4fefc4c538b6f.webp</td>
+<td>F16</td>
+<td>1.00</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>airshow-aircraft-fighter-f-16-public-domain.webp</td>
+<td>F15</td>
+<td>0.47</td>
+<td>No</td>
+</tr>
+<tr>
+<td>AP-F16.webp</td>
+<td>JAS39</td>
+<td>0.92</td>
+<td>No</td>
+</tr>
+<tr>
+<td>article_5c8845dd9872a9_06637956.png</td>
+<td>F16</td>
+<td>1.00</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>dd2e8f1ae29ccfc4df715e884489aefc.webp</td>
+<td>F16</td>
+<td>0.97</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>F-16 Fighting Falcon_0 (1).webp</td>
+<td>F16</td>
+<td>0.56</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>F-16 Fighting Falcon_0 (2).webp</td>
+<td>F16</td>
+<td>0.56</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>F-16 Fighting Falcon_0 (3).webp</td>
+<td>F16</td>
+<td>0.56</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>F-16 Fighting Falcon_0.webp</td>
+<td>F16</td>
+<td>0.56</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>F-16-5-4119155481.webp</td>
+<td>F16</td>
+<td>1.00</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>f16-1.webp</td>
+<td>F16</td>
+<td>1.00</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>f16-fighting-falcon-fighter-jet-260nw-2460648719.webp</td>
+<td>F16</td>
+<td>0.51</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>f-16-credit-hellenic-air-force.webp</td>
+<td>F16</td>
+<td>1.00</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>f-16-deal-with-pakistan-will-affect-aspects-of-indo-us-ties-pacific-command.webp</td>
+<td>F16</td>
+<td>1.00</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>F-16-Viper-at-NAS-Fallon.webp</td>
+<td>F16</td>
+<td>0.98</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>F16-Ukraine-1.webp</td>
+<td>Tu95</td>
+<td>0.97</td>
+<td>No</td>
+</tr>
+<tr>
+<td>f16.png</td>
+<td>F16</td>
+<td>1.00</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>F16.webp</td>
+<td>F16</td>
+<td>0.38</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>F16_drawing.png</td>
+<td>F16</td>
+<td>1.00</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>final_airtoairloadout_steveotte_lowreswithchute.webp</td>
+<td>F16</td>
+<td>1.00</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>fully-loaded-f16-fighting-falcon-at-the-us-air-force-v0-gjl2nx950hjb1.webp</td>
+<td>F16</td>
+<td>1.00</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>FVccLyeWUAADiXk-1024x620.jpeg.webp</td>
+<td>JH7</td>
+<td>0.40</td>
+<td>No</td>
+</tr>
+<tr>
+<td>iraqi-f-16s-ukraine-war-fall-out (1).webp</td>
+<td>F16</td>
+<td>1.00</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>iraqi-f-16s-ukraine-war-fall-out.webp</td>
+<td>F16</td>
+<td>1.00</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>mitsubishi-f2-pack-sc-designs-f16-413107-1705487401-AdC1c.webp</td>
+<td>F16</td>
+<td>0.54</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>PAF-F-16-2.png</td>
+<td>F16</td>
+<td>0.70</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Spandahlem_F-16_Poland-01.jpeg</td>
+<td>F16</td>
+<td>1.00</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>TopAces_F16_6.webp</td>
+<td>F35</td>
+<td>0.95</td>
+<td>No</td>
+</tr>
+<tr>
+<td>TopAces_F16_7.webp</td>
+<td>B1</td>
+<td>0.49</td>
+<td>No</td>
+</tr>
+<tr>
+<td>TOPGUN-F-16-Navy.webp</td>
+<td>Su34</td>
+<td>0.97</td>
+<td>No</td>
+</tr>
+<tr>
+<td>ukrainian-f-16-ew-system-reprogramming.webp</td>
+<td>F16</td>
+<td>1.00</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>US-Air-Force-formation-F-16-Fighting-Falcons.webp</td>
+<td>F16</td>
+<td>0.65</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>why-do-f16s-carry-aim-120s-at-the-wingtips-and-aim-9s-under-v0-mg56by8jttnb1.png</td>
+<td>F16</td>
+<td>1.00</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>will-the-f16s-be-able-to-challenge-russian-fighters-v0-qjh36rynqvvb1.webp</td>
+<td>F16</td>
+<td>1.00</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+<p>Total Images: 66, Correctly Identified F-16s: 50, Accuracy: 75.76%</p>
+<h2 id="how-the-code-works">How the Code Works</h2>
+<h3 id="dataset">Dataset</h3>
+<p>The code was designed to work with the <a href="https://www.kaggle.com/datasets/a2015003713/militaryaircraftdetectiondataset">Military Aircraft Detection Dataset</a></p>
+<h3 id="key-points">Key Points</h3>
+<ul>
+<li>This program trains a classifier to identify military aircraft types using a dataset of images. It utilizes EfficientNetB3, a pre-trained deep learning model, for feature extraction.</li>
+<li>The program expects the dataset to be organized into subdirectories, where each subdirectory corresponds to a specific aircraft class. The <code>prepare_data</code> function iterates through these subdirectories to create a pandas DataFrame containing file paths and their corresponding labels.</li>
+<li>The <code>split_data</code> function splits the DataFrame into training, validation, and test sets. Stratified splitting ensures that each set maintains the same ratio of aircraft from the original dataset to the training, validation, and test data sets</li>
+<li>The <code>create_generators</code> function uses <code>ImageDataGenerator</code> to create generators for training, validation, and testing. The data is preprocessed using EfficientNetB3's specific preprocessing function. Training and validation data are shuffled, while test data is not.</li>
+<li>The <code>build_model</code> function constructs a deep learning model:</li>
+<li>EfficientNetB3 (pre-trained on ImageNet) is used as the base for feature extraction.</li>
+<li>Additional layers include batch normalization, a dense layer with 256 neurons, dropout, and a softmax output layer.</li>
+<li>The model is compiled with the Adamax optimizer, categorical cross-entropy loss, and accuracy as a metric.</li>
+<li>The <code>train_model</code> function trains the model using the training and validation generators.</li>
+<li>Two callbacks are used:<ul>
+<li>Early stopping halts training if validation loss does not improve for three consecutive epochs.</li>
+<li>Learning rate reduction decreases the learning rate if validation loss stagnates for two epochs.</li>
+</ul>
+</li>
+<li>Training history, including accuracy and loss for both training and validation, is plotted using <code>matplotlib</code>.</li>
+<li>After training, the model is saved to a file specified by the <code>--output</code> argument.</li>
+<li>The program accepts user-defined parameters via command-line arguments:</li>
+<li><code>--dataset</code>: Path to the dataset directory.</li>
+<li><code>--batch_size</code>: Number of samples per batch (default: 32).</li>
+<li><code>--epochs</code>: Number of epochs for training (default: 20).</li>
+<li><code>--output</code>: File name for saving the trained model (default: 'aircraft_classifier.h5').</li>
+<li>The program workflow involves:</li>
+<li>Parsing arguments to configure the dataset, training parameters, and output file.</li>
+<li>Preparing the dataset and splitting it into training, validation, and test sets.</li>
+<li>Creating data generators for preprocessing and loading images in batches.</li>
+<li>Building and training the model using the specified parameters and callbacks.</li>
+<li>Visualizing training performance.</li>
+<li>Saving the trained model. </li>
+</ul>
+<h3 id="prepare_data-function"><code>prepare_data</code> Function</h3>
+<p>This function creates a DataFrame from the <code>crop</code> directory, where each subdirectory corresponds to a class, and files inside are individual data points.</p>
+<pre><code class="language-python">def prepare_data(crop_dir):
+    filepaths = []
+    labels = []
+    for class_name in os.listdir(crop_dir):
+        class_dir = os.path.join(crop_dir, class_name)
+        if os.path.isdir(class_dir):
+            for file in os.listdir(class_dir):
+                filepaths.append(os.path.join(class_dir, file))
+                labels.append(class_name)
+    return pd.DataFrame({&quot;filepaths&quot;: filepaths, &quot;labels&quot;: labels})
+</code></pre>
+<h4 id="explanation">Explanation:</h4>
+<ol>
+<li><code>filepaths = []</code> and <code>labels = []</code>:</li>
+<li>
+<p>Initialize empty lists to store file paths and their corresponding labels.</p>
+</li>
+<li>
+<p><code>for class_name in os.listdir(crop_dir):</code>:</p>
+</li>
+<li>
+<p>Iterate over each subdirectory in <code>crop_dir</code>. Each subdirectory represents a class (e.g., <code>F16</code>, <code>B52</code>).</p>
+</li>
+<li>
+<p><code>class_dir = os.path.join(crop_dir, class_name)</code>:</p>
+</li>
+<li>
+<p>Construct the full path to the subdirectory.</p>
+</li>
+<li>
+<p><code>if os.path.isdir(class_dir):</code>:</p>
+</li>
+<li>
+<p>Check if the path is a directory (avoiding non-directory files).</p>
+</li>
+<li>
+<p><code>for file in os.listdir(class_dir):</code>:</p>
+</li>
+<li>
+<p>Iterate over each file in the subdirectory.</p>
+</li>
+<li>
+<p><code>filepaths.append(os.path.join(class_dir, file))</code>:</p>
+</li>
+<li>
+<p>Append the full path of the file to the <code>filepaths</code> list.</p>
+</li>
+<li>
+<p><code>labels.append(class_name)</code>:</p>
+</li>
+<li>
+<p>Append the class name (subdirectory name) to the <code>labels</code> list.</p>
+</li>
+<li>
+<p><code>return pd.DataFrame({"filepaths": filepaths, "labels": labels})</code>:</p>
+</li>
+<li>Combine <code>filepaths</code> and <code>labels</code> into a DataFrame with columns <code>filepaths</code> and <code>labels</code>.</li>
+</ol>
+<hr />
+<h3 id="split_data-function"><code>split_data</code> Function</h3>
+<p>This function splits the dataset into training, validation, and test sets.</p>
+<pre><code class="language-python">def split_data(df, test_size=0.2, val_size=0.1):
+    train_df, test_df = train_test_split(df, test_size=test_size, stratify=df['labels'])
+    train_df, val_df = train_test_split(train_df, test_size=val_size, stratify=train_df['labels'])
+    return train_df, val_df, test_df
+</code></pre>
+<h4 id="explanation_1">Explanation:</h4>
+<ol>
+<li><code>train_test_split(df, test_size=test_size, stratify=df['labels'])</code>:</li>
+<li>Split the dataset <code>df</code> into <code>train_df</code> (80%) and <code>test_df</code> (20%).</li>
+<li>
+<p>Stratify ensures each split maintains the proportion of classes as in the original dataset.</p>
+</li>
+<li>
+<p><code>train_test_split(train_df, test_size=val_size, stratify=train_df['labels'])</code>:</p>
+</li>
+<li>Further split <code>train_df</code> into <code>train_df</code> (90% of train set) and <code>val_df</code> (10% of train set).</li>
+<li>
+<p>Stratify again ensures class proportions are preserved.</p>
+</li>
+<li>
+<p><code>return train_df, val_df, test_df</code>:</p>
+</li>
+<li>Return the three splits as DataFrames.</li>
+</ol>
+<hr />
+<h3 id="create_generators-function"><code>create_generators</code> Function</h3>
+<p>This function creates data generators for training, validation, and testing using <code>ImageDataGenerator</code>.</p>
+<pre><code class="language-python">def create_generators(train_df, val_df, test_df, batch_size, img_size=(224, 224)):
+    datagen = ImageDataGenerator(preprocessing_function=tf.keras.applications.efficientnet.preprocess_input)
+
+    train_gen = datagen.flow_from_dataframe(
+        train_df, x_col='filepaths', y_col='labels',
+        target_size=img_size, class_mode='categorical', batch_size=batch_size, shuffle=True
+    )
+    val_gen = datagen.flow_from_dataframe(
+        val_df, x_col='filepaths', y_col='labels',
+        target_size=img_size, class_mode='categorical', batch_size=batch_size, shuffle=True
+    )
+    test_gen = datagen.flow_from_dataframe(
+        test_df, x_col='filepaths', y_col='labels',
+        target_size=img_size, class_mode='categorical', batch_size=batch_size, shuffle=False
+    )
+    return train_gen, val_gen, test_gen
+</code></pre>
+<h4 id="explanation_2">Explanation:</h4>
+<ol>
+<li><code>datagen = ImageDataGenerator(preprocessing_function=tf.keras.applications.efficientnet.preprocess_input)</code>:</li>
+<li>
+<p>Create a data generator with preprocessing specific to EfficientNet models.</p>
+</li>
+<li>
+<p><code>datagen.flow_from_dataframe(...)</code>:</p>
+</li>
+<li>Convert a DataFrame into a generator that yields batches of images and labels.</li>
+<li><code>x_col</code>: Column containing file paths.</li>
+<li><code>y_col</code>: Column containing class labels.</li>
+<li><code>target_size</code>: Resize images to 224x224 pixels.</li>
+<li><code>class_mode</code>: Use categorical mode for multi-class classification.</li>
+<li>
+<p><code>shuffle</code>: Randomize the data for training but not for testing.</p>
+</li>
+<li>
+<p>Return:</p>
+</li>
+<li><code>train_gen</code>, <code>val_gen</code>, and <code>test_gen</code> are the generators for training, validation, and testing.</li>
+</ol>
+<hr />
+<h3 id="build_model-function"><code>build_model</code> Function</h3>
+<p>This function builds and compiles the deep learning model.</p>
+<pre><code class="language-python">def build_model(num_classes, input_shape=(224, 224, 3)):
+    base_model = tf.keras.applications.EfficientNetB3(include_top=False, weights='imagenet', pooling='max', input_shape=input_shape)
+
+    model = Sequential([
+        base_model,
+        BatchNormalization(),
+        Dense(256, kernel_regularizer=regularizers.l2(0.016), activation='relu'),
+        Dropout(0.45),
+        Dense(num_classes, activation='softmax')
+    ])
+    model.compile(optimizer=tf.keras.optimizers.Adamax(learning_rate=0.001),
+                  loss='categorical_crossentropy', metrics=['accuracy'])
+    return model
+</code></pre>
+<h4 id="explanation_3">Explanation:</h4>
+<ol>
+<li><code>base_model</code>:</li>
+<li>Load the EfficientNetB3 model pre-trained on ImageNet.</li>
+<li>Exclude the top classification layer (<code>include_top=False</code>).</li>
+<li>
+<p>Use global max pooling on the feature maps (<code>pooling='max'</code>).</p>
+</li>
+<li>
+<p><code>BatchNormalization()</code>:</p>
+</li>
+<li>
+<p>Normalize activations to stabilize and speed up training.</p>
+</li>
+<li>
+<p><code>Dense(256, ...)</code>:</p>
+</li>
+<li>
+<p>Fully connected layer with 256 neurons and L2 regularization to prevent overfitting.</p>
+</li>
+<li>
+<p><code>Dropout(0.45)</code>:</p>
+</li>
+<li>
+<p>Randomly drop 45% of neurons during training to reduce overfitting.</p>
+</li>
+<li>
+<p><code>Dense(num_classes, activation='softmax')</code>:</p>
+</li>
+<li>
+<p>Output layer with <code>num_classes</code> neurons for classification using the softmax function.</p>
+</li>
+<li>
+<p><code>model.compile(...)</code>:</p>
+</li>
+<li>Compile the model with:<ul>
+<li><code>Adamax</code> optimizer (variant of Adam).</li>
+<li>Categorical cross-entropy loss for multi-class classification.</li>
+<li><code>accuracy</code> as a performance metric.</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h3 id="train_model-function"><code>train_model</code> Function</h3>
+<p>This function trains the model using the training and validation generators.</p>
+<pre><code class="language-python">def train_model(model, train_gen, val_gen, epochs, callbacks):
+    history = model.fit(train_gen, validation_data=val_gen, epochs=epochs, callbacks=callbacks)
+    return history
+</code></pre>
+<h4 id="explanation_4">Explanation:</h4>
+<ol>
+<li><code>model.fit(...)</code>:</li>
+<li>Train the model on <code>train_gen</code> and validate on <code>val_gen</code>.</li>
+<li>Run for a specified number of <code>epochs</code>.</li>
+<li>
+<p>Use <code>callbacks</code> to monitor and adjust the training process dynamically (e.g., early stopping).</p>
+</li>
+<li>
+<p>Return:</p>
+</li>
+<li><code>history</code> contains training and validation metrics (e.g., loss, accuracy) for each epoch.</li>
+</ol>
+<hr />
+<h3 id="6-main-script">6. Main Script</h3>
+<p>This is the entry point for the script, handling argument parsing and calling the functions in sequence.</p>
+<pre><code class="language-python">if __name__ == &quot;__main__&quot;:
+    parser = argparse.ArgumentParser(...)
+    args = parser.parse_args()
+
+    df = prepare_data(args.dataset)
+    train_df, val_df, test_df = split_data(df)
+    train_gen, val_gen, test_gen = create_generators(train_df, val_df, test_df, args.batch_size)
+    num_classes = len(train_gen.class_indices)
+    model = build_model(num_classes)
+
+    callbacks = [
+        tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=3),
+        tf.keras.callbacks.ReduceLROnPlateau(monitor='val_loss', factor=0.5, patience=2)
+    ]
+
+    history = train_model(model, train_gen, val_gen, args.epochs, callbacks)
+
+    plt.figure(figsize=(10, 5))
+    plt.plot(history.history['accuracy'], label='Training Accuracy')
+    plt.plot(history.history['val_accuracy'], label='Validation Accuracy')
+    plt.legend()
+    plt.show()
+
+    plt.figure(figsize=(10, 5))
+    plt.plot(history.history['loss'], label='Training Loss')
+    plt.plot(history.history['val_loss'], label='Validation Loss')
+    plt.legend()
+    plt.show()
+
+    model.save(args.output)
+</code></pre>
+<h2 id="how-the-math-works">How the Math Works</h2>
+<h3 id="efficientnetb3-as-the-base-model">EfficientNetB3 as the Base Model</h3>
+<h4 id="input-shape">Input Shape</h4>
+<p>The input tensor to the model is:</p>
+<p>$$
+I \in \mathbb{R}^{224 \times 224 \times 3}
+$$</p>
+<p>where:
+- $(224 \times 224)$: Spatial dimensions (height and width).
+- $(3)$: Channels (RGB).</p>
+<hr />
+<h4 id="convolution-operation"><a href="#understanding-kernels-filters-in-convolution">Convolution Operation</a></h4>
+<p>For more information on how the kernel functions, see <a href="#understanding-kernels-filters-in-convolution">Understanding Kernel Filters in Convolution</a></p>
+<p>For a kernel (filter) $W$ of size $k \times k$, the convolution is defined as:</p>
+<p>$$
+z_{ij}^k = \sum_{m=1}^{k} \sum_{n=1}^{k} W_{mn}^k \cdot x_{(i+m)(j+n)} + b^k
+$$</p>
+<p>where:
+- $z_{ij}^k$: The output (feature map) value at position $(i, j)$ in the $k$-th channel.
+- $W_{mn}^k$: The weights of the $k$-th filter.
+- $x_{(i+m)(j+n)}$: The input pixel values in the receptive field.
+- $b^k$: The bias term for the $k$-th filter.</p>
+<hr />
+<h4 id="activation-function-relu"><a href="#relu-activation-function-and-non-linearity">Activation Function (ReLU)</a></h4>
+<p>After the convolution, a <a href="#relu-activation-function-and-non-linearity"><strong>ReLU activation</strong></a> introduces non-linearity:</p>
+<p>$$
+a_{ij}^k = \max(0, z_{ij}^k)
+$$</p>
+<p>This ensures the network can model complex patterns.</p>
+<hr />
+<h4 id="strided-convolutions-downsampling">Strided Convolutions (Downsampling)</h4>
+<p>To reduce the spatial dimensions, EfficientNetB3 applies <strong>strided convolutions</strong>. With stride $s$, the output dimensions are calculated as:</p>
+<p>$$
+h' = \frac{h - k + 2p}{s} + 1, \quad w' = \frac{w - k + 2p}{s} + 1
+$$</p>
+<p>where:
+- $h, w$: Input height and width.
+- $h', w'$: Output height and width.
+- $k$: Kernel size.
+- $p$: Padding size.</p>
+<hr />
+<h3 id="global-max-pooling"><a href="#the-math-of-global-max-pooling">Global Max Pooling</a></h3>
+<p>The model reduces the output of convolutional layers (a 3D tensor $T$) into a 1D vector using <a href="#the-math-of-global-max-pooling"><strong>global max pooling</strong></a>:</p>
+<p>$$
+v_k = \max_{i,j} T_{ijk}, \quad \forall k \in [1, c]
+$$</p>
+<p>where:
+- $T_{ijk}$: The value at position $(i, j)$ in the $k$-th channel.
+- $c$: The number of channels (1536 for EfficientNetB3).</p>
+<p>The resulting vector:</p>
+<p>$$
+v \in \mathbb{R}^{c}
+$$</p>
+<hr />
+<h3 id="fully-connected-layers">Fully Connected Layers</h3>
+<h4 id="batch-normalization">Batch Normalization</h4>
+<p>Batch normalization stabilizes and speeds up training by normalizing activations. For each dimension $i$:</p>
+<p>$$
+\hat{v}_i = \frac{v_i - \mu}{\sqrt{\sigma^2 + \epsilon}}
+$$</p>
+<p>where:
+- $(\mu)$: Mean of the activations in the batch.
+- $(\sigma^2)$: Variance of the activations.
+- $(\epsilon)$: A small constant to prevent division by zero.</p>
+<hr />
+<h4 id="dense-layer-256-units">Dense Layer (256 Units)</h4>
+<p>A dense (fully connected) layer applies the following operation:</p>
+<p>$$
+z_i = W_i \cdot \hat{v} + b_i
+$$</p>
+<p>where:
+- $W_i$: Weight vector for the $i$-th neuron.
+- $\hat{v}$: Input feature vector.
+- $b_i$: Bias term.</p>
+<p>Then, the <strong>ReLU activation</strong> is applied:</p>
+<p>$$
+a_i = \max(0, z_i)
+$$</p>
+<hr />
+<h4 id="dropout">Dropout</h4>
+<p>Dropout prevents overfitting by randomly setting a fraction of neurons to zero during training. For each neuron $i$, the output is:</p>
+<p>$$
+a'_i =
+\begin{cases} 
+a_i, &amp; \text{with probability } (1-p) \
+0, &amp; \text{with probability } p
+\end{cases}
+$$</p>
+<p>where $p = 0.45$.</p>
+<hr />
+<h4 id="dense-layer-with-softmax-output-layer">Dense Layer with Softmax (Output Layer)</h4>
+<p>The final dense layer maps the feature vector to class probabilities using the <strong>softmax activation function</strong>. For the $k$-th class:</p>
+<p>$$
+p_k = \frac{\exp(z_k)}{\sum_{j=1}^C \exp(z_j)}
+$$</p>
+<p>where:
+- $z_k$: Logit (pre-softmax activation) for class $k$.
+- $C$: Total number of classes.
+- $p_k$: Predicted probability of class $k$.</p>
+<hr />
+<h3 id="compilation">Compilation</h3>
+<h4 id="categorical-cross-entropy-loss">Categorical Cross-Entropy Loss</h4>
+<p>The loss measures the divergence between the predicted probabilities $\hat{y}$ and true labels $y$:</p>
+<p>$$
+\mathcal{L} = -\sum_{k=1}^C y_k \log(\hat{y}_k)
+$$</p>
+<p>where:
+- $y_k$: True label for class $k$ (one-hot encoded: 1 for the correct class, 0 otherwise).
+- $\hat{y}_k$: Predicted probability for class $k$.</p>
+<hr />
+<h4 id="adamax-optimizer">Adamax Optimizer</h4>
+<p>Adamax is a variant of Adam that uses the infinity norm for scaling gradients. For a parameter $w_t$ at time $t$:</p>
+<ol>
+<li>Compute the biased first moment estimate:</li>
+</ol>
+<p>$$
+m_t = \beta_1 m_{t-1} + (1 - \beta_1) g_t
+$$</p>
+<ol>
+<li>Compute the infinity norm for gradient scaling:</li>
+</ol>
+<p>$$
+v_t = \max(\beta_2 v_{t-1}, |g_t|)
+$$</p>
+<ol>
+<li>Update the parameter:</li>
+</ol>
+<p>$$
+w_{t+1} = w_t - \eta \frac{m_t}{v_t}
+$$</p>
+<p>where:
+- $g_t$: Gradient at time $t$.
+- $\eta$: Learning rate.
+- $\beta_1, \beta_2$: Decay rates for the moving averages.</p>
+<h3 id="understanding-kernels-filters-in-convolution">Understanding Kernels (Filters) in Convolution</h3>
+<p>A <strong>kernel</strong> (or <strong>filter</strong>) is a small matrix that extracts features from an image. The operation involves sliding the kernel over the input image, multiplying its values with the corresponding region of the image (receptive field), summing the results, and optionally adding a bias.</p>
+<h4 id="kernel-shape">Kernel Shape</h4>
+<p>A kernel $W$ of size $k \times k$ (e.g., $3 \times 3$) is a matrix of weights:</p>
+<p>$$
+W =
+\begin{bmatrix}
+w_{11} &amp; w_{12} &amp; w_{13} \
+w_{21} &amp; w_{22} &amp; w_{23} \
+w_{31} &amp; w_{32} &amp; w_{33}
+\end{bmatrix}
+$$</p>
+<p>Each weight $w_{mn}$ is learned during training. For simplicity, let’s assume we are using a single-channel grayscale image (i.e., no RGB).</p>
+<hr />
+<h4 id="convolution-operation_1">Convolution Operation</h4>
+<p>Given an input image $x$ of size $H \times W$, the kernel slides across the image, stopping at every valid position. At each stop, the kernel performs the following steps:</p>
+<ol>
+<li><strong>Element-wise Multiplication</strong><br />
+   For a given kernel position $(i, j)$, the kernel overlaps a $k \times k$ patch of the image, called the receptive field. The kernel’s values are multiplied with the corresponding values in the receptive field. Mathematically:</li>
+</ol>
+<p>$$
+   z_{ij}^k = \sum_{m=1}^{k} \sum_{n=1}^{k} W_{mn}^k \cdot x_{(i+m)(j+n)}
+   $$</p>
+<p>Here:
+   - $z_{ij}^k$ is the output value at position $(i, j)$ for the $k$-th kernel.
+   - $W_{mn}^k$ is the weight at position $(m, n)$ in the kernel.
+   - $x_{(i+m)(j+n)}$ is the pixel value in the receptive field of the input image.</p>
+<ol>
+<li>
+<p><strong>Summation</strong><br />
+   After performing the element-wise multiplication, the results are summed to obtain a single scalar value.</p>
+</li>
+<li>
+<p><strong>Adding Bias</strong><br />
+   A bias term $b^k$ (specific to the kernel) is added to the summation:</p>
+</li>
+</ol>
+<p>$$
+   z_{ij}^k = \sum_{m=1}^{k} \sum_{n=1}^{k} W_{mn}^k \cdot x_{(i+m)(j+n)} + b^k
+   $$</p>
+<p>This forms the final output value at position $(i, j)$.</p>
+<hr />
+<h4 id="sliding-the-kernel-across-the-image">Sliding the Kernel Across the Image</h4>
+<ul>
+<li>The kernel starts at the top-left corner of the image.</li>
+<li>It slides horizontally and vertically across the image with a step size called the <strong>stride</strong> ($s$). If $s = 1$, the kernel moves one pixel at a time.</li>
+</ul>
+<p>For each valid position, the kernel computes one output value. The collection of all output values forms the <strong>feature map</strong>.</p>
+<hr />
+<h3 id="example-3-times-3-kernel-on-a-grayscale-image">Example: $3 \times 3$ Kernel on a Grayscale Image</h3>
+<h4 id="input-image">Input Image</h4>
+<p>Consider a simple $4 \times 4$ grayscale image:</p>
+<p>$$
+x =
+\begin{bmatrix}
+1 &amp; 2 &amp; 3 &amp; 4 \
+5 &amp; 6 &amp; 7 &amp; 8 \
+9 &amp; 10 &amp; 11 &amp; 12 \
+13 &amp; 14 &amp; 15 &amp; 16
+\end{bmatrix}
+$$</p>
+<h4 id="kernel">Kernel</h4>
+<p>A $3 \times 3$ kernel:</p>
+<p>$$
+W =
+\begin{bmatrix}
+-1 &amp; 0 &amp; 1 \
+-2 &amp; 0 &amp; 2 \
+-1 &amp; 0 &amp; 1
+\end{bmatrix}
+$$</p>
+<h4 id="receptive-field-at-1-1">Receptive Field at $(1, 1)$</h4>
+<p>The receptive field is the top-left $3 \times 3$ submatrix of the input image:</p>
+<p>$$
+\text{Receptive Field} =
+\begin{bmatrix}
+1 &amp; 2 &amp; 3 \
+5 &amp; 6 &amp; 7 \
+9 &amp; 10 &amp; 11
+\end{bmatrix}
+$$</p>
+<h4 id="element-wise-multiplication-and-summation">Element-wise Multiplication and Summation</h4>
+<p>Multiply each element of the kernel with the corresponding element in the receptive field:</p>
+<p>$$
+\begin{aligned}
+z_{11} &amp;= (-1)(1) + (0)(2) + (1)(3) + (-2)(5) + (0)(6) + (2)(7) + (-1)(9) + (0)(10) + (1)(11) \
+&amp;= -1 + 0 + 3 - 10 + 0 + 14 - 9 + 0 + 11 \
+&amp;= 8
+\end{aligned}
+$$</p>
+<hr />
+<h3 id="output-dimensions">Output Dimensions</h3>
+<p>The size of the output feature map depends on:
+- Input dimensions $(H, W)$.
+- Kernel size $k$.
+- Stride $s$.
+- Padding $p$ (extra pixels added around the edges).</p>
+<p>The output height and width are given by:</p>
+<p>$$
+H' = \frac{H - k + 2p}{s} + 1, \quad W' = \frac{W - k + 2p}{s} + 1
+$$</p>
+<p>If no padding is applied ($p = 0$) and stride is $1$, the output size for the example would be:</p>
+<p>$$
+H' = \frac{4 - 3 + 0}{1} + 1 = 2, \quad W' = \frac{4 - 3 + 0}{1} + 1 = 2
+$$</p>
+<p>Thus, the output feature map is $2 \times 2$.</p>
+<h3 id="relu-activation-function-and-non-linearity">ReLU Activation Function and Non-Linearity</h3>
+<p>ReLU (Rectified Linear Unit) is an activation function applied after the convolution operation. Its purpose is to introduce non-linearity into the network, enabling it to model complex patterns and relationships in data.</p>
+<p>For a given output value $z_{ij}^k$ from the convolution at position $(i, j)$ in the $k$-th feature map, the ReLU activation is defined as:</p>
+<p>$$
+a_{ij}^k = \max(0, z_{ij}^k)
+$$</p>
+<p>Where:
+- $z_{ij}^k$: The raw output from the convolution operation (before activation).
+- $a_{ij}^k$: The activated value after applying ReLU.</p>
+<hr />
+<h3 id="step-by-step-explanation">Step-by-Step Explanation</h3>
+<ol>
+<li><strong>Input to ReLU</strong>: 
+   The input $z_{ij}^k$ can be any real number, positive or negative. This raw value is the result of:</li>
+<li>Convolution between the kernel and the input image region.</li>
+<li>
+<p>Adding a bias term $b^k$.</p>
+</li>
+<li>
+<p><strong>Non-Linearity Introduction</strong>:</p>
+</li>
+<li>If $z_{ij}^k &gt; 0$, then $a_{ij}^k = z_{ij}^k$ (pass the value through unchanged).</li>
+<li>If $z_{ij}^k \leq 0$, then $a_{ij}^k = 0$ (set the value to zero).</li>
+<li>
+<p>This introduces sparsity because negative values are effectively "turned off" in the output.</p>
+</li>
+<li>
+<p><strong>Purpose of ReLU</strong>:</p>
+</li>
+<li>Without ReLU (or other activation functions), the convolution would remain a linear operation. Stacking linear operations leads to a linear transformation, limiting the network's ability to learn complex, non-linear patterns.</li>
+<li>ReLU ensures that the network can approximate non-linear functions, which are crucial for tasks like image recognition.</li>
+</ol>
+<hr />
+<h3 id="why-relu-is-preferred-over-other-activations">Why ReLU is Preferred Over Other Activations</h3>
+<ol>
+<li><strong>Efficiency</strong>:</li>
+<li>ReLU is computationally efficient because it involves simple thresholding ($\max(0, z)$).</li>
+<li>
+<p>Unlike sigmoid or tanh, it does not require expensive exponential calculations.</p>
+</li>
+<li>
+<p><strong>Sparsity</strong>:</p>
+</li>
+<li>
+<p>ReLU sets many values to zero, leading to sparse activations. This can improve computational efficiency and reduce overfitting.</p>
+</li>
+<li>
+<p><strong>Mitigating Vanishing Gradients</strong>:</p>
+</li>
+<li>Sigmoid and tanh activations can suffer from vanishing gradients when gradients become extremely small during backpropagation. ReLU avoids this issue for positive values.</li>
+</ol>
+<hr />
+<h3 id="example-of-relu-in-action">Example of ReLU in Action</h3>
+<p>Suppose a convolution produces the following feature map:</p>
+<p>$$
+Z =
+\begin{bmatrix}
+2 &amp; -3 &amp; 4 \
+-1 &amp; 0 &amp; 5 \
+3 &amp; -2 &amp; -4
+\end{bmatrix}
+$$</p>
+<p>After applying ReLU, the activated feature map $A$ is:</p>
+<p>$$
+A =
+\begin{bmatrix}
+2 &amp; 0 &amp; 4 \
+0 &amp; 0 &amp; 5 \
+3 &amp; 0 &amp; 0
+\end{bmatrix}
+$$</p>
+<hr />
+<h3 id="impact-of-relu-on-feature-maps">Impact of ReLU on Feature Maps</h3>
+<ol>
+<li><strong>Positive Values are Retained</strong>:</li>
+<li>
+<p>Values greater than zero remain unchanged, preserving useful information.</p>
+</li>
+<li>
+<p><strong>Negative Values are Suppressed</strong>:</p>
+</li>
+<li>
+<p>Negative values are clamped to zero, which introduces sparsity in the feature map.</p>
+</li>
+<li>
+<p><strong>Interpretation</strong>:</p>
+</li>
+<li>The resulting feature map highlights regions where the kernel detected strong positive features, while ignoring irrelevant or negatively correlated features.</li>
+</ol>
+<h3 id="global-max-pooling-reducing-a-3d-tensor-to-a-1d-vector">Global Max Pooling: Reducing a 3D Tensor to a 1D Vector</h3>
+<p>Global max pooling is a down-sampling technique used to summarize the information in a feature map. It reduces the output of convolutional layers (a 3D tensor) into a compact 1D vector by selecting the maximum value from each channel of the tensor.</p>
+<hr />
+<h3 id="the-math-of-global-max-pooling">The Math of Global Max Pooling</h3>
+<p>Let the output of the convolutional layers be represented as a 3D tensor $T$ of size $h \times w \times c$, where:
+- $h$: Height of the feature map.
+- $w$: Width of the feature map.
+- $c$: Number of channels (features) in the feature map.</p>
+<p>The global max pooling operation computes:</p>
+<p>$$
+v_k = \max_{i,j} T_{ijk}, \quad \forall k \in [1, c]
+$$</p>
+<p>Where:
+- $T_{ijk}$ is the value at position $(i, j)$ in the $k$-th channel of the tensor.
+- $\max_{i,j} T_{ijk}$ finds the maximum value in the entire $h \times w$ grid for the $k$-th channel.
+- $v_k$ is the resulting value for the $k$-th channel.</p>
+<p>The output is a vector $v \in \mathbb{R}^{c}$, where $c$ is the number of channels. For EfficientNetB3, $c = 1536$, so the output vector has 1536 elements.</p>
+<hr />
+<h4 id="step-by-step-explanation-of-global-max-pooling">Step-by-Step Explanation of Global Max Pooling</h4>
+<ol>
+<li><strong>Input Tensor</strong>: 
+   The input tensor $T$ represents the feature maps after the convolutional layers. For example, if $T$ is of shape $7 \times 7 \times 1536$:</li>
+<li>There are 1536 channels.</li>
+<li>
+<p>Each channel is a $7 \times 7$ matrix of feature values.</p>
+</li>
+<li>
+<p><strong>Finding Maximum Values</strong>:</p>
+</li>
+<li>For each channel $k$, the operation $\max_{i,j} T_{ijk}$ scans the entire $7 \times 7$ grid.</li>
+<li>
+<p>It picks the largest value in the grid and assigns it to $v_k$.</p>
+</li>
+<li>
+<p><strong>Generating the 1D Vector</strong>:</p>
+</li>
+<li>After computing the maximum value for all 1536 channels, the result is a 1D vector:
+     $$
+     v = [v_1, v_2, \dots, v_{1536}]
+     $$</li>
+</ol>
+<hr />
+<h4 id="why-use-global-max-pooling">Why Use Global Max Pooling?</h4>
+<ol>
+<li><strong>Dimensionality Reduction</strong>:</li>
+<li>It reduces the spatial dimensions ($h \times w$) of the feature maps to a single value per channel.</li>
+<li>
+<p>For example, a $7 \times 7 \times 1536$ tensor becomes a $1 \times 1536$ vector.</p>
+</li>
+<li>
+<p><strong>Retains Salient Features</strong>:</p>
+</li>
+<li>
+<p>By keeping only the maximum value from each channel, it captures the most significant feature activation in that channel.</p>
+</li>
+<li>
+<p><strong>Parameter-Free</strong>:</p>
+</li>
+<li>
+<p>Unlike fully connected layers, global max pooling does not add any learnable parameters.</p>
+</li>
+<li>
+<p><strong>Translation Invariance</strong>:</p>
+</li>
+<li>It focuses on the presence of a feature rather than its exact location, making the network more robust to spatial translations in the input.</li>
+</ol>
+<hr />
+<h4 id="example">Example</h4>
+<p>Suppose a single channel of the feature map $T_k$ (size $3 \times 3$) looks like this:</p>
+<p>$$
+T_k =
+\begin{bmatrix}
+0.1 &amp; 0.5 &amp; 0.3 \
+0.7 &amp; 0.2 &amp; 0.4 \
+0.8 &amp; 0.6 &amp; 0.9
+\end{bmatrix}
+$$</p>
+<p>The global max pooling operation computes:</p>
+<p>$$
+v_k = \max_{i,j} T_{ijk} = \max(0.1, 0.5, 0.3, 0.7, 0.2, 0.4, 0.8, 0.6, 0.9) = 0.9
+$$</p>
+<p>For all channels, this process repeats, resulting in the final 1D vector $v$.</p>
+<hr />
+<h4 id="impact-of-global-max-pooling">Impact of Global Max Pooling</h4>
+<ul>
+<li><strong>Compact Representation</strong>:</li>
+<li>
+<p>Converts large, high-dimensional feature maps into small vectors while preserving the most salient features.</p>
+</li>
+<li>
+<p><strong>Efficient Computation</strong>:</p>
+</li>
+<li>
+<p>Reduces the computational cost by collapsing spatial dimensions.</p>
+</li>
+<li>
+<p><strong>Simplifies Final Layers</strong>:</p>
+</li>
+<li>The resulting vector $v \in \mathbb{R}^{c}$ can directly feed into dense layers for classification.</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../Adding%20Intel%20I219-LM%20%288086.0d4c%29%20Driver%20to%20ESXi/" class="btn btn-neutral float-left" title="Adding Intel I219-LM (8086.0d4c) Driver to ESXi"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../Automatically%20Provision%20Dell%20Servers/" class="btn btn-neutral float-right" title="Automatically Provision Dell Servers">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="None" class="fa fa-code-fork" style="color: #fcfcfc"> https://github.com/grantcurell/grantcurell.github.io/tree/master</a>
+        </span>
+    
+    
+      <span><a href="../Adding%20Intel%20I219-LM%20%288086.0d4c%29%20Driver%20to%20ESXi/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../Automatically%20Provision%20Dell%20Servers/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

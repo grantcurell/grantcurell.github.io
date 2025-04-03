@@ -1,0 +1,1341 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Grant Curell" /><link rel="canonical" href="https://grantcurell.github.io/Custom%20NVMe%20Debug%20Driver/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Custom NVMe Debug Driver - Grant Curell's Dell Projects</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Custom NVMe Debug Driver";
+        var mkdocs_page_input_path = "Custom NVMe Debug Driver\\README.md";
+        var mkdocs_page_url = "/Custom%20NVMe%20Debug%20Driver/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Grant Curell's Dell Projects
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Grant Curell's Dell Projects</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Adding%20Hashing%20to%20OpenSwitch/">Adding Hashing to OpenSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Adding%20Intel%20I219-LM%20%288086.0d4c%29%20Driver%20to%20ESXi/">Adding Intel I219-LM (8086.0d4c) Driver to ESXi</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Aircraft%20Detection/">Aircraft Detection</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Automatically%20Provision%20Dell%20Servers/">Automatically Provision Dell Servers</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Automating%20OME%20Hardware%20Reports/">Automating OME Hardware Reports</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../BIOS%20Options%20Explanation/">BIOS Options Explanation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Backup%20OS10%20Config%20with%20Ansible/">Backup OS10 Config with Ansible</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Build%20NVIDIA%20AI%20Enterprise/">Build NVIDIA AI Enterprise</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Build%20OpenShift/">Build OpenShift</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Build%20Preboot%20Environment%20with%20Ansible/">Build Preboot Environment with Ansible</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../CloudLink/">CloudLink</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Common%20Questions%20About%20LLMs%20Answered/">Common Questions About LLMs Answered</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20FN410%20as%20a%20Switch/">Configure FN410 as a Switch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20Gigamon%20Tap/">Configure Gigamon Tap</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20Multi-Protocol%20PowerStore%20with%20LDAP/">Configure Multi-Protocol PowerStore with LDAP</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20PowerStore%20SMB%20User/">Configure PowerStore SMB User</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20kdump%20with%20SSH/">Configure kdump with SSH</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configuring%20VLT%20on%20OS10/">Configuring VLT on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Connect%20to%20APC%20PDU%20with%20Redfish/">Connect to APC PDU with Redfish</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Create%20Kickstart%20Server%20on%20Fedora/">Create Kickstart Server on Fedora</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Create%20OpenSwitch%20VM/">Create OpenSwitch VM</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Custom NVMe Debug Driver</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#building-the-driver">Building the Driver</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#command-description">Command Description</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#using-the-driver">Using the Driver</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#original-corec">Original core.c</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#driver-modifications">Driver Modifications</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#circular-buffer-definition">Circular Buffer Definition</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#macro-definition">Macro Definition</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#structure-definition">Structure Definition</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#global-variables">Global Variables</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#function-implementation">Function Implementation</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#customize-nvme_error_status">Customize nvme_error_status</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#add-a-custom-error-handling-function">Add a Custom Error Handling Function</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#modify-the-existing-nvme_error_status">Modify the existing nvme_error_status</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#register-circular-buffer-with-proc">Register Circular Buffer with /proc</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#copy-circular-buffer-data-to-proc">Copy Circular Buffer Data to /proc</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#register-with-proc">Register with /proc</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#module-cleanup">Module Cleanup</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#background-notes">Background Notes</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#make-modules_prepare">make modules_prepare</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#dep-files">.dep files</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#symobol-versioning">Symobol Versioning</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#make-oldconfig">make oldconfig</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#make-scripts">make scripts</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#make-prepare">make prepare</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../DHCP%20Relay%20on%20SONiC/">DHCP Relay on SONiC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Dell%20Ansible%20Testing/">Dell Ansible Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Deploy%20OpenShift%20Offline/">Deploy OpenShift Offline</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Elasticsearch%20Display%20Map%20Data/">Elasticsearch Display Map Data</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Elasticsearch%20Load%20Testing/">Elasticsearch Load Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Estimating%20Compute%20Requirements%20for%20Machine%20Learning/">Estimating Compute Requirements for Machine Learning</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Finding%20Rare%20Logs%20with%20DBSCAN/">Finding Rare Logs with DBSCAN</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Get%20NVMe%20Drives%20from%20iDRAC%20Redfish/">Get NVMe Drives from iDRAC Redfish</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../High%20Speed%20Packet%20Capture/">High Speed Packet Capture</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20Bitcoin-Blockchain%20Works%20-%20Notes/">How Bitcoin-Blockchain Works - Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20Does%20Power%20Work/">How Does Power Work</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20Does%20SIFT%20Work/">How Does SIFT Work</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20OS10%20Installer%20Works/">How OS10 Installer Works</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20drive%20detection%20order%20works/">How drive detection order works</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20to%20ONIE%20Install%20and%20ZTP%20Config%20Dell%20SONiC/">How to ONIE Install and ZTP Config Dell SONiC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20to%20Read%20lstopo%20and%20a%20PCIe%20Overview/">How to Read lstopo and a PCIe Overview</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20to%20Setup%20PGP%20with%20Mailvelope/">How to Setup PGP with Mailvelope</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../IO%20Identities%20with%20LifeCycle%20Controller/">IO Identities with LifeCycle Controller</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Importing%20Elasticsearch%20Data/">Importing Elasticsearch Data</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Install%20OpenCV%20with%20CUDA%20Support%20on%20Rocky%20Linux/">Install OpenCV with CUDA Support on Rocky Linux</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Installing%20DPDK%20with%20NapaTech%20Card/">Installing DPDK with NapaTech Card</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../LDAP%20with%20OpenManage/">LDAP with OpenManage</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../LLMs%20Explained/">LLMs Explained</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balance%20Testing%20with%20OpenVSwitch/">Load Balance Testing with OpenVSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balancing%20on%20Mellanox%20Switches/">Load Balancing on Mellanox Switches</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balancing%20with%20LAG%20on%205112F-ON/">Load Balancing with LAG on 5112F-ON</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Make%20USB%20Read%20Only/">Make USB Read Only</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Migrating%20Storage%20Volumes%20to%20PowerStore/">Migrating Storage Volumes to PowerStore</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Mulitple%20Span%20on%204112F-ON%20with%20OpenSwitch/">Mulitple Span on 4112F-ON with OpenSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Multiple%20Span%20on%204112F-ON%20with%20OS10/">Multiple Span on 4112F-ON with OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../NVMe%20Driver%20Reverse%20Engineering/">NVMe Driver Reverse Engineering</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../NVMe%20Performance%20Testing/">NVMe Performance Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20AMD%20Processor/">Notes on AMD Processor</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20Building%20a%20Datacenter%20from%20Scratch/">Notes on Building a Datacenter from Scratch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20HPC/">Notes on HPC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20HSM/">Notes on HSM</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20Improving%20Drive%20Performance/">Notes on Improving Drive Performance</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20NVMe%20Log%20Pages/">Notes on NVMe Log Pages</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20PCIe/">Notes on PCIe</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20mdraid%20Performance%20Testing/">Notes on mdraid Performance Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20nodejs/">Notes on nodejs</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Nvidia%20GPUDirect/">Nvidia GPUDirect</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Nvidia%20GRID%20Notes/">Nvidia GRID Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OME%20Bug/">OME Bug</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OME%20Integration%20for%20VMWare/">OME Integration for VMWare</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OS10%20Password%20Recovery%20Bug/">OS10 Password Recovery Bug</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Offline%20Updates%20with%20OpenManage%20Enterprise/">Offline Updates with OpenManage Enterprise</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OpenFlow%20on%204112F-ON/">OpenFlow on 4112F-ON</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OpenShift%20-%20Change%20MTU/">OpenShift - Change MTU</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Overprovisioning%20Explained/">Overprovisioning Explained</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PCIev3%20vs%20v4/">PCIev3 vs v4</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Playing%20with%20virsh/">Playing with virsh</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PowerScale%20-%20Configure%20with%20Kubernetes/">PowerScale - Configure with Kubernetes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PowerScale%20Failed%20Authentication/">PowerScale Failed Authentication</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PowerScale%20Setup/">PowerScale Setup</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Reset%20OS10%20Admin%20Password/">Reset OS10 Admin Password</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Reverse%20Engineering%20OpenSHMEM/">Reverse Engineering OpenSHMEM</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Run%20VPN%20on%20OS10/">Run VPN on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Running%20DNS%20from%20OS10/">Running DNS from OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../SONiC%20-%20Sample%20Datacenter%20Automation%20Architecture/">SONiC - Sample Datacenter Automation Architecture</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Set%20Up%20RSPAN%20on%20OS10/">Set Up RSPAN on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setting%20Up%20Breakout%20Cables/">Setting Up Breakout Cables</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setting%20Up%20SmartFabric%20Director/">Setting Up SmartFabric Director</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setting%20Up%20iDRAC%20Telemetry%20with%20Splunk/">Setting Up iDRAC Telemetry with Splunk</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setup%20IDPA/">Setup IDPA</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Site%20to%20Site%20VPN%20with%20PFSense%20and%20CentOS%208/">Site to Site VPN with PFSense and CentOS 8</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Swap%20Kernel%20on%20Rocky%209/">Swap Kernel on Rocky 9</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Switch%20Directly%20to%20Client%20Test/">Switch Directly to Client Test</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Testing%20Bare%20Metal%20Orchestrator/">Testing Bare Metal Orchestrator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Testing%20Intel%20x520%20on%20RHEL%206/">Testing Intel x520 on RHEL 6</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Troubleshooting%205G%20Connection/">Troubleshooting 5G Connection</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Understand%20and%20Run%20LINPACK/">Understand and Run LINPACK</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Understanding%20Cellular%20Technology/">Understanding Cellular Technology</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Understanding%20Memory/">Understanding Memory</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Understanding%20NCCL/">Understanding NCCL</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Understanding%20PERC%20Interrupts/">Understanding PERC Interrupts</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Update%20iDRAC%20Cipher%20Suite%20with%20Redfish/">Update iDRAC Cipher Suite with Redfish</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Use%20OS10%20as%20Aggregator/">Use OS10 as Aggregator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Using%20Dell%20Repository%20Manager%20to%20Create%20Bootable%20ISO/">Using Dell Repository Manager to Create Bootable ISO</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Using%20FIO/">Using FIO</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Using%20the%20iDRAC%20Service%20Module/">Using the iDRAC Service Module</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VEP%20Testing/">VEP Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Web%20Traffic%20Generator/">Web Traffic Generator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Writing%20udev%20Rules%20for%20Dell%20PERC%20H755/">Writing udev Rules for Dell PERC H755</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../esrally%20%28INCOMPLETE%29/">esrally (INCOMPLETE)</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../idrac%20with%20LDAP/">idrac with LDAP</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balance%20Testing%20on%204112F-ON/OS10/">Load Balance Testing on 4112F-ON w/OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balance%20Testing%20on%204112F-ON/OpenSwitch%20%28OPX%29/">Load Balancing with LAG OPX</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Automate%20ESXi%20Installation/">Automating ESXi Installation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Change%20User%20on%20VxRail%20Plugin/">Change User on VxRail Plugin</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/ESXi%20Architecture/">VMWare Architecture Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/How%20to%20Pull%20Usage%20Metrics/">How to Pull Usage Metrics</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Notes%20on%20VSAN/">Notes on vSAN</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Setup%20VXRail/">VxRail Setup</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Troubleshooting%20vSAN/">Troubleshooting vSAN</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/VMWare%20APIs/">VMWare APIs</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/VxRail%20Architecture%20and%20Troubleshooting/">VxRail Architecture and Troubleshooting</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/vRealize%20Setup%20%28Incomplete%29/">Setting Up vRealize</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Grant Curell's Dell Projects</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Custom NVMe Debug Driver</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="custom-nvme-debug-driver">Custom NVMe Debug Driver</h1>
+<ul>
+<li><a href="#custom-nvme-debug-driver">Custom NVMe Debug Driver</a></li>
+<li><a href="#building-the-driver">Building the Driver</a><ul>
+<li><a href="#command-description">Command Description</a></li>
+</ul>
+</li>
+<li><a href="#using-the-driver">Using the Driver</a></li>
+<li><a href="#original-corec">Original core.c</a></li>
+<li><a href="#driver-modifications">Driver Modifications</a><ul>
+<li><a href="#circular-buffer-definition">Circular Buffer Definition</a></li>
+<li><a href="#macro-definition">Macro Definition</a></li>
+<li><a href="#structure-definition">Structure Definition</a></li>
+<li><a href="#global-variables">Global Variables</a></li>
+<li><a href="#function-implementation">Function Implementation</a></li>
+<li><a href="#customize-nvme_error_status">Customize nvme_error_status</a></li>
+<li><a href="#add-a-custom-error-handling-function">Add a Custom Error Handling Function</a></li>
+<li><a href="#modify-the-existing-nvme_error_status">Modify the existing nvme_error_status</a></li>
+<li><a href="#register-circular-buffer-with-proc">Register Circular Buffer with /proc</a></li>
+<li><a href="#copy-circular-buffer-data-to-proc">Copy Circular Buffer Data to /proc</a></li>
+<li><a href="#register-with-proc">Register with /proc</a></li>
+<li><a href="#module-cleanup">Module Cleanup</a></li>
+</ul>
+</li>
+<li><a href="#background-notes">Background Notes</a><ul>
+<li><a href="#make-modules_prepare"><code>make modules_prepare</code></a></li>
+<li><a href="#dep-files">.dep files</a></li>
+<li><a href="#symobol-versioning">Symobol Versioning</a></li>
+<li><a href="#make-oldconfig"><code>make oldconfig</code></a></li>
+<li><a href="#make-scripts"><code>make scripts</code></a></li>
+<li><a href="#make-prepare"><code>make prepare</code></a></li>
+</ul>
+</li>
+</ul>
+<h2 id="building-the-driver">Building the Driver</h2>
+<pre><code class="language-bash">dnf update -y
+</code></pre>
+<p><strong>STOP</strong> If you have any updates at all. Reboot. Failing to do this is likely to lead to your kernel parameters not matching in the build process. Rather than trying to guess at which updates could cause updates to the kernel symbols it's easier to reboot. If you want to avoid rebooting look for any updates to kernel source or the kernel itself.</p>
+<pre><code class="language-bash">dnf install -y kernel-headers ncurses-devel tmux
+dnf download --source kernel
+rpm2cpio kernel-5.14.0-362.18.1.el9_3.src.rpm | cpio -idmv
+tar -xf linux-5.14.0-362.18.1.el9_3.tar.xz
+</code></pre>
+<p>In the commands below I pull <code>Module.symvers</code> file from the kernel headers directory and <code>.config</code> from the boot directory so we are guaranteed to have the correct kernel parameters / symbols.</p>
+<pre><code class="language-bash"># Installs necessary packages for building and compiling the kernel and kernel modules
+dnf install -y rpm-build rpmdevtools git python3-devel make gcc flex bison kernel-headers ncurses-devel tmux elfutils-libelf-devel openssl-devel bc kernel-devel-$(uname -r) dwarves
+
+# Sets up the RPM build environment directories under ~/rpmbuild
+rpmdev-setuptree
+
+# Downloads the source RPM package for the kernel
+dnf download --source kernel
+
+# Installs the source RPM package, which comes with the exact kernel build used to build this version of Rocky
+rpm -ivh kernel-5.14.0-362.18.1.el9_3.src.rpm
+
+# SPECS in the context of RPM has everything needed to build to include the source code 
+# and OS-specific kernel patches
+cd /root/rpmbuild/SPECS
+
+# Executes the pre-build steps of the kernel build process, preparing the environment for the actual build 
+# to include applying Rocky-specific patches
+rpmbuild -bp kernel.spec
+
+cd /root/rpmbuild/BUILD/kernel-5.14.0-362.18.1.el9_3/linux-5.14.0-362.18.1.el9.x86_64/
+
+# Copies the current kernel's configuration file to the build directory as the base 
+# configuration for the new kernel. This includes all the compile options used for the original kernel build
+cp -f /boot/config-$(uname -r) .config
+
+# Copies the Module symbol versioning information from the current kernel for compatibility. 
+# This is how we make sure symbols match for any exported functions
+cp -f /usr/src/kernels/$(uname -r)/Module.symvers .
+</code></pre>
+<p>Before continuing you need to edit <code>drivers/nvme/host/core.c</code>. Replace it with the contents of <a href="core.c">the modified <code>core.c</code> file</a>. If you are running on a 6.X kernel use <a href="6_x_core.c">this version instead</a>. After the modifications are complete run:</p>
+<pre><code class="language-bash">make -j$(nproc --all) scripts prepare modules_prepare
+make ARCH=x86_64 -j$(nproc --all) M=drivers/nvme
+# Common must come first because it has several functions it exports to core and if you
+# try to load core first you will get symbol errors
+insmod drivers/nvme/common/nvme-common.ko
+insmod drivers/nvme/host/nvme-core.ko
+# nvme.ko is what makes the drives actually show up on Linux
+insmod drivers/nvme/host/nvme.ko
+</code></pre>
+<p>If you want the minor version to match on the driver add <code>-362.18.1.el9_3.x86_64</code> to CONFIG_LOCALVERSION.</p>
+<h3 id="command-description">Command Description</h3>
+<ol>
+<li><code>make clean</code>: This command cleans out the build directory. It removes files generated by the previous build, ensuring a fresh start. This step is crucial to prevent any potential interference from previous build attempts, which could include improperly configured build artifacts or leftover files from a different kernel version.</li>
+<li><code>make -j$(nproc --all) modules_prepare</code>: This prepares the kernel build system to build external modules. It generates all the dependency files and performs any necessary setup without actually compiling the entire kernel or any modules. This step is necessary because it ensures that all the scripts and tools required for building modules are correctly prepared and that the kernel build environment is consistent.</li>
+<li><code>make -j$(nproc --all) oldconfig &amp;&amp; make -j$(nproc --all) prepare</code>: These commands process the configuration file to ensure it is up-to-date (<code>oldconfig</code>) and then prepare the kernel build environment based on this configuration (<code>prepare</code>). This includes setting up various autogenerated header files and making sure the build system's state is consistent with the configuration you're trying to build against.</li>
+<li><code>make ARCH=x86_64 -j$(nproc --all) M=drivers/nvme</code>: Finally, this command compiles the NVMe module with the correct architecture specified, ensuring that the <code>vermagic</code> string will match the running kernel, and using multiple cores (<code>-j$(nproc --all)</code>) to speed up the compilation.</li>
+</ol>
+<p>See <a href="#background-notes">Background Notes</a> for more information.</p>
+<h2 id="using-the-driver">Using the Driver</h2>
+<p>Once the driver is compiled and loaded you should see the following in <code>dmesg</code></p>
+<pre><code class="language-bash">[  719.193448] Custom debug driver finished loading.
+[  719.197730] nvme nvme2: pci function 0000:43:00.0
+[  719.198065] nvme nvme3: pci function 0000:44:00.0
+[  719.198370] nvme nvme1: pci function 0000:42:00.0
+[  719.198573] nvme nvme4: pci function 0000:c6:00.0
+[  719.200146] nvme nvme0: pci function 0000:41:00.0
+[  719.211623] nvme nvme1: Shutdown timeout set to 15 seconds
+[  719.216810] nvme nvme0: Shutdown timeout set to 15 seconds
+[  719.221537] nvme nvme3: Shutdown timeout set to 10 seconds
+[  719.221548] nvme nvme2: Shutdown timeout set to 10 seconds
+[  719.243116] nvme nvme1: 128/0/0 default/read/poll queues
+[  719.247593] nvme nvme0: 128/0/0 default/read/poll queues
+[  719.259487] nvme nvme3: 128/0/0 default/read/poll queues
+[  719.265318] nvme nvme2: 128/0/0 default/read/poll queues
+[  719.292959]  nvme1n1: p1 p2
+[  719.293468]  nvme0n1: p1 p2
+[  719.296170]  nvme3n1: p1 p2
+[  719.296982]  nvme2n1: p1 p5 p6 p7 p8
+[  720.830122] nvme nvme4: Shutdown timeout set to 10 seconds
+[  720.851600] nvme nvme4: 128/0/0 default/read/poll queues
+</code></pre>
+<p>You can check that it is working by looking for its entry on the proc file system:</p>
+<pre><code class="language-bash">cat /proc/nvme_circular_buffer
+[4295386259] Circular buffer initialized and working. You will see this message multiple times. I just put it here because otherwise you just see &quot;[0]&quot; which may be confusing.
+[4295386259] Circular buffer initialized and working. You will see this message multiple times. I just put it here because otherwise you just see &quot;[0]&quot; which may be confusing.
+[4295386259] Circular buffer initialized and working. You will see this message multiple times. I just put it here because otherwise you just see &quot;[0]&quot; which may be confusing.
+[4295386259] Circular buffer initialized and working. You will see this message multiple times. I just put it here because otherwise you just see &quot;[0]&quot; which may be confusing.
+[4295386259] Circular buffer initialized and working. You will see this message multiple times. I just put it here because otherwise you just see &quot;[0]&quot; which may be confusing.
+[4295386259] Circular buffer initialized and working. You will see this message multiple times. I just put it here because otherwise you just see &quot;[0]&quot; which may be confusing.
+[4295386259] Circular buffer initialized and working. You will see this message multiple times. I just put it here because otherwise you just see &quot;[0]&quot; which may be confusing.
+[4295386259] Circular buffer initialized and working. You will see this message multiple times. I just put it here because otherwise you just see &quot;[0]&quot; which may be confusing.
+[4295386259] Circular buffer initialized and working. You will see this message multiple times. I just put it here because otherwise you just see &quot;[0]&quot; which may be confusing.
+[4295386259] Circular buffer initialized and working. You will see this message multiple times. I just put it here because otherwise you just see &quot;[0]&quot; which may be confusing.
+[4295386259] Circular buffer initialized and working. You will see this message multiple times. I just put it here because otherwise you just see &quot;[0]&quot; which may be confusing.
+[4295386259] Circular buffer initialized and working. You will see this message multiple times. I just put it here because otherwise you just see &quot;[0]&quot; which may be confusing.
+[4295386259] Circular buffer initialized and working. You will see this message multiple times. I just put it here because otherwise you just see &quot;[0]&quot; which may be confusing.
+[4295386259] Circular buffer initialized and working. You will see this message multiple times. I just put it here because otherwise you just see &quot;[0]&quot; which may be confusing.
+[4295386259] Circular buffer initialized and working. You will see this message multiple times. I just put it here because otherwise you just see &quot;[0]&quot; which may be confusing.
+[4295386259] Circular buffer initialized and working. You will see this message multiple times. I just put it here because otherwise you just see &quot;[0]&quot; which may be confusing.
+</code></pre>
+<p>I used the above message because otherwise it just says <code>[0]</code> which looks like we're logging successes when in fact the buffer is just otherwise initialized to zero.</p>
+<p>When there is an error it logs to both the /proc and to dmesg:</p>
+<p><strong>NOTE</strong>: Just to fully clarify, it will not do this by deafult. I just did this for testing. I left the code in place so you can uncomment it.</p>
+<pre><code class="language-bash">[root@nvme linux-5.14.0-362.18.1.el9.x86_64]# dmesg
+[  966.884545] log_specific_nvme_error: logging error status 0x0
+[  966.884581] log_specific_nvme_error: logging error status 0x0
+[  966.884653] log_specific_nvme_error: logging error status 0x0
+[  966.884689] log_specific_nvme_error: logging error status 0x0
+[  966.884760] log_specific_nvme_error: logging error status 0x0
+[  966.884797] log_specific_nvme_error: logging error status 0x0
+[  966.884869] log_specific_nvme_error: logging error status 0x0
+[  966.884905] log_specific_nvme_error: logging error status 0x0
+[  966.884977] log_specific_nvme_error: logging error status 0x0
+[  966.885012] log_specific_nvme_error: logging error status 0x0
+[  966.885086] log_specific_nvme_error: logging error status 0x0
+[  966.885122] log_specific_nvme_error: logging error status 0x0
+[  966.885195] log_specific_nvme_error: logging error status 0x0
+[  966.885231] log_specific_nvme_error: logging error status 0x0
+[  966.885303] log_specific_nvme_error: logging error status 0x0
+[  966.885339] log_specific_nvme_error: logging error status 0x0
+[  966.885411] log_specific_nvme_error: logging error status 0x0
+[  966.885446] log_specific_nvme_error: logging error status 0x0
+[root@nvme linux-5.14.0-362.18.1.el9.x86_64]# cat /proc/nvme_circular_buffer
+[4295632365] We have success! Our driver works!
+[4295632365] We have success! Our driver works!
+[4295632365] We have success! Our driver works!
+[4295632365] We have success! Our driver works!
+[4295632365] We have success! Our driver works!
+[4295632365] We have success! Our driver works!
+[4295632366] We have success! Our driver works!
+[4295632366] We have success! Our driver works!
+[4295632366] We have success! Our driver works!
+[4295632366] We have success! Our driver works!
+[4295632366] We have success! Our driver works!
+[4295632366] We have success! Our driver works!
+[4295632366] We have success! Our driver works!
+[4295632366] We have success! Our driver works!
+[4295632366] We have success! Our driver works!
+[4295632366] We have success! Our driver works!
+[4295632366] We have success! Our driver works!
+[4295632366] We have success! Our driver works!
+</code></pre>
+<p>I didn't have a system with issues to test against so I just forced it to log successes to prove out the concept. The logic is in the function <code>log_specific_nvme_error</code> and <code>nvme_error_status</code>. You can uncomment/comment the indicated lines to have the driver log successes just to prove that it is working. Otherwise, it will only log errors.</p>
+<h2 id="original-corec">Original core.c</h2>
+<p>I downloaded a copy of the original <code>core.c</code> file <a href="core_original.c">here</a>.</p>
+<h2 id="driver-modifications">Driver Modifications</h2>
+<h3 id="circular-buffer-definition">Circular Buffer Definition</h3>
+<pre><code class="language-c">#define DEBUG_BUF_SIZE 1024 // Adjust based on needed capacity
+
+struct debug_entry {
+    char info[256]; // Adjust based on what you need to store, e.g., error messages
+    unsigned long jiffies; // Timestamp
+    // Extend with more fields if needed
+};
+
+static struct debug_entry debug_buf[DEBUG_BUF_SIZE];
+static int debug_buf_pos = 0;
+
+// Adds an entry to the circular debug buffer
+void add_debug_entry(const char *info) {
+    unsigned long flags;
+
+    // Ensure thread safety (if necessary, depending on usage context)
+    local_irq_save(flags);
+
+    strncpy(debug_buf[debug_buf_pos].info, info, sizeof(debug_buf[debug_buf_pos].info) - 1);
+    debug_buf[debug_buf_pos].jiffies = jiffies;
+    // Initialize additional fields here if added
+
+    debug_buf_pos = (debug_buf_pos + 1) % DEBUG_BUF_SIZE;
+
+    local_irq_restore(flags);
+}
+</code></pre>
+<p>The provided code snippet implements a circular buffer.</p>
+<h4 id="macro-definition">Macro Definition</h4>
+<pre><code class="language-c">#define DEBUG_BUF_SIZE 1024
+</code></pre>
+<ul>
+<li>This line defines a preprocessor macro <code>DEBUG_BUF_SIZE</code> with a value of 1024. It specifies the size of the circular debug buffer, indicating it can hold 1024 entries. This value is chosen as a default capacity and can be adjusted based on the specific needs of the debugging scenario, such as the expected volume of debug messages or available memory.</li>
+</ul>
+<h4 id="structure-definition">Structure Definition</h4>
+<pre><code class="language-c">struct debug_entry {
+    char info[256];
+    unsigned long jiffies;
+};
+</code></pre>
+<ul>
+<li>Defines a <code>struct</code> named <code>debug_entry</code>, which is a custom data type for storing individual debug messages.</li>
+<li><code>char info[256];</code> declares an array of 256 characters named <code>info</code>. This array is intended to store a debug message as a null-terminated string. The size, 256, is chosen to accommodate reasonably long messages but can be adjusted as needed.</li>
+<li><code>unsigned long jiffies;</code> declares a variable named <code>jiffies</code> of type <code>unsigned long</code>. This variable stores the time, in jiffies, when the debug entry was added. Jiffies are a unit of time measurement used in the Linux kernel, representing the number of timer interrupts that have occurred since the system was booted. This provides a timestamp for each debug message, useful for understanding the timing of events.</li>
+</ul>
+<h4 id="global-variables">Global Variables</h4>
+<pre><code class="language-c">static struct debug_entry debug_buf[DEBUG_BUF_SIZE];
+static int debug_buf_pos = 0;
+</code></pre>
+<ul>
+<li><code>static struct debug_entry debug_buf[DEBUG_BUF_SIZE];</code> declares an array of <code>debug_entry</code> structures, named <code>debug_buf</code>, with a size defined by <code>DEBUG_BUF_SIZE</code> (1024). Being static, this array is only accessible within the file it is declared in, encapsulating the debug buffer from external access or modification.</li>
+<li><code>static int debug_buf_pos = 0;</code> declares a static integer <code>debug_buf_pos</code> and initializes it to 0. This variable tracks the current position in the circular buffer where the next debug entry will be written. Being static, it retains its value across function calls and is private to the file.</li>
+</ul>
+<h4 id="function-implementation">Function Implementation</h4>
+<pre><code class="language-c">void add_debug_entry(const char *info) {
+    unsigned long flags;
+
+    // Ensure thread safety (if necessary, depending on usage context)
+    local_irq_save(flags);
+
+    strncpy(debug_buf[debug_buf_pos].info, info, sizeof(debug_buf[debug_buf_pos].info) - 1);
+    debug_buf[debug_buf_pos].info[sizeof(debug_buf[debug_buf_pos].info) - 1] = '\0'; // Ensure null-termination
+    debug_buf[debug_buf_pos].jiffies = jiffies;
+
+    debug_buf_pos = (debug_buf_pos + 1) % DEBUG_BUF_SIZE;
+
+    local_irq_restore(flags);
+}
+</code></pre>
+<ul>
+<li><code>void add_debug_entry(const char *info)</code> defines a function that takes a single parameter, <code>info</code>, which is a pointer to a constant character array (a C string). This function does not return a value (<code>void</code>).</li>
+<li><code>unsigned long flags;</code> declares a variable <code>flags</code> to store the current processor flags.</li>
+<li><code>local_irq_save(flags);</code> is a macro that disables local interrupt processing to prevent race conditions, saving the current state of interrupts in <code>flags</code>. This is crucial for ensuring thread safety, particularly in preemptible or SMP (Symmetric Multiprocessing) kernel configurations, where data structures might be accessed from multiple contexts concurrently.</li>
+<li><code>strncpy(debug_buf[debug_buf_pos].info, info, sizeof(debug_buf[debug_buf_pos].info) - 1);</code> copies the string pointed to by <code>info</code> into the <code>info</code> array of the current <code>debug_entry</code> in the buffer. It copies up to <code>sizeof(debug_buf[debug_buf_pos].info) - 1</code> characters to ensure there is space for a null terminator. This prevents buffer overflows.</li>
+<li><code>debug_buf[debug_buf_pos].info[sizeof(debug_buf[debug_buf_pos].info) - 1] = '\0';</code> explicitly sets the last character of the <code>info</code> array to '\0' (null terminator), ensuring the string is properly terminated even if the original message exceeds the array size.</li>
+<li><code>debug_buf[debug_buf_pos].jiffies = jiffies;</code> assigns the current value of <code>jiffies</code> to the <code>jiffies</code> field of the current <code>debug_entry</code>, recording the timestamp of the debug event.</li>
+<li><code>debug_buf_pos = (debug_buf_pos + 1) % DEBUG_BUF_SIZE;</code> increments <code>debug_buf_pos</code> to point to the next position in the circular buffer, wrapping around to 0 if it reaches the end (<code>DEBUG_BUF_SIZE</code>). This line ensures that the buffer operates in a circular manner, reusing space once the</li>
+</ul>
+<p>end is reached.
+- <code>local_irq_restore(flags);</code> re-enables local interrupts, restoring the previous interrupt state stored in <code>flags</code>. This concludes the critical section of the code, where thread safety is ensured by temporarily disabling interrupts.</p>
+<h3 id="customize-nvme_error_status">Customize nvme_error_status</h3>
+<h4 id="add-a-custom-error-handling-function">Add a Custom Error Handling Function</h4>
+<pre><code class="language-c">void log_specific_nvme_error(u16 status) {
+    char error_msg[256]; // Adjust size as necessary
+
+    // Construct an appropriate message based on the NVMe status code
+    snprintf(error_msg, sizeof(error_msg), &quot;Specific NVMe error encountered: Status = 0x%x&quot;, status);
+
+    // Log this occurrence to the circular DRAM buffer
+    add_debug_entry(error_msg);
+}
+</code></pre>
+<p>This function is designed to log specific NVMe errors using a human-readable message format.</p>
+<ul>
+<li><strong>Function Definition and Purpose</strong>: <code>void log_specific_nvme_error(u16 status)</code> declares a function that does not return a value (<code>void</code>) and takes a single argument, <code>status</code>, which is an unsigned 16-bit integer (<code>u16</code>). This argument is intended to represent a specific NVMe status code that the function will log.</li>
+<li><strong>Local Variable Declaration</strong>: <code>char error_msg[256];</code> defines a character array named <code>error_msg</code> with a size of 256 bytes. This array is used to store the formatted error message that will be generated based on the NVMe status code provided. The size (256) is chosen to ensure enough space for the message and formatting characters.</li>
+<li><strong>Message Construction</strong>: <code>snprintf(error_msg, sizeof(error_msg), "Specific NVMe error encountered: Status = 0x%x", status);</code> uses the <code>snprintf</code> function to write a formatted string into <code>error_msg</code>. The format string <code>"Specific NVMe error encountered: Status = 0x%x"</code> includes a placeholder <code>%x</code> for a hexadecimal number, which <code>snprintf</code> replaces with the value of <code>status</code>. This constructs a readable message indicating the NVMe error encountered. The use of <code>sizeof(error_msg)</code> ensures that the function does not write more characters to <code>error_msg</code> than it can hold, preventing buffer overflow.</li>
+<li><strong>Logging the Message</strong>: <code>add_debug_entry(error_msg);</code> calls the <code>add_debug_entry</code> function, passing it the <code>error_msg</code> string. This function is expected to add the error message to a circular debug buffer for later retrieval or analysis. This mechanism allows for efficient in-memory logging of error conditions, suitable for environments where minimizing disk I/O is critical.</li>
+</ul>
+<h4 id="modify-the-existing-nvme_error_status">Modify the existing nvme_error_status</h4>
+<pre><code class="language-c">static blk_status_t nvme_error_status(u16 status) {
+    blk_status_t blk_status;
+
+    // printk(KERN_INFO &quot;nvme_error_status: error status 0x%x\n&quot;, status);
+
+    switch (status &amp; 0x7ff) {
+    case NVME_SC_SUCCESS:
+        // Log success with a custom message and return OK
+        // UNCOMMENT THE BELOW TO LOG SUCCESSES TO TEST THE DRIVER
+        // log_specific_nvme_error(status);
+        return BLK_STS_OK;
+    case NVME_SC_CAP_EXCEEDED:
+        return BLK_STS_NOSPC;
+    case NVME_SC_LBA_RANGE:
+    case NVME_SC_CMD_INTERRUPTED:
+    case NVME_SC_NS_NOT_READY:
+        return BLK_STS_TARGET;
+    case NVME_SC_BAD_ATTRIBUTES:
+    case NVME_SC_ONCS_NOT_SUPPORTED:
+    case NVME_SC_INVALID_OPCODE:
+    case NVME_SC_INVALID_FIELD:
+    case NVME_SC_INVALID_NS:
+        return BLK_STS_NOTSUPP;
+    // Special handling for specific NVMe errors
+    case NVME_SC_WRITE_FAULT:
+    case NVME_SC_READ_ERROR:
+    case NVME_SC_UNWRITTEN_BLOCK:
+    case NVME_SC_ACCESS_DENIED:
+    case NVME_SC_READ_ONLY:
+    case NVME_SC_COMPARE_FAILED:
+        blk_status = BLK_STS_MEDIUM;
+        // Call custom function to log specific NVMe errors
+        log_specific_nvme_error(status);
+        return blk_status;
+    case NVME_SC_GUARD_CHECK:
+    case NVME_SC_APPTAG_CHECK:
+    case NVME_SC_REFTAG_CHECK:
+    case NVME_SC_INVALID_PI:
+        return BLK_STS_PROTECTION;
+    case NVME_SC_RESERVATION_CONFLICT:
+        return BLK_STS_NEXUS;
+    case NVME_SC_HOST_PATH_ERROR:
+        return BLK_STS_TRANSPORT;
+    case NVME_SC_ZONE_TOO_MANY_ACTIVE:
+        return BLK_STS_ZONE_ACTIVE_RESOURCE;
+    case NVME_SC_ZONE_TOO_MANY_OPEN:
+        return BLK_STS_ZONE_OPEN_RESOURCE;
+    default:
+        return BLK_STS_IOERR;
+    }
+}
+</code></pre>
+<p>The <code>nvme_error_status</code> function translates NVMe status codes into block layer status codes (<code>blk_status_t</code>). It has been modified to include special handling for certain NVMe errors:</p>
+<ul>
+<li><strong>Function Definition</strong>: <code>static blk_status_t nvme_error_status(u16 status)</code> defines a static function that returns a <code>blk_status_t</code> value and takes a single <code>u16</code> argument named <code>status</code>. Being static, this function is only accessible within the file it is defined in.</li>
+<li><strong>Local Variable</strong>: <code>blk_status_t blk_status;</code> declares a variable <code>blk_status</code> of type <code>blk_status_t</code>, which is used to store the block layer status code that corresponds to the NVMe status code.</li>
+<li><strong>Switch Statement</strong>: The function uses a <code>switch</code> statement to handle different values of <code>status &amp; 0x7ff</code>. The bitwise AND with <code>0x7ff</code> masks the upper bits, focusing on the relevant bits for status code determination. Each case in the switch statement corresponds to a group of NVMe status codes, mapping them to appropriate block layer status codes.</li>
+<li><strong>Special Error Handling</strong>: For specific NVMe errors (<code>NVME_SC_WRITE_FAULT</code>, <code>NVME_SC_READ_ERROR</code>, etc.), the function sets <code>blk_status</code> to <code>BLK_STS_MEDIUM</code>, indicating a medium error in the block layer. It then calls <code>log_specific_nvme_error(status)</code> to log these errors with additional detail before returning <code>blk_status</code>.</li>
+<li><strong>Return Values</strong>: Each case in the switch statement returns a <code>blk_status_t</code> value that corresponds to the NVMe status code. This value is used by the block layer to understand the outcome of NVMe operations.</li>
+<li><strong>Default Case</strong>: The <code>default</code> case handles any NVMe status codes not explicitly mentioned in the switch statement, returning <code>BLK_STS_IOERR</code> to indicate a generic I/O error.</li>
+</ul>
+<h3 id="register-circular-buffer-with-proc">Register Circular Buffer with /proc</h3>
+<h4 id="copy-circular-buffer-data-to-proc">Copy Circular Buffer Data to /proc</h4>
+<pre><code class="language-c">#include &lt;linux/uaccess.h&gt; // For copy_to_user()
+#include &lt;linux/proc_fs.h&gt; // For proc file operations
+#include &lt;linux/seq_file.h&gt; // For sequential reads
+
+ssize_t circular_buffer_read_proc(struct file *filp, char __user *buffer, size_t length, loff_t *offset) {
+    static int finished = 0; // Static variable to keep track if we've finished reading the buffer
+    int i;
+    ssize_t ret = 0;
+
+    if (finished) { // Check if we have finished reading the circular buffer
+        // printk(KERN_INFO &quot;circular_buffer_read_proc: finished reading\n&quot;);
+        finished = 0; // Reset for the next call
+        return 0;
+    }
+
+    if (*offset &gt;= DEBUG_BUF_SIZE) // Check if the offset is beyond our buffer size
+        return 0;
+
+    // Iterate over the circular buffer from the current offset
+    for (i = *offset; i &lt; DEBUG_BUF_SIZE; i++) {
+        int bytes_not_copied;
+        char entry_info[512]; // Buffer to hold the formatted entry for copying
+        int entry_len;
+
+        // Format the debug entry into entry_info, including the jiffies timestamp
+        entry_len = snprintf(entry_info, sizeof(entry_info), &quot;[%lu] %s\n&quot;, debug_buf[i].jiffies, debug_buf[i].info);
+
+        // Ensure we don't copy more than the user buffer can hold
+        if (length &lt; entry_len) break;
+
+        // printk(KERN_INFO &quot;circular_buffer_read_proc: copying entry [%lu] %s\n&quot;, debug_buf[i].jiffies, debug_buf[i].info);
+
+        // Copy the formatted string to user space
+        bytes_not_copied = copy_to_user(buffer + ret, entry_info, entry_len);
+        if (bytes_not_copied == 0) {
+            ret += entry_len; // Increment return value by the number of bytes successfully copied
+            *offset = i + 1;  // Update offset for partial reads
+        } else {
+            break; // Break the loop if we couldn't copy data to user space
+        }
+
+        if (ret &gt;= length) break; // Check if we've filled the user buffer
+    }
+
+    finished = 1; // Indicate we've finished reading the circular buffer
+    return ret; // Return the number of bytes copied
+}
+
+static const struct file_operations proc_file_fops = {
+    .owner = THIS_MODULE,
+    .read = circular_buffer_read_proc,
+};
+</code></pre>
+<h4 id="register-with-proc">Register with /proc</h4>
+<p>Note: This is the entire NVMe init function. Our modifications are toward the end.</p>
+<pre><code class="language-c">#include &lt;linux/init.h&gt;
+#include &lt;linux/module.h&gt;
+#include &lt;linux/proc_fs.h&gt;
+#include &lt;linux/workqueue.h&gt;
+#include &lt;linux/blkdev.h&gt;
+#include &lt;linux/nvme_ioctl.h&gt;
+#include &lt;linux/fs.h&gt;
+
+static struct proc_dir_entry *proc_file_entry;
+
+static int __init nvme_core_init(void)
+{
+    int result = -ENOMEM;
+
+    nvme_wq = alloc_workqueue(&quot;nvme-wq&quot;,
+                              WQ_UNBOUND | WQ_MEM_RECLAIM | WQ_SYSFS, 0);
+    if (!nvme_wq)
+        goto out;
+
+    nvme_reset_wq = alloc_workqueue(&quot;nvme-reset-wq&quot;,
+                                    WQ_UNBOUND | WQ_MEM_RECLAIM | WQ_SYSFS, 0);
+    if (!nvme_reset_wq)
+        goto destroy_wq;
+
+    nvme_delete_wq = alloc_workqueue(&quot;nvme-delete-wq&quot;,
+                                     WQ_UNBOUND | WQ_MEM_RECLAIM | WQ_SYSFS, 0);
+    if (!nvme_delete_wq)
+        goto destroy_reset_wq;
+
+    result = alloc_chrdev_region(&amp;nvme_ctrl_base_chr_devt, 0,
+                                 NVME_MINORS, &quot;nvme&quot;);
+    if (result &lt; 0)
+        goto destroy_delete_wq;
+
+    nvme_class = class_create(THIS_MODULE, &quot;nvme&quot;);
+    if (IS_ERR(nvme_class)) {
+        result = PTR_ERR(nvme_class);
+        goto unregister_chrdev;
+    }
+
+    nvme_subsys_class = class_create(THIS_MODULE, &quot;nvme-subsystem&quot;);
+    if (IS_ERR(nvme_subsys_class)) {
+        result = PTR_ERR(nvme_subsys_class);
+        goto destroy_class;
+    }
+
+    result = alloc_chrdev_region(&amp;nvme_ns_chr_devt, 0, NVME_MINORS, &quot;nvme-generic&quot;);
+    if (result &lt; 0)
+        goto destroy_subsys_class;
+
+    nvme_ns_chr_class = class_create(THIS_MODULE, &quot;nvme-generic&quot;);
+    if (IS_ERR(nvme_ns_chr_class)) {
+        result = PTR_ERR(nvme_ns_chr_class);
+        goto unregister_generic_ns;
+    }
+
+    // Here, the proc file for nvme_circular_buffer is created
+    proc_file_entry = proc_create(&quot;nvme_circular_buffer&quot;, 0444, NULL, &amp;proc_fops);
+    if (!proc_file_entry) {
+        printk(KERN_ERR &quot;Could not create /proc/nvme_circular_buffer\n&quot;);
+        result = -ENOMEM;
+        goto destroy_ns_chr_class;
+    }
+
+    return 0; // Initialization success
+
+destroy_ns_chr_class:
+    class_destroy(nvme_ns_chr_class);
+unregister_generic_ns:
+    unregister_chrdev_region(nvme_ns_chr_devt, NVME_MINORS);
+destroy_subsys_class:
+    class_destroy(nvme_subsys_class);
+destroy_class:
+    class_destroy(nvme_class);
+unregister_chrdev:
+    unregister_chrdev_region(nvme_ctrl_base_chr_devt, NVME_MINORS);
+destroy_delete_wq:
+    destroy_workqueue(nvme_delete_wq);
+destroy_reset_wq:
+    destroy_workqueue(nvme_reset_wq);
+destroy_wq:
+    destroy_workqueue(nvme_wq);
+out:
+    return result;
+}
+
+static const struct file_operations proc_fops = {
+    .owner = THIS_MODULE,
+    .read = circular_buffer_read_proc,
+};
+</code></pre>
+<h4 id="module-cleanup">Module Cleanup</h4>
+<pre><code class="language-c">void cleanup_module(void) { // Module cleanup function
+    proc_remove(proc_file_entry);
+}
+</code></pre>
+<h2 id="background-notes">Background Notes</h2>
+<h3 id="make-modules_prepare"><code>make modules_prepare</code></h3>
+<p>The <code>modules_prepare</code> target within the Linux kernel's Makefile plays a crucial role in the kernel development and compilation process, especially when dealing with external modules. Let's break down its function and significance in extreme technical detail:</p>
+<ul>
+<li><strong>Linux Kernel Build System</strong>: The Linux kernel uses a complex build system based on Makefiles. This system manages the configuration, compilation, and installation of the kernel and its modules. The kernel itself can be built entirely, or specific parts of it can be compiled as needed.</li>
+<li><strong>Modules</strong>: Kernel modules are pieces of code that can be loaded into the kernel at runtime, allowing for the kernel's functionality to be extended without the need to reboot or recompile the entire kernel. Modules are used for things like device drivers, filesystem drivers, and system utilities.</li>
+</ul>
+<p><strong>The <code>modules_prepare</code> Target</strong></p>
+<ul>
+<li>
+<p><strong>Purpose</strong>: The <code>modules_prepare</code> target prepares the kernel source tree for the compilation of external modules. It ensures that all necessary infrastructure, scripts, and configuration files are in place and ready for module compilation. This is particularly useful for developers who need to build modules against the kernel source without compiling the full kernel.</p>
+</li>
+<li>
+<p><strong>Dependency Files</strong>: One of the key tasks performed by <code>modules_prepare</code> is the generation of dependency files. These files (.dep files) track the dependencies between source files and header files. They ensure that changes in header files will trigger the recompilation of dependent source files in subsequent builds. This is critical for keeping the build up-to-date with the latest source changes.</p>
+</li>
+<li>
+<p><strong>Configuration and Setup</strong>:</p>
+</li>
+<li><strong>Kbuild System</strong>: The kernel uses the Kbuild system, a part of the larger Makefile structure, to manage the compilation of the kernel and modules. <code>modules_prepare</code> ensures that the Kbuild system has all the necessary information about the kernel configuration (<code>.config</code> file) and the target architecture.</li>
+<li><strong>Symbol Versioning</strong>: The target also prepares symbol versioning files (Modules.symvers and Module.symvers) if they don't exist. These files are crucial for ensuring that the correct versions of symbols are used when linking modules against the kernel. Symbol versioning helps prevent mismatches between module and kernel symbol versions, which could lead to runtime errors or instability.</li>
+<li><strong>Header Files</strong>: It ensures that all public kernel header files are prepared and available in a standard location. This may involve cleaning, processing, and copying header files to the build directory, making them accessible for module compilation.</li>
+<li>
+<p><strong>Scripts and Tools</strong>: The Linux kernel build system uses various scripts and tools (like <code>modpost</code> for module post-processing, <code>mk_elfconfig</code> for generating ELF config files, etc.). <code>modules_prepare</code> ensures that these tools are correctly generated and ready to use. This includes compiling any host tools that are necessary for the build process.</p>
+</li>
+<li>
+<p><strong>Consistency</strong>: By running <code>modules_prepare</code>, developers can be confident that the kernel build environment is consistent and up-to-date. This consistency is vital for ensuring that external modules will be correctly compiled and linked against the kernel, avoiding potential incompatibilities or build failures.</p>
+</li>
+</ul>
+<p>In summary, the <code>modules_prepare</code> target is an essential component of the Linux kernel's build system, designed to streamline the development and compilation of external kernel modules. By handling dependency generation, ensuring the availability of scripts and tools, and maintaining the build environment's consistency, <code>modules_prepare</code> facilitates a more efficient and reliable module development workflow.</p>
+<h3 id="dep-files">.dep files</h3>
+<p>Dependency files, often with the <code>.dep</code> extension in many build systems (though in the context of Linux kernel builds, the extension might not always be <code>.dep</code> but the concept remains), are crucial for the build process, especially in complex projects like the Linux kernel. They play a significant role in managing the relationships between source files and the header files they include, ensuring that changes in dependencies trigger the necessary recompilations. Let's delve into the details:</p>
+<p><strong>Structure and Content</strong></p>
+<p>A dependency file for a source file essentially lists that source file's direct dependencies—primarily, the header files it includes, both directly and indirectly. Here's a simplified example of what the contents might look like for a hypothetical <code>example.c</code> source file:</p>
+<pre><code class="language-makefile">example.o: example.c header1.h header2.h subdir/header3.h
+</code></pre>
+<p>This line signifies that the object file <code>example.o</code> (compiled from <code>example.c</code>) depends on <code>example.c</code>, <code>header1.h</code>, <code>header2.h</code>, and <code>subdir/header3.h</code>. If any of these files change, <code>make</code> knows to recompile <code>example.c</code> to produce an updated <code>example.o</code>.</p>
+<p><strong>Generation</strong></p>
+<p>Dependency files are usually generated by the compiler. For GCC (GNU Compiler Collection), the <code>-M</code>, <code>-MM</code>, <code>-MD</code>, and <code>-MMD</code> flags are relevant:</p>
+<ul>
+<li><code>-M</code> and <code>-MM</code> generate dependency rules as a side effect of compilation. <code>-M</code> includes system headers in the dependency list, while <code>-MM</code> excludes them, focusing on user headers.</li>
+<li><code>-MD</code> and <code>-MMD</code> are similar but generate the dependency files in parallel with compilation, not affecting the primary output. <code>-MD</code> includes, and <code>-MMD</code> excludes system headers.</li>
+</ul>
+<p>These flags cause the compiler to analyze the source files and list all included headers, creating a <code>.d</code> file alongside the object file (<code>.o</code>), containing the dependency rules.</p>
+<p><strong>Contents Detail</strong></p>
+<p>In more complex systems or with more detailed flags, dependency files can include additional details:</p>
+<ul>
+<li><strong>Conditional Dependencies</strong>: Some build systems extend the format to include conditions under which certain dependencies apply, useful for configurations where different code paths include different headers.</li>
+<li><strong>Ordering Information</strong>: While not typically relevant for C/C++ compilation, some dependency formats might include order or priority information for build systems that support parallelized but ordered builds.</li>
+<li><strong>Toolchain-Specific Details</strong>: Dependency files might also contain annotations or flags specific to certain compilers or build tools, particularly when special processing steps are involved (e.g., precompiled header generation).</li>
+</ul>
+<p><strong>How They Work</strong></p>
+<p>During a build, <code>make</code> (or any build system) reads these dependency files to construct a dependency graph of the project. This graph informs the build system which files need to be recompiled when a given file changes. The build system can then ensure that all outputs are up-to-date with their inputs, minimizing the amount of compilation needed by skipping up-to-date targets.</p>
+<p><strong>Kernel-Specific Considerations</strong></p>
+<p>In the Linux kernel build system, the use of dependency files is tightly integrated with the Kbuild system. Kbuild processes dependency information to manage not just the compilation of individual modules but also the intricate relationships between different parts of the kernel codebase. This includes handling configurations where modules may depend on specific kernel configuration options or features being enabled.</p>
+<p>Kernel dependency files might not always be in a simple <code>.d</code> file format but are managed through the Kbuild system to ensure that all parts of the kernel are correctly built and linked, considering the complex configurations and variety of hardware platforms the kernel supports.</p>
+<h3 id="symobol-versioning">Symobol Versioning</h3>
+<p>Symbol versioning within the context of the Linux kernel is a mechanism designed to maintain binary compatibility across different kernel versions, particularly when dealing with kernel modules. This is critical because the kernel's internal API (Application Programming Interface) and ABI (Application Binary Interface) can change between versions, potentially breaking modules that depend on specific functions or symbols. Let's dive into the extreme technical detail of how symbol versioning works, focusing on Modules.symvers and Module.symvers.</p>
+<p><strong>Understanding Symbols in the Kernel</strong></p>
+<ul>
+<li><strong>Symbols</strong>: In the Linux kernel, a "symbol" refers to a function or variable's name that can be accessed outside the file it's defined in. These symbols are essential for kernel modules that need to use functions or variables defined in the kernel or other modules.</li>
+<li><strong>Exported Symbols</strong>: The kernel allows modules to access certain symbols through a mechanism known as "symbol exporting." Functions like EXPORT_SYMBOL or EXPORT_SYMBOL_GPL are used within the kernel source code to mark a symbol as available for use by modules.</li>
+</ul>
+<p><strong>Symbol Versioning Mechanism</strong></p>
+<ul>
+<li>
+<p><strong>Purpose</strong>: Symbol versioning attaches a version code to each exported symbol. This version code represents the symbol's ABI at the time of export. When a module is compiled against a kernel, it records the version codes of all symbols it uses. At runtime, when the module is loaded, the kernel checks these version codes against its own symbols. If the version codes match, the kernel allows the module to load. If they do not match, the module loading is rejected to prevent potential instability or crashes due to ABI mismatches.</p>
+</li>
+<li>
+<p><strong>Modules.symvers and Module.symvers</strong>: These files play a central role in symbol versioning.</p>
+</li>
+<li><strong>Modules.symvers</strong>: Generated during the kernel build process, this file contains a list of all exported symbols along with their version codes. It ensures that when external modules are compiled, they can check against this list to verify symbol versions.</li>
+<li><strong>Module.symvers</strong>: Similar in format to Modules.symvers, this file is generated for individual modules when they are compiled. It lists the symbols that the module exports, which can be important for modules that depend on symbols from other external modules.</li>
+</ul>
+<p><strong>The Format of Symbol Versioning Files</strong></p>
+<p>A typical entry in Modules.symvers or Module.symvers looks like this:</p>
+<pre><code>0x12345678    symbol_name    modulename    Export_symbol
+</code></pre>
+<ul>
+<li><strong>0x12345678</strong>: This is the CRC (Cyclic Redundancy Check) checksum of the symbol, serving as the version code. The CRC is calculated in a way that reflects the symbol's interface, such as its function signature.</li>
+<li><strong>symbol_name</strong>: The name of the symbol (function or variable).</li>
+<li><strong>modulename</strong>: The name of the module that exports this symbol.</li>
+<li><strong>Export_symbol</strong>: Indicates the export type, such as EXPORT_SYMBOL or EXPORT_SYMBOL_GPL.</li>
+</ul>
+<p><strong>How Symbol Versioning Prevents ABI Mismatches</strong></p>
+<ul>
+<li><strong>At Compile Time</strong>: When compiling a module, the build system uses Modules.symvers from the target kernel to ensure that all symbols the module uses are available and match the expected ABI version. This helps catch mismatches early, before the module is deployed.</li>
+<li><strong>At Load Time</strong>: When loading a module, the kernel performs a similar check, comparing the module's Module.symvers (which reflects the symbols it needs) against the kernel's current symbols and their versions. This runtime check prevents loading modules that might be incompatible with the current kernel's ABI.</li>
+</ul>
+<p><strong>Advantages of Symbol Versioning</strong></p>
+<ul>
+<li><strong>Stability</strong>: By ensuring that modules only use symbols with matching ABI versions, symbol versioning helps maintain system stability across kernel updates.</li>
+<li><strong>Forward Compatibility</strong>: It allows for a degree of forward compatibility, enabling modules compiled against a previous kernel version to work with newer kernels, provided the symbols' ABIs haven't changed.</li>
+</ul>
+<p><strong>Conclusion</strong></p>
+<p>Symbol versioning is a sophisticated mechanism that underpins the modularity and extensibility of the Linux kernel. By managing ABI compatibility through Modules.symvers and Module.symvers, the Linux kernel can support a wide ecosystem of loadable modules, maintaining system stability and preventing the common pitfalls associated with binary incompatibilities.</p>
+<h3 id="make-oldconfig"><code>make oldconfig</code></h3>
+<ul>
+<li><strong>Kernel Configuration Step</strong>: <code>oldconfig</code> is one of the targets provided by the Linux kernel's Makefile for configuring the kernel before compilation. It's specifically designed to update an old configuration file to a new kernel version.</li>
+<li><strong>Functionality</strong>:</li>
+<li>When running <code>make oldconfig</code>, the system uses an existing <code>.config</code> file (a file that contains configuration options for the kernel build) as a base. This file typically comes from a previous kernel version or a different build.</li>
+<li>The command then goes through the new kernel's configuration options. If it finds options that are not present in the <code>.config</code> file (because they are new to this version of the kernel), it prompts the user to choose how to set these new options. For settings that already exist in <code>.config</code>, it retains the previously chosen values without user intervention.</li>
+<li>For options that are introduced in the new kernel version and are not found in the old <code>.config</code> file, <code>oldconfig</code> will assign the default values specified by the kernel maintainers, without prompting the user in a non-interactive environment (useful for scripts and automated setups).</li>
+<li><strong>Purpose</strong>: This process ensures that the configuration file matches the requirements of the current kernel version while preserving the customizations made in previous configurations. It's a crucial step for maintaining kernel builds across version updates, particularly for systems that require a custom-configured kernel.</li>
+</ul>
+<h3 id="make-scripts"><code>make scripts</code></h3>
+<p>The <code>make scripts</code> command within the Linux kernel build process specifically targets the compilation and preparation of various scripts and host tools that are essential for the build process but not part of the kernel itself or its modules. These scripts and tools are used for a wide range of purposes, from configuring the kernel, generating documentation, to processing system call tables. Understanding its role requires diving into the structure of the kernel's build system and the function of these auxiliary components.</p>
+<p><strong>Overview of the Build System</strong></p>
+<p>The Linux kernel uses a complex build system primarily based on GNU Make, with Kbuild serving as the kernel's specific extension to this system. The build system is responsible for managing the configuration, compilation, and installation of the kernel, its modules, and associated tools. The <code>Makefile</code> at the root of the kernel source tree orchestrates the build process, invoking other Makefiles and scripts as needed.</p>
+<p><strong>Role of <code>scripts</code> Target</strong></p>
+<ul>
+<li><strong>Purpose</strong>: The <code>scripts</code> target compiles and prepares scripts that are necessary for the build process but not part of the final kernel binary or modules. These scripts include, but are not limited to, Kconfig parsers, documentation generators, and various helper tools that facilitate the build process or the configuration system (like <code>menuconfig</code>, <code>xconfig</code>, etc.).</li>
+<li><strong>Components</strong>:</li>
+<li><strong>Kconfig System</strong>: Tools for parsing Kconfig files and generating configuration menus (e.g., <code>menuconfig</code>, <code>xconfig</code>). These scripts are crucial for enabling developers and users to configure kernel options before the build.</li>
+<li><strong>Documentation Tools</strong>: Scripts that help in generating kernel documentation from source code comments, such as <code>kernel-doc</code>.</li>
+<li><strong>Compiler Helpers</strong>: Tools that assist in analyzing source code or preparing it for compilation. This includes <code>modpost</code> for module symbol post-processing, <code>recordmcount</code> to record position of <code>mcount</code> calls for function tracing, and scripts for generating syscall tables.</li>
+<li><strong>Configuration Scripts</strong>: Scripts that are used to check for the presence of necessary libraries, headers, or tools on the host system, ensuring that the build environment is correctly set up.</li>
+</ul>
+<p><strong>How <code>scripts</code> Works</strong></p>
+<ul>
+<li><strong>Execution Flow</strong>: When <code>make scripts</code> is invoked, the Makefile processes the <code>scripts</code> target by executing specific rules defined in the Makefile and possibly in other Makefiles included in the <code>scripts</code> directory.</li>
+<li><strong>Compilation</strong>: The target compiles any C source files or other compilable sources located in the <code>scripts</code> directory or its subdirectories. This might include host tools written in C that need to be executed during the build process.</li>
+<li><strong>Preparation</strong>: Beyond compilation, <code>make scripts</code> also involves preparing or generating certain files required for the build process. For example, it might involve generating lexer and parser code from <code>.l</code> and <code>.y</code> files for configuration parsing.</li>
+<li><strong>Installation</strong>: Some scripts or tools might be copied or linked to specific locations within the build directory to ensure they are accessible during the build process.</li>
+</ul>
+<p><strong>Technical Detail</strong></p>
+<p>The process of executing <code>make scripts</code> involves several key steps, often detailed within the <code>scripts/Makefile</code>:</p>
+<ol>
+<li><strong>Dependency Checks</strong>: Initial checks for necessary tools or libraries on the host system.</li>
+<li><strong>Compilation</strong>: Direct compilation of tools within the <code>scripts</code> directory, including, for example, <code>kallsyms</code>, <code>genksyms</code>, <code>modpost</code>, and others.</li>
+<li><strong>Generation</strong>: Execution of scripts that generate source code or headers required during the build, like syscall tables or enum mappings.</li>
+<li><strong>Configuration Tools</strong>: Building of tools required for kernel configuration, ensuring that they are up-to-date with the source code and ready to use.</li>
+</ol>
+<h3 id="make-prepare"><code>make prepare</code></h3>
+<p>The <code>make prepare</code> command within the Linux kernel build process is a crucial step designed to set up the kernel source tree for building. This target prepares various components of the source tree, ensuring that the necessary infrastructure is in place for a successful build process. The <code>prepare</code> target is part of the kernel's Makefile system, which orchestrates the build process through a series of dependency-based rules and targets.</p>
+<p><strong>Overview of the Kernel Build System</strong></p>
+<p>The Linux kernel utilizes a sophisticated build system based on GNU Make, augmented by the kernel's own Kbuild system. This system is responsible for handling the configuration, compilation, and installation of the kernel, managing dependencies between source files, configuration options, and various build targets.</p>
+<p><strong>Purpose of <code>make prepare</code></strong></p>
+<ul>
+<li><strong>Initial Setup</strong>: The <code>prepare</code> target is responsible for setting up the build environment before the actual compilation of the kernel or its modules begins. This includes preparing header files, generating version strings, and setting up configuration-dependent files.</li>
+<li><strong>Configuration Headers</strong>: One of the key tasks is to ensure that all necessary configuration headers are up-to-date and reflect the current configuration state. This often involves generating autoconf.h or other similar files based on the current kernel configuration (.config file).</li>
+</ul>
+<p><strong>Components of <code>make prepare</code></strong></p>
+<p>The <code>make prepare</code> target typically encompasses several sub-targets and operations, including but not limited to:</p>
+<ol>
+<li><strong>Generating Version Strings</strong>:</li>
+<li>
+<p>It includes generating files that define the kernel version and build timestamps. These might be included in the kernel binary to identify the build version.</p>
+</li>
+<li>
+<p><strong>Preparing Configuration Headers</strong>:</p>
+</li>
+<li>
+<p>The process generates configuration headers (e.g., autoconf.h) that encapsulate the configuration options selected during the kernel configuration process (<code>make menuconfig</code>, <code>make oldconfig</code>, etc.). These headers are used throughout the kernel code to include or exclude code sections based on the configuration.</p>
+</li>
+<li>
+<p><strong>Symbol Versioning Preparation</strong>:</p>
+</li>
+<li>
+<p>For modules, it ensures that symbol version files (Modules.symvers) are present if needed. These files are critical for maintaining compatibility between the kernel and its loadable modules, especially in terms of API/ABI consistency.</p>
+</li>
+<li>
+<p><strong>Architecture-Specific Preparation</strong>:</p>
+</li>
+<li>
+<p>The kernel supports multiple architectures (x86, ARM, MIPS, etc.), and <code>make prepare</code> involves running architecture-specific preparation steps. This might include generating assembly headers, setting up architecture-specific configurations, or other preparatory tasks required by the target architecture.</p>
+</li>
+<li>
+<p><strong>Header Files Cleanup and Preparation</strong>:</p>
+</li>
+<li>
+<p>This includes cleaning up and preparing user-space API headers and other necessary header files. The process ensures that exported headers are consistent with the current kernel configuration and ready for use by user-space applications or kernel modules.</p>
+</li>
+<li>
+<p><strong>Preparing Scripts</strong>:</p>
+</li>
+<li>Although scripts are often prepared with <code>make scripts</code>, some preparatory steps might involve ensuring that essential build tools or scripts are ready for use during the compilation process.</li>
+</ol>
+<p><strong>How <code>make prepare</code> Works</strong></p>
+<ul>
+<li><strong>Execution Flow</strong>: When invoked, <code>make</code> processes the <code>prepare</code> target by executing the specified rules in the Makefile. This includes dependencies on other targets that must be completed as part of the preparation process.</li>
+<li><strong>Dependency Resolution</strong>: The Makefile system determines the order in which sub-targets and operations are executed, based on dependencies. This ensures that all preparatory steps are completed in the correct sequence.</li>
+<li><strong>Sub-targets Execution</strong>: The <code>prepare</code> target may invoke several sub-targets, each responsible for different aspects of the preparation process. These are executed as needed, based on the current state of the source tree and the configuration options selected.</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../Create%20OpenSwitch%20VM/" class="btn btn-neutral float-left" title="Create OpenSwitch VM"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../DHCP%20Relay%20on%20SONiC/" class="btn btn-neutral float-right" title="DHCP Relay on SONiC">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="None" class="fa fa-code-fork" style="color: #fcfcfc"> https://github.com/grantcurell/grantcurell.github.io/tree/master</a>
+        </span>
+    
+    
+      <span><a href="../Create%20OpenSwitch%20VM/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../DHCP%20Relay%20on%20SONiC/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Grant Curell" /><link rel="canonical" href="https://grantcurell.github.io/NVMe%20Driver%20Reverse%20Engineering/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>NVMe Driver Reverse Engineering - Grant Curell's Dell Projects</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "NVMe Driver Reverse Engineering";
+        var mkdocs_page_input_path = "NVMe Driver Reverse Engineering\\README.md";
+        var mkdocs_page_url = "/NVMe%20Driver%20Reverse%20Engineering/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Grant Curell's Dell Projects
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Grant Curell's Dell Projects</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Adding%20Hashing%20to%20OpenSwitch/">Adding Hashing to OpenSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Adding%20Intel%20I219-LM%20%288086.0d4c%29%20Driver%20to%20ESXi/">Adding Intel I219-LM (8086.0d4c) Driver to ESXi</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Aircraft%20Detection/">Aircraft Detection</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Automatically%20Provision%20Dell%20Servers/">Automatically Provision Dell Servers</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Automating%20OME%20Hardware%20Reports/">Automating OME Hardware Reports</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../BIOS%20Options%20Explanation/">BIOS Options Explanation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Backup%20OS10%20Config%20with%20Ansible/">Backup OS10 Config with Ansible</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Build%20NVIDIA%20AI%20Enterprise/">Build NVIDIA AI Enterprise</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Build%20OpenShift/">Build OpenShift</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Build%20Preboot%20Environment%20with%20Ansible/">Build Preboot Environment with Ansible</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../CloudLink/">CloudLink</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Common%20Questions%20About%20LLMs%20Answered/">Common Questions About LLMs Answered</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20FN410%20as%20a%20Switch/">Configure FN410 as a Switch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20Gigamon%20Tap/">Configure Gigamon Tap</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20Multi-Protocol%20PowerStore%20with%20LDAP/">Configure Multi-Protocol PowerStore with LDAP</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20PowerStore%20SMB%20User/">Configure PowerStore SMB User</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20kdump%20with%20SSH/">Configure kdump with SSH</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configuring%20VLT%20on%20OS10/">Configuring VLT on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Connect%20to%20APC%20PDU%20with%20Redfish/">Connect to APC PDU with Redfish</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Create%20Kickstart%20Server%20on%20Fedora/">Create Kickstart Server on Fedora</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Create%20OpenSwitch%20VM/">Create OpenSwitch VM</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Custom%20NVMe%20Debug%20Driver/">Custom NVMe Debug Driver</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../DHCP%20Relay%20on%20SONiC/">DHCP Relay on SONiC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Dell%20Ansible%20Testing/">Dell Ansible Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Deploy%20OpenShift%20Offline/">Deploy OpenShift Offline</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Elasticsearch%20Display%20Map%20Data/">Elasticsearch Display Map Data</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Elasticsearch%20Load%20Testing/">Elasticsearch Load Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Estimating%20Compute%20Requirements%20for%20Machine%20Learning/">Estimating Compute Requirements for Machine Learning</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Finding%20Rare%20Logs%20with%20DBSCAN/">Finding Rare Logs with DBSCAN</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Get%20NVMe%20Drives%20from%20iDRAC%20Redfish/">Get NVMe Drives from iDRAC Redfish</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../High%20Speed%20Packet%20Capture/">High Speed Packet Capture</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20Bitcoin-Blockchain%20Works%20-%20Notes/">How Bitcoin-Blockchain Works - Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20Does%20Power%20Work/">How Does Power Work</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20Does%20SIFT%20Work/">How Does SIFT Work</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20OS10%20Installer%20Works/">How OS10 Installer Works</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20drive%20detection%20order%20works/">How drive detection order works</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20to%20ONIE%20Install%20and%20ZTP%20Config%20Dell%20SONiC/">How to ONIE Install and ZTP Config Dell SONiC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20to%20Read%20lstopo%20and%20a%20PCIe%20Overview/">How to Read lstopo and a PCIe Overview</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20to%20Setup%20PGP%20with%20Mailvelope/">How to Setup PGP with Mailvelope</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../IO%20Identities%20with%20LifeCycle%20Controller/">IO Identities with LifeCycle Controller</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Importing%20Elasticsearch%20Data/">Importing Elasticsearch Data</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Install%20OpenCV%20with%20CUDA%20Support%20on%20Rocky%20Linux/">Install OpenCV with CUDA Support on Rocky Linux</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Installing%20DPDK%20with%20NapaTech%20Card/">Installing DPDK with NapaTech Card</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../LDAP%20with%20OpenManage/">LDAP with OpenManage</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../LLMs%20Explained/">LLMs Explained</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balance%20Testing%20with%20OpenVSwitch/">Load Balance Testing with OpenVSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balancing%20on%20Mellanox%20Switches/">Load Balancing on Mellanox Switches</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balancing%20with%20LAG%20on%205112F-ON/">Load Balancing with LAG on 5112F-ON</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Make%20USB%20Read%20Only/">Make USB Read Only</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Migrating%20Storage%20Volumes%20to%20PowerStore/">Migrating Storage Volumes to PowerStore</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Mulitple%20Span%20on%204112F-ON%20with%20OpenSwitch/">Mulitple Span on 4112F-ON with OpenSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Multiple%20Span%20on%204112F-ON%20with%20OS10/">Multiple Span on 4112F-ON with OS10</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">NVMe Driver Reverse Engineering</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#tracing-enodata">Tracing ENODATA</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#scratch-notes">Scratch Notes</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#nvme-block-status-codes">NVMe Block Status Codes</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#nvme-end-request">NVMe End Request</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#the-call-to-nvme-end-request">The Call to NVMe End Request</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#nvme_complete_rq-function">nvme_complete_rq Function</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#nvme_complete_batch_req-function">nvme_complete_batch_req Function</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#block-layer-status-code">Block Layer Status Code</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#block-layer-status-code-mapping">Block Layer Status Code Mapping</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#summary">Summary</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#nvme-completion-described">NVMe Completion Described</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#nvme-enodata">NVMe ENODATA</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#code-explanation">Code Explanation</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#zoned-vs-not-zoned">Zoned vs Not Zoned</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#enable-nvmee-trace-events">Enable NVMEe Trace Events</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../NVMe%20Performance%20Testing/">NVMe Performance Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20AMD%20Processor/">Notes on AMD Processor</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20Building%20a%20Datacenter%20from%20Scratch/">Notes on Building a Datacenter from Scratch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20HPC/">Notes on HPC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20HSM/">Notes on HSM</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20Improving%20Drive%20Performance/">Notes on Improving Drive Performance</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20NVMe%20Log%20Pages/">Notes on NVMe Log Pages</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20PCIe/">Notes on PCIe</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20mdraid%20Performance%20Testing/">Notes on mdraid Performance Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20nodejs/">Notes on nodejs</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Nvidia%20GPUDirect/">Nvidia GPUDirect</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Nvidia%20GRID%20Notes/">Nvidia GRID Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OME%20Bug/">OME Bug</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OME%20Integration%20for%20VMWare/">OME Integration for VMWare</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OS10%20Password%20Recovery%20Bug/">OS10 Password Recovery Bug</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Offline%20Updates%20with%20OpenManage%20Enterprise/">Offline Updates with OpenManage Enterprise</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OpenFlow%20on%204112F-ON/">OpenFlow on 4112F-ON</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OpenShift%20-%20Change%20MTU/">OpenShift - Change MTU</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Overprovisioning%20Explained/">Overprovisioning Explained</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PCIev3%20vs%20v4/">PCIev3 vs v4</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Playing%20with%20virsh/">Playing with virsh</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PowerScale%20-%20Configure%20with%20Kubernetes/">PowerScale - Configure with Kubernetes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PowerScale%20Failed%20Authentication/">PowerScale Failed Authentication</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PowerScale%20Setup/">PowerScale Setup</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Reset%20OS10%20Admin%20Password/">Reset OS10 Admin Password</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Reverse%20Engineering%20OpenSHMEM/">Reverse Engineering OpenSHMEM</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Run%20VPN%20on%20OS10/">Run VPN on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Running%20DNS%20from%20OS10/">Running DNS from OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../SONiC%20-%20Sample%20Datacenter%20Automation%20Architecture/">SONiC - Sample Datacenter Automation Architecture</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Set%20Up%20RSPAN%20on%20OS10/">Set Up RSPAN on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setting%20Up%20Breakout%20Cables/">Setting Up Breakout Cables</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setting%20Up%20SmartFabric%20Director/">Setting Up SmartFabric Director</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setting%20Up%20iDRAC%20Telemetry%20with%20Splunk/">Setting Up iDRAC Telemetry with Splunk</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setup%20IDPA/">Setup IDPA</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Site%20to%20Site%20VPN%20with%20PFSense%20and%20CentOS%208/">Site to Site VPN with PFSense and CentOS 8</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Swap%20Kernel%20on%20Rocky%209/">Swap Kernel on Rocky 9</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Switch%20Directly%20to%20Client%20Test/">Switch Directly to Client Test</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Testing%20Bare%20Metal%20Orchestrator/">Testing Bare Metal Orchestrator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Testing%20Intel%20x520%20on%20RHEL%206/">Testing Intel x520 on RHEL 6</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Troubleshooting%205G%20Connection/">Troubleshooting 5G Connection</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Understand%20and%20Run%20LINPACK/">Understand and Run LINPACK</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Understanding%20Cellular%20Technology/">Understanding Cellular Technology</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Understanding%20Memory/">Understanding Memory</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Understanding%20NCCL/">Understanding NCCL</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Understanding%20PERC%20Interrupts/">Understanding PERC Interrupts</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Update%20iDRAC%20Cipher%20Suite%20with%20Redfish/">Update iDRAC Cipher Suite with Redfish</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Use%20OS10%20as%20Aggregator/">Use OS10 as Aggregator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Using%20Dell%20Repository%20Manager%20to%20Create%20Bootable%20ISO/">Using Dell Repository Manager to Create Bootable ISO</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Using%20FIO/">Using FIO</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Using%20the%20iDRAC%20Service%20Module/">Using the iDRAC Service Module</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VEP%20Testing/">VEP Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Web%20Traffic%20Generator/">Web Traffic Generator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Writing%20udev%20Rules%20for%20Dell%20PERC%20H755/">Writing udev Rules for Dell PERC H755</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../esrally%20%28INCOMPLETE%29/">esrally (INCOMPLETE)</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../idrac%20with%20LDAP/">idrac with LDAP</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balance%20Testing%20on%204112F-ON/OS10/">Load Balance Testing on 4112F-ON w/OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balance%20Testing%20on%204112F-ON/OpenSwitch%20%28OPX%29/">Load Balancing with LAG OPX</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Automate%20ESXi%20Installation/">Automating ESXi Installation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Change%20User%20on%20VxRail%20Plugin/">Change User on VxRail Plugin</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/ESXi%20Architecture/">VMWare Architecture Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/How%20to%20Pull%20Usage%20Metrics/">How to Pull Usage Metrics</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Notes%20on%20VSAN/">Notes on vSAN</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Setup%20VXRail/">VxRail Setup</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Troubleshooting%20vSAN/">Troubleshooting vSAN</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/VMWare%20APIs/">VMWare APIs</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/VxRail%20Architecture%20and%20Troubleshooting/">VxRail Architecture and Troubleshooting</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/vRealize%20Setup%20%28Incomplete%29/">Setting Up vRealize</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Grant Curell's Dell Projects</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">NVMe Driver Reverse Engineering</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="nvme-driver-reverse-engineering">NVMe Driver Reverse Engineering</h1>
+<ul>
+<li><a href="#nvme-driver-reverse-engineering">NVMe Driver Reverse Engineering</a><ul>
+<li><a href="#tracing-enodata">Tracing ENODATA</a></li>
+<li><a href="#scratch-notes">Scratch Notes</a><ul>
+<li><a href="#nvme-block-status-codes">NVMe Block Status Codes</a></li>
+<li><a href="#nvme-end-request">NVMe End Request</a></li>
+<li><a href="#the-call-to-nvme-end-request">The Call to NVMe End Request</a></li>
+<li><a href="#nvme_complete_rq-function"><code>nvme_complete_rq</code> Function</a></li>
+<li><a href="#nvme_complete_batch_req-function"><code>nvme_complete_batch_req</code> Function</a></li>
+<li><a href="#block-layer-status-code">Block Layer Status Code</a></li>
+<li><a href="#block-layer-status-code-mapping">Block Layer Status Code Mapping</a></li>
+<li><a href="#summary">Summary</a><ul>
+<li><a href="#nvme-completion-described">NVMe Completion Described</a></li>
+</ul>
+</li>
+<li><a href="#nvme-enodata">NVMe ENODATA</a><ul>
+<li><a href="#code-explanation">Code Explanation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#zoned-vs-not-zoned">Zoned vs Not Zoned</a></li>
+<li><a href="#enable-nvmee-trace-events">Enable NVMEe Trace Events</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="tracing-enodata">Tracing ENODATA</h2>
+<ul>
+<li>The NVMe status codes from the drive itself are defined in the <a href="source/core.c#L252">NVMe driver's host file</a>. </li>
+</ul>
+<pre><code class="language-c">static blk_status_t nvme_error_status(u16 status)
+{
+    switch (status &amp; 0x7ff) {
+    case NVME_SC_SUCCESS:
+        return BLK_STS_OK;
+    case NVME_SC_CAP_EXCEEDED:
+        return BLK_STS_NOSPC;
+    case NVME_SC_LBA_RANGE:
+    case NVME_SC_CMD_INTERRUPTED:
+    case NVME_SC_NS_NOT_READY:
+        return BLK_STS_TARGET;
+    case NVME_SC_BAD_ATTRIBUTES:
+    case NVME_SC_ONCS_NOT_SUPPORTED:
+    case NVME_SC_INVALID_OPCODE:
+    case NVME_SC_INVALID_FIELD:
+    case NVME_SC_INVALID_NS:
+        return BLK_STS_NOTSUPP;
+    case NVME_SC_WRITE_FAULT:
+    case NVME_SC_READ_ERROR:
+    case NVME_SC_UNWRITTEN_BLOCK:
+    case NVME_SC_ACCESS_DENIED:
+    case NVME_SC_READ_ONLY:
+    case NVME_SC_COMPARE_FAILED:
+        return BLK_STS_MEDIUM;
+    case NVME_SC_GUARD_CHECK:
+    case NVME_SC_APPTAG_CHECK:
+    case NVME_SC_REFTAG_CHECK:
+    case NVME_SC_INVALID_PI:
+        return BLK_STS_PROTECTION;
+    case NVME_SC_RESERVATION_CONFLICT:
+        return BLK_STS_RESV_CONFLICT;
+    case NVME_SC_HOST_PATH_ERROR:
+        return BLK_STS_TRANSPORT;
+    case NVME_SC_ZONE_TOO_MANY_ACTIVE:
+        return BLK_STS_ZONE_ACTIVE_RESOURCE;
+    case NVME_SC_ZONE_TOO_MANY_OPEN:
+        return BLK_STS_ZONE_OPEN_RESOURCE;
+    default:
+        return BLK_STS_IOERR;
+    }
+}
+</code></pre>
+<ul>
+<li>This function is ultimately called by NVMe upon completion of an NVMe I/O operation. It processes the end of an NVMe request by handling the NVMe-specific status and translating it into a block layer status, which is then used to finalize the request in the block layer.</li>
+</ul>
+<pre><code class="language-c">static inline void nvme_end_req(struct request *req)
+{
+    blk_status_t status = nvme_error_status(nvme_req(req)-&gt;status);
+
+    if (unlikely(nvme_req(req)-&gt;status &amp;&amp; !(req-&gt;rq_flags &amp; RQF_QUIET)))
+        nvme_log_error(req);
+    nvme_end_req_zoned(req);
+    nvme_trace_bio_complete(req);
+    if (req-&gt;cmd_flags &amp; REQ_NVME_MPATH)
+        nvme_mpath_end_request(req);
+    blk_mq_end_request(req, status);
+}
+</code></pre>
+<ul>
+<li>The mapping to block level error codes is done by <code>blk_status_to_errno</code>. Most of this syntax can be ignored, but what matters is this is taking the raw NVMe </li>
+</ul>
+<pre><code class="language-c">int blk_status_to_errno(blk_status_t status)
+{
+    int idx = (__force int)status;
+
+    if (WARN_ON_ONCE(idx &gt;= ARRAY_SIZE(blk_errors)))
+        return -EIO;
+    return blk_errors[idx].errno;
+}
+EXPORT_SYMBOL_GPL(blk_status_to_errno);
+</code></pre>
+<h2 id="scratch-notes">Scratch Notes</h2>
+<h3 id="nvme-block-status-codes">NVMe Block Status Codes</h3>
+<pre><code class="language-c">static blk_status_t nvme_error_status(u16 status)
+{
+    switch (status &amp; 0x7ff) {
+    case NVME_SC_SUCCESS:
+        return BLK_STS_OK;
+    case NVME_SC_CAP_EXCEEDED:
+        return BLK_STS_NOSPC;
+    case NVME_SC_LBA_RANGE:
+    case NVME_SC_CMD_INTERRUPTED:
+    case NVME_SC_NS_NOT_READY:
+        return BLK_STS_TARGET;
+    case NVME_SC_BAD_ATTRIBUTES:
+    case NVME_SC_ONCS_NOT_SUPPORTED:
+    case NVME_SC_INVALID_OPCODE:
+    case NVME_SC_INVALID_FIELD:
+    case NVME_SC_INVALID_NS:
+        return BLK_STS_NOTSUPP;
+    case NVME_SC_WRITE_FAULT:
+    case NVME_SC_READ_ERROR:
+    case NVME_SC_UNWRITTEN_BLOCK:
+    case NVME_SC_ACCESS_DENIED:
+    case NVME_SC_READ_ONLY:
+    case NVME_SC_COMPARE_FAILED:
+        return BLK_STS_MEDIUM;
+    case NVME_SC_GUARD_CHECK:
+    case NVME_SC_APPTAG_CHECK:
+    case NVME_SC_REFTAG_CHECK:
+    case NVME_SC_INVALID_PI:
+        return BLK_STS_PROTECTION;
+    case NVME_SC_RESERVATION_CONFLICT:
+        return BLK_STS_RESV_CONFLICT;
+    case NVME_SC_HOST_PATH_ERROR:
+        return BLK_STS_TRANSPORT;
+    case NVME_SC_ZONE_TOO_MANY_ACTIVE:
+        return BLK_STS_ZONE_ACTIVE_RESOURCE;
+    case NVME_SC_ZONE_TOO_MANY_OPEN:
+        return BLK_STS_ZONE_OPEN_RESOURCE;
+    default:
+        return BLK_STS_IOERR;
+    }
+}
+</code></pre>
+<p>The <code>nvme_error_status</code> function is designed to translate NVMe-specific status codes (<code>status</code>) into generic block layer status codes understood by the Linux kernel's block layer (<code>blk_status_t</code>). This translation is important for integrating NVMe devices into the Linux block layer, allowing NVMe storage to be managed like other block devices.</p>
+<p>The function uses a <code>switch</code> statement to map various NVMe status codes (defined as <code>NVME_SC_*</code>) to corresponding Linux block layer status codes (<code>BLK_STS_*</code>). Here's a breakdown of what it's doing:</p>
+<ol>
+<li>
+<p><strong><code>NVME_SC_SUCCESS</code></strong>: If the NVMe status code indicates success (<code>NVME_SC_SUCCESS</code>), it translates this to the block layer's success status (<code>BLK_STS_OK</code>).</p>
+</li>
+<li>
+<p><strong>Other NVMe Status Codes</strong>: For other NVMe status codes, the function maps them to appropriate block layer status codes based on the type of error. For example:</p>
+</li>
+<li><code>NVME_SC_CAP_EXCEEDED</code>: Translated to <code>BLK_STS_NOSPC</code>, indicating no space left on the device.</li>
+<li><code>NVME_SC_LBA_RANGE</code>, <code>NVME_SC_CMD_INTERRUPTED</code>, <code>NVME_SC_NS_NOT_READY</code>: These are translated to <code>BLK_STS_TARGET</code>, indicating a target device error.</li>
+<li><code>NVME_SC_BAD_ATTRIBUTES</code>, <code>NVME_SC_ONCS_NOT_SUPPORTED</code>, etc.: These imply an unsupported operation or invalid command, and are mapped to <code>BLK_STS_NOTSUPP</code>.</li>
+<li><code>NVME_SC_WRITE_FAULT</code>, <code>NVME_SC_READ_ERROR</code>, etc.: These indicate medium errors (issues with the storage medium itself) and are translated to <code>BLK_STS_MEDIUM</code>.</li>
+<li>
+<p>And so on for other cases.</p>
+</li>
+<li>
+<p><strong>Default Case</strong>: If the NVMe status code does not match any of the specific cases, the function defaults to returning <code>BLK_STS_IOERR</code>, a generic I/O error status.</p>
+</li>
+</ol>
+<p>Each case in the <code>switch</code> statement maps a specific NVMe status code (or a group of related codes) to a corresponding generic block layer status. This mapping is crucial for ensuring that NVMe devices behave consistently with other block devices in the Linux kernel and that higher-level systems and applications can appropriately interpret and handle errors originating from NVMe devices.</p>
+<p>In summary, this function is integral to the NVMe driver in Linux, allowing NVMe-specific errors to be communicated up through the kernel's block layer in a standardized way.</p>
+<h3 id="nvme-end-request">NVMe End Request</h3>
+<pre><code class="language-c">static inline void nvme_end_req(struct request *req)
+{
+    blk_status_t status = nvme_error_status(nvme_req(req)-&gt;status);
+
+    if (unlikely(nvme_req(req)-&gt;status &amp;&amp; !(req-&gt;rq_flags &amp; RQF_QUIET)))
+        nvme_log_error(req);
+    nvme_end_req_zoned(req);
+    nvme_trace_bio_complete(req);
+    if (req-&gt;cmd_flags &amp; REQ_NVME_MPATH)
+        nvme_mpath_end_request(req);
+    blk_mq_end_request(req, status);
+}
+</code></pre>
+<p>The function <code>nvme_end_req</code> is a part of the NVMe driver in the Linux kernel. It's responsible for finalizing an NVMe I/O request. Here's a step-by-step explanation of what this function is doing:</p>
+<ol>
+<li>
+<p><strong>Convert NVMe Status to Block Layer Status</strong>: </p>
+<ul>
+<li><code>blk_status_t status = nvme_error_status(nvme_req(req)-&gt;status);</code></li>
+<li>This line calls <code>nvme_error_status</code> with the NVMe request's status code. The <code>nvme_error_status</code> function translates NVMe-specific status codes (like <code>NVME_SC_WRITE_FAULT</code>) into generic block layer status codes (<code>blk_status_t</code>). This translation is necessary because the block layer of the kernel (which handles block devices like SSDs and HDDs) uses its own set of status codes.</li>
+</ul>
+</li>
+<li>
+<p><strong>Log Error if Necessary</strong>:</p>
+<ul>
+<li><code>if (unlikely(nvme_req(req)-&gt;status &amp;&amp; !(req-&gt;rq_flags &amp; RQF_QUIET))) nvme_log_error(req);</code></li>
+<li>This line checks if there was an error in the NVMe request (i.e., <code>status</code> is non-zero) and if the request is not flagged as <code>RQF_QUIET</code> (which suppresses error logging). If these conditions are met, it logs the error using <code>nvme_log_error</code>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Handle Zoned Requests</strong>:</p>
+<ul>
+<li><code>nvme_end_req_zoned(req);</code></li>
+<li>This line calls a function to handle the end of a zoned request. NVMe zoned namespaces (ZNS) are a type of storage architecture on NVMe devices that can improve performance and endurance by dividing the storage space into zones.</li>
+</ul>
+</li>
+<li>
+<p><strong>Trace Bio Completion</strong>:</p>
+<ul>
+<li><code>nvme_trace_bio_complete(req);</code></li>
+<li>This line is for tracing/block layer accounting purposes. It's used for diagnostic and performance monitoring tools to track the completion of the block I/O (<code>bio</code>) request.</li>
+</ul>
+</li>
+<li>
+<p><strong>Multipath Handling</strong>:</p>
+<ul>
+<li><code>if (req-&gt;cmd_flags &amp; REQ_NVME_MPATH) nvme_mpath_end_request(req);</code></li>
+<li>This checks if the request is a multipath I/O request (using NVMe multipathing features). If it is, it calls <code>nvme_mpath_end_request</code> to handle the multipath-specific aspects of request completion.</li>
+</ul>
+</li>
+<li>
+<p><strong>Finalize the Request</strong>:</p>
+<ul>
+<li><code>blk_mq_end_request(req, status);</code></li>
+<li>Finally, it calls <code>blk_mq_end_request</code>, which marks the request as completed in the block layer. The <code>status</code> parameter is the translated block status code.</li>
+</ul>
+</li>
+</ol>
+<p>In summary, <code>nvme_end_req</code> is a comprehensive function that handles the finalization of NVMe I/O requests. It takes care of translating NVMe-specific status codes to generic block layer codes, logs errors if necessary, deals with zoned requests, handles multipathing, and ensures the request is properly completed in the block subsystem of the kernel.</p>
+<h3 id="the-call-to-nvme-end-request">The Call to NVMe End Request</h3>
+<pre><code class="language-c">void nvme_complete_rq(struct request *req)
+{
+    struct nvme_ctrl *ctrl = nvme_req(req)-&gt;ctrl;
+
+    trace_nvme_complete_rq(req);
+    nvme_cleanup_cmd(req);
+
+    /*
+     * Completions of long-running commands should not be able to
+     * defer sending of periodic keep alives, since the controller
+     * may have completed processing such commands a long time ago
+     * (arbitrarily close to command submission time).
+     * req-&gt;deadline - req-&gt;timeout is the command submission time
+     * in jiffies.
+     */
+    if (ctrl-&gt;kas &amp;&amp;
+        req-&gt;deadline - req-&gt;timeout &gt;= ctrl-&gt;ka_last_check_time)
+        ctrl-&gt;comp_seen = true;
+
+    switch (nvme_decide_disposition(req)) {
+    case COMPLETE:
+        nvme_end_req(req);
+        return;
+    case RETRY:
+        nvme_retry_req(req);
+        return;
+    case FAILOVER:
+        nvme_failover_req(req);
+        return;
+    case AUTHENTICATE:
+#ifdef CONFIG_NVME_HOST_AUTH
+        queue_work(nvme_wq, &amp;ctrl-&gt;dhchap_auth_work);
+        nvme_retry_req(req);
+#else
+        nvme_end_req(req);
+#endif
+        return;
+    }
+}
+EXPORT_SYMBOL_GPL(nvme_complete_rq);
+
+void nvme_complete_batch_req(struct request *req)
+{
+    trace_nvme_complete_rq(req);
+    nvme_cleanup_cmd(req);
+    nvme_end_req_zoned(req);
+}
+EXPORT_SYMBOL_GPL(nvme_complete_batch_req);
+</code></pre>
+<p>The provided code defines two functions, <code>nvme_complete_rq</code> and <code>nvme_complete_batch_req</code>, which are part of the NVMe (Non-Volatile Memory Express) driver in the Linux kernel. These functions are responsible for handling the completion of NVMe requests. Let's break down what each function does:</p>
+<h3 id="nvme_complete_rq-function"><code>nvme_complete_rq</code> Function</h3>
+<p>This function is called to complete a single NVMe request.</p>
+<ol>
+<li>
+<p><strong>Trace and Cleanup</strong>:</p>
+<ul>
+<li><code>trace_nvme_complete_rq(req);</code> records a tracepoint for the completion of the request. Tracepoints are used for debugging and performance analysis.</li>
+<li><code>nvme_cleanup_cmd(req);</code> cleans up the command associated with the request.</li>
+</ul>
+</li>
+<li>
+<p><strong>Keep Alive Check</strong>:</p>
+<ul>
+<li>The block checks if the completion of long-running commands should trigger a keep-alive signal. NVMe controllers may drop connections if they don't receive periodic keep-alive messages.</li>
+<li><code>ctrl-&gt;kas</code> checks if keep-alive is enabled. If the command has been running longer than the last keep-alive check, it sets <code>ctrl-&gt;comp_seen</code> to <code>true</code> to ensure a keep-alive message is sent.</li>
+</ul>
+</li>
+<li>
+<p><strong>Command Disposition</strong>:</p>
+<ul>
+<li><code>switch (nvme_decide_disposition(req))</code> decides how to handle the request based on its current state, which can be one of <code>COMPLETE</code>, <code>RETRY</code>, <code>FAILOVER</code>, or <code>AUTHENTICATE</code>.</li>
+<li><code>COMPLETE</code>: Calls <code>nvme_end_req(req)</code> to finalize the request.</li>
+<li><code>RETRY</code>: Calls <code>nvme_retry_req(req)</code> to retry the request.</li>
+<li><code>FAILOVER</code>: Calls <code>nvme_failover_req(req)</code> to handle failover in case of an error.</li>
+<li><code>AUTHENTICATE</code>: In systems with host authentication (<code>CONFIG_NVME_HOST_AUTH</code>), queues authentication work and retries the request. Otherwise, it ends the request.</li>
+</ul>
+</li>
+</ol>
+<h3 id="nvme_complete_batch_req-function"><code>nvme_complete_batch_req</code> Function</h3>
+<p>This function is designed for completing a batch of NVMe requests, particularly for zoned namespaces.</p>
+<ol>
+<li>
+<p><strong>Trace and Cleanup</strong>:</p>
+<ul>
+<li>Similar to <code>nvme_complete_rq</code>, it records a tracepoint and cleans up the command.</li>
+</ul>
+</li>
+<li>
+<p><strong>Zoned Request Completion</strong>:</p>
+<ul>
+<li>Calls <code>nvme_end_req_zoned(req)</code> to handle the specific requirements for completing a zoned request.</li>
+</ul>
+</li>
+</ol>
+<h3 id="block-layer-status-code">Block Layer Status Code</h3>
+<p>Found in \block\blk-core.c</p>
+<pre><code class="language-c">int blk_status_to_errno(blk_status_t status)
+{
+    int idx = (__force int)status;
+
+    if (WARN_ON_ONCE(idx &gt;= ARRAY_SIZE(blk_errors)))
+        return -EIO;
+    return blk_errors[idx].errno;
+}
+EXPORT_SYMBOL_GPL(blk_status_to_errno);
+</code></pre>
+<p>The <code>blk_status_to_errno</code> function you've found in the Linux kernel source converts a block layer status code (<code>blk_status_t</code>) to a standard Linux error number (<code>errno</code>). The implementation uses an array (<code>blk_errors</code>) to map these status codes to corresponding <code>errno</code> values. Here's a breakdown of how it works:</p>
+<ol>
+<li><strong>Convert Status to Array Index</strong>:</li>
+<li>
+<p><code>int idx = (__force int)status;</code> converts the <code>blk_status_t</code> status code to an integer <code>idx</code>. The <code>__force</code> is a cast used in the Linux kernel to override the compiler's type checking, indicating that this conversion is intentional.</p>
+</li>
+<li>
+<p><strong>Boundary Check</strong>:</p>
+</li>
+<li><code>if (WARN_ON_ONCE(idx &gt;= ARRAY_SIZE(blk_errors))) return -EIO;</code></li>
+<li>This line checks if the index <code>idx</code> is within the bounds of the <code>blk_errors</code> array. The <code>ARRAY_SIZE(blk_errors)</code> macro returns the number of elements in the <code>blk_errors</code> array.</li>
+<li><code>WARN_ON_ONCE</code> is a kernel macro that prints a warning message to the kernel log the first time the condition is true (here, if <code>idx</code> is out of bounds). It helps to catch potential bugs during development.</li>
+<li>
+<p>If <code>idx</code> is out of bounds, the function returns <code>-EIO</code>, a generic I/O error.</p>
+</li>
+<li>
+<p><strong>Return Corresponding Error Number</strong>:</p>
+</li>
+<li><code>return blk_errors[idx].errno;</code></li>
+<li>This line accesses the <code>blk_errors</code> array at the index <code>idx</code> and returns the <code>errno</code> value associated with that block status code.</li>
+<li>
+<p>The <code>blk_errors</code> array is likely defined elsewhere in the kernel source and contains a mapping of block status codes to their corresponding <code>errno</code> values.</p>
+</li>
+<li>
+<p><strong>Export Symbol</strong>:</p>
+</li>
+<li><code>EXPORT_SYMBOL_GPL(blk_status_to_errno);</code> makes the <code>blk_status_to_errno</code> function available to other kernel modules under the terms of the GPL.</li>
+</ol>
+<p>In summary, <code>blk_status_to_errno</code> uses an array to map block status codes to <code>errno</code> values. The function ensures that the index is within the bounds of the array and then uses this index to fetch and return the corresponding error number. This implementation provides a flexible and maintainable way to handle the conversion, as changes to the mapping only require updating the <code>blk_errors</code> array rather than modifying the function logic.</p>
+<h3 id="block-layer-status-code-mapping">Block Layer Status Code Mapping</h3>
+<pre><code class="language-c">
+</code></pre>
+<h3 id="summary">Summary</h3>
+<ul>
+<li><code>nvme_complete_rq</code> is a more comprehensive function handling individual NVMe requests, including various scenarios like retries, failovers, and special handling for long-running commands in the context of keep-alive signals.</li>
+<li><code>nvme_complete_batch_req</code> is a simpler function used for completing a batch of requests, with specific handling for zoned namespaces.</li>
+</ul>
+<p>These functions are critical for the NVMe driver's operation in Linux, ensuring that NVMe requests are correctly processed, completed, retried, or failed over as needed. They also handle the specific requirements of zoned namespaces, a feature that optimizes SSD performance and longevity.</p>
+<h4 id="nvme-completion-described">NVMe Completion Described</h4>
+<p>The <code>nvme_end_req</code> function is typically called at the end of an NVMe I/O request's lifecycle in the Linux kernel's NVMe driver. This function is invoked when an I/O request to an NVMe device has been processed and is ready to be completed. Here's a general overview of when and how it gets called:</p>
+<ol>
+<li>
+<p><strong>Completion of an I/O Operation</strong>: NVMe I/O operations, such as read or write requests, are processed asynchronously. When an NVMe I/O operation completes (successfully or with an error), a completion routine is triggered. <code>nvme_end_req</code> is often called within such completion routines.</p>
+</li>
+<li>
+<p><strong>From NVMe Interrupt Handlers</strong>: NVMe devices use interrupts to signal the completion of I/O operations. The NVMe driver has interrupt handlers to respond to these interrupts. When an interrupt indicates the completion of an I/O request, the interrupt handler will eventually call <code>nvme_end_req</code> to finalize the request.</p>
+</li>
+<li>
+<p><strong>Completion Path in the NVMe Driver</strong>: Within the NVMe driver's code, after processing the response from the NVMe device (like handling the status of the command), the driver will call <code>nvme_end_req</code> to clean up the request and perform necessary final steps like error logging, multipath handling, and notifying the block layer of the completion status.</p>
+</li>
+<li>
+<p><strong>In Response to Errors or Timeouts</strong>: If an error occurs during the processing of an NVMe command, or if a command times out, <code>nvme_end_req</code> will be called as part of the error handling or timeout handling code path to properly complete the request with the appropriate error status.</p>
+</li>
+<li>
+<p><strong>NVMe Queue Processing</strong>: The NVMe driver uses request queues to manage I/O operations. As requests are processed and completed (either by the hardware or due to some error conditions), <code>nvme_end_req</code> is called to properly close out these requests.</p>
+</li>
+</ol>
+<p>The exact call chain leading to <code>nvme_end_req</code> can be quite complex, as it involves asynchronous I/O processing, interrupt handling, and interactions with the Linux kernel's block layer. The function plays a crucial role in ensuring that each I/O request is correctly finalized, whether it completes successfully or encounters an error.</p>
+<h3 id="nvme-enodata">NVMe ENODATA</h3>
+<p><strong>NOTE</strong> THIS CODE IS SPECIFIC TO NVMe-OF.</p>
+<ul>
+<li>Started by looking for ENODATA and it only appears here:</li>
+</ul>
+<pre><code class="language-c">inline u16 errno_to_nvme_status(struct nvmet_req *req, int errno)
+{
+    switch (errno) {
+    case 0:
+        return NVME_SC_SUCCESS;
+    case -ENOSPC:
+        req-&gt;error_loc = offsetof(struct nvme_rw_command, length);
+        return NVME_SC_CAP_EXCEEDED | NVME_SC_DNR;
+    case -EREMOTEIO:
+        req-&gt;error_loc = offsetof(struct nvme_rw_command, slba);
+        return  NVME_SC_LBA_RANGE | NVME_SC_DNR;
+    case -EOPNOTSUPP:
+        req-&gt;error_loc = offsetof(struct nvme_common_command, opcode);
+        switch (req-&gt;cmd-&gt;common.opcode) {
+        case nvme_cmd_dsm:
+        case nvme_cmd_write_zeroes:
+            return NVME_SC_ONCS_NOT_SUPPORTED | NVME_SC_DNR;
+        default:
+            return NVME_SC_INVALID_OPCODE | NVME_SC_DNR;
+        }
+        break;
+    case -ENODATA:
+        req-&gt;error_loc = offsetof(struct nvme_rw_command, nsid);
+        return NVME_SC_ACCESS_DENIED;
+    case -EIO:
+        fallthrough;
+    default:
+        req-&gt;error_loc = offsetof(struct nvme_common_command, opcode);
+        return NVME_SC_INTERNAL | NVME_SC_DNR;
+    }
+}
+</code></pre>
+<p>This C function, <code>errno_to_nvme_status</code>, converts a given error number (<code>errno</code>) to an NVMe status code. It's designed to be used within the context of NVMe (Non-Volatile Memory express) subsystems, particularly for handling error conditions. The function takes two parameters: a pointer to a <code>struct nvmet_req</code> (which represents a request in the NVMe target subsystem) and an <code>int</code> representing the error number (<code>errno</code>). Here's a breakdown of its behavior:</p>
+<ol>
+<li>
+<p><strong>Switch Statement on <code>errno</code></strong>: The function uses a switch-case statement to handle different values of <code>errno</code>.</p>
+</li>
+<li>
+<p><strong>Case 0 (Success)</strong>: If <code>errno</code> is 0 (no error), it returns <code>NVME_SC_SUCCESS</code>, indicating successful completion.</p>
+</li>
+<li>
+<p><strong>Case <code>-ENOSPC</code> (No Space Left on Device)</strong>: For this error, it sets the <code>error_loc</code> field of the request to the offset of the <code>length</code> field in the <code>struct nvme_rw_command</code>. It then returns <code>NVME_SC_CAP_EXCEEDED | NVME_SC_DNR</code>, indicating that the capacity is exceeded and the request should not be retried.</p>
+</li>
+<li>
+<p><strong>Case <code>-EREMOTEIO</code> (Remote I/O Error)</strong>: This sets <code>error_loc</code> to the offset of the <code>slba</code> field in <code>struct nvme_rw_command</code> and returns <code>NVME_SC_LBA_RANGE | NVME_SC_DNR</code>, indicating an LBA (Logical Block Addressing) range error and that the request should not be retried.</p>
+</li>
+<li>
+<p><strong>Case <code>-EOPNOTSUPP</code> (Operation Not Supported)</strong>: The function sets <code>error_loc</code> to the offset of the <code>opcode</code> field in <code>struct nvme_common_command</code>. It then checks the opcode of the command: if it's <code>nvme_cmd_dsm</code> or <code>nvme_cmd_write_zeroes</code>, it returns <code>NVME_SC_ONCS_NOT_SUPPORTED | NVME_SC_DNR</code>, indicating that the operation is not supported. For other opcodes, it returns <code>NVME_SC_INVALID_OPCODE | NVME_SC_DNR</code>, indicating an invalid opcode.</p>
+</li>
+<li>
+<p><strong>Case <code>-ENODATA</code> (No Data)</strong>: Sets <code>error_loc</code> to the offset of the <code>nsid</code> field in <code>struct nvme_rw_command</code> and returns <code>NVME_SC_ACCESS_DENIED</code>, indicating access is denied.</p>
+</li>
+<li>
+<p><strong>Case <code>-EIO</code> (I/O Error) and Default</strong>: For an I/O error or any other unspecified error (<code>default</code> case), it sets <code>error_loc</code> to the offset of the <code>opcode</code> in <code>struct nvme_common_command</code> and returns <code>NVME_SC_INTERNAL | NVME_SC_DNR</code>, indicating an internal error and that the request should not be retried.</p>
+</li>
+</ol>
+<p>This function is specific to NVMe storage device error handling, translating system errors into NVMe-specific status codes, providing additional information about the location of the error in the command structure.</p>
+<h4 id="code-explanation">Code Explanation</h4>
+<p>The code you've found is from the Linux kernel, specifically from the NVMe target subsystem (<code>nvmet</code>). This subsystem allows a machine to act as an NVMe target, meaning it can present NVMe storage devices over a network. The code implements various functionalities needed to set up and manage an NVMe-over-Fabrics (NVMe-oF) target.</p>
+<p>Here's a brief overview of key components of the code:</p>
+<ol>
+<li>
+<p><strong>Initialization and Exit Routines</strong>: The <code>nvmet_init</code> and <code>nvmet_exit</code> functions are responsible for initializing and cleaning up the NVMe target subsystem when the module is loaded or unloaded.</p>
+</li>
+<li>
+<p><strong>Command Processing</strong>: Functions like <code>nvmet_req_init</code>, <code>nvmet_req_complete</code>, and <code>nvmet_parse_io_cmd</code> handle the processing of NVMe commands received from remote hosts. They deal with command setup, execution, and completion.</p>
+</li>
+<li>
+<p><strong>Error Handling</strong>: The <code>errno_to_nvme_status</code> function, which you previously mentioned, maps Linux kernel error codes to NVMe status codes. This is important for correctly communicating errors back to NVMe clients.</p>
+</li>
+<li>
+<p><strong>Subsystem Management</strong>: The code includes functions for managing NVMe subsystems (<code>nvmet_subsys</code>), which represent groupings of NVMe namespaces (storage volumes) that can be accessed by remote hosts.</p>
+</li>
+<li>
+<p><strong>Controller Management</strong>: Functions for managing NVMe controllers (<code>nvmet_ctrl</code>) are present. In NVMe-oF, a controller is an entity through which a host connects and accesses namespaces.</p>
+</li>
+<li>
+<p><strong>Asynchronous Event Notification</strong>: The code supports handling and sending asynchronous events to NVMe hosts, which is essential for notifying remote hosts about changes or issues in the target subsystem.</p>
+</li>
+<li>
+<p><strong>ConfigFS Integration</strong>: The NVMe target subsystem integrates with ConfigFS, a configuration file system in Linux, to allow dynamic configuration of NVMe targets.</p>
+</li>
+<li>
+<p><strong>Queue and Namespace Handling</strong>: There are functions for handling NVMe queues (<code>nvmet_sq</code> and <code>nvmet_cq</code>) and namespaces (<code>nvmet_ns</code>), which are central to the operation of NVMe.</p>
+</li>
+<li>
+<p><strong>Fabric Transport Handling</strong>: The code handles various NVMe-over-Fabrics transport methods, allowing NVMe commands to be sent and received over different types of networks.</p>
+</li>
+</ol>
+<p>This code is part of the kernel's implementation of an NVMe target. It is not strictly NVMe-oF specific; some parts are generic to NVMe targets, but it includes support for NVMe-oF as well. The NVMe target functionality enables a Linux system to provide NVMe storage over a network, making it a crucial component for implementing NVMe-oF services in data centers and cloud environments.</p>
+<h2 id="zoned-vs-not-zoned">Zoned vs Not Zoned</h2>
+<p>The difference between zoned and non-zoned in the context of NVMe (Non-Volatile Memory Express) and the provided code snippets pertains to a specific type of storage management called Zoned Namespaces (ZNS).</p>
+<p>Zoned Namespaces is a relatively new concept in NVMe storage, introduced to optimize the way data is written and managed, particularly for SSDs. Let's break down what each type of namespace means:</p>
+<ol>
+<li>
+<p><strong>Non-Zoned (Regular) NVMe Namespaces</strong>:</p>
+<ul>
+<li>In regular (non-zoned) NVMe namespaces, data can be written to any location on the drive without any specific restrictions. This is the traditional way SSDs operate.</li>
+<li>You can perform typical read, write, and erase operations anywhere across the drive's storage space.</li>
+<li>This approach is straightforward but can lead to inefficiencies in how data is stored and managed, especially as the drive starts to fill up and requires more frequent garbage collection and wear leveling.</li>
+</ul>
+</li>
+<li>
+<p><strong>Zoned NVMe Namespaces</strong>:</p>
+<ul>
+<li>In ZNS (Zoned Namespaces), the storage space is divided into zones.</li>
+<li>Each zone must be written sequentially, meaning new data must be appended to the end of the current data in the zone. This is unlike regular namespaces where data can be written randomly.</li>
+<li>This sequential write requirement aligns better with the underlying characteristics of NAND flash memory, potentially increasing drive efficiency, lifespan, and performance.</li>
+<li>ZNS can reduce the overhead of garbage collection and wear leveling, as each zone is written and erased as a unit.</li>
+</ul>
+</li>
+</ol>
+<p>Now, looking at your provided code:</p>
+<ul>
+<li>
+<p><code>nvme_end_req_zoned</code> function: This function is specifically for handling the completion of requests in a zoned namespace. If the request is a zone append operation (indicated by <code>REQ_OP_ZONE_APPEND</code>), it updates the sector number based on the result of the NVMe command. This is specific to ZNS, where the location where data is written might be determined by the drive and needs to be communicated back to the host system.</p>
+</li>
+<li>
+<p><code>nvme_end_req</code> function: This is a more general function for handling the completion of any NVMe request (both zoned and non-zoned). It calls <code>nvme_end_req_zoned</code> as part of its process, so it correctly handles zoned requests when necessary. For non-zoned requests, or if zoned features are not enabled (<code>CONFIG_BLK_DEV_ZONED</code> not set), <code>nvme_end_req</code> handles the request completion without the specific considerations needed for ZNS.</p>
+</li>
+</ul>
+<p>In summary, the key difference is in how data is written and managed on the drive: zoned namespaces require sequential writes within zones, while non-zoned namespaces do not have this restriction. The code you provided shows how the NVMe driver in Linux handles these differences during the completion of I/O requests.</p>
+<h2 id="enable-nvmee-trace-events">Enable NVMEe Trace Events</h2>
+<p>See: https://github.com/linux-nvme/nvme-trace</p>
+<p>To use, first enable nvme trace events. To enable all of them, you can do it
+like this:</p>
+<pre><code class="language-bash">echo 1 &gt; /sys/kernel/debug/tracing/events/nvme/enable
+</code></pre>
+<p>This will likely fill the trace buffer rather quickly when you're tracing all
+IO for even a modest workload.</p>
+<p>You can also filter for specific things. For example, if you want to trace only
+admin commands, you can do it like this:</p>
+<pre><code class="language-bash">echo &quot;qid==0&quot; &gt; /sys/kernel/debug/tracing/events/nvme/filter
+</code></pre>
+<p>Once your trace is enabled and some commands have run, you can get the trace
+and pipe it to this parsing program like this:</p>
+<pre><code class="language-bash">cat /sys/kernel/debug/tracing/trace | ./nvme-trace.pl
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../Multiple%20Span%20on%204112F-ON%20with%20OS10/" class="btn btn-neutral float-left" title="Multiple Span on 4112F-ON with OS10"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../NVMe%20Performance%20Testing/" class="btn btn-neutral float-right" title="NVMe Performance Testing">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="None" class="fa fa-code-fork" style="color: #fcfcfc"> https://github.com/grantcurell/grantcurell.github.io/tree/master</a>
+        </span>
+    
+    
+      <span><a href="../Multiple%20Span%20on%204112F-ON%20with%20OS10/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../NVMe%20Performance%20Testing/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

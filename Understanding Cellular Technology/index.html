@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Grant Curell" /><link rel="canonical" href="https://grantcurell.github.io/Understanding%20Cellular%20Technology/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Understanding Cellular Technology - Grant Curell's Dell Projects</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Understanding Cellular Technology";
+        var mkdocs_page_input_path = "Understanding Cellular Technology\\README.md";
+        var mkdocs_page_url = "/Understanding%20Cellular%20Technology/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Grant Curell's Dell Projects
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Grant Curell's Dell Projects</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Adding%20Hashing%20to%20OpenSwitch/">Adding Hashing to OpenSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Adding%20Intel%20I219-LM%20%288086.0d4c%29%20Driver%20to%20ESXi/">Adding Intel I219-LM (8086.0d4c) Driver to ESXi</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Aircraft%20Detection/">Aircraft Detection</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Automatically%20Provision%20Dell%20Servers/">Automatically Provision Dell Servers</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Automating%20OME%20Hardware%20Reports/">Automating OME Hardware Reports</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../BIOS%20Options%20Explanation/">BIOS Options Explanation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Backup%20OS10%20Config%20with%20Ansible/">Backup OS10 Config with Ansible</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Build%20NVIDIA%20AI%20Enterprise/">Build NVIDIA AI Enterprise</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Build%20OpenShift/">Build OpenShift</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Build%20Preboot%20Environment%20with%20Ansible/">Build Preboot Environment with Ansible</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../CloudLink/">CloudLink</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Common%20Questions%20About%20LLMs%20Answered/">Common Questions About LLMs Answered</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20FN410%20as%20a%20Switch/">Configure FN410 as a Switch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20Gigamon%20Tap/">Configure Gigamon Tap</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20Multi-Protocol%20PowerStore%20with%20LDAP/">Configure Multi-Protocol PowerStore with LDAP</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20PowerStore%20SMB%20User/">Configure PowerStore SMB User</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20kdump%20with%20SSH/">Configure kdump with SSH</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configuring%20VLT%20on%20OS10/">Configuring VLT on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Connect%20to%20APC%20PDU%20with%20Redfish/">Connect to APC PDU with Redfish</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Create%20Kickstart%20Server%20on%20Fedora/">Create Kickstart Server on Fedora</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Create%20OpenSwitch%20VM/">Create OpenSwitch VM</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Custom%20NVMe%20Debug%20Driver/">Custom NVMe Debug Driver</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../DHCP%20Relay%20on%20SONiC/">DHCP Relay on SONiC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Dell%20Ansible%20Testing/">Dell Ansible Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Deploy%20OpenShift%20Offline/">Deploy OpenShift Offline</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Elasticsearch%20Display%20Map%20Data/">Elasticsearch Display Map Data</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Elasticsearch%20Load%20Testing/">Elasticsearch Load Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Estimating%20Compute%20Requirements%20for%20Machine%20Learning/">Estimating Compute Requirements for Machine Learning</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Finding%20Rare%20Logs%20with%20DBSCAN/">Finding Rare Logs with DBSCAN</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Get%20NVMe%20Drives%20from%20iDRAC%20Redfish/">Get NVMe Drives from iDRAC Redfish</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../High%20Speed%20Packet%20Capture/">High Speed Packet Capture</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20Bitcoin-Blockchain%20Works%20-%20Notes/">How Bitcoin-Blockchain Works - Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20Does%20Power%20Work/">How Does Power Work</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20Does%20SIFT%20Work/">How Does SIFT Work</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20OS10%20Installer%20Works/">How OS10 Installer Works</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20drive%20detection%20order%20works/">How drive detection order works</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20to%20ONIE%20Install%20and%20ZTP%20Config%20Dell%20SONiC/">How to ONIE Install and ZTP Config Dell SONiC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20to%20Read%20lstopo%20and%20a%20PCIe%20Overview/">How to Read lstopo and a PCIe Overview</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20to%20Setup%20PGP%20with%20Mailvelope/">How to Setup PGP with Mailvelope</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../IO%20Identities%20with%20LifeCycle%20Controller/">IO Identities with LifeCycle Controller</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Importing%20Elasticsearch%20Data/">Importing Elasticsearch Data</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Install%20OpenCV%20with%20CUDA%20Support%20on%20Rocky%20Linux/">Install OpenCV with CUDA Support on Rocky Linux</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Installing%20DPDK%20with%20NapaTech%20Card/">Installing DPDK with NapaTech Card</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../LDAP%20with%20OpenManage/">LDAP with OpenManage</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../LLMs%20Explained/">LLMs Explained</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balance%20Testing%20with%20OpenVSwitch/">Load Balance Testing with OpenVSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balancing%20on%20Mellanox%20Switches/">Load Balancing on Mellanox Switches</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balancing%20with%20LAG%20on%205112F-ON/">Load Balancing with LAG on 5112F-ON</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Make%20USB%20Read%20Only/">Make USB Read Only</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Migrating%20Storage%20Volumes%20to%20PowerStore/">Migrating Storage Volumes to PowerStore</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Mulitple%20Span%20on%204112F-ON%20with%20OpenSwitch/">Mulitple Span on 4112F-ON with OpenSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Multiple%20Span%20on%204112F-ON%20with%20OS10/">Multiple Span on 4112F-ON with OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../NVMe%20Driver%20Reverse%20Engineering/">NVMe Driver Reverse Engineering</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../NVMe%20Performance%20Testing/">NVMe Performance Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20AMD%20Processor/">Notes on AMD Processor</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20Building%20a%20Datacenter%20from%20Scratch/">Notes on Building a Datacenter from Scratch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20HPC/">Notes on HPC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20HSM/">Notes on HSM</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20Improving%20Drive%20Performance/">Notes on Improving Drive Performance</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20NVMe%20Log%20Pages/">Notes on NVMe Log Pages</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20PCIe/">Notes on PCIe</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20mdraid%20Performance%20Testing/">Notes on mdraid Performance Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20nodejs/">Notes on nodejs</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Nvidia%20GPUDirect/">Nvidia GPUDirect</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Nvidia%20GRID%20Notes/">Nvidia GRID Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OME%20Bug/">OME Bug</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OME%20Integration%20for%20VMWare/">OME Integration for VMWare</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OS10%20Password%20Recovery%20Bug/">OS10 Password Recovery Bug</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Offline%20Updates%20with%20OpenManage%20Enterprise/">Offline Updates with OpenManage Enterprise</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OpenFlow%20on%204112F-ON/">OpenFlow on 4112F-ON</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OpenShift%20-%20Change%20MTU/">OpenShift - Change MTU</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Overprovisioning%20Explained/">Overprovisioning Explained</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PCIev3%20vs%20v4/">PCIev3 vs v4</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Playing%20with%20virsh/">Playing with virsh</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PowerScale%20-%20Configure%20with%20Kubernetes/">PowerScale - Configure with Kubernetes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PowerScale%20Failed%20Authentication/">PowerScale Failed Authentication</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PowerScale%20Setup/">PowerScale Setup</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Reset%20OS10%20Admin%20Password/">Reset OS10 Admin Password</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Reverse%20Engineering%20OpenSHMEM/">Reverse Engineering OpenSHMEM</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Run%20VPN%20on%20OS10/">Run VPN on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Running%20DNS%20from%20OS10/">Running DNS from OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../SONiC%20-%20Sample%20Datacenter%20Automation%20Architecture/">SONiC - Sample Datacenter Automation Architecture</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Set%20Up%20RSPAN%20on%20OS10/">Set Up RSPAN on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setting%20Up%20Breakout%20Cables/">Setting Up Breakout Cables</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setting%20Up%20SmartFabric%20Director/">Setting Up SmartFabric Director</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setting%20Up%20iDRAC%20Telemetry%20with%20Splunk/">Setting Up iDRAC Telemetry with Splunk</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setup%20IDPA/">Setup IDPA</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Site%20to%20Site%20VPN%20with%20PFSense%20and%20CentOS%208/">Site to Site VPN with PFSense and CentOS 8</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Swap%20Kernel%20on%20Rocky%209/">Swap Kernel on Rocky 9</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Switch%20Directly%20to%20Client%20Test/">Switch Directly to Client Test</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Testing%20Bare%20Metal%20Orchestrator/">Testing Bare Metal Orchestrator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Testing%20Intel%20x520%20on%20RHEL%206/">Testing Intel x520 on RHEL 6</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Troubleshooting%205G%20Connection/">Troubleshooting 5G Connection</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Understand%20and%20Run%20LINPACK/">Understand and Run LINPACK</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Understanding Cellular Technology</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#ran">RAN</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#ran_1">RAN的關鍵組成部分</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#ran_2">RAN的主要功能</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#5gran">在5G中的RAN</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#ran_3">RAN的位置和接口</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#gnodeb-next-generation-nodeb-">gNodeB (next generation NodeB - 下一代基站)</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#amf">AMF</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#_1">功能</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#amf_1">AMF的借口</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#amfran">AMF和RAN怎么沟通</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#next-generation-application-protocol">Next Generation Application Protocol (下一代應用協議)</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#ngap">NGAP的主要功能</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#ngap_1">NGAP的主要消息類型</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#ngap5g">NGAP在5G網絡中的作用</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_2">圖示</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_3">總結</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#5g5g-core-network">5G核心網絡（5G Core Network）</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#1-amfaccess-and-mobility-management-function">1. AMF（Access and Mobility Management Function）</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#2-smfsession-management-function">2. SMF（Session Management Function）</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#3-upfuser-plane-function">3. UPF（User Plane Function）</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#4-udmunified-data-management">4. UDM（Unified Data Management）</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#5-ausfauthentication-server-function">5. AUSF（Authentication Server Function）</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#6-nrfnetwork-repository-function">6. NRF（Network Repository Function）</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#7-nssfnetwork-slice-selection-function">7. NSSF（Network Slice Selection Function）</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#8-pcfpolicy-control-function">8. PCF（Policy Control Function）</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#9-nefnetwork-exposure-function">9. NEF（Network Exposure Function）</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_4">圖示</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_5">總結</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_6">中文定义</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_7">有用的鏈接</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Understanding%20Memory/">Understanding Memory</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Understanding%20NCCL/">Understanding NCCL</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Understanding%20PERC%20Interrupts/">Understanding PERC Interrupts</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Update%20iDRAC%20Cipher%20Suite%20with%20Redfish/">Update iDRAC Cipher Suite with Redfish</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Use%20OS10%20as%20Aggregator/">Use OS10 as Aggregator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Using%20Dell%20Repository%20Manager%20to%20Create%20Bootable%20ISO/">Using Dell Repository Manager to Create Bootable ISO</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Using%20FIO/">Using FIO</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Using%20the%20iDRAC%20Service%20Module/">Using the iDRAC Service Module</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VEP%20Testing/">VEP Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Web%20Traffic%20Generator/">Web Traffic Generator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Writing%20udev%20Rules%20for%20Dell%20PERC%20H755/">Writing udev Rules for Dell PERC H755</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../esrally%20%28INCOMPLETE%29/">esrally (INCOMPLETE)</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../idrac%20with%20LDAP/">idrac with LDAP</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balance%20Testing%20on%204112F-ON/OS10/">Load Balance Testing on 4112F-ON w/OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balance%20Testing%20on%204112F-ON/OpenSwitch%20%28OPX%29/">Load Balancing with LAG OPX</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Automate%20ESXi%20Installation/">Automating ESXi Installation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Change%20User%20on%20VxRail%20Plugin/">Change User on VxRail Plugin</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/ESXi%20Architecture/">VMWare Architecture Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/How%20to%20Pull%20Usage%20Metrics/">How to Pull Usage Metrics</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Notes%20on%20VSAN/">Notes on vSAN</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Setup%20VXRail/">VxRail Setup</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Troubleshooting%20vSAN/">Troubleshooting vSAN</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/VMWare%20APIs/">VMWare APIs</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/VxRail%20Architecture%20and%20Troubleshooting/">VxRail Architecture and Troubleshooting</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/vRealize%20Setup%20%28Incomplete%29/">Setting Up vRealize</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Grant Curell's Dell Projects</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Understanding Cellular Technology</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="understanding-cellular-technology">Understanding Cellular Technology</h1>
+<ul>
+<li><a href="#understanding-cellular-technology">Understanding Cellular Technology</a></li>
+<li><a href="#ran">RAN</a><ul>
+<li><a href="#ran的關鍵組成部分">RAN的關鍵組成部分</a></li>
+<li><a href="#ran的主要功能">RAN的主要功能</a></li>
+<li><a href="#在5g中的ran">在5G中的RAN</a></li>
+<li><a href="#ran的位置和接口">RAN的位置和接口</a></li>
+<li><a href="#gnodeb-next-generation-nodeb---下一代基站">gNodeB (next generation NodeB - 下一代基站)</a></li>
+</ul>
+</li>
+<li><a href="#amf">AMF</a><ul>
+<li><a href="#功能">功能</a></li>
+<li><a href="#amf的借口">AMF的借口</a></li>
+</ul>
+</li>
+<li><a href="#amf和ran怎么沟通">AMF和RAN怎么沟通</a></li>
+<li><a href="#next-generation-application-protocol-下一代應用協議">Next Generation Application Protocol (下一代應用協議)</a><ul>
+<li><a href="#ngap的主要功能">NGAP的主要功能</a></li>
+<li><a href="#ngap的主要消息類型">NGAP的主要消息類型</a></li>
+<li><a href="#ngap在5g網絡中的作用">NGAP在5G網絡中的作用</a></li>
+<li><a href="#圖示">圖示</a></li>
+<li><a href="#總結">總結</a></li>
+</ul>
+</li>
+<li><a href="#5g核心網絡5g-core-network">5G核心網絡（5G Core Network）</a><ul>
+<li><a href="#1-amfaccess-and-mobility-management-function">1. AMF（Access and Mobility Management Function）</a></li>
+<li><a href="#2-smfsession-management-function">2. SMF（Session Management Function）</a></li>
+<li><a href="#3-upfuser-plane-function">3. UPF（User Plane Function）</a></li>
+<li><a href="#4-udmunified-data-management">4. UDM（Unified Data Management）</a></li>
+<li><a href="#5-ausfauthentication-server-function">5. AUSF（Authentication Server Function）</a></li>
+<li><a href="#6-nrfnetwork-repository-function">6. NRF（Network Repository Function）</a></li>
+<li><a href="#7-nssfnetwork-slice-selection-function">7. NSSF（Network Slice Selection Function）</a></li>
+<li><a href="#8-pcfpolicy-control-function">8. PCF（Policy Control Function）</a></li>
+<li><a href="#9-nefnetwork-exposure-function">9. NEF（Network Exposure Function）</a></li>
+<li><a href="#圖示-1">圖示</a></li>
+<li><a href="#總結-1">總結</a></li>
+</ul>
+</li>
+<li><a href="#中文定义">中文定义</a></li>
+<li><a href="#有用的鏈接">有用的鏈接</a></li>
+</ul>
+<p><img alt="" src="images/2024-07-27-12-28-51.png" /></p>
+<ol>
+<li><strong>UE (User Equipment)</strong>：用戶設備，例如智慧手機或其他連接設備。</li>
+<li><strong>RAN (Radio Access Network)</strong>：無線接入網絡，連接用戶設備和核心網。</li>
+<li><strong>AMF (Access and Mobility Management Function)</strong>：接入和移動管理功能，負責用戶的註冊、連接管理和移動性管理。</li>
+<li><strong>SMF (Session Management Function)</strong>：會話管理功能，負責會話管理和IP地址分配。</li>
+<li>會話=session</li>
+<li><strong>UPF (User Plane Function)</strong>：用戶面功能，處理數據轉發，連接RAN和數據網絡。</li>
+<li><strong>DN (Data Networks)</strong>：數據網絡，例如互聯網或專用數據網絡。</li>
+<li><strong>AUSF (Authentication Server Function)</strong>：認證伺服器功能，負責用戶認證。</li>
+<li><strong>NSSF (Network Slice Selection Function)</strong>：網絡切片選擇功能，管理網絡切片。</li>
+<li><strong>NEF (Network Exposure Function)</strong>：網絡暴露功能，提供網絡功能的暴露接口。</li>
+<li><strong>NRF (Network Repository Function)</strong>：網絡存儲庫功能，存儲和管理網絡功能的註冊信息。</li>
+<li><strong>PCF (Policy Control Function)</strong>：策略控制功能，管理策略和計費控制。</li>
+<li><strong>UDM (Unified Data Management)</strong>：統一數據管理，管理用戶數據。</li>
+<li><strong>AF (Application Function)</strong>：應用功能，提供應用層的服務。</li>
+</ol>
+<p>圖中還展示了這些功能模組之間的接口，如N1, N2, N3, N4, N6, N8, N9等，這些接口用於模組之間的通信。</p>
+<h2 id="ran">RAN</h2>
+<p>RAN（Radio Access Network，無線接入網絡）是移動通信系統的一部分，負責連接用戶設備（UE）和核心網絡。RAN的主要功能是通過無線電信號在用戶設備和網絡之間傳輸數據和控制信令。以下是RAN的關鍵組成部分和功能：</p>
+<h3 id="ran_1">RAN的關鍵組成部分</h3>
+<ol>
+<li><strong>基站</strong>：</li>
+<li><strong>宏基站（Macrocell Base Station）</strong>：覆蓋較大區域，提供廣域無線服務。</li>
+<li><strong>微基站（Microcell Base Station）</strong>：覆蓋中等區域，用於增強特定區域的網絡容量和覆蓋。</li>
+<li><strong>小基站（Small Cell Base Station）</strong>：覆蓋較小區域，通常用於高密度城市區域或室內環境。</li>
+<li><strong>天線和射頻設備</strong>：負責發射和接收無線信號。</li>
+<li><strong>無線電控制器</strong>：</li>
+<li>在早期的2G和3G系統中，RAN包括一個無線電網絡控制器（RNC），它負責管理基站和核心網絡之間的通信。</li>
+<li>在4G和5G系統中，基站（如eNodeB和gNodeB）本身包含了大部分的控制功能。</li>
+</ol>
+<h3 id="ran_2">RAN的主要功能</h3>
+<ol>
+<li><strong>無線信號傳輸</strong>：在用戶設備和基站之間通過無線電波傳輸數據和信令。</li>
+<li><strong>連接管理</strong>：處理用戶設備的連接請求，維持活動連接，並管理連接的切換（handover）以確保移動過程中的連續性。</li>
+<li><strong>資源分配</strong>：管理無線電頻譜資源，分配頻道和帶寬以滿足用戶的數據需求。</li>
+<li><strong>數據處理</strong>：進行基本的數據處理和封裝，將數據轉發到核心網絡進一步處理。</li>
+<li><strong>信令處理</strong>：處理控制信令，以支持用戶設備的註冊、認證、位置更新等操作。</li>
+</ol>
+<h3 id="5gran">在5G中的RAN</h3>
+<p>在5G網絡中，RAN有了進一步的演進：
+- <strong>gNodeB（gNB）</strong>：5G基站，提供更高的數據速率和更低的延遲。
+- <strong>分佈式單元（DU）和集中式單元（CU）</strong>：5G RAN架構中，RAN功能被劃分為分佈式單元和集中式單元，以實現更靈活和高效的網絡部署。</p>
+<h3 id="ran_3">RAN的位置和接口</h3>
+<ul>
+<li><strong>位置</strong>：位於用戶設備和核心網絡之間。</li>
+<li><strong>接口</strong>：</li>
+<li><strong>Uu接口</strong>：用戶設備和基站之間的無線接口。</li>
+<li><strong>N2接口</strong>：基站（gNodeB）和AMF之間的接口，用於信令和控制信息的傳輸。</li>
+<li><strong>N3接口</strong>：基站（gNodeB）和UPF（User Plane Function）之間的接口，用於用戶數據的傳輸。</li>
+</ul>
+<h3 id="gnodeb-next-generation-nodeb-">gNodeB (next generation NodeB - 下一代基站)</h3>
+<ul>
+<li>是RAN的一部分</li>
+<li>它在RAN中起到橋樑作用，連接用戶設備和5G核心網絡。</li>
+</ul>
+<p>[用戶設備 (UE)]
+       |
+       | (無線通信)
+       |
+[gNodeB - 基站] &lt;-- 這是RAN的一部分
+       |
+       | (N2/N3接口)
+       |
+[5G核心網絡 (Core Network)]</p>
+<h2 id="amf">AMF</h2>
+<h3 id="_1">功能</h3>
+<ul>
+<li>接入管理：處理用戶設備的註冊、認證和連接建立。</li>
+<li>移動性管理：管理用戶設備在不同基站之間的切換，維護位置信息。</li>
+<li>安全管理：進行用戶設備的認證，管理加密密鑰。</li>
+<li>信令路由：與其他核心網絡模組（如SMF、AUSF等）通信，協同提供網絡服務。</li>
+</ul>
+<h3 id="amf_1">AMF的借口</h3>
+<ul>
+<li><strong>位置</strong>：位於5G核心網絡中，處理核心網絡層面的接入和移動管理。</li>
+<li><strong>接口</strong>：</li>
+<li><strong>N1接口</strong>：AMF與用戶設備之間的接口，用於傳輸控制信令。</li>
+<li><strong>N2接口</strong>：AMF與基站（gNodeB）之間的接口，用於協調接入和移動性管理。</li>
+<li><strong>N11接口</strong>：AMF與SMF之間的接口，用於協同會話管理。</li>
+<li><strong>N12接口</strong>：AMF與AUSF之間的接口，用於用戶認證。</li>
+<li><strong>N8接口</strong>：AMF與UDM之間的接口，用於獲取用戶數據。</li>
+</ul>
+<h2 id="amfran">AMF和RAN怎么沟通</h2>
+<p>UE ---- (Uu接口) ----&gt; gNodeB ---- (N2接口) ----&gt; AMF</p>
+<h2 id="next-generation-application-protocol">Next Generation Application Protocol (下一代應用協議)</h2>
+<p>NGAP（Next Generation Application Protocol，下一代應用協議）是5G網絡中用於接入和移動管理功能（AMF）與無線接入網絡（RAN）之間的信令協議。NGAP在N2接口上運行，負責管理用戶設備（UE）的接入、連接建立、移動性、切換以及其他控制信令的傳輸。以下是NGAP的主要功能和特性：</p>
+<h3 id="ngap">NGAP的主要功能</h3>
+<ol>
+<li><strong>註冊和註銷</strong>：</li>
+<li>管理用戶設備的網絡註冊和註銷過程，確保UE能夠成功接入和離開網絡。</li>
+<li><strong>連接建立和釋放</strong>：</li>
+<li>處理UE的連接請求，管理連接的建立、維護和釋放，確保數據會話的正常進行。</li>
+<li><strong>切換管理</strong>：</li>
+<li>管理UE在不同基站（gNodeB）之間的切換過程，確保UE在移動過程中連接的連續性和穩定性。</li>
+<li><strong>上下文管理</strong>：</li>
+<li>處理UE的上下文信息，包括UE狀態、會話信息和配置數據，以確保網絡服務的連續性。</li>
+<li><strong>資源分配和管理</strong>：</li>
+<li>管理無線資源的分配和優化，確保UE能夠獲得必要的網絡資源來支持其服務需求。</li>
+<li><strong>安全管理</strong>：</li>
+<li>協助AMF進行UE的認證和密鑰管理，確保通信的安全性和完整性。</li>
+</ol>
+<h3 id="ngap_1">NGAP的主要消息類型</h3>
+<p>NGAP定義了一組信令消息，用於在AMF和RAN（gNodeB）之間傳輸控制信息。主要的消息類型包括：</p>
+<ul>
+<li><strong>NGAP-InitialUEMessage</strong>：用於傳送UE的初始接入消息。</li>
+<li><strong>NGAP-InitialContextSetupRequest</strong>：AMF向gNodeB請求建立UE的上下文。</li>
+<li><strong>NGAP-InitialContextSetupResponse</strong>：gNodeB對AMF的上下文建立請求做出回應。</li>
+<li><strong>NGAP-UEContextReleaseRequest</strong>：AMF請求釋放UE的上下文。</li>
+<li><strong>NGAP-UEContextReleaseCommand</strong>：AMF命令gNodeB釋放UE的上下文。</li>
+<li><strong>NGAP-HandoverRequest</strong>：AMF請求進行UE的切換。</li>
+<li><strong>NGAP-HandoverCommand</strong>：AMF指示gNodeB進行切換。</li>
+</ul>
+<h3 id="ngap5g">NGAP在5G網絡中的作用</h3>
+<p>NGAP協議在5G網絡中扮演著關鍵角色，通過N2接口實現AMF與RAN之間的信令通信。這些信令消息和過程確保了用戶設備能夠高效地接入網絡、建立和維持連接，並在移動過程中進行無縫切換。</p>
+<h3 id="_2">圖示</h3>
+<p>以下是一個簡化的圖示，說明NGAP在5G網絡中的作用：</p>
+<pre><code>UE ---- (Uu接口) ----&gt; gNodeB ---- (N2接口: NGAP) ----&gt; AMF
+</code></pre>
+<ul>
+<li><strong>UE</strong>：用戶設備</li>
+<li><strong>gNodeB</strong>：5G基站</li>
+<li><strong>AMF</strong>：接入和移動管理功能</li>
+<li><strong>Uu接口</strong>：UE和gNodeB之間的無線接口</li>
+<li><strong>N2接口</strong>：gNodeB和AMF之間的信令接口，使用NGAP協議</li>
+</ul>
+<h3 id="_3">總結</h3>
+<p>NGAP是5G網絡中的關鍵信令協議，負責AMF和RAN之間的通信和控制信令的傳輸。通過NGAP協議，5G網絡能夠有效管理用戶設備的接入、連接和移動性，確保網絡的穩定性和高效運行。</p>
+<h2 id="5g5g-core-network">5G核心網絡（5G Core Network）</h2>
+<p>5G核心網絡（5G Core Network）由多個功能模組組成，這些模組協同工作，以支持5G網絡的各種服務和功能。以下是5G核心網絡的主要組成部分及其功能：</p>
+<h3 id="1-amfaccess-and-mobility-management-function">1. AMF（Access and Mobility Management Function）</h3>
+<ul>
+<li><strong>功能</strong>：管理用戶設備（UE）的接入和移動性，包括註冊、認證、連接建立和釋放，並支持UE在不同基站之間的切換。</li>
+<li><strong>接口</strong>：</li>
+<li>N1接口：與UE通信。</li>
+<li>N2接口：與gNodeB（基站）通信。</li>
+<li>N11接口：與SMF通信。</li>
+</ul>
+<h3 id="2-smfsession-management-function">2. SMF（Session Management Function）</h3>
+<ul>
+<li><strong>功能</strong>：管理數據會話，包括會話的建立、修改和釋放，以及IP地址分配和策略控制。</li>
+<li><strong>接口</strong>：</li>
+<li>N4接口：與UPF通信。</li>
+<li>N11接口：與AMF通信。</li>
+</ul>
+<h3 id="3-upfuser-plane-function">3. UPF（User Plane Function）</h3>
+<ul>
+<li><strong>功能</strong>：處理用戶數據的轉發，負責數據平面的數據包路由和轉發，連接RAN和數據網絡。</li>
+<li><strong>接口</strong>：</li>
+<li>N3接口：與gNodeB通信。</li>
+<li>N6接口：與數據網絡（如互聯網）通信。</li>
+<li>N4接口：與SMF通信。</li>
+</ul>
+<h3 id="4-udmunified-data-management">4. UDM（Unified Data Management）</h3>
+<ul>
+<li><strong>功能</strong>：提供用戶數據的管理，包括用戶的訂閱信息和配置數據。</li>
+<li><strong>接口</strong>：</li>
+<li>N8接口：與AMF通信。</li>
+<li>N10接口：與SMF通信。</li>
+</ul>
+<h3 id="5-ausfauthentication-server-function">5. AUSF（Authentication Server Function）</h3>
+<ul>
+<li><strong>功能</strong>：負責用戶認證，確保UE的合法性和安全性。</li>
+<li><strong>接口</strong>：</li>
+<li>N12接口：與AMF通信。</li>
+</ul>
+<h3 id="6-nrfnetwork-repository-function">6. NRF（Network Repository Function）</h3>
+<ul>
+<li><strong>功能</strong>：存儲和管理5G核心網絡中所有網絡功能模組的註冊信息，提供服務發現和功能查找。</li>
+<li><strong>接口</strong>：</li>
+<li>Nnrf接口：與所有網絡功能模組通信。</li>
+</ul>
+<h3 id="7-nssfnetwork-slice-selection-function">7. NSSF（Network Slice Selection Function）</h3>
+<ul>
+<li><strong>功能</strong>：負責網絡切片的選擇和管理，確保UE可以使用合適的網絡切片來滿足特定服務需求。</li>
+<li><strong>接口</strong>：</li>
+<li>Nnssf接口：與AMF和其他網絡功能模組通信。</li>
+</ul>
+<h3 id="8-pcfpolicy-control-function">8. PCF（Policy Control Function）</h3>
+<ul>
+<li><strong>功能</strong>：管理策略和計費控制，確保網絡資源的有效利用和服務質量。</li>
+<li><strong>接口</strong>：</li>
+<li>N7接口：與SMF通信。</li>
+<li>N5接口：與AF（Application Function）通信。</li>
+</ul>
+<h3 id="9-nefnetwork-exposure-function">9. NEF（Network Exposure Function）</h3>
+<ul>
+<li><strong>功能</strong>：提供網絡功能的暴露接口，允許外部應用程序訪問和使用網絡功能。</li>
+<li><strong>接口</strong>：</li>
+<li>Nnef接口：與外部應用程序和其他網絡功能模組通信。</li>
+</ul>
+<h3 id="_4">圖示</h3>
+<p>以下是一個簡化的圖示，展示了5G核心網絡的主要功能模組及其接口：</p>
+<pre><code>[UE] ----&gt; [gNodeB (RAN)]
+             |
+             v
+         [AMF] &lt;--&gt; [SMF] &lt;--&gt; [UPF]
+             |        |         |
+            \|/      \|/       \|/
+         [UDM]     [PCF]      [DN]
+             |
+            [AUSF]
+             |
+            [NRF]
+             |
+            [NSSF]
+             |
+            [NEF]
+</code></pre>
+<ul>
+<li><strong>UE</strong>：用戶設備</li>
+<li><strong>gNodeB</strong>：5G基站，RAN的一部分</li>
+<li><strong>AMF</strong>：接入和移動管理功能</li>
+<li><strong>SMF</strong>：會話管理功能</li>
+<li><strong>UPF</strong>：用戶面功能</li>
+<li><strong>UDM</strong>：統一數據管理</li>
+<li><strong>AUSF</strong>：認證伺服器功能</li>
+<li><strong>NRF</strong>：網絡存儲庫功能</li>
+<li><strong>NSSF</strong>：網絡切片選擇功能</li>
+<li><strong>PCF</strong>：策略控制功能</li>
+<li><strong>NEF</strong>：網絡暴露功能</li>
+<li><strong>DN</strong>：數據網絡（如互聯網）</li>
+</ul>
+<h3 id="_5">總結</h3>
+<p>5G核心網絡由多個功能模組組成，每個模組都有特定的職責和功能。這些模組通過標準化的接口進行通信，協同工作以支持5G網絡的各種服務和功能。這種模塊化和虛擬化的設計使得5G網絡具有高度的靈活性、可擴展性和效率。</p>
+<h2 id="_6">中文定义</h2>
+<ul>
+<li>接入 - access</li>
+</ul>
+<h2 id="_7">有用的鏈接</h2>
+<ul>
+<li><a href="https://www.redhat.com/en/topics/cloud-native-apps/vnf-and-cnf-whats-the-difference">VNF and CNF, what’s the difference?</a></li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../Understand%20and%20Run%20LINPACK/" class="btn btn-neutral float-left" title="Understand and Run LINPACK"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../Understanding%20Memory/" class="btn btn-neutral float-right" title="Understanding Memory">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="None" class="fa fa-code-fork" style="color: #fcfcfc"> https://github.com/grantcurell/grantcurell.github.io/tree/master</a>
+        </span>
+    
+    
+      <span><a href="../Understand%20and%20Run%20LINPACK/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../Understanding%20Memory/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

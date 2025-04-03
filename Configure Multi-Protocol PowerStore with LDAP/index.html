@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Grant Curell" /><link rel="canonical" href="https://grantcurell.github.io/Configure%20Multi-Protocol%20PowerStore%20with%20LDAP/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Configure Multi-Protocol PowerStore with LDAP - Grant Curell's Dell Projects</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Configure Multi-Protocol PowerStore with LDAP";
+        var mkdocs_page_input_path = "Configure Multi-Protocol PowerStore with LDAP\\README.md";
+        var mkdocs_page_url = "/Configure%20Multi-Protocol%20PowerStore%20with%20LDAP/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Grant Curell's Dell Projects
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Grant Curell's Dell Projects</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Adding%20Hashing%20to%20OpenSwitch/">Adding Hashing to OpenSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Adding%20Intel%20I219-LM%20%288086.0d4c%29%20Driver%20to%20ESXi/">Adding Intel I219-LM (8086.0d4c) Driver to ESXi</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Aircraft%20Detection/">Aircraft Detection</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Automatically%20Provision%20Dell%20Servers/">Automatically Provision Dell Servers</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Automating%20OME%20Hardware%20Reports/">Automating OME Hardware Reports</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../BIOS%20Options%20Explanation/">BIOS Options Explanation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Backup%20OS10%20Config%20with%20Ansible/">Backup OS10 Config with Ansible</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Build%20NVIDIA%20AI%20Enterprise/">Build NVIDIA AI Enterprise</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Build%20OpenShift/">Build OpenShift</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Build%20Preboot%20Environment%20with%20Ansible/">Build Preboot Environment with Ansible</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../CloudLink/">CloudLink</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Common%20Questions%20About%20LLMs%20Answered/">Common Questions About LLMs Answered</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20FN410%20as%20a%20Switch/">Configure FN410 as a Switch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20Gigamon%20Tap/">Configure Gigamon Tap</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Configure Multi-Protocol PowerStore with LDAP</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#how-this-works">How This Works</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#some-gotchas">Some Gotchas</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#configure-your-active-directory-user">Configure Your Active Directory User</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#configure-a-nas-server">Configure a NAS Server</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#configure-your-filesystem">Configure Your Filesystem</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#update-the-ldap-schema">Update the LDAP Schema</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#mount-the-share-and-nfs-export">Mount the Share and NFS Export</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#finishing-touches-gidnumbers-for-other-groups">Finishing Touches - gidNumbers for Other Groups</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#troubleshooting">Troubleshooting</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#how-to-connect-to-powerstore-over-ssh">How to Connect to PowerStore Over SSH</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#problems-with-secmap">Problems with secmap</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#how-to-check-a-user">How to Check a User</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#check-domain-health">Check Domain Health</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20PowerStore%20SMB%20User/">Configure PowerStore SMB User</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20kdump%20with%20SSH/">Configure kdump with SSH</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configuring%20VLT%20on%20OS10/">Configuring VLT on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Connect%20to%20APC%20PDU%20with%20Redfish/">Connect to APC PDU with Redfish</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Create%20Kickstart%20Server%20on%20Fedora/">Create Kickstart Server on Fedora</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Create%20OpenSwitch%20VM/">Create OpenSwitch VM</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Custom%20NVMe%20Debug%20Driver/">Custom NVMe Debug Driver</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../DHCP%20Relay%20on%20SONiC/">DHCP Relay on SONiC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Dell%20Ansible%20Testing/">Dell Ansible Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Deploy%20OpenShift%20Offline/">Deploy OpenShift Offline</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Elasticsearch%20Display%20Map%20Data/">Elasticsearch Display Map Data</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Elasticsearch%20Load%20Testing/">Elasticsearch Load Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Estimating%20Compute%20Requirements%20for%20Machine%20Learning/">Estimating Compute Requirements for Machine Learning</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Finding%20Rare%20Logs%20with%20DBSCAN/">Finding Rare Logs with DBSCAN</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Get%20NVMe%20Drives%20from%20iDRAC%20Redfish/">Get NVMe Drives from iDRAC Redfish</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../High%20Speed%20Packet%20Capture/">High Speed Packet Capture</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20Bitcoin-Blockchain%20Works%20-%20Notes/">How Bitcoin-Blockchain Works - Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20Does%20Power%20Work/">How Does Power Work</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20Does%20SIFT%20Work/">How Does SIFT Work</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20OS10%20Installer%20Works/">How OS10 Installer Works</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20drive%20detection%20order%20works/">How drive detection order works</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20to%20ONIE%20Install%20and%20ZTP%20Config%20Dell%20SONiC/">How to ONIE Install and ZTP Config Dell SONiC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20to%20Read%20lstopo%20and%20a%20PCIe%20Overview/">How to Read lstopo and a PCIe Overview</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20to%20Setup%20PGP%20with%20Mailvelope/">How to Setup PGP with Mailvelope</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../IO%20Identities%20with%20LifeCycle%20Controller/">IO Identities with LifeCycle Controller</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Importing%20Elasticsearch%20Data/">Importing Elasticsearch Data</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Install%20OpenCV%20with%20CUDA%20Support%20on%20Rocky%20Linux/">Install OpenCV with CUDA Support on Rocky Linux</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Installing%20DPDK%20with%20NapaTech%20Card/">Installing DPDK with NapaTech Card</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../LDAP%20with%20OpenManage/">LDAP with OpenManage</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../LLMs%20Explained/">LLMs Explained</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balance%20Testing%20with%20OpenVSwitch/">Load Balance Testing with OpenVSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balancing%20on%20Mellanox%20Switches/">Load Balancing on Mellanox Switches</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balancing%20with%20LAG%20on%205112F-ON/">Load Balancing with LAG on 5112F-ON</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Make%20USB%20Read%20Only/">Make USB Read Only</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Migrating%20Storage%20Volumes%20to%20PowerStore/">Migrating Storage Volumes to PowerStore</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Mulitple%20Span%20on%204112F-ON%20with%20OpenSwitch/">Mulitple Span on 4112F-ON with OpenSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Multiple%20Span%20on%204112F-ON%20with%20OS10/">Multiple Span on 4112F-ON with OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../NVMe%20Driver%20Reverse%20Engineering/">NVMe Driver Reverse Engineering</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../NVMe%20Performance%20Testing/">NVMe Performance Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20AMD%20Processor/">Notes on AMD Processor</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20Building%20a%20Datacenter%20from%20Scratch/">Notes on Building a Datacenter from Scratch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20HPC/">Notes on HPC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20HSM/">Notes on HSM</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20Improving%20Drive%20Performance/">Notes on Improving Drive Performance</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20NVMe%20Log%20Pages/">Notes on NVMe Log Pages</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20PCIe/">Notes on PCIe</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20mdraid%20Performance%20Testing/">Notes on mdraid Performance Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20nodejs/">Notes on nodejs</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Nvidia%20GPUDirect/">Nvidia GPUDirect</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Nvidia%20GRID%20Notes/">Nvidia GRID Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OME%20Bug/">OME Bug</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OME%20Integration%20for%20VMWare/">OME Integration for VMWare</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OS10%20Password%20Recovery%20Bug/">OS10 Password Recovery Bug</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Offline%20Updates%20with%20OpenManage%20Enterprise/">Offline Updates with OpenManage Enterprise</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OpenFlow%20on%204112F-ON/">OpenFlow on 4112F-ON</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OpenShift%20-%20Change%20MTU/">OpenShift - Change MTU</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Overprovisioning%20Explained/">Overprovisioning Explained</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PCIev3%20vs%20v4/">PCIev3 vs v4</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Playing%20with%20virsh/">Playing with virsh</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PowerScale%20-%20Configure%20with%20Kubernetes/">PowerScale - Configure with Kubernetes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PowerScale%20Failed%20Authentication/">PowerScale Failed Authentication</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PowerScale%20Setup/">PowerScale Setup</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Reset%20OS10%20Admin%20Password/">Reset OS10 Admin Password</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Reverse%20Engineering%20OpenSHMEM/">Reverse Engineering OpenSHMEM</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Run%20VPN%20on%20OS10/">Run VPN on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Running%20DNS%20from%20OS10/">Running DNS from OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../SONiC%20-%20Sample%20Datacenter%20Automation%20Architecture/">SONiC - Sample Datacenter Automation Architecture</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Set%20Up%20RSPAN%20on%20OS10/">Set Up RSPAN on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setting%20Up%20Breakout%20Cables/">Setting Up Breakout Cables</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setting%20Up%20SmartFabric%20Director/">Setting Up SmartFabric Director</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setting%20Up%20iDRAC%20Telemetry%20with%20Splunk/">Setting Up iDRAC Telemetry with Splunk</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setup%20IDPA/">Setup IDPA</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Site%20to%20Site%20VPN%20with%20PFSense%20and%20CentOS%208/">Site to Site VPN with PFSense and CentOS 8</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Swap%20Kernel%20on%20Rocky%209/">Swap Kernel on Rocky 9</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Switch%20Directly%20to%20Client%20Test/">Switch Directly to Client Test</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Testing%20Bare%20Metal%20Orchestrator/">Testing Bare Metal Orchestrator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Testing%20Intel%20x520%20on%20RHEL%206/">Testing Intel x520 on RHEL 6</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Troubleshooting%205G%20Connection/">Troubleshooting 5G Connection</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Understand%20and%20Run%20LINPACK/">Understand and Run LINPACK</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Understanding%20Cellular%20Technology/">Understanding Cellular Technology</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Understanding%20Memory/">Understanding Memory</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Understanding%20NCCL/">Understanding NCCL</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Understanding%20PERC%20Interrupts/">Understanding PERC Interrupts</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Update%20iDRAC%20Cipher%20Suite%20with%20Redfish/">Update iDRAC Cipher Suite with Redfish</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Use%20OS10%20as%20Aggregator/">Use OS10 as Aggregator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Using%20Dell%20Repository%20Manager%20to%20Create%20Bootable%20ISO/">Using Dell Repository Manager to Create Bootable ISO</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Using%20FIO/">Using FIO</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Using%20the%20iDRAC%20Service%20Module/">Using the iDRAC Service Module</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VEP%20Testing/">VEP Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Web%20Traffic%20Generator/">Web Traffic Generator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Writing%20udev%20Rules%20for%20Dell%20PERC%20H755/">Writing udev Rules for Dell PERC H755</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../esrally%20%28INCOMPLETE%29/">esrally (INCOMPLETE)</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../idrac%20with%20LDAP/">idrac with LDAP</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balance%20Testing%20on%204112F-ON/OS10/">Load Balance Testing on 4112F-ON w/OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balance%20Testing%20on%204112F-ON/OpenSwitch%20%28OPX%29/">Load Balancing with LAG OPX</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Automate%20ESXi%20Installation/">Automating ESXi Installation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Change%20User%20on%20VxRail%20Plugin/">Change User on VxRail Plugin</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/ESXi%20Architecture/">VMWare Architecture Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/How%20to%20Pull%20Usage%20Metrics/">How to Pull Usage Metrics</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Notes%20on%20VSAN/">Notes on vSAN</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Setup%20VXRail/">VxRail Setup</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Troubleshooting%20vSAN/">Troubleshooting vSAN</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/VMWare%20APIs/">VMWare APIs</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/VxRail%20Architecture%20and%20Troubleshooting/">VxRail Architecture and Troubleshooting</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/vRealize%20Setup%20%28Incomplete%29/">Setting Up vRealize</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Grant Curell's Dell Projects</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Configure Multi-Protocol PowerStore with LDAP</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="configure-multi-protocol-powerstore-with-ldap">Configure Multi-Protocol PowerStore with LDAP</h1>
+<ul>
+<li><a href="#configure-multi-protocol-powerstore-with-ldap">Configure Multi-Protocol PowerStore with LDAP</a></li>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#how-this-works">How This Works</a><ul>
+<li><a href="#some-gotchas">Some Gotchas</a></li>
+</ul>
+</li>
+<li><a href="#configure-your-active-directory-user">Configure Your Active Directory User</a></li>
+<li><a href="#configure-a-nas-server">Configure a NAS Server</a></li>
+<li><a href="#configure-your-filesystem">Configure Your Filesystem</a></li>
+<li><a href="#update-the-ldap-schema">Update the LDAP Schema</a></li>
+<li><a href="#mount-the-share-and-nfs-export">Mount the Share and NFS Export</a></li>
+<li><a href="#finishing-touches---gidnumbers-for-other-groups">Finishing Touches - gidNumbers for Other Groups</a></li>
+<li><a href="#troubleshooting">Troubleshooting</a><ul>
+<li><a href="#how-to-connect-to-powerstore-over-ssh">How to Connect to PowerStore Over SSH</a></li>
+<li><a href="#problems-with-secmap">Problems with secmap</a></li>
+<li><a href="#how-to-check-a-user">How to Check a User</a></li>
+<li><a href="#check-domain-health">Check Domain Health</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="overview">Overview</h2>
+<p>This article describes how to configure multi-protocol PowerStore for both SMB and NFS using LDAP.</p>
+<h2 id="how-this-works">How This Works</h2>
+<p>You can skip this if you want, but I found it helpful to get an academic understanding of what to expect is going to happen.</p>
+<ol>
+<li>PowerStore receives the UID/GID from the NFS client in the request.</li>
+<li>It checks its Secure Mapping Cache (secmap) to see if it already knows how to map that UID to a Windows SID.</li>
+<li>If there's no cached mapping, PowerStore attempts to resolve the UID to a username using the configured UDS (Unix Directory Service).<ul>
+<li>UDS is backed by LDAP (e.g., Active Directory with RFC2307 or IDMU schema).</li>
+<li>It looks for an entry where <code>uidNumber = &lt;UID&gt;</code> and <code>gidNumber = &lt;GID&gt;</code> in the directory.</li>
+</ul>
+</li>
+<li>If it finds a user in LDAP with that UID/GID:<ul>
+<li>It extracts the UNIX username</li>
+<li>Then matches the UNIX username to a Windows username (same name or using <code>ntxmap</code> if they're different)</li>
+<li>Finally, it maps that to a Windows SID</li>
+</ul>
+</li>
+<li>Access is granted or denied based on the resolved user’s permissions.</li>
+</ol>
+<h3 id="some-gotchas">Some Gotchas</h3>
+<ul>
+<li>You <strong>must</strong> have an LDAP server configured on the SMB filesystem. It is not enough to just configure UDS.</li>
+<li>PowerStore checks the field <code>uid</code> for your user and in this case that <strong>must</strong> match the field  samaccountname or the system won't work. I'll explain how to map this later.</li>
+</ul>
+<h2 id="configure-your-active-directory-user">Configure Your Active Directory User</h2>
+<p>Here I demo on Microsoft Active Directory but the same logic will apply for OpenLDAP. It will just be harder to setup because it is OpenLDAP and OpenLDAP's purpose is to cause pain and suffering.</p>
+<p>NFS uses UID / GID to authenticate. The problem is, if you are using Windows users, they natively have neither a UID or a GID. They have a SID. This means if you try to authenticate with a Windows user with NFS, it doesn't actually have a UID or GID for you to use. You can solve this problem in one of three ways:</p>
+<ol>
+<li>You can enable automatic mapping and PowerStore will just make up a UID/GID for your Windows users</li>
+<li>You can enable a default account for unmapped users</li>
+<li>You can do either 1, 2, or neither <strong>and</strong> set a UID or GID for your users. If you don't enable either it will automatically default to enabling a default account. This is what I did. I prefer this because if you do automatic mapping and then change a user's UID/GID later you lose access to all the things they had aside from root because those things will have been created with a random UID/GID.</li>
+</ol>
+<p>Whether you use 1 or 2 is controlled under the <strong>Naming Services</strong> tab for your NAS server:</p>
+<p><img alt="" src="images/2025-03-25-13-39-30.png" /></p>
+<p>I set up a user called <code>gcurell-adm</code> and then assigned UID/GID 10001 in active directory:</p>
+<p><img alt="" src="images/2025-03-21-15-52-27.png" /></p>
+<p><img alt="" src="images/2025-03-21-15-52-52.png" /></p>
+<p>After that, I had a Rocky test box from which I wanted to test all the creds.</p>
+<pre><code class="language-bash">sudo dnf install -y openldap-clients
+</code></pre>
+<p>We can confirm from our Rocky box that the UID/GID are correct:</p>
+<pre><code class="language-bash">[root@rocky ~]# ldapsearch -x -H ldap://domaincontroller.grantlab.local \
+  -D &quot;gcurell_adm@grantlab.local&quot; -W \
+  -b &quot;dc=grantlab,dc=local&quot; \
+  &quot;(sAMAccountName=gcurell_adm)&quot; \
+  uidNumber gidNumber unixHomeDirectory loginShell
+Enter LDAP Password:
+# extended LDIF
+#
+# LDAPv3
+# base &lt;dc=grantlab,dc=local&gt; with scope subtree
+# filter: (sAMAccountName=gcurell_adm)
+# requesting: uidNumber gidNumber unixHomeDirectory loginShell
+#
+
+# Grant Curell -- Admin, Grant_Sales_Team, grantlab.local
+dn: CN=Grant Curell -- Admin,OU=Grant_Sales_Team,DC=grantlab,DC=local
+uidNumber: 10001
+gidNumber: 10001
+unixHomeDirectory: /home/grant_adm
+loginShell: /bin/bash
+
+# search reference
+ref: ldap://DomainDnsZones.grantlab.local/DC=DomainDnsZones,DC=grantlab,DC=local
+
+# search reference
+ref: ldap://ForestDnsZones.grantlab.local/DC=ForestDnsZones,DC=grantlab,DC=local
+
+# search reference
+ref: ldap://grantlab.local/CN=Configuration,DC=grantlab,DC=local
+
+# search result
+search: 2
+result: 0 Success
+
+# numResponses: 5
+# numEntries: 1
+# numReferences: 3
+</code></pre>
+<p>There is one key piece of information you need from this - the <strong>dn</strong>. You will need that later. Notice that my UID and GID number are accurately reflected. If those don't show up you need to fix that first.</p>
+<h2 id="configure-a-nas-server">Configure a NAS Server</h2>
+<p>The first thing you will have to do is configure the NAS server itself. This part is fairly straightforward so below I simply show the screenshots without much explanation.</p>
+<p><img alt="" src="images/2025-03-25-10-35-32.png" /></p>
+<p><img alt="" src="images/2025-03-25-10-35-57.png" /></p>
+<p><img alt="" src="images/2025-03-25-10-39-21.png" /></p>
+<p><img alt="" src="images/2025-03-25-10-40-06.png" /></p>
+<p>For this next step you will need the <strong>dn</strong> you got at the end of <a href="#configure-your-active-directory-user">Configure Your Active Directory User</a>. In the example I have above it is <code>CN=Grant Curell -- Admin,OU=Grant_Sales_Team,DC=grantlab,DC=local</code>. Unix Directory Services (UDS) is the thing that will resolve a UID/GID to a Windows username and subsequently a SID.</p>
+<p><img alt="" src="images/2025-03-25-13-44-05.png" /></p>
+<p><img alt="" src="images/2025-03-25-13-46-08.png" /></p>
+<p><img alt="" src="images/2025-03-25-13-46-49.png" /></p>
+<p>The rest I just clicked next to finish. I didn't add a protection policy.</p>
+<h2 id="configure-your-filesystem">Configure Your Filesystem</h2>
+<p>I assume you are already familiar with how to do this. There isn't anything unique for multiprotocol in the initial setup. See <a href="https://www.dell.com/support/manuals/en-us/powerstore-1000/pwrstr-cfg-smb/create-file-systems-and-smb-shares?guid=guid-de8c3203-3da8-4205-8680-3868acb9f03a&amp;lang=en-us">the manual</a> for details.</p>
+<p>After your filesystem is created, there is one special thing you have to do. Under the properties for your filesystem is a setting called access policy:</p>
+<p><img alt="" src="images/2025-03-25-14-03-21.png" /></p>
+<p>When set to native security, NFS and SMB permissions are completely separated. In my case, I wanted the mapper to rely on the Windows SID so I changed this to Windows Security.</p>
+<h2 id="update-the-ldap-schema">Update the LDAP Schema</h2>
+<p>The final step stems from some legacy behavior. Back in the day when unix services were separate in Microsoft, installing them would automatically populate the uid field for a user with the SamAccountName. This no longer happens but the RFC still expects the uid field to be populated. Subsequently, we need to add a mapping in our LDAP configuration to do this automatically. Go to your NAS server, click the naming service tile, and then click UDS.</p>
+<p><img alt="" src="images/2025-03-25-14-17-12.png" /></p>
+<p>Under the UDS tab, click retrieve current schema and download your LDAP schema. This is what mine looks like by default:</p>
+<pre><code class="language-bash"># -----------------------------------------------------------------------------
+# This template was automatically generated by the EMC Nas server
+# - Adjustments could be required to fit your specific LDAP configuration.
+
+# - The following setup fits the MS IdMU schema
+#   used by Windows Server 2003 R2 or newer (like Windows Server 2008).
+
+# Containers
+
+nss_base_passwd    cn=Users,DC=grantlab,DC=local?one
+nss_base_group     cn=Users,DC=grantlab,DC=local?one
+nss_base_hosts     cn=Computers,DC=grantlab,DC=local?one
+nss_base_netgroup  cn=netgroup,cn=grantlab,cn=DefaultMigrationContainer30,DC=grantlab,DC=local?one
+# Objects
+nss_map_objectclass  posixAccount    User
+nss_map_objectclass  posixGroup      Group
+nss_map_objectclass  ipHost          Computer
+# Attributes
+nss_map_attribute    userPassword    unixUserPassword
+nss_map_attribute    homeDirectory   unixHomeDirectory
+
+# The group members are defined in Active Directory by the &quot;member&quot; attribute,
+# whose value is a DN, while IDMU expects a &quot;memberUid&quot; attribute whose value
+# is an UID (login name).
+# If &quot;memberUid&quot; attributes aren't present in the group objects, then you can
+# simply remap &quot;memberUid&quot; to &quot;member&quot;, and the Data Mover will issue additional
+# LDAP queries to get the members UID from the members DN.
+# This remapping may impact performances due to the additional LDAP queries it
+# involves.
+
+nss_map_attribute memberUid member
+
+# - The parameter fast_search allows fast search encoding to boost performances with big LDAP repositories.
+#   The parameter is set to 0 by default on this configuration,#   Some issue could occurs on Microsoft Active Directory server.
+#   If you encounter some issue on LDAP lookup, set the value of the parameter to 0
+fast_search 0
+</code></pre>
+<p>You need to add the line <code>nss_map_attribute uid SamAccountName</code> and update <code>nss_base_passwd</code> and <code>nss_base_group</code> to end with sub instead of one. So the end result is like this:</p>
+<pre><code class="language-bash"># -----------------------------------------------------------------------------
+# This template was automatically generated by the EMC Nas server
+# - Adjustments could be required to fit your specific LDAP configuration.
+
+# - The following setup fits the MS IdMU schema
+#   used by Windows Server 2003 R2 or newer (like Windows Server 2008).
+
+# Containers
+
+nss_base_passwd    DC=grantlab,DC=local?sub
+nss_base_group     DC=grantlab,DC=local?sub
+nss_base_hosts     cn=Computers,DC=grantlab,DC=local?one
+nss_base_netgroup  cn=netgroup,cn=grantlab,cn=DefaultMigrationContainer30,DC=grantlab,DC=local?one
+
+# Objects
+nss_map_objectclass  posixAccount    User
+nss_map_objectclass  posixGroup      Group
+nss_map_objectclass  ipHost          Computer
+
+# Attributes
+nss_map_attribute    uid             SamAccountName
+nss_map_attribute    userPassword    unixUserPassword
+nss_map_attribute    homeDirectory   unixHomeDirectory
+
+# The group members are defined in Active Directory by the &quot;member&quot; attribute,
+# whose value is a DN, while IDMU expects a &quot;memberUid&quot; attribute whose value
+# is an UID (login name).
+# If &quot;memberUid&quot; attributes aren't present in the group objects, then you can
+# simply remap &quot;memberUid&quot; to &quot;member&quot;, and the Data Mover will issue additional
+# LDAP queries to get the members UID from the members DN.
+# This remapping may impact performances due to the additional LDAP queries it
+# involves.
+
+nss_map_attribute memberUid member
+
+# - The parameter fast_search allows fast search encoding to boost performances with big LDAP repositories.
+#   The parameter is set to 0 by default on this configuration.
+#   If you encounter some issue on LDAP lookup, set the value of the parameter to 0
+fast_search 0
+</code></pre>
+<p><strong>GOTCHA</strong>: PowerStore defaults to assuming your users exist under <code>cn=Users</code>. If your users <strong>ARE NOT</strong> under Users, you will need to change this. Notice I also did that for my <code>nss_base_passwd</code> and <code>nss_base_group</code>. The <code>sub</code> keyword makes it so that LDAP will search the entire subdirectory instead of just one level down.</p>
+<h2 id="mount-the-share-and-nfs-export">Mount the Share and NFS Export</h2>
+<p>Next I hopped back on my Rocky box to test all this out. First we need to create a user that matches what we did in active directory:</p>
+<pre><code class="language-bash">sudo groupadd -g 10001 gcurell_adm
+sudo useradd -u 10001 -g 10001 -d /home/gcurell_adm -s /bin/bash gcurell_adm
+sudo mkdir -p /mnt/nfs_test
+mount -t nfs4 192.168.0.63:/grantexport /mnt/nfs_test
+sudo -u gcurell_adm touch /mnt/nfs_test/test.txt
+cd nfs_test/
+ls -al
+total 16
+drwxr-xr-x. 5 root        root        8192 Mar 25 14:24 .
+drwxr-xr-x. 5 root        root          52 Mar 24 09:33 ..
+dr-xr-xr-x. 2 root        bin          152 Mar 25 13:58 .etc
+drwxr-xr-x. 2 root        root        8192 Mar 25 13:58 lost+found
+-rw-r--r--. 1 gcurell_adm gcurell_adm    0 Mar 25 14:24 test.txt
+</code></pre>
+<p>Now you can see that I'm able to write to the share with my active directory user. Moreover, we see that the active directory user correctly owns the files. You can then open that share on SMB and edit or create new files:</p>
+<p><img alt="" src="images/2025-03-25-14-31-58.png" /></p>
+<h2 id="finishing-touches-gidnumbers-for-other-groups">Finishing Touches - gidNumbers for Other Groups</h2>
+<p>If you drop to the command line and run <code>svc_nas_cifssupport --server 'Grant Demo NAS Server' --args="-checkup -full</code> you may see some of the below warnings. This occurs when your user is part of groups that do not have <code>gidNumber</code> set.</p>
+<pre><code class="language-bash">svc_nas_cifssupport --server 'Grant Demo NAS Server' --args=&quot;-checkup -full&quot;
+Grant Demo NAS Server :
+
+------------------------------------Checks--------------------------------------
+
+
+Component SMB :
+
+ACL       : Checking the number of ACLs per file system. ........................ Pass
+Connection: Checking the load of SMB TCP connections. ........................... Pass
+Credential: Checking the validity of credentials. ............................... FAILURE
+DC        : Checking the connectivity and configuration of Domain Controllers. .. Pass
+DFS       : DFS check in svc_nas service script is deprecated. .................. Pass
+DNS       : Checking the DNS configuration and connectivity to DNS servers. ..... FAILURE
+EventLog  : Checking the configuration of Windows Event Logs. ................... FAILURE
+GPO       : Checking the GPO configuration. ..................................... Pass
+HomeDir   : Checking the configuration of home directory shares. ................ Pass
+I18N      : Checking the I18N mode and the Unicode/UTF8 translation tables. ..... Pass
+Kerberos  : Checking password updates and AES for Kerberos. ..................... Pass
+LDAP      : Checking the LDAP configuration. .................................... Pass
+LocalGrp  : Checking the database configuration of local groups. ................ Pass
+NIS       : Checking the connectivity to the NIS servers. ....................... Pass
+Ntxmap    : Checking the ntxmap configuration file. ............................. Pass
+Secmap    : Checking the SECMAP database. ....................................... Pass
+Security  : Checking the SMB security settings. ................................. Pass
+Server    : Checking the SMB file servers configuration. ........................ Pass
+Share     : Checking the network shares database. ............................... Pass
+SmbList   : Checking the range availability of SMB IDs. ......................... FAILURE
+Threads   : Checking for SMB blocked threads. ................................... Pass
+UnsupOS   : Checking for unsupported client network operating systems. .......... Pass
+UnsupProto: Checking for unsupported client network protocols. .................. Pass
+VC        : Checking the configuration of Virus Checker servers. ................ Pass
+VDM       : Checking the NAS server configuration. .............................. Pass
+WINS      : Checking the connectivity to WINS servers. .......................... Pass
+--------------------------------------------------------------------------------
+
+----------------------------SMB : Credential Warnings---------------------------
+
+Warning 17456169011: Grant Demo NAS Server :  The user 'GRANTLAB\\\\\\\\gcurell_adm' has some unmapped SIDs, indicating that the NAS server has not found a Unix user/group associated with the SID for this user credential. This might cause permission issues in an environment that is not purely SMB.
+--&gt; Check the mapping of the users/groups. You can set up the mapping by using a local passwd/group file, NIS, or Active Directory, depending on the mapping model you choose. Use the 'svc_nas_cifssupport -cred' command to check the credential.
+
+-------------------------------SMB : DNS Warnings-------------------------------
+
+Warning 17456037931: Grant Demo NAS Server :  The DNS domain 'GRANTLAB.local' is defined with only one DNS server. High availability is compromised.
+--&gt; Add another DNS server using the REST API dnsService object. The recommendation is to configure DNS with DNS servers accessible from different subnets.
+
+-----------------------------SMB : EventLog Warnings----------------------------
+
+Warning 17456169068: Grant Demo NAS Server :  A new value for the maximum size of the 'application' event log of the NAS server has been defined. This value is not yet effective.
+--&gt; On the Windows host, start the Microsoft event viewer. Connect to a SMB server of this NAS server and clear the corresponding event logs.
+
+-----------------------------SMB : SmbList Warnings-----------------------------
+
+Warning 17456169011: Grant Demo NAS Server :  The user 'GRANTLAB\\\\\\\\gcurell_adm' has some unmapped SIDs, indicating that the NAS server has not found a Unix user/group associated with the SID for this user credential. This might cause permission issues in an environment that is not purely SMB.
+--&gt; Check the mapping of the users/groups. You can set up the mapping by using a local passwd/group file, NIS, or Active Directory, depending on the mapping model you choose. Use the 'svc_nas_cifssupport -cred' command to check the credential.
+</code></pre>
+<p>In my case I was part of the following groups:</p>
+<p><img alt="" src="images/2025-03-26-14-55-34.png" /></p>
+<p>Since those groups don't have gidNumbers you see this warning. If you want to clear those warnings, each group will need to have a <code>gidNumber</code> defined.</p>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="how-to-connect-to-powerstore-over-ssh">How to Connect to PowerStore Over SSH</h3>
+<p>See <a href="https://www.dell.com/support/kbdoc/en-us/000131579/powerstore-how-to-connect-to-service-console-over-ssh">these instructions</a> for how to connect to PowerStore over SSH.</p>
+<h3 id="problems-with-secmap">Problems with secmap</h3>
+<p>The biggest problem that can occur is if somewhere along the way your mapping fails and dynamic mapping kicks in. Here's what that looks like:</p>
+<p>You go to your Rocky box and do something like:</p>
+<pre><code class="language-bash">sudo groupadd -g 10002 somerandomuser
+sudo useradd -u 10002 -g 10002 -d /home/somerandomuser -s /bin/bash somerandomuser
+[root@rocky nfs_test]# sudo -u somerandomuser touch /mnt/nfs_test/random.txt
+touch: cannot touch '/mnt/nfs_test/random.txt': Permission denied
+</code></pre>
+<p>So there are two problems that are going to occur with this:</p>
+<ol>
+<li>This user doesn't exist in active directory so there is no mapping</li>
+<li>Even if we did create the user, if we don't give it a UID/GID it is going to get a dynamic mapping.</li>
+</ol>
+<p>Here is what our current secmap looks ilke:</p>
+<pre><code class="language-bash">[SVC:service@AAAAAA-A user]$ svc_nas_cifssupport --server &quot;Grant Demo NAS Server&quot; --args=&quot;-secmap -list&quot;
+Grant Demo NAS Server :done
+
+SECMAP MAPPING TABLE
+
+Type      UID         Origin      Date of creation           Name                            SID
+User      10001       ldap        Tue Mar 25 18:24:05 2025   GRANTLAB\\gcurell_adm              S-1-5-15-c68e4ef2-864be32f-a76ce7d9-87a
+</code></pre>
+<p>So first I create that user in active directory:</p>
+<p><img alt="" src="images/2025-03-25-14-46-51.png" /></p>
+<p>I went ahead and logged in to my SMB share.</p>
+<pre><code class="language-bash">[SVC:service@AAAAAA-A user]$ svc_nas_cifssupport --server &quot;Grant Demo NAS Server&quot; --args=&quot;-secmap -list&quot;
+Grant Demo NAS Server :done
+
+SECMAP MAPPING TABLE
+
+Type      UID         Origin      Date of creation           Name                            SID
+User      10001       ldap        Tue Mar 25 18:24:05 2025   GRANTLAB\\gcurell_adm              S-1-5-15-c68e4ef2-864be32f-a76ce7d9-87a
+User      2147483650  secmap      Wed Mar 26 20:42:56 2025   GRANTLAB\\somerandomuser           S-1-5-15-c68e4ef2-864be32f-a76ce7d9-87c
+User      2147483649  secmap      Tue Mar 25 19:09:32 2025   GRANTLAB\\Administrator            S-1-5-15-c68e4ef2-864be32f-a76ce7d9-1f4
+</code></pre>
+<p>You can see the origin is secmap and it has a randomly generated UID. This is reflected when you login and create files as that user:</p>
+<pre><code class="language-bash">[root@rocky nfs_test]# ls -al
+total 56
+drwxr-xr-x. 5 root        root        8192 Mar 26 17:00 .
+drwxr-xr-x. 5 root        root          52 Mar 24 09:33 ..
+dr-xr-xr-x. 2 root        bin          152 Mar 25 13:58 .etc
+-rw-r--r--. 1 gcurell_adm gcurell_adm    6 Mar 26 10:55 file_created_on_smb.txt
+drwxr-xr-x. 2 root        root        8192 Mar 25 13:58 lost+found
+-rw-r--r--. 1  2147483650  2147483650    5 Mar 26 17:02 somefile.txt
+-rw-r--r--. 1 gcurell_adm gcurell_adm   18 Mar 26 16:59 some_smb_file.txt
+-rw-r--r--. 1 gcurell_adm gcurell_adm    9 Mar 26 16:59 test2.txt
+-rw-r--r--. 1 gcurell_adm gcurell_adm   43 Mar 26 16:57 test.txt
+</code></pre>
+<p>You can see <code>somefile.txt</code> has a random <code>UID</code>. You need to go in, make sure <code>uidNumber</code> and <code>gidNumber</code> are set in your user's AD attributes, and then clear any old secmap mappings as shown below:</p>
+<pre><code class="language-bash">[SVC:service@AAAAAA-A user]$ svc_nas_cifssupport --server &quot;Grant Demo NAS Server&quot; --args=&quot;-secmap -delete -name somerandomuser -domain GRANTLAB&quot;
+Grant Demo NAS Server :done
+</code></pre>
+<p>You can see secmap updates:</p>
+<pre><code class="language-bash">[SVC:service@AAAAAA-A user]$ svc_nas_cifssupport --server &quot;Grant Demo NAS Server&quot; --args=&quot;-secmap -list&quot;
+Grant Demo NAS Server :done
+
+SECMAP MAPPING TABLE
+
+Type      UID         Origin      Date of creation           Name                            SID
+User      10001       ldap        Wed Mar 26 20:57:50 2025   GRANTLAB\\gcurell_adm              S-1-5-15-c68e4ef2-864be32f-a76ce7d9-87a
+User      10002       ldap        Wed Mar 26 21:21:46 2025   GRANTLAB\\somerandomuser           S-1-5-15-c68e4ef2-864be32f-a76ce7d9-87c
+User      2147483649  secmap      Tue Mar 25 19:09:32 2025   GRANTLAB\\Administrator            S-1-5-15-c68e4ef2-864be32f-a76ce7d9-1f4
+</code></pre>
+<p>You can once again test and you see that a file created with <code>somerandomuser</code> correctly maps to that user:</p>
+<pre><code class="language-bash">[root@rocky nfs_test]# sudo -u somerandomuser touch /mnt/nfs_test/somerandomuser_file
+[root@rocky nfs_test]# ls -al
+total 56
+drwxr-xr-x. 5 root           root           8192 Mar 26 17:54 .
+drwxr-xr-x. 5 root           root             52 Mar 24 09:33 ..
+dr-xr-xr-x. 2 root           bin             152 Mar 25 13:58 .etc
+-rw-r--r--. 1 gcurell_adm    gcurell_adm       6 Mar 26 10:55 file_created_on_smb.txt
+drwxr-xr-x. 2 root           root           8192 Mar 25 13:58 lost+found
+-rw-r--r--. 1     2147483650     2147483650    5 Mar 26 17:02 somefile.txt
+-rw-r--r--. 1 somerandomuser somerandomuser    0 Mar 26 17:54 somerandomuser_file
+-rw-r--r--. 1 gcurell_adm    gcurell_adm      18 Mar 26 16:59 some_smb_file.txt
+-rw-r--r--. 1 gcurell_adm    gcurell_adm       9 Mar 26 16:59 test2.txt
+-rw-r--r--. 1 gcurell_adm    gcurell_adm      43 Mar 26 16:57 test.txt
+</code></pre>
+<h3 id="how-to-check-a-user">How to Check a User</h3>
+<p>If you need to check that a user is valid and that you can see the <code>uid</code> and <code>gid</code>, you can run the below.</p>
+<pre><code class="language-bash">[SVC:service@AAAAAA-A user]$ svc_nas_tools --server &quot;Grant Demo NAS Server&quot; --args=&quot;-ldap -lookup -user gcurell_adm&quot;
+
+Grant Demo NAS Server : commands processed: 1
+1742930087: LDAP:10: LdapCache::getUserByName [DC=grantlab,DC=local]: User gcurell_adm, password x, uid 10001, gid 10001 (expired)
+1742930087: LDAP:10: LdapDomainClient::checkDomain: this=0x7f1f04f6c598: LdapDomain  0x7f1e497ff018/0x204
+1742930087: LDAP:10: LdapDomain::initThreadsServicesObjects()
+1742930087: LDAP:10: LdapCache::restampEntry [DC=grantlab,DC=local]: Name &quot;gcurell_adm&quot;: Entry restamped
+1742930087: LDAP: 6: user: gcurell_adm, uid: 10001, gid: 10001, homeDir: /home/grant_adm
+</code></pre>
+<h3 id="check-domain-health">Check Domain Health</h3>
+<p>If you need to check the domain connection health, run the below.</p>
+<pre><code class="language-bash">[SVC:root@AAAAAA-A user]$ svc_nas_cifssupport --server NAS01 --args=&quot;-checkup -full&quot;
+
+NAS01 :
+
+------------------------------------Checks--------------------------------------
+
+
+Component SMB :
+
+ACL       : Checking the number of ACLs per file system. ........................ Pass
+Connection: Checking the load of SMB TCP connections. ........................... Pass
+Credential: Checking the validity of credentials. ............................... Pass
+DC        : Checking the connectivity and configuration of Domain Controllers. .. Pass
+DFS       : DFS check in svc_nas service script is deprecated. .................. Pass
+DNS       : Checking the DNS configuration and connectivity to DNS servers. ..... Pass
+EventLog  : Checking the configuration of Windows Event Logs. ................... FAILURE
+GPO       : Checking the GPO configuration. ..................................... Pass
+HomeDir   : Checking the configuration of home directory shares. ................ Pass
+I18N      : Checking the I18N mode and the Unicode/UTF8 translation tables. ..... Pass
+Kerberos  : Checking password updates and AES for Kerberos. ..................... Pass
+LDAP      : Checking the LDAP configuration. .................................... Pass
+LocalGrp  : Checking the database configuration of local groups. ................ Pass
+NIS       : Checking the connectivity to the NIS servers. ....................... Pass
+Ntxmap    : Checking the ntxmap configuration file. ............................. Pass
+Secmap    : Checking the SECMAP database. ....................................... Pass
+Security  : Checking the SMB security settings. ................................. Pass
+Server    : Checking the SMB file servers configuration. ........................ Pass
+Share     : Checking the network shares database. ............................... Pass
+SmbList   : Checking the range availability of SMB IDs. ......................... Pass
+Threads   : Checking for SMB blocked threads. ................................... Pass
+UnsupOS   : Checking for unsupported client network operating systems. .......... Pass
+UnsupProto: Checking for unsupported client network protocols. .................. Pass
+VC        : Checking the configuration of Virus Checker servers. ................ Pass
+VDM       : Checking the NAS server configuration. .............................. Pass
+WINS      : Checking the connectivity to WINS servers. .......................... FAILURE
+--------------------------------------------------------------------------------
+
+-----------------------------SMB : EventLog Warnings----------------------------
+
+Warning 17456169068: NAS01 :  A new value for the maximum size of the 'application' event log of the NAS server has been defined. This value is not yet effective.
+--&gt; On the Windows host, start the Microsoft event viewer. Connect to a SMB server of this NAS server and clear the corresponding event logs.
+
+-------------------------------SMB : WINS Warnings------------------------------
+
+Warning 17451974758: NAS01 :  The NetBIOS server 'AJPS01' does not have any WINS server in its configuration. The SMB clients might not be able to access the SMB server.
+--&gt; WINS not supported by NAS.
+
+--------------------------------------------------------------------------------
+
+Total :   2 warnings
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../Configure%20Gigamon%20Tap/" class="btn btn-neutral float-left" title="Configure Gigamon Tap"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../Configure%20PowerStore%20SMB%20User/" class="btn btn-neutral float-right" title="Configure PowerStore SMB User">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="None" class="fa fa-code-fork" style="color: #fcfcfc"> https://github.com/grantcurell/grantcurell.github.io/tree/master</a>
+        </span>
+    
+    
+      <span><a href="../Configure%20Gigamon%20Tap/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../Configure%20PowerStore%20SMB%20User/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

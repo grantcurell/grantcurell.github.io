@@ -1,0 +1,1706 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Grant Curell" /><link rel="canonical" href="https://grantcurell.github.io/Understand%20and%20Run%20LINPACK/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Understand and Run LINPACK - Grant Curell's Dell Projects</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Understand and Run LINPACK";
+        var mkdocs_page_input_path = "Understand and Run LINPACK\\README.md";
+        var mkdocs_page_url = "/Understand%20and%20Run%20LINPACK/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Grant Curell's Dell Projects
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Grant Curell's Dell Projects</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Adding%20Hashing%20to%20OpenSwitch/">Adding Hashing to OpenSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Adding%20Intel%20I219-LM%20%288086.0d4c%29%20Driver%20to%20ESXi/">Adding Intel I219-LM (8086.0d4c) Driver to ESXi</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Aircraft%20Detection/">Aircraft Detection</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Automatically%20Provision%20Dell%20Servers/">Automatically Provision Dell Servers</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Automating%20OME%20Hardware%20Reports/">Automating OME Hardware Reports</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../BIOS%20Options%20Explanation/">BIOS Options Explanation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Backup%20OS10%20Config%20with%20Ansible/">Backup OS10 Config with Ansible</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Build%20NVIDIA%20AI%20Enterprise/">Build NVIDIA AI Enterprise</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Build%20OpenShift/">Build OpenShift</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Build%20Preboot%20Environment%20with%20Ansible/">Build Preboot Environment with Ansible</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../CloudLink/">CloudLink</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Common%20Questions%20About%20LLMs%20Answered/">Common Questions About LLMs Answered</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20FN410%20as%20a%20Switch/">Configure FN410 as a Switch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20Gigamon%20Tap/">Configure Gigamon Tap</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20Multi-Protocol%20PowerStore%20with%20LDAP/">Configure Multi-Protocol PowerStore with LDAP</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20PowerStore%20SMB%20User/">Configure PowerStore SMB User</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20kdump%20with%20SSH/">Configure kdump with SSH</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configuring%20VLT%20on%20OS10/">Configuring VLT on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Connect%20to%20APC%20PDU%20with%20Redfish/">Connect to APC PDU with Redfish</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Create%20Kickstart%20Server%20on%20Fedora/">Create Kickstart Server on Fedora</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Create%20OpenSwitch%20VM/">Create OpenSwitch VM</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Custom%20NVMe%20Debug%20Driver/">Custom NVMe Debug Driver</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../DHCP%20Relay%20on%20SONiC/">DHCP Relay on SONiC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Dell%20Ansible%20Testing/">Dell Ansible Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Deploy%20OpenShift%20Offline/">Deploy OpenShift Offline</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Elasticsearch%20Display%20Map%20Data/">Elasticsearch Display Map Data</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Elasticsearch%20Load%20Testing/">Elasticsearch Load Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Estimating%20Compute%20Requirements%20for%20Machine%20Learning/">Estimating Compute Requirements for Machine Learning</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Finding%20Rare%20Logs%20with%20DBSCAN/">Finding Rare Logs with DBSCAN</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Get%20NVMe%20Drives%20from%20iDRAC%20Redfish/">Get NVMe Drives from iDRAC Redfish</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../High%20Speed%20Packet%20Capture/">High Speed Packet Capture</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20Bitcoin-Blockchain%20Works%20-%20Notes/">How Bitcoin-Blockchain Works - Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20Does%20Power%20Work/">How Does Power Work</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20Does%20SIFT%20Work/">How Does SIFT Work</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20OS10%20Installer%20Works/">How OS10 Installer Works</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20drive%20detection%20order%20works/">How drive detection order works</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20to%20ONIE%20Install%20and%20ZTP%20Config%20Dell%20SONiC/">How to ONIE Install and ZTP Config Dell SONiC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20to%20Read%20lstopo%20and%20a%20PCIe%20Overview/">How to Read lstopo and a PCIe Overview</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20to%20Setup%20PGP%20with%20Mailvelope/">How to Setup PGP with Mailvelope</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../IO%20Identities%20with%20LifeCycle%20Controller/">IO Identities with LifeCycle Controller</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Importing%20Elasticsearch%20Data/">Importing Elasticsearch Data</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Install%20OpenCV%20with%20CUDA%20Support%20on%20Rocky%20Linux/">Install OpenCV with CUDA Support on Rocky Linux</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Installing%20DPDK%20with%20NapaTech%20Card/">Installing DPDK with NapaTech Card</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../LDAP%20with%20OpenManage/">LDAP with OpenManage</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../LLMs%20Explained/">LLMs Explained</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balance%20Testing%20with%20OpenVSwitch/">Load Balance Testing with OpenVSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balancing%20on%20Mellanox%20Switches/">Load Balancing on Mellanox Switches</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balancing%20with%20LAG%20on%205112F-ON/">Load Balancing with LAG on 5112F-ON</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Make%20USB%20Read%20Only/">Make USB Read Only</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Migrating%20Storage%20Volumes%20to%20PowerStore/">Migrating Storage Volumes to PowerStore</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Mulitple%20Span%20on%204112F-ON%20with%20OpenSwitch/">Mulitple Span on 4112F-ON with OpenSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Multiple%20Span%20on%204112F-ON%20with%20OS10/">Multiple Span on 4112F-ON with OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../NVMe%20Driver%20Reverse%20Engineering/">NVMe Driver Reverse Engineering</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../NVMe%20Performance%20Testing/">NVMe Performance Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20AMD%20Processor/">Notes on AMD Processor</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20Building%20a%20Datacenter%20from%20Scratch/">Notes on Building a Datacenter from Scratch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20HPC/">Notes on HPC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20HSM/">Notes on HSM</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20Improving%20Drive%20Performance/">Notes on Improving Drive Performance</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20NVMe%20Log%20Pages/">Notes on NVMe Log Pages</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20PCIe/">Notes on PCIe</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20mdraid%20Performance%20Testing/">Notes on mdraid Performance Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20nodejs/">Notes on nodejs</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Nvidia%20GPUDirect/">Nvidia GPUDirect</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Nvidia%20GRID%20Notes/">Nvidia GRID Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OME%20Bug/">OME Bug</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OME%20Integration%20for%20VMWare/">OME Integration for VMWare</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OS10%20Password%20Recovery%20Bug/">OS10 Password Recovery Bug</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Offline%20Updates%20with%20OpenManage%20Enterprise/">Offline Updates with OpenManage Enterprise</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OpenFlow%20on%204112F-ON/">OpenFlow on 4112F-ON</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OpenShift%20-%20Change%20MTU/">OpenShift - Change MTU</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Overprovisioning%20Explained/">Overprovisioning Explained</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PCIev3%20vs%20v4/">PCIev3 vs v4</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Playing%20with%20virsh/">Playing with virsh</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PowerScale%20-%20Configure%20with%20Kubernetes/">PowerScale - Configure with Kubernetes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PowerScale%20Failed%20Authentication/">PowerScale Failed Authentication</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PowerScale%20Setup/">PowerScale Setup</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Reset%20OS10%20Admin%20Password/">Reset OS10 Admin Password</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Reverse%20Engineering%20OpenSHMEM/">Reverse Engineering OpenSHMEM</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Run%20VPN%20on%20OS10/">Run VPN on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Running%20DNS%20from%20OS10/">Running DNS from OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../SONiC%20-%20Sample%20Datacenter%20Automation%20Architecture/">SONiC - Sample Datacenter Automation Architecture</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Set%20Up%20RSPAN%20on%20OS10/">Set Up RSPAN on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setting%20Up%20Breakout%20Cables/">Setting Up Breakout Cables</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setting%20Up%20SmartFabric%20Director/">Setting Up SmartFabric Director</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setting%20Up%20iDRAC%20Telemetry%20with%20Splunk/">Setting Up iDRAC Telemetry with Splunk</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setup%20IDPA/">Setup IDPA</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Site%20to%20Site%20VPN%20with%20PFSense%20and%20CentOS%208/">Site to Site VPN with PFSense and CentOS 8</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Swap%20Kernel%20on%20Rocky%209/">Swap Kernel on Rocky 9</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Switch%20Directly%20to%20Client%20Test/">Switch Directly to Client Test</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Testing%20Bare%20Metal%20Orchestrator/">Testing Bare Metal Orchestrator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Testing%20Intel%20x520%20on%20RHEL%206/">Testing Intel x520 on RHEL 6</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Troubleshooting%205G%20Connection/">Troubleshooting 5G Connection</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Understand and Run LINPACK</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#understanding-intels-mkl-linpack-process-flow">Understanding Intel's MKL LINPACK Process Flow</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#a-word-of-warning-on-job-managers">A Word of Warning on Job Managers</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#runme_intel_dynamic">runme_intel_dynamic</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#-hostfile-or-f">-hostfile or -f</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#-machinefile-or-machine">-machinefile or -machine</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#i_mpi_hydra_host_file">I_MPI_HYDRA_HOST_FILE</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#mpirun">mpirun</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#mpiexechydra">mpiexec.hydra</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#but-what-the-heck-does-that-mean">But What the Heck Does that Mean</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#runme_intel64_prv">runme_intel64_prv</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#xhpl_intel64_dynamic">xhpl_intel64_dynamic</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#how-to-select-values-and-optimize-intels-mkl-linpack-benchmark">How to Select Values and Optimize Intel's MKL LINPACK Benchmark</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#how-mpi-processes-work">How MPI Processes Work</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#what-are-mpi-processes">What are MPI Processes?</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#how-mpi-processes-communicate">How MPI Processes Communicate</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#creating-mpi-processes">Creating MPI Processes</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#distribution-of-work">Distribution of Work</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#running-mpi-programs">Running MPI Programs</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#mpi-ranks">MPI Ranks</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#mpi-ranks-as-related-to-lu-decomposition">MPI Ranks as Related to LU Decomposition</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#understanding-the-benchmarks-math-lu-decomposition-factorization">Understanding the Benchmark's Math - LU Decomposition (Factorization)</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#why-lu-decomposition">Why LU Decomposition</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#solving-axb-through-matrix-inversion">Solving $Ax=b$ Through Matrix Inversion</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#example-of-using-matrix-inversion">Example of Using Matrix Inversion</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#issues-with-direct-inversion">Issues with Direct Inversion:</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#using-lu-decomposition-for-matrix-inversion">Using LU Decomposition for Matrix Inversion</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#example-of-using-lu-decomposition-for-matrix-inversion">Example of Using LU Decomposition for Matrix Inversion</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#advantages-of-lu-decomposition">Advantages of LU Decomposition:</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#how-the-benchmark-measures-performance-calculating-flops">How the Benchmark Measures Performance - Calculating FLOPS</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#understanding-benchmark-parameters">Understanding Benchmark Parameters</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#1-problem-size-n">1. Problem Size (N)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#2-block-size-nb">2. Block Size (NB)</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#understanding-block-size-math">Understanding Block Size Math</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#3-process-grid-p-x-q">3. Process Grid (P x Q)</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#interpreting-benchmark-results-for-single-node-test">Interpreting Benchmark Results for Single Node Test</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#what-is-numerical-stability">What is Numerical Stability</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#right-looking-lu-factorization">Right Looking LU Factorization</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#row-partial-pivoting">Row Partial Pivoting</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#some-related-binary-reverse-engineering">Some Related Binary Reverse Engineering</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#usage-in-do_spawn">Usage in do_spawn</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#installing-offline">Installing Offline</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#optimizing">Optimizing</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Understanding%20Cellular%20Technology/">Understanding Cellular Technology</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Understanding%20Memory/">Understanding Memory</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Understanding%20NCCL/">Understanding NCCL</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Understanding%20PERC%20Interrupts/">Understanding PERC Interrupts</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Update%20iDRAC%20Cipher%20Suite%20with%20Redfish/">Update iDRAC Cipher Suite with Redfish</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Use%20OS10%20as%20Aggregator/">Use OS10 as Aggregator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Using%20Dell%20Repository%20Manager%20to%20Create%20Bootable%20ISO/">Using Dell Repository Manager to Create Bootable ISO</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Using%20FIO/">Using FIO</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Using%20the%20iDRAC%20Service%20Module/">Using the iDRAC Service Module</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VEP%20Testing/">VEP Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Web%20Traffic%20Generator/">Web Traffic Generator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Writing%20udev%20Rules%20for%20Dell%20PERC%20H755/">Writing udev Rules for Dell PERC H755</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../esrally%20%28INCOMPLETE%29/">esrally (INCOMPLETE)</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../idrac%20with%20LDAP/">idrac with LDAP</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balance%20Testing%20on%204112F-ON/OS10/">Load Balance Testing on 4112F-ON w/OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balance%20Testing%20on%204112F-ON/OpenSwitch%20%28OPX%29/">Load Balancing with LAG OPX</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Automate%20ESXi%20Installation/">Automating ESXi Installation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Change%20User%20on%20VxRail%20Plugin/">Change User on VxRail Plugin</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/ESXi%20Architecture/">VMWare Architecture Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/How%20to%20Pull%20Usage%20Metrics/">How to Pull Usage Metrics</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Notes%20on%20VSAN/">Notes on vSAN</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Setup%20VXRail/">VxRail Setup</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Troubleshooting%20vSAN/">Troubleshooting vSAN</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/VMWare%20APIs/">VMWare APIs</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/VxRail%20Architecture%20and%20Troubleshooting/">VxRail Architecture and Troubleshooting</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/vRealize%20Setup%20%28Incomplete%29/">Setting Up vRealize</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Grant Curell's Dell Projects</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Understand and Run LINPACK</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="understand-and-run-linpack">Understand and Run LINPACK</h1>
+<ul>
+<li><a href="#understand-and-run-linpack">Understand and Run LINPACK</a></li>
+<li><a href="#understanding-intels-mkl-linpack-process-flow">Understanding Intel's MKL LINPACK Process Flow</a><ul>
+<li><a href="#a-word-of-warning-on-job-managers">A Word of Warning on Job Managers</a></li>
+<li><a href="#runme_intel_dynamic">runme_intel_dynamic</a></li>
+<li><a href="#-hostfile--or--f-">-hostfile  or -f </a></li>
+<li><a href="#-machinefile--or--machine-">-machinefile  or -machine </a></li>
+<li><a href="#i_mpi_hydra_host_file">I_MPI_HYDRA_HOST_FILE</a></li>
+<li><a href="#mpirun">mpirun</a></li>
+<li><a href="#mpiexechydra">mpiexec.hydra</a></li>
+<li><a href="#but-what-the-heck-does-that-mean">But What the Heck Does that Mean</a></li>
+<li><a href="#runme_intel64_prv">runme_intel64_prv</a></li>
+<li><a href="#xhpl_intel64_dynamic">xhpl_intel64_dynamic</a></li>
+</ul>
+</li>
+<li><a href="#how-to-select-values-and-optimize-intels-mkl-linpack-benchmark">How to Select Values and Optimize Intel's MKL LINPACK Benchmark</a></li>
+<li><a href="#how-mpi-processes-work">How MPI Processes Work</a><ul>
+<li><a href="#what-are-mpi-processes">What are MPI Processes?</a></li>
+<li><a href="#how-mpi-processes-communicate">How MPI Processes Communicate</a></li>
+<li><a href="#creating-mpi-processes">Creating MPI Processes</a></li>
+<li><a href="#distribution-of-work">Distribution of Work</a></li>
+<li><a href="#running-mpi-programs">Running MPI Programs</a></li>
+<li><a href="#mpi-ranks">MPI Ranks</a></li>
+<li><a href="#mpi-ranks-as-related-to-lu-decomposition">MPI Ranks as Related to LU Decomposition</a></li>
+</ul>
+</li>
+<li><a href="#understanding-the-benchmarks-math---lu-decomposition-factorization">Understanding the Benchmark's Math - LU Decomposition (Factorization)</a><ul>
+<li><a href="#why-lu-decomposition">Why LU Decomposition</a></li>
+<li><a href="#solving-axb-through-matrix-inversion">Solving $Ax=b$ Through Matrix Inversion</a></li>
+<li><a href="#example-of-using-matrix-inversion">Example of Using Matrix Inversion</a></li>
+<li><a href="#issues-with-direct-inversion">Issues with Direct Inversion:</a></li>
+<li><a href="#using-lu-decomposition-for-matrix-inversion">Using LU Decomposition for Matrix Inversion</a></li>
+<li><a href="#example-of-using-lu-decomposition-for-matrix-inversion">Example of Using LU Decomposition for Matrix Inversion</a></li>
+<li><a href="#advantages-of-lu-decomposition">Advantages of LU Decomposition:</a></li>
+</ul>
+</li>
+<li><a href="#how-the-benchmark-measures-performance---calculating-flops">How the Benchmark Measures Performance - Calculating FLOPS</a></li>
+<li><a href="#understanding-benchmark-parameters">Understanding Benchmark Parameters</a><ul>
+<li><a href="#1-problem-size-n">1. Problem Size (N)</a></li>
+<li><a href="#2-block-size-nb">2. Block Size (NB)</a></li>
+<li><a href="#understanding-block-size-math">Understanding Block Size Math</a></li>
+<li><a href="#3-process-grid-p-x-q">3. Process Grid (P x Q)</a></li>
+</ul>
+</li>
+<li><a href="#interpreting-benchmark-results-for-single-node-test">Interpreting Benchmark Results for Single Node Test</a><ul>
+<li><a href="#what-is-numerical-stability">What is Numerical Stability</a></li>
+<li><a href="#right-looking-lu-factorization">Right Looking LU Factorization</a></li>
+<li><a href="#row-partial-pivoting">Row Partial Pivoting</a></li>
+</ul>
+</li>
+<li><a href="#some-related-binary-reverse-engineering">Some Related Binary Reverse Engineering</a><ul>
+<li><a href="#usage-in-do_spawn">Usage in <code>do_spawn</code></a></li>
+</ul>
+</li>
+<li><a href="#installing-offline">Installing Offline</a></li>
+<li><a href="#optimizing">Optimizing</a></li>
+</ul>
+<h2 id="understanding-intels-mkl-linpack-process-flow">Understanding Intel's MKL LINPACK Process Flow</h2>
+<p>Assuming you change nothing, Intel's MKL has the following process flow:</p>
+<pre><code>                +---------------------+
+                | runme_intel_dynamic |
+                +---------------------+
+                         |
+                         v
+                     +-------+
+                     | mpirun |
+                     +-------+
+                         |
+                         v
+                 +--------------+
+                 | mpiexec.hydra|
+                 +--------------+
+                         |
+                         v
+             +-------------------+
+             | runme_intel64_prv |
+             +-------------------+
+                         |
+                         v
+           +-----------------------+
+           | xhpl_intel64_dynamic  |
+           +-----------------------+
+                         |
+                         v
+        +---------------------------------+
+        | xhpl_intel64_dynamic - threads  |
+        +---------------------------------+
+
+</code></pre>
+<h3 id="a-word-of-warning-on-job-managers">A Word of Warning on Job Managers</h3>
+<p>I started this on SLURM. <code>mpirun</code> specifically checks a series of environment variables that modify how everything runs. I recommend not running this under a job manager. If you do, you will need to examine the contents of <a href="binary/mpirun"><code>mpirun</code></a> and understand the mapping of your job manager's environment variables to Intel syntax.</p>
+<h3 id="runme_intel_dynamic"><a href="binary/runme_intel64_dynamic">runme_intel_dynamic</a></h3>
+<p>In my case I'm not running with GPUs and in this case, <a href="binary/runme_intel64_dynamic">runme_intel_dynamic</a> does not do a whole lot. It's main job is to kick off <a href="binary/mpirun">mpirun</a> with <a href="binary/runme_intel64_prv">runme_intel64_prv</a> as an argument. It does this here:</p>
+<pre><code class="language-bash">mpirun -perhost ${MPI_PER_NODE} -np ${MPI_PROC_NUM} ./runme_intel64_prv &quot;$@&quot; | tee -a $OUT
+</code></pre>
+<p>where <code>MPI_PER_NODE</code> and <code>MPI_PROC_NUM</code> are defined as:</p>
+<pre><code class="language-bash"># Set total number of MPI processes for the HPL (should be equal to PxQ).
+export MPI_PROC_NUM=2
+
+# Set the MPI per node for each node.
+# MPI_PER_NODE should be equal to 1 or number of sockets on the system.
+# It will be same as -perhost or -ppn paramaters in mpirun/mpiexec.
+export MPI_PER_NODE=2
+
+# Set the number of NUMA nodes per MPI. (MPI_PER_NODE * NUMA_PER_MPI)
+# should be equal to number of NUMA nodes on the system.
+export NUMA_PER_MPI=1
+</code></pre>
+<p>There are a few things going on with <code>mpirun -perhost ${MPI_PER_NODE} -np ${MPI_PROC_NUM} ./runme_intel64_prv "$@" | tee -a $OUT</code> that are not at all obvious at first. As I mentioned earlier, first this leads to <code>mpirun</code> executing, but none of the arguments are actually destined for <code>mpirun</code> What really happens is the arguments <code>-perhost ${MPI_PER_NODE} -np ${MPI_PROC_NUM}</code> are fed into <a href="#mpiexechydra">mpiexec.hydra</a> and then the <code>$@</code> part of <code>./runme_intel64_prv "$@"</code> is ultimately destined for <code>xhpl_intel64_dynamic</code> which accepts the <a href="https://www.intel.com/content/www/us/en/docs/onemkl/developer-guide-linux/2023-0/ease-of-use-command-line-parameters.html">Ease-of-use Command-line Parameters</a>. The ease of use command line parameters are meant to replace <code>HPL.dat</code>. So instead of just running <code>runme_intel64_dynamic</code> you can do:</p>
+<pre><code class="language-bash">./runme_intel64_dynamic -m &lt;memory size in Mbytes&gt; -b &lt;block size&gt; -p &lt;grid row dimn&gt; -q &lt;grid column dimn&gt;
+</code></pre>
+<p>or</p>
+<pre><code class="language-bash">./runme_intel64_dynamic -n 10000 -p 1 -q 3
+</code></pre>
+<p>where</p>
+<ul>
+<li><strong>-n <size of the matrix></strong>: Determines the size of the problem matrix to be solved</li>
+<li><strong>-m <memory size in Mbytes></strong>: If you're familiar with <code>HPL.dat</code> this option may confuse you because it isn't present. What this does is allow you to control the size of the problem matrix by specifying the total amount of memory dedicated to matrix storage across all nodes instead of specifying <code>-n</code>. When you set <code>-m</code> to 50000 Mbytes, you're instructing the application to use matrices that, when combined, fit within 50 GB of memory for their storage. The block size (<code>-b</code>) parameter, set to 256 in the example, defines the size of the sub-matrix or "block" used by the HPL algorithm during matrix factorization.</li>
+<li><strong>-b <block size></strong>: Specifies the block size used by the HPL algorithm</li>
+<li><strong>-p <grid row dimension></strong>: Sets the rows dimension of the process grid</li>
+<li><strong>-q <grid column dimension></strong>: Sets the columns dimension of the process grid</li>
+</ul>
+<p>Finally, we are missing one last thing that is completely absent in the documentation or comments. If you are not running under a job manager you have to specify the nodes for <code>mpiexec.hydra</code> using one of the two following options:</p>
+<h4 id="-hostfile-or-f">-hostfile <hostfile> or -f <hostfile></h4>
+<p>Use this option to specify host names on which to run the application. If a host name is repeated, this name is used only once.</p>
+<p>See also the <a href="#i_mpi_hydra_host_file">I_MPI_HYDRA_HOST_FILE</a> environment variable for more details.</p>
+<p><strong>NOTE:</strong> Use the following options to change the process placement on the cluster nodes:<br />
+Use the -perhost, -ppn, and -grr options to place consecutive MPI processes on every host using the round robin scheduling.</p>
+<p>Use the -rr option to place consecutive MPI processes on different hosts using the round robin scheduling.</p>
+<h4 id="-machinefile-or-machine">-machinefile <machine file> or -machine <machine file></h4>
+<p>Use this option to control process placement through a machine file. To define the total number of processes to start, use the -n option. For example:</p>
+<pre><code class="language-bash">$ cat ./machinefile
+node0:2
+node1:2
+node0:1
+</code></pre>
+<h4 id="i_mpi_hydra_host_file">I_MPI_HYDRA_HOST_FILE</h4>
+<p>Set the host file to run the application.</p>
+<p><strong>Syntax</strong><br />
+<code>I_MPI_HYDRA_HOST_FILE=&lt;arg&gt;</code></p>
+<p><strong>Argument</strong><br />
+- <code>&lt;arg&gt;</code>: String parameter<br />
+- <code>&lt;hostsfile&gt;</code>: The full or relative path to the host file  </p>
+<p><strong>Description</strong><br />
+Set this environment variable to specify the hosts file.</p>
+<p>So basically, it's just a list of hostnames one per line.</p>
+<h3 id="mpirun"><a href="binary/mpirun">mpirun</a></h3>
+<p>The <a href="binary/mpirun">mpirun</a> bash script's job is to set up the MPI environment and then call mpiexec.hydra on a single node in the cluster. mpiexec.hydra will then deploy instances of <a href="binary/runme_intel64_prv">runme_intel64_prv</a> across the cluster.</p>
+<p>I'll go through the highlights of <a href="binary/mpirun">mpirun</a>. First it sets up a bunch of environment variables with the main one being <code>I_MPI_MPIRUN</code>. This is used internally by Intel's binaries to determine how the process was launched. </p>
+<pre><code class="language-bash">export I_MPI_MPIRUN=&quot;mpirun&quot;
+</code></pre>
+<p>In this case, we launched it with the <code>mpirun</code> bash script and this environment variable tells the binaries that. Alternatively, we could have launched by calling <code>mpiexec</code> directly. The rest of the code is for handling what happens if we are launching with a job scheduler. In our case we are not so I ignore this. If we have no job scheduler, it executes this code:</p>
+<pre><code class="language-bash"># PBS or ordinary job
+else
+    mpiexec.hydra &quot;$@&quot; &lt;&amp;0
+    rc=$?
+fi
+</code></pre>
+<p>which will launch <code>mpiexec.hydra</code> on the current node with whatever command line arguments were passed in from <code>mpirun</code> which by default are inhereted from <code>runme_intel64_dynamic</code> and are:</p>
+<pre><code class="language-bash">-perhost ${MPI_PER_NODE} -np ${MPI_PROC_NUM} ./runme_intel64_prv &quot;$@&quot; | tee -a $OUT
+</code></pre>
+<h3 id="mpiexechydra"><a href="https://www.intel.com/content/www/us/en/docs/mpi-library/developer-reference-linux/2021-8/mpiexec-hydra.html">mpiexec.hydra</a></h3>
+<p><a href="https://www.intel.com/content/www/us/en/docs/mpi-library/developer-reference-linux/2021-8/mpiexec-hydra.html">mpiexec.hydra</a> is a process manager. In our case we are using Intel's instantiation, but it is an <a href="https://github.com/pmodels/mpich/blob/main/doc/wiki/how_to/Using_the_Hydra_Process_Manager.md">open source project</a>. mpiexec.hydra's job is to spawn our <a href="binary/runme_intel64_prv">runme_intel64_prv</a> jobs on the cluster. <code>-perhost ${MPI_PER_NODE} -np ${MPI_PROC_NUM}</code> plus the hostfile or machinefile I mentioned in <a href="#runme_intel_dynamic">runme_intel64_dynamic</a> are what is interpreted by <code>mpiexec.hydra</code>. This is how the command line arguments are interpreted:</p>
+<p><strong>-n <number-of-processes> or -np <number-of-processes></strong><br />
+Use this option to set the number of MPI processes to run with the current argument set. In our case, this is going to run n instances of <code>runme_intel64_prv</code>. <code>runme_intel64_prv</code> in turn launches <code>xhpl_intel64_dynamic</code>.</p>
+<p><strong>-perhost &lt;# of processes &gt;, -ppn &lt;# of processes &gt;, or -grr &lt;# of processes&gt;</strong><br />
+Use this option to place the specified number of consecutive MPI processes on every host in the group using round robin scheduling. See the I_MPI_PERHOST environment variable for more details.</p>
+<p><strong>NOTE:</strong> When running under a job scheduler, these options are ignored by default. To be able to control process placement with these options, disable the I_MPI_JOB_RESPECT_PROCESS_PLACEMENT variable.</p>
+<p>Ultimately, the <code>-perhost</code> setting controls how many MPI processes will spawn on each node. On Intel MKL LINPACK, these processes are <code>runme_intel64_prv</code> which spawns one parent instance of <code>xhpl_intel64_dynamic</code> which then in turn spawns many child threads. This is explained in more detail later.</p>
+<p><code>I_MPI_PERHOST</code> is defined as</p>
+<p><strong>I_MPI_PERHOST</strong></p>
+<p>Define the default behavior for the <code>-perhost</code> option of the <code>mpiexec.hydra</code> command.</p>
+<p><strong>Syntax</strong></p>
+<p><code>I_MPI_PERHOST=&lt;value&gt;</code></p>
+<p><strong>Argument</strong></p>
+<table>
+<thead>
+<tr>
+<th><code>&lt;value&gt;</code></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;value&gt;</code></td>
+<td>Define a value used for <code>-perhost</code> by default</td>
+</tr>
+<tr>
+<td><code>integer &gt; 0</code></td>
+<td>Exact value for the option</td>
+</tr>
+<tr>
+<td><code>all</code></td>
+<td>All logical CPUs on the node</td>
+</tr>
+<tr>
+<td><code>allcores</code></td>
+<td>All cores (physical CPUs) on the node. This is the default value.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Description</strong></p>
+<p>Set this environment variable to define the default behavior for the <code>-perhost</code> option. Unless specified explicitly, the <code>-perhost</code> option is implied with the value set in <code>I_MPI_PERHOST</code>.</p>
+<blockquote>
+<p><strong>NOTE:</strong> When running under a job scheduler, this environment variable is ignored by default. To control process placement with <code>I_MPI_PERHOST</code>, disable the <code>I_MPI_JOB_RESPECT_PROCESS_PLACEMENT</code> variable.</p>
+</blockquote>
+<h4 id="but-what-the-heck-does-that-mean">But What the Heck Does that Mean</h4>
+<p>Ok, so those were the descriptions in the docs for <code>-n</code> and <code>-ppn</code> but at least for me it wasn't immediately obvious what that would end up doing. Let's start with <code>-n</code>. What <code>-n</code> does is it will spawn <code>-n</code> instances of whatever process is <em>fed to <code>mpiexec.hydra</code></em>. In our case this is going to be <code>runme_intel64_prv</code>. So if <code>-n</code> is 8, you will have 8 instances of <code>runme_intel64_prv</code> spread out across all your nodes.</p>
+<p><code>-ppn</code> will control how many instances of <code>runme_intel64_prv</code> spawn per node round robin'd. I explain this in more detail in the section on <a href="#runme_intel64_prv">runme_intel64_prv</a>. Each instance of <code>runme_intel64_prv</code> will in turn spawn one parent instance of <code>xhpl_intel64_dynamic</code> which will then spawn as many threads as are in the NUMA domains allocated to it (controlled by <code>NUMA_PER_MPI</code>).</p>
+<h3 id="runme_intel64_prv"><a href="binary/runme_intel64_prv">runme_intel64_prv</a></h3>
+<p>This is where things get hairy in my opinion. Very hairy, so I will go through this one line by line. For this example, I'm going to assume the following settings:</p>
+<ul>
+<li><code>np</code> aka <code>MPI_PROC_NUM</code> (in <code>runme_intel64_dynamic</code>) = 8</li>
+<li><code>ppn</code> aka <code>perhost</code> aka <code>MPI_PER_NODE</code> = 2</li>
+<li><code>NUMA_PER_MPI=1</code> = 1</li>
+<li><code>p</code> = 2</li>
+<li><code>q</code> = 4</li>
+</ul>
+<pre><code class="language-bash"># For Mvapich
+if [ -n &quot;${MPIRUN_RANK}&quot; ]
+then PMI_RANK=${MPIRUN_RANK}
+fi
+
+# For OpenMPI
+if [ -n &quot;${OMPI_COMM_WORLD_RANK}&quot; ]
+then PMI_RANK=${OMPI_COMM_WORLD_RANK}
+fi
+</code></pre>
+<p>By default, neither of these are used and this can be ignored.</p>
+<p>Before I explain the next few lines I need to quickly mention <a href="#mpi-ranks">MPI Ranks</a>. On our node this is how they'll be laid out where L:0, L1, etc are referring to local MPI instances:</p>
+<pre><code class="language-bash">Node 1                   Node 2
++-----+-----+-----+-----+ +-----+-----+-----+-----+
+| MPI | MPI | MPI | MPI | | MPI | MPI | MPI | MPI |
+|  0  |  1  |  2  |  3  | |  4  |  5  |  6  |  7  |
+| L:0 | L:1 | L:2 | L:3 | | L:0 | L:1 | L:2 | L:3 |
++-----+-----+-----+-----+ +-----+-----+-----+-----+
+  Global Rank              Global Rank
+  Local Rank (L)           Local Rank (L)
+</code></pre>
+<p>See the <a href="#mpi-ranks">MPI Ranks section</a> for more on how these work. Now remember, that when we run <code>runme_intel64_prv</code> it will run in our case a total of 8 times.</p>
+<pre><code class="language-bash">LOCAL_RANK=$((PMI_RANK % MPI_PER_NODE))
+</code></pre>
+<p>This is calculating the node local MPI rank. This effectively round robins the MPI processes across the nodes based on what you set for <code>-ppn</code>. I explain the round robin portion specifically below.</p>
+<pre><code class="language-bash">export HPL_HOST_NODE=$((LOCAL_RANK * NUMA_PER_MPI))-$(((LOCAL_RANK + 1) * NUMA_PER_MPI - 1))
+</code></pre>
+<p>Now this is getting confusing. The high level purpose of <code>HPL_HOST_NODE</code> is to define a range <code>x-y</code> for what NUMA nodes the MPI process will use based on <code>NUMA_PER_MPI</code>. There are a lot of parenthesis but all this does is make the range <code>LOCAL_RANK</code>$\times$<code>NUMA_PER_MPI</code> to (<code>LOCAL_RANK</code>+1)$\times$()  So if you set this to 1, then the range will look like:</p>
+<pre><code class="language-bash">PMI_RANK=0
+LOCAL_RANK=0
+HPL_HOST_NODE=0-0
+RANK=0, NODE=0-0
+-----------------
+PMI_RANK=1
+LOCAL_RANK=1
+HPL_HOST_NODE=1-1
+RANK=1, NODE=1-1
+-----------------
+PMI_RANK=2
+LOCAL_RANK=0
+HPL_HOST_NODE=0-0
+RANK=2, NODE=0-0
+-----------------
+PMI_RANK=3
+LOCAL_RANK=1
+HPL_HOST_NODE=1-1
+RANK=3, NODE=1-1
+-----------------
+PMI_RANK=4
+LOCAL_RANK=0
+HPL_HOST_NODE=0-0
+RANK=4, NODE=0-0
+-----------------
+PMI_RANK=5
+LOCAL_RANK=1
+HPL_HOST_NODE=1-1
+RANK=5, NODE=1-1
+-----------------
+PMI_RANK=6
+LOCAL_RANK=0
+HPL_HOST_NODE=0-0
+RANK=6, NODE=0-0
+-----------------
+PMI_RANK=7
+LOCAL_RANK=1
+HPL_HOST_NODE=1-1
+RANK=7, NODE=1-1
+</code></pre>
+<p>Setting <code>NUMA_PER_MPI</code> to four would look like:</p>
+<pre><code class="language-bash">PMI_RANK=0
+LOCAL_RANK=0
+HPL_HOST_NODE=0-3
+RANK=0, NODE=0-3
+-----------------
+PMI_RANK=1
+LOCAL_RANK=1
+HPL_HOST_NODE=4-7
+RANK=1, NODE=4-7
+-----------------
+PMI_RANK=2
+LOCAL_RANK=0
+HPL_HOST_NODE=0-3
+RANK=2, NODE=0-3
+-----------------
+PMI_RANK=3
+LOCAL_RANK=1
+HPL_HOST_NODE=4-7
+RANK=3, NODE=4-7
+-----------------
+PMI_RANK=4
+LOCAL_RANK=0
+HPL_HOST_NODE=0-3
+RANK=4, NODE=0-3
+-----------------
+PMI_RANK=5
+LOCAL_RANK=1
+HPL_HOST_NODE=4-7
+RANK=5, NODE=4-7
+-----------------
+PMI_RANK=6
+LOCAL_RANK=0
+HPL_HOST_NODE=0-3
+RANK=6, NODE=0-3
+-----------------
+PMI_RANK=7
+LOCAL_RANK=1
+HPL_HOST_NODE=4-7
+RANK=7, NODE=4-7
+</code></pre>
+<p>or in a more organized format:</p>
+<pre><code>| PMI_RANK | LOCAL_RANK | HPL_HOST (NUMA_PER_MPI 1) | HPL_HOST (NUMA_PER_MPI 4) |
+|----------|------------|---------------------------|---------------------------|
+| 0        | 0          | 0-0                       | 0-3                       |
+| 1        | 1          | 1-1                       | 4-7                       |
+| 2        | 0          | 0-0                       | 0-3                       |
+| 3        | 1          | 1-1                       | 4-7                       |
+| 4        | 0          | 0-0                       | 0-3                       |
+| 5        | 1          | 1-1                       | 4-7                       |
+| 6        | 0          | 0-0                       | 0-3                       |
+| 7        | 1          | 1-1                       | 4-7                       |
+</code></pre>
+<p>So what does this mean? What this is telling you is where each MPI process is going to land. Since you have 8 processes total, this is saying that, for example in the <code>NUMA_PER_MPI</code> config, MPI rank 0 (which is the same as Process Management Interface PMI rank) will be assigned to NUMA domains 0-3. You can see this reflected in the process allocation. I wrote <a href="get_node_utilization.py">this script</a> to display how the <code>xhpl_intel64_dynamic</code> processes are laid out:</p>
+<pre><code class="language-bash">PID: 184198, Name: xhpl_intel64_dynamic, Threads:
+Thread ID  CPU Time   CPU Affinity    NUMA Node(s)   
+-----------------------------------------------------
+184198     1.76       0               0              
+184202     0.01       0-27            0, 1           
+184206     0.00       2               0              
+184207     0.00       55              3              
+184208     0.00       4               0              
+184209     0.00       5               0              
+184210     0.00       6               0              
+184211     0.00       7               0              
+184212     0.00       8               0              
+184213     0.00       9               0              
+184214     0.00       10              0              
+184215     0.00       11              0              
+184216     0.00       12              0              
+184217     0.00       13              0              
+184218     0.00       14              1              
+184219     0.00       15              1              
+184220     0.00       16              1              
+184221     0.00       17              1              
+184222     0.00       18              1              
+184223     0.00       19              1              
+184224     0.00       20              1              
+184225     0.00       21              1              
+184226     0.00       22              1              
+184227     0.00       23              1              
+184228     0.00       24              1              
+184229     0.00       25              1              
+184230     0.00       26              1              
+184231     0.00       27              1              
+184232     0.00       28              2              
+184233     0.00       29              2              
+184234     0.00       30              2              
+184235     0.00       31              2              
+184236     0.00       32              2              
+184237     0.00       33              2              
+184238     0.00       34              2              
+184239     0.00       35              2              
+184240     0.00       36              2              
+184241     0.00       37              2              
+184242     0.00       38              2              
+184243     0.00       39              2              
+184244     0.00       40              2              
+184245     0.00       41              2              
+184246     0.00       3               0              
+184247     0.00       42              3              
+184248     0.00       43              3              
+184249     0.00       44              3              
+184250     0.00       45              3              
+184251     0.00       46              3              
+184252     0.00       47              3              
+184253     0.00       48              3              
+184254     0.00       49              3              
+184255     0.00       50              3              
+184256     0.00       51              3              
+184257     0.00       52              3              
+184258     0.00       53              3              
+184259     0.00       54              3              
+184422     1.33       1               0
+</code></pre>
+<p>This is a non-optimized layout and you can see that reflected in the fact that almost none of the threads are in use. This is what a well optimized setup looks like:</p>
+<pre><code class="language-bash">Thread ID  CPU Time   CPU Affinity    NUMA Node(s)   
+-----------------------------------------------------
+191804     500.00     98              7              
+191812     0.03       98-111          7              
+191827     489.41     111             7              
+191833     490.17     100             7              
+191841     490.44     101             7              
+191849     489.57     102             7              
+191869     489.55     103             7              
+191878     489.84     104             7              
+191884     490.37     105             7              
+191890     489.51     106             7              
+191896     490.28     107             7              
+191902     490.16     108             7              
+191908     489.85     109             7              
+191912     490.55     110             7              
+191919     499.48     99              7  
+</code></pre>
+<p>Notice how all threads are in use except one with low utilization. This is the <code>xhpl_intel64_dynamic</code> parent process I mention in the <a href="#xhpl_intel64_dynamic">`xhpl_intel64_dynamic section</a>.</p>
+<p>Next, we check if a GPU is in the mix and if not we output the RANK for the process and execute <code>xhpl_intel64_dynamic</code></p>
+<pre><code class="language-bash">if [ -z ${USE_HPL_GPU} ]; then
+    echo RANK=${PMI_RANK}, NODE=${HPL_HOST_NODE}
+    ./${HPL_EXE} &quot;$@&quot;
+else
+</code></pre>
+<p>Since I'm not running a GPU, this is where I stopped. All this does is print out the RANK and NODE numbers for convenience. Ex <code>RANK=0, NODE=0-3</code>. This is identical to <code>HPL_HOST_NODE</code>.</p>
+<h3 id="xhpl_intel64_dynamic">xhpl_intel64_dynamic</h3>
+<p>There is one parent <code>xhpl_intel64_dynamic</code> process spawned by each instance of <code>runme_intel64_prv</code>. The parent processes will coordinate such that child threads fill all available cores. You can see these running on the constituent servers with <code>ps -eTf</code>. The number of threads is dependent on the <code>NUMA_PER_MPI</code> setting. It will spawn threads across all available NUMA domains. For example, with <code>NUMA_PER_MPI</code> set to 4, <code>MPI_PER_NODE</code> set to 2, and a server with 8 NUMA domains and 112 cores, and , each instance of <code>xhpl_intel64_dynamic</code> (one MPI process) would spawn 56 threads plus the parent process.</p>
+<p>These threads do the actual lifting. I wrote <a href="get_node_utilization.py">get_node_utilization.py</a> to get their allocation.</p>
+<p>The above allocation would be non-optimal. For best performance, you want one MPI process per NUMA node.</p>
+<h2 id="how-to-select-values-and-optimize-intels-mkl-linpack-benchmark">How to Select Values and Optimize Intel's MKL LINPACK Benchmark</h2>
+<p>See <a href="optimizing.ipynb">How to Select Values and Optimize Intel's MKL LINPACK Benchmark</a></p>
+<h2 id="how-mpi-processes-work">How MPI Processes Work</h2>
+<p>Helpful Presentation: https://www.uio.no/studier/emner/matnat/ifi/INF3380/v11/undervisningsmateriale/inf3380-week06.pdf</p>
+<p>MPI (Message Passing Interface) processes are at the core of parallel computing in systems that use the MPI standard for communication.</p>
+<h3 id="what-are-mpi-processes">What are MPI Processes?</h3>
+<ul>
+<li><strong>Independent Processes</strong>: Each MPI process is an independent unit of computation that executes concurrently with other MPI processes. They can be thought of as separate instances of the program, often running on different cores or different nodes in a cluster.</li>
+<li><strong>Separate Memory Spaces</strong>: Each process has its own private memory space. This means variables and data in one process are not directly accessible to another process. Any data sharing or communication must be done explicitly using MPI's communication mechanisms.</li>
+</ul>
+<h3 id="how-mpi-processes-communicate">How MPI Processes Communicate</h3>
+<ul>
+<li><strong>Message Passing</strong>: The fundamental concept of MPI is that processes communicate by sending and receiving messages. These messages can contain any type of data, and the communication can occur between any two processes.</li>
+<li><strong>Collective Communications</strong>: Besides point-to-point communication, MPI provides collective communication operations (like broadcast, reduce, scatter, gather) that involve a group of processes. These operations are optimized for efficient communication patterns commonly found in parallel applications.</li>
+</ul>
+<h3 id="creating-mpi-processes">Creating MPI Processes</h3>
+<ul>
+<li><strong>MPI_Init and MPI_Finalize</strong>: An MPI program starts with MPI_Init and ends with MPI_Finalize. Between these two calls, the MPI environment is active, and the program can utilize MPI functions.</li>
+<li><strong>Parallel Region</strong>: The code between MPI_Init and MPI_Finalize is executed by all processes in parallel, but each process can follow different execution paths based on their <a href="#mpi-ranks">rank</a> or other conditional logic.</li>
+<li><strong>Rank and Size</strong>: Each process is assigned a unique identifier called its rank. The total number of processes is called the size. These are often used to divide work among processes or to determine the role of each process in communication patterns.</li>
+</ul>
+<h3 id="distribution-of-work">Distribution of Work</h3>
+<ul>
+<li><strong>Dividing the Problem</strong>: In typical MPI applications, the large problem is divided into smaller parts, and each MPI process works on a portion of the problem. This division can be based on data (data parallelism) or tasks (task parallelism).</li>
+<li><strong>Synchronization</strong>: Processes can synchronize their execution, for example, by using barriers (MPI_Barrier), ensuring that all processes reach a certain point of execution before continuing.</li>
+</ul>
+<h3 id="running-mpi-programs">Running MPI Programs</h3>
+<ul>
+<li><strong>MPI Executors</strong>: MPI programs are usually executed with a command like <code>mpirun</code> or <code>mpiexec</code>, followed by options that specify the number of processes to launch and other execution parameters.</li>
+<li><strong>Scalability</strong>: The scalability of an MPI program depends on its ability to efficiently partition the workload among the available processes and the effectiveness of the communication between the processes.</li>
+</ul>
+<p>In the context of the LINPACK benchmark, the MPI processes would each handle a portion of the LINPACK workload, collaborating by exchanging messages to solve the large linear algebra problem in parallel.</p>
+<h3 id="mpi-ranks">MPI Ranks</h3>
+<p>An MPI rank is a unique identifier assigned to each process in a parallel program that uses the Message Passing Interface (MPI) for communication. MPI is a standardized and portable message-passing system designed to function on a wide variety of parallel computing architectures. In an MPI program, multiple processes can run simultaneously, potentially on different physical machines or cores within a machine.</p>
+<p>Ranks are used for the following:</p>
+<ul>
+<li><strong>Identification:</strong> The rank allows each process to be uniquely identified within an MPI communicator. A communicator is a group of MPI processes that can communicate with each other. The most common communicator used is <code>MPI_COMM_WORLD</code>, which includes all the MPI processes in a program.</li>
+<li><strong>Coordination and Communication:</strong> By knowing its rank, a process can determine how to coordinate its actions with other processes, such as dividing data among processes for parallel computation or determining the order of operations in a parallel algorithm.</li>
+<li><strong>Scalability:</strong> Using ranks, MPI programs can be designed to scale efficiently with the number of processes, allowing for parallel execution on systems ranging from a single computer to a large-scale supercomputer.</li>
+</ul>
+<p>Ranks are typically represented as integers starting from 0. So, in a program with <code>N</code> processes, the ranks are numbered from 0 to <code>N-1</code>. This numbering is used in various MPI operations, such as sending and receiving messages, where you specify the rank of the target process.</p>
+<p>Here's a simple example to illustrate the use of ranks in MPI:</p>
+<pre><code class="language-c">#include &lt;mpi.h&gt;
+#include &lt;stdio.h&gt;
+
+int main(int argc, char** argv) {
+    MPI_Init(&amp;argc, &amp;argv);
+
+    int world_size;
+    MPI_Comm_size(MPI_COMM_WORLD, &amp;world_size);
+
+    int world_rank;
+    MPI_Comm_rank(MPI_COMM_WORLD, &amp;world_rank);
+
+    printf(&quot;Hello world from rank %d out of %d processes\n&quot;, world_rank, world_size);
+
+    MPI_Finalize();
+    return 0;
+}
+</code></pre>
+<p>In this example, each process finds out its rank within <code>MPI_COMM_WORLD</code> (with <code>MPI_Comm_rank</code>) and the total number of processes (with <code>MPI_Comm_size</code>) and prints a message including its rank and the total number of processes. When this program is run with MPI across multiple processes, each process will print its unique rank.</p>
+<h4 id="mpi-ranks-as-related-to-lu-decomposition">MPI Ranks as Related to LU Decomposition</h4>
+<p>LU decomposition involves breaking down a matrix $A$ into the product of a lower triangular matrix $L$ and an upper triangular matrix $U$. See <a href="#lu-decomposition-factorization">LU Decomposition</a> for an explanation of LU decomposition.</p>
+<p>Recall that given a matrix $A$, the goal is to decompose it into:</p>
+<p>$$ A = LU $$</p>
+<p>where $L$ is a lower triangular matrix and $U$ is an upper triangular matrix. This decomposition is used to solve $Ax = b$ for $x$ by solving two simpler systems:</p>
+<ol>
+<li>$Ly = b$</li>
+<li>$Ux = y$</li>
+</ol>
+<p>When MPI is applied to matrices there are two main strategies used:</p>
+<ul>
+<li><strong>2D Block Decomposition:</strong> The matrix is divided into <a href="#understanding-block-size-math">blocks</a> and distributed among the ranks. Each rank works on its block(s) performing necessary operations for the decomposition. This method requires communication between ranks to exchange bordering row and column information during the elimination steps.</li>
+<li><strong>1D Block Decomposition:</strong> The matrix is divided into horizontal or vertical strips. Each rank works on its strip, and operations are coordinated to ensure the matrix is correctly modified across all ranks. This can be simpler but might not balance load and communication as effectively as 2D blocking.</li>
+</ul>
+<p>The benchmark will initialize a dense $n\times n$ matrix $A$ and a vector $b$ with specific values that ensure the solution will converge and is known in advance for verification purposes.</p>
+<h2 id="understanding-the-benchmarks-math-lu-decomposition-factorization">Understanding the Benchmark's Math - LU Decomposition (Factorization)</h2>
+<ul>
+<li>The benchmark performs an LU decomposition of matrix $A$, which is the process of factoring $A$ into the product of a lower triangular matrix $L$ and an upper triangular matrix $U$, such that $A = LU$. This decomposition includes partial pivoting, where rows of the matrix are swapped to enhance numerical stability.</li>
+</ul>
+<h3 id="why-lu-decomposition">Why LU Decomposition</h3>
+<p>We know we are benchmarking, but why LU decomposition specifically? To understand this, you need to understand how we normally solve the equation $Ax=B$.</p>
+<h4 id="solving-axb-through-matrix-inversion">Solving $Ax=b$ Through Matrix Inversion</h4>
+<p>The direct inversion of a matrix $A$ to find $A^{-1}$ typically involves the use of the adjugate matrix and the determinant:</p>
+<p>$$
+A^{-1} = \frac{1}{\text{det}(A)} \text{adj}(A)
+$$</p>
+<p>where $\text{adj}(A)$ is the adjugate (or adjoint) of $A$, and det$(A)$ is the determinant of $A$.</p>
+<ol>
+<li><strong>Calculate the determinant</strong> of $A$. If det$(A) = 0$, $A$ is not invertible.</li>
+<li>If this value is zero, it means the machine’s design doesn’t allow for reversal, indicating the matrix can't be inverted.</li>
+<li><strong>Find the matrix of cofactors</strong> for $A$.</li>
+<li>Each cofactor represents the effect of removing the element's row and column from the matrix. In essence, the cofactor reflects how the exclusion of a particular element (and its corresponding row and column) impacts the overall determinant of the matrix.</li>
+<li><strong>Transpose the matrix of cofactors</strong> to get the adjugate matrix.</li>
+<li>Once you have the cofactors, you transpose them, meaning you flip the grid along its diagonal. This doesn’t change the individual contributions but reorganizes the layout, ensuring the machine's operation can be reversed correctly. This rearrangement produces what’s called the adjugate matrix.</li>
+<li><strong>Divide each element</strong> of the adjugate matrix by det$(A)$ to get $A^{-1}$.</li>
+<li>The final step involves adjusting the adjugate matrix by the machine's overall scaling factor (the determinant). You scale each component's contribution down or up to ensure that when you apply this reversed operation, it perfectly undoes whatever the original machine did. The result is your inverse matrix, (A^{-1}), which can reverse the effects of the original matrix (A).</li>
+</ol>
+<h4 id="example-of-using-matrix-inversion">Example of Using Matrix Inversion</h4>
+<p>Below is an example of this in action.</p>
+<p>$$
+A = \begin{bmatrix} 4 &amp; 7 \
+2 &amp; 6 \end{bmatrix}
+$$</p>
+<p><strong>Step 1: Calculate the determinant of $A$</strong></p>
+<p>The determinant of a 2x2 matrix:</p>
+<p>$\begin{bmatrix} a &amp; b \ 
+c &amp; d 
+\end{bmatrix}$ </p>
+<p>is calculated as $ad - bc$. For our matrix $A$:</p>
+<p>$$
+\text{det}(A) = (4)(6) - (7)(2) = 24 - 14 = 10
+$$</p>
+<p>Since $\text{det}(A) \neq 0$, the matrix $A$ is invertible.</p>
+<p><strong>Step 2: Find the matrix of cofactors for $A$</strong></p>
+<p>The cofactor matrix is found by calculating the cofactor for each element of $A$. For a 2x2 matrix, this involves swapping the elements on the main diagonal, changing the signs of the off-diagonal elements, and then taking the determinant of each 1x1 matrix (which is the element itself in this case):</p>
+<ul>
+<li>Cofactor of $4$ (top-left) is $6$ (bottom-right element).</li>
+<li>Cofactor of $7$ (top-right) is $-2$ (bottom-left element, sign changed).</li>
+<li>Cofactor of $2$ (bottom-left) is $-7$ (top-right element, sign changed).</li>
+<li>Cofactor of $6$ (bottom-right) is $4$ (top-left element).</li>
+</ul>
+<p>So, the cofactor matrix is:</p>
+<p>$$
+\text{Cof}(A) = \begin{bmatrix} 6 &amp; -2 \ 
+-7 &amp; 4 \end{bmatrix}
+$$</p>
+<p><strong>Step 3: Transpose the matrix of cofactors to get the adjugate matrix</strong></p>
+<p>The adjugate of $A$ is the transpose of the cofactor matrix. For a 2x2 matrix, this simply means swapping the non-diagonal elements:</p>
+<p>$$
+\text{adj}(A) = \text{Cof}(A)^T = \begin{bmatrix} 6 &amp; -7 \
+ -2 &amp; 4 \end{bmatrix}
+$$</p>
+<p><strong>Step 4: Divide each element of the adjugate matrix by $\text{det}(A)$ to get $A^{-1}$</strong></p>
+<p>Finally, we divide each element of the adjugate matrix by the determinant of $A$ to find the inverse:</p>
+<p>$$
+A^{-1} = \frac{1}{\text{det}(A)} \text{adj}(A) = \frac{1}{10} \begin{bmatrix} 6 &amp; -7 \
+ -2 &amp; 4 \end{bmatrix} = \begin{bmatrix} 0.6 &amp; -0.7 \
+ -0.2 &amp; 0.4 \end{bmatrix}
+$$</p>
+<p>So, the inverse of matrix $A$ is:</p>
+<p>$$
+A^{-1} = \begin{bmatrix} 0.6 &amp; -0.7 \
+ -0.2 &amp; 0.4 \end{bmatrix}
+$$</p>
+<h4 id="issues-with-direct-inversion">Issues with Direct Inversion:</h4>
+<ul>
+<li><strong>Computational Complexity:</strong> This method involves calculating determinants and cofactors for each element of the matrix, leading to a computational complexity of $O(n^3)$ to $O(n^4)$ for an $n \times n$ matrix, which is highly inefficient for large matrices.</li>
+<li><strong>Numerical Stability:</strong> The process can be numerically unstable, especially if det$(A)$ is very close to zero, leading to large errors in $A^{-1}$.</li>
+</ul>
+<h4 id="using-lu-decomposition-for-matrix-inversion">Using LU Decomposition for Matrix Inversion</h4>
+<p>LU decomposition expresses matrix $A$ as the product of a lower triangular matrix $L$ and an upper triangular matrix $U$. This decomposition can be leveraged to compute $A^{-1}$ more efficiently and stably.</p>
+<ol>
+<li><strong>Decompose $A$ into $L$ and $U$:</strong> $A = LU$.</li>
+<li><strong>Solve $LY = I$ for $Y$:</strong> Use forward substitution, where $I$ is the identity matrix.</li>
+<li><strong>Solve $UX = Y$ for $X$:</strong> Use backward substitution, where $X$ eventually represents $A^{-1}$.</li>
+</ol>
+<h4 id="example-of-using-lu-decomposition-for-matrix-inversion">Example of Using LU Decomposition for Matrix Inversion</h4>
+<p>$$
+A = \begin{bmatrix} 4 &amp; 7 \
+ 2 &amp; 6 \end{bmatrix}
+$$</p>
+<p><strong>Decompose $A$ into $L$ and $U$</strong></p>
+<p>For LU decomposition, we want to break down $A$ into a lower triangular matrix $L$ and an upper triangular matrix $U$.</p>
+<ol>
+<li>Start with $U$ as $A$ and $L$ as an identity matrix, which will be modified to represent the elimination steps.</li>
+<li>To eliminate the $2$ in the second row of $U$, subtract $\frac{1}{2}$ times the first row from the second row. The multiplier $\frac{1}{2}$ is stored in $L$.</li>
+</ol>
+<p>Now we have:</p>
+<p>$$
+L = \begin{bmatrix} 1 &amp; 0 \
+ \frac{1}{2} &amp; 1 \end{bmatrix}, \quad U = \begin{bmatrix} 4 &amp; 7 \
+ 0 &amp; \frac{5}{2} \end{bmatrix}
+$$</p>
+<p><strong>Step 2: Solve $LY = I$ for $Y$</strong></p>
+<p>The goal here is to find a matrix $Y$ such that when $L$ is multiplied by $Y$, the result is the identity matrix $I$. The matrix $L$ is a lower triangular matrix, and $I$ is the $2 \times 2$ identity matrix.</p>
+<p>Since $L$ is lower triangular with 1s on the diagonal, we can solve for $Y$ using forward substitution. However, in this context, since we are eventually seeking $A^{-1}$, we don't need to explicitly solve for $Y$ because it will be the identity matrix.</p>
+<p><strong>Step 3: Solve $UX = Y$ for $X$</strong></p>
+<p>Finally, we need to solve $UX = I$ (since $Y = I$ in this context) for $X$, where $X$ represents $A^{-1}$. This is done using backward substitution.</p>
+<p>We compute $X$ by directly using backward substitution on the equation $UX = I$, where $I$ is the identity matrix. This process will yield $X$, which is the inverse of $A$.</p>
+<p>After solving $UX = I$, we get:</p>
+<p>$$
+A^{-1} = \begin{bmatrix} 0.6 &amp; -0.7 \
+ -0.2 &amp; 0.4 \end{bmatrix}
+$$</p>
+<p>You can see the intermediate steps in this program:</p>
+<pre><code class="language-python">import numpy as np
+import scipy.linalg
+
+# Define the matrix A
+A = np.array([[4, 7], [2, 6]])
+
+# Perform LU decomposition with pivoting
+P, L, U = scipy.linalg.lu(A)
+
+# Display the matrices P, L, and U
+print(&quot;P (Permutation Matrix):&quot;)
+print(P)
+print(&quot;\nL (Lower Triangular Matrix):&quot;)
+print(L)
+print(&quot;\nU (Upper Triangular Matrix):&quot;)
+print(U)
+
+# Step 1: Solve LY = P for Y using forward substitution
+Y = scipy.linalg.solve_triangular(L, P, lower=True)
+
+# Display the intermediate matrix Y
+print(&quot;\nY (Intermediate Matrix):&quot;)
+print(Y)
+
+# Step 2: Solve UX = Y for X using backward substitution, where X is A^(-1)
+X = scipy.linalg.solve_triangular(U, Y, lower=False)
+
+# Display the computed inverse of A
+print(&quot;\nX (Computed Inverse of A):&quot;)
+print(X)
+
+# Verify by direct inversion
+A_inv = np.linalg.inv(A)
+print(&quot;\nDirectly Calculated Inverse of A (for verification):&quot;)
+print(A_inv)
+</code></pre>
+<h4 id="advantages-of-lu-decomposition">Advantages of LU Decomposition:</h4>
+<ul>
+<li><strong>Computational Efficiency:</strong> LU decomposition reduces the problem to solving triangular matrices, which is computationally cheaper than the direct method. The overall complexity remains $O(n^3)$ but with a significantly lower constant factor.</li>
+<li><strong>Reusability:</strong> Once $A$ has been decomposed into $L$ and $U$, these matrices can be reused to solve multiple systems or invert other matrices derived from $A$, without the need to perform decomposition again.</li>
+<li><strong>Numerical Stability:</strong> Partial pivoting (adjusting $L$ and $U$ during decomposition to maintain stability) ensures that LU decomposition is more numerically stable than direct inversion, especially for matrices that are close to singular.</li>
+</ul>
+<h2 id="how-the-benchmark-measures-performance-calculating-flops">How the Benchmark Measures Performance - Calculating FLOPS</h2>
+<p>The benchmark calculates the total number of floating-point operations required to perform the LU decomposition and solves the system. It then measures the time taken to execute these operations, using this to calculate the system's performance in floating-point operations per second (FLOPS). The key metric is the maximum achieved FLOPS rate during the test.</p>
+<h2 id="understanding-benchmark-parameters">Understanding Benchmark Parameters</h2>
+<h4 id="1-problem-size-n">1. Problem Size (N)</h4>
+<p>This is the size of the problem that LINPACK will solve. If you set this to 10,000, then LINPACK will solve for a 10,000x10,000 matrix. This subsequently controls the amount of memory the benchmark will use. For the benchmark you want the memory to be ~80%.</p>
+<p>$$
+N = \sqrt{\frac{{.8\times\text{Memory in Gigabytes}}}{8 \times \text{sizeof(double)}}}
+$$</p>
+<p>Since each double-precision number uses 8 bytes, we divide the allocated memory in bytes by 8.</p>
+<h3 id="2-block-size-nb">2. Block Size (NB)</h3>
+<p>I explain exactly how blocks work <a href="#understanding-block-size-math">in this section</a>. The high level is that instead of trying to do the matrix multiplication outright, we chunk it up into blocks and the size of these blocks is determined by the block size. Ex: If you were solving a 4x4 matrix and you selected a block size of 2 it would chunk that multiplication into multiplications with 2x2 matrices.</p>
+<p>Common values range from 128 to 256. The optimal value often depends on the specifics of your system's memory hierarchy. Many people simply start with 256. Some reasons why this matters:</p>
+<ul>
+<li><strong>Cache Efficiency:</strong> Smaller matrices fit to CPU cache speeding things up</li>
+<li><strong>Data Locality:</strong> By working on small contiguous blocks of the matrices at a time, the algorithm improves data locality, leading to better performance.</li>
+<li><strong>Parallelization:</strong> Each block multiplication can potentially be performed in parallel, offering opportunities for performance optimization in multicore or multiprocessor environments.</li>
+</ul>
+<h4 id="understanding-block-size-math">Understanding Block Size Math</h4>
+<p>Suppose we have a 4x4 matrix $A$ and we want to multiply it by another 4x4 matrix $B$.</p>
+<p>$$
+A = \begin{bmatrix}
+a_{11} &amp; a_{12} &amp; a_{13} &amp; a_{14} \
+a_{21} &amp; a_{22} &amp; a_{23} &amp; a_{24} \
+a_{31} &amp; a_{32} &amp; a_{33} &amp; a_{34} \
+a_{41} &amp; a_{42} &amp; a_{43} &amp; a_{44}
+\end{bmatrix}
+B = \begin{bmatrix}
+b_{11} &amp; b_{12} &amp; b_{13} &amp; b_{14} \
+b_{21} &amp; b_{22} &amp; b_{23} &amp; b_{24} \
+b_{31} &amp; b_{32} &amp; b_{33} &amp; b_{34} \
+b_{41} &amp; b_{42} &amp; b_{43} &amp; b_{44}
+\end{bmatrix}
+$$</p>
+<p>We will choose a <strong>block size of 2</strong>, meaning we'll partition this matrix into four 2x2 blocks.</p>
+<p>$$
+A = \left[
+\begin{array}{cc}
+A_{11} &amp; A_{12} \
+A_{21} &amp; A_{22}
+\end{array}
+\right] = \left[
+\begin{array}{cc}
+\begin{bmatrix} a_{11} &amp; a_{12} \
+ a_{21} &amp; a_{22} \end{bmatrix} &amp; \begin{bmatrix} a_{13} &amp; a_{14} \
+ a_{23} &amp; a_{24} \end{bmatrix} \</p>
+<p>\begin{bmatrix} a_{31} &amp; a_{32} \
+ a_{41} &amp; a_{42} \end{bmatrix} &amp; \begin{bmatrix} a_{33} &amp; a_{34} \
+ a_{43} &amp; a_{44} \end{bmatrix}
+\end{array}
+\right]
+$$
+$$
+B = \left[
+\begin{array}{cc}
+B_{11} &amp; B_{12} \
+B_{21} &amp; B_{22}
+\end{array}
+\right] = \left[
+\begin{array}{cc}
+\begin{bmatrix} b_{11} &amp; b_{12} \
+ b_{21} &amp; b_{22} \end{bmatrix} &amp; \begin{bmatrix} b_{13} &amp; b_{14} \
+ b_{23} &amp; b_{24} \end{bmatrix} \</p>
+<p>\begin{bmatrix} b_{31} &amp; b_{32} \
+ b_{41} &amp; b_{42} \end{bmatrix} &amp; \begin{bmatrix} b_{33} &amp; b_{34} \
+ b_{43} &amp; b_{44} \end{bmatrix}
+\end{array}
+\right]
+$$</p>
+<p>Where each block $A_{ij}$ is a 2x2 matrix:</p>
+<p>$$
+A_{11} = \begin{bmatrix} a_{11} &amp; a_{12} \
+ a_{21} &amp; a_{22} \end{bmatrix}, \quad B_{11} = \begin{bmatrix} b_{11} &amp; b_{12} \
+ b_{21} &amp; b_{22} \end{bmatrix}
+$$</p>
+<p>$$
+A_{12} = \begin{bmatrix} a_{13} &amp; a_{14} \
+ a_{23} &amp; a_{24} \end{bmatrix}, \quad B_{12} = \begin{bmatrix} b_{13} &amp; b_{14} \
+ b_{23} &amp; b_{24} \end{bmatrix}
+$$</p>
+<p>$$
+A_{21} = \begin{bmatrix} a_{31} &amp; a_{32} \
+ a_{41} &amp; a_{42} \end{bmatrix}, \quad B_{21} = \begin{bmatrix} b_{31} &amp; b_{32} \
+ b_{41} &amp; b_{42} \end{bmatrix}
+$$</p>
+<p>$$
+A_{22} = \begin{bmatrix} a_{33} &amp; a_{34} \
+ a_{43} &amp; a_{44} \end{bmatrix}, \quad B_{22} = \begin{bmatrix} b_{33} &amp; b_{34} \
+ b_{43} &amp; b_{44} \end{bmatrix}
+$$</p>
+<p>Now we multiply them as follows to get $C = AB$:</p>
+<ol>
+<li>Multiply the corresponding 2x2 blocks of matrices $A$ and $B$ together.</li>
+<li>Add the resulting 2x2 matrices to form the blocks of the resulting matrix $C$.</li>
+</ol>
+<p><strong>For $C_{11}$</strong>:</p>
+<p>$$
+C_{11} = A_{11}B_{11} + A_{12}B_{21}
+$$</p>
+<p>Breaking it down, the multiplication and addition are:</p>
+<p>$$
+C_{11} = \begin{bmatrix} a_{11} &amp; a_{12} \
+ a_{21} &amp; a_{22} \end{bmatrix} \begin{bmatrix} b_{11} &amp; b_{12} \
+ b_{21} &amp; b_{22} \end{bmatrix} + \begin{bmatrix} a_{13} &amp; a_{14} \
+ a_{23} &amp; a_{24} \end{bmatrix} \begin{bmatrix} b_{31} &amp; b_{32} \
+ b_{41} &amp; b_{42} \end{bmatrix}
+$$</p>
+<p>This results in a new 2x2 matrix for $C_{11}$.</p>
+<p><strong>For $C_{12}$</strong>:</p>
+<p>$$
+C_{12} = A_{11}B_{12} + A_{12}B_{22}
+$$</p>
+<p>$$
+C_{12} = \begin{bmatrix} a_{11} &amp; a_{12} \
+ a_{21} &amp; a_{22} \end{bmatrix} \begin{bmatrix} b_{13} &amp; b_{14} \
+ b_{23} &amp; b_{24} \end{bmatrix} + \begin{bmatrix} a_{13} &amp; a_{14} \
+ a_{23} &amp; a_{24} \end{bmatrix} \begin{bmatrix} b_{33} &amp; b_{34} \
+ b_{43} &amp; b_{44} \end{bmatrix}
+$$</p>
+<p><strong>For $C_{21}$</strong>:</p>
+<p>$$
+C_{21} = A_{21}B_{11} + A_{22}B_{21}
+$$
+$$
+C_{21} = \begin{bmatrix} a_{31} &amp; a_{32} \
+ a_{41} &amp; a_{42} \end{bmatrix} \begin{bmatrix} b_{11} &amp; b_{12} \
+ b_{21} &amp; b_{22} \end{bmatrix} + \begin{bmatrix} a_{33} &amp; a_{34} \
+ a_{43} &amp; a_{44} \end{bmatrix} \begin{bmatrix} b_{31} &amp; b_{32} \
+ b_{41} &amp; b_{42} \end{bmatrix}
+$$</p>
+<p><strong>For $C_{22}$</strong>:</p>
+<p>$$
+C_{22} = A_{21}B_{12} + A_{22}B_{22}
+$$
+$$
+C_{22} = \begin{bmatrix} a_{31} &amp; a_{32} \
+ a_{41} &amp; a_{42} \end{bmatrix} \begin{bmatrix} b_{13} &amp; b_{14} \
+ b_{23} &amp; b_{24} \end{bmatrix} + \begin{bmatrix} a_{33} &amp; a_{34} \
+ a_{43} &amp; a_{44} \end{bmatrix} \begin{bmatrix} b_{33} &amp; b_{34} \
+ b_{43} &amp; b_{44} \end{bmatrix}
+$$</p>
+<p>Each $C_{ij}$ block is computed by adding the products of the 2x2 blocks from matrices $A$ and $B$. The summation of these products gives us the respective blocks of the resulting matrix $C$.</p>
+<h3 id="3-process-grid-p-x-q">3. Process Grid (P x Q)</h3>
+<p>At the highest level, this controls the distribution of processes over a two-dimensional grid. P and Q are the dimensions of the grid.</p>
+<p>Generally, what you want is:</p>
+<p>$$
+P \times Q = \text{Total number of cores or threads}
+$$</p>
+<p>where we choose $P$ and $Q$ such that their product is equal to the number of physical cores or logical threads (if hyper-threading is enabled). The ideal grid minimizes the difference between $P$ and $Q$. For a system with 12 cores, you might use 3x4 or 2x6. You will probably want to explore different values to see which is best.</p>
+<p>Extending <a href="#understanding-block-size-math">the example for block size</a>, this is effectively assigning a core to each subblock we create. Ideally they match perfectly, but you really just want to get it as close as you can.</p>
+<h2 id="interpreting-benchmark-results-for-single-node-test">Interpreting Benchmark Results for Single Node Test</h2>
+<pre><code class="language-bash">This is a SAMPLE run script for running a shared-memory version of
+Intel(R) Distribution for LINPACK* Benchmark. Change it to reflect
+the correct number of CPUs/threads, problem input files, etc..
+*Other names and brands may be claimed as the property of others.
+runme_xeon64: line 28: [: too many arguments
+Wed Mar  6 01:17:25 PM EST 2024
+Sample data file lininput_xeon64.
+
+Current date/time: Wed Mar  6 13:17:25 2024
+
+CPU frequency:    2.692 GHz
+Number of CPUs: 2
+Number of cores: 24
+Number of threads: 24
+
+Parameters are set to:
+
+Number of tests: 15
+Number of equations to solve (problem size) : 1000  2000  5000  10000 15000 18000 20000 22000 25000 26000 27000 30000 35000 40000 45000
+Leading dimension of array                  : 1000  2000  5008  10000 15000 18008 20016 22008 25000 26000 27000 30000 35000 40000 45000
+Number of trials to run                     : 8     6     4     4     3     3     3     3     3     3     2     1     1     1     1
+Data alignment value (in Kbytes)            : 4     4     4     4     4     4     4     4     4     4     4     1     1     1     1
+
+Maximum memory requested that can be used=16200901024, at the size=45000
+
+=================== Timing linear equation system solver ===================
+
+Size   LDA    Align. Time(s)    GFlops   Residual     Residual(norm) Check
+1000   1000   4      0.013      51.4481  1.319833e-12 4.019661e-02   pass
+1000   1000   4      0.006      115.4058 1.319833e-12 4.019661e-02   pass
+1000   1000   4      0.006      114.9894 1.319833e-12 4.019661e-02   pass
+1000   1000   4      0.006      113.9290 1.319833e-12 4.019661e-02   pass
+1000   1000   4      0.006      117.8895 1.319833e-12 4.019661e-02   pass
+1000   1000   4      0.006      119.3595 1.319833e-12 4.019661e-02   pass
+1000   1000   4      0.006      116.9847 1.319833e-12 4.019661e-02   pass
+1000   1000   4      0.006      118.7078 1.319833e-12 4.019661e-02   pass
+2000   2000   4      0.023      231.5382 5.176637e-12 4.065060e-02   pass
+2000   2000   4      0.024      225.9432 5.176637e-12 4.065060e-02   pass
+2000   2000   4      0.022      239.2326 5.176637e-12 4.065060e-02   pass
+2000   2000   4      0.025      214.1079 5.176637e-12 4.065060e-02   pass
+2000   2000   4      0.022      239.7369 5.176637e-12 4.065060e-02   pass
+2000   2000   4      0.023      228.6342 5.176637e-12 4.065060e-02   pass
+5000   5008   4      0.230      362.3217 2.344738e-11 3.096182e-02   pass
+5000   5008   4      0.225      371.2111 2.344738e-11 3.096182e-02   pass
+5000   5008   4      0.226      369.3271 2.344738e-11 3.096182e-02   pass
+5000   5008   4      0.226      369.2534 2.344738e-11 3.096182e-02   pass
+10000  10000  4      1.421      469.3290 8.459977e-11 2.865107e-02   pass
+10000  10000  4      1.398      476.9397 8.459977e-11 2.865107e-02   pass
+10000  10000  4      1.385      481.4629 8.459977e-11 2.865107e-02   pass
+10000  10000  4      1.383      482.1042 8.459977e-11 2.865107e-02   pass
+15000  15000  4      4.469      503.5350 2.237140e-10 3.392439e-02   pass
+15000  15000  4      4.462      504.3754 2.237140e-10 3.392439e-02   pass
+15000  15000  4      4.459      504.7193 2.237140e-10 3.392439e-02   pass
+18000  18008  4      7.425      523.7450 3.461987e-10 3.673234e-02   pass
+18000  18008  4      7.262      535.4732 3.461987e-10 3.673234e-02   pass
+18000  18008  4      7.238      537.2687 3.461987e-10 3.673234e-02   pass
+20000  20016  4      10.235     521.1456 3.549664e-10 3.036127e-02   pass
+20000  20016  4      10.230     521.4355 3.549664e-10 3.036127e-02   pass
+20000  20016  4      10.089     528.7277 3.549664e-10 3.036127e-02   pass
+22000  22008  4      13.360     531.4139 4.328670e-10 3.065988e-02   pass
+22000  22008  4      13.327     532.7448 4.328670e-10 3.065988e-02   pass
+22000  22008  4      13.300     533.8255 4.328670e-10 3.065988e-02   pass
+25000  25000  4      19.541     533.1316 5.450296e-10 3.015733e-02   pass
+25000  25000  4      19.242     541.4267 5.450296e-10 3.015733e-02   pass
+25000  25000  4      19.187     542.9651 5.450296e-10 3.015733e-02   pass
+26000  26000  4      21.612     542.2365 6.520824e-10 3.323271e-02   pass
+26000  26000  4      21.666     540.8737 6.520824e-10 3.323271e-02   pass
+26000  26000  4      21.641     541.5003 6.520824e-10 3.323271e-02   pass
+27000  27000  4      24.343     539.1040 6.041370e-10 2.857495e-02   pass
+27000  27000  4      24.304     539.9609 6.041370e-10 2.857495e-02   pass
+30000  30000  1      33.634     535.2317 9.424864e-10 3.610605e-02   pass
+35000  35000  1      53.551     533.8045 1.064996e-09 3.020948e-02   pass
+40000  40000  1      79.507     536.6813 1.523135e-09 3.289340e-02   pass
+45000  45000  1      110.173    551.4434 2.085267e-09 3.591039e-02   pass
+
+Performance Summary (GFlops)
+
+Size   LDA    Align.  Average  Maximal
+1000   1000   4       108.5892 119.3595
+2000   2000   4       229.8655 239.7369
+5000   5008   4       368.0283 371.2111
+10000  10000  4       477.4589 482.1042
+15000  15000  4       504.2099 504.7193
+18000  18008  4       532.1623 537.2687
+20000  20016  4       523.7696 528.7277
+22000  22008  4       532.6614 533.8255
+25000  25000  4       539.1745 542.9651
+26000  26000  4       541.5368 542.2365
+27000  27000  4       539.5325 539.9609
+30000  30000  1       535.2317 535.2317
+35000  35000  1       533.8045 533.8045
+40000  40000  1       536.6813 536.6813
+45000  45000  1       551.4434 551.4434
+
+Residual checks PASSED
+
+End of tests
+
+Done: Wed Mar  6 01:27:43 PM EST 2024
+</code></pre>
+<ol>
+<li><strong>Size and LDA (Leading Dimension Array)</strong>:</li>
+<li><strong>Size</strong>: This refers to the problem size, specifically the number of linear equations to solve, which directly corresponds to the size of the matrix involved in the computations. Larger sizes indicate more complex problems that require more computational resources.</li>
+<li><strong>LDA</strong>: The Leading Dimension of the Array is a parameter that specifies the physical storage dimensions of the matrix in memory. It's usually equal to or greater than the actual matrix size (problem size) to accommodate efficient memory access and alignment. The choice of LDA can affect the efficiency of the algorithm, especially in terms of memory usage and speed of accessing array elements during computation.</li>
+<li>The key here is that LDA must be <em>at least</em> as large as the size of the matrix being solved.</li>
+<li><strong>Align</strong>: This represents the data alignment in kilobytes (Kbytes) and is crucial for optimizing memory access. Proper alignment ensures that data is stored in memory in a way that aligns with the cache lines, thereby minimizing cache misses and improving the efficiency of memory access. When data is well-aligned, the processor can fetch and store data more efficiently, leading to faster computation times and reduced risk of bottlenecks due to memory access delays.</li>
+<li><strong>Time(s)</strong>: The time, measured in seconds, indicates how long the system took to solve a set of linear equations of a given size.</li>
+<li><strong>GFlops (Giga Floating-Point Operations Per Second)</strong>: GFlops measure the number of billions of floating-point operations the system can perform per second.</li>
+<li><strong>Residual and Residual(norm)</strong>:</li>
+<li><strong>Residual</strong>: This is a measure of the error in the solutions of the linear equations. It's calculated as the difference between the left-hand side and right-hand side of the equations when using the computed solution. Ideally, the residual should be close to zero, indicating that the computed solution closely approximates the true solution.</li>
+<li><strong>Residual(norm)</strong>: The normalized residual provides a scale-independent measure of accuracy, which is particularly useful for comparing the accuracy across different problem sizes or different systems. A small normalized residual suggests that the solution is accurate relative to the size of the input matrix.</li>
+<li><strong>Check</strong>: This column indicates whether each individual test passed or failed based on the computed residuals. A "pass" means that the solution meets the predefined accuracy criteria, usually a small residual. This is crucial for verifying the reliability of the computational results, ensuring that they are within acceptable error margins.</li>
+</ol>
+<h3 id="what-is-numerical-stability">What is Numerical Stability</h3>
+<p>Numerical stability refers to the ability to produce accurate results even when subjected to small perturbations, such as rounding errors or slight changes in input values. A numerically stable algorithm minimizes the error amplification over its computation, ensuring that the outcome remains close to the true mathematical solution, even in the presence of inherent numerical inaccuracies due to the finite precision of floating-point representation.</p>
+<p>Imagine the linear system $Ax = b$, where $A$ is a matrix, $x$ is the vector of unknowns, and $b$ is the result vector. What happens when, due to the nature of base 2, we have a slight inaccuracy in the calculation of $b$?</p>
+<ul>
+<li><strong>Original System</strong>: $Ax = b$</li>
+<li><strong>Perturbed System</strong>: $Ax' = b + \delta b$ (where $\delta b$ is a tiny change in $b$)</li>
+</ul>
+<p>In the ideal outcome the solution $x'$ should only slightly differ from $x$, reflecting the small change $\delta b$.</p>
+<p>A numerically stable algorithm ensures that the small change $\delta b$ leads to a proportionally small change in the solution $x'$.</p>
+<p>In a numerically unstable algorithm a tiny change in $\delta b$ could result in a dramatically different solution $x'$, amplifying errors and leading to unreliable results.</p>
+<h3 id="right-looking-lu-factorization">Right Looking LU Factorization</h3>
+<p>Right-looking LU factorization is a variant of the standard LU factorization. In regular LU factorization, the matrix is decomposed into a lower triangular matrix (L) and an upper triangular matrix (U) generally without specifying the order of operations. In contrast, the right-looking approach specifically refers to the order in which the matrix is processed: it begins with the leftmost column and moves rightward, updating the remainder of the matrix as it progresses. </p>
+<h3 id="row-partial-pivoting">Row Partial Pivoting</h3>
+<p>Row-partial pivoting in LU factorization is a strategy to enhance numerical stability. It interchanges rows of the matrix as it's decomposed into lower (L) and upper (U) triangular matrices. Before zeroing out below-diagonal elements in a column, the algorithm swaps the current row with a below row that has the largest absolute value in the current column. This step helps prevent small pivot elements, which can lead to significant numerical errors, ensuring the algorithm remains stable even for matrices prone to inducing calculation inaccuracies.</p>
+<h2 id="some-related-binary-reverse-engineering">Some Related Binary Reverse Engineering</h2>
+<p><img alt="" src="images/2024-03-28-17-41-03.png" /></p>
+<ul>
+<li>Location in data section. <code>aPpn</code> should be an offset in memory to where the string ppn is stored and <code>aPerhost</code> is where the perhost string is.</li>
+</ul>
+<p><img alt="" src="images/2024-03-28-17-43-03.png" /></p>
+<ul>
+<li><code>ppn_help_fn</code> prints the help for <code>ppn</code>. <code>ppn_fn</code> should be the function for handling <code>ppn</code> itself</li>
+<li>The below code converts the string <code>ppn</code> to a long and then places it in a configuration table (called cs:var) at offset 80h. This is where we need to look for references. <code>var</code> itself is in the global offset table (a table for global variables).</li>
+</ul>
+<p><img alt="" src="images/2024-03-28-18-11-33.png" /></p>
+<p><img alt="" src="images/2024-03-28-18-08-32.png" /></p>
+<ul>
+<li>Now that we know about the configuration table, we need to find any instances that refer to <code>cs:var+80h</code>. The bad part is there is no easy way to search this because there are 151 individual references to <code>cs:var</code> and since <code>80h</code> is added after the fact there is no definitive way to find what we want.</li>
+</ul>
+<h3 id="usage-in-do_spawn">Usage in <code>do_spawn</code></h3>
+<ul>
+<li>We see it gets loaded inside <code>do_spawn</code> here:</li>
+</ul>
+<pre><code class="language-assembly">add     rsp, 0FFFFFFFFFFFFFFF0h
+mov     rdi, rsi        ; info_host
+lea     rcx, [rsp+3FE8h+node_count] ; node_count
+lea     r8, [rsp+3FE8h+node_list] ; node_list
+lea     r9, [rsp+3FE8h+max_node_count] ; max_node_count
+mov     [rsp+3FE8h+bstrap_params], r14 ; node_map
+mov     r10, [rcx-0Ch]
+mov     esi, [rcx+54h]  ; num_procs
+mov     edx, [r10+80h]  ; ppn
+call    HYD_spawn_handle_hosts_info
+add     rsp, 10h
+test    eax, eax
+jnz     loc_413A7A
+</code></pre>
+<ul>
+<li>This jumps to <code>HYD_spawn_handle_hosts_info</code> which as the name implies seems to be some function for processing hosts_info:</li>
+</ul>
+<pre><code class="language-assembly">mov     [rsp+68h+num_procs], r15d
+mov     [rsp+68h+node_count], r12
+mov     [rsp+68h+nodes], r14
+mov     [rsp+68h+max_node_count], r13
+</code></pre>
+<ul>
+<li>so we can see ppn being placed on the stack at the location of the <code>num_procs</code> variable.</li>
+</ul>
+<h2 id="installing-offline">Installing Offline</h2>
+<ul>
+<li>Get installers from these locations:</li>
+<li>https://www.intel.com/content/www/us/en/developer/tools/oneapi/base-toolkit-download.html?operatingsystem=linux&amp;linux-install-type=offline</li>
+<li>https://www.intel.com/content/www/us/en/developer/tools/oneapi/hpc-toolkit-download.html?operatingsystem=linux&amp;linux-install-type=offline</li>
+<li>https://downloadmirror.intel.com/825890/l_onemklbench_p_2024.2.0_527.tgz</li>
+</ul>
+<pre><code class="language-bash">wget https://registrationcenter-download.intel.com/akdlm/IRC_NAS/e6ff8e9c-ee28-47fb-abd7-5c524c983e1c/l_BaseKit_p_2024.2.1.100_offline.sh
+sudo sh ./l_BaseKit_p_2024.2.1.100_offline.sh -a --silent --cli --eula accept
+wget https://registrationcenter-download.intel.com/akdlm/IRC_NAS/d461a695-6481-426f-a22f-b5644cd1fa8b/l_HPCKit_p_2024.2.1.79_offline.sh
+sudo sh ./l_HPCKit_p_2024.2.1.79_offline.sh -a --silent --cli --eula accept
+source /opt/intel/oneapi/setvars.sh
+
+</code></pre>
+<h2 id="optimizing">Optimizing</h2>
+<p>See <a href="optimizing.ipynb">Optimizing</a></p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../Troubleshooting%205G%20Connection/" class="btn btn-neutral float-left" title="Troubleshooting 5G Connection"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../Understanding%20Cellular%20Technology/" class="btn btn-neutral float-right" title="Understanding Cellular Technology">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="None" class="fa fa-code-fork" style="color: #fcfcfc"> https://github.com/grantcurell/grantcurell.github.io/tree/master</a>
+        </span>
+    
+    
+      <span><a href="../Troubleshooting%205G%20Connection/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../Understanding%20Cellular%20Technology/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

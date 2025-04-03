@@ -1,0 +1,1673 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Grant Curell" /><link rel="canonical" href="https://grantcurell.github.io/Deploy%20OpenShift%20Offline/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Deploy OpenShift Offline - Grant Curell's Dell Projects</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Deploy OpenShift Offline";
+        var mkdocs_page_input_path = "Deploy OpenShift Offline\\README.md";
+        var mkdocs_page_url = "/Deploy%20OpenShift%20Offline/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Grant Curell's Dell Projects
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Grant Curell's Dell Projects</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Adding%20Hashing%20to%20OpenSwitch/">Adding Hashing to OpenSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Adding%20Intel%20I219-LM%20%288086.0d4c%29%20Driver%20to%20ESXi/">Adding Intel I219-LM (8086.0d4c) Driver to ESXi</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Aircraft%20Detection/">Aircraft Detection</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Automatically%20Provision%20Dell%20Servers/">Automatically Provision Dell Servers</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Automating%20OME%20Hardware%20Reports/">Automating OME Hardware Reports</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../BIOS%20Options%20Explanation/">BIOS Options Explanation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Backup%20OS10%20Config%20with%20Ansible/">Backup OS10 Config with Ansible</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Build%20NVIDIA%20AI%20Enterprise/">Build NVIDIA AI Enterprise</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Build%20OpenShift/">Build OpenShift</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Build%20Preboot%20Environment%20with%20Ansible/">Build Preboot Environment with Ansible</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../CloudLink/">CloudLink</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Common%20Questions%20About%20LLMs%20Answered/">Common Questions About LLMs Answered</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20FN410%20as%20a%20Switch/">Configure FN410 as a Switch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20Gigamon%20Tap/">Configure Gigamon Tap</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20Multi-Protocol%20PowerStore%20with%20LDAP/">Configure Multi-Protocol PowerStore with LDAP</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20PowerStore%20SMB%20User/">Configure PowerStore SMB User</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20kdump%20with%20SSH/">Configure kdump with SSH</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configuring%20VLT%20on%20OS10/">Configuring VLT on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Connect%20to%20APC%20PDU%20with%20Redfish/">Connect to APC PDU with Redfish</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Create%20Kickstart%20Server%20on%20Fedora/">Create Kickstart Server on Fedora</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Create%20OpenSwitch%20VM/">Create OpenSwitch VM</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Custom%20NVMe%20Debug%20Driver/">Custom NVMe Debug Driver</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../DHCP%20Relay%20on%20SONiC/">DHCP Relay on SONiC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Dell%20Ansible%20Testing/">Dell Ansible Testing</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Deploy OpenShift Offline</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#install">Install</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#pull-required-binaries">Pull Required Binaries</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#specifying-a-version">Specifying a Version</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#dns-entries">DNS Entries</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#set-up-your-local-mirror">Set Up Your Local Mirror</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#using-local-agent">Using Local Agent</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#deploy-dell-csi-operator-on-openshift">Deploy Dell CSI Operator on OpenShift</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#set-up-s3">Set Up S3</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#accessing-the-system">Accessing the System</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#identity-providers">Identity Providers</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#understand-openshift-networking">Understand OpenShift Networking</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#summary-of-the-mapping">Summary of the Mapping</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#helpful-links">Helpful Links</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Elasticsearch%20Display%20Map%20Data/">Elasticsearch Display Map Data</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Elasticsearch%20Load%20Testing/">Elasticsearch Load Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Estimating%20Compute%20Requirements%20for%20Machine%20Learning/">Estimating Compute Requirements for Machine Learning</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Finding%20Rare%20Logs%20with%20DBSCAN/">Finding Rare Logs with DBSCAN</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Get%20NVMe%20Drives%20from%20iDRAC%20Redfish/">Get NVMe Drives from iDRAC Redfish</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../High%20Speed%20Packet%20Capture/">High Speed Packet Capture</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20Bitcoin-Blockchain%20Works%20-%20Notes/">How Bitcoin-Blockchain Works - Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20Does%20Power%20Work/">How Does Power Work</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20Does%20SIFT%20Work/">How Does SIFT Work</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20OS10%20Installer%20Works/">How OS10 Installer Works</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20drive%20detection%20order%20works/">How drive detection order works</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20to%20ONIE%20Install%20and%20ZTP%20Config%20Dell%20SONiC/">How to ONIE Install and ZTP Config Dell SONiC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20to%20Read%20lstopo%20and%20a%20PCIe%20Overview/">How to Read lstopo and a PCIe Overview</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20to%20Setup%20PGP%20with%20Mailvelope/">How to Setup PGP with Mailvelope</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../IO%20Identities%20with%20LifeCycle%20Controller/">IO Identities with LifeCycle Controller</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Importing%20Elasticsearch%20Data/">Importing Elasticsearch Data</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Install%20OpenCV%20with%20CUDA%20Support%20on%20Rocky%20Linux/">Install OpenCV with CUDA Support on Rocky Linux</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Installing%20DPDK%20with%20NapaTech%20Card/">Installing DPDK with NapaTech Card</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../LDAP%20with%20OpenManage/">LDAP with OpenManage</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../LLMs%20Explained/">LLMs Explained</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balance%20Testing%20with%20OpenVSwitch/">Load Balance Testing with OpenVSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balancing%20on%20Mellanox%20Switches/">Load Balancing on Mellanox Switches</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balancing%20with%20LAG%20on%205112F-ON/">Load Balancing with LAG on 5112F-ON</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Make%20USB%20Read%20Only/">Make USB Read Only</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Migrating%20Storage%20Volumes%20to%20PowerStore/">Migrating Storage Volumes to PowerStore</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Mulitple%20Span%20on%204112F-ON%20with%20OpenSwitch/">Mulitple Span on 4112F-ON with OpenSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Multiple%20Span%20on%204112F-ON%20with%20OS10/">Multiple Span on 4112F-ON with OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../NVMe%20Driver%20Reverse%20Engineering/">NVMe Driver Reverse Engineering</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../NVMe%20Performance%20Testing/">NVMe Performance Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20AMD%20Processor/">Notes on AMD Processor</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20Building%20a%20Datacenter%20from%20Scratch/">Notes on Building a Datacenter from Scratch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20HPC/">Notes on HPC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20HSM/">Notes on HSM</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20Improving%20Drive%20Performance/">Notes on Improving Drive Performance</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20NVMe%20Log%20Pages/">Notes on NVMe Log Pages</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20PCIe/">Notes on PCIe</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20mdraid%20Performance%20Testing/">Notes on mdraid Performance Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20nodejs/">Notes on nodejs</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Nvidia%20GPUDirect/">Nvidia GPUDirect</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Nvidia%20GRID%20Notes/">Nvidia GRID Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OME%20Bug/">OME Bug</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OME%20Integration%20for%20VMWare/">OME Integration for VMWare</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OS10%20Password%20Recovery%20Bug/">OS10 Password Recovery Bug</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Offline%20Updates%20with%20OpenManage%20Enterprise/">Offline Updates with OpenManage Enterprise</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OpenFlow%20on%204112F-ON/">OpenFlow on 4112F-ON</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OpenShift%20-%20Change%20MTU/">OpenShift - Change MTU</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Overprovisioning%20Explained/">Overprovisioning Explained</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PCIev3%20vs%20v4/">PCIev3 vs v4</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Playing%20with%20virsh/">Playing with virsh</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PowerScale%20-%20Configure%20with%20Kubernetes/">PowerScale - Configure with Kubernetes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PowerScale%20Failed%20Authentication/">PowerScale Failed Authentication</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PowerScale%20Setup/">PowerScale Setup</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Reset%20OS10%20Admin%20Password/">Reset OS10 Admin Password</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Reverse%20Engineering%20OpenSHMEM/">Reverse Engineering OpenSHMEM</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Run%20VPN%20on%20OS10/">Run VPN on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Running%20DNS%20from%20OS10/">Running DNS from OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../SONiC%20-%20Sample%20Datacenter%20Automation%20Architecture/">SONiC - Sample Datacenter Automation Architecture</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Set%20Up%20RSPAN%20on%20OS10/">Set Up RSPAN on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setting%20Up%20Breakout%20Cables/">Setting Up Breakout Cables</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setting%20Up%20SmartFabric%20Director/">Setting Up SmartFabric Director</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setting%20Up%20iDRAC%20Telemetry%20with%20Splunk/">Setting Up iDRAC Telemetry with Splunk</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setup%20IDPA/">Setup IDPA</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Site%20to%20Site%20VPN%20with%20PFSense%20and%20CentOS%208/">Site to Site VPN with PFSense and CentOS 8</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Swap%20Kernel%20on%20Rocky%209/">Swap Kernel on Rocky 9</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Switch%20Directly%20to%20Client%20Test/">Switch Directly to Client Test</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Testing%20Bare%20Metal%20Orchestrator/">Testing Bare Metal Orchestrator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Testing%20Intel%20x520%20on%20RHEL%206/">Testing Intel x520 on RHEL 6</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Troubleshooting%205G%20Connection/">Troubleshooting 5G Connection</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Understand%20and%20Run%20LINPACK/">Understand and Run LINPACK</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Understanding%20Cellular%20Technology/">Understanding Cellular Technology</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Understanding%20Memory/">Understanding Memory</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Understanding%20NCCL/">Understanding NCCL</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Understanding%20PERC%20Interrupts/">Understanding PERC Interrupts</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Update%20iDRAC%20Cipher%20Suite%20with%20Redfish/">Update iDRAC Cipher Suite with Redfish</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Use%20OS10%20as%20Aggregator/">Use OS10 as Aggregator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Using%20Dell%20Repository%20Manager%20to%20Create%20Bootable%20ISO/">Using Dell Repository Manager to Create Bootable ISO</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Using%20FIO/">Using FIO</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Using%20the%20iDRAC%20Service%20Module/">Using the iDRAC Service Module</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VEP%20Testing/">VEP Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Web%20Traffic%20Generator/">Web Traffic Generator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Writing%20udev%20Rules%20for%20Dell%20PERC%20H755/">Writing udev Rules for Dell PERC H755</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../esrally%20%28INCOMPLETE%29/">esrally (INCOMPLETE)</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../idrac%20with%20LDAP/">idrac with LDAP</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balance%20Testing%20on%204112F-ON/OS10/">Load Balance Testing on 4112F-ON w/OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balance%20Testing%20on%204112F-ON/OpenSwitch%20%28OPX%29/">Load Balancing with LAG OPX</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Automate%20ESXi%20Installation/">Automating ESXi Installation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Change%20User%20on%20VxRail%20Plugin/">Change User on VxRail Plugin</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/ESXi%20Architecture/">VMWare Architecture Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/How%20to%20Pull%20Usage%20Metrics/">How to Pull Usage Metrics</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Notes%20on%20VSAN/">Notes on vSAN</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Setup%20VXRail/">VxRail Setup</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Troubleshooting%20vSAN/">Troubleshooting vSAN</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/VMWare%20APIs/">VMWare APIs</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/VxRail%20Architecture%20and%20Troubleshooting/">VxRail Architecture and Troubleshooting</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/vRealize%20Setup%20%28Incomplete%29/">Setting Up vRealize</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Grant Curell's Dell Projects</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Deploy OpenShift Offline</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="deploy-openshift-offline">Deploy OpenShift Offline</h1>
+<ul>
+<li><a href="#build-openshift">Build OpenShift</a></li>
+<li><a href="#install">Install</a><ul>
+<li><a href="#pull-required-binaries">Pull Required Binaries</a></li>
+<li><a href="#specifying-a-version">Specifying a Version</a></li>
+<li><a href="#dns-entries">DNS Entries</a></li>
+<li><a href="#set-up-your-local-mirror">Set Up Your Local Mirror</a></li>
+<li><a href="#using-local-agent">Using Local Agent</a></li>
+</ul>
+</li>
+<li><a href="#deploy-dell-csi-operator-on-openshift">Deploy Dell CSI Operator on OpenShift</a></li>
+<li><a href="#set-up-s3">Set Up S3</a></li>
+<li><a href="#accessing-the-system">Accessing the System</a><ul>
+<li><a href="#identity-providers">Identity Providers</a></li>
+</ul>
+</li>
+<li><a href="#understand-openshift-networking">Understand OpenShift Networking</a><ul>
+<li><a href="#summary-of-the-mapping">Summary of the Mapping</a></li>
+</ul>
+</li>
+<li><a href="#helpful-links">Helpful Links</a></li>
+</ul>
+<h2 id="install">Install</h2>
+<h3 id="pull-required-binaries">Pull Required Binaries</h3>
+<ul>
+<li>Pull the installer and binaries from <a href="https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/stable/">here</a>. You will need to pull both the client, installer, and oc-mirror separately.</li>
+<li>Extract them, run <code>chmod +x oc kubectl openshift-install oc-mirror</code> and then <code>sudo mv oc kubectl openshift-install oc-mirror /usr/local/bin</code></li>
+<li>Get your pull secret from <a href="https://console.redhat.com/openshift/install/pull-secret">here</a> and save it somewhere</li>
+</ul>
+<h4 id="specifying-a-version">Specifying a Version</h4>
+<p>If you need to install a specific version, make sure you grab the binaries specifically associated with that version.</p>
+<ul>
+<li>You can get a specific version by going to this URL: <a href="https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/">https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/</a></li>
+</ul>
+<h3 id="dns-entries">DNS Entries</h3>
+<ul>
+<li>I used dnsmasq for my DNS server with the following config. I had multiple clusters set up. The main one I use in this tutorial is vmware-cluster. Notice that the apps IP is going to be the same as your API IP.</li>
+</ul>
+<pre><code class="language-bash"># Configuration file for dnsmasq.
+
+# Never forward plain names (without a dot or domain part)
+domain-needed
+
+# Never forward addresses in the non-routed address spaces.
+bogus-priv
+
+# Specify the local domains for dnsmasq to resolve
+local=/lan/
+local=/openshift.lan/
+local=/test.openshift.lan/
+local=/vmware-cluster.openshift.lan/
+
+# Add local DNS records from this file
+addn-hosts=/etc/dnsmasq.hosts
+
+# Add wildcard DNS entry for *.apps domains
+address=/apps.test.openshift.lan/10.10.25.189
+address=/apps.vmware-cluster.openshift.lan/10.10.25.178
+
+# Specify interfaces to listen on
+interface=lo
+interface=ens192
+
+# Bind only to the interfaces it is listening on
+bind-interfaces
+
+# Set the primary domain for dnsmasq
+domain=openshift.lan
+domain=test.openshift.lan
+domain=vmware-cluster.openshift.lan
+domain=lan
+
+# Include all the files in a directory except those ending in .bak
+conf-dir=/etc/dnsmasq.d,.rpmnew,.rpmsave,.rpmorig
+</code></pre>
+<ul>
+<li>I had the following additional entries setup for everything else in my <code>/etc/hosts</code> file. Notice that the one labeled quay is going to be our mirror server - that should be a separate machine outside of your OpenShift cluster, but that all the cluster machines can reach.</li>
+</ul>
+<pre><code class="language-bash"># Quay
+10.10.25.131 grant-staging.openshift.lan
+
+# OpenShift VMWare Cluster
+10.10.25.179 api.vmware-cluster.openshift.lan
+10.10.25.178 oauth-openshift.apps.vmware-cluster.openshift.lan
+10.10.25.178 console-openshift-console.apps.vmware-cluster.openshift.lan
+10.10.25.178 grafana-openshift-monitoring.apps.vmware-cluster.openshift.lan
+10.10.25.178 thanos-querier-openshift-monitoring.apps.vmware-cluster.openshift.lan
+10.10.25.178 prometheus-k8s-openshift-monitoring.apps.vmware-cluster.openshift.lan
+10.10.25.178 alertmanager-main-openshift-monitoring.apps.vmware-cluster.openshift.lan
+
+# Bootstrap host (THIS IS ONLY FOR THE USER PROVISIONED INFRASTRUCTURE INSTALL)
+# For the UPI install you have to have a separate bootstrap host just for the install. If you aren't doing UPI,
+# you can safely ignore this. You also don't need a bootstrap host after OpenShift 4.13=&lt;
+10.10.25.169 bootstrap.openshift.lan
+</code></pre>
+<h3 id="set-up-your-local-mirror">Set Up Your Local Mirror</h3>
+<ul>
+<li>Do the following on the host you plan to use as your mirror. You'll need a machine with a few hundred gigs of space. I went with 300GB.</li>
+<li>Replace the below script with your values and then run it.</li>
+</ul>
+<pre><code class="language-bash">sudo firewall-cmd --add-service=dns --permanent &amp;&amp; sudo firewall-cmd --add-port=8443/tcp --permanent &amp;&amp; sudo firewall-cmd --add-service=dhcp --permanent &amp;&amp; sudo firewall-cmd --reload &amp;&amp; sudo firewall-cmd --list-all
+wget https://developers.redhat.com/content-gateway/rest/mirror/pub/openshift-v4/clients/mirror-registry/latest/mirror-registry.tar.gz
+mkdir -p mirror-registry &amp;&amp; tar -xzvf mirror-registry.tar.gz -C ./mirror-registry
+cd mirror-registry
+
+# Export the necessary variables
+export quayHostname=&quot;mfdt-staging.openshift.lan&quot; # Update me
+export quayRoot=&quot;/home/grant/mirror/ocp4&quot; # Update me
+export quayStorage=&quot;/home/grant/mirror/ocp4&quot; # Update me
+export pgStorage=&quot;/home/grant/mirror/ocp4&quot; # Update me
+export initPassword=&quot;I.am.ghost.47&quot; # Update me
+
+# Install the repo
+sudo ./mirror-registry install --quayHostname $quayHostname --quayRoot $quayRoot --quayStorage $quayStorage --pgStorage $pgStorage --initPassword $initPassword
+
+# Copy the newly created root CA to the trusted certificate directory
+sudo cp $quayRoot/quay-rootCA/rootCA.pem /etc/pki/ca-trust/source/anchors/quayCA.pem
+
+# Update the CA trust
+sudo update-ca-trust extract
+
+# Test mirror availability via CLI
+podman login -u init -p $initPassword $quayHostname:8443
+</code></pre>
+<ul>
+<li>If everything has gone well up until now you should have a working quay repo:</li>
+</ul>
+<p><img alt="" src="images/2024-07-25-13-34-05.png" /></p>
+<ul>
+<li>Next we have to actually mirror the images. To do this you'll first need to get your pull secret. Download it from <a href="https://console.redhat.com/openshift/install/pull-secret">https://console.redhat.com/openshift/install/pull-secret</a> to a file at <code>~/pull-secret.txt</code></li>
+</ul>
+<pre><code class="language-bash"># Export variables
+export quayHostname=&quot;your-quay-host.domain&quot;
+export initPassword=&quot;your-password&quot;
+
+# Change to home directory
+cd ~
+
+# Create ~/.docker directory if it doesn't exist
+mkdir -p ~/.docker
+
+# Generate base64-encoded username and password for mirror registry
+AUTH=$(echo -n &quot;init:${initPassword}&quot; | base64 -w0)
+
+# Read the original JSON from pull-secret.txt
+original_json=$(cat pull-secret.txt)
+
+# Construct the new field to be added
+new_field=$(cat &lt;&lt;EOF
+&quot;$quayHostname:8443&quot;: {
+  &quot;auth&quot;: &quot;$AUTH&quot;
+}
+EOF
+)
+
+# Modify the JSON to include the new field
+modified_json=$(jq --argjson newField &quot;{$new_field}&quot; '.auths += $newField' &lt;&lt;&lt; &quot;$original_json&quot;)
+
+# Create the target directory if it does not exist
+mkdir -p ~/.docker
+
+# Write the modified JSON to ~/.docker/config.json
+echo &quot;$modified_json&quot; &gt; ~/.docker/config.json
+
+echo &quot;The modified JSON has been saved to ~/.docker/config.json&quot;
+</code></pre>
+<ul>
+<li>Next you need to get oc mirror and run it. First you need to log in to RedHat's repo with the below. Make sure you use your redhat username <strong>NOT</strong> your e-mail.</li>
+</ul>
+<pre><code class="language-bash">podman login registry.redhat.io
+</code></pre>
+<ul>
+<li>Next we set up <code>oc-mirror</code> itself.</li>
+<li><strong>WARNING</strong>: I had to disable IPv6 on my interface to get this to work. I got this error because it was trying to use IPv6 to talk to RedHat's repos. I have no idea why, but disabling IPv6 got around this.</li>
+</ul>
+<pre><code class="language-bash">[grant@rockydesktop mirror-registry]$ oc-mirror --config=./imageset-config.yaml docker://$quayHostname
+Checking push permissions for grant-staging.openshift.lan:8443
+Creating directory: oc-mirror-workspace/src/publish
+Creating directory: oc-mirror-workspace/src/v2
+Creating directory: oc-mirror-workspace/src/charts
+Creating directory: oc-mirror-workspace/src/release-signatures
+backend is not configured in ./imageset-config.yaml, using stateless mode
+backend is not configured in ./imageset-config.yaml, using stateless mode
+No metadata detected, creating new workspace
+error: error retrieving mapping information for quay.io/openshift-release-dev/ocp-release@sha256:633d1d36e834a70baf666994ef375b9d1702bd1c54ab46f96c41223af9c2d150: unable to retrieve release image info: unable to read image quay.io/openshift-release-dev/ocp-release@sha256:633d1d36e834a70baf666994ef375b9d1702bd1c54ab46f96c41223af9c2d150: Get &quot;https://quay.io/v2/&quot;: dial tcp [2600:1f18:483:cf00:69a3:473d:d206:190a]:443: connect: network is unreachable
+</code></pre>
+<ul>
+<li>Run the following script. <strong>Make sure you update the versions with what you need</strong></li>
+<li>This assumes you still have <code>quayHostname</code> defined in your environment from earlier.</li>
+</ul>
+<pre><code class="language-bash">cat &lt;&lt;EOF &gt; imageset-config.yaml
+kind: ImageSetConfiguration
+apiVersion: mirror.openshift.io/v1alpha2
+mirror:
+  platform:
+    channels:
+      - name: stable-4.12
+        minVersion: 4.12.9
+        maxVersion: 4.12.9
+  operators:
+    - catalog: registry.redhat.io/redhat/redhat-operator-index:v4.12
+      packages:
+        - name: kubernetes-nmstate-operator
+        - name: kubevirt-hyperconverged
+        - name: serverless-operator
+          channels:
+          - name: stable
+        - name: local-storage-operator
+        - name: odf-operator
+        - name: sriov-network-operator
+  additionalImages:
+    - name: registry.redhat.io/rhel8/support-tools:latest
+    - name: registry.redhat.io/ubi8/ubi:latest
+  helm: {}
+EOF
+oc-mirror --config=./imageset-config.yaml docker://$quayHostname:8443
+</code></pre>
+<ul>
+<li><strong>WARNING:</strong> When I first ran the mirror command it hung here for a long time and I wasn't sure if it had bugged out. I just let it sit and it did end up continuing after several minutes.</li>
+</ul>
+<p><img alt="" src="images/2024-08-05-10-44-01.png" /></p>
+<ul>
+<li><strong>IMPORTANT</strong>: Notice that the <code>oc-mirror</code> tool creates a folder called <code>oc-mirror-workspace</code> and in that folder is a <code>results-XXXXX</code> folder. Within the results folder you will need the file <code>imageContentSourcePolicy.yaml</code> for later. </li>
+</ul>
+<h3 id="using-local-agent">Using Local Agent</h3>
+<ul>
+<li>
+<p>Installation instructions are located <a href="https://docs.openshift.com/container-platform/4.16/installing/installing_with_agent_based_installer/preparing-to-install-with-agent-based-installer.html">here</a></p>
+</li>
+<li>
+<p>On the VMWare version you also need the VMWare root certs which you can download from the vCenter home page. Ignore this if you aren't installing on VMWare OR if you are not using VMWare for storage. That is to say, you can install against VMs without doing the VMWare setup. If you do this you should be following the instructions for bare metal <strong>NOT</strong> VMWare.</p>
+</li>
+</ul>
+<p><img alt="" src="images/2024-07-25-10-16-45.png" /></p>
+<ul>
+<li>Pulling the VMWare certs (don't need to do if not using VMWare or not using VMWare for CSI)</li>
+</ul>
+<pre><code class="language-bash"># For VMWare Version - import certs
+sudo cp certs/lin/* /etc/pki/ca-trust/source/anchors
+sudo update-ca-trust extract
+
+# Make openshift install directory (if you haven't already)
+mkdir ~/openshift-install
+
+# Download the Linux installer and unzip
+wget https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/stable/openshift-install-linux.tar.gz &amp;&amp; tar xzf openshift-install-linux.tar.gz
+
+# Make executable
+chmod +x ./openshift-install
+
+# Install nmstatectl
+sudo dnf install /usr/bin/nmstatectl -y
+</code></pre>
+<ul>
+<li>Next we need to create <code>agent-config.yaml</code> and <code>install-config.yaml</code>. We'll start with <code>install-config.yaml</code></li>
+<li>My configuration is available at <a href="install-config.yaml">install-config.yaml</a>. You will need to replace it with your values. For your pull secret, you can use the same information you had in <code>~/.docker/config.json</code>. You can run <code>jq -c . ~/.docker/config.json</code> to get your pull secret in a single line string.</li>
+<li>Your SSH key you can retrieve from <code>cat ~/.ssh/id_rsa.pub</code></li>
+<li>For <code>imageContentSources</code> you may remember earlier that I mentioned the folder results created from <code>oc-mirror</code> Go to your results folder and extract the part underneath <code>repositoryDigestMirrors</code>. It should look something like the below. That is what needs to go under imageContentSources</li>
+</ul>
+<pre><code>spec:
+  repositoryDigestMirrors:
+  - mirrors:
+    - grant-staging.openshift.lan:8443/migration-toolkit-virtualization
+    source: registry.redhat.io/migration-toolkit-virtualization
+  - mirrors:
+    - grant-staging.openshift.lan:8443/rhel9
+    source: registry.redhat.io/rhel9
+  - mirrors:
+    - grant-staging.openshift.lan:8443/openshift4
+    source: registry.redhat.io/openshift4
+  - mirrors:
+    - grant-staging.openshift.lan:8443/openshift-serverless-1
+    source: registry.redhat.io/openshift-serverless-1
+  - mirrors:
+    - grant-staging.openshift.lan:8443/container-native-virtualization
+    source: registry.redhat.io/container-native-virtualization
+  - mirrors:
+    - grant-staging.openshift.lan:8443/ubi8
+    source: registry.redhat.io/ubi8
+  - mirrors:
+    - grant-staging.openshift.lan:8443/source-to-image
+    source: registry.redhat.io/source-to-image
+  - mirrors:
+    - grant-staging.openshift.lan:8443/rhel8
+    source: registry.redhat.io/rhel8
+  - mirrors:
+    - grant-staging.openshift.lan:8443/openshift-serverless-1-tech-preview
+    source: registry.redhat.io/openshift-serverless-1-tech-preview
+  - mirrors:
+    - grant-staging.openshift.lan:8443/odf4
+    source: registry.redhat.io/odf4
+  - mirrors:
+    - grant-staging.openshift.lan:8443/openshift-service-mesh
+    source: registry.redhat.io/openshift-service-mesh
+  - mirrors:
+    - grant-staging.openshift.lan:8443/rhceph
+    source: registry.redhat.io/rhceph
+---
+apiVersion: operator.openshift.io/v1alpha1
+kind: ImageContentSourcePolicy
+metadata:
+  name: release-0
+spec:
+  repositoryDigestMirrors:
+  - mirrors:
+    - grant-staging.openshift.lan:8443/openshift/release
+    source: quay.io/openshift-release-dev/ocp-v4.0-art-dev
+  - mirrors:
+    - grant-staging.openshift.lan:8443/openshift/release-images
+    source: quay.io/openshift-release-dev/ocp-release
+</code></pre>
+<p><strong>BIG WARNING</strong><br>
+<strong>BIG WARNING</strong><br>
+<strong>BIG WARNING</strong><br></p>
+<p>Notice that there are multiple sections. <strong>YOU MUST GET ALL THE SECTIONS</strong>. If you do not, the install will fail. You will know something is wrong if during the install you login via SSH to the bootstrap mode and <code>sudo podman images</code> returns nothing. It means nothing is being pulled.</p>
+<p>You only need this part of things:</p>
+<pre><code class="language-bash">- mirrors:
+- grant-staging.openshift.lan:8443/openshift/release
+  source: quay.io/openshift-release-dev/ocp-v4.0-art-dev
+</code></pre>
+<p><strong>BIG WARNING</strong><br>
+<strong>BIG WARNING</strong><br>
+<strong>BIG WARNING</strong><br></p>
+<ul>
+<li>For the trust bundle values, you can use the <code>openssl</code> tool to extract the certs. You can use the following to get them.</li>
+<li><strong>WARNING</strong>: Make sure the certs are all indented correctly in the YAML file.</li>
+</ul>
+<pre><code class="language-bash">openssl s_client -connect &lt;YOUR_QUAY_HOST - EX: grant-staging.openshift.lan&gt;:8443 -showcerts &lt;/dev/null 2&gt;/dev/null | \
+awk '/BEGIN CERTIFICATE/,/END CERTIFICATE/ {print $0}' &gt; combined-cert-chain.pem
+</code></pre>
+<ul>
+<li>The agent configuration is available <a href="agent-config.yaml">here</a>. There's no real trick to the agent config, fill it in with your values.</li>
+<li><strong>WARNING</strong>: The NIC names are completely irrelevant, another confusing surprise. Those NIC names just have to be consistent and are used in the YAML itself to link values between the list of interfaces and the networkConfig. You could name it bananas for all it matters.</li>
+<li><strong>WARNING 2</strong> The agent installer started in 4.12, but it 4.12 can only do a single node install rendering it effectively useless until 4.13. If you are running 4.12 or prior, you have to do a user provisioned install (UPI).</li>
+<li>Once you have filled everything out create a tmp directory to work from and then create the installation files:</li>
+<li><strong>WARNING</strong>: Do not do this in a dirty directory. There are multiple files generated during the install to include multiple hidden files. If they are still present it will fail.</li>
+<li><strong>WARNING 2</strong>: Notice we are using <code>openshift-install agent</code>. I did not see this clearly differentiated in the documentation - <code>openshift-install</code> and <code>openshift-install agent</code> are two completely separate things built into one binary. The RedHad docs will freely mix the two. Do not confuse them. The difference is the agent install eliminates the need to use a bootstrapper or load balancer and replaces it with a rendezvous host.</li>
+</ul>
+<pre><code class="language-bash">mkdir /tmp/cluster
+cd /tmp/cluster/
+mv ./agent-config.yaml /tmp/cluster
+mv ./install-config.yaml /tmp/cluster
+openshift-install agent create cluster-manifests --dir=/tmp/cluster
+openshift-install agent create image --dir ./
+</code></pre>
+<ul>
+<li>Now you've generated the ISO, boot your servers with that ISO and enjoy the install.</li>
+<li>On VMWare, I got very annoyed having to swap out all the ISOs so I wrote <a href="change_iso.py">this script</a> which will go through and change all the ISOs and BIOS settings for the VMs automatically.</li>
+<li>You can track the status of the build with <code>openshift-install --dir ./ agent wait-for bootstrap-complete --log-level=debug</code></li>
+<li>If you want to be able to use the <code>oc</code> command, you can get your <code>KUBECONFIG</code> from the directory in which you built the iso. The installation process consumes both <code>install-config.yaml</code> and <code>agent-config.yaml</code> (no, I don't know why but they definitely should get rid of that), but it should leave behind a directory called <code>auth</code>. In the auth directory should be your <code>kubeconfig</code> file. Run <code>export KUBECONFIG=&lt;ABSOLUTE_PATH_TO_KUBECONFIG&gt;</code> to set it up for <code>oc</code>. You can use commands like <code>oc get nodes</code> to check the node status. You can run <code>oc get co</code> to see the container status. Expect the console container to be the last container to come up so patience is key. console relies on auth which relies on ingress in that order.</li>
+<li>If you need to debug, you can ssh into the boxes with <code>ssh -i ~/.ssh/id_rsa &lt;your_rendezvous_host_ip&gt;</code> and then run <code>journalctl -u assisted-service.service</code> to get a full dump of the install status</li>
+<li>After the build completes, you can run <code>oc whoami --show-console</code> to get the address for the web console</li>
+</ul>
+<h2 id="deploy-dell-csi-operator-on-openshift">Deploy Dell CSI Operator on OpenShift</h2>
+<ul>
+<li>I first followed the instructions I wrote for Rancher <a href="../PowerScale%20-%20Configure%20with%20Kubernetes/#install_the_csi_driver">here</a> to set up the PowerScale side of things.</li>
+<li>Stop when you get to the settings for K8s.</li>
+<li><strong>Make sure you change the path to /ifs/data/csi</strong>. You could change the openshift files, but I found it easier to roll with the default.</li>
+</ul>
+<p><img alt="" src="images/2024-06-25-11-09-48.png" /></p>
+<ul>
+<li>Click on the Dell Container Storage Modules and install it with all the defaults</li>
+<li>After you have it installed, browse to the installed operator and click "Create Instance" on the Container Storage Module</li>
+</ul>
+<p><img alt="" src="images/2024-06-25-11-13-05.png" /></p>
+<ul>
+<li>Go to YAML view and set <code>X_CSI_ISI_IGNORE_UNRESOLVABLE_HOSTS</code> to true.</li>
+</ul>
+<p><img alt="" src="images/2024-06-25-12-16-33.png" /></p>
+<ul>
+<li>Create the below secret with the name <code>empty-secret.yaml</code> and then create it using <code>oc</code></li>
+</ul>
+<pre><code class="language-bash">[grant@rockydesktop files]$ oc create -f empty-secret.yaml
+secret/isilon-certs-0 created
+[grant@rockydesktop files]$ cat empty-secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: isilon-certs-0
+  namespace: openshift-operators
+type: Opaque
+data:
+  cert-0: &quot;&quot;
+</code></pre>
+<ul>
+<li>Update the below <code>secret.yaml</code> with your data and create it in OpenShift using OC</li>
+</ul>
+<pre><code class="language-yaml">isilonClusters:
+    # logical name of PowerScale Cluster
+  - clusterName: &quot;powerscale&quot;
+
+    # username for connecting to PowerScale OneFS API server
+    # if authorization is enabled, username will be ignored
+    # Default value: None
+    username: &quot;grant&quot;
+
+    # password for connecting to PowerScale OneFS API server
+    # if authorization is enabled, password will be ignored
+    password: &quot;password&quot;
+
+    # HTTPS endpoint of the PowerScale OneFS API server
+    # if authorization is enabled, the endpont should be the localhost address of the csm-authorization-sidecar
+    # Default value: None
+    # Examples: &quot;1.2.3.4&quot;, &quot;https://1.2.3.4&quot;, &quot;https://abc.myonefs.com&quot;
+    endpoint: &quot;10.10.25.80&quot;
+
+    # endpointPort: Specify the HTTPs port number of the PowerScale OneFS API server
+    # Formerly this attribute was named as &quot;isiPort&quot;
+    # If authorization is enabled, endpointPort must match the port specified in the endpoint parameter of the karavi-authorization-config secret
+    # Allowed value: valid port number
+    # Default value: 8080
+    endpointPort: 8080
+
+    # Is this a default cluster (would be used by storage classes without ClusterName parameter)
+    # Allowed values:
+    #   true: mark this cluster config as default
+    #   false: mark this cluster config as not default
+    # Default value: false
+    isDefault: true
+
+    # Specify whether the PowerScale OneFS API server's certificate chain and host name should be verified.
+    # Allowed values:
+    #   true: skip OneFS API server's certificate verification
+    #   false: verify OneFS API server's certificates
+    # Default value: default value specified in values.yaml
+    skipCertificateValidation: true
+
+    # The base path for the volumes to be created on PowerScale cluster
+    # This will be used if a storage class does not have the IsiPath parameter specified.
+    # Ensure that this path exists on PowerScale cluster.
+    # Allowed values: unix absolute path
+    # Default value: default value specified in values.yaml
+    # Examples: &quot;/ifs/data/csi&quot;, &quot;/ifs/engineering&quot;
+    isiPath: &quot;/ifs/data/csi&quot;
+
+    # The permissions for isi volume directory path
+    # This will be used if a storage class does not have the IsiVolumePathPermissions parameter specified.
+    # Allowed values: valid octal mode number
+    # Default value: &quot;0777&quot;
+    # Examples: &quot;0777&quot;, &quot;777&quot;, &quot;0755&quot;
+    # isiVolumePathPermissions: &quot;0777&quot;
+
+    # ignoreUnresolvableHosts: Ignore unresolvable hosts on the OneFS
+    # When set to true, OneFS allows new host to add to existing export list though any of the existing hosts from the
+    # same exports are unresolvable/doesn't exist anymore.
+    # Allowed values:
+    #   true: ignore existing unresolvable hosts and append new host to the existing export
+    #   false: exhibits OneFS default behavior i.e. if any of existing hosts are unresolvable while adding new one it fails
+    # Default value: false
+    #ignoreUnresolvableHosts: false
+
+    # Unique ID if the certificate is used to encrypt replication policy
+    # This will be used if a replication encrypted is enabled, leave empty in case you use unecrypted replication
+    # Allowed values: string, unique id of the certificate
+    # Default value: &quot;&quot;
+    # Examples: &quot;dd9c736cc17e6dd5f7d85fe13528cfc20f3b4b0af4f26595d22328c8d1f461af&quot;
+</code></pre>
+<ul>
+<li>Create with <code>oc</code>. <code>oc create secret generic isilon-creds -n openshift-operators --from-file=config=secret.yaml</code></li>
+<li>
+<p><strong>TODO: I had to use admin because I could not for the life of me figure out how to add the privileges to the grant user</strong></p>
+</li>
+<li>
+<p>On the PowerScale cluster run <code>isi_gconfig -t web-config auth_basic=true</code> unless you want to set up a real authentication mechanism.</p>
+</li>
+<li>For the storage class I went into StorageClasses on OpenShift, created one, edited the YAML, and used:</li>
+</ul>
+<pre><code class="language-yaml">apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: isilon
+provisioner: csi-isilon.dellemc.com
+reclaimPolicy: Delete
+allowVolumeExpansion: true
+parameters:
+  # The name of the access zone a volume can be created in
+  # Optional: true
+  # Default value: default value specified in values.yaml
+  # Examples: System, zone1
+  AccessZone: System
+
+  # The base path for the volumes to be created on PowerScale cluster.
+  # Ensure that this path exists on PowerScale cluster.
+  # Allowed values: unix absolute path
+  # Optional: true
+  # Default value: value specified in values.yaml for isiPath
+  # Examples: /ifs/data/csi, /ifs/engineering
+  IsiPath: /ifs/data/csi
+
+  #Parameter to set Advisory Limit to quota
+  #Optional: true
+  #Default Behaviour : Limit not set
+  #AdvisoryLimit: &quot;50&quot;
+
+  #Parameter to set soft limit to quota
+  #Optional: true
+  #Default Behaviour: Limit not set
+  #SoftLimit: &quot;80&quot;
+
+  #Parameter which must be mentioned along with Soft Limit
+  #Soft Limit can be exceeded until the grace period
+  #Optional: true
+  #Default Behaviour : Limit not set
+  #SoftGracePrd: &quot;86400&quot;
+
+  # The permissions for isi volume directory path
+  # This value overrides the isiVolumePathPermissions attribute of corresponding cluster config in secret, if present
+  # Allowed values: valid octal mode number
+  # Default value: &quot;0777&quot;
+  # Examples: &quot;0777&quot;, &quot;777&quot;, &quot;0755&quot;
+  #IsiVolumePathPermissions: &quot;0777&quot;
+
+  # AccessZone groupnet service IP. Update AzServiceIP if different than endpoint.
+  # Optional: true
+  # Default value: endpoint of the cluster ClusterName
+  #AzServiceIP : 192.168.2.1
+
+  # When a PVC is being created, this parameter determines, when a node mounts the PVC,
+  # whether to add the k8s node to the &quot;Root clients&quot; field or &quot;Clients&quot; field of the NFS export
+  # Allowed values:
+  #   &quot;true&quot;: adds k8s node to the &quot;Root clients&quot; field of the NFS export
+  #   &quot;false&quot;: adds k8s node to the &quot;Clients&quot; field of the NFS export
+  # Optional: true
+  # Default value: &quot;false&quot;
+  RootClientEnabled: &quot;false&quot;
+
+  # Name of PowerScale cluster, where pv will be provisioned.
+  # This name should match with name of one of the cluster configs in isilon-creds secret.
+  # If this parameter is not specified, then default cluster config in isilon-creds secret
+  # will be considered if available.
+  # Optional: true
+  #ClusterName: &lt;cluster_name&gt;
+
+  # Sets the filesystem type which will be used to format the new volume
+  # Optional: true
+  # Default value: None
+  #csi.storage.k8s.io/fstype: &quot;nfs&quot;
+
+# volumeBindingMode controls when volume binding and dynamic provisioning should occur.
+# Allowed values:
+#   Immediate: indicates that volume binding and dynamic provisioning occurs once the
+#   PersistentVolumeClaim is created
+#   WaitForFirstConsumer: will delay the binding and provisioning of a PersistentVolume
+#   until a Pod using the PersistentVolumeClaim is created
+# Default value: Immediate
+volumeBindingMode: Immediate
+
+# allowedTopologies helps scheduling pods on worker nodes which match all of below expressions.
+# If enableCustomTopology is set to true in helm values.yaml, then do not specify allowedTopologies
+# Change all instances of &lt;ISILON_IP&gt; to the IP of the PowerScale OneFS API server
+#allowedTopologies:
+#  - matchLabelExpressions:
+#      - key: csi-isilon.dellemc.com/&lt;ISILON_IP&gt;
+#        values:
+#          - csi-isilon.dellemc.com
+
+# specify additional mount options for when a Persistent Volume is being mounted on a node.
+# To mount volume with NFSv4, specify mount option vers=4. Make sure NFSv4 is enabled on the Isilon Cluster
+#mountOptions: [&quot;&lt;mountOption1&gt;&quot;, &quot;&lt;mountOption2&gt;&quot;, ..., &quot;&lt;mountOptionN&gt;&quot;]
+
+</code></pre>
+<h2 id="set-up-s3">Set Up S3</h2>
+<ul>
+<li>On PowerScale you'll need to enable S3 service and add a bucket</li>
+</ul>
+<p><img alt="" src="images/2024-07-01-14-01-12.png" /></p>
+<ul>
+<li>Install s3cmd with <code>pip install s3cmd</code></li>
+<li>Run <code>s3cmd --configure</code></li>
+</ul>
+<pre><code class="language-bash">Enter new values or accept defaults in brackets with Enter.
+Refer to user manual for detailed description of all options.
+
+Access key and Secret key are your identifiers for Amazon S3. Leave them empty for using the env variables.
+Access Key [1_admin_accid]:
+Secret Key [Yt5Y7_32htTN2tw-AEP9mZS2KZ9j]:
+Default Region [US]: &quot;&quot;
+
+Use &quot;s3.amazonaws.com&quot; for S3 Endpoint and not modify it to the target Amazon S3.
+S3 Endpoint [http://10.10.25.80:9020]: 10.10.25.80:9020
+
+Use &quot;%(bucket)s.s3.amazonaws.com&quot; to the target Amazon S3. &quot;%(bucket)s&quot; and &quot;%(location)s&quot; vars can be used
+if the target S3 system supports dns based buckets.
+DNS-style bucket+hostname:port template for accessing a bucket [&quot;&quot;]: ''
+
+Encryption password is used to protect your files from reading
+by unauthorized persons while in transfer to S3
+Encryption password:
+Path to GPG program [/usr/bin/gpg]:
+
+When using secure HTTPS protocol all communication with Amazon S3
+servers is protected from 3rd party eavesdropping. This method is
+slower than plain HTTP, and can only be proxied with Python 2.7 or newer
+Use HTTPS protocol [No]:
+
+On some networks all internet access must go through a HTTP proxy.
+Try setting it here if you can't connect to S3 directly
+HTTP Proxy server name:
+
+New settings:
+  Access Key: 1_admin_accid
+  Secret Key: Yt5Y7_32htTN2tw-AEP9mZS2KZ9j
+  Default Region: &quot;&quot;
+  S3 Endpoint: 10.10.25.80:9020
+  DNS-style bucket+hostname:port template for accessing a bucket: ''
+  Encryption password:
+  Path to GPG program: /usr/bin/gpg
+  Use HTTPS protocol: False
+  HTTP Proxy server name:
+  HTTP Proxy server port: 0
+
+Test access with supplied credentials? [Y/n] y
+Please wait, attempting to list all buckets...
+Success. Your access key and secret key worked fine :-)
+
+Now verifying that encryption works...
+Not configured. Never mind.
+</code></pre>
+<ul>
+<li>Add a data connecton on OpenShift AI</li>
+<li><strong>WARNING: Screenshot is wrong. For the endpoint YOU MUST PUT HTTP://</strong> This is the opposite of the s3cmd command line where it <em>won't</em> work if you add <code>http://</code></li>
+<li>If you need to troubleshoot pipelines, run <code>oc get pods -n redhat-ods-applications</code> to get the name of all your application pods. Then you can ran <code>oc describe pod openshift-pipelines-operator-69dd8bdfc4-cqxpr -n openshift-operators</code> (update with your index) to get the pipeline pod logs.</li>
+</ul>
+<p><img alt="" src="images/2024-07-01-14-12-05.png" /></p>
+<ul>
+<li>Setting up a workbench</li>
+</ul>
+<p><img alt="" src="images/2024-07-01-15-48-05.png" /></p>
+<ul>
+<li><code>git clone</code></li>
+</ul>
+<p><img alt="" src="images/2024-07-01-15-50-55.png" /></p>
+<h2 id="accessing-the-system">Accessing the System</h2>
+<pre><code class="language-bash">[rosa@bastion ~]$ oc login --username cluster-admin --password VEQnI-EBKuH-PHxpY-IPIPE https://api.rosa-mqzmw.r0s7.p3.openshiftapps.com:443
+Login successful.
+
+You have access to 78 projects, the list has been suppressed. You can list all projects with 'oc projects'
+
+Using project &quot;default&quot;.
+Welcome! See 'oc help' to get started.
+[rosa@bastion ~]$ oc whoami
+cluster-admin
+[rosa@bastion ~]$ oc whoami --show-console
+https://console-openshift-console.apps.rosa.rosa-mqzmw.r0s7.p3.openshiftapps.com
+[rosa@bastion ~]$ 
+</code></pre>
+<h3 id="identity-providers">Identity Providers</h3>
+<ul>
+<li>The first time you login you use a temporary admin and then you can add an identity provider:</li>
+</ul>
+<p><img alt="" src="images/2024-06-24-09-50-19.png" /></p>
+<ul>
+<li>I just wanted to do a username/password so I did the below and uploaded the file for htpasswd.</li>
+</ul>
+<pre><code class="language-bash">sudo dnf install -y httpd-tools 
+htpasswd -c /home/grant/password grant
+</code></pre>
+<h2 id="understand-openshift-networking">Understand OpenShift Networking</h2>
+<p>From <a href="https://ovn-kubernetes.io/design/topology/#ovn-kubernetes-network-topology-default-mode">the docs</a> we know there are the following components:</p>
+<p><img alt="" src="images/2024-07-18-11-56-49.png" /></p>
+<ul>
+<li>node-local-switch: all the logical switch ports for the pods created on a node are bound to this switch and it also hosts load balancers that take care of DNAT-ing the service traffic</li>
+<li>distributed-ovn-cluster-router: it's responsible for tunnelling overlay traffic between the nodes and also routing traffic between the node switches and gateway router's</li>
+<li>distributed-join-switch: connects the ovn-cluster-router to the gateway routers</li>
+<li>node-local-gateway-router: it's responsible for north-south traffic routing and connects the join switch to the external switch and it also hosts load balancers that take care of DNAT-ing the service traffic</li>
+<li>node-local-external-switch: connects the gateway router to the external bridge</li>
+</ul>
+<p>To this end, I went and pulled the OVS config off of my cluster:</p>
+<pre><code class="language-bash">sudo ovs-vsctl show
+b162d944-c8a3-4318-9ebe-b3b1fe2ebc45
+    Bridge br-int
+        fail_mode: secure
+        datapath_type: system
+        Port &quot;9d67534f628003c&quot;
+            Interface &quot;9d67534f628003c&quot;
+        Port &quot;220bd9d34b05ff4&quot;
+            Interface &quot;220bd9d34b05ff4&quot;
+        Port ccc10faab05e0c3
+            Interface ccc10faab05e0c3
+        Port &quot;101964cf2513870&quot;
+            Interface &quot;101964cf2513870&quot;
+        Port &quot;3025424a700befa&quot;
+            Interface &quot;3025424a700befa&quot;
+        Port fc6b0ac46ee67d0
+            Interface fc6b0ac46ee67d0
+        Port c682ae728630785
+            Interface c682ae728630785
+        Port &quot;09e426369137882&quot;
+            Interface &quot;09e426369137882&quot;
+        Port &quot;42f6eb06e94a8d3&quot;
+            Interface &quot;42f6eb06e94a8d3&quot;
+        Port &quot;34687c6eadaf73d&quot;
+            Interface &quot;34687c6eadaf73d&quot;
+        Port &quot;199c158819efdd2&quot;
+            Interface &quot;199c158819efdd2&quot;
+        Port &quot;325cd19c4cdf788&quot;
+            Interface &quot;325cd19c4cdf788&quot;
+        Port d32dfbe0d75fd4a
+            Interface d32dfbe0d75fd4a
+        Port &quot;8c3ea39a75498a7&quot;
+            Interface &quot;8c3ea39a75498a7&quot;
+        Port br-int
+            Interface br-int
+                type: internal
+        Port &quot;0c7e54c2091f93f&quot;
+            Interface &quot;0c7e54c2091f93f&quot;
+        Port &quot;4e390191e79cf41&quot;
+            Interface &quot;4e390191e79cf41&quot;
+        Port &quot;2626d19ab0fee56&quot;
+            Interface &quot;2626d19ab0fee56&quot;
+        Port d98e9af9aebbf32
+            Interface d98e9af9aebbf32
+        Port &quot;1b8837f5863d75d&quot;
+            Interface &quot;1b8837f5863d75d&quot;
+        Port &quot;1b6e5b90ed4e46c&quot;
+            Interface &quot;1b6e5b90ed4e46c&quot;
+        Port &quot;888b9e7da0e790b&quot;
+            Interface &quot;888b9e7da0e790b&quot;
+        Port &quot;1fe2b4d9057916c&quot;
+            Interface &quot;1fe2b4d9057916c&quot;
+        Port c02c20ee9a537fe
+            Interface c02c20ee9a537fe
+        Port ce68d0e70b72754
+            Interface ce68d0e70b72754
+        Port c115949c8127c7d
+            Interface c115949c8127c7d
+        Port &quot;88618dc5d56f9f0&quot;
+            Interface &quot;88618dc5d56f9f0&quot;
+        Port &quot;51d2137e7b5df4a&quot;
+            Interface &quot;51d2137e7b5df4a&quot;
+        Port &quot;037619c1e496730&quot;
+            Interface &quot;037619c1e496730&quot;
+        Port &quot;31e970eaac7dcc7&quot;
+            Interface &quot;31e970eaac7dcc7&quot;
+        Port &quot;19762a507da7747&quot;
+            Interface &quot;19762a507da7747&quot;
+        Port &quot;87ffd780e84e11b&quot;
+            Interface &quot;87ffd780e84e11b&quot;
+        Port &quot;61cba8ea4cf80de&quot;
+            Interface &quot;61cba8ea4cf80de&quot;
+        Port d1657c3485ebca6
+            Interface d1657c3485ebca6
+        Port &quot;1b510d8b97b1e72&quot;
+            Interface &quot;1b510d8b97b1e72&quot;
+        Port &quot;53f53eb9134accf&quot;
+            Interface &quot;53f53eb9134accf&quot;
+        Port bccb70feea9ed77
+            Interface bccb70feea9ed77
+        Port &quot;065924fb2665da2&quot;
+            Interface &quot;065924fb2665da2&quot;
+        Port &quot;90396ed0cecbc13&quot;
+            Interface &quot;90396ed0cecbc13&quot;
+        Port &quot;5a04215eee12652&quot;
+            Interface &quot;5a04215eee12652&quot;
+        Port b114337f2e9eb97
+            Interface b114337f2e9eb97
+        Port &quot;2b01f07c5012e10&quot;
+            Interface &quot;2b01f07c5012e10&quot;
+        Port &quot;0722cbca14bf74d&quot;
+            Interface &quot;0722cbca14bf74d&quot;
+        Port &quot;5de0d8d897ed833&quot;
+            Interface &quot;5de0d8d897ed833&quot;
+        Port fc2033d1a0cf5dc
+            Interface fc2033d1a0cf5dc
+        Port cc7fb3b50d3f9c1
+            Interface cc7fb3b50d3f9c1
+        Port &quot;8b9c96d9b27cf6e&quot;
+            Interface &quot;8b9c96d9b27cf6e&quot;
+        Port &quot;269037e39f92171&quot;
+            Interface &quot;269037e39f92171&quot;
+        Port &quot;1a3a9538b5d4247&quot;
+            Interface &quot;1a3a9538b5d4247&quot;
+        Port &quot;433ecc639cdb6b1&quot;
+            Interface &quot;433ecc639cdb6b1&quot;
+        Port c27ffaecbecde0b
+            Interface c27ffaecbecde0b
+        Port &quot;845850c4e6cf71b&quot;
+            Interface &quot;845850c4e6cf71b&quot;
+        Port &quot;7ddb555a4da2886&quot;
+            Interface &quot;7ddb555a4da2886&quot;
+        Port &quot;733ce64ff827e3b&quot;
+            Interface &quot;733ce64ff827e3b&quot;
+        Port &quot;2b1b6f84adc9551&quot;
+            Interface &quot;2b1b6f84adc9551&quot;
+        Port &quot;92dc1017fdf9828&quot;
+            Interface &quot;92dc1017fdf9828&quot;
+        Port &quot;286aa6ee245a88e&quot;
+            Interface &quot;286aa6ee245a88e&quot;
+        Port e38c98f5cbc0b80
+            Interface e38c98f5cbc0b80
+        Port &quot;7ec6321089ae248&quot;
+            Interface &quot;7ec6321089ae248&quot;
+        Port &quot;07d7a1d8fb17e56&quot;
+            Interface &quot;07d7a1d8fb17e56&quot;
+        Port &quot;398ea561b912799&quot;
+            Interface &quot;398ea561b912799&quot;
+        Port &quot;88a6e1c5dfadb3e&quot;
+            Interface &quot;88a6e1c5dfadb3e&quot;
+        Port &quot;4434f56df4a51d2&quot;
+            Interface &quot;4434f56df4a51d2&quot;
+        Port ecb6691f061911f
+            Interface ecb6691f061911f
+        Port &quot;47da0f8eb7c88b4&quot;
+            Interface &quot;47da0f8eb7c88b4&quot;
+        Port &quot;4c71b7b45b46049&quot;
+            Interface &quot;4c71b7b45b46049&quot;
+        Port e579198df3b793a
+            Interface e579198df3b793a
+        Port f5b3469ce8f694e
+            Interface f5b3469ce8f694e
+        Port bee315fab0230ab
+            Interface bee315fab0230ab
+        Port de74da61a067ccf
+            Interface de74da61a067ccf
+        Port &quot;1a696a6b3111d14&quot;
+            Interface &quot;1a696a6b3111d14&quot;
+        Port abf2eff21ef3887
+            Interface abf2eff21ef3887
+        Port ovn-k8s-mp0
+            Interface ovn-k8s-mp0
+                type: internal
+        Port &quot;95eb158784dc33b&quot;
+            Interface &quot;95eb158784dc33b&quot;
+        Port e91b9e2d8740c2f
+            Interface e91b9e2d8740c2f
+        Port &quot;044e9eb98b6be5c&quot;
+            Interface &quot;044e9eb98b6be5c&quot;
+        Port f1873deeb7e47aa
+            Interface f1873deeb7e47aa
+        Port a96b99f80050bcd
+            Interface a96b99f80050bcd
+        Port ece1db9d37f63c1
+            Interface ece1db9d37f63c1
+        Port aab86e122f66f97
+            Interface aab86e122f66f97
+        Port a7f97709f3848a4
+            Interface a7f97709f3848a4
+        Port &quot;9cfa26213bbcdf6&quot;
+            Interface &quot;9cfa26213bbcdf6&quot;
+        Port &quot;66b0d1ec2c20052&quot;
+            Interface &quot;66b0d1ec2c20052&quot;
+        Port &quot;799eb9f534905d9&quot;
+            Interface &quot;799eb9f534905d9&quot;
+        Port ad3f481a08151c9
+            Interface ad3f481a08151c9
+        Port &quot;404141d7ef876c5&quot;
+            Interface &quot;404141d7ef876c5&quot;
+        Port a74eb07b47dc0a7
+            Interface a74eb07b47dc0a7
+        Port cfa76b640e19418
+            Interface cfa76b640e19418
+        Port &quot;395b9b684212974&quot;
+            Interface &quot;395b9b684212974&quot;
+        Port &quot;940c2cf56f9a5f2&quot;
+            Interface &quot;940c2cf56f9a5f2&quot;
+        Port c8225e494ec809e
+            Interface c8225e494ec809e
+        Port &quot;7cf4e47fbdcabda&quot;
+            Interface &quot;7cf4e47fbdcabda&quot;
+        Port &quot;46f6edc707accf3&quot;
+            Interface &quot;46f6edc707accf3&quot;
+        Port &quot;44bdf69e9f3ef04&quot;
+            Interface &quot;44bdf69e9f3ef04&quot;
+        Port &quot;42767ccc80b9fc8&quot;
+            Interface &quot;42767ccc80b9fc8&quot;
+        Port a6f4be438325900
+            Interface a6f4be438325900
+        Port &quot;2ce5f5875d03c92&quot;
+            Interface &quot;2ce5f5875d03c92&quot;
+        Port &quot;45648275f0c78d4&quot;
+            Interface &quot;45648275f0c78d4&quot;
+        Port &quot;2912ae8c3b5c59d&quot;
+            Interface &quot;2912ae8c3b5c59d&quot;
+        Port &quot;7014d5029019978&quot;
+            Interface &quot;7014d5029019978&quot;
+        Port &quot;0901bccf4058021&quot;
+            Interface &quot;0901bccf4058021&quot;
+        Port &quot;0bff3a877f7b5ca&quot;
+            Interface &quot;0bff3a877f7b5ca&quot;
+        Port d9de58b5f99c22b
+            Interface d9de58b5f99c22b
+        Port c50854cfe5ac6bc
+            Interface c50854cfe5ac6bc
+        Port &quot;3bd4ce9ea335726&quot;
+            Interface &quot;3bd4ce9ea335726&quot;
+        Port &quot;389f7d86664ba25&quot;
+            Interface &quot;389f7d86664ba25&quot;
+        Port &quot;109dce3614fe9dd&quot;
+            Interface &quot;109dce3614fe9dd&quot;
+        Port &quot;9563654e13c12d2&quot;
+            Interface &quot;9563654e13c12d2&quot;
+        Port cf184b7c4426201
+            Interface cf184b7c4426201
+        Port &quot;3fafaa74deb4b12&quot;
+            Interface &quot;3fafaa74deb4b12&quot;
+        Port &quot;91e1b1af8d508d7&quot;
+            Interface &quot;91e1b1af8d508d7&quot;
+        Port da508703ed9e601
+            Interface da508703ed9e601
+        Port c2460ea21748561
+            Interface c2460ea21748561
+        Port &quot;53f9225d9e9ef54&quot;
+            Interface &quot;53f9225d9e9ef54&quot;
+        Port &quot;5f7fe81f1fdfdba&quot;
+            Interface &quot;5f7fe81f1fdfdba&quot;
+        Port &quot;81e618a95fd3069&quot;
+            Interface &quot;81e618a95fd3069&quot;
+        Port &quot;670ba81a4b72a8b&quot;
+            Interface &quot;670ba81a4b72a8b&quot;
+        Port &quot;5f432a944112075&quot;
+            Interface &quot;5f432a944112075&quot;
+        Port &quot;6ad9dc62b69ee02&quot;
+            Interface &quot;6ad9dc62b69ee02&quot;
+        Port ddcf3d63a6060c9
+            Interface ddcf3d63a6060c9
+        Port &quot;04bf81f8d2124d2&quot;
+            Interface &quot;04bf81f8d2124d2&quot;
+        Port &quot;103c51e6ad82fc0&quot;
+            Interface &quot;103c51e6ad82fc0&quot;
+        Port bcc59c45a69db0b
+            Interface bcc59c45a69db0b
+        Port &quot;15c87d27ea1b633&quot;
+            Interface &quot;15c87d27ea1b633&quot;
+        Port &quot;3da344b00d9e267&quot;
+            Interface &quot;3da344b00d9e267&quot;
+        Port cdcfaaefeb72b93
+            Interface cdcfaaefeb72b93
+        Port &quot;063f129ed22d382&quot;
+            Interface &quot;063f129ed22d382&quot;
+        Port &quot;3edee70301e5d44&quot;
+            Interface &quot;3edee70301e5d44&quot;
+        Port &quot;44bd2f0bb04e7f6&quot;
+            Interface &quot;44bd2f0bb04e7f6&quot;
+        Port &quot;96c391a9bcf76d7&quot;
+            Interface &quot;96c391a9bcf76d7&quot;
+        Port &quot;8e91e05c75a93f9&quot;
+            Interface &quot;8e91e05c75a93f9&quot;
+        Port &quot;8217fc100d4c064&quot;
+            Interface &quot;8217fc100d4c064&quot;
+        Port &quot;8d41d82ae32d362&quot;
+            Interface &quot;8d41d82ae32d362&quot;
+        Port &quot;64e652f8ea80d13&quot;
+            Interface &quot;64e652f8ea80d13&quot;
+        Port &quot;5b88ebf6f5686f1&quot;
+            Interface &quot;5b88ebf6f5686f1&quot;
+        Port &quot;4e92fe5b30ce8c1&quot;
+            Interface &quot;4e92fe5b30ce8c1&quot;
+        Port &quot;64935419185b671&quot;
+            Interface &quot;64935419185b671&quot;
+        Port &quot;21903391bbc9632&quot;
+            Interface &quot;21903391bbc9632&quot;
+        Port ba74ec6c39317f1
+            Interface ba74ec6c39317f1
+        Port &quot;7dcd99ac11fd00e&quot;
+            Interface &quot;7dcd99ac11fd00e&quot;
+        Port &quot;1f4d6ccb9e915b3&quot;
+            Interface &quot;1f4d6ccb9e915b3&quot;
+        Port &quot;6a807c99d851d79&quot;
+            Interface &quot;6a807c99d851d79&quot;
+        Port &quot;7b30cce2e0239d8&quot;
+            Interface &quot;7b30cce2e0239d8&quot;
+        Port patch-br-int-to-br-ex_b0-7b-25-e9-b2-a4
+            Interface patch-br-int-to-br-ex_b0-7b-25-e9-b2-a4
+                type: patch
+                options: {peer=patch-br-ex_b0-7b-25-e9-b2-a4-to-br-int}
+        Port d44a55818594920
+            Interface d44a55818594920
+        Port &quot;8410c871cfe580c&quot;
+            Interface &quot;8410c871cfe580c&quot;
+        Port &quot;851c6fbc9ca6c64&quot;
+            Interface &quot;851c6fbc9ca6c64&quot;
+        Port &quot;0eb976b089880b1&quot;
+            Interface &quot;0eb976b089880b1&quot;
+        Port &quot;26aa2e08684a6ad&quot;
+            Interface &quot;26aa2e08684a6ad&quot;
+        Port &quot;2080447b809e4de&quot;
+            Interface &quot;2080447b809e4de&quot;
+        Port &quot;5ffb83c2457f3a6&quot;
+            Interface &quot;5ffb83c2457f3a6&quot;
+        Port &quot;79886aca46ee2f8&quot;
+            Interface &quot;79886aca46ee2f8&quot;
+        Port &quot;6984f72105f858c&quot;
+            Interface &quot;6984f72105f858c&quot;
+    Bridge br-ex
+        Port br-ex
+            Interface br-ex
+                type: internal
+        Port patch-br-ex_b0-7b-25-e9-b2-a4-to-br-int
+            Interface patch-br-ex_b0-7b-25-e9-b2-a4-to-br-int
+                type: patch
+                options: {peer=patch-br-int-to-br-ex_b0-7b-25-e9-b2-a4}
+        Port eno1.125
+            Interface eno1.125
+                type: system
+    ovs_version: &quot;3.3.1&quot;
+</code></pre>
+<p>Let's relate the components from your <code>ovs-vsctl show</code> output to the descriptions in the OVN Kubernetes documentation:</p>
+<ol>
+<li><strong>node-local-switch</strong>:<ul>
+<li><strong>Description</strong>: All the logical switch ports for the pods created on a node are bound to this switch and it also hosts load balancers that take care of DNAT-ing the service traffic.</li>
+<li><strong>In my setup</strong>: This corresponds to <strong><code>br-int</code></strong>. It connects all pod interfaces and manages the internal pod network.</li>
+</ul>
+</li>
+<li><strong>distributed-ovn-cluster-router</strong>:<ul>
+<li><strong>Description</strong>: Responsible for tunneling overlay traffic between the nodes and also routing traffic between the node switches and gateway routers.</li>
+<li><strong>In my setup</strong>: This is represented by <strong><code>ovn-k8s-mp0</code></strong>. It handles overlay networking and ensures communication between nodes in the cluster via tunnels.</li>
+</ul>
+</li>
+<li><strong>distributed-join-switch</strong> - I don't have this because I did a single node physical build.</li>
+<li>
+<p><strong>node-local-gateway-router</strong>:</p>
+<ul>
+<li><strong>Description</strong>: It's responsible for north-south traffic routing and connects the join switch to the external switch and it also hosts load balancers that take care of DNAT-ing the service traffic.</li>
+<li><strong>In your setup</strong>: This is likely part of the configuration that connects <strong><code>br-int</code></strong> to <strong><code>br-ex</code></strong> through the patch ports. It handles routing traffic from the internal network to the external network.</li>
+</ul>
+</li>
+<li>
+<p><strong>node-local-external-switch</strong>:</p>
+<ul>
+<li><strong>Description</strong>: Connects the gateway router to the external bridge.</li>
+<li><strong>In your setup</strong>: This corresponds to <strong><code>br-ex</code></strong>. It connects to the external network through the physical interface <code>eno1.125</code> and facilitates communication between the node and the external network.</li>
+</ul>
+</li>
+</ol>
+<h3 id="summary-of-the-mapping">Summary of the Mapping</h3>
+<ul>
+<li><strong><code>br-int</code></strong>: Functions as the <strong>node-local-switch</strong>, managing internal pod network and connecting various logical interfaces for pods.</li>
+<li><strong><code>ovn-k8s-mp0</code></strong>: Acts as part of the <strong>distributed-ovn-cluster-router</strong>, handling overlay traffic between nodes.</li>
+<li><strong><code>br-ex</code></strong>: Acts as the <strong>node-local-external-switch</strong>, facilitating external connectivity through <code>eno1.125</code>.</li>
+<li><strong>Patch Ports (<code>patch-br-int-to-br-ex</code> and <code>patch-br-ex-to-br-int</code>)</strong>: These ports connect <code>br-int</code> and <code>br-ex</code>, supporting the role of <strong>node-local-gateway-router</strong> in managing north-south traffic routing and connectivity between internal and external networks.</li>
+</ul>
+<p>By examining this configuration, you can see how each component of your OVS setup corresponds to the elements described in the OVN Kubernetes documentation, enabling effective network management and traffic routing within your OpenShift cluster.</p>
+<h2 id="helpful-links">Helpful Links</h2>
+<ul>
+<li><a href="https://docs.openshift.com/container-platform/4.15/installing/installing_vsphere/upi/installing-restricted-networks-vsphere.html#installing-restricted-networks-vsphere">Offline Install for VMWare</a></li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../Dell%20Ansible%20Testing/" class="btn btn-neutral float-left" title="Dell Ansible Testing"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../Elasticsearch%20Display%20Map%20Data/" class="btn btn-neutral float-right" title="Elasticsearch Display Map Data">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="None" class="fa fa-code-fork" style="color: #fcfcfc"> https://github.com/grantcurell/grantcurell.github.io/tree/master</a>
+        </span>
+    
+    
+      <span><a href="../Dell%20Ansible%20Testing/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../Elasticsearch%20Display%20Map%20Data/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

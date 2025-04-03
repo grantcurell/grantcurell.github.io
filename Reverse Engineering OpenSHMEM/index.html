@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Grant Curell" /><link rel="canonical" href="https://grantcurell.github.io/Reverse%20Engineering%20OpenSHMEM/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Reverse Engineering OpenSHMEM - Grant Curell's Dell Projects</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Reverse Engineering OpenSHMEM";
+        var mkdocs_page_input_path = "Reverse Engineering OpenSHMEM\\README.md";
+        var mkdocs_page_url = "/Reverse%20Engineering%20OpenSHMEM/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Grant Curell's Dell Projects
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Grant Curell's Dell Projects</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Adding%20Hashing%20to%20OpenSwitch/">Adding Hashing to OpenSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Adding%20Intel%20I219-LM%20%288086.0d4c%29%20Driver%20to%20ESXi/">Adding Intel I219-LM (8086.0d4c) Driver to ESXi</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Aircraft%20Detection/">Aircraft Detection</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Automatically%20Provision%20Dell%20Servers/">Automatically Provision Dell Servers</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Automating%20OME%20Hardware%20Reports/">Automating OME Hardware Reports</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../BIOS%20Options%20Explanation/">BIOS Options Explanation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Backup%20OS10%20Config%20with%20Ansible/">Backup OS10 Config with Ansible</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Build%20NVIDIA%20AI%20Enterprise/">Build NVIDIA AI Enterprise</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Build%20OpenShift/">Build OpenShift</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Build%20Preboot%20Environment%20with%20Ansible/">Build Preboot Environment with Ansible</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../CloudLink/">CloudLink</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Common%20Questions%20About%20LLMs%20Answered/">Common Questions About LLMs Answered</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20FN410%20as%20a%20Switch/">Configure FN410 as a Switch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20Gigamon%20Tap/">Configure Gigamon Tap</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20Multi-Protocol%20PowerStore%20with%20LDAP/">Configure Multi-Protocol PowerStore with LDAP</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20PowerStore%20SMB%20User/">Configure PowerStore SMB User</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20kdump%20with%20SSH/">Configure kdump with SSH</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configuring%20VLT%20on%20OS10/">Configuring VLT on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Connect%20to%20APC%20PDU%20with%20Redfish/">Connect to APC PDU with Redfish</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Create%20Kickstart%20Server%20on%20Fedora/">Create Kickstart Server on Fedora</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Create%20OpenSwitch%20VM/">Create OpenSwitch VM</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Custom%20NVMe%20Debug%20Driver/">Custom NVMe Debug Driver</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../DHCP%20Relay%20on%20SONiC/">DHCP Relay on SONiC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Dell%20Ansible%20Testing/">Dell Ansible Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Deploy%20OpenShift%20Offline/">Deploy OpenShift Offline</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Elasticsearch%20Display%20Map%20Data/">Elasticsearch Display Map Data</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Elasticsearch%20Load%20Testing/">Elasticsearch Load Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Estimating%20Compute%20Requirements%20for%20Machine%20Learning/">Estimating Compute Requirements for Machine Learning</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Finding%20Rare%20Logs%20with%20DBSCAN/">Finding Rare Logs with DBSCAN</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Get%20NVMe%20Drives%20from%20iDRAC%20Redfish/">Get NVMe Drives from iDRAC Redfish</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../High%20Speed%20Packet%20Capture/">High Speed Packet Capture</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20Bitcoin-Blockchain%20Works%20-%20Notes/">How Bitcoin-Blockchain Works - Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20Does%20Power%20Work/">How Does Power Work</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20Does%20SIFT%20Work/">How Does SIFT Work</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20OS10%20Installer%20Works/">How OS10 Installer Works</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20drive%20detection%20order%20works/">How drive detection order works</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20to%20ONIE%20Install%20and%20ZTP%20Config%20Dell%20SONiC/">How to ONIE Install and ZTP Config Dell SONiC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20to%20Read%20lstopo%20and%20a%20PCIe%20Overview/">How to Read lstopo and a PCIe Overview</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20to%20Setup%20PGP%20with%20Mailvelope/">How to Setup PGP with Mailvelope</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../IO%20Identities%20with%20LifeCycle%20Controller/">IO Identities with LifeCycle Controller</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Importing%20Elasticsearch%20Data/">Importing Elasticsearch Data</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Install%20OpenCV%20with%20CUDA%20Support%20on%20Rocky%20Linux/">Install OpenCV with CUDA Support on Rocky Linux</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Installing%20DPDK%20with%20NapaTech%20Card/">Installing DPDK with NapaTech Card</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../LDAP%20with%20OpenManage/">LDAP with OpenManage</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../LLMs%20Explained/">LLMs Explained</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balance%20Testing%20with%20OpenVSwitch/">Load Balance Testing with OpenVSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balancing%20on%20Mellanox%20Switches/">Load Balancing on Mellanox Switches</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balancing%20with%20LAG%20on%205112F-ON/">Load Balancing with LAG on 5112F-ON</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Make%20USB%20Read%20Only/">Make USB Read Only</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Migrating%20Storage%20Volumes%20to%20PowerStore/">Migrating Storage Volumes to PowerStore</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Mulitple%20Span%20on%204112F-ON%20with%20OpenSwitch/">Mulitple Span on 4112F-ON with OpenSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Multiple%20Span%20on%204112F-ON%20with%20OS10/">Multiple Span on 4112F-ON with OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../NVMe%20Driver%20Reverse%20Engineering/">NVMe Driver Reverse Engineering</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../NVMe%20Performance%20Testing/">NVMe Performance Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20AMD%20Processor/">Notes on AMD Processor</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20Building%20a%20Datacenter%20from%20Scratch/">Notes on Building a Datacenter from Scratch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20HPC/">Notes on HPC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20HSM/">Notes on HSM</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20Improving%20Drive%20Performance/">Notes on Improving Drive Performance</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20NVMe%20Log%20Pages/">Notes on NVMe Log Pages</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20PCIe/">Notes on PCIe</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20mdraid%20Performance%20Testing/">Notes on mdraid Performance Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20nodejs/">Notes on nodejs</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Nvidia%20GPUDirect/">Nvidia GPUDirect</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Nvidia%20GRID%20Notes/">Nvidia GRID Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OME%20Bug/">OME Bug</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OME%20Integration%20for%20VMWare/">OME Integration for VMWare</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OS10%20Password%20Recovery%20Bug/">OS10 Password Recovery Bug</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Offline%20Updates%20with%20OpenManage%20Enterprise/">Offline Updates with OpenManage Enterprise</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OpenFlow%20on%204112F-ON/">OpenFlow on 4112F-ON</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OpenShift%20-%20Change%20MTU/">OpenShift - Change MTU</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Overprovisioning%20Explained/">Overprovisioning Explained</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PCIev3%20vs%20v4/">PCIev3 vs v4</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Playing%20with%20virsh/">Playing with virsh</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PowerScale%20-%20Configure%20with%20Kubernetes/">PowerScale - Configure with Kubernetes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PowerScale%20Failed%20Authentication/">PowerScale Failed Authentication</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PowerScale%20Setup/">PowerScale Setup</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Reset%20OS10%20Admin%20Password/">Reset OS10 Admin Password</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Reverse Engineering OpenSHMEM</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#libfabric">libfabric</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tracing-the-implementation-of-shmem_put">Tracing the Implementation of shmem_put</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Run%20VPN%20on%20OS10/">Run VPN on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Running%20DNS%20from%20OS10/">Running DNS from OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../SONiC%20-%20Sample%20Datacenter%20Automation%20Architecture/">SONiC - Sample Datacenter Automation Architecture</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Set%20Up%20RSPAN%20on%20OS10/">Set Up RSPAN on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setting%20Up%20Breakout%20Cables/">Setting Up Breakout Cables</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setting%20Up%20SmartFabric%20Director/">Setting Up SmartFabric Director</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setting%20Up%20iDRAC%20Telemetry%20with%20Splunk/">Setting Up iDRAC Telemetry with Splunk</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setup%20IDPA/">Setup IDPA</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Site%20to%20Site%20VPN%20with%20PFSense%20and%20CentOS%208/">Site to Site VPN with PFSense and CentOS 8</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Swap%20Kernel%20on%20Rocky%209/">Swap Kernel on Rocky 9</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Switch%20Directly%20to%20Client%20Test/">Switch Directly to Client Test</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Testing%20Bare%20Metal%20Orchestrator/">Testing Bare Metal Orchestrator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Testing%20Intel%20x520%20on%20RHEL%206/">Testing Intel x520 on RHEL 6</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Troubleshooting%205G%20Connection/">Troubleshooting 5G Connection</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Understand%20and%20Run%20LINPACK/">Understand and Run LINPACK</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Understanding%20Cellular%20Technology/">Understanding Cellular Technology</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Understanding%20Memory/">Understanding Memory</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Understanding%20NCCL/">Understanding NCCL</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Understanding%20PERC%20Interrupts/">Understanding PERC Interrupts</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Update%20iDRAC%20Cipher%20Suite%20with%20Redfish/">Update iDRAC Cipher Suite with Redfish</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Use%20OS10%20as%20Aggregator/">Use OS10 as Aggregator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Using%20Dell%20Repository%20Manager%20to%20Create%20Bootable%20ISO/">Using Dell Repository Manager to Create Bootable ISO</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Using%20FIO/">Using FIO</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Using%20the%20iDRAC%20Service%20Module/">Using the iDRAC Service Module</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VEP%20Testing/">VEP Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Web%20Traffic%20Generator/">Web Traffic Generator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Writing%20udev%20Rules%20for%20Dell%20PERC%20H755/">Writing udev Rules for Dell PERC H755</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../esrally%20%28INCOMPLETE%29/">esrally (INCOMPLETE)</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../idrac%20with%20LDAP/">idrac with LDAP</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balance%20Testing%20on%204112F-ON/OS10/">Load Balance Testing on 4112F-ON w/OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balance%20Testing%20on%204112F-ON/OpenSwitch%20%28OPX%29/">Load Balancing with LAG OPX</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Automate%20ESXi%20Installation/">Automating ESXi Installation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Change%20User%20on%20VxRail%20Plugin/">Change User on VxRail Plugin</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/ESXi%20Architecture/">VMWare Architecture Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/How%20to%20Pull%20Usage%20Metrics/">How to Pull Usage Metrics</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Notes%20on%20VSAN/">Notes on vSAN</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Setup%20VXRail/">VxRail Setup</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Troubleshooting%20vSAN/">Troubleshooting vSAN</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/VMWare%20APIs/">VMWare APIs</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/VxRail%20Architecture%20and%20Troubleshooting/">VxRail Architecture and Troubleshooting</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/vRealize%20Setup%20%28Incomplete%29/">Setting Up vRealize</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Grant Curell's Dell Projects</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Reverse Engineering OpenSHMEM</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="reverse-engineering-openshmem">Reverse Engineering OpenSHMEM</h1>
+<ul>
+<li><a href="#reverse-engineering-openshmem">Reverse Engineering OpenSHMEM</a></li>
+<li><a href="#libfabric">libfabric</a></li>
+<li><a href="#tracing-the-implementation-of-shmem_put">Tracing the Implementation of shmem_put</a><ul>
+<li><a href="#breakdown-of-shmem_internal_put_nb"><strong>Breakdown of <code>shmem_internal_put_nb</code></strong></a></li>
+<li><a href="#function-parameters"><strong>Function Parameters</strong></a></li>
+<li><a href="#implementation-analysis"><strong>Implementation Analysis</strong></a></li>
+<li><a href="#related-functions"><strong>Related Functions</strong></a></li>
+<li><a href="#where-is-it-used"><strong>Where is it Used?</strong></a></li>
+<li><a href="#key-points"><strong>Key Points</strong></a></li>
+</ul>
+</li>
+<li><a href="#where-is-it-used-1"><strong>Where is it Used?</strong></a></li>
+</ul>
+<h2 id="libfabric">libfabric</h2>
+<ul>
+<li>Abstracts the network communication aspect of things for the application. Below is an example of a high level SHMEM program that leverages it.</li>
+</ul>
+<pre><code class="language-c">#include &lt;shmem.h&gt;
+#include &lt;stdio.h&gt;
+
+int main() {
+    shmem_init();  // Uses libfabric internally
+
+    int my_pe = shmem_my_pe();
+    int num_pes = shmem_n_pes();
+
+    static int shared_var = 0;  // Symmetric memory
+
+    shmem_barrier_all();  // Ensure all PEs reach this point
+
+    if (my_pe == 0) {
+        shared_var = 42;
+        shmem_put(&amp;shared_var, &amp;shared_var, 1, 1);  // Uses libfabric to send data
+    }
+
+    shmem_barrier_all();  // Wait for transfer
+
+    printf(&quot;PE %d sees shared_var = %d\n&quot;, my_pe, shared_var);
+
+    shmem_finalize();  // Uses libfabric internally
+    return 0;
+}
+</code></pre>
+<h2 id="tracing-the-implementation-of-shmem_put">Tracing the Implementation of shmem_put</h2>
+<p>I used <a href="https://github.com/Sandia-OpenSHMEM/SOS">Sandia's Source Code</a></p>
+<p>Definition for <code>shmem_put</code></p>
+<pre><code>src\data_c.c4:69:`#pragma weak shmem_put$1 = pshmem_put$1
+src\data_c.c4:70:#define shmem_put$1 pshmem_put$1')dnl
+src\data_c.c4:91:`#pragma weak shmem_put$1_nbi = pshmem_put$1_nbi
+src\data_c.c4:92:#define shmem_put$1_nbi pshmem_put$1_nbi')dnl
+src\data_c.c4:238:`#pragma weak shmem_put$1_signal = pshmem_put$1_signal
+src\data_c.c4:239:#define shmem_put$1_signal pshmem_put$1_signal')dnl
+src\data_c.c4:261:`#pragma weak shmem_put$1_signal_nbi = pshmem_put$1_signal_nbi
+src\data_c.c4:262:#define shmem_put$1_signal_nbi pshmem_put$1_signal_nbi')dnl
+src\data_f.c4:57:`SHMEM_DEF_FC_PUT(FC_FUNC_(SH_DOWNCASE(shmem_put$1), SH_UPCASE(SHMEM_PUT$1)), $2)')dnl
+src\data_f.c4:83:`SHMEM_DEF_FC_PUT_NBI(FC_FUNC_(SH_DOWNCASE(shmem_put$1_nbi), SH_UPCASE(SHMEM_PUT$1_NBI)), $2)')dnl
+</code></pre>
+<p>So I went and looked at <code>data_c</code></p>
+<ol>
+<li>
+<p><strong><code>shmem_put</code> is mapped via <code>#pragma weak</code> to <code>pshmem_put</code></strong>:</p>
+<p>```c</p>
+<h1 id="pragma-weak-shmem_put-pshmem_put">pragma weak shmem_put = pshmem_put</h1>
+<h1 id="define-shmem_put-pshmem_put">define shmem_put pshmem_put</h1>
+<p>```</p>
+<p>This means <code>shmem_put</code> is an alias for <code>pshmem_put</code> when profiling is enabled.</p>
+</li>
+<li>
+<p><strong>The actual implementation of <code>shmem_put</code> is in this macro</strong>:</p>
+<p><code>c
+#define SHMEM_DEF_PUT(STYPE, TYPE)                                \
+void SHMEM_FUNCTION_ATTRIBUTES                                 \
+SHMEM_FUNC_PROTOTYPE(STYPE##_put, TYPE *target,                \
+                     const TYPE *source, size_t nelems, int pe)\
+long completion = 0;                                         \
+SHMEM_ERR_CHECK_INITIALIZED();                               \
+SHMEM_ERR_CHECK_PE(pe);                                      \
+SHMEM_ERR_CHECK_CTX(ctx);                                    \
+SHMEM_ERR_CHECK_SYMMETRIC(target, sizeof(TYPE) * nelems);    \
+SHMEM_ERR_CHECK_NULL(source, nelems);                        \
+SHMEM_ERR_CHECK_OVERLAP(target, source, sizeof(TYPE) *       \
+                        nelems, sizeof(TYPE) * nelems, 0,    \
+                        (shmem_internal_my_pe == pe));       \
+shmem_internal_put_nb(ctx, target, source,                   \
+                      sizeof(TYPE) * nelems, pe,             \
+                      &amp;completion);                          \
+shmem_internal_put_wait(ctx, &amp;completion);                   \
+}</code></p>
+<p>This tells us:</p>
+<ul>
+<li><strong>Validation checks</strong> are performed (initialization, PE check, context check, symmetry check, overlap check).</li>
+<li>The actual <strong>non-blocking put operation</strong> is done using <code>shmem_internal_put_nb</code>.</li>
+<li>The function <strong>waits for completion</strong> using <code>shmem_internal_put_wait</code>.</li>
+</ul>
+</li>
+</ol>
+<hr />
+<p>If we look at <code>shmem_comm.h</code> we find the implementation for <code>shmem_internal_put_nb</code>.</p>
+<pre><code class="language-c">static inline
+void
+shmem_internal_put_nb(shmem_ctx_t ctx, void *target, const void *source, size_t len, int pe,
+                      long *completion)
+{
+    if (len == 0)
+        return;
+
+    if (shmem_shr_transport_use_write(ctx, target, source, len, pe)) {
+        shmem_shr_transport_put(ctx, target, source, len, pe);
+    } else {
+        shmem_transport_put_nb((shmem_transport_ctx_t *)ctx, target, source, len, pe, completion);
+    }
+}
+</code></pre>
+<h3 id="breakdown-of-shmem_internal_put_nb"><strong>Breakdown of <code>shmem_internal_put_nb</code></strong></h3>
+<ol>
+<li>
+<p><strong>Check for Zero-Length Transfers</strong></p>
+<ul>
+<li>If <code>len == 0</code>, it just returns immediately.</li>
+<li>
+<p><strong>Choose the Transport Mechanism</strong></p>
+</li>
+<li>
+<p>If <code>shmem_shr_transport_use_write(...)</code> is <code>true</code>, it calls:</p>
+<p><code>c
+shmem_shr_transport_put(ctx, target, source, len, pe);</code></p>
+<p>This is an alternative transport layer (Shared Transport).
+    - Otherwise, it calls:</p>
+<p><code>c
+shmem_transport_put_nb((shmem_transport_ctx_t *)ctx, target, source, len, pe, completion);</code></p>
+<p>This is the <strong>main transport function</strong>, which is where the actual network communication happens.</p>
+</li>
+</ul>
+</li>
+</ol>
+<hr />
+<p>We see that it is defined in multiple different places and depends on the specific type of network in use ex: Unified Communications X (UCX), portals, or openfabrics interconnect (OFI).</p>
+<pre><code>PS C:\Users\grant\Downloads\SOS-main&gt; Get-ChildItem -Path . -Recurse -Include *.c,*.h | Select-String -Pattern 'shmem_transport_put_nb'
+
+...SNIP...
+src\transport_none.h:122:shmem_transport_put_nb(shmem_transport_ctx_t* ctx, void *target, const void *source, size_t
+len,
+src\transport_none.h:145:shmem_transport_put_nbi(shmem_transport_ctx_t* ctx, void *target, const void *source, size_t
+len,
+src\transport_ofi.h:680:void shmem_transport_put_nb(shmem_transport_ctx_t* ctx, void *target, const void *source,
+size_t len,
+src\transport_ofi.h:884:void shmem_transport_put_nbi(shmem_transport_ctx_t* ctx, void *target, const void *source,
+size_t len,
+src\transport_portals4.h:574:shmem_transport_put_nbi(shmem_transport_ctx_t* ctx, void *target, const void *source,
+size_t len, int pe)
+src\transport_portals4.h:590:shmem_transport_put_nb(shmem_transport_ctx_t* ctx, void *target, const void *source,
+size_t len,
+src\transport_portals4.h:606:        shmem_transport_put_nbi(ctx, target, source, len, pe);
+src\transport_portals4.h:1110:    shmem_transport_put_nbi(ctx, target, source, len, pe);
+src\transport_ucx.h:254:shmem_transport_put_nb(shmem_transport_ctx_t* ctx, void *target, const void *source, size_t
+len,
+src\transport_ucx.h:286:shmem_transport_put_nbi(shmem_transport_ctx_t* ctx, void *target, const void *source, size_t
+len,
+src\transport_ucx.h:725:    shmem_transport_put_nbi(ctx, target, source, len, pe);
+</code></pre>
+<p>We're interested in the OpenFabrics Interconnect implementation so I went and looked at transport_ofi.h:</p>
+<pre><code class="language-c">static inline
+void shmem_transport_put_nb(shmem_transport_ctx_t* ctx, void *target, const void *source, size_t len,
+                            int pe, long *completion)
+{
+    int ret = 0;
+    uint64_t dst = (uint64_t) pe;
+    uint64_t polled = 0;
+    uint64_t key;
+    uint8_t *addr;
+
+    shmem_internal_assert(completion != NULL);
+
+    if (len &lt;= shmem_transport_ofi_max_buffered_send) {
+
+        shmem_transport_put_scalar(ctx, target, source, len, pe);
+
+    } else if (len &lt;= shmem_transport_ofi_bounce_buffer_size &amp;&amp; ctx-&gt;bounce_buffers) {
+
+        SHMEM_TRANSPORT_OFI_CTX_LOCK(ctx);
+        SHMEM_TRANSPORT_OFI_CNTR_INC(&amp;ctx-&gt;pending_put_cntr);
+        shmem_transport_ofi_get_mr(target, pe, &amp;addr, &amp;key);
+
+        shmem_transport_ofi_bounce_buffer_t *buff =
+            create_bounce_buffer(ctx, source, len);
+        polled = 0;
+
+        const struct iovec      msg_iov = { .iov_base = buff-&gt;data, .iov_len = len };
+        const struct fi_rma_iov rma_iov = { .addr = (uint64_t) addr, .len = len, .key = key };
+        const struct fi_msg_rma msg     = {
+                                            .msg_iov       = &amp;msg_iov,
+                                            .desc          = GET_MR_DESC_ADDR(shmem_transport_ofi_get_mr_desc_index(source)),
+                                            .iov_count     = 1,
+                                            .addr          = GET_DEST(dst),
+                                            .rma_iov       = &amp;rma_iov,
+                                            .rma_iov_count = 1,
+                                            .context       = buff,
+                                            .data          = 0
+                                          };
+        do {
+            ret = fi_writemsg(ctx-&gt;ep, &amp;msg, FI_COMPLETION | FI_DELIVERY_COMPLETE);
+        } while (try_again(ctx, ret, &amp;polled));
+        SHMEM_TRANSPORT_OFI_CTX_UNLOCK(ctx);
+
+    } else {
+        shmem_transport_ofi_put_large(ctx, target, source,len, pe);
+        (*completion)++;
+    }
+}
+</code></pre>
+<h3 id="function-parameters"><strong>Function Parameters</strong></h3>
+<ul>
+<li><code>shmem_transport_ctx_t* ctx</code> → The SHMEM transport context.</li>
+<li><code>void *target</code> → Remote memory location where data is to be written.</li>
+<li><code>const void *source</code> → Local memory buffer containing the data to be written.</li>
+<li><code>size_t len</code> → Length of the data transfer in bytes.</li>
+<li><code>int pe</code> → The processing element (PE) ID of the target node.</li>
+<li><code>long *completion</code> → A pointer to a counter tracking completion status.</li>
+</ul>
+<hr />
+<h3 id="implementation-analysis"><strong>Implementation Analysis</strong></h3>
+<ol>
+<li>
+<p><strong>Handles Non-Blocking Puts (<code>NB</code>)</strong></p>
+<ul>
+<li>This function issues a <strong>non-blocking</strong> put operation.</li>
+<li>The completion status is tracked via <code>completion</code>, which is incremented if needed.</li>
+<li>
+<p><strong>Uses Multiple Strategies for Data Transfer</strong></p>
+</li>
+<li>
+<p><strong>Small transfers (<code>&lt;= shmem_transport_ofi_max_buffered_send</code>)</strong></p>
+<ul>
+<li>Calls <code>shmem_transport_put_scalar()</code>, which likely performs an <code>fi_inject_write()</code>.</li>
+</ul>
+</li>
+<li><strong>Medium-sized transfers (<code>&lt;= shmem_transport_ofi_bounce_buffer_size</code>)</strong><ul>
+<li>Uses a <strong>bounce buffer</strong> and <code>fi_writemsg()</code>.</li>
+</ul>
+</li>
+<li><strong>Large transfers</strong><ul>
+<li>Calls <code>shmem_transport_ofi_put_large()</code>, which likely <strong>splits data</strong> into chunks.</li>
+</ul>
+</li>
+<li>
+<p><strong>Uses <code>libfabric</code> API</strong></p>
+</li>
+<li>
+<p>The function interacts with <strong>libfabric</strong> (<code>fi_writemsg()</code>).</p>
+</li>
+<li>It leverages <strong>Remote Memory Access (RMA)</strong> with <strong>FI_COMPLETION</strong> and <strong>FI_DELIVERY_COMPLETE</strong>.</li>
+<li>
+<p><strong>Ensures Ordering</strong></p>
+</li>
+<li>
+<p><code>SHMEM_TRANSPORT_OFI_CTX_LOCK(ctx)</code> and <code>SHMEM_TRANSPORT_OFI_CTX_UNLOCK(ctx)</code> protect shared state.</p>
+</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h3 id="related-functions"><strong>Related Functions</strong></h3>
+<ul>
+<li><strong><code>shmem_transport_put_scalar()</code></strong>: Used for small transfers (<code>&lt;= shmem_transport_ofi_max_buffered_send</code>).</li>
+<li><strong><code>shmem_transport_ofi_put_large()</code></strong>: Used for large transfers.</li>
+<li><strong><code>shmem_transport_put_wait()</code></strong>: Ensures completion.</li>
+</ul>
+<hr />
+<h3 id="where-is-it-used"><strong>Where is it Used?</strong></h3>
+<ul>
+<li>
+<p><strong><code>shmem_internal_put_nb()</code></strong> in <code>shmem_comm.h</code> calls <code>shmem_transport_put_nb()</code> when shared memory writes are not possible:</p>
+<p><code>c
+shmem_transport_put_nb((shmem_transport_ctx_t *)ctx, target, source, len, pe, completion);</code></p>
+</li>
+<li>
+<p>Other files (<code>transport_none.h</code>, <code>transport_portals4.h</code>, etc.) contain different transport implementations.</p>
+</li>
+</ul>
+<hr />
+<p>If we go look at <code>shmem_transport_put_scalar</code> we see</p>
+<pre><code class="language-c">static inline
+void shmem_transport_put_scalar(shmem_transport_ctx_t* ctx, void *target, const
+                               void *source, size_t len, int pe)
+{
+    int ret = 0;
+    uint64_t dst = (uint64_t) pe;
+    uint64_t polled = 0;
+    uint64_t key;
+    uint8_t *addr;
+
+    shmem_transport_ofi_get_mr(target, pe, &amp;addr, &amp;key);
+
+    shmem_internal_assert(len &lt;= shmem_transport_ofi_max_buffered_send);
+
+    SHMEM_TRANSPORT_OFI_CTX_LOCK(ctx);
+    SHMEM_TRANSPORT_OFI_CNTR_INC(&amp;ctx-&gt;pending_put_cntr);
+
+    do {
+
+        ret = fi_inject_write(ctx-&gt;ep,
+                              source,
+                              len,
+                              GET_DEST(dst),
+                              (uint64_t) addr,
+                              key);
+
+    } while (try_again(ctx, ret, &amp;polled));
+    SHMEM_TRANSPORT_OFI_CTX_UNLOCK(ctx);
+}
+</code></pre>
+<h3 id="key-points"><strong>Key Points</strong></h3>
+<ol>
+<li>
+<p><strong>Handles Small Transfers</strong></p>
+<ul>
+<li>This function is called when <code>len &lt;= shmem_transport_ofi_max_buffered_send</code>.</li>
+<li>It ensures that small messages are handled <strong>efficiently</strong> without needing extra buffering.</li>
+<li>
+<p><strong>Uses <code>fi_inject_write()</code></strong></p>
+</li>
+<li>
+<p><code>fi_inject_write()</code> is a <strong>one-sided, RDMA write</strong> in <strong>libfabric</strong> that:</p>
+<ul>
+<li>Does <strong>not</strong> require completion tracking.</li>
+<li>Is optimized for <strong>small messages</strong>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Memory Registration</strong></p>
+</li>
+<li>
+<p>Calls <code>shmem_transport_ofi_get_mr(target, pe, &amp;addr, &amp;key);</code></p>
+</li>
+<li>This function retrieves:<ul>
+<li><code>addr</code>: the remote memory address.</li>
+<li><code>key</code>: the remote memory region key.</li>
+</ul>
+</li>
+<li>
+<p><strong>Ensures Ordering</strong></p>
+</li>
+<li>
+<p>Uses:</p>
+<p><code>c
+SHMEM_TRANSPORT_OFI_CTX_LOCK(ctx);
+SHMEM_TRANSPORT_OFI_CTX_UNLOCK(ctx);</code></p>
+</li>
+<li>
+<p>This ensures <strong>atomicity</strong> when accessing shared structures.</p>
+</li>
+<li>
+<p><strong>Retries on Resource Exhaustion</strong></p>
+</li>
+<li>
+<p>Uses:</p>
+<p><code>c
+do {
+    ret = fi_inject_write(...);
+} while (try_again(ctx, ret, &amp;polled));</code></p>
+</li>
+<li>
+<p>If <code>fi_inject_write()</code> fails due to a temporary resource issue (e.g., lack of completion queue entries), it <strong>retries</strong>.</p>
+</li>
+<li>
+<p><strong>Incrementing the Counter</strong></p>
+</li>
+<li>
+<p>Uses:</p>
+<p><code>c
+SHMEM_TRANSPORT_OFI_CNTR_INC(&amp;ctx-&gt;pending_put_cntr);</code></p>
+</li>
+<li>
+<p>This ensures the operation is <strong>tracked</strong> in the transport layer.</p>
+</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h2 id="where-is-it-used_1"><strong>Where is it Used?</strong></h2>
+<ul>
+<li>
+<p><strong><code>shmem_transport_put_nb()</code></strong> (Non-Blocking Put)</p>
+<p><code>c
+if (len &lt;= shmem_transport_ofi_max_buffered_send) {
+    shmem_transport_put_scalar(ctx, target, source, len, pe);
+}</code></p>
+</li>
+<li>
+<p><strong><code>shmem_transport_put_nbi()</code></strong> (Non-Blocking Immediate Put)</p>
+<p><code>c
+if (len &lt;= shmem_transport_ofi_max_buffered_send) {
+    shmem_transport_put_scalar(ctx, target, source, len, pe);
+}</code></p>
+</li>
+<li>
+<p>It is also indirectly used by <code>shmem_internal_put_nb()</code> and similar SHMEM API functions.</p>
+</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../Reset%20OS10%20Admin%20Password/" class="btn btn-neutral float-left" title="Reset OS10 Admin Password"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../Run%20VPN%20on%20OS10/" class="btn btn-neutral float-right" title="Run VPN on OS10">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="None" class="fa fa-code-fork" style="color: #fcfcfc"> https://github.com/grantcurell/grantcurell.github.io/tree/master</a>
+        </span>
+    
+    
+      <span><a href="../Reset%20OS10%20Admin%20Password/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../Run%20VPN%20on%20OS10/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

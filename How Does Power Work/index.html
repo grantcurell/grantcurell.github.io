@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Grant Curell" /><link rel="canonical" href="https://grantcurell.github.io/How%20Does%20Power%20Work/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>How Does Power Work - Grant Curell's Dell Projects</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "How Does Power Work";
+        var mkdocs_page_input_path = "How Does Power Work\\README.md";
+        var mkdocs_page_url = "/How%20Does%20Power%20Work/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Grant Curell's Dell Projects
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Grant Curell's Dell Projects</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Adding%20Hashing%20to%20OpenSwitch/">Adding Hashing to OpenSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Adding%20Intel%20I219-LM%20%288086.0d4c%29%20Driver%20to%20ESXi/">Adding Intel I219-LM (8086.0d4c) Driver to ESXi</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Aircraft%20Detection/">Aircraft Detection</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Automatically%20Provision%20Dell%20Servers/">Automatically Provision Dell Servers</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Automating%20OME%20Hardware%20Reports/">Automating OME Hardware Reports</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../BIOS%20Options%20Explanation/">BIOS Options Explanation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Backup%20OS10%20Config%20with%20Ansible/">Backup OS10 Config with Ansible</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Build%20NVIDIA%20AI%20Enterprise/">Build NVIDIA AI Enterprise</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Build%20OpenShift/">Build OpenShift</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Build%20Preboot%20Environment%20with%20Ansible/">Build Preboot Environment with Ansible</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../CloudLink/">CloudLink</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Common%20Questions%20About%20LLMs%20Answered/">Common Questions About LLMs Answered</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20FN410%20as%20a%20Switch/">Configure FN410 as a Switch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20Gigamon%20Tap/">Configure Gigamon Tap</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20Multi-Protocol%20PowerStore%20with%20LDAP/">Configure Multi-Protocol PowerStore with LDAP</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20PowerStore%20SMB%20User/">Configure PowerStore SMB User</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configure%20kdump%20with%20SSH/">Configure kdump with SSH</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Configuring%20VLT%20on%20OS10/">Configuring VLT on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Connect%20to%20APC%20PDU%20with%20Redfish/">Connect to APC PDU with Redfish</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Create%20Kickstart%20Server%20on%20Fedora/">Create Kickstart Server on Fedora</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Create%20OpenSwitch%20VM/">Create OpenSwitch VM</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Custom%20NVMe%20Debug%20Driver/">Custom NVMe Debug Driver</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../DHCP%20Relay%20on%20SONiC/">DHCP Relay on SONiC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Dell%20Ansible%20Testing/">Dell Ansible Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Deploy%20OpenShift%20Offline/">Deploy OpenShift Offline</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Elasticsearch%20Display%20Map%20Data/">Elasticsearch Display Map Data</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Elasticsearch%20Load%20Testing/">Elasticsearch Load Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Estimating%20Compute%20Requirements%20for%20Machine%20Learning/">Estimating Compute Requirements for Machine Learning</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Finding%20Rare%20Logs%20with%20DBSCAN/">Finding Rare Logs with DBSCAN</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Get%20NVMe%20Drives%20from%20iDRAC%20Redfish/">Get NVMe Drives from iDRAC Redfish</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../High%20Speed%20Packet%20Capture/">High Speed Packet Capture</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20Bitcoin-Blockchain%20Works%20-%20Notes/">How Bitcoin-Blockchain Works - Notes</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">How Does Power Work</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#basics-of-electrical-power">Basics of Electrical Power</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#alternating-current-ac">Alternating Current (AC)</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#where-does-the-power-come-from">Where Does the Power Come From?</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#how-it-gets-to-the-house">How it Gets to the House</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#how-your-breaker-works">How Your Breaker Works</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#main-breaker">Main Breaker</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#input-line">Input Line</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#distribution-of-power">Distribution of Power</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#safety-mechanisms">Safety Mechanisms</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#single-phase-power">Single-Phase Power</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#understanding-the-sine-wave">Understanding the Sine Wave</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#basics-of-ac-power-and-sine-waves">Basics of AC Power and Sine Waves</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#hold-on-why-does-anything-work-when-voltage-is-zero">Hold On - Why Does Anything Work When Voltage is Zero?</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#rectification">Rectification</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#filtering">Filtering</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#voltage-regulation">Voltage Regulation</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#energy-storage">Energy Storage</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#how-does-voltage-relate-to-amperage">How Does Voltage Relate to Amperage</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#ohms-law">Ohm's Law</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#why-this-matters-power-transmission-and-amperage">Why This Matters - Power Transmission and Amperage</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#does-amperage-change-during-transmission">Does Amperage Change During Transmission?</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#two-phase-power">Two-Phase Power</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#sine-waves-and-two-phase-power">Sine Waves and Two-Phase Power</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#two-phase-power-delivery">Two Phase Power Delivery</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#three-phase-power">Three-Phase Power</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#what-is-the-wye-y-configuration">What is the Wye (Y) Configuration?</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#key-points-of-wye-configuration">Key Points of Wye Configuration:</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#480v-3-phase-wye-480y277v">480V 3 Phase Wye (480Y/277V)</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#ok-but-why-is-it-480v-and-277v-where-are-those-numbers-coming-from">Ok, but why is it 480V and 277V? Where are those numbers coming from?</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#mathematical-representation">Mathematical Representation</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20Does%20SIFT%20Work/">How Does SIFT Work</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20OS10%20Installer%20Works/">How OS10 Installer Works</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20drive%20detection%20order%20works/">How drive detection order works</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20to%20ONIE%20Install%20and%20ZTP%20Config%20Dell%20SONiC/">How to ONIE Install and ZTP Config Dell SONiC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20to%20Read%20lstopo%20and%20a%20PCIe%20Overview/">How to Read lstopo and a PCIe Overview</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../How%20to%20Setup%20PGP%20with%20Mailvelope/">How to Setup PGP with Mailvelope</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../IO%20Identities%20with%20LifeCycle%20Controller/">IO Identities with LifeCycle Controller</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Importing%20Elasticsearch%20Data/">Importing Elasticsearch Data</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Install%20OpenCV%20with%20CUDA%20Support%20on%20Rocky%20Linux/">Install OpenCV with CUDA Support on Rocky Linux</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Installing%20DPDK%20with%20NapaTech%20Card/">Installing DPDK with NapaTech Card</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../LDAP%20with%20OpenManage/">LDAP with OpenManage</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../LLMs%20Explained/">LLMs Explained</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balance%20Testing%20with%20OpenVSwitch/">Load Balance Testing with OpenVSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balancing%20on%20Mellanox%20Switches/">Load Balancing on Mellanox Switches</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balancing%20with%20LAG%20on%205112F-ON/">Load Balancing with LAG on 5112F-ON</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Make%20USB%20Read%20Only/">Make USB Read Only</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Migrating%20Storage%20Volumes%20to%20PowerStore/">Migrating Storage Volumes to PowerStore</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Mulitple%20Span%20on%204112F-ON%20with%20OpenSwitch/">Mulitple Span on 4112F-ON with OpenSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Multiple%20Span%20on%204112F-ON%20with%20OS10/">Multiple Span on 4112F-ON with OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../NVMe%20Driver%20Reverse%20Engineering/">NVMe Driver Reverse Engineering</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../NVMe%20Performance%20Testing/">NVMe Performance Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20AMD%20Processor/">Notes on AMD Processor</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20Building%20a%20Datacenter%20from%20Scratch/">Notes on Building a Datacenter from Scratch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20HPC/">Notes on HPC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20HSM/">Notes on HSM</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20Improving%20Drive%20Performance/">Notes on Improving Drive Performance</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20NVMe%20Log%20Pages/">Notes on NVMe Log Pages</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20PCIe/">Notes on PCIe</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20mdraid%20Performance%20Testing/">Notes on mdraid Performance Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Notes%20on%20nodejs/">Notes on nodejs</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Nvidia%20GPUDirect/">Nvidia GPUDirect</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Nvidia%20GRID%20Notes/">Nvidia GRID Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OME%20Bug/">OME Bug</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OME%20Integration%20for%20VMWare/">OME Integration for VMWare</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OS10%20Password%20Recovery%20Bug/">OS10 Password Recovery Bug</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Offline%20Updates%20with%20OpenManage%20Enterprise/">Offline Updates with OpenManage Enterprise</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OpenFlow%20on%204112F-ON/">OpenFlow on 4112F-ON</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../OpenShift%20-%20Change%20MTU/">OpenShift - Change MTU</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Overprovisioning%20Explained/">Overprovisioning Explained</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PCIev3%20vs%20v4/">PCIev3 vs v4</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Playing%20with%20virsh/">Playing with virsh</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PowerScale%20-%20Configure%20with%20Kubernetes/">PowerScale - Configure with Kubernetes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PowerScale%20Failed%20Authentication/">PowerScale Failed Authentication</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../PowerScale%20Setup/">PowerScale Setup</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Reset%20OS10%20Admin%20Password/">Reset OS10 Admin Password</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Reverse%20Engineering%20OpenSHMEM/">Reverse Engineering OpenSHMEM</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Run%20VPN%20on%20OS10/">Run VPN on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Running%20DNS%20from%20OS10/">Running DNS from OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../SONiC%20-%20Sample%20Datacenter%20Automation%20Architecture/">SONiC - Sample Datacenter Automation Architecture</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Set%20Up%20RSPAN%20on%20OS10/">Set Up RSPAN on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setting%20Up%20Breakout%20Cables/">Setting Up Breakout Cables</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setting%20Up%20SmartFabric%20Director/">Setting Up SmartFabric Director</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setting%20Up%20iDRAC%20Telemetry%20with%20Splunk/">Setting Up iDRAC Telemetry with Splunk</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Setup%20IDPA/">Setup IDPA</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Site%20to%20Site%20VPN%20with%20PFSense%20and%20CentOS%208/">Site to Site VPN with PFSense and CentOS 8</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Swap%20Kernel%20on%20Rocky%209/">Swap Kernel on Rocky 9</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Switch%20Directly%20to%20Client%20Test/">Switch Directly to Client Test</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Testing%20Bare%20Metal%20Orchestrator/">Testing Bare Metal Orchestrator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Testing%20Intel%20x520%20on%20RHEL%206/">Testing Intel x520 on RHEL 6</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Troubleshooting%205G%20Connection/">Troubleshooting 5G Connection</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Understand%20and%20Run%20LINPACK/">Understand and Run LINPACK</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Understanding%20Cellular%20Technology/">Understanding Cellular Technology</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Understanding%20Memory/">Understanding Memory</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Understanding%20NCCL/">Understanding NCCL</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Understanding%20PERC%20Interrupts/">Understanding PERC Interrupts</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Update%20iDRAC%20Cipher%20Suite%20with%20Redfish/">Update iDRAC Cipher Suite with Redfish</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Use%20OS10%20as%20Aggregator/">Use OS10 as Aggregator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Using%20Dell%20Repository%20Manager%20to%20Create%20Bootable%20ISO/">Using Dell Repository Manager to Create Bootable ISO</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Using%20FIO/">Using FIO</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Using%20the%20iDRAC%20Service%20Module/">Using the iDRAC Service Module</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VEP%20Testing/">VEP Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Web%20Traffic%20Generator/">Web Traffic Generator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Writing%20udev%20Rules%20for%20Dell%20PERC%20H755/">Writing udev Rules for Dell PERC H755</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../esrally%20%28INCOMPLETE%29/">esrally (INCOMPLETE)</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../idrac%20with%20LDAP/">idrac with LDAP</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balance%20Testing%20on%204112F-ON/OS10/">Load Balance Testing on 4112F-ON w/OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../Load%20Balance%20Testing%20on%204112F-ON/OpenSwitch%20%28OPX%29/">Load Balancing with LAG OPX</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Automate%20ESXi%20Installation/">Automating ESXi Installation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Change%20User%20on%20VxRail%20Plugin/">Change User on VxRail Plugin</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/ESXi%20Architecture/">VMWare Architecture Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/How%20to%20Pull%20Usage%20Metrics/">How to Pull Usage Metrics</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Notes%20on%20VSAN/">Notes on vSAN</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Setup%20VXRail/">VxRail Setup</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/Troubleshooting%20vSAN/">Troubleshooting vSAN</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/VMWare%20APIs/">VMWare APIs</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/VxRail%20Architecture%20and%20Troubleshooting/">VxRail Architecture and Troubleshooting</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../VMWare/vRealize%20Setup%20%28Incomplete%29/">Setting Up vRealize</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Grant Curell's Dell Projects</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">How Does Power Work</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="how-does-power-work">How Does Power Work</h1>
+<ul>
+<li><a href="#how-does-power-work">How Does Power Work</a></li>
+<li><a href="#basics-of-electrical-power">Basics of Electrical Power</a></li>
+<li><a href="#alternating-current-ac">Alternating Current (AC)</a></li>
+<li><a href="#where-does-the-power-come-from">Where Does the Power Come From?</a><ul>
+<li><a href="#how-it-gets-to-the-house">How it Gets to the House</a></li>
+<li><a href="#how-your-breaker-works">How Your Breaker Works</a></li>
+<li><a href="#main-breaker">Main Breaker</a></li>
+<li><a href="#input-line">Input Line</a></li>
+<li><a href="#distribution-of-power">Distribution of Power</a><ul>
+<li><a href="#separation-into-circuits">Separation into Circuits</a></li>
+<li><a href="#circuit-breakers">Circuit Breakers</a></li>
+<li><a href="#240-volt-circuits">240-Volt Circuits</a></li>
+</ul>
+</li>
+<li><a href="#safety-mechanisms">Safety Mechanisms</a><ul>
+<li><a href="#overload-protection">Overload Protection</a></li>
+<li><a href="#short-circuit-protection">Short Circuit Protection</a></li>
+<li><a href="#ground-fault-protection">Ground Fault Protection</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#single-phase-power">Single-Phase Power</a></li>
+<li><a href="#understanding-the-sine-wave">Understanding the Sine Wave</a><ul>
+<li><a href="#basics-of-ac-power-and-sine-waves">Basics of AC Power and Sine Waves</a></li>
+<li><a href="#hold-on---why-does-anything-work-when-voltage-is-zero">Hold On - Why Does Anything Work When Voltage is Zero?</a></li>
+<li><a href="#rectification">Rectification</a></li>
+<li><a href="#filtering">Filtering</a></li>
+<li><a href="#voltage-regulation">Voltage Regulation</a></li>
+<li><a href="#energy-storage">Energy Storage</a></li>
+<li><a href="#how-does-voltage-relate-to-amperage">How Does Voltage Relate to Amperage</a></li>
+<li><a href="#ohms-law">Ohm's Law</a></li>
+<li><a href="#why-this-matters---power-transmission-and-amperage">Why This Matters - Power Transmission and Amperage</a></li>
+<li><a href="#does-amperage-change-during-transmission">Does Amperage Change During Transmission?</a></li>
+</ul>
+</li>
+<li><a href="#two-phase-power">Two-Phase Power</a><ul>
+<li><a href="#sine-waves-and-two-phase-power">Sine Waves and Two-Phase Power</a></li>
+<li><a href="#two-phase-power-delivery">Two Phase Power Delivery</a></li>
+</ul>
+</li>
+<li><a href="#three-phase-power">Three-Phase Power</a><ul>
+<li><a href="#what-is-the-wye-y-configuration">What is the Wye (Y) Configuration?</a></li>
+<li><a href="#key-points-of-wye-configuration">Key Points of Wye Configuration:</a></li>
+<li><a href="#480v-3-phase-wye-480y277v">480V 3 Phase Wye (480Y/277V)</a><ul>
+<li><a href="#what-does-it-mean-to-be-both-480v-and-277v">What Does it Mean to be Both 480V and 277V?</a></li>
+</ul>
+</li>
+<li><a href="#ok-but-why-is-it-480v-and-277v-where-are-those-numbers-coming-from">Ok, but why is it 480V and 277V? Where are those numbers coming from?</a></li>
+<li><a href="#mathematical-representation">Mathematical Representation</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="basics-of-electrical-power">Basics of Electrical Power</h2>
+<p>Electricity at its core involves the flow of electrons through a conductor. The power that's delivered to your home or office comes from an electrical grid, which is generated at power plants and distributed through a network of transmission lines. The voltage and current are two fundamental aspects of this power. Voltage is essentially the pressure that pushes electrons through a wire, while current is the rate at which these electrons flow.</p>
+<h2 id="alternating-current-ac">Alternating Current (AC)</h2>
+<p>Most power systems around the world use alternating current (AC), where the flow of electricity periodically reverses direction. AC power is represented by a sine wave, with its magnitude varying over time. The frequency of this sine wave varies by region (e.g., 60 Hz in the US and 50 Hz in Europe).</p>
+<h2 id="where-does-the-power-come-from">Where Does the Power Come From?</h2>
+<h3 id="how-it-gets-to-the-house">How it Gets to the House</h3>
+<ol>
+<li><strong>Power Generation</strong>: Electricity is generated at power plants using various sources (coal, natural gas, hydro, wind, solar, etc.) and is initially produced at a relatively low voltage.</li>
+<li><strong>Step-Up Transformer</strong>: To transport this electricity efficiently over long distances to where it's needed, the voltage is increased using a step-up transformer at the power plant. This high voltage allows the electricity to travel long distances through transmission lines with minimal energy loss.</li>
+<li><strong>Transmission Lines</strong>: The electricity travels over high-voltage transmission lines that traverse the countryside. These lines can carry voltages ranging from 69kV (69,000 volts) up to 765kV or higher.</li>
+<li><strong>Substation Step-Down Transformer</strong>: When the electricity reaches a substation near your local area, step-down transformers reduce the high transmission voltage to a lower distribution voltage, more suitable for use in residential areas.</li>
+<li><strong>Distribution Lines</strong>: The lower voltage electricity is then sent through distribution lines, which are the poles and wires you see along streets and alleys. These distribution voltages are typically between 13.2kV and 34.5kV.</li>
+<li><strong>Transformer Near Your House</strong>: Finally, a distribution transformer located on a pole (pole-mounted) or on the ground in a green box (pad-mounted) near your home steps down the voltage one last time to the standard household voltage (in North America, typically 120/240 volts). This transformer serves a small number of homes or even just a single home, converting the electricity to a usable level for your appliances and devices.</li>
+<li><strong>Service Drop</strong>: From this transformer, a set of wires (service drop) runs to your house, connecting to your electric meter and then to your home's electrical panel (breaker box). This is where electricity is distributed through your home's wiring to outlets, lights, and appliances.</li>
+</ol>
+<h3 id="how-your-breaker-works">How Your Breaker Works</h3>
+<h4 id="main-breaker">Main Breaker</h4>
+<p>The electricity from the utility company enters your home through the meter and then goes to the main breaker in the breaker box. The main breaker serves as a disconnect switch to cut off power to the entire house and also protects the internal circuits from overloading by limiting the total amount of current that can flow into the panel.</p>
+<h4 id="input-line">Input Line</h4>
+<p>The input line, coming into the breaker box, is actually comprised of two hot wires and one neutral wire in a typical residential service in North America. Each hot wire carries 120 volts from the transformer, and together, they can supply 240 volts for high-demand appliances (like an electric dryer).</p>
+<h4 id="distribution-of-power">Distribution of Power</h4>
+<h5 id="separation-into-circuits">Separation into Circuits</h5>
+<p>Inside the breaker box, the two hot wires connect to a bus bar. Each circuit breaker snaps onto a bus bar to receive power. One bus bar is connected to one of the hot wires, and the other bus bar is connected to the second hot wire. The neutral wire is connected to a neutral bus bar. </p>
+<h5 id="circuit-breakers">Circuit Breakers</h5>
+<p>Each circuit breaker is connected to one of the hot bus bars and controls a single circuit in your home. For a standard 120-volt circuit, the breaker connects to one of the hot bus bars and the circuit's neutral wire connects to the neutral bus bar. This setup creates a complete path for electricity to flow from the transformer, through the panel, to the outlets or fixtures, and back.</p>
+<h5 id="240-volt-circuits">240-Volt Circuits</h5>
+<p>For appliances requiring 240 volts, a double-pole breaker is used. This type of breaker spans and connects to both hot bus bars, thus utilizing both 120-volt lines to achieve 240 volts. The appliance will typically not use a neutral wire but will have a ground wire for safety.</p>
+<h4 id="safety-mechanisms">Safety Mechanisms</h4>
+<h5 id="overload-protection">Overload Protection</h5>
+<p>Circuit breakers are designed to trip and automatically cut off power when the current flowing through the circuit exceeds the breaker's rated capacity. This prevents overheating and reduces the risk of fire.</p>
+<h5 id="short-circuit-protection">Short Circuit Protection</h5>
+<p>If a short circuit occurs (a direct connection between the hot and neutral wires without passing through a load), a sudden surge of current will flow. Circuit breakers are designed to detect this surge and trip quickly to cut off power and prevent damage.</p>
+<h5 id="ground-fault-protection">Ground Fault Protection</h5>
+<p>Some breakers are designed with ground fault circuit interrupter (GFCI) protection, which shuts off electricity if there is a difference in current between the hot and neutral wires, indicating a leakage of current to the ground. This is particularly important in wet areas like bathrooms and kitchens. Here's how it works:</p>
+<p><strong>Monitoring Current Flow</strong>: A GFCI breaker (or outlet) continuously monitors the current flowing in the hot (live) and neutral wires of a circuit. Under normal conditions, the current flowing to an appliance through the hot wire should return through the neutral wire, meaning the current in both wires should be equal.
+<strong>Detecting Imbalance</strong>: The GFCI device is designed to detect even slight differences (imbalances) between the outgoing and returning current. These differences can occur if electrical current is leaking somewhere along the circuit. Ex: through a person who is touching a faulty appliance or water that's come into contact with electricity.
+<strong>Response</strong>: If the GFCI detects a current imbalance as small as 4 to 6 milliamps (a milliamp is one-thousandth of an ampere), it reacts quickly (within milliseconds) to shut off the power supply to that circuit.</p>
+<h2 id="single-phase-power">Single-Phase Power</h2>
+<p>Single-phase power is the simplest form of AC power and is commonly used in residential homes. It involves a single AC waveform, providing a straightforward means of delivering power. Electricity in this system is delivered through two wires: one live wire (carrying the current) and one neutral. The voltage in a single-phase system varies sinusoidally over time, but at any given moment, all points in the system see the same voltage phase angle (though the magnitude of the voltage may vary).</p>
+<p>You may also be wondering about the ground. The ground is connected to the neutral wire. When everything works correctly then electricity flows through the device then back through the neutral wire completely ignoring the ground because the neutral wire has far less resistance. If there is an excess of power (electrons) that would otherwise "overload" the neutral wire, those electrons spill into the ground which goes, literally, into the earth. Because the earth is massive, that electricity is then dissipated.</p>
+<h2 id="understanding-the-sine-wave">Understanding the Sine Wave</h2>
+<p>You hear power talked about a lot in the context of sine waves but what exactly does that mean?</p>
+<h3 id="basics-of-ac-power-and-sine-waves">Basics of AC Power and Sine Waves</h3>
+<p>In an AC power system, the voltage changes from positive to negative in a cyclical manner. This is in contrast to direct current (DC), where the voltage remains constant over time. The reason AC power is depicted as a sine wave is because the voltage (and current) increases and decreases sinusoidally.</p>
+<ul>
+<li><strong>Peak and Trough</strong>: The highest value of the sine wave represents the peak voltage, while the lowest value represents the trough, or negative peak voltage. The voltage smoothly transitions between these extremes, passing through zero volts twice per cycle.</li>
+<li><strong>Frequency</strong>: The number of times the wave completes a full cycle (from zero to peak, back to zero, to negative peak, and back to zero again) in one second is its frequency, measured in hertz (Hz). In many parts of the world, the standard frequency is 60 Hz, meaning the cycle repeats 60 times per second.</li>
+</ul>
+<p><img alt="" src="images/2024-02-07-10-48-25.png" /></p>
+<p>See <a href="graph_of_voltage.py">code</a></p>
+<h3 id="hold-on-why-does-anything-work-when-voltage-is-zero">Hold On - Why Does Anything Work When Voltage is Zero?</h3>
+<p>Let's take your computer for example. At some point it is receiving 0 volts - in fact this happens in the US 60 times a second so why doesn't your computer shut down? What I describe below all takes place inside your Power Supply Unit (PSU).</p>
+<h4 id="rectification">Rectification</h4>
+<p>The first stage in the power supply is rectification, which uses diodes to convert the incoming AC voltage to pulsating DC. Rectifiers use a bridge configuration to effectively flip the negative half-cycles of the AC waveform to positive, ensuring that all output voltage is of the same polarity (either all positive or all negative).</p>
+<p>Ok, so now we have direct current just like you would have seen in your high school physics class, but the problem is it still has massive fluctuations in voltage as the AC power cycles.</p>
+<h4 id="filtering">Filtering</h4>
+<p>After rectification, capacitors are used to smooth out these fluctuations. They charge up when the voltage rises and discharge when it falls, effectively "filling in" the dips in the waveform. This process substantially smooths the DC output but may not entirely eliminate voltage variations.</p>
+<p><img alt="" src="images/2024-02-07-11-22-00.png" /></p>
+<p>See <a href="filtering.py">code</a></p>
+<h4 id="voltage-regulation">Voltage Regulation</h4>
+<p>The filtered, but possibly still fluctuating, DC voltage is then passed through a voltage regulator stage. Voltage regulators ensure that the output voltage is constant and within the specifications required by the device, regardless of variations in input voltage or load on the power supply. Modern computers have very precise switching regulators that bring the voltage level to an extremely stable state which it then distributes on the power rails to the various components in your PC.</p>
+<h4 id="energy-storage">Energy Storage</h4>
+<p>The PSU also includes components like capacitors and, in some cases, inductors that store energy. These components can release energy when the input AC voltage is zero or near zero, ensuring that the device receives a constant power supply.</p>
+<h3 id="how-does-voltage-relate-to-amperage">How Does Voltage Relate to Amperage</h3>
+<p>The relationship between voltage and amperage (current) in an electrical system is described by Ohm's Law and the principles of power transmission.</p>
+<h4 id="ohms-law">Ohm's Law</h4>
+<p>Ohm's Law states that the current (I) flowing through a conductor between two points is directly proportional to the voltage (V) across the two points and inversely proportional to the resistance (R) of the conductor. The law is often expressed as:</p>
+<p>$I = \frac{V}{R}$</p>
+<p>This means that for a given resistance, if you increase the voltage, the current will increase proportionally, and vice versa. If you increase the resistance, the current will decrease.</p>
+<h4 id="why-this-matters-power-transmission-and-amperage">Why This Matters - Power Transmission and Amperage</h4>
+<p>During power transmission from power plants to consumers, the goal is often to minimize energy loss. Energy loss in transmission lines is primarily due to resistance in the wires, and it's proportional to the square of the current flowing through them, as described by the formula for power loss due to resistance (Joule's Law):</p>
+<p>$P_{loss} = I^2 R$</p>
+<p>To minimize these losses, electrical power is transmitted at high voltages and correspondingly lower currents. High voltage allows for the same power to be transmitted with less current, which reduces the energy lost as heat in the transmission lines. This is why power is stepped up to high voltages using transformers before it is transmitted over long distances.</p>
+<h4 id="does-amperage-change-during-transmission">Does Amperage Change During Transmission?</h4>
+<p>The amperage can change during transmission for several reasons:</p>
+<ol>
+<li><strong>Conversion to High Voltage</strong>: When voltage is increased through a transformer (stepped up), the current is decreased proportionally to keep the power transmitted (P = V * I) constant, assuming no losses. This is due to the conservation of energy principle.</li>
+<li><strong>Load Variations</strong>: The current also changes based on the total demand (load) on the system. As more devices are turned on and draw power, the total current supplied by the power system increases.</li>
+<li><strong>Transmission Losses and Efficiency</strong>: Some variation is inevitable due to resistance in the lines, though modern power systems are designed to be highly efficient.</li>
+</ol>
+<h2 id="two-phase-power">Two-Phase Power</h2>
+<p>Two-phase electrical power is a bit of an historical anomaly and much less common today. It involves two AC electrical phases separated by 90 degrees. Essentially, two-phase power would use four wires: two live wires (each with its own separate sine wave offset by 90 degrees) and two neutral wires (or sometimes one neutral wire shared between them). This system allows for smoother operation of certain types of motors and can provide more constant power delivery. However, it's largely been replaced or overshadowed by three-phase power due to the latter's efficiency and simplicity in distribution.</p>
+<h3 id="sine-waves-and-two-phase-power">Sine Waves and Two-Phase Power</h3>
+<p>In a two-phase electrical system, there are two separate AC currents (or voltages) running over two separate lines, each represented by its own sine wave. These two sine waves are offset from each other by 90 degrees in phase. In terms of the wave's cycle, this means that when one wave is at its peak voltage, the other wave is at zero voltage and just starting to increase.</p>
+<p><img alt="" src="images/2024-02-07-11-03-12.png" /></p>
+<p>See <a href="power_phases.py">code</a></p>
+<p>The graph above demonstrates what this looks like. Two sine waves plotted on a graph over time. If one wave starts at zero and begins its upward curve towards a peak, the second wave starts one-quarter of the way through the first wave's cycle. This quarter-cycle offset (90 degrees out of 360 degrees in a full cycle) ensures that the two waves reach their peak values at different times.</p>
+<h3 id="two-phase-power-delivery">Two Phase Power Delivery</h3>
+<ul>
+<li>
+<p><strong>Smooth Power</strong>: The advantage of having two (or more) phases offset in this way is that it allows for a more constant delivery of power. As one wave decreases from its peak (delivering less power), the other is increasing towards its peak (delivering more power). This overlap means that the total power delivered by the system tends to be more constant and less pulsed compared to a single-phase system where the power would dip to zero twice per cycle.</p>
+</li>
+<li>
+<p><strong>Application in Motors</strong>: This smoother power delivery is particularly beneficial for running motors. In a two-phase system, the shifting magnetic fields created by the phase offset can produce a rotating magnetic field that more effectively turns the motor's rotor without the pauses in torque that would occur in a single-phase motor.</p>
+</li>
+</ul>
+<h2 id="three-phase-power">Three-Phase Power</h2>
+<p>Three-phase power is the most common method of power transmission in the world for large businesses and industrial applications. It consists of three AC electrical phases, each running over a separate cable, each separated by 120 degrees. The fourth cable is neutral. There are three main advantages to three phase power:</p>
+<ol>
+<li><strong>Efficiency</strong>: Three-phase power transmission is more efficient than single-phase for distributing large amounts of electricity over long distances.</li>
+<li><strong>Smooth Power Delivery</strong>: The three overlapping waves ensure a more constant power delivery. Imagine in a single phase at some point the voltage is zero which is undesirable. You want it to be continuous.</li>
+<li><strong>Reduced Wiring Costs</strong>: Despite using three phases, the overall need for conductor material is less than that required to deliver the same amount of power in single-phase systems, due to the more efficient use of the electrical current.</li>
+</ol>
+<p>The idea behind the sine wave is pretty much the same as it was with two phase except now there's a third wire in the mix so power is even more consistent.</p>
+<h3 id="what-is-the-wye-y-configuration">What is the Wye (Y) Configuration?</h3>
+<p>In a Wye (Y) configuration, the three phases are connected at a single neutral point, forming a Y shape. The neutral point allows for the connection of both phase-to-phase loads (between any two phases) and phase-to-neutral loads (between any one phase and neutral).</p>
+<h4 id="key-points-of-wye-configuration">Key Points of Wye Configuration:</h4>
+<ul>
+<li><strong>Three-Phase, Four-Wire System</strong>: This configuration typically includes three hot wires (phases) and one neutral wire, making it a three-phase, four-wire system.</li>
+<li><strong>Voltage Measurements</strong>:</li>
+<li><strong>Phase-to-Phase Voltage</strong>: Measured between any two phases.</li>
+<li><strong>Phase-to-Neutral Voltage</strong>: Measured between any one phase and the neutral.</li>
+</ul>
+<h4 id="480v-3-phase-wye-480y277v">480V 3 Phase Wye (480Y/277V)</h4>
+<ul>
+<li><strong>Phase-to-Phase Voltage</strong>: In a 480V 3 Phase Wye system, the phase-to-phase voltage is 480 volts. This is the voltage measured between any two of the three phases.</li>
+<li><strong>Phase-to-Neutral Voltage</strong>: The phase-to-neutral voltage for this system is 277 volts. This is calculated by dividing the phase-to-phase voltage by the square root of 3 ((\sqrt{3}) or approximately 1.732), which is the mathematical relationship between phase-to-phase and phase-to-neutral voltages in a Wye configuration. (480V / \sqrt{3} = 277V).</li>
+<li><strong>Applications</strong>: The ability to provide 277V directly from any phase to neutral makes the 480V 3 Phase Wye system ideal for powering 277V single-phase lighting loads, which are common in commercial and industrial settings. This avoids the need for additional transformers to step down the voltage for lighting circuits.</li>
+</ul>
+<h5 id="what-does-it-mean-to-be-both-480v-and-277v">What Does it Mean to be Both 480V and 277V?</h5>
+<p>In a 480Y/277V three-phase Wye system, you have both 480V and 277V available, but it depends on how you connect to the system:</p>
+<ul>
+<li><strong>480V</strong>: This is the phase-to-phase voltage. If you connect a device across any two of the three phases, it will receive 480 volts. This higher voltage is typically used for powering heavy-duty industrial or commercial equipment that requires more power, such as large motors, HVAC systems, and machinery.</li>
+<li><strong>277V</strong>: This is the phase-to-neutral voltage. If you connect a device between any one of the phases and the neutral wire, it will receive 277 volts. This voltage is commonly used for lighting in commercial buildings, as well as for some types of equipment designed to operate at this voltage.</li>
+</ul>
+<p>Which one you get is determined by the type of outlet you use.</p>
+<ul>
+<li><strong>For 277V Applications</strong>: Outlets providing 277V are connected phase-to-neutral.</li>
+<li><strong>For 480V Applications</strong>: Outlets or connection points providing 480V are connected phase-to-phase. These are less common for general outlet use and more often used for direct wiring to high-powered equipment.</li>
+</ul>
+<h3 id="ok-but-why-is-it-480v-and-277v-where-are-those-numbers-coming-from">Ok, but why is it 480V and 277V? Where are those numbers coming from?</h3>
+<p>The mathematical relationship between phase-to-phase and phase-to-neutral voltages in a Wye configuration stems from the geometry of a balanced three-phase system and the principles of alternating current (AC) electricity.</p>
+<p>In a three-phase AC system, the three phases are ideally 120 electrical degrees apart. In a Wye configuration, each phase extends from a common neutral point to its respective phase terminal, creating a Y shape when drawn. This configuration allows for both phase-to-phase (line-to-line) and phase-to-neutral (line-to-neutral) connections.</p>
+<p>The key to understanding the voltage relationship lies in the geometry of an equilateral triangle formed by the phase vectors in a three-phase system. When you draw the three phases as vectors (with each vector representing the magnitude and direction of the voltage) 120 degrees apart, they form an equilateral triangle if you're considering phase-to-phase voltages. I imagine that's pretty confusing to read if you're not doing geometry on the regular so here is a picture:</p>
+<p><img alt="" src="images/2024-02-07-16-20-46.png" /></p>
+<p>See <a href="3_phase_triangle.py">code</a></p>
+<p>All of the angles formed by the blue lines are 60 degrees. All of the angles formed by the red lines are 120 degrees. That's where the 120 is coming from.</p>
+<p>The reason we divide the phase-to-phase voltage by the square root of 3 to find the phase-to-neutral voltage involves trigonometry. If you consider the geometry of the equilateral triangle formed by the phase vectors, the line from the center (neutral point) to any one corner of the triangle (a phase voltage) bisects the 120-degree angle, creating a 30-60-90 triangle. </p>
+<p><img alt="" src="images/2024-02-07-16-24-51.png" /></p>
+<p>See <a href="3_phase_triangle_bisect.py">code</a></p>
+<p>The length of the line from the center to any corner (representing the phase-to-neutral voltage) is shorter than the line representing the phase-to-phase voltage, which is the length of one side of the equilateral triangle.</p>
+<p>In a 30-60-90 triangle, the ratio of the length of the side opposite the 30-degree angle (which would represent our phase-to-neutral voltage) to the length of the hypotenuse (the phase-to-phase voltage) is 1 to the square root of 3. This is because in such a triangle, the sides are in a specific ratio: 1 (short side, or phase-to-neutral voltage), √3 (long side, or half the phase-to-phase voltage across the neutral point), and 2 (hypotenuse, or full phase-to-phase voltage). This is based on the Pythagorean Theorem if you remember that from school.</p>
+<h4 id="mathematical-representation">Mathematical Representation</h4>
+<p>So, the formula to calculate the phase-to-neutral voltage ($V_{LN}$) from the phase-to-phase voltage ($V_{LL}$) is:</p>
+<p>$V_{LN} = \frac{V_{LL}}{\sqrt{3}}$</p>
+<p>This formula reflects the intrinsic geometric relationship in the electrical system's design, allowing for the efficient calculation of voltages in a Wye-configured three-phase system. For a 480V phase-to-phase system, the phase-to-neutral voltage calculation would be:</p>
+<p>$480V / \sqrt{3} \approx 277V$</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../How%20Bitcoin-Blockchain%20Works%20-%20Notes/" class="btn btn-neutral float-left" title="How Bitcoin-Blockchain Works - Notes"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../How%20Does%20SIFT%20Work/" class="btn btn-neutral float-right" title="How Does SIFT Work">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="None" class="fa fa-code-fork" style="color: #fcfcfc"> https://github.com/grantcurell/grantcurell.github.io/tree/master</a>
+        </span>
+    
+    
+      <span><a href="../How%20Bitcoin-Blockchain%20Works%20-%20Notes/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../How%20Does%20SIFT%20Work/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

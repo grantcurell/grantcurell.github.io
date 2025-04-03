@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Grant Curell" /><link rel="canonical" href="https://grantcurell.github.io/Configure%20Keycloak%20w/AD%20and%20OpenShift/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Testing Keycloak - Grant Curell's Dell Projects</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Testing Keycloak";
+        var mkdocs_page_input_path = "Configure Keycloak w\\AD and OpenShift\\README.md";
+        var mkdocs_page_url = "/Configure%20Keycloak%20w/AD%20and%20OpenShift/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Grant Curell's Dell Projects
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Grant Curell's Dell Projects</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Adding%20Hashing%20to%20OpenSwitch/">Adding Hashing to OpenSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Adding%20Intel%20I219-LM%20%288086.0d4c%29%20Driver%20to%20ESXi/">Adding Intel I219-LM (8086.0d4c) Driver to ESXi</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Aircraft%20Detection/">Aircraft Detection</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Automatically%20Provision%20Dell%20Servers/">Automatically Provision Dell Servers</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Automating%20OME%20Hardware%20Reports/">Automating OME Hardware Reports</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../BIOS%20Options%20Explanation/">BIOS Options Explanation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Backup%20OS10%20Config%20with%20Ansible/">Backup OS10 Config with Ansible</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Build%20NVIDIA%20AI%20Enterprise/">Build NVIDIA AI Enterprise</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Build%20OpenShift/">Build OpenShift</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Build%20Preboot%20Environment%20with%20Ansible/">Build Preboot Environment with Ansible</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../CloudLink/">CloudLink</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Common%20Questions%20About%20LLMs%20Answered/">Common Questions About LLMs Answered</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Configure%20FN410%20as%20a%20Switch/">Configure FN410 as a Switch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Configure%20Gigamon%20Tap/">Configure Gigamon Tap</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Configure%20Multi-Protocol%20PowerStore%20with%20LDAP/">Configure Multi-Protocol PowerStore with LDAP</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Configure%20PowerStore%20SMB%20User/">Configure PowerStore SMB User</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Configure%20kdump%20with%20SSH/">Configure kdump with SSH</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Configuring%20VLT%20on%20OS10/">Configuring VLT on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Connect%20to%20APC%20PDU%20with%20Redfish/">Connect to APC PDU with Redfish</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Create%20Kickstart%20Server%20on%20Fedora/">Create Kickstart Server on Fedora</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Create%20OpenSwitch%20VM/">Create OpenSwitch VM</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Custom%20NVMe%20Debug%20Driver/">Custom NVMe Debug Driver</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../DHCP%20Relay%20on%20SONiC/">DHCP Relay on SONiC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Dell%20Ansible%20Testing/">Dell Ansible Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Deploy%20OpenShift%20Offline/">Deploy OpenShift Offline</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Elasticsearch%20Display%20Map%20Data/">Elasticsearch Display Map Data</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Elasticsearch%20Load%20Testing/">Elasticsearch Load Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Estimating%20Compute%20Requirements%20for%20Machine%20Learning/">Estimating Compute Requirements for Machine Learning</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Finding%20Rare%20Logs%20with%20DBSCAN/">Finding Rare Logs with DBSCAN</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Get%20NVMe%20Drives%20from%20iDRAC%20Redfish/">Get NVMe Drives from iDRAC Redfish</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../High%20Speed%20Packet%20Capture/">High Speed Packet Capture</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../How%20Bitcoin-Blockchain%20Works%20-%20Notes/">How Bitcoin-Blockchain Works - Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../How%20Does%20Power%20Work/">How Does Power Work</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../How%20Does%20SIFT%20Work/">How Does SIFT Work</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../How%20OS10%20Installer%20Works/">How OS10 Installer Works</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../How%20drive%20detection%20order%20works/">How drive detection order works</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../How%20to%20ONIE%20Install%20and%20ZTP%20Config%20Dell%20SONiC/">How to ONIE Install and ZTP Config Dell SONiC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../How%20to%20Read%20lstopo%20and%20a%20PCIe%20Overview/">How to Read lstopo and a PCIe Overview</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../How%20to%20Setup%20PGP%20with%20Mailvelope/">How to Setup PGP with Mailvelope</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../IO%20Identities%20with%20LifeCycle%20Controller/">IO Identities with LifeCycle Controller</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Importing%20Elasticsearch%20Data/">Importing Elasticsearch Data</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Install%20OpenCV%20with%20CUDA%20Support%20on%20Rocky%20Linux/">Install OpenCV with CUDA Support on Rocky Linux</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Installing%20DPDK%20with%20NapaTech%20Card/">Installing DPDK with NapaTech Card</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../LDAP%20with%20OpenManage/">LDAP with OpenManage</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../LLMs%20Explained/">LLMs Explained</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Load%20Balance%20Testing%20with%20OpenVSwitch/">Load Balance Testing with OpenVSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Load%20Balancing%20on%20Mellanox%20Switches/">Load Balancing on Mellanox Switches</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Load%20Balancing%20with%20LAG%20on%205112F-ON/">Load Balancing with LAG on 5112F-ON</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Make%20USB%20Read%20Only/">Make USB Read Only</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Migrating%20Storage%20Volumes%20to%20PowerStore/">Migrating Storage Volumes to PowerStore</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Mulitple%20Span%20on%204112F-ON%20with%20OpenSwitch/">Mulitple Span on 4112F-ON with OpenSwitch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Multiple%20Span%20on%204112F-ON%20with%20OS10/">Multiple Span on 4112F-ON with OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../NVMe%20Driver%20Reverse%20Engineering/">NVMe Driver Reverse Engineering</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../NVMe%20Performance%20Testing/">NVMe Performance Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Notes%20on%20AMD%20Processor/">Notes on AMD Processor</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Notes%20on%20Building%20a%20Datacenter%20from%20Scratch/">Notes on Building a Datacenter from Scratch</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Notes%20on%20HPC/">Notes on HPC</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Notes%20on%20HSM/">Notes on HSM</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Notes%20on%20Improving%20Drive%20Performance/">Notes on Improving Drive Performance</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Notes%20on%20NVMe%20Log%20Pages/">Notes on NVMe Log Pages</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Notes%20on%20PCIe/">Notes on PCIe</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Notes%20on%20mdraid%20Performance%20Testing/">Notes on mdraid Performance Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Notes%20on%20nodejs/">Notes on nodejs</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Nvidia%20GPUDirect/">Nvidia GPUDirect</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Nvidia%20GRID%20Notes/">Nvidia GRID Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../OME%20Bug/">OME Bug</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../OME%20Integration%20for%20VMWare/">OME Integration for VMWare</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../OS10%20Password%20Recovery%20Bug/">OS10 Password Recovery Bug</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Offline%20Updates%20with%20OpenManage%20Enterprise/">Offline Updates with OpenManage Enterprise</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../OpenFlow%20on%204112F-ON/">OpenFlow on 4112F-ON</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../OpenShift%20-%20Change%20MTU/">OpenShift - Change MTU</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Overprovisioning%20Explained/">Overprovisioning Explained</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../PCIev3%20vs%20v4/">PCIev3 vs v4</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Playing%20with%20virsh/">Playing with virsh</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../PowerScale%20-%20Configure%20with%20Kubernetes/">PowerScale - Configure with Kubernetes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../PowerScale%20Failed%20Authentication/">PowerScale Failed Authentication</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../PowerScale%20Setup/">PowerScale Setup</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Reset%20OS10%20Admin%20Password/">Reset OS10 Admin Password</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Reverse%20Engineering%20OpenSHMEM/">Reverse Engineering OpenSHMEM</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Run%20VPN%20on%20OS10/">Run VPN on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Running%20DNS%20from%20OS10/">Running DNS from OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../SONiC%20-%20Sample%20Datacenter%20Automation%20Architecture/">SONiC - Sample Datacenter Automation Architecture</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Set%20Up%20RSPAN%20on%20OS10/">Set Up RSPAN on OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Setting%20Up%20Breakout%20Cables/">Setting Up Breakout Cables</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Setting%20Up%20SmartFabric%20Director/">Setting Up SmartFabric Director</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Setting%20Up%20iDRAC%20Telemetry%20with%20Splunk/">Setting Up iDRAC Telemetry with Splunk</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Setup%20IDPA/">Setup IDPA</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Site%20to%20Site%20VPN%20with%20PFSense%20and%20CentOS%208/">Site to Site VPN with PFSense and CentOS 8</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Swap%20Kernel%20on%20Rocky%209/">Swap Kernel on Rocky 9</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Switch%20Directly%20to%20Client%20Test/">Switch Directly to Client Test</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Testing%20Bare%20Metal%20Orchestrator/">Testing Bare Metal Orchestrator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Testing%20Intel%20x520%20on%20RHEL%206/">Testing Intel x520 on RHEL 6</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Troubleshooting%205G%20Connection/">Troubleshooting 5G Connection</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Understand%20and%20Run%20LINPACK/">Understand and Run LINPACK</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Understanding%20Cellular%20Technology/">Understanding Cellular Technology</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Understanding%20Memory/">Understanding Memory</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Understanding%20NCCL/">Understanding NCCL</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Understanding%20PERC%20Interrupts/">Understanding PERC Interrupts</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Update%20iDRAC%20Cipher%20Suite%20with%20Redfish/">Update iDRAC Cipher Suite with Redfish</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Use%20OS10%20as%20Aggregator/">Use OS10 as Aggregator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Using%20Dell%20Repository%20Manager%20to%20Create%20Bootable%20ISO/">Using Dell Repository Manager to Create Bootable ISO</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Using%20FIO/">Using FIO</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Using%20the%20iDRAC%20Service%20Module/">Using the iDRAC Service Module</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../VEP%20Testing/">VEP Testing</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Web%20Traffic%20Generator/">Web Traffic Generator</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Writing%20udev%20Rules%20for%20Dell%20PERC%20H755/">Writing udev Rules for Dell PERC H755</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../esrally%20%28INCOMPLETE%29/">esrally (INCOMPLETE)</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../idrac%20with%20LDAP/">idrac with LDAP</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Load%20Balance%20Testing%20on%204112F-ON/OS10/">Load Balance Testing on 4112F-ON w/OS10</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../Load%20Balance%20Testing%20on%204112F-ON/OpenSwitch%20%28OPX%29/">Load Balancing with LAG OPX</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../VMWare/Automate%20ESXi%20Installation/">Automating ESXi Installation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../VMWare/Change%20User%20on%20VxRail%20Plugin/">Change User on VxRail Plugin</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../VMWare/ESXi%20Architecture/">VMWare Architecture Notes</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../VMWare/How%20to%20Pull%20Usage%20Metrics/">How to Pull Usage Metrics</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../VMWare/Notes%20on%20VSAN/">Notes on vSAN</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../VMWare/Setup%20VXRail/">VxRail Setup</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../VMWare/Troubleshooting%20vSAN/">Troubleshooting vSAN</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../VMWare/VMWare%20APIs/">VMWare APIs</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../VMWare/VxRail%20Architecture%20and%20Troubleshooting/">VxRail Architecture and Troubleshooting</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../VMWare/vRealize%20Setup%20%28Incomplete%29/">Setting Up vRealize</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Grant Curell's Dell Projects</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Testing Keycloak</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="testing-keycloak">Testing Keycloak</h1>
+<ul>
+<li><a href="#testing-keycloak">Testing Keycloak</a></li>
+<li><a href="#concepts">Concepts</a><ul>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#components-involved">Components Involved</a></li>
+<li><a href="#detailed-steps">Detailed Steps</a></li>
+<li><a href="#step-1-set-up-keycloak">Step 1: Set Up Keycloak</a></li>
+<li><a href="#step-2-set-up-openshift">Step 2: Set Up OpenShift</a></li>
+<li><a href="#how-it-works-together">How It Works Together</a></li>
+<li><a href="#summary">Summary</a></li>
+</ul>
+</li>
+<li><a href="#keycloak-setup">Keycloak Setup</a><ul>
+<li><a href="#integrate-with-active-directory">Integrate with Active Directory</a></li>
+<li><a href="#configure-the-client">Configure the Client</a></li>
+<li><a href="#configure-openshift">Configure OpenShift</a></li>
+</ul>
+</li>
+<li><a href="#how-to-setup-keycloak-in-docker">How to Setup Keycloak in Docker</a><ul>
+<li><a href="#access-keycloak">Access Keycloak</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="concepts">Concepts</h2>
+<h3 id="overview">Overview</h3>
+<p><strong>Keycloak:</strong> An open-source Identity and Access Management solution. It supports standard protocols like OIDC and SAML for authentication and authorization.</p>
+<p><strong>OpenID Connect (OIDC):</strong> A simple identity layer on top of the OAuth 2.0 protocol, allowing clients to verify the identity of end-users based on the authentication performed by an Authorization Server.</p>
+<p><strong>OpenShift:</strong> A Kubernetes distribution by Red Hat that includes a suite of developer and operational tools for containerized applications.</p>
+<p><strong>Active Directory (AD):</strong> A directory service by Microsoft for Windows domain networks.</p>
+<h3 id="components-involved">Components Involved</h3>
+<ol>
+<li><strong>Keycloak Server:</strong></li>
+<li>Acts as the Identity Provider (IdP).</li>
+<li>Connects to Active Directory to authenticate users.</li>
+<li>
+<p>Issues tokens (ID token, access token) using OIDC protocol.</p>
+</li>
+<li>
+<p><strong>OpenShift Cluster:</strong></p>
+</li>
+<li>Acts as the Service Provider (SP).</li>
+<li>Uses Keycloak for authenticating users who want to access the OpenShift console.</li>
+<li>
+<p>Configured to use OIDC with Keycloak as the IdP.</p>
+</li>
+<li>
+<p><strong>Active Directory (AD):</strong></p>
+</li>
+<li>Acts as the user store.</li>
+<li>Keycloak uses AD to verify user credentials.</li>
+</ol>
+<h3 id="detailed-steps">Detailed Steps</h3>
+<h4 id="step-1-set-up-keycloak">Step 1: Set Up Keycloak</h4>
+<ol>
+<li><strong>Install and Configure Keycloak:</strong></li>
+<li>
+<p>Ensure Keycloak is installed and running on your server (<code>http://10.10.25.199:8080</code>).</p>
+</li>
+<li>
+<p><strong>Create a Realm:</strong></p>
+</li>
+<li>A realm in Keycloak is equivalent to a tenant. It allows you to manage a set of users, credentials, roles, and groups.</li>
+<li>
+<p>For simplicity, use the <code>master</code> realm or create a new one if needed.</p>
+</li>
+<li>
+<p><strong>Create a Client in Keycloak:</strong></p>
+</li>
+<li>A client represents an application that will use Keycloak for authentication.</li>
+<li><strong>Client ID:</strong> <code>openshift</code></li>
+<li><strong>Client Protocol:</strong> <code>openid-connect</code></li>
+<li><strong>Access Type:</strong> <code>confidential</code></li>
+<li><strong>Root URL:</strong> <code>https://10.10.25.189</code> (OpenShift URL)</li>
+<li><strong>Valid Redirect URIs:</strong> <code>https://10.10.25.189/*</code></li>
+<li>
+<p><strong>Web Origins:</strong> <code>https://10.10.25.189</code></p>
+</li>
+<li>
+<p><strong>Set Up Client Credentials:</strong></p>
+</li>
+<li>
+<p>Go to the <code>Credentials</code> tab and note the <code>Client Secret</code>. This secret will be used by OpenShift to authenticate against Keycloak.</p>
+</li>
+<li>
+<p><strong>Configure User Federation (Optional):</strong></p>
+</li>
+<li>If you need Keycloak to use Active Directory for user authentication, configure the LDAP provider under <code>User Federation</code>.</li>
+</ol>
+<h4 id="step-2-set-up-openshift">Step 2: Set Up OpenShift</h4>
+<ol>
+<li><strong>Create a Secret in OpenShift for Keycloak Client Secret:</strong></li>
+<li>
+<p>Use the OpenShift CLI to store the Keycloak client secret securely.
+   <code>bash
+   oc create secret generic keycloak-client-secret \
+     --from-literal=clientSecret=&lt;your-keycloak-client-secret&gt; \
+     -n openshift-config</code></p>
+</li>
+<li>
+<p><strong>Configure OpenShift OAuth to Use Keycloak:</strong></p>
+</li>
+<li>
+<p>Create an OAuth configuration file (<code>oauth.yaml</code>) with the following content:
+   ```yaml
+   apiVersion: config.openshift.io/v1
+   kind: OAuth
+   metadata:
+     name: cluster
+   spec:
+     identityProviders:</p>
+<ul>
+<li>name: keycloak
+   mappingMethod: claim
+   type: OpenID
+   openID:
+     clientID: openshift
+     clientSecret:
+       name: keycloak-client-secret
+     issuer: https://10.10.25.199/auth/realms/master
+     claims:
+       preferredUsername:<ul>
+<li>preferred_username
+   name:</li>
+<li>name
+   email:</li>
+<li>email
+ extraScopes: []
+ extraAuthorizeParameters: {}
+ userInfoURL: https://10.10.25.199/auth/realms/master/protocol/openid-connect/userinfo
+   ```</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Apply the OAuth Configuration:</strong></p>
+</li>
+<li>Use the OpenShift CLI to apply the configuration.
+   <code>bash
+   oc apply -f oauth.yaml</code></li>
+</ol>
+<h3 id="how-it-works-together">How It Works Together</h3>
+<ol>
+<li><strong>User Initiates Login:</strong></li>
+<li>
+<p>When a user attempts to log in to the OpenShift console (<code>https://10.10.25.189</code>), they are redirected to the Keycloak login page.</p>
+</li>
+<li>
+<p><strong>Authentication with Keycloak:</strong></p>
+</li>
+<li>The user enters their credentials on the Keycloak login page.</li>
+<li>
+<p>Keycloak authenticates the user against its internal user store or Active Directory if configured.</p>
+</li>
+<li>
+<p><strong>Token Issuance:</strong></p>
+</li>
+<li>
+<p>Upon successful authentication, Keycloak issues an ID token and access token to the user.</p>
+</li>
+<li>
+<p><strong>Redirect Back to OpenShift:</strong></p>
+</li>
+<li>
+<p>Keycloak redirects the user back to the OpenShift console with the tokens.</p>
+</li>
+<li>
+<p><strong>Token Validation:</strong></p>
+</li>
+<li>OpenShift validates the tokens with Keycloak.</li>
+<li>
+<p>If the tokens are valid, the user is granted access to the OpenShift console.</p>
+</li>
+<li>
+<p><strong>Access Granted:</strong></p>
+</li>
+<li>The user is now logged in and can use OpenShift based on their assigned roles and permissions.</li>
+</ol>
+<h3 id="summary">Summary</h3>
+<ul>
+<li><strong>Keycloak</strong> manages user authentication and issues tokens.</li>
+<li><strong>OpenShift</strong> uses Keycloak tokens to authenticate users.</li>
+<li><strong>Active Directory</strong> (if configured) serves as the backend user store for Keycloak.</li>
+</ul>
+<p>This setup allows centralized authentication using Keycloak, leveraging existing user directories like Active Directory, and providing Single Sign-On (SSO) capabilities for accessing OpenShift.</p>
+<p>Feel free to ask if you have any specific questions or need further clarification on any of these steps!</p>
+<h2 id="keycloak-setup">Keycloak Setup</h2>
+<h3 id="integrate-with-active-directory">Integrate with Active Directory</h3>
+<ul>
+<li>I built out active directory apart from this tutorial. Just remember to not add certificate services. You only want active directory then I added a user.</li>
+<li>In Keycloak under user federation, add an LDAP provider with the following:</li>
+<li>Warning, don't make the mistake I did with AD. If you see <code>Network response was not ok</code> you probably misconfigured the DN. See <a href="https://serverfault.com/questions/1162573/keycloak-throws-network-response-was-not-ok">this post</a></li>
+</ul>
+<p><img alt="" src="images/2024-07-16-08-28-58.png" /></p>
+<p><img alt="" src="images/2024-07-15-15-14-18.png" /></p>
+<h3 id="configure-the-client">Configure the Client</h3>
+<ul>
+<li>After you run the test to make sure everything works, you'll need to set up an OpenShift client</li>
+</ul>
+<p><img alt="" src="images/2024-07-15-15-15-08.png" /></p>
+<ul>
+<li>In capability config make sure you enable <code>Client authentication</code>. You'll need that to obtain credentials later for OpenShift.</li>
+</ul>
+<p><img alt="" src="images/2024-07-16-08-32-10.png" /></p>
+<ul>
+<li>I used the following access settings:</li>
+</ul>
+<p><img alt="" src="images/2024-07-16-08-32-50.png" /></p>
+<h3 id="configure-openshift">Configure OpenShift</h3>
+<ul>
+<li>Get your client secret from the OpenShift client you created</li>
+<li>If the credentials tab is missing it is because you didn't set <code>Client authentication</code> to on.</li>
+</ul>
+<p><img alt="" src="images/2024-07-16-08-34-44.png" /></p>
+<ul>
+<li>Configure the secret in OpenShift</li>
+</ul>
+<pre><code class="language-bash">oc create secret generic keycloak-client-secret \
+  --from-literal=clientSecret=j2gcpig9Wd1bfH3nZXon56NYKDhTbV0o \
+  -n openshift-config
+</code></pre>
+<ul>
+<li>Next create the following file <code>oauth.yaml</code> and then run <code>oc apply -f oauth.yaml</code></li>
+</ul>
+<pre><code class="language-yaml">apiVersion: config.openshift.io/v1
+kind: OAuth
+metadata:
+  name: cluster
+spec:
+  identityProviders:
+  - name: keycloak
+    mappingMethod: claim
+    type: OpenID
+    openID:
+      clientID: openshift
+      clientSecret:
+        name: keycloak-client-secret
+      issuer: https://10.10.25.199/auth/realms/master
+      claims:
+        preferredUsername:
+        - preferred_username
+        name:
+        - name
+        email:
+        - email
+</code></pre>
+<h2 id="how-to-setup-keycloak-in-docker">How to Setup Keycloak in Docker</h2>
+<p>Note: I was ultra lazy about permissions for the lab. I ran into a problem where despite 443 being whitelisted in firewalld in all zones, firewalld would block the port anyway. I didn't spend extra time troubleshooting - I just turned off firewalld.</p>
+<ol>
+<li><strong>Remove Existing Containers:</strong></li>
+</ol>
+<p><code>bash
+   docker rm -f keycloak postgres</code></p>
+<ol>
+<li><strong>Create a Docker Network:</strong></li>
+</ol>
+<p><code>bash
+   docker network create keycloak-network</code></p>
+<ol>
+<li><strong>Ensure Correct Directory Permissions:</strong></li>
+</ol>
+<p><code>bash
+   sudo mkdir -p /opt/postgres /opt/keycloak/data/transaction-logs/ShadowNoFileLockStore/defaultStore
+   sudo chown -R $(whoami):$(whoami) /opt/postgres /opt/keycloak
+   sudo chmod -R 755 /opt/postgres /opt/keycloak</code></p>
+<ol>
+<li><strong>Run PostgreSQL Container:</strong></li>
+</ol>
+<p><code>bash
+   docker run -d --name postgres \
+     --network keycloak-network \
+     -v /opt/postgres/:/var/lib/postgresql/data \
+     -e POSTGRES_DB=keycloak \
+     -e POSTGRES_USER=keycloak \
+     -e POSTGRES_PASSWORD=password \
+     -p 5432:5432 \
+     postgres:latest</code></p>
+<ol>
+<li><strong>Run Keycloak Container as Root:</strong></li>
+</ol>
+<p><code>bash
+   docker run -d --name keycloak \
+   --network keycloak-network \
+   --user root \
+   -v /opt/keycloak/data:/opt/keycloak/data \
+   -e KEYCLOAK_ADMIN=admin \
+   -e KEYCLOAK_ADMIN_PASSWORD=admin \
+   -e KC_DB=postgres \
+   -e KC_DB_URL=jdbc:postgresql://postgres:5432/keycloak \
+   -e KC_DB_USERNAME=keycloak \
+   -e KC_DB_PASSWORD=password \
+   -p 8080:8080 \
+   -p 443:8443 \
+   quay.io/keycloak/keycloak:25.0.1 start-dev</code></p>
+<p>After running these commands, you can check the status of the containers to ensure everything is running properly:</p>
+<pre><code class="language-bash">docker ps
+docker logs keycloak
+</code></pre>
+<h3 id="access-keycloak">Access Keycloak</h3>
+<p>Keycloak should now be accessible at <code>http://localhost:8080</code>. You can log in using the admin credentials you specified (<code>admin</code>/<code>admin</code>).</p>
+<p>By ensuring both containers are on the same network, Keycloak will be able to communicate with PostgreSQL correctly.</p>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="None" class="fa fa-code-fork" style="color: #fcfcfc"> https://github.com/grantcurell/grantcurell.github.io/tree/master</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
