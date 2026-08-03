@@ -1,0 +1,248 @@
+controller_artifacts_dir: '{{ inventory_dir | dirname | dirname }}/artifacts'
+proxmox:
+  host: 192.168.5.2
+  user: root
+  root_password: '{{ vault_proxmox_root_password }}'
+  node: proxmox2
+  token: ''
+  automation_token_id: ''
+  insecure_skip_tls_verify: true
+  defaults:
+    network_bridge: vmbr0
+    storage: zfs_1
+    # Blank by default: the setup wizard defaults to the largest available storage
+    # until a selection is made, then records the chosen value here.
+    storage_pool: ''
+    template_storage: ''
+    ostemplate: ubuntu-24.04-standard_24.04-2_amd64.tar.zst
+windows:
+  deploy_debug:
+    wimboot_args: ''
+    startup_pause: false
+  deploy:
+    stop_after_stage: none
+    pause_between_stages: false
+    auto_reboot: true
+    target_disk_number: 0
+    minimum_target_disk_size_bytes: 85899345920
+  goldimage:
+    vmid: 114
+    name: goldimage
+    ip: 192.168.5.172
+    username: Admin
+    password: '{{ vault_goldimage_password }}'
+    unattend_path: C:\Windows\Panther\Unattend.xml
+    capture_boot_order: order=ide2
+    normal_boot_order: order=sata1;ide2
+  winpe_builder:
+    vmid: 110
+    name: WinServ2025
+    ip: 192.168.5.176
+    username: Administrator
+    password: '{{ vault_winpe_builder_password }}'
+    force_rebuild: false
+    build_dir: C:\DeployBuild
+    drivers_dir: C:\Drivers
+    storage_drivers:
+    - name: dell-pro-max-t2-intel-rst
+      models:
+      - Dell Pro Max Tower T2 FCT2250
+      release_id: 7WNN0
+      version: 20.2.1.1016, A01
+      url: https://dl.dell.com/FOLDER12407846M/2/Intel-Rapid-Storage-Technology-Driver-and-Application_7WNN0_WIN64_20.2.1.1016_A01.EXE
+      filename: Intel-RST-7WNN0.exe
+      extract_subdir: IntelRST
+    winpe_deploy_dir: C:\winpe_deploy
+    winpe_capture_dir: C:\winpe_capture
+    adk_dir: C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit
+  capture:
+    staging_label: CAPTURE
+    staging_drive_letter: S
+    staging_min_size_bytes: 42949672960
+    dism_compress: fast
+    dism_verify: false
+  test_workstation:
+    node: proxmox2
+    vmid: 199
+    name: windows-install-test
+    memory_mb: 4096
+    cores: 4
+    sockets: 1
+    cpu: host
+    disk_gb: 100
+    disk_bus: sata
+    nic_model: e1000
+    machine: q35
+    bios: ovmf
+    recreate: true
+    boot_order: order=net0
+    post_deploy_boot_order: order=sata0;net0
+    expect_winrm: true
+  workstation_local_admin:
+    username: wsadmin
+    password: '{{ vault_workstation_local_admin_password }}'
+deployer:
+  lxc:
+    vmid: 131
+    hostname: win-deploy-lxc
+    ip: 192.168.5.219
+    cidr: 192.168.5.219/24
+    cidr_prefix: 24
+    netmask: 255.255.255.0
+    gateway: 192.168.5.1
+    password: '{{ vault_deployer_lxc_password }}'
+    cores: 2
+    memory: 4096
+    memory_mb: 4096
+    swap: 1024
+    swap_mb: 1024
+    rootfs_gb: 120
+    disk: zfs_1:120
+    storage: zfs_1
+    template_storage: local
+    ostemplate: local:vztmpl/ubuntu-24.04-standard_24.04-2_amd64.tar.zst
+    bridge: vmbr0
+    vlan_tag: ''
+    hwaddr: BC:24:11:60:1A:1B
+    onboot: true
+    unprivileged: false
+    nesting: true
+    features:
+    - nesting=1
+    - keyctl=1
+  offline:
+    hostname: win-deploy
+    hostname_fqdn: win-deploy.local
+  site:
+    domain:
+      enabled: false
+      domain_fqdn: ''
+      domain_netbios: ''
+      ou_path: ''
+      domain_controller: ''
+      domain_controller_ip: ''
+      dns_servers: []
+    naming:
+      source: service_tag
+      max_length: 15
+  offline_tui:
+    entrypoint: /usr/local/bin/offline-setup
+    install_dir: /opt/windows-deployer
+    venv: /opt/windows-deployer/venv
+    local_config: /etc/windows-deployer/offline-config.yml
+    vault:
+      password_file: /etc/windows-deployer/.vault_pass
+      secrets_file: /etc/windows-deployer/secrets.vault.yml
+  network:
+    interface: eth0
+    server_ip: 192.168.5.219
+    subnet_cidr: 192.168.5.0/24
+    netmask: 255.255.255.0
+    dhcp_start: 192.168.5.220
+    dhcp_end: 192.168.5.230
+    dns_server: 1.1.1.1
+  samba:
+    username: deployer
+    password: '{{ vault_deploy_smb_password }}'
+  capture:
+    wait_retries: 120
+    wait_delay_seconds: 30
+    min_wim_size_bytes: 1073741824
+    stable_check_seconds: 20
+    success_marker_file: publish-success.json
+  ipxe:
+    release_url: https://github.com/ipxe/ipxe/releases/latest/download/ipxeboot.tar.gz
+    wimboot_url: https://github.com/ipxe/wimboot/releases/latest/download/wimboot
+    cache_dir: /var/cache/windows-deployer/ipxe
+    secure_boot_arch: x86_64-sb
+    secure_boot_subdir: ipxeboot/x86_64-sb
+    secure_boot_shim: ipxeboot/x86_64-sb/shimx64.efi
+    secure_boot_binaries:
+    - shimx64.efi
+    - ipxe.efi
+    - snponly.efi
+  paths:
+    root: /srv/deploy
+    images: /srv/deploy/images
+    winpe: /srv/deploy/winpe
+    ipxe: /srv/deploy/ipxe
+    tftp: /srv/tftp
+    capture: /srv/deploy/capture
+    logs: /srv/deploy/logs
+    site: /srv/deploy/site
+    join_secret: /var/lib/windows-deployer/join
+    boot_wim: /srv/deploy/winpe/boot.wim
+    ipxe_boot_wim: /srv/deploy/ipxe/winpe/boot.wim
+    bootmgr: /srv/deploy/winpe/bootmgr
+    boot_bcd: /srv/deploy/winpe/Boot/BCD
+    boot_sdi: /srv/deploy/winpe/Boot/boot.sdi
+    boot_bcd_efi: /srv/deploy/winpe/EFI/Microsoft/Boot/BCD
+    bootx64_efi: /srv/deploy/winpe/EFI/Boot/bootx64.efi
+    deploy_wim: /srv/deploy/images/deploy.wim
+  artifacts:
+    local_dir: '{{ controller_artifacts_dir }}'
+    boot_wim: '{{ controller_artifacts_dir }}/boot.wim'
+    bootmgr: '{{ controller_artifacts_dir }}/bootmgr'
+    boot_bcd: '{{ controller_artifacts_dir }}/boot/BCD'
+    boot_sdi: '{{ controller_artifacts_dir }}/boot/boot.sdi'
+    boot_bcd_efi: '{{ controller_artifacts_dir }}/efi/microsoft/boot/BCD'
+    bootx64_efi: '{{ controller_artifacts_dir }}/efi/boot/bootx64.efi'
+    capture_iso: '{{ controller_artifacts_dir }}/winpe_capture.iso'
+    deploy_wim: '{{ controller_artifacts_dir }}/deploy.wim'
+offline_test:
+  enabled: true
+  bridge: vmbr27
+  subnet_cidr: 172.27.10.0/24
+  proxmox_node: proxmox2
+  proxmox_host: 192.168.5.3
+  auto_cleanup: false
+  run_build: false
+  deployer:
+    vmid: 132
+    hostname: win-deploy-lxc
+    ip: 172.27.10.5
+    cidr_prefix: 24
+    gateway: 172.27.10.2
+    dhcp_start: 172.27.10.30
+    dhcp_end: 172.27.10.50
+    storage: ''
+    source_tar: ''
+    restore_dir: /tank/zfs_1/restore
+  domain_controller:
+    vmid: 110
+    ip: 172.27.10.10
+    winrm_user: Administrator
+    winrm_password: '{{ vault_offline_dc_winrm_password }}'
+  admin_workstation:
+    vmid: 116
+    ip: ''
+    winrm_user: Administrator
+    winrm_password: '{{ vault_offline_admin_winrm_password }}'
+  domain:
+    fqdn: identity.lab.example.com
+    netbios: IDENTITY
+    ou: OU=Workstations,DC=identity,DC=lab,DC=example,DC=com
+    dns_servers:
+    - 172.27.10.10
+  join_account:
+    username: IDENTITY\administrator
+    password: '{{ vault_offline_domain_join_password }}'
+  test_workstation:
+    vmid: 199
+    name: windows-install-test
+    node: proxmox2
+    smbios_serial: TEST199
+    memory_mb: 4096
+    cores: 4
+    sockets: 1
+    cpu: host
+    disk_gb: 100
+    disk_bus: sata
+    nic_model: e1000
+    machine: q35
+    bios: ovmf
+    secure_boot: true
+    storage: ''
+    boot_order: order=sata0;net0
+    post_deploy_boot_order: order=sata0;net0
+    expect_winrm: true

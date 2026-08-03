@@ -1,0 +1,917 @@
+<!DOCTYPE html><html lang="en" dir="ltr" data-theme="dark" data-has-toc data-has-sidebar class="astro-bguv2lll"> <head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Understanding 5G Radio Characteristics | Grant Curell's Projects</title><link rel="canonical" href="https://grantcurell.com/understanding-5g-radio-characteristics/"/><link rel="sitemap" href="/sitemap-index.xml"/><script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Understanding 5G Radio Characteristics","description":"In order to understand how we measure 5G performance, we first have to understand a bit about physics. At the simplest level, electromagnetic waves...","url":"https://grantcurell.com/understanding-5g-radio-characteristics/","author":{"@type":"Person","name":"Grant Curell","url":"https://grantcurell.com"},"inLanguage":"en"}</script><link rel="shortcut icon" href="/favicon.svg" type="image/svg+xml"/><meta name="generator" content="Astro v6.4.6"/><meta name="generator" content="Starlight v0.40.0"/><meta property="og:title" content="Understanding 5G Radio Characteristics"/><meta property="og:type" content="article"/><meta property="og:url" content="https://grantcurell.com/understanding-5g-radio-characteristics/"/><meta property="og:locale" content="en"/><meta property="og:description" content="In order to understand how we measure 5G performance, we first have to understand a bit about physics. At the simplest level, electromagnetic waves..."/><meta property="og:site_name" content="Grant Curell's Projects"/><meta name="description" content="In order to understand how we measure 5G performance, we first have to understand a bit about physics. At the simplest level, electromagnetic waves..."/><meta property="og:image" content="https://grantcurell.com/og-default.png"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:image" content="https://grantcurell.com/og-default.png"/><script>
+	window.StarlightThemeProvider = (() => {
+		const storedTheme =
+			typeof localStorage !== 'undefined' && localStorage.getItem('starlight-theme');
+		const theme =
+			storedTheme ||
+			(window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+		document.documentElement.dataset.theme = theme === 'light' ? 'light' : 'dark';
+		return {
+			updatePickers(theme = storedTheme || 'auto') {
+				document.querySelectorAll('starlight-theme-select').forEach((picker) => {
+					const select = picker.querySelector('select');
+					if (select) select.value = theme;
+					/** @type {HTMLTemplateElement | null} */
+					const tmpl = document.querySelector(`#theme-icons`);
+					const newIcon = tmpl && tmpl.content.querySelector('.' + theme);
+					if (newIcon) {
+						const oldIcon = picker.querySelector('svg.label-icon');
+						if (oldIcon) {
+							oldIcon.replaceChildren(...newIcon.cloneNode(true).childNodes);
+						}
+					}
+				});
+			},
+		};
+	})();
+</script><template id="theme-icons"><svg aria-hidden="true" class="light astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M5 12a1 1 0 0 0-1-1H3a1 1 0 0 0 0 2h1a1 1 0 0 0 1-1Zm.64 5-.71.71a1 1 0 0 0 0 1.41 1 1 0 0 0 1.41 0l.71-.71A1 1 0 0 0 5.64 17ZM12 5a1 1 0 0 0 1-1V3a1 1 0 0 0-2 0v1a1 1 0 0 0 1 1Zm5.66 2.34a1 1 0 0 0 .7-.29l.71-.71a1 1 0 1 0-1.41-1.41l-.66.71a1 1 0 0 0 0 1.41 1 1 0 0 0 .66.29Zm-12-.29a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.71-.71a1.004 1.004 0 1 0-1.43 1.41l.73.71ZM21 11h-1a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2Zm-2.64 6A1 1 0 0 0 17 18.36l.71.71a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.76-.66ZM12 6.5a5.5 5.5 0 1 0 5.5 5.5A5.51 5.51 0 0 0 12 6.5Zm0 9a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Zm0 3.5a1 1 0 0 0-1 1v1a1 1 0 0 0 2 0v-1a1 1 0 0 0-1-1Z"/></svg><svg aria-hidden="true" class="dark astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21.64 13a1 1 0 0 0-1.05-.14 8.049 8.049 0 0 1-3.37.73 8.15 8.15 0 0 1-8.14-8.1 8.59 8.59 0 0 1 .25-2A1 1 0 0 0 8 2.36a10.14 10.14 0 1 0 14 11.69 1 1 0 0 0-.36-1.05Zm-9.5 6.69A8.14 8.14 0 0 1 7.08 5.22v.27a10.15 10.15 0 0 0 10.14 10.14 9.784 9.784 0 0 0 2.1-.22 8.11 8.11 0 0 1-7.18 4.32v-.04Z"/></svg><svg aria-hidden="true" class="auto astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg></template><link rel="stylesheet" href="/_astro/print.DNXP8c50.css" media="print"><link rel="stylesheet" href="/_astro/common.Ce_ULXJa.css"><script type="module" src="/_astro/page.B_tncCx8.js"></script></head> <body class="astro-bguv2lll"> <a href="#_top" class="astro-7q3lir66">Skip to content</a> <div class="page sl-flex astro-vrdttmbt"> <header class="header astro-vrdttmbt"><div class="header astro-kmkmnagf"> <div class="title-wrapper sl-flex astro-kmkmnagf"> <a href="/" class="site-title sl-flex astro-m46x6ez3">  <span class="astro-m46x6ez3" translate="no"> Grant Curell&#39;s Projects </span> </a> </div> <div class="sl-flex print:hidden astro-kmkmnagf"> <site-search class="astro-kmkmnagf astro-v37mnknz" data-translations="{&quot;placeholder&quot;:&quot;Search&quot;}"> <button data-open-modal disabled aria-label="Search" aria-keyshortcuts="Control+K" class="astro-v37mnknz"> <svg aria-hidden="true" class="astro-v37mnknz astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21.71 20.29 18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 0-14 7 7 0 0 1 0 14Z"/></svg> <span class="sl-hidden md:sl-block astro-v37mnknz" aria-hidden="true">Search</span> <kbd class="sl-hidden md:sl-flex astro-v37mnknz" style="display: none;"> <kbd class="astro-v37mnknz">Ctrl</kbd><kbd class="astro-v37mnknz">K</kbd> </kbd> </button> <dialog style="padding:0" aria-label="Search" class="astro-v37mnknz"> <div class="dialog-frame sl-flex astro-v37mnknz">  <button data-close-modal class="sl-flex md:sl-hidden astro-v37mnknz"> Cancel </button> <div class="search-container astro-v37mnknz"> <div id="starlight__search" class="astro-v37mnknz"></div> </div> </div> </dialog> </site-search>  <script>
+	(() => {
+		const openBtn = document.querySelector('button[data-open-modal]');
+		const shortcut = openBtn?.querySelector('kbd');
+		if (!openBtn || !(shortcut instanceof HTMLElement)) return;
+		const platformKey = shortcut.querySelector('kbd');
+		if (platformKey && /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform)) {
+			platformKey.textContent = '⌘';
+			openBtn.setAttribute('aria-keyshortcuts', 'Meta+K');
+		}
+		shortcut.style.display = '';
+	})();
+</script> <script type="module" src="/_astro/Search.astro_astro_type_script_index_0_lang.lq3t8uE2.js"></script>  </div> <div class="sl-hidden md:sl-flex print:hidden right-group astro-kmkmnagf"> <div class="sl-flex social-icons astro-kmkmnagf"> <a href="https://github.com/grantcurell/projects" rel="me" class="sl-flex astro-wy4te6ga"><span class="sr-only astro-wy4te6ga">GitHub</span><svg aria-hidden="true" class="astro-wy4te6ga astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57L9 21.07c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.09-.73.09-.73 1.2.09 1.83 1.24 1.83 1.24 1.08 1.83 2.81 1.3 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22l-.01 3.29c0 .31.2.69.82.57A12 12 0 0 0 12 .3Z"/></svg></a> </div> <starlight-rapide-theme-select class="astro-vimfzm3o"> <button aria-label="Select theme" aria-live="polite" class="sl-flex astro-vimfzm3o" title="Select theme"> <svg aria-hidden="true" height="16" viewBox="0 0 24 24" width="16" class="astro-vimfzm3o"> <mask class="moon astro-vimfzm3o" id="moon-mask-804daaca"> <rect x="0" y="0" width="100%" height="100%" fill="white" class="astro-vimfzm3o"></rect> <circle cx="24" cy="10" r="6" fill="black" class="astro-vimfzm3o"></circle> </mask> <circle class="sun astro-vimfzm3o" cx="12" cy="12" r="6" mask="url(#moon-mask-804daaca)"></circle> <g class="sun-beams astro-vimfzm3o" stroke="currentColor"> <line x1="12" y1="1" x2="12" y2="3" class="astro-vimfzm3o"></line> <line x1="12" y1="21" x2="12" y2="23" class="astro-vimfzm3o"></line> <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" class="astro-vimfzm3o"></line> <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" class="astro-vimfzm3o"></line> <line x1="1" y1="12" x2="3" y2="12" class="astro-vimfzm3o"></line> <line x1="21" y1="12" x2="23" y2="12" class="astro-vimfzm3o"></line> <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" class="astro-vimfzm3o"></line> <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" class="astro-vimfzm3o"></line> </g> </svg> </button> </starlight-rapide-theme-select>   <script>
+  StarlightThemeProvider.updatePickers()
+</script> <script type="module">const n="starlight-theme";function c(e){return e==="auto"||e==="dark"||e==="light"?e:"auto"}function l(){return c(typeof localStorage<"u"&&localStorage.getItem(n))}function i(e){typeof localStorage<"u"&&localStorage.setItem(n,e==="light"||e==="dark"?e:"")}function s(){return matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}function t(e){StarlightThemeProvider.updatePickers(e),document.documentElement.dataset.theme=e==="auto"?s():e,i(e)}matchMedia("(prefers-color-scheme: light)").addEventListener("change",()=>{l()==="auto"&&t("auto")});customElements.define("starlight-rapide-theme-select",class extends HTMLElement{constructor(){super(),t(l());const a=this.querySelector("button");a?.addEventListener("click",()=>{const o=c(document.documentElement.dataset.theme),r=o==="dark"?"light":o==="light"?"dark":"auto";t(r),a?.setAttribute("aria-label",`${r} theme`)})}});</script>  </div> </div></header> <nav class="sidebar print:hidden astro-vrdttmbt" aria-label="Main"> <starlight-menu-button class="print:hidden astro-jif73yzw"> <button aria-expanded="false" aria-label="Menu" aria-controls="starlight__sidebar" class="sl-flex md:sl-hidden astro-jif73yzw"> <svg aria-hidden="true" class="open-menu astro-jif73yzw astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M3 8h18a1 1 0 1 0 0-2H3a1 1 0 0 0 0 2Zm18 8H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Zm0-5H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Z"/></svg> <svg aria-hidden="true" class="close-menu astro-jif73yzw astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="m13.41 12 6.3-6.29a1.004 1.004 0 1 0-1.42-1.42L12 10.59l-6.29-6.3a1.004 1.004 0 0 0-1.42 1.42l6.3 6.29-6.3 6.29a1 1 0 0 0 0 1.42.998.998 0 0 0 1.42 0l6.29-6.3 6.29 6.3a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.42L13.41 12Z"/></svg> </button> </starlight-menu-button> <script type="module">class s extends HTMLElement{constructor(){super(),this.btn=this.querySelector("button"),this.btn.addEventListener("click",()=>this.toggleExpanded());const t=this.closest("nav");t&&t.addEventListener("keyup",e=>this.closeOnEscape(e))}setExpanded(t){this.setAttribute("aria-expanded",String(t)),document.body.toggleAttribute("data-mobile-menu-expanded",t)}toggleExpanded(){this.setExpanded(this.getAttribute("aria-expanded")!=="true")}closeOnEscape(t){t.code==="Escape"&&(this.setExpanded(!1),this.btn.focus())}}customElements.define("starlight-menu-button",s);</script>  <div id="starlight__sidebar" class="sidebar-pane astro-vrdttmbt"> <div class="sidebar-content sl-flex astro-vrdttmbt"> <sl-sidebar-state-persist data-hash="10pplc1" class="astro-kku4brbg"> <script aria-hidden="true">
+		(() => {
+			try {
+				if (!matchMedia('(min-width: 50em)').matches) return;
+				/** @type {HTMLElement | null} */
+				const target = document.querySelector('sl-sidebar-state-persist');
+				const state = JSON.parse(sessionStorage.getItem('sl-sidebar-state') || '0');
+				if (!target || !state || target.dataset.hash !== state.hash) return;
+				window._starlightScrollRestore = state.scroll;
+				customElements.define(
+					'sl-sidebar-restore',
+					class SidebarRestore extends HTMLElement {
+						connectedCallback() {
+							try {
+								const idx = parseInt(this.dataset.index || '');
+								const details = this.closest('details');
+								if (details && typeof state.open[idx] === 'boolean') details.open = state.open[idx];
+							} catch {}
+						}
+					}
+				);
+			} catch {}
+		})();
+	</script>  <ul class="top-level astro-3ii7xxms"> <li class="astro-3ii7xxms"> <a href="/adding-hashing-to-openswitch/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Adding Hashing to OpenSwitch</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/adding-intel-i219-lm-8086-0d4c-driver-to-esxi/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Adding Intel I219-LM (8086.0d4c) Driver to ESXi</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/aircraft-detection/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Aircraft Detection</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/api-walker/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">API Walker</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/automatically-provision-dell-servers/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Automatically Provision Dell Servers</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/automating-ome-hardware-reports/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Automating OME Hardware Reports</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/backup-os10-config-with-ansible/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Backup OS10 Config with Ansible</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/bios-options-explanation/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">BIOS Options Explanation</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/build-harvester-over-the-network/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Build Harvester over the Network</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/build-nvidia-ai-enterprise/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Build NVIDIA AI Enterprise</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/build-openshift/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Build OpenShift</span>  </a> </li><li class="astro-3ii7xxms"> <details class="astro-3ii7xxms"> <summary class="astro-3ii7xxms"> <span class="group-label astro-3ii7xxms"> <span class="large astro-3ii7xxms">Build Preboot Environment with Ansible</span>  </span> <svg aria-hidden="true" class="caret astro-3ii7xxms astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg> </summary> <sl-sidebar-restore data-index="0"></sl-sidebar-restore> <ul class="astro-3ii7xxms"> <li class="astro-3ii7xxms"> <a href="/build-preboot-environment-with-ansible/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Overview</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/build-preboot-environment-with-ansible/pxe-kickstart-ansible/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">pxe_kickstart_ansible</span>  </a> </li> </ul> </details> </li><li class="astro-3ii7xxms"> <a href="/cloudlink/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">CloudLink</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/common-questions-about-llms-answered/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Common Questions About LLMs Answered</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/configure-fn410-as-a-switch/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Configure FN410 as a Switch</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/configure-gigamon-tap/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Configure Gigamon Tap</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/configure-kdump-with-ssh/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Configure kdump with SSH</span>  </a> </li><li class="astro-3ii7xxms"> <details class="astro-3ii7xxms"> <summary class="astro-3ii7xxms"> <span class="group-label astro-3ii7xxms"> <span class="large astro-3ii7xxms">Configure Keycloak w</span>  </span> <svg aria-hidden="true" class="caret astro-3ii7xxms astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg> </summary> <sl-sidebar-restore data-index="1"></sl-sidebar-restore> <ul class="astro-3ii7xxms"> <li class="astro-3ii7xxms"> <a href="/configure-keycloak-w/ad-and-openshift/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Testing Keycloak</span>  </a> </li> </ul> </details> </li><li class="astro-3ii7xxms"> <a href="/configure-multi-protocol-powerstore-with-ldap/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Configure Multi-Protocol PowerStore with LDAP</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/configure-powerstore-smb-user/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Configure PowerStore SMB User</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/configuring-vlt-on-os10/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Configuring VLT on OS10</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/connect-to-apc-pdu-with-redfish/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Connect to APC PDU with Redfish</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/create-kickstart-server-on-fedora/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Create Kickstart Server on Fedora</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/create-openswitch-vm/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Create OpenSwitch VM</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/creating-a-redfish-monitoring-infrastructure/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Creating a Redfish Monitoring Infrastructure</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/custom-nvme-debug-driver/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Custom NVMe Debug Driver</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/dell-ansible-testing/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Dell Ansible Testing</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/deploy-openshift-offline/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Build OpenShift</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/dhcp-relay-on-sonic/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">DHCP Relay on SONiC</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/elasticsearch-display-map-data/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Elasticsearch Display Map Data</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/elasticsearch-load-testing/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Elasticsearch Load Testing</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/esrally-incomplete/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">esrally (INCOMPLETE)</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/estimating-compute-requirements-for-machine-learning/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Estimating Compute Requirements for Machine Learning</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/finding-rare-logs-with-dbscan/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Finding Rare Logs with DBSCAN</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/get-nvme-drives-from-idrac-redfish/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Get NVMe Drives from iDRAC Redfish</span>  </a> </li><li class="astro-3ii7xxms"> <details class="astro-3ii7xxms"> <summary class="astro-3ii7xxms"> <span class="group-label astro-3ii7xxms"> <span class="large astro-3ii7xxms">High Speed Packet Capture</span>  </span> <svg aria-hidden="true" class="caret astro-3ii7xxms astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg> </summary> <sl-sidebar-restore data-index="2"></sl-sidebar-restore> <ul class="astro-3ii7xxms"> <li class="astro-3ii7xxms"> <a href="/high-speed-packet-capture/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Overview</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/high-speed-packet-capture/dpdk-on-esxi-with-centos-7-incomplete/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">How to Get DPDK with pdump Running</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/high-speed-packet-capture/dpdk-on-fc640-with-rhel-8/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">How to Get DPDK with pdump Running</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/high-speed-packet-capture/dpdk-on-r940-with-napatech/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">How to Get DPDK with pdump Running</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/high-speed-packet-capture/ntop/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Helpful Materials</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/high-speed-packet-capture/ntop-on-r940-with-napatech/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Useful Materials</span>  </a> </li> </ul> </details> </li><li class="astro-3ii7xxms"> <a href="/how-bitcoin-blockchain-works-notes/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">How Bitcoin-Blockchain Works - Notes</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/how-does-power-work/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">How Does Power Work</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/how-does-sift-work/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">How Does SIFT Work</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/how-drive-detection-order-works/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">How It Works</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/how-os10-installer-works/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">How OS10 Installer Works</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/how-to-configure-dns64/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">How to Configure DNS64</span>  </a> </li><li class="astro-3ii7xxms"> <details class="astro-3ii7xxms"> <summary class="astro-3ii7xxms"> <span class="group-label astro-3ii7xxms"> <span class="large astro-3ii7xxms">How to ONIE Install and ZTP Config Dell SONiC</span>  </span> <svg aria-hidden="true" class="caret astro-3ii7xxms astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg> </summary> <sl-sidebar-restore data-index="3"></sl-sidebar-restore> <ul class="astro-3ii7xxms"> <li class="astro-3ii7xxms"> <a href="/how-to-onie-install-and-ztp-config-dell-sonic/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Overview</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/how-to-onie-install-and-ztp-config-dell-sonic/readme/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Grant Curell&#39;s Projects</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/how-to-onie-install-and-ztp-config-dell-sonic/webserver/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Configuring the Webserver</span>  </a> </li> </ul> </details> </li><li class="astro-3ii7xxms"> <a href="/how-to-read-lstopo-and-a-pcie-overview/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">How to Read lstopo and a PCIe Overview</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/how-to-setup-pgp-with-mailvelope/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">How to Set Up PGP with Mailvelope</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/idrac-with-ldap/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">idrac with LDAP</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/importing-elasticsearch-data/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Importing Elasticsearch Data</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/inject-perc-driver-into-esxi-8/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Injecting dellshar.v00 PERC Driver into ESXi 8.0 Installer ISO for Dell VRTX</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/install-opencv-with-cuda-support-on-rocky-linux/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">New Instructions</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/installing-dpdk-with-napatech-card/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Installing DPDK with NapaTech Card</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/io-identities-with-lifecycle-controller/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">IO Identities with LifeCycle Controller</span>  </a> </li><li class="astro-3ii7xxms"> <details class="astro-3ii7xxms"> <summary class="astro-3ii7xxms"> <span class="group-label astro-3ii7xxms"> <span class="large astro-3ii7xxms">LDAP with OpenManage</span>  </span> <svg aria-hidden="true" class="caret astro-3ii7xxms astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg> </summary> <sl-sidebar-restore data-index="4"></sl-sidebar-restore> <ul class="astro-3ii7xxms"> <li class="astro-3ii7xxms"> <a href="/ldap-with-openmanage/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Overview</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/ldap-with-openmanage/ldap-group-import-bug/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Setting Up FreeIPA with OpenManage</span>  </a> </li> </ul> </details> </li><li class="astro-3ii7xxms"> <a href="/learning-about-kernel-dev/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Learning About Kernel Dev</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/llms-explained/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">LLMs Explained</span>  </a> </li><li class="astro-3ii7xxms"> <details class="astro-3ii7xxms"> <summary class="astro-3ii7xxms"> <span class="group-label astro-3ii7xxms"> <span class="large astro-3ii7xxms">Load Balance Testing on 4112F-ON</span>  </span> <svg aria-hidden="true" class="caret astro-3ii7xxms astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg> </summary> <sl-sidebar-restore data-index="5"></sl-sidebar-restore> <ul class="astro-3ii7xxms"> <li class="astro-3ii7xxms"> <a href="/load-balance-testing-on-4112f-on/openswitch-opx/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Load Balancing with LAG OPX</span>  </a> </li><li class="astro-3ii7xxms"> <details class="astro-3ii7xxms"> <summary class="astro-3ii7xxms"> <span class="group-label astro-3ii7xxms"> <span class="large astro-3ii7xxms">Load Balance Testing on 4112F-ON w/OS10</span>  </span> <svg aria-hidden="true" class="caret astro-3ii7xxms astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg> </summary> <sl-sidebar-restore data-index="6"></sl-sidebar-restore> <ul class="astro-3ii7xxms"> <li class="astro-3ii7xxms"> <a href="/load-balance-testing-on-4112f-on/os10/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Overview</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/load-balance-testing-on-4112f-on/os10/test-case-1/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Dell OS10 Load Balancing with LAG Config</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/load-balance-testing-on-4112f-on/os10/test-case-2/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Dell OS10 Load Balancing with LAG Config</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/load-balance-testing-on-4112f-on/os10/test-case-3/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Dell OS10 Load Balancing with LAG Config</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/load-balance-testing-on-4112f-on/os10/test-case-4/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Dell OS10 Load Balancing with LAG Config</span>  </a> </li> </ul> </details> </li> </ul> </details> </li><li class="astro-3ii7xxms"> <a href="/load-balance-testing-with-openvswitch/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Load Balance Testing with OpenVSwitch</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/load-balancing-on-mellanox-switches/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Load Balancing on Mellanox Switches</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/load-balancing-with-lag-on-5112f-on/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Load Balancing with LAG on 5112F-ON</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/make-usb-read-only/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Make USB Read Only</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/migrating-storage-volumes-to-powerstore/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Migrating Storage Volumes to PowerStore</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/mulitple-span-on-4112f-on-with-openswitch/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Mulitple Span on 4112F-ON with OpenSwitch</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/multiple-span-on-4112f-on-with-os10/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Multiple Span on 4112F-ON with OS10</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/notes-on-amd-processor/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Notes on AMD Processor</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/notes-on-building-a-datacenter-from-scratch/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Notes on Building a Datacenter from Scratch</span>  </a> </li><li class="astro-3ii7xxms"> <details class="astro-3ii7xxms"> <summary class="astro-3ii7xxms"> <span class="group-label astro-3ii7xxms"> <span class="large astro-3ii7xxms">Notes on HPC</span>  </span> <svg aria-hidden="true" class="caret astro-3ii7xxms astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg> </summary> <sl-sidebar-restore data-index="7"></sl-sidebar-restore> <ul class="astro-3ii7xxms"> <li class="astro-3ii7xxms"> <a href="/notes-on-hpc/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Overview</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/notes-on-hpc/cxl/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Compute Express Link (CXL)</span>  </a> </li><li class="astro-3ii7xxms"> <details class="astro-3ii7xxms"> <summary class="astro-3ii7xxms"> <span class="group-label astro-3ii7xxms"> <span class="large astro-3ii7xxms">Fabric Attached Memory</span>  </span> <svg aria-hidden="true" class="caret astro-3ii7xxms astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg> </summary> <sl-sidebar-restore data-index="8"></sl-sidebar-restore> <ul class="astro-3ii7xxms"> <li class="astro-3ii7xxms"> <a href="/notes-on-hpc/fabric-attached-memory/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Overview</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/notes-on-hpc/fabric-attached-memory/chiplet-based-systems/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Chiplet-Based Systems</span>  </a> </li> </ul> </details> </li> </ul> </details> </li><li class="astro-3ii7xxms"> <a href="/notes-on-hsm/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Notes on HSM</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/notes-on-improving-drive-performance/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Notes on Improving Drive Performance</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/notes-on-mdraid-performance-testing/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Notes on mdraid Performance Testing</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/notes-on-nodejs/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Notes on nodejs</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/notes-on-nvme-log-pages/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Notes on NVMe Log Pages</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/notes-on-pcie/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Notes on PCIe</span>  </a> </li><li class="astro-3ii7xxms"> <details class="astro-3ii7xxms"> <summary class="astro-3ii7xxms"> <span class="group-label astro-3ii7xxms"> <span class="large astro-3ii7xxms">Nvidia GPUDirect</span>  </span> <svg aria-hidden="true" class="caret astro-3ii7xxms astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg> </summary> <sl-sidebar-restore data-index="9"></sl-sidebar-restore> <ul class="astro-3ii7xxms"> <li class="astro-3ii7xxms"> <a href="/nvidia-gpudirect/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Overview</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/nvidia-gpudirect/background-research/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">background_research</span>  </a> </li> </ul> </details> </li><li class="astro-3ii7xxms"> <a href="/nvidia-grid-notes/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Nvidia GRID Notes</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/nvme-driver-reverse-engineering/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">NVMe Driver Reverse Engineering</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/nvme-performance-testing/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">NVMe Performance Testing</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/offline-updates-with-openmanage-enterprise/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Offline Updates with OpenManage Enterprise</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/ome-integration-for-vmware/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">OME Integration for VMWare</span>  </a> </li><li class="astro-3ii7xxms"> <details class="astro-3ii7xxms"> <summary class="astro-3ii7xxms"> <span class="group-label astro-3ii7xxms"> <span class="large astro-3ii7xxms">OpenFlow on 4112F-ON</span>  </span> <svg aria-hidden="true" class="caret astro-3ii7xxms astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg> </summary> <sl-sidebar-restore data-index="10"></sl-sidebar-restore> <ul class="astro-3ii7xxms"> <li class="astro-3ii7xxms"> <a href="/openflow-on-4112f-on/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Overview</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/openflow-on-4112f-on/openflow-bug/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Bug in Ryu datapath_id</span>  </a> </li> </ul> </details> </li><li class="astro-3ii7xxms"> <details class="astro-3ii7xxms"> <summary class="astro-3ii7xxms"> <span class="group-label astro-3ii7xxms"> <span class="large astro-3ii7xxms">OpenShift - Change MTU</span>  </span> <svg aria-hidden="true" class="caret astro-3ii7xxms astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg> </summary> <sl-sidebar-restore data-index="11"></sl-sidebar-restore> <ul class="astro-3ii7xxms"> <li class="astro-3ii7xxms"> <a href="/openshift-change-mtu/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Overview</span>  </a> </li><li class="astro-3ii7xxms"> <details class="astro-3ii7xxms"> <summary class="astro-3ii7xxms"> <span class="group-label astro-3ii7xxms"> <span class="large astro-3ii7xxms">MTU Change Bug</span>  </span> <svg aria-hidden="true" class="caret astro-3ii7xxms astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg> </summary> <sl-sidebar-restore data-index="12"></sl-sidebar-restore> <ul class="astro-3ii7xxms"> <li class="astro-3ii7xxms"> <a href="/openshift-change-mtu/bug/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Overview</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/openshift-change-mtu/bug/network-pod-description/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">network_pod_description</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/openshift-change-mtu/bug/ovn-kube-controller-logs/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">ovn_kube_controller_logs</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/openshift-change-mtu/bug/rendered-master-a356caab2b4cda902ccf3872c9f8ef77/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">rendered-master-a356caab2b4cda902ccf3872c9f8ef77</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/openshift-change-mtu/bug/rendered-worker-eba2ed8ad0934e9833c26ff044f7e210/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">rendered-worker-eba2ed8ad0934e9833c26ff044f7e210</span>  </a> </li> </ul> </details> </li> </ul> </details> </li><li class="astro-3ii7xxms"> <a href="/os10-password-recovery-bug/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">OS10 Password Recovery Bug</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/overprovisioning-explained/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">How Drive Overprovisioning Works</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/pciev3-vs-v4/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">PCIev3 vs v4</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/playing-with-virsh/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Playing with virsh</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/powerscale-configure-with-kubernetes/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">PowerScale - Configure with Kubernetes</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/powerscale-setup-roce/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Setup RoCE on PowerScale</span>  </a> </li><li class="astro-3ii7xxms"> <details class="astro-3ii7xxms"> <summary class="astro-3ii7xxms"> <span class="group-label astro-3ii7xxms"> <span class="large astro-3ii7xxms">PowerScale Failed Authentication</span>  </span> <svg aria-hidden="true" class="caret astro-3ii7xxms astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg> </summary> <sl-sidebar-restore data-index="13"></sl-sidebar-restore> <ul class="astro-3ii7xxms"> <li class="astro-3ii7xxms"> <a href="/powerscale-failed-authentication/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Overview</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/powerscale-failed-authentication/session-teardown-reverse-engineering/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">How Does Session Teardown Work?</span>  </a> </li> </ul> </details> </li><li class="astro-3ii7xxms"> <a href="/powerscale-setup/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">PowerScale Setup</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/reset-os10-admin-password/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Reset OS10 Admin Password</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/reverse-engineering-openshmem/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Reverse Engineering OpenSHMEM</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/run-linux-on-latitude-7455/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Latitude 7455 – Enabling the WWAN Modem via Device Tree</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/run-vpn-on-os10/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Run VPN on OS10</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/running-dns-from-os10/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Running DNS from OS10</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/running-gem-benchmark/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Enable EPEL and CRB (or PowerTools) repositories</span>  </a> </li><li class="astro-3ii7xxms"> <details class="astro-3ii7xxms"> <summary class="astro-3ii7xxms"> <span class="group-label astro-3ii7xxms"> <span class="large astro-3ii7xxms">GPU-Accelerated PCAP Scanner: Comprehensive Analysis Report</span>  </span> <svg aria-hidden="true" class="caret astro-3ii7xxms astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg> </summary> <sl-sidebar-restore data-index="14"></sl-sidebar-restore> <ul class="astro-3ii7xxms"> <li class="astro-3ii7xxms"> <a href="/search-pcap-with-gpu/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Overview</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/search-pcap-with-gpu/how-newtest-works/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">How newtest Works</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/search-pcap-with-gpu/test1-gpu-vs-cpu-analysis-2025-09-05-16-12/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">GPU vs CPU Performance Analysis - January 5, 2025, 15:30</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/search-pcap-with-gpu/test2-cpu-boyer-moore-horspool-analysis-2025-09-12-10-17/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">CPU Boyer-Moore-Horspool PCAP Scanner Analysis</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/search-pcap-with-gpu/test3-final-gpu-test-2025-09-12-13-00/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Test 3: GPU-Accelerated PCAP Scanner</span>  </a> </li> </ul> </details> </li><li class="astro-3ii7xxms"> <a href="/set-up-rspan-on-os10/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Set Up RSPAN on OS10</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/setting-up-breakout-cables/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Setting Up Breakout Cables</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/setting-up-idrac-telemetry-with-splunk/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Setting Up iDRAC Telemetry with Splunk</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/setting-up-proxmox-on-r6515/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Setting Up Proxmox on R6515</span>  </a> </li><li class="astro-3ii7xxms"> <details class="astro-3ii7xxms"> <summary class="astro-3ii7xxms"> <span class="group-label astro-3ii7xxms"> <span class="large astro-3ii7xxms">Setting Up SmartFabric Director</span>  </span> <svg aria-hidden="true" class="caret astro-3ii7xxms astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg> </summary> <sl-sidebar-restore data-index="15"></sl-sidebar-restore> <ul class="astro-3ii7xxms"> <li class="astro-3ii7xxms"> <a href="/setting-up-smartfabric-director/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Overview</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/setting-up-smartfabric-director/bug/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Bug Write Up</span>  </a> </li> </ul> </details> </li><li class="astro-3ii7xxms"> <a href="/setup-idpa/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Setup IDPA</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/site-to-site-vpn-with-pfsense-and-centos-8/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Site to Site VPN with PFSense and CentOS 8</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/sonic-sample-datacenter-automation-architecture/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">SONiC - Sample Datacenter Automation Architecture</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/starburst-and-spark-testing/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Spark + Trino canonical schema enforcement demo</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/swap-kernel-on-rocky-9/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Swap Kernel on Rocky 9</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/switch-directly-to-client-test/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Switch Directly to Client Test</span>  </a> </li><li class="astro-3ii7xxms"> <details class="astro-3ii7xxms"> <summary class="astro-3ii7xxms"> <span class="group-label astro-3ii7xxms"> <span class="large astro-3ii7xxms">Testing Bare Metal Orchestrator</span>  </span> <svg aria-hidden="true" class="caret astro-3ii7xxms astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg> </summary> <sl-sidebar-restore data-index="16"></sl-sidebar-restore> <ul class="astro-3ii7xxms"> <li class="astro-3ii7xxms"> <a href="/testing-bare-metal-orchestrator/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Overview</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/testing-bare-metal-orchestrator/bug-report/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Bug Report</span>  </a> </li> </ul> </details> </li><li class="astro-3ii7xxms"> <a href="/testing-intel-x520-on-rhel-6/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Testing Intel x520 on RHEL 6</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/troubleshooting-5g-connection/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">5G Troubleshooting</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/understand-and-run-linpack/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Understand and Run LINPACK</span>  </a> </li><li class="astro-3ii7xxms"> <details open class="astro-3ii7xxms"> <summary class="astro-3ii7xxms"> <span class="group-label astro-3ii7xxms"> <span class="large astro-3ii7xxms">Understanding 5G Radio Characteristics</span>  </span> <svg aria-hidden="true" class="caret astro-3ii7xxms astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg> </summary> <sl-sidebar-restore data-index="17"></sl-sidebar-restore> <ul class="astro-3ii7xxms"> <li class="astro-3ii7xxms"> <a href="/understanding-5g-radio-characteristics/" aria-current="page" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Overview</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/understanding-5g-radio-characteristics/calculating-electrical-drift/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">calculating_electrical_drift</span>  </a> </li> </ul> </details> </li><li class="astro-3ii7xxms"> <a href="/understanding-cellular-technology/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Understanding Cellular Technology</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/understanding-memory/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Understanding Memory</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/understanding-nccl/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Understanding NCCL</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/understanding-perc-interrupts/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Understanding PERC Interrupts</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/update-idrac-cipher-suite-with-redfish/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Update iDRAC Cipher Suite with Redfish</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/use-os10-as-aggregator/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Use OS10 as Aggregator</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/using-dell-repository-manager-to-create-bootable-iso/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Using Dell Repository Manager to Create Bootable ISO</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/using-fio/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Using FIO</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/using-the-idrac-service-module/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Using the iDRAC Service Module</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/vep-testing/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">VEP Testing</span>  </a> </li><li class="astro-3ii7xxms"> <details class="astro-3ii7xxms"> <summary class="astro-3ii7xxms"> <span class="group-label astro-3ii7xxms"> <span class="large astro-3ii7xxms">VMWare</span>  </span> <svg aria-hidden="true" class="caret astro-3ii7xxms astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg> </summary> <sl-sidebar-restore data-index="18"></sl-sidebar-restore> <ul class="astro-3ii7xxms"> <li class="astro-3ii7xxms"> <a href="/vmware/automate-esxi-installation/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Automating ESXi Installation</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/vmware/change-user-on-vxrail-plugin/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Change User on VxRail Plugin</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/vmware/esxi-architecture/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">VMWare Architecture Notes</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/vmware/how-to-pull-usage-metrics/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">How to Pull Usage Metrics</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/vmware/notes-on-vsan/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Notes on vSAN</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/vmware/setup-vxrail/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">VxRail Setup</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/vmware/troubleshooting-vsan/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Troubleshooting vSAN</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/vmware/vmware-apis/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">VMWare APIs</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/vmware/vrealize-setup-incomplete/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Setting Up vRealize</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/vmware/vxrail-architecture-and-troubleshooting/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">VxRail Architecture and Troubleshooting</span>  </a> </li> </ul> </details> </li><li class="astro-3ii7xxms"> <a href="/web-traffic-generator/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Web Traffic Generator</span>  </a> </li><li class="astro-3ii7xxms"> <details class="astro-3ii7xxms"> <summary class="astro-3ii7xxms"> <span class="group-label astro-3ii7xxms"> <span class="large astro-3ii7xxms">Windows Identity Services Deployer</span>  </span> <svg aria-hidden="true" class="caret astro-3ii7xxms astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg> </summary> <sl-sidebar-restore data-index="19"></sl-sidebar-restore> <ul class="astro-3ii7xxms"> <li class="astro-3ii7xxms"> <a href="/windows-identity-services-deployer/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Overview</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/windows-identity-services-deployer/ad-backup-restore-runbook/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">AD Backup and Restore Runbook</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/windows-identity-services-deployer/operator-runbook/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Operator Runbook</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/windows-identity-services-deployer/rollback-runbook/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Rollback Runbook</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/windows-identity-services-deployer/security-decisions/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Security Decisions</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/windows-identity-services-deployer/validation-evidence-template/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Validation Evidence Template</span>  </a> </li> </ul> </details> </li><li class="astro-3ii7xxms"> <a href="/windows-workstation-deployer-for-offline-environments/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Windows Workstation Deployer for Offline Environment</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/writing-udev-rules-for-dell-perc-h755/" class="large astro-3ii7xxms"> <span class="astro-3ii7xxms">Writing udev Rules for Dell PERC H755</span>  </a> </li> </ul>  <script aria-hidden="true">
+		(() => {
+			const scroller = document.getElementById('starlight__sidebar');
+			if (!window._starlightScrollRestore || !scroller) return;
+			scroller.scrollTop = window._starlightScrollRestore;
+			delete window._starlightScrollRestore;
+		})();
+	</script> </sl-sidebar-state-persist> <div class="md:sl-hidden"> <div class="mobile-preferences sl-flex astro-wu23bvmt"> <div class="social-icons astro-wu23bvmt"> <a href="https://github.com/grantcurell/projects" rel="me" class="sl-flex astro-wy4te6ga"><span class="sr-only astro-wy4te6ga">GitHub</span><svg aria-hidden="true" class="astro-wy4te6ga astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57L9 21.07c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.09-.73.09-.73 1.2.09 1.83 1.24 1.83 1.24 1.08 1.83 2.81 1.3 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22l-.01 3.29c0 .31.2.69.82.57A12 12 0 0 0 12 .3Z"/></svg></a> </div> <starlight-rapide-theme-select class="astro-vimfzm3o"> <button aria-label="Select theme" aria-live="polite" class="sl-flex astro-vimfzm3o" title="Select theme"> <svg aria-hidden="true" height="16" viewBox="0 0 24 24" width="16" class="astro-vimfzm3o"> <mask class="moon astro-vimfzm3o" id="moon-mask-967d2a4a"> <rect x="0" y="0" width="100%" height="100%" fill="white" class="astro-vimfzm3o"></rect> <circle cx="24" cy="10" r="6" fill="black" class="astro-vimfzm3o"></circle> </mask> <circle class="sun astro-vimfzm3o" cx="12" cy="12" r="6" mask="url(#moon-mask-967d2a4a)"></circle> <g class="sun-beams astro-vimfzm3o" stroke="currentColor"> <line x1="12" y1="1" x2="12" y2="3" class="astro-vimfzm3o"></line> <line x1="12" y1="21" x2="12" y2="23" class="astro-vimfzm3o"></line> <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" class="astro-vimfzm3o"></line> <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" class="astro-vimfzm3o"></line> <line x1="1" y1="12" x2="3" y2="12" class="astro-vimfzm3o"></line> <line x1="21" y1="12" x2="23" y2="12" class="astro-vimfzm3o"></line> <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" class="astro-vimfzm3o"></line> <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" class="astro-vimfzm3o"></line> </g> </svg> </button> </starlight-rapide-theme-select>   <script>
+  StarlightThemeProvider.updatePickers()
+</script>   </div> </div> </div> </div> </nav> <div class="main-frame astro-vrdttmbt">  <script type="module">const a=document.getElementById("starlight__sidebar"),n=a?.querySelector("sl-sidebar-state-persist"),o="sl-sidebar-state",i=()=>{let t=[];const e=n?.dataset.hash||"";try{const s=sessionStorage.getItem(o),r=JSON.parse(s||"{}");Array.isArray(r.open)&&r.hash===e&&(t=r.open)}catch{}return{hash:e,open:t,scroll:a?.scrollTop||0}},c=t=>{try{sessionStorage.setItem(o,JSON.stringify(t))}catch{}},d=()=>c(i()),l=(t,e)=>{const s=i();s.open[e]=t,c(s)};n?.addEventListener("click",t=>{if(!(t.target instanceof Element))return;const e=t.target.closest("summary")?.closest("details");if(!e)return;const s=e.querySelector("sl-sidebar-restore"),r=parseInt(s?.dataset.index||"");isNaN(r)||l(!e.open,r)});addEventListener("visibilitychange",()=>{document.visibilityState==="hidden"&&d()});addEventListener("pageHide",d);</script> <div class="lg:sl-flex astro-67yu43on"> <aside class="right-sidebar-container print:hidden astro-67yu43on"> <div class="right-sidebar astro-67yu43on"> <div class="lg:sl-hidden astro-pb3aqygn"><mobile-starlight-toc data-min-h="2" data-max-h="3" class="astro-doynk5tl"><nav aria-labelledby="starlight__on-this-page--mobile" class="astro-doynk5tl"><details id="starlight__mobile-toc" class="astro-doynk5tl"><summary id="starlight__on-this-page--mobile" class="sl-flex astro-doynk5tl"><span class="toggle sl-flex astro-doynk5tl">On this page<svg aria-hidden="true" class="caret astro-doynk5tl astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg></span><span class="display-current astro-doynk5tl"></span></summary><div class="dropdown astro-doynk5tl"><ul class="isMobile astro-gnoq344e" style="--depth: 0;"> <li class="astro-gnoq344e" style="--depth: 0;"> <a href="#_top" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Overview</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#some-basics" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Some Basics</span> </a> <ul class="isMobile astro-gnoq344e" style="--depth: 1;"> <li class="astro-gnoq344e" style="--depth: 1;"> <a href="#power-and-a-rabbit-hole" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">Power… and a rabbit hole</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#some-electric-units" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">Some Electric Units</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#decibels" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">Decibels</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#examples" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">Examples</span> </a>  </li> </ul> </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#5g-measurements" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">5G Measurements</span> </a> <ul class="isMobile astro-gnoq344e" style="--depth: 1;"> <li class="astro-gnoq344e" style="--depth: 1;"> <a href="#signal-to-interference-plus-noise-ratio-sinr" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">Signal-to-Interference-plus-Noise Ratio (SINR)</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#reference-signal-receive-power-rsrp" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">Reference Signal Receive Power (RSRP)</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#received-signal-strength-indicator-rssi" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">Received Signal Strength Indicator (RSSI)</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#reference-signal-received-quality-rsrq" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">Reference Signal Received Quality (RSRQ)</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#wrap-up" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">Wrap Up</span> </a>  </li> </ul> </li> </ul></div></details></nav></mobile-starlight-toc><script type="module" src="/_astro/MobileTableOfContents.astro_astro_type_script_index_0_lang.hwBsy0Mo.js"></script></div><div class="right-sidebar-panel sl-hidden lg:sl-block astro-pb3aqygn"><div class="sl-container astro-pb3aqygn"><starlight-toc data-min-h="2" data-max-h="3"><nav aria-labelledby="starlight__on-this-page"><h2 id="starlight__on-this-page">On this page</h2><ul class="astro-gnoq344e" style="--depth: 0;"> <li class="astro-gnoq344e" style="--depth: 0;"> <a href="#_top" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Overview</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#some-basics" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">Some Basics</span> </a> <ul class="astro-gnoq344e" style="--depth: 1;"> <li class="astro-gnoq344e" style="--depth: 1;"> <a href="#power-and-a-rabbit-hole" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">Power… and a rabbit hole</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#some-electric-units" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">Some Electric Units</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#decibels" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">Decibels</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#examples" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">Examples</span> </a>  </li> </ul> </li><li class="astro-gnoq344e" style="--depth: 0;"> <a href="#5g-measurements" class="astro-gnoq344e" style="--depth: 0;"> <span class="astro-gnoq344e" style="--depth: 0;">5G Measurements</span> </a> <ul class="astro-gnoq344e" style="--depth: 1;"> <li class="astro-gnoq344e" style="--depth: 1;"> <a href="#signal-to-interference-plus-noise-ratio-sinr" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">Signal-to-Interference-plus-Noise Ratio (SINR)</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#reference-signal-receive-power-rsrp" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">Reference Signal Receive Power (RSRP)</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#received-signal-strength-indicator-rssi" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">Received Signal Strength Indicator (RSSI)</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#reference-signal-received-quality-rsrq" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">Reference Signal Received Quality (RSRQ)</span> </a>  </li><li class="astro-gnoq344e" style="--depth: 1;"> <a href="#wrap-up" class="astro-gnoq344e" style="--depth: 1;"> <span class="astro-gnoq344e" style="--depth: 1;">Wrap Up</span> </a>  </li> </ul> </li> </ul></nav></starlight-toc><script type="module" src="/_astro/TableOfContents.astro_astro_type_script_index_0_lang.FuRcXuRY.js"></script></div></div> </div> </aside> <div class="main-pane astro-67yu43on">  <main data-pagefind-body class="astro-bguv2lll" lang="en" dir="ltr">    <div class="content-panel astro-7nkwcw3z"> <div class="sl-container astro-7nkwcw3z"> <h1 id="_top" class="astro-j6tvhyss">Understanding 5G Radio Characteristics</h1> </div> </div> <div class="content-panel astro-7nkwcw3z"> <div class="sl-container astro-7nkwcw3z"> <div class="sl-markdown-content"> <p class="source-repo-link"><a href="https://github.com/grantcurell/projects/tree/main/Understanding%205G%20Radio%20Characteristics" target="_blank" rel="noopener noreferrer" aria-label="View Understanding 5G Radio Characteristics on GitHub"><svg class="source-repo-link__icon" aria-hidden="true" viewBox="0 0 16 16" width="16" height="16"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg><span class="source-repo-link__text">View on GitHub</span><code class="source-repo-link__path">Understanding 5G Radio Characteristics</code></a></p>
+<ul>
+<li><a href="#understanding-5g-radio-characteristics">Understanding 5G Radio Characteristics</a>
+<ul>
+<li><a href="#some-basics">Some Basics</a>
+<ul>
+<li><a href="#power-and-a-rabbit-hole">Power… and a rabbit hole</a></li>
+<li><a href="#some-electric-units">Some Electric Units</a>
+<ul>
+<li><a href="#current">Current</a></li>
+<li><a href="#volts-electric-potential-energy">Volts (electric potential energy)</a></li>
+</ul>
+</li>
+<li><a href="#decibels">Decibels</a>
+<ul>
+<li><a href="#decibels-db">Decibels (dB)</a></li>
+<li><a href="#decibel-miliwatt-dbm">Decibel-Miliwatt (dBm)</a></li>
+</ul>
+</li>
+<li><a href="#examples">Examples</a></li>
+</ul>
+</li>
+<li><a href="#5g-measurements">5G Measurements</a>
+<ul>
+<li><a href="#signal-to-interference-plus-noise-ratio-sinr">Signal-to-Interference-plus-Noise Ratio (SINR)</a></li>
+<li><a href="#reference-signal-receive-power-rsrp">Reference Signal Receive Power (RSRP)</a></li>
+<li><a href="#received-signal-strength-indicator-rssi">Received Signal Strength Indicator (RSSI)</a></li>
+<li><a href="#reference-signal-received-quality-rsrq">Reference Signal Received Quality (RSRQ)</a></li>
+<li><a href="#wrap-up">Wrap Up</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="sl-heading-wrapper level-h2"><h2 id="some-basics">Some Basics</h2><a class="sl-anchor-link" href="#some-basics"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “Some Basics”</span></a></div>
+<p>In order to understand how we measure 5G performance, we first have to understand a bit about physics. At the simplest level, electromagnetic waves propogate out through space until they hit our antenna. When they hit the antenna they induce a tiny voltage usually in the range of microvolts (millionths of a volt). That voltage represents the energy your antenna received from the air. Stronger signal → more voltage → more electrical power.</p>
+<p>To understand power, we really have to understand a bit about some other physics concepts.</p>
+<div class="sl-heading-wrapper level-h3"><h3 id="power-and-a-rabbit-hole">Power… and a rabbit hole</h3><a class="sl-anchor-link" href="#power-and-a-rabbit-hole"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “Power… and a rabbit hole”</span></a></div>
+<p>Ok, so that’s the high level, the next thing we need to understand is power. Power is a measurement of the amount of energy per second. To understand this you first have to <strong>really</strong> understand what a watt is. 1 watt = 1 joule per second, but this obviously begs the question, what is a joule? A joule is $1\text{ Newton}\times1\text{ meter}$. The problem is… what is a newton? A newton is defined from Newton’s second law of motion:</p>
+<p>$$
+F=m\times a
+$$</p>
+<p>where $m$ is mass in kilograms and $a$ is acceration in meters per second. So $1N=1kg \times m/s^2$ Now, if you’re like me, you think to yourself, “What the heck is a $s^2$???”. What we’re saying is how fast something is accelerating. So let’s say your speed is $5m/s$. That you probably understand, you’re moving 5 meters every second. However, we want to measure acceleration so we want to know how much our distance per second is changing… per second. So if our acceleration is $5m/s^2$ we’re saying that we’re going $5m/s$ faster every second. IE:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Time</th><th>Speed</th><th>Change in speed</th><th>Acceleration</th></tr></thead><tbody><tr><td>0 s</td><td>0 m/s</td><td>—</td><td>—</td></tr><tr><td>1 s</td><td>5 m/s</td><td>+5 m/s</td><td>5 m/s²</td></tr><tr><td>2 s</td><td>10 m/s</td><td>+5 m/s</td><td>5 m/s²</td></tr><tr><td>3 s</td><td>15 m/s</td><td>+5 m/s</td><td>5 m/s²</td></tr></tbody></table>
+<p>So you can think of it this way:</p>
+<ul>
+<li>The first second tells you “how far per second” → speed.</li>
+<li>The second second tells you “how much that speed changes per second” → acceleration.</li>
+</ul>
+<p>Ok, back up one level, but what does this have to do with newtons?</p>
+<p>A newton is the amount of effort (force) it takes to accelerate 1kg of mass, at $1m/s^2$. This is the actual meaning behind $F=m\times a$ If you’ve heard the story of an apple and Newton, holding an apple requires about 1N of force. Why you ask? Most apples weigh around $.1kg$ and the acceleration of gravity is $9.8m/s^2$. So $F=m\times a$ is $\approx 1=.1\times 9.8$. So if it helps you conceptualize a Newton, holding an apple in front of you requires about 1 newton.</p>
+<p>Ok… one more level back up, what is a joule then?</p>
+<p>One joule is the amount of energy (effort) it takes to push with a force of 1 newton over a distance of meter. Said mathematically that is:</p>
+<p>$$
+1 \text{ Joule} = 1 \text{ Newton} \times 1 \text{ meter}
+$$</p>
+<p>So back to our apple example, you can imagine picking up an apple. If you were to pick up an apple and lift it exactly one meter, you expended one joule of energy to do that. Some every day examples:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Action</th><th>Approx. energy (J)</th><th>Notes</th></tr></thead><tbody><tr><td>Lifting an apple 1 meter</td><td>1 J</td><td>Classic physics example</td></tr><tr><td>Typing one keystroke</td><td>0.001 J</td><td>Almost nothing</td></tr><tr><td>Flicking a small light switch</td><td>1 J</td><td>That satisfying click</td></tr><tr><td>Taking one step while walking</td><td>5–10 J</td><td>Muscles + gravity</td></tr><tr><td>Lighting one small LED for 1 second</td><td>~0.1 J</td><td>If it’s a 0.1 W LED</td></tr><tr><td>Eating 1 food calorie (kcal)</td><td>4184 J</td><td>One tiny bite of food has thousands of joules</td></tr></tbody></table>
+<p>So a joule is a really small amount of energy. Finally, we are now ready to discuss watts. What the heck is a watt?</p>
+<p>1 watt is 1 joule per second. So you can imagine picking up one apple, one meter, every second. That’s a watt.</p>
+<div class="sl-heading-wrapper level-h3"><h3 id="some-electric-units">Some Electric Units</h3><a class="sl-anchor-link" href="#some-electric-units"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “Some Electric Units”</span></a></div>
+<p>Ok, so you now have an intuitive understanding of power. You’re probably now asking, “What does that have to do with radio waves?” The mathematical answer is that the relationship is that power is equivalent to $P=V \times I$ where $V$ is the voltage and $I$ is the current. The problem is, if you’re like me, you may not entirely grasp what those things are in an intuitive way. You’ve may have heard the water analogy where voltage is pressure and current is flow, but that doesn’t really help us understand what something like RSRP or SINR are. For me to explain all this, we have to develop an intuitive understanding of the basic electric units.</p>
+<div class="sl-heading-wrapper level-h4"><h4 id="current">Current</h4><a class="sl-anchor-link" href="#current"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “Current”</span></a></div>
+<p>Let’s start with current. Current is measured in a unit called coulombs. To understand coulombs you need to understand what is “charge”.</p>
+<p>At the most basic level, electric charge is a property of matter — like mass - that determines how it interacts with electric and magnetic fields.</p>
+<ul>
+<li>Electrons carry negative charge.</li>
+<li>Protons carry positive charge.</li>
+<li>Neutrons have no charge.</li>
+</ul>
+<p>A coulomb is a specific amount of charge. 1 coulomb is $6.242 \times 10^{18}$ electrons or protons worth of charge. To be clear, a coulomb isn’t a quantity of electrons or protons, but it’s equivalent to the charge produced by $6.242 \times 10^{18}$ electrons or protons.</p>
+<p>You probably know that we measure current in amps. One amp is the movement of one coulomb of charge flowing per second. To explain a bit more, this is where the water analogy you may have heard comes in. An electrical wire is already filled with electrons just as a hose could already be filled with water. When you apply a voltage (pressure), the electrons start to move. Why you ask? This is the fundamental definition of a conductor. In conductors like copper, aluminum, and gold, the outermost electrons of each atom are not bound tightly. We call this a sea of free electrons. Here’s what happens when electricity (electrons) “flows”.</p>
+<ul>
+<li>The atoms are arranged in a crystal lattice.</li>
+<li>Each atom gives up one (or more) of its outer electrons.</li>
+<li>Those electrons are delocalized — meaning they’re free to move anywhere inside the metal.</li>
+</ul>
+<p>So inside a copper wire:</p>
+<ul>
+<li>The positive atomic cores stay in fixed lattice positions.</li>
+<li>The electrons form a free-moving cloud that can drift around.</li>
+</ul>
+<p><strong>When no voltage is applied:</strong></p>
+<ul>
+<li>The electrons are moving randomly in all directions because of thermal energy (they “buzz around” at high speeds, $\approx 10^6 m/s$).</li>
+<li>But these random motions cancel each other out - there’s no net flow of charge, so no current.</li>
+</ul>
+<p><strong>When voltage is applied:</strong></p>
+<ul>
+<li>An electric field is established throughout the wire almost instantly (at a significant fraction of the speed of light).</li>
+<li>This field causes all those free electrons to drift slightly in one direction on average, superimposed on their chaotic thermal motion.</li>
+</ul>
+<p>That drift - just a small bias in their otherwise random motion — is the current.</p>
+<p>You might be surprised how slow electrons actually drift.</p>
+<p>Even though electricity seems instantaneous, the drift velocity of electrons in a wire is typically only:</p>
+<p>$$
+v_d \approx \frac{I}{n e A}
+$$</p>
+<p>where</p>
+<ul>
+<li>($I$) = current,</li>
+<li>($n$) = number of free electrons per cubic meter (~10²⁹/m³ for copper),</li>
+<li>($e$) = electron charge,</li>
+<li>($A$) = cross-sectional area of the wire.</li>
+</ul>
+<p>For a 2 mm diameter copper wire carrying 1 ampere:</p>
+<p>$$
+v_d \approx 0.0003\ \text{m/s} = 0.3\ \text{mm/s}.
+$$</p>
+<p>So electrons drift only a few tenths of a millimeter per second! You can check out the full math for that calculation <a href="/understanding-5g-radio-characteristics/calculating-electrical-drift/">here</a></p>
+<p>But the <em>signal</em> moves at nearly light speed</p>
+<p>When you flip a switch, the electric field travels through the wire at roughly two-thirds the speed of light (depending on insulation).</p>
+<p>That field instantly pushes on electrons all along the wire - just like pushing one end of a long pipe full of marbles makes a marble pop out the other end almost immediately.</p>
+<p>So what’s the difference between an insulator and a conductor?</p>
+<ul>
+<li>In insulators, electrons are tightly bound to their atoms. They can only “vibrate” in place — no free conduction occurs.</li>
+<li>In semiconductors (like silicon), some electrons can break free and move if you add energy (heat, light, or voltage). This is how transistors work.</li>
+</ul>
+<p>So in conductors electrons actually drift through the material. In insulators electrons mostly vibrate but don’t drift. In semiconductors some electrons drift when conditions allow.</p>
+<p>So to wrap all this up: One amp ($A$) is the movement of on coulomb ($6.242 \times 10^{18}$ electrons or protons worth of charge) per second. If it helps imagine how much that is, most USB chargers, charge a phone at 2A.</p>
+<div class="sl-heading-wrapper level-h4"><h4 id="volts-electric-potential-energy">Volts (electric potential energy)</h4><a class="sl-anchor-link" href="#volts-electric-potential-energy"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “Volts (electric potential energy)”</span></a></div>
+<p>Volts I think is a little harder to understand than amps. Formally a volt is how much energy is available per unit of charge:</p>
+<p>$$
+1 \text{ volt} = 1 \text{ joule per coulomb }1V=1J/C
+$$</p>
+<p>When we say “1 volt = 1 joule per coulomb,” we’re saying:</p>
+<blockquote>
+<p>If you move 1 coulomb of electric charge through a 1-volt difference, that charge gains or loses 1 joule of energy.</p>
+</blockquote>
+<p>That energy isn’t “inside” the charge like a little battery; it’s the energy associated with its position in an electric field, just like an apple has energy because of its position in gravity. That is to say, when you expend one joule of energy picking up a .1kg apple, 1m off the ground, you just gave the apple potential energy. Specifically, you gave it 1 joule of potential energy.</p>
+<p>Electricity is actually pretty similar. The only difference is that instead of gravity being the source of potential energy, it’s electrical fields.</p>
+<p>A volt (V) is defined as one joule per coulomb:</p>
+<p>$$
+1\ \text{V} = 1\ \frac{\text{J}}{\text{C}}
+$$</p>
+<p>That means:</p>
+<p>if 1 coulomb of electric charge gains (or loses) 1 joule of energy when moving between two points, the voltage (or electric potential difference) between those two points is 1 volt.</p>
+<p>So tying this back to power $P=V\times I$. Voltage is telling you how much energy each coulomb carries and current tells you how many coulombs pass per second. If you were to multiply them together, you get how many joulers per second are moving through the circuit. Expressed mathematically:</p>
+<p>$$
+P = V \times I
+$$</p>
+<p>where</p>
+<ul>
+<li>(P) = power (in watts, W)</li>
+<li>(V) = voltage (in volts, J/C)</li>
+<li>(I) = current (in amperes, C/s)</li>
+</ul>
+<p>If you multiply them:</p>
+<p>$$
+\text{J/C} \times \text{C/s} = \text{J/s}
+$$</p>
+<p>and a joule per second is a watt. So when you cancel the terms out you get 1 W = 1 J/s — one joule of energy flowing each second.</p>
+<div class="sl-heading-wrapper level-h3"><h3 id="decibels">Decibels</h3><a class="sl-anchor-link" href="#decibels"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “Decibels”</span></a></div>
+<p>The problem with 5G things is that while we measure thing in watts, the power values in wireless is really small. A base station might transmit in tens of watts, but by the time that signal reaches your phone, it’s in the range of picowatts ($10^{12}$W) or even femtowatts ($10^{15}$W). So to add one more layer of complexity, this has lead engineers to use decibels to make these values easier to compare and express. Unlike the other units we’ve talked about, a decibel doesn’t relate back to something physical. A decibel is a logarithmic ratio - it compares one power to another.</p>
+<div class="sl-heading-wrapper level-h4"><h4 id="decibels-db">Decibels (dB)</h4><a class="sl-anchor-link" href="#decibels-db"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “Decibels (dB)”</span></a></div>
+<p>A <strong>decibel</strong> is a logarithmic ratio — it compares one power to another:</p>
+<p>$$
+\text{dB} = 10 \times \log_{10}\left(\frac{P_1}{P_2}\right)
+$$</p>
+<ul>
+<li>It doesn’t have units (it’s a ratio).</li>
+<li>It tells you how many times stronger or weaker one power is compared to another. So in the equation above you can think of it as saying, “How many times stronger or weaker is $P_1$ than $P_2$.</li>
+</ul>
+<p>So a few examples:</p>
+<ul>
+<li>10× more power → +10 dB</li>
+<li>100× more power → +20 dB</li>
+<li>0.1× the power → −10 dB</li>
+</ul>
+<p><strong>1. 10× more power → +10 dB</strong></p>
+<p>$$
+\frac{P_1}{P_2} = 10
+$$</p>
+<p>$$
+10 \log_{10}(10) = 10 \times 1 = 10\ \text{dB}
+$$</p>
+<p><strong>2. 100× more power → +20 dB</strong></p>
+<p>$$
+\frac{P_1}{P_2} = 100 = 10^2
+$$</p>
+<p>$$
+10 \log_{10}(100) = 10 \log_{10}(10^2) = 10 \times 2 = 20\ \text{dB}
+$$</p>
+<p><strong>3. 0.1× the power → −10 dB</strong></p>
+<p>$$
+\frac{P_1}{P_2} = 0.1 = 10^{-1}
+$$</p>
+<p>$$
+10 \log_{10}(0.1) = 10 \log_{10}(10^{-1}) = 10 \times (-1) = -10\ \text{dB}
+$$</p>
+<p>To wrap dB up, dB is a simple ratio between one power and another.</p>
+<div class="sl-heading-wrapper level-h4"><h4 id="decibel-miliwatt-dbm">Decibel-Miliwatt (dBm)</h4><a class="sl-anchor-link" href="#decibel-miliwatt-dbm"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “Decibel-Miliwatt (dBm)”</span></a></div>
+<p>So how is it possible then to measure the power of something using dBs then? The problem with powers in 5G as I mentioned before is that they are small. Really small. As I mentioned above, dB is just a ratio of two powers. dBm likewise is a ratio between two powers, except in this case we just define $P_2$. dBm is the same as saying “How many decibels stronger or weaker is this power than 1 milliwatt?”</p>
+<p>Expressed mathematically:</p>
+<p>$$
+P_{\text{dBm}} = 10 \times \log_{10}\left(\frac{P_\text{watts}}{1\text{ mW}}\right)
+$$</p>
+<p>Some examples:</p>
+<ul>
+<li>0 dBm = 1 milliwatt</li>
+<li>+10 dBm = 10 milliwatts (10 × stronger)</li>
+<li>+20 dBm = 100 milliwatts (100 × stronger)</li>
+<li>−10 dBm = 0.1 milliwatt (10 × weaker)</li>
+<li>−90 dBm = 0.000 000 000 001 W (super faint)</li>
+</ul>
+<p>$$
+\text{dBm} = 10 \log_{10}\left(\frac{P}{1\text{ mW}}\right)
+$$</p>
+<div class="sl-heading-wrapper level-h3"><h3 id="examples">Examples</h3><a class="sl-anchor-link" href="#examples"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “Examples”</span></a></div>
+<ol>
+<li><strong>0 dBm</strong></li>
+</ol>
+<p>$$
+0 = 10 \log_{10}\left(\frac{P}{1\text{ mW}}\right)
+$$</p>
+<p>$$
+\frac{P}{1\text{ mW}} = 10^{0/10} = 1
+$$</p>
+<p>$$
+P = 1\text{ mW}
+$$</p>
+<hr>
+<ol start="2">
+<li><strong>+10 dBm</strong></li>
+</ol>
+<p>$$
+10 = 10 \log_{10}\left(\frac{P}{1\text{ mW}}\right)
+$$</p>
+<p>$$
+\frac{P}{1\text{ mW}} = 10^{10/10} = 10
+$$</p>
+<p>$$
+P = 10\text{ mW}
+$$</p>
+<hr>
+<ol start="3">
+<li><strong>+20 dBm</strong></li>
+</ol>
+<p>$$
+20 = 10 \log_{10}\left(\frac{P}{1\text{ mW}}\right)
+$$</p>
+<p>$$
+\frac{P}{1\text{ mW}} = 10^{20/10} = 100
+$$</p>
+<p>$$
+P = 100\text{ mW}
+$$</p>
+<hr>
+<ol start="4">
+<li><strong>−10 dBm</strong></li>
+</ol>
+<p>$$
+-10 = 10 \log_{10}\left(\frac{P}{1\text{ mW}}\right)
+$$</p>
+<p>$$
+\frac{P}{1\text{ mW}} = 10^{-10/10} = 0.1
+$$</p>
+<p>$$
+P = 0.1\text{ mW}
+$$</p>
+<hr>
+<ol start="5">
+<li><strong>−90 dBm</strong></li>
+</ol>
+<p>$$
+-90 = 10 \log_{10}\left(\frac{P}{1\text{ mW}}\right)
+$$</p>
+<p>$$
+\frac{P}{1\text{ mW}} = 10^{-90/10} = 10^{-9}
+$$</p>
+<p>$$
+P = 10^{-9}\text{ mW} = 10^{-12}\text{ W}
+$$</p>
+<hr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Level</th><th>Power (mW)</th><th>Power (W)</th></tr></thead><tbody><tr><td>0 dBm</td><td>1</td><td>0.001</td></tr><tr><td>+10 dBm</td><td>10</td><td>0.01</td></tr><tr><td>+20 dBm</td><td>100</td><td>0.1</td></tr><tr><td>−10 dBm</td><td>0.1</td><td>0.0001</td></tr><tr><td>−90 dBm</td><td>10⁻⁹</td><td>10⁻¹²</td></tr></tbody></table>
+<p>The table will give you a rough idea for some common ranges in 5G:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Power (W)</th><th>Power (mW)</th><th>dBm</th><th>Interpretation</th></tr></thead><tbody><tr><td>1 W</td><td>1000 mW</td><td>+30 dBm</td><td>Very strong RF output</td></tr><tr><td>0.1 W</td><td>100 mW</td><td>+20 dBm</td><td>Typical Wi-Fi transmit power</td></tr><tr><td>0.001 W</td><td>1 mW</td><td>0 dBm</td><td>Reference level</td></tr><tr><td>1 μW</td><td>0.001 mW</td><td>−30 dBm</td><td>Weak received signal</td></tr><tr><td>1 nW</td><td>0.000001 mW</td><td>−60 dBm</td><td>Fainter signal</td></tr><tr><td>1 pW</td><td>0.000000001 mW</td><td>−90 dBm</td><td>Very faint</td></tr><tr><td>1 fW</td><td>0.000000000001 mW</td><td>−120 dBm</td><td>Barely detectable at a receiver</td></tr></tbody></table>
+<p>So when your phone shows RSRP = −95 dBm, that means:</p>
+<p>$$
+10^{(-95/10)} \times 1\text{ mW} = 3.16 \times 10^{-13}\ \text{W}
+$$</p>
+<p>or 0.316 picowatts of received signal power.</p>
+<p>One last way to look at it are some common sounds measured in dBm:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Description</th><th>Power (W)</th><th>dBm</th><th>Analogy</th></tr></thead><tbody><tr><td>Shouting directly into someone’s ear</td><td>1 W</td><td>+30 dBm</td><td>Loud</td></tr><tr><td>Talking normally</td><td>1 mW</td><td>0 dBm</td><td>Baseline</td></tr><tr><td>Talking across a football field</td><td>1 nW</td><td>−60 dBm</td><td>Barely heard</td></tr><tr><td>Whisper from a mountaintop away</td><td>1 fW</td><td>−120 dBm</td><td>Almost silence</td></tr></tbody></table>
+<p>Now that we truly understand all the background, we’re ready to tackle the 5G measurements.</p>
+<div class="sl-heading-wrapper level-h2"><h2 id="5g-measurements">5G Measurements</h2><a class="sl-anchor-link" href="#5g-measurements"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “5G Measurements”</span></a></div>
+<p>There are four values we really want to understand: RSRP, RSRQ, SINR, RSSI.</p>
+<p>Here’s your updated table with the <strong>units column</strong> added:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Metric</th><th>Measures</th><th>Analogy</th><th>Units</th></tr></thead><tbody><tr><td><strong>RSRP</strong> (Reference Signal Received Power)</td><td>How strong the tower’s <em>intended</em> signal is</td><td>Volume of one specific voice in a crowd</td><td><strong>dBm</strong> (absolute power level)</td></tr><tr><td><strong>RSRQ</strong> (Reference Signal Received Quality)</td><td>How clean that signal is compared to everything else</td><td>Clarity of that voice among all others</td><td><strong>dB</strong> (ratio)</td></tr><tr><td><strong>SINR</strong> (Signal-to-Interference-plus-Noise Ratio)</td><td>How dominant the desired signal is over interference + noise</td><td>How much louder the voice is than the crowd and static</td><td><strong>dB</strong> (ratio)</td></tr><tr><td><strong>RSSI</strong> (Received Signal Strength Indicator)</td><td>The <em>total</em> received power — signal + interference + noise</td><td>The overall loudness of the entire room (everyone talking at once)</td><td><strong>dBm</strong> (absolute power level)</td></tr></tbody></table>
+<p>In short:</p>
+<ul>
+<li><strong>RSRP</strong> isolates the cell’s beacon power.</li>
+<li><strong>RSSI</strong> is the whole soup of power your receiver sees.</li>
+<li><strong>RSRQ</strong> compares those two to judge how clean the channel is.</li>
+<li><strong>SINR</strong> measures how much the useful part dominates over the rest.</li>
+</ul>
+<div class="sl-heading-wrapper level-h3"><h3 id="signal-to-interference-plus-noise-ratio-sinr">Signal-to-Interference-plus-Noise Ratio (SINR)</h3><a class="sl-anchor-link" href="#signal-to-interference-plus-noise-ratio-sinr"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “Signal-to-Interference-plus-Noise Ratio (SINR)”</span></a></div>
+<p>The point of SINR is to understand how well a receiver, our phone for example, can decode the signal it receives not just how strong the signal is. SINR compares the power of the desired signal to the power of everything unwanted (interference from other signals and random noise). So when we express this mathematically:</p>
+<p>$$
+\text{SINR} = \frac{P_\text{signal}}{P_\text{interference} + P_\text{noise}}
+$$</p>
+<p>Where:</p>
+<ul>
+<li>$(P_\text{signal})$ = power of the desired signal</li>
+<li>$(P_\text{interference})$ = combined power of all other unwanted signals (e.g., other cells)</li>
+<li>$(P_\text{noise})$ = thermal or electronic noise floor in the receiver</li>
+</ul>
+<p>It’s a ratio — the signal compared to the junk. Usually we express it in decibels (dB):</p>
+<p>$$
+\text{SINR}<em>{\text{dB}} = 10 \log</em>{10}\left(\frac{P_{\text{signal}}}{P_{\text{interference}} + P_{\text{noise}}}\right)
+$$</p>
+<p>We measure SINR in dB because the values for SINR can vary widely so expressing it in dB gives us more tractable values. Let’s assume SINR is 14:</p>
+<p>$$
+\mathrm{SINR}_{\mathrm{dB}} = 14
+$$</p>
+<p>If we want to change from the dB logarithmic scale to linear we can do:</p>
+<p>$$
+\mathrm{SINR} = 10^{\frac{\mathrm{SINR}_{\mathrm{dB}}}{10}}
+= 10^{\frac{14}{10}}
+= 10^{1.4}
+\approx 25.118864315 ;;\approx; 25.1
+$$</p>
+<p>This is then telling us that our signal is 25.1 times more powerful than the noise and interference.</p>
+<p>$$
+\frac{P_{\text{signal}}}{P_{\text{interference}} + P_{\text{noise}}}
+= \mathrm{SINR}
+\approx 25.1
+$$</p>
+<p>Spelled out in our original equation:</p>
+<p>$$
+10\log_{10}(25.118864315) = 14 \ \text{dB}
+$$</p>
+<p>What does this mean in the physical world? Your phone’s antenna and receiver are picking up a mixture of electromagnetic waves at the same frequency band.</p>
+<ul>
+<li>The tower you’re connected to contributes the desired waveform.</li>
+<li>Neighboring towers and random RF sources contribute interference.</li>
+<li>The phone’s own electronics and the environment contribute noise (random motion of electrons, cosmic background, etc.).</li>
+</ul>
+<p>The phone demodulator estimates the ratio of the clean part of the waveform (that matches its reference signals) to everything else. That’s SINR.</p>
+<p>Most importantly, LTE/5G dynamically pick modulation schemes based on SINR:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>SINR (dB)</th><th>Typical Modulation</th><th>Data Rate Quality</th></tr></thead><tbody><tr><td>&#x3C; 0 dB</td><td>BPSK / QPSK</td><td>Barely holding link</td></tr><tr><td>5–10 dB</td><td>16-QAM</td><td>Moderate throughput</td></tr><tr><td>15–20 dB</td><td>64-QAM</td><td>High throughput</td></tr><tr><td>> 25 dB</td><td>256-QAM+</td><td>Excellent throughput</td></tr></tbody></table>
+<div class="sl-heading-wrapper level-h3"><h3 id="reference-signal-receive-power-rsrp">Reference Signal Receive Power (RSRP)</h3><a class="sl-anchor-link" href="#reference-signal-receive-power-rsrp"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “Reference Signal Receive Power (RSRP)”</span></a></div>
+<p>A cell tower sends out reference signals (pilot tones) at regular intervals. The reference signals are beacons the phone locks onto to measure how strong the connection is for that tower. RSRP is the average power per reference signal resource element. Resource element is out of scope for our conversation here, but it’s basically a chunk of data in 5G. It’s one subcarrier $\times$ one orthogonal frequency division multiplexing (OFDM) symbol.</p>
+<p>In simple terms, RSRP is:</p>
+<ul>
+<li>The pure strength of the cell’s reference signal.</li>
+<li>It’s measured in dBm (a power level, not a ratio).</li>
+<li>It ignores interference and noise — it just cares about how strong the reference signal itself is.</li>
+</ul>
+<p>We can express this mathematically as:</p>
+<p>$$
+RSRP = \frac{1}{N} \sum_{i=1}^{N} P_{RS,i}
+$$</p>
+<p>Where:</p>
+<ul>
+<li>$N = \text{number of reference signal resource elements}$</li>
+<li>$P_{RS,i} = \text{received power of the } i^{th} \text{ reference signal element (in watts)}$</li>
+<li>$RSRP = \text{average received power of all reference signal elements}$</li>
+</ul>
+<p>Some commmon ranges:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>RSRP (dBm)</th><th>Signal strength</th><th>Meaning</th></tr></thead><tbody><tr><td>−60 to −80</td><td>Excellent</td><td>Close to the tower</td></tr><tr><td>−80 to −90</td><td>Good</td><td>Normal coverage</td></tr><tr><td>−90 to −100</td><td>Fair</td><td>Edge of good service</td></tr><tr><td>−100 to −110</td><td>Poor</td><td>Possible drops</td></tr><tr><td>&#x3C; −110</td><td>Very poor</td><td>Barely usable</td></tr></tbody></table>
+<p>So if you have a RSRP of -100, that’s the same as saying that your signal is 100 billion times weaker than a milliwatt.</p>
+<p>To convert −100 dBm to watts:</p>
+<p>$$
+P_{dBm} = -100
+$$</p>
+<p>Step 1 — Convert dBm → mW:</p>
+<p>$$
+P_{mW} = 10^{\frac{P_{dBm}}{10}} = 10^{\frac{-100}{10}} = 10^{-10}
+$$</p>
+<p>$$
+P_{mW} = 0.0000000001 \text{ mW}
+$$</p>
+<p>Step 2 — Convert mW → W:</p>
+<p>$$
+P_{W} = P_{mW} \times 10^{-3} = 10^{-10} \times 10^{-3} = 10^{-13}
+$$</p>
+<p>$$
+P_{W} = 0.0000000000001 \text{ W}
+$$</p>
+<p>An RSRP of −100 dBm means the received reference signal power is  $( 1\times10^{-13} )$ watts - an incredibly faint signal, roughly 100 billion times weaker than 1 mW.</p>
+<p>RSRP is actually a part of SINR. I thought it would be easier to explain in terms of power above, but SINR is:</p>
+<p>$$
+\text{SINR} = \frac{\text{RSRP}}{P_{\text{interference}} + P_{\text{noise}}}
+$$</p>
+<div class="sl-heading-wrapper level-h3"><h3 id="received-signal-strength-indicator-rssi">Received Signal Strength Indicator (RSSI)</h3><a class="sl-anchor-link" href="#received-signal-strength-indicator-rssi"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “Received Signal Strength Indicator (RSSI)”</span></a></div>
+<p>We can now measure the signal to noise ratio and the absolute power of our pilot signal, but what we don’t currently measure is the total power of everything. That’s what RSSI does. It’s the total power of everything:</p>
+<ul>
+<li>The desired cell’s signal</li>
+<li>Neighboring cells’ signals (interference)</li>
+<li>Background noise</li>
+</ul>
+<p>As you can imagine, the formula is similar to SINR except it’s just:</p>
+<p>$$
+RSSI = P_{signal} + P_{interference} + P_{noise}
+$$</p>
+<p>In practice, this is the total energy measured across all resource elements in the measured bandwidth.</p>
+<p>Since it is a measurement of power we measure it in dBm. There’s not much more to say so I’ll leave it at that.</p>
+<div class="sl-heading-wrapper level-h3"><h3 id="reference-signal-received-quality-rsrq">Reference Signal Received Quality (RSRQ)</h3><a class="sl-anchor-link" href="#reference-signal-received-quality-rsrq"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “Reference Signal Received Quality (RSRQ)”</span></a></div>
+<p>Now that we understand RSRP and RSSI, we have the tools available to understand RSRQ. RSRQ measures signal quality, combining both the signal strength (RSRP) and the total received power (RSSI) into one metric. It tells you how “efficient” the signal is. IE, it tells you how much of the total received energy actually belongs to the desired cell.</p>
+<p>Expressed mathematically it is:</p>
+<p>$$
+RSRQ = \frac{N \times RSRP}{RSSI}
+$$</p>
+<p>where:</p>
+<ul>
+<li>$(RSRP)$: average power of the reference signals (dBm)</li>
+<li>$(RSSI)$: total received power (signal + interference + noise) (dBm)</li>
+<li>$(N)$: number of resource blocks (the bandwidth used for the measurement)</li>
+</ul>
+<p>So if you combine that with the other concepts we’ve covered:</p>
+<ul>
+<li>RSRP alone tells you how strong the desired tower’s beacon is.</li>
+<li>RSSI tells you the total energy received — good + bad.</li>
+<li>So RSRQ is basically the ratio of useful signal power to total power, adjusted for bandwidth.</li>
+</ul>
+<p>You’re still probably a bit confused by what the $N$ is doing. RSRP <strong>only</strong> measures the power of the resource blocks for the pilot signals we mentioned earlier, whereas RSSI measures measures the power of ALL the resource blocks for some time slot. You can visually imagine it like this:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th align="center">Time →</th><th align="center">Slot 1</th><th align="center">Slot 2</th><th align="center">Slot 3</th><th align="center">Slot 4</th><th align="center">Slot 5</th></tr></thead><tbody><tr><td align="center"><strong>Freq 1</strong></td><td align="center">D</td><td align="center">D</td><td align="center">R</td><td align="center">D</td><td align="center">D</td></tr><tr><td align="center"><strong>Freq 2</strong></td><td align="center">D</td><td align="center">.</td><td align="center">D</td><td align="center">.</td><td align="center">R</td></tr><tr><td align="center"><strong>Freq 3</strong></td><td align="center">R</td><td align="center">D</td><td align="center">D</td><td align="center">D</td><td align="center">.</td></tr><tr><td align="center"><strong>Freq 4</strong></td><td align="center">D</td><td align="center">R</td><td align="center">D</td><td align="center">D</td><td align="center">D</td></tr><tr><td align="center"><strong>Freq 5</strong></td><td align="center">D</td><td align="center">D</td><td align="center">.</td><td align="center">R</td><td align="center">D</td></tr></tbody></table>
+<p>R = Reference Signal (used for RSRP)<br>
+D = Data/Noise/Other (contributes to RSSI)</p>
+<p>So RSRP is only capturing the power of one resource block per time slot there but RSSI is capturing all 5. So to make the comparison make sense we multiply RSRP by 5 (the number of resource blocks.)</p>
+<p>Here are some referenc values to keep in mind:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th align="center">RSRQ (dB)</th><th align="left">Signal Quality</th><th align="left">Description</th></tr></thead><tbody><tr><td align="center"><strong>-3 to -6</strong></td><td align="left">Excellent</td><td align="left">Very clean signal with low interference and good SINR.</td></tr><tr><td align="center"><strong>-7 to -9</strong></td><td align="left">Good</td><td align="left">Normal operating conditions for most LTE/5G cells.</td></tr><tr><td align="center"><strong>-10 to -12</strong></td><td align="left">Fair</td><td align="left">Some interference or loading on the cell; data rates might drop.</td></tr><tr><td align="center"><strong>-13 to -15</strong></td><td align="left">Poor</td><td align="left">Heavily loaded or noisy cell; connection may fluctuate.</td></tr><tr><td align="center"><strong>&#x3C; -15</strong></td><td align="left">Very Poor</td><td align="left">Borderline unusable — strong interference or far from tower.</td></tr></tbody></table>
+<ul>
+<li>RSRQ ≈ RSRP adjusted for how “busy” or “noisy” the channel is.
+<ul>
+<li>So if RSRP (signal power) is fine but RSRQ is bad, it usually means interference or congestion is the issue, not distance.</li>
+</ul>
+</li>
+<li>Good LTE/5G networks typically aim to keep RSRQ better than -10 dB.</li>
+</ul>
+<div class="sl-heading-wrapper level-h3"><h3 id="wrap-up">Wrap Up</h3><a class="sl-anchor-link" href="#wrap-up"><span aria-hidden="true" class="sl-anchor-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path fill="currentcolor" d="m12.11 15.39-3.88 3.88a2.52 2.52 0 0 1-3.5 0 2.47 2.47 0 0 1 0-3.5l3.88-3.88a1 1 0 0 0-1.42-1.42l-3.88 3.89a4.48 4.48 0 0 0 6.33 6.33l3.89-3.88a1 1 0 1 0-1.42-1.42Zm8.58-12.08a4.49 4.49 0 0 0-6.33 0l-3.89 3.88a1 1 0 0 0 1.42 1.42l3.88-3.88a2.52 2.52 0 0 1 3.5 0 2.47 2.47 0 0 1 0 3.5l-3.88 3.88a1 1 0 1 0 1.42 1.42l3.88-3.89a4.49 4.49 0 0 0 0-6.33ZM8.83 15.17a1 1 0 0 0 1.1.22 1 1 0 0 0 .32-.22l4.92-4.92a1 1 0 0 0-1.42-1.42l-4.92 4.92a1 1 0 0 0 0 1.42Z"></path></svg></span><span class="sr-only" data-pagefind-ignore="">Section titled “Wrap Up”</span></a></div>
+<p>So to wrap things up, here is a final way you can think about viewing RSRP, SINR, and performance metrics.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Category</th><th>What it tells you</th><th>Examples</th></tr></thead><tbody><tr><td><strong>Coverage / Strength</strong></td><td>How strong the received signal is</td><td>RSRP, RSSI</td></tr><tr><td><strong>Quality</strong></td><td>How clean or usable that signal is</td><td>RSRQ, SINR</td></tr><tr><td><strong>Performance</strong></td><td>How much data you can actually move</td><td>Throughput, Modulation scheme, CQI</td></tr></tbody></table> </div> <footer class="sl-flex astro-3yyafb3n"> <div class="meta sl-flex astro-3yyafb3n">   </div>   </footer> </div> </div>  </main> </div> </div> </div> </div> </body></html>
